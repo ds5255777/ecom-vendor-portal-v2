@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "spring.datasource",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.main.db.BpaasDbconnection",
+      "sourceMethod": "public javax.sql.DataSource dataSource() "
+    },
+    {
+      "name": "spring.datasource",
+      "type": "com.main.ecom.DbConfiguration",
+      "sourceType": "com.main.ecom.DbConfiguration"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

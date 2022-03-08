@@ -320,7 +320,7 @@
                         <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="changePasswordButton" class="btn btn-primary" onclick="changePassword(document.getElementById('password').value)" >Change Password</button>
+                        <button type="button" id="changePasswordButton" class="btn btn-primary" onclick="changePassword(document.getElementById('passwordConfirm').value)" >Change Password</button>
                     </div>
                 </div>
             </div>
@@ -530,7 +530,7 @@
                      } else {
                     	 Swal.fire({
                              type: 'error',
-                             title: 'Failed Added..'
+                             title: 'Try Again...'
                          })
                      }
                  },

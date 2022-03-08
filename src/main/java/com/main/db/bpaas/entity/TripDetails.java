@@ -1,18 +1,17 @@
 package com.main.db.bpaas.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Trip_Details")
@@ -53,7 +52,7 @@ public class TripDetails {
 	private String standardPayloadCapacity;
 
 	@Column(name = "run_status")
-	private String runStatus;
+	private String runStatus;//Closed, In-Transit
 
 	@Column(name = "origin_hub")
 	private String originHub;
@@ -65,58 +64,43 @@ public class TripDetails {
 	private String destHub;
 
 	@Column(name = "actual_departure")
-	private String actualDeparture;
+	private Date actualDeparture;
 
 	@Column(name = "actual_arrival")
-	private String actualArrival;
+	private Date actualArrival;
 
 	@Column(name = "actual_km")
-	private String actualKM;
+	private Double actualKM;
 
 	@Column(name = "standard_km")
-	private String standardKM;
+	private Double standardKM;
 
 	@Column(name = "mileage")
-	private String mileage;
+	private Double mileage;
 
 	@Column(name = "rate_per_km")
-	private String ratePerKm;
+	private Double ratePerKm;
 
 	@Column(name = "route_kms")
-	private String routeKms;
+	private Double routeKms;
 
 	@Column(name = "fs_base_rate")
-	private String fsBaseRate;
+	private Double fsBaseRate;
 
 	@Column(name = "current_fuel_rate")
-	private String currentFuelRate;
+	private Double currentFuelRate;
 
 	@Column(name = "fs_diff")
-	private String fsDiff;
+	private Double fsDiff;
 
 	@Column(name = "basic_freight")
-	private String basicFreight;
+	private Double basicFreight;
 
 	@Column(name = "fs")
-	private String fs;
+	private Double fs;
 
 	@Column(name = "total_freight")
-	private String totalFreight;
-
-	@Column(name = "vendor_Trip_Status")
-	private String vendorTripStatus;
-
-	@Column(name = "trip_starting_date")
-	private String tripStartingDate;
-
-	@Column(name = "payment_status")
-	private String paymentStatus;
-
-	@Column(name = "assign_to")
-	private String assignTo;
-
-	@Column(name = "status")
-	private String status;
+	private Double totalFreight;
 
 	@Column(name = "opening_reading")
 	private String openingReading;
@@ -129,6 +113,20 @@ public class TripDetails {
 
 	@Column(name = "Actual_Chargeable_Weight")
 	private String ActualChargeableWeight;
+
+	// Status
+	@Column(name = "vendor_Trip_Status")
+	private String vendorTripStatus; // Approved, Yet_To_Be_Approved, Invoicing
+
+	@Column(name = "payment_status")
+	private String paymentStatus;// Oracle(Pending Approved)
+
+	@Column(name = "assign_to")
+	private String assignTo;// network Team, Vendor
+	
+	@OneToMany(targetEntity = QueryEntity.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "trip_query_fk", referencedColumnName = "id")
+	private List<AccountDetails> accountDetails;
 
 	// targetEntity = QueryEntity.class,
 	/*
@@ -162,46 +160,6 @@ public class TripDetails {
 		this.vendorCode = vendorCode;
 	}
 
-	public String getVehicleNumber() {
-		return vehicleNumber;
-	}
-
-	public void setVehicleNumber(String vehicleNumber) {
-		this.vehicleNumber = vehicleNumber;
-	}
-
-	public String getVendorName() {
-		return vendorName;
-	}
-
-	public void setVendorName(String vendorName) {
-		this.vendorName = vendorName;
-	}
-
-	public String getRunStatus() {
-		return runStatus;
-	}
-
-	public void setRunStatus(String runStatus) {
-		this.runStatus = runStatus;
-	}
-
-	public String getActualKM() {
-		return actualKM;
-	}
-
-	public void setActualKM(String actualKM) {
-		this.actualKM = actualKM;
-	}
-
-	public String getTripStartingDate() {
-		return tripStartingDate;
-	}
-
-	public void setTripStartingDate(String tripStartingDate) {
-		this.tripStartingDate = tripStartingDate;
-	}
-
 	public String getRoute() {
 		return route;
 	}
@@ -224,6 +182,22 @@ public class TripDetails {
 
 	public void setMode(String mode) {
 		this.mode = mode;
+	}
+
+	public String getVehicleNumber() {
+		return vehicleNumber;
+	}
+
+	public void setVehicleNumber(String vehicleNumber) {
+		this.vehicleNumber = vehicleNumber;
+	}
+
+	public String getVendorName() {
+		return vendorName;
+	}
+
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
 	}
 
 	public String getActualVechicleType() {
@@ -250,6 +224,14 @@ public class TripDetails {
 		this.standardPayloadCapacity = standardPayloadCapacity;
 	}
 
+	public String getRunStatus() {
+		return runStatus;
+	}
+
+	public void setRunStatus(String runStatus) {
+		this.runStatus = runStatus;
+	}
+
 	public String getOriginHub() {
 		return originHub;
 	}
@@ -274,140 +256,109 @@ public class TripDetails {
 		this.destHub = destHub;
 	}
 
-	public String getActualDeparture() {
+	public Date getActualDeparture() {
 		return actualDeparture;
 	}
 
-	public void setActualDeparture(String actualDeparture) {
+	public void setActualDeparture(Date actualDeparture) {
 		this.actualDeparture = actualDeparture;
 	}
 
-	public String getActualArrival() {
+	public Date getActualArrival() {
 		return actualArrival;
 	}
 
-	public void setActualArrival(String actualArrival) {
+	public void setActualArrival(Date actualArrival) {
 		this.actualArrival = actualArrival;
 	}
 
-	public String getStandardKM() {
+	public Double getActualKM() {
+		return actualKM;
+	}
+
+	public void setActualKM(Double actualKM) {
+		this.actualKM = actualKM;
+	}
+
+	public Double getStandardKM() {
 		return standardKM;
 	}
 
-	public void setStandardKM(String standardKM) {
+	public void setStandardKM(Double standardKM) {
 		this.standardKM = standardKM;
 	}
 
-	public String getMileage() {
+	public Double getMileage() {
 		return mileage;
 	}
 
-	public void setMileage(String mileage) {
+	public void setMileage(Double mileage) {
 		this.mileage = mileage;
 	}
 
-	public String getRatePerKm() {
+	public Double getRatePerKm() {
 		return ratePerKm;
 	}
 
-	public void setRatePerKm(String ratePerKm) {
+	public void setRatePerKm(Double ratePerKm) {
 		this.ratePerKm = ratePerKm;
 	}
 
-	public String getRouteKms() {
+	public Double getRouteKms() {
 		return routeKms;
 	}
 
-	public void setRouteKms(String routeKms) {
+	public void setRouteKms(Double routeKms) {
 		this.routeKms = routeKms;
 	}
 
-	public String getFsBaseRate() {
+	public Double getFsBaseRate() {
 		return fsBaseRate;
 	}
 
-	public void setFsBaseRate(String fsBaseRate) {
+	public void setFsBaseRate(Double fsBaseRate) {
 		this.fsBaseRate = fsBaseRate;
 	}
 
-	public String getCurrentFuelRate() {
+	public Double getCurrentFuelRate() {
 		return currentFuelRate;
 	}
 
-	public void setCurrentFuelRate(String currentFuelRate) {
+	public void setCurrentFuelRate(Double currentFuelRate) {
 		this.currentFuelRate = currentFuelRate;
 	}
 
-	public String getFsDiff() {
+	public Double getFsDiff() {
 		return fsDiff;
 	}
 
-	public void setFsDiff(String fsDiff) {
+	public void setFsDiff(Double fsDiff) {
 		this.fsDiff = fsDiff;
 	}
 
-	public String getBasicFreight() {
+	public Double getBasicFreight() {
 		return basicFreight;
 	}
 
-	public void setBasicFreight(String basicFreight) {
+	public void setBasicFreight(Double basicFreight) {
 		this.basicFreight = basicFreight;
 	}
 
-	public String getFs() {
+	public Double getFs() {
 		return fs;
 	}
 
-	public void setFs(String fs) {
+	public void setFs(Double fs) {
 		this.fs = fs;
 	}
 
-	public String getTotalFreight() {
+	public Double getTotalFreight() {
 		return totalFreight;
 	}
 
-	public void setTotalFreight(String totalFreight) {
+	public void setTotalFreight(Double totalFreight) {
 		this.totalFreight = totalFreight;
 	}
-
-	public String getPaymentStatus() {
-		return paymentStatus;
-	}
-
-	public void setPaymentStatus(String paymentStatus) {
-		this.paymentStatus = paymentStatus;
-	}
-
-	public String getAssignTo() {
-		return assignTo;
-	}
-
-	public void setAssignTo(String assignTo) {
-		this.assignTo = assignTo;
-	}
-
-	public String getVendorTripStatus() {
-		return vendorTripStatus;
-	}
-
-	public void setVendorTripStatus(String vendorTripStatus) {
-		this.vendorTripStatus = vendorTripStatus;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	/*
-	 * public List<QueryEntity> getVendorQuerys() { return vendorQuerys; }
-	 * 
-	 * public void setVendorQuerys(List<QueryEntity> vendorQuerys) {
-	 * this.vendorQuerys = vendorQuerys; }
-	 */
 
 	public String getOpeningReading() {
 		return openingReading;
@@ -439,6 +390,38 @@ public class TripDetails {
 
 	public void setActualChargeableWeight(String actualChargeableWeight) {
 		ActualChargeableWeight = actualChargeableWeight;
+	}
+
+	public String getVendorTripStatus() {
+		return vendorTripStatus;
+	}
+
+	public void setVendorTripStatus(String vendorTripStatus) {
+		this.vendorTripStatus = vendorTripStatus;
+	}
+
+	public String getPaymentStatus() {
+		return paymentStatus;
+	}
+
+	public void setPaymentStatus(String paymentStatus) {
+		this.paymentStatus = paymentStatus;
+	}
+
+	public String getAssignTo() {
+		return assignTo;
+	}
+
+	public void setAssignTo(String assignTo) {
+		this.assignTo = assignTo;
+	}
+
+	public List<AccountDetails> getAccountDetails() {
+		return accountDetails;
+	}
+
+	public void setAccountDetails(List<AccountDetails> accountDetails) {
+		this.accountDetails = accountDetails;
 	}
 
 }

@@ -149,33 +149,13 @@
                                     <h3 class="card-title" style="font-size: 15px;">Closed Trips</h3>
                                 </div>
                                 <!-- /.card-header -->
-                               
-                                <div class="card-body ">
-                                
-                                  <form role="form" id="addForm" autocomplete="off">
-                                            <div class="row">
-                                            <div class="col-md-2">
-												<!-- <label>From Date</label> --> <input type="text" name="fromDate"
-													class="form-control" id="fromDate" style="height: 34px;">
-											</div>
-											<div class="col-md-2">
-												<!-- <label>To Date</label> --> <input type="text" name="toDate"
-													class="form-control" id="toDate" style="height: 34px;">
-											</div>
-                                                <div class="col-md-6">
-												 <!-- <label for="exampleInputserverName1"
-													style="visibility: hidden;"></label> -->
-												<button type="submit" class="btn btn-primary">Search</button>
-											</div>
 
-                                            </div>
-                                        </form> 
-                                
-                                  
+                                <div class="card-body ">
+
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
-                                                
+
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Route</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
@@ -196,14 +176,8 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- <div class="modal-footer">
-
-                                    <input id="flipToInvoice" type="submit" class="submit-input" onclick="invoiceProcessing()" value="Flip to Invoice " />
-                                </div> -->
                                 <!-- /.card-body -->
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -229,7 +203,7 @@
                                     <input type="hidden" id="headerDetailsId" class="form-control">
                                     <!-- <table class="table " id="property-desc"> -->
                                     <div class="card card-primary">
-                                         <div class="card-header" style="padding: 4px 0px 4px 4px;">
+                                        <div class="card-header" style="padding: 4px 0px 4px 4px;">
                                             <h3 class="card-title" style="font-size: 15px;">Trip Details</h3>
                                         </div>
 
@@ -450,11 +424,11 @@
                                         <!-- /.card-body -->
                                     </div>
                                     <!-- /.card -->
-									<div class="container">
-										<div class="col-md-12 text-center" style="padding-top: 0px;">
-	                       					 <button type="button" class="btn btn-primary" id="closeModal" data-dismiss="modal">Close</button>
-	                  			    	</div>
-                  			    	</div>
+                                    <div class="container">
+                                        <div class="col-md-12 text-center" style="padding-top: 0px;">
+                                            <button type="button" class="btn btn-primary" id="closeModal" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -501,136 +475,16 @@
             });
 
             var tabledata = $('#tabledata').DataTable({
-                "paging": false,
+            	"paging": true,
                 "lengthChange": false,
                 "searching": false,
-                "info": false,
+                "info": true,
                 "autoWidth": false,
-                "aaSorting": []
-            });
-            
-            $('#fromDate').datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-
+                "aaSorting": [],
+                "scrollX": true,
+                "pageLength": 15
             });
 
-            $('#toDate').datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-
-            });
-            
-            $.validator.setDefaults({
-                submitHandler: function() {
-                	getFilterData();
-
-                    //alert("insode add");
-                }
-            });
-            
-            $('#addForm').validate({
-
-                rules: {
-                    toDate: {
-                        required: true
-                    },
-                    fromDate: {
-                        required: true
-
-                    }
-                },
-
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                }
-            });
-
-
-
-            $(function() {
-                //Enable check and uncheck all functionality
-                $('.checkbox-toggle').click(function() {
-                    var clicks = $(this).data('clicks')
-                    if (clicks) {
-                        //Uncheck all checkboxes
-                        $('.mailbox-messages input[type=\'checkbox\']').prop('checked', false)
-                        $('.checkbox-toggle .far.fa-check-square').removeClass('fa-check-square').addClass('fa-square')
-                    } else {
-                        //Check all checkboxes
-                        $('.mailbox-messages input[type=\'checkbox\']').prop('checked', true)
-                        $('.checkbox-toggle .far.fa-square').removeClass('fa-square').addClass('fa-check-square')
-                    }
-                    $(this).data('clicks', !clicks)
-                })
-                //Handle starring for glyphicon and font awesome
-                $('.mailbox-star').click(function(e) {
-                    e.preventDefault()
-                    //detect type
-                    var $this = $(this).find('a > i')
-                    var glyph = $this.hasClass('glyphicon')
-                    var fa = $this.hasClass('fa')
-
-                    //Switch states
-                    if (glyph) {
-                        $this.toggleClass('glyphicon-star')
-                        $this.toggleClass('glyphicon-star-empty')
-                    }
-
-                    if (fa) {
-                        $this.toggleClass('fa-star')
-                        $this.toggleClass('fa-star-o')
-                    }
-                })
-            })
-            
-           /*  var arr=[];
-              document.getElementById('flipToInvoice').onclick = function() {
-            	$('input[name="option"]:checked').each(function() {
-            		   //	console.log(this.value); 
-            		   var table = document.getElementById('tabledata');
-                       
-                       
-                       for (var r = 1, n = table.rows.length; r < n; r++) {
-                               arr.push(table.rows[r].cells[1].innerText);
-                       } 
-                       
-            		});	
-            	let values = arr.toString();
-                console.log(values);
-				}  */
-
-				
-             function invoiceProcessing() {
-                var table = document.getElementById('tabledata');
-                var arr=[];
-                
-                for (var r = 1, n = table.rows.length; r < n; r++) {
-                        arr.push(table.rows[r].cells[1].innerText);
-                } 
-                let values = arr.toString();
-                console.log(values);
-                
-                $('.loader').show();
-                
-                var urlOftripsDetail = "tripsInvoiceGenerate?id="+values;
-                window.open(urlOftripsDetail, "tripsInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
-               
-                
-                $('.loader').hide();
-               
-				} 
-				
             getData();
 
             function getData() {
@@ -655,36 +509,40 @@
                                 //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].siteQualityId + "','" + result[i].checkListId + "','"+result[i].url+"')\"><i class='fa fa-eye ' ></i></button>";
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
                                 //var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\""+result[i].tripID+"\" ><\div>";
-                                
+
                                 var statustemp_runType_Scheduled = '<span class=\"right badge badge-warning\">Scheduled</span>';
                                 var statustemp_runType_AdHoc = '<span class=\"right badge badge-success\">Ad-Hoc</span>';
 
                                 var statustemp_mode_MilkRun = '<span class=\"right badge badge-warning\">Milk Run</span>';
                                 var statustemp_mode_LineHaul = '<span class=\"right badge badge-success\">Line Haul</span>';
-                                
+                                var statustemp_mode_AdHocRun = '<span class=\"right badge badge-primary\">Ad-Hoc Run</span>';
+
                                 var runType = "";
                                 var mode = "";
-                                
-                                
-                               // tabledata.row.add([checkbox, view, result[i].route, result[i].runType, result[i].actualKM, result[i].standardKM, result[i].mode, result[i].actualDeparture, result[i].actualArrival, result[i].status]);
-                                var tempString=[ view, result[i].route, runType, result[i].actualKM, result[i].standardKM, mode, result[i].actualDeparture, result[i].actualArrival, result[i].status];
-                                
+
+
+                                // tabledata.row.add([checkbox, view, result[i].route, result[i].runType, result[i].actualKM, result[i].standardKM, result[i].mode, result[i].actualDeparture, result[i].actualArrival, result[i].status]);
+                                var tempString = [view, result[i].route, runType, result[i].actualKM, result[i].standardKM, mode, result[i].actualDeparture, result[i].actualArrival, result[i].status];
+
                                 if (result[i].runType == "Scheduled") {
                                     tempString[2] = statustemp_runType_Scheduled;
 
-                                } else if (result[i].runType == "Ad-Hoc") {
+                                } else if (result[i].runType == "Adhoc") {
                                     tempString[2] = statustemp_runType_AdHoc;
 
-                                }
-                                
-                                if (result[i].mode == "Milk Run") {
+                                } 
+                                //Adhoc Run
+
+                                if (result[i].mode == "Surface Milk Run") {
                                     tempString[5] = statustemp_mode_MilkRun;
 
-                                } else if (result[i].mode == "Line Haul") {
+                                } else if (result[i].mode == "Linehaul Run") {
                                     tempString[5] = statustemp_mode_LineHaul;
 
+                                } else if (result[i].mode == "Adhoc Run") {
+                                    tempString[5] = statustemp_mode_AdHocRun;
                                 }
-                                
+
                                 tabledata.row.add(tempString);
                             }
                             tabledata.draw();
@@ -754,49 +612,6 @@
 
                 });
             }
-			 
-				function getFilterData(){
-					$('.loader').show();
-					var fromDate = $("#fromDate").val();
-					var toDate = $("#toDate").val();
-					
-					var obj={
-							"actualDeparture":fromDate,
-							"actualArrival":toDate
-					}
-
-					$.ajax({
-					      	type: "POST",
-					      	data: JSON.stringify(obj), 
-						    url: "<%=GlobalUrl.filterTripDetails%>",
-							dataType : "json",
-							contentType : "application/json",
-							
-							success : function(data) {
-								$('.loader').hide();
-							if (data.msg == 'success') {
-								alert("Hiii");
-								console.log(data);
-							} else {
-								console.log(data);
-								Toast.fire({
-									type : 'error',
-									title : 'Failed.. Try Again..'
-								})
-							}
-
-						},
-						error : function(jqXHR, textStatue, errorThrown) {
-							$('.loader').hide();
-							Toast.fire({
-								type : 'error',
-								title : '.. Try Again..'
-							})
-						}
-
-					});
-
-				} 
 
         </script>
 </body>

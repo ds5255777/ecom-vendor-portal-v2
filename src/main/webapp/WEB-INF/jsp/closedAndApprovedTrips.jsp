@@ -482,12 +482,14 @@
             });
 
             var tabledata = $('#tabledata').DataTable({
-                "paging": false,
+            	"paging": true,
                 "lengthChange": false,
                 "searching": false,
-                "info": false,
+                "info": true,
                 "autoWidth": false,
-                "aaSorting": []
+                "aaSorting": [],
+                "scrollX": true,
+                "pageLength": 15,
             });
 
             $(function() {
@@ -589,11 +591,12 @@
                                 var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\""+result[i].tripID+"\" ><\div>";
                                 
                                 var statustemp_runType_Scheduled = '<span class=\"right badge badge-warning\">Scheduled</span>';
-                                var statustemp_runType_AdHoc = '<span class=\"right badge badge-success\">Ad-Hoc</span>';
+                                var statustemp_runType_AdHoc = '<span class=\"right badge badge-success\">Adhoc</span>';
 
-                                var statustemp_mode_MilkRun = '<span class=\"right badge badge-warning\">Milk Run</span>';
-                                var statustemp_mode_LineHaul = '<span class=\"right badge badge-success\">Line Haul</span>';
-                                
+                                var statustemp_mode_MilkRun = '<span class=\"right badge badge-warning\">Surface Milk Run</span>';
+                                var statustemp_mode_LineHaul = '<span class=\"right badge badge-success\">Linehaul Run</span>';
+                                var statustemp_mode_AdHocRun = '<span class=\"right badge badge-primary\">Adhoc Run</span>';
+
                                 var runType = "";
                                 var mode = "";
                                 
@@ -604,17 +607,19 @@
                                 if (result[i].runType == "Scheduled") {
                                     tempString[3] = statustemp_runType_Scheduled;
 
-                                } else if (result[i].runType == "Ad-Hoc") {
+                                } else if (result[i].runType == "Adhoc") {
                                     tempString[3] = statustemp_runType_AdHoc;
 
                                 }
                                 
-                                if (result[i].mode == "Milk Run") {
+                                if (result[i].mode == "Surface Milk Run") {
                                     tempString[6] = statustemp_mode_MilkRun;
 
-                                } else if (result[i].mode == "Line Haul") {
+                                } else if (result[i].mode == "Linehaul Run") {
                                     tempString[6] = statustemp_mode_LineHaul;
 
+                                } else if (result[i].mode == "Adhoc Run") {
+                                    tempString[6] = statustemp_mode_AdHocRun;
                                 }
                                 
                                 tabledata.row.add(tempString);

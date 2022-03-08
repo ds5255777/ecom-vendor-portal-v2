@@ -1045,15 +1045,15 @@
                         	tabledata.row.add([result[i].tripID,
                                 result[i].route,
                                 result[i].runType,
-                                result[i].actualArrival,
-                                result[i].actualDeparture,
-								result[i].standardKM,
-								result[i].ratePerKm,
-								result[i].currentFuelRate,
-								result[i].fsBaseRate,
+                                result[i].standardKM,
+                                result[i].ratePerKm,
+                                result[i].currentFuelRate,
+                                result[i].fsBaseRate,
 								result[i].fsDiff,
 								result[i].basicFreight,
 								result[i].fs,
+								result[i].totalFreight,
+								result[i].totalFreight,
 								result[i].totalFreight
 								]);
                         }

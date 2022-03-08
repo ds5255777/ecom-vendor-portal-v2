@@ -1,16 +1,13 @@
 package com.main.db.bpaas.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "query_details")
@@ -20,12 +17,18 @@ public class QueryEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "date")
-	private String date;
+	@Column(name = "raised_on")
+	private Date raisedOn;
+
+	@Column(name = "raised_by")
+	private String raisedBy;// Vendor Code
 
 	@Column(name = "comment")
 	private String comment;
 
+	@Column(name = "raised_again_query")
+	private String raisedAgainQuery;
+	
 	/*@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name="trip_ID")*/
@@ -39,12 +42,20 @@ public class QueryEntity {
 		this.id = id;
 	}
 
-	public String getDate() {
-		return date;
+	public Date getRaisedOn() {
+		return raisedOn;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setRaisedOn(Date raisedOn) {
+		this.raisedOn = raisedOn;
+	}
+
+	public String getRaisedBy() {
+		return raisedBy;
+	}
+
+	public void setRaisedBy(String raisedBy) {
+		this.raisedBy = raisedBy;
 	}
 
 	public String getComment() {
@@ -55,12 +66,12 @@ public class QueryEntity {
 		this.comment = comment;
 	}
 
-	/*public TripDetails getTripDetails() {
-		return tripDetails;
+	public String getRaisedAgainQuery() {
+		return raisedAgainQuery;
 	}
 
-	public void setTripDetails(TripDetails tripDetails) {
-		this.tripDetails = tripDetails;
-	}*/
+	public void setRaisedAgainQuery(String raisedAgainQuery) {
+		this.raisedAgainQuery = raisedAgainQuery;
+	}
 
 }

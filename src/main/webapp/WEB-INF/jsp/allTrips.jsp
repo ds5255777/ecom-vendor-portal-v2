@@ -31,16 +31,15 @@
     <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 
- <!--    <script>
+    <script>
         var statusObject = {
             "In-Transit": {
-                "Approve": ["-"],
-                "Pending For Approvel": ["-"],
+                "Yet To Be Approved": ["NA"],
             },
             "Closed": {
-                "Pending For Approvel": ["-"],
-                "Approve": ["-", "Pending"],
-                "Invoicing": ["-", "Pending", "Approve"],
+            	"Yet To Be Approved": ["NA"],
+                "Approved": ["Pending"],
+                "Invoicing":["Pending","Approved"],
             }
         }
         window.onload = function() {
@@ -70,7 +69,7 @@
             }
         }
 
-    </script> -->
+    </script>
     <style>
         custom-file-input {
             height: 25px;
@@ -183,83 +182,58 @@
                 <div class="container-fluid">
 
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-12" style="font-size: 14px;">
-                                <!-- general form elements -->
-                                <div class="card card-primary ">
-                                    <div class="card-header">
-                                        <!--  <h3 class="card-title" style="font-size: 15px;">Trips
+                        <!-- <div class="col-md-12"> -->
+                        <div class="col-md-12" style="font-size: 14px;">
+                            <!-- general form elements -->
+                            <div class="card card-primary ">
+                                <div class="card-header">
+                                    <!--  <h3 class="card-title" style="font-size: 15px;">Trips
                                             List</h3> -->
-                                    </div>
-                                    <!-- /.card-header -->
-                                    <div class="card-body" style="padding-top: 4px;">
-                                        <!-- <form role="form" id="addForm" autocomplete="off">
-                                            <div class="row">
-                                            <div class="col-md-2">
-												<label>From Date</label> <input type="text" name="fromDate"
-													class="form-control" id="fromDate" style="height: 34px;">
-											</div>
-											<div class="col-md-2">
-												<label>To Date</label> <input type="text" name="toDate"
-													class="form-control" id="toDate" style="height: 34px;">
-											</div>
-                                                <div class="col-md-6">
-												<br> <label for="exampleInputserverName1"
-													style="visibility: hidden;"></label>
-												<button type="submit" class="btn btn-primary">Search</button>
-												&nbsp;&nbsp;
-												<button type="button" id="exportLink"
-													 class="btn btn-primary"
-													>Download Excel</button>
-													<button type="button" id="exportLinkPdf"
-													 class="btn btn-primary"
-													>Download Pdf</button>
-											</div>
-
-                                            </div>
-                                        </form> -->
-                                        <div class="dropdown" align="right">
-											  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" > Export Details </button>
-											  <div class="dropdown-menu">
-											    <a class="dropdown-item" href="#" id="exportLinkPdf">Download PDF</a>
-											    <a class="dropdown-item" href="#" id="exportLink">Download Excel</a>
-											  </div>
-											</div>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body ">
+                                    <form role="form" id="addForm" autocomplete="off">
                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered table-hover" id="tabledata">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Route</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Trip Status</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Status</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Actual Departure</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Origin Hub</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Destination Hub</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoicing Status</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-
-                                                        </tbody>
-                                                    </table>
+                                            <div class="col-md-2">
+                                                <!-- <label>From Date</label> --> <input type="datetime-local" name="fromDate" class="form-control" id="fromDate" style="height: 34px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <!-- <label>To Date</label> --> <input type="datetime-local" name="toDate" class="form-control" id="toDate" style="height: 34px;">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="exampleInputserverName1" style="visibility: hidden;"></label>
+                                                <button type="button" onclick="getFilterData()" class="btn btn-primary">Search</button>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Export Details </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#" id="exportLinkPdf">Download PDF</a>
+                                                    <a class="dropdown-item" href="#" id="exportLink">Download Excel</a>
                                                 </div>
                                             </div>
                                         </div>
-
-
-
-
-                                    </div>
-                                    <!-- /.card-body -->
+                                    </form>
+                                    <table class="table table-bordered table-hover" id="tabledata">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Route</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Run Status</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Vendor Status</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Actual Departure</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Origin Hub</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Destination Hub</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoicing Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                 </div>
-
-
+                                <!-- /.card-body -->
                             </div>
                         </div>
                     </div>
@@ -504,14 +478,14 @@
                                             </form>
                                         </div>
                                         <!-- /.card-body -->
-                                        
+
                                     </div>
                                     <!-- /.card -->
                                     <div class="container">
-										<div class="col-md-12 text-center" style="padding-top: 0px;">
-	                       					  <button type="button" class="btn btn-primary" id="closeModal" data-dismiss="modal">Close</button>
-	                  			    	</div>
-                  			    	</div>
+                                        <div class="col-md-12 text-center" style="padding-top: 0px;">
+                                            <button type="button" class="btn btn-primary" id="closeModal" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -544,8 +518,8 @@
         <script src="plugins/select2/js/select2.full.min.js"></script>
         <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
         <script src="plugins/jquery-validation/additional-methods.min.js"></script>
-        <!-- <script src="plugins/datatables/jquery.dataTables.js"></script>
-		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script> -->
+        <script src="plugins/datatables/jquery.dataTables.js"></script>
+        <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
         <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
         <script src="plugins/toastr/toastr.min.js"></script>
 
@@ -569,29 +543,6 @@
                 timer: 3000
             });
 
-            /* 			var tabledata = $('#tabledata').DataTable({
-            				"paging" : true,
-            				"lengthChange" : false,
-            				"searching" : true,
-            				"info" : true,
-            				"autoWidth" : false,
-            				"aaSorting" : []
-            			}); */
-
-            $('#fromDate').datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-
-            });
-
-            $('#toDate').datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-
-            });
-
             var tabledata = $('#tabledata').DataTable({
                 "paging": true,
                 "lengthChange": false,
@@ -600,7 +551,7 @@
                 "autoWidth": false,
                 "aaSorting": [],
                 "scrollX": true,
-                "pageLength": 20,
+                "pageLength": 15,
                 dom: 'Bfrtip',
                 //buttons: ['excel','pdf','print'],
                 buttons: [
@@ -679,6 +630,20 @@
                 }
             });
 
+/*             $('#fromDate').datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+
+            });
+
+            $('#toDate').datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+
+            }); */
+
             $.validator.setDefaults({
                 submitHandler: function() {
                     getFilterData();
@@ -686,6 +651,7 @@
                     //alert("insode add");
                 }
             });
+
             $('#addForm').validate({
 
                 rules: {
@@ -711,47 +677,41 @@
                 }
             });
 
-            /* function enableStatusDiv(){
-            	var selectStatus = $("#selectStatus").val();
-            	alert(selectStatus);
-            	if(selectStatus !=""){
-            		$("#paymentStatusDiv").css("visibility","visible");
-            	}else{
-            		$("#paymentStatusDiv").css("visibility","hidden");
-            	}
-            } */
-            
-            function calculateTotalFreight(){
-    			
-            	var fs = parseFloat("0");
-            	var totalFreight = parseFloat("0");
-            	
-            	if($.isNumeric( $("#currentFuelRate").val() )){
-        			totalFreight = parseFloat($("#currentFuelRate").val());
-        			console.log("Hiiii"+totalFreight);
-        		}
-            	var engMarks = document.getElementById('currentFuelRate').value;
-            	var currentFuelRate = parseFloat($("#currentFuelRate").val());
-            	var fsBaseRate = parseFloat($("#fsBaseRate").val());
-            	var mileage = parseFloat($("#mileage").val());
-            	var routeKms = parseFloat($("#routeKms").val());
-            	/* if($.isNumeric( $("#currentFuelRate").val() )){
+            function calculateTotalFreight() {
+
+                var fs = parseFloat("0");
+                var totalFreight = parseFloat("0");
+
+                if ($.isNumeric($("#currentFuelRate").val())) {
+                    totalFreight = parseFloat($("#currentFuelRate").val());
+                    console.log("Hiiii" + totalFreight);
+                }
+                var engMarks = document.getElementById('currentFuelRate').value;
+                var currentFuelRate = parseFloat($("#currentFuelRate").val());
+                var fsBaseRate = parseFloat($("#fsBaseRate").val());
+                var mileage = parseFloat($("#mileage").val());
+                var routeKms = parseFloat($("#routeKms").val());
+                /* if($.isNumeric( $("#currentFuelRate").val() )){
             		totalFreight = totalFreight+parseFloat($("#currentFuelRate").val());
 				} */
-            	  fs= ((currentFuelRate - fsBaseRate/mileage)*routeKms);
-				
-				console.log(parseFloat(fs));
-				
-   			 
-   				
-   			}
+                fs = ((currentFuelRate - fsBaseRate / mileage) * routeKms);
+
+                console.log(parseFloat(fs));
+            }
+
+            $("#refreshDashboardButton").click(function(e) {
+                e.preventDefault();
+                $('#refreshDashboardButton').attr('disabled', 'disabled');
+                getData();
+                $('#refreshDashboardButton').removeAttr('disabled');
+                $('#selectTripStatus').clear('');
+            })
 
             getData();
 
             function getData() {
 
                 var jsArray = [];
-
                 $('.loader').show();
 
                 $.ajax({
@@ -777,7 +737,7 @@
 
                                 var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
                                 var statustemp_payment_Pending = '<span class=\"right badge badge-warning\">Pending</span>';
-                                var statustemp_payment_No = '<span>-</span>';
+                                var statustemp_payment_No = '<span class=\"right badge badge-primary\">NA</span>';
 
                                 var statustemp_runststus_Intransit = '<span class=\"right badge badge-warning\">In-Transit</span>';
                                 var statustemp_runststus_Closed = '<span class=\"right badge badge-success\">Closed</span>';
@@ -788,10 +748,9 @@
 
                                 var paymentStatus = "";
                                 var runStatus = "";
-                                var status = "";
+                                var vendorTripStatus = "";
                                 //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
                                 var tempString = [view, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
-
 
                                 if (result[i].paymentStatus == "Pending") {
                                     tempString[10] = statustemp_payment_Pending;
@@ -799,22 +758,21 @@
                                 } else if (result[i].paymentStatus == "Approved") {
                                     tempString[10] = statustemp_payment_success;
 
-                                } else if (result[i].paymentStatus == "-") {
+                                } else if (result[i].paymentStatus == "NA") {
                                     tempString[10] = statustemp_payment_No;
 
                                 }
 
-
-                                if (result[i].status == "Pending for Approve") {
+                                if (result[i].vendorTripStatus == "Yet To Be Approved") {
                                     tempString[4] = statustemp_pending;
 
-                                } else if (result[i].status == "Approved") {
+                                } else if (result[i].vendorTripStatus == "Approved") {
                                     tempString[4] = statustemp_approved;
 
-                                } else if (result[i].status == "Invoicing") {
+                                } else if (result[i].vendorTripStatus == "Invoicing") {
                                     tempString[4] = statustemp_Invoicing;
 
-                                }
+                                } 
 
                                 if (result[i].runStatus == "In-Transit") {
                                     tempString[3] = statustemp_runststus_Intransit;
@@ -823,9 +781,7 @@
                                     tempString[3] = statustemp_runststus_Closed;
 
                                 }
-                                //console.log("tempString final  **********"+tempString);
                                 tabledata.row.add(tempString);
-
                                 //tabledata.row.add([ result[i].tripID,result[i].route,result[i].runType,result[i].paymentStatus,result[i].actualKM,result[i].mode,result[i].originHub ,result[i].destHub,result[i].runStatus,result[i].status,viewData]);  				        	
                             }
                             tabledata.draw();
@@ -875,16 +831,11 @@
 
                         if (data.msg == 'success') {
                             var result = data.data;
-
                             /* jsondata=JSON.parse(result) */
-                            ;
                             var myForm = "";
                             myForm = document.getElementById("tripForm");
                             setData(myForm, result);
-
                             $("#tripID").val(result.tripID);
-
-
                         } else {
                             Toast.fire({
                                 type: 'error',
@@ -899,32 +850,23 @@
                             title: 'Failed.. Try Again..'
                         })
                     }
-
                 });
             }
 
             function searchTripData() {
-
                 var jsArray = [];
-
                 $('.loader').show();
-
                 console.log("Status" + status);
-                //alert("Hiiiiiiiiiiiiii");
                 $.ajax({
                     type: "POST",
                     url: "<%=GlobalUrl.status%>?status=" + status,
                     dataType: "json",
                     contentType: "application/json",
                     success: function(data) {
-                        //alert("Hiiiiiiiiiiiiii");
-
                         $('.loader').hide();
                         if (data.msg == "success") {
-
                             var result = data.data;
                             tabledata.clear();
-
                             for (var i = 0; i < result.length; i++) {
                                 var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].siteQualityId + "','" + result[i].checkListId + "','" + result[i].url + "')\"><i class='fa fa-eye ' ></i></button>";
 
@@ -937,13 +879,11 @@
                                     //result[i].paymentStatus= +'<span class="right badge badge-warning">Pending</span>'
                                     var statustemp = "<span class=\"right badge badge-success\">Approved</span>";
                                     tabledata.row.add([result[i].tripID, result[i].route, result[i].runType, "<span class=\"right badge badge-success\">Approve</span>", result[i].actualKM, result[i].mode, result[i].originHub, result[i].destHub, "<span class=\"right badge badge-success\">Closed</span>", statustemp, viewData]);
-
                                 }
                                 //tabledata.row.add([ result[i].tripID,result[i].route,result[i].runType,result[i].runStatus,result[i].paymentStatus,result[i].actualKM,result[i].mode,result[i].originHub,result[i].destHub,viewData]);  				        	
                             }
                             tabledata.draw();
                             $("tbody").show();
-
                         } else {
                             alert("failed");
                         }
@@ -951,6 +891,111 @@
                     error: function(jqXHR, textStatue, errorThrown) {
                         alert("failed, please try again");
                     }
+                });
+            }
+
+            function getFilterData() {
+                $('.loader').show();
+                var fromDate = $("#fromDate").val();
+                var toDate = $("#toDate").val();
+                
+                //const d = new Date();
+                
+                //let text = fromDate.toString();
+                //let text2 = toDate.toString();
+
+                $.ajax({
+                    type: "GET",
+                    data: {
+                        "actualDeparture": fromDate,
+                        "actualArrival": toDate
+                    },
+                    url: "<%=GlobalUrl.filterTripDetails%>",
+                    dataType: "json",
+                    contentType: "application/json",
+
+                    success: function(data) {
+                        $('.loader').hide();
+                        if (data.msg == 'success') {
+                            //alert("Hiii");
+                            console.log(data);
+
+                            var result = data.data;
+                            tabledata.clear();
+
+                            for (var i = 0; i < result.length; i++) {
+
+                                //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
+                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
+
+                                var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
+                                var statustemp_payment_Pending = '<span class=\"right badge badge-warning\">Pending</span>';
+                                var statustemp_payment_No = '<span class=\"right badge badge-primary\">NA</span>';
+
+                                var statustemp_runststus_Intransit = '<span class=\"right badge badge-warning\">In-Transit</span>';
+                                var statustemp_runststus_Closed = '<span class=\"right badge badge-success\">Closed</span>';
+
+                                var statustemp_pending = '<span class=\"right badge badge-warning\">Pending for Approval</span>';
+                                var statustemp_approved = '<span class=\"right badge badge-success\">Approved</span>';
+                                var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
+
+                                var paymentStatus = "";
+                                var runStatus = "";
+                                var status = "";
+                                //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
+                                var tempString = [view, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
+
+                                if (result[i].paymentStatus == "Pending") {
+                                    tempString[10] = statustemp_payment_Pending;
+
+                                } else if (result[i].paymentStatus == "Approved") {
+                                    tempString[10] = statustemp_payment_success;
+
+                                } else if (result[i].paymentStatus == "NA") {
+                                    tempString[10] = statustemp_payment_No;
+
+                                }
+
+                                if (result[i].status == "Pending for Approve") {
+                                    tempString[4] = statustemp_pending;
+
+                                } else if (result[i].status == "Approved") {
+                                    tempString[4] = statustemp_approved;
+
+                                } else if (result[i].status == "Invoicing") {
+                                    tempString[4] = statustemp_Invoicing;
+
+                                }
+
+                                if (result[i].runStatus == "In-Transit") {
+                                    tempString[3] = statustemp_runststus_Intransit;
+
+                                } else if (result[i].runStatus == "Closed") {
+                                    tempString[3] = statustemp_runststus_Closed;
+
+                                }
+                                tabledata.row.add(tempString);
+                                //tabledata.row.add([ result[i].tripID,result[i].route,result[i].runType,result[i].paymentStatus,result[i].actualKM,result[i].mode,result[i].originHub ,result[i].destHub,result[i].runStatus,result[i].status,viewData]);  				        	
+                            }
+                            tabledata.draw();
+                            $("tbody").show();
+                        } else {
+                            console.log(data);
+                            Toast.fire({
+                                type: 'error',
+                                title: 'Failed.. Try Again..'
+                            })
+                        }
+
+                    },
+                    error: function(jqXHR, textStatue, errorThrown) {
+                        $('.loader').hide();
+                        Toast.fire({
+                            type: 'error',
+                            title: '.. Try Again..'
+                        })
+                    }
+
                 });
 
             }

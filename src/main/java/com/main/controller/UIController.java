@@ -473,7 +473,10 @@ public class UIController {
 	public String tripsInvoiceGenerate(Model model, Principal principal, HttpServletRequest request) {
 
 		String tripId = request.getParameter("id");
-		model.addAttribute("tripId", tripId);
+		
+		//List<TripDetails> listOfLineItem = tripDetailsRepo.findByTripIDIn(tripId);
+		
+		//model.addAttribute("tripId", listOfLineItem);
 		
 		System.out.println("tripId ........."+tripId);
 		

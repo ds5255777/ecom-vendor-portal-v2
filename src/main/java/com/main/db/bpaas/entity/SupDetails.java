@@ -9,10 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -40,7 +38,7 @@ public class SupDetails {
 	private String introducedByEmailID;
 	@Column(name = "bp_code")
 	private String bpCode;
-	
+
 	@Column(name = "vendor_type")
 	private String vendorType;
 	@Column(name = "supp_name")
@@ -68,32 +66,32 @@ public class SupDetails {
 	@Column(name = "ope_unit_req_map")
 	private String opeUnitReqMap;
 	@Column(name = "ven_status")
-	private String venStatus; //0-approved, 1-queryRaise, 2- pending
-	
+	private String venStatus; // 0-approved, 1-queryRaise, 2- pending
+
 	/* payment Terms */
-	@Column (name = "invoice_currency")
+	@Column(name = "invoice_currency")
 	private String invoiceCurrency;
-	@Column (name = "payment_currency")
+	@Column(name = "payment_currency")
 	private String paymentCurrency;
-	@Column (name = "credit_terms")
+	@Column(name = "credit_terms")
 	private String creditTerms;
-	@Column (name = "payment_method")
+	@Column(name = "payment_method")
 	private String paymentMethod;
-	@Column (name = "date_basis")
+	@Column(name = "date_basis")
 	private String dateBasis;
-	@Column (name = "delivery_terms")
+	@Column(name = "delivery_terms")
 	private String deliveryTerms;
-	
+
 	/* tds terms */
-	@Column (name= "tds_application")
+	@Column(name = "tds_application")
 	private String tdsApplication;
-	@Column (name= "tds_section")
+	@Column(name = "tds_section")
 	private String tdsSection;
-	@Column (name= "tds_rate")
+	@Column(name = "tds_rate")
 	private String tdsRate;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn
+
+	@OneToMany(targetEntity = AccountDetails.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "sa_fk", referencedColumnName = "id")
 	private List<AccountDetails> accountDetails;
 
 	@OneToMany(cascade = CascadeType.ALL)
@@ -108,19 +106,22 @@ public class SupDetails {
 	@JoinColumn
 	private List<ItrDetails> itrDetails;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn
-	private List<WIHistory> wIHistory;
+	/*
+	 * @OneToMany(cascade = CascadeType.ALL)
+	 * 
+	 * @JoinColumn private List<WIHistory> wIHistory;
+	 */
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn
-	private List<TripDetails> tripDetails;
-	
+	/*
+	 * @OneToMany(cascade = CascadeType.ALL)
+	 * 
+	 * @JoinColumn private List<TripDetails> tripDetails;
+	 */
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn
 	private List<OnboardQuery> onboardQuery;
 
-	
 	@Transient
 	String gstFileText;
 	@Transient
@@ -150,7 +151,6 @@ public class SupDetails {
 	String aplFileText;
 	@Transient
 	String aplFileName;
-	
 
 	@Transient
 	String itrFileText;
@@ -181,8 +181,6 @@ public class SupDetails {
 	String nmisFileText;
 	@Transient
 	String nmisFileName;
-	
-	
 
 	public Long getId() {
 		return id;
@@ -191,8 +189,6 @@ public class SupDetails {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
 
 	public String getPid() {
 		return pid;
@@ -217,7 +213,6 @@ public class SupDetails {
 	public void setBpCode(String bpCode) {
 		this.bpCode = bpCode;
 	}
-	
 
 	public String getIntroducedByName() {
 		return introducedByName;
@@ -231,7 +226,6 @@ public class SupDetails {
 		return introducedByEmailID;
 	}
 
-	
 	public String getVenStatus() {
 		return venStatus;
 	}
@@ -243,7 +237,6 @@ public class SupDetails {
 	public void setIntroducedByEmailID(String introducedByEmailID) {
 		this.introducedByEmailID = introducedByEmailID;
 	}
-
 
 	public String getVendorType() {
 		return vendorType;
@@ -453,23 +446,6 @@ public class SupDetails {
 		this.itrDetails = itrDetails;
 	}
 
-	public List<WIHistory> getwIHistory() {
-		return wIHistory;
-	}
-
-	public void setwIHistory(List<WIHistory> wIHistory) {
-		this.wIHistory = wIHistory;
-	}
-
-	public List<TripDetails> getTripDetails() {
-		return tripDetails;
-	}
-
-	public void setTripDetails(List<TripDetails> tripDetails) {
-		this.tripDetails = tripDetails;
-	}
-	
-
 	public String getGstFileText() {
 		return gstFileText;
 	}
@@ -669,9 +645,5 @@ public class SupDetails {
 	public void setOnboardQuery(List<OnboardQuery> onboardQuery) {
 		this.onboardQuery = onboardQuery;
 	}
-
-	
-	
-	
 
 }

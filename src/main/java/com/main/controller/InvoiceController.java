@@ -151,12 +151,12 @@ public class InvoiceController {
 		DataContainer data = new DataContainer();
 		
 		String tripID = obj.getTripID();
-		
+		System.out.println("trip id is : "+tripID.toString());
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			List<TripDetails> listOfLineItem = tripDetailsRepo.getSelectLineItem(tripID );
-			System.out.println("size  ....."+listOfLineItem.size());
-			data.setData(listOfLineItem);
+			//System.out.println("size  ....."+listOfLineItem.size());
+			//data.setData(listOfLineItem);
 			data.setMsg("success");
 			
 		} catch (Exception e) {

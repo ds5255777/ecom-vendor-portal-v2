@@ -473,12 +473,14 @@
             });
 
             var tabledata = $('#tabledata').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "info": false,
-                "autoWidth": false,
-                "aaSorting": []
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "info": true,
+            "autoWidth": false,
+            "aaSorting": [],
+            "scrollX": true,
+            "pageLength": 15,
             });
 
             getData();
@@ -514,7 +516,10 @@
 
                                 var statustemp_mode_MilkRun = '<span class=\"right badge badge-warning\">Milk Run</span>';
                                 var statustemp_mode_LineHaul = '<span class=\"right badge badge-success\">Line Haul</span>';
-                                
+                                var statustemp_mode_AdHocRun = '<span class=\"right badge badge-primary\">Ad-Hoc Run</span>';
+                                var statustemp_mode_Air = '<span class=\"right badge badge-danger\">Air</span>';
+
+
                                 var statustemp_pending = '<span class=\"right badge badge-warning\">Pending for Approval</span>';
                                 var statustemp_approved = '<span class=\"right badge badge-success\">Approved</span>';
                                 
@@ -527,17 +532,21 @@
                                 if (result[i].runType == "Scheduled") {
                                     tempString[2] = statustemp_runType_Scheduled;
 
-                                } else if (result[i].runType == "Ad-Hoc") {
+                                } else if (result[i].runType == "Adhoc") {
                                     tempString[2] = statustemp_runType_AdHoc;
 
                                 }
                                 
-                                if (result[i].mode == "Milk Run") {
+                                if (result[i].mode == "Surface Milk Run") {
                                     tempString[4] = statustemp_mode_MilkRun;
 
-                                } else if (result[i].mode == "Line Haul") {
+                                } else if (result[i].mode == "Linehaul Run") {
                                     tempString[4] = statustemp_mode_LineHaul;
 
+                                } else if (result[i].mode == "Adhoc Run") {
+                                    tempString[4] = statustemp_mode_AdHocRun;
+                                } else if (result[i].mode == "Air") {
+                                    tempString[4] = statustemp_mode_Air;
                                 }
                                 
                                 if (result[i].status == "Pending for Approve") {

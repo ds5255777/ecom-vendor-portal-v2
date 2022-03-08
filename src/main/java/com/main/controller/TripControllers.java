@@ -45,13 +45,21 @@ public class TripControllers {
 	@RequestMapping({ "filterTripDetails" })
 	@CrossOrigin("*")
 	public String filterTripDetails(@RequestParam(name="actualDeparture") String fromDate, @RequestParam(name="actualArrival") String toDate) {
-		System.out.println(fromDate);
-		System.out.println(toDate);
+		
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			System.out.println(fromDate);
 			System.out.println(toDate);
+			
+			List<TripDetails> getListByDateFilter = tripDetailsRepo.findByActualDepartureBetween(fromDate, toDate);
+			//List<TripDetails> getListByDateFilter = tripDetailsRepo.findByBetweenActualArrivalDate(fromDate, toDate);
+			getListByDateFilter.forEach(w->{
+				System.out.println("all data"+w);
+			});
+			
+			System.out.println(getListByDateFilter);
+			data.setData(getListByDateFilter);
 			data.setMsg("success");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -69,7 +77,7 @@ public class TripControllers {
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<TripDetails> allTripDetailsList = tripDetailsRepo.getAllTrips();
+			List<TripDetails> allTripDetailsList = tripDetailsRepo.findAll();
 
 			data.setData(allTripDetailsList);
 			data.setMsg("success");
@@ -175,23 +183,24 @@ public class TripControllers {
 
 		try {
 			conn = dbconnection.getConnection();
-			String sql = "select e.id as id, e.trip_id as tripID, e.route as route, e.run_type as runType, e.run_status as runStatus, e.status as status, "
-					+ " e.actual_departure as actualDeparture, e.actual_km as actualKM, e.standard_km as standardKM, e.origin_hub as originHub, "
+			String sql = "select e.id as id, e.trip_id as tripID, e.route as route, e.run_type as runType, e.vendor_trip_status as vendorTripStatus, "
+					+ " e.actual_departure as actualDeparture, e.actual_km as actualKM, e.standard_km as standardKM, e.run_status as runStatus, e.origin_hub as originHub, "
 					+ " e.dest_hub as destHub, e.payment_status as paymentStatus "
 					+ " from Trip_Details e where  1=1  ";
 
-			if (!"".equalsIgnoreCase(obj.getStatus())) {
-				System.out.println(obj.getStatus());
-				sql += " and status='" + obj.getStatus() + "' ";
+			System.out.println("Query is :"+sql);
+			if (!"".equalsIgnoreCase(obj.getVendorTripStatus())) {
+				System.out.println("Vendor Trip Status "+obj.getVendorTripStatus());
+				sql += " and vendor_trip_status='" + obj.getVendorTripStatus() + "' ";
 				System.out.println(sql);
 			}
 			if (!"".equalsIgnoreCase(obj.getRunStatus())) {
-				System.out.println(obj.getRunStatus());
+				System.out.println("getRunStatus "+obj.getRunStatus());
 				sql += " and run_status='" + obj.getRunStatus() + "' ";
 				System.out.println(sql);
 			}
 			if (!"".equalsIgnoreCase(obj.getPaymentStatus())) {
-				System.out.println(obj.getPaymentStatus());
+				System.out.println("getPaymentStatus "+obj.getPaymentStatus());
 				sql += " and payment_status='" + obj.getPaymentStatus() + "' ";
 				System.out.println(sql);
 			}
@@ -206,10 +215,10 @@ public class TripControllers {
 				tripDetail.setRoute(rs.getString("route"));
 				tripDetail.setRunType(rs.getString("runType"));
 				tripDetail.setRunStatus(rs.getString("runStatus"));
-				tripDetail.setStatus(rs.getString("status"));
-				tripDetail.setActualDeparture(rs.getString("actualDeparture"));
-				tripDetail.setActualKM(rs.getString("actualKM"));
-				tripDetail.setStandardKM(rs.getString("standardKM"));
+				tripDetail.setVendorTripStatus(rs.getString("vendorTripStatus"));
+				tripDetail.setActualDeparture(rs.getDate("actualDeparture"));
+				tripDetail.setActualKM(rs.getDouble("actualKM"));
+				tripDetail.setStandardKM(rs.getDouble("standardKM"));
 				tripDetail.setOriginHub(rs.getString("originHub"));
 				tripDetail.setDestHub(rs.getString("destHub"));
 				tripDetail.setPaymentStatus(rs.getString("paymentStatus"));
@@ -265,7 +274,7 @@ public class TripControllers {
 		try {
 			// tripDetailsRepo.getTripIdbyTripDetail(tripObj.getTripID());
 
-			queryObj.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			//queryObj.setRaisedOn(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
 			queryObj = queryRepo.save(queryObj);
 

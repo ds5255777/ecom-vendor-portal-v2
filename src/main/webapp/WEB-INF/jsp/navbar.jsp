@@ -10,6 +10,11 @@
             <c:when test="${pageName=='All Trips'}">
                 <li class="nav-item d-none d-sm-inline-block"><a class="black-text nav-link quickHelp" data-toggle="tooltip" data-placement="bottom" title="Back" href="#" onclick="history.back()" style="padding-right: 0px;"><b style="font-size: 18px;color: #12344dd6;"><i class="fa fa-fast-backward"></i></b></a></li>
                 <li class="nav-item d-none d-sm-inline-block"><b><a class="nav-link"><%=request.getParameter("pagename")%></a></b></li>
+                <li class="nav-item d-none d-sm-inline-block" style="padding: 6px;" >
+                    
+                    <button type="button" class="btn btn-default btn-sm " id="refreshDashboardButton" > <i class="fas fa-sync-alt"></i></button>
+                    
+                </li>
                 <div class="input-group-prepend">
                     <%-- <div class="btn-group">
 						<button type="button" class="btn"
@@ -20,9 +25,9 @@
                                 <div class="form-group" style="padding-top: .3rem">
                                     <!-- <label>Trip Status</label> -->
                                     <select class="form-control" name="selectTripStatus" id="selectTripStatus" onchange="GetSelectedTextValue()" style="height: 34px; width: 170px">
-                                        <option   value="">All-Trips</option>
-                                        <option value="In-Transit">In-Transit</option>
-                                        <option value="Closed">Closed</option>
+                                         <option value="">Select Trip Status</option>
+                                        <!--<option value="In-Transit">In-Transit</option>
+                                        <option value="Closed">Closed</option> -->
                                     </select>
                                 </div>
                             </div>
@@ -30,8 +35,8 @@
                                 <div class="form-group" style="padding-top: .3rem">
                                     <!-- <label>Status</label> -->
                                     <select class="form-control" id="selectStatus" name="selectStatus" onchange="GetSelectedTextValue()" style="height: 34px; width: 170px">
-                                        <!-- <option value=""  >All</option>
-                                        <option value="Pending for Approve"  >Pending For Approvel</option>
+                                         <option value=""  >Select Vendor Status</option>
+                                        <!--<option value="Pending for Approve"  >Pending For Approvel</option>
                                         <option value="Approved">Approve</option>
                                         <option value="Invoicing">Invoicing</option> -->
                                     </select>
@@ -41,8 +46,8 @@
                                 <div class="form-group" style="padding-top: .3rem">
                                     <!-- <label>Payment Status</label> -->
                                     <select class="form-control" id="selectPaymentStatus" name="selectPaymentStatus" onchange="GetSelectedTextValue()" style="height: 34px; width: 170px">
-                                       <!--  <option value="" >All</option>
-                                        <option value="-" >-</option>
+                                         <option value="" >Select Invoicing Status</option>
+                                        <!--<option value="-" >-</option>
                                         <option value="Pending">Pending</option>
                                         <option value="Approved">Approve</option> -->
                                     </select>
@@ -103,34 +108,22 @@ function GetSelectedTextValue() {
 	var selectPaymentStatus=$("#selectPaymentStatus").val();
     var obj={
     		"runStatus":tripStatus,
-    		"status":selectStatus,
+    		"vendorTripStatus":selectStatus,
     		"paymentStatus":selectPaymentStatus,
     }
     
-   if(tripStatus='In-Transit'){
+    /* if(tripStatus='In-Transit'){
     	//clear 2 dropdown
     	 $("#selectStatus").find("option").remove();
-    	 $("#selectPaymentStatus").find("option").remove();
     	//Poulate
-    	/* "Approve": ["-"],
-         "Pending For Approvel": ["-"], */
-    	 
-    	 $('#selectStatus').append( ' <option value="Pending for Approve" >Pending For Approvel</option>',
-                 '<option value="Approved">Approve</option>');
-    	 $('#selectPaymentStatus').append( '<option value="NA" >NA</option>');
-    	
-    }else if(tripStatus='Closed'){
-    	//clear 2 dropdown
-    	$("#selectStatus").find("option").remove();
-    	 $("#selectPaymentStatus").find("option").remove();
-    	//Poulate
-    	 /* "Pending For Approvel": ["-"],
-         "Approve": ["-", "Pending"],
-         "Invoicing": ["-", "Pending", "Approve"], */
-    	 $('#selectStatus').append( ' <option value="Pending for Approve"  >Pending For Approvel</option>',
-         '<option value="Approved">Approve</option>');
- 		$('#selectPaymentStatus').append( '<option value="NA" >NA</option>','<option value="Pending">Pending</option>','<option value="Approved">Approve</option>');
-    	
+    	 $('#selectStatus').append( ' <option value="Pending for Approve" >Pending For Approvel</option>', '<option value="Approved">Approve</option>');
+    }else if(selectStatus='Pending For Approvel'){
+    	$("#selectPaymentStatus").find("option").remove();
+    	//Populate
+    	$('#selectPaymentStatus').append( ' <option value="NA" >NA</option>');
+    } */
+    if(tripStatus=''){
+    	getData();
     }
 
 

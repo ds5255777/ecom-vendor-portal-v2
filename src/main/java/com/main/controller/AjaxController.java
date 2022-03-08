@@ -25,11 +25,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.SupDetails;
-import com.main.db.bpaas.entity.WFDetails;
 import com.main.db.bpaas.repo.SupDetailsRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
-import com.main.db.bpaas.repo.WFDetailsRepo;
-import com.main.db.bpaas.repo.WIHistoryRepo;
 import com.main.email.CommEmailFunction;
 import com.main.email.WelcomeEmail;
 import com.main.service.SecurityService;
@@ -50,13 +47,7 @@ public class AjaxController {
 	private SecurityService securityService;
 
 	@Autowired
-	private WFDetailsRepo wFDetailsRepo;
-
-	@Autowired
 	private TripDetailsRepo tripDetailsRepo;
-
-	@Autowired
-	private WIHistoryRepo wIHistoryRepo;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -332,19 +323,19 @@ public class AjaxController {
 			data.setData(supSaved);
 			
 
-			WFDetails wFDetails = new WFDetails();
-
-			wFDetails.setAssignedTo("shashank");
-			wFDetails.setStatus("RUNNING");
-			wFDetails.setSupName(supDetails.getCompEmail());
-
-			wFDetails.setContactNum(supDetails.getPhoneNumber());
-			wFDetails.setEmail(supDetails.getCompEmail());
-			wFDetails.setExtID(supSaved.getId());
-			wFDetails.setType(1);
-			wFDetails.setTypeDesc("Vendor On Board Request");
-
-			wFDetailsRepo.save(wFDetails);
+			/*
+			 * WFDetails wFDetails = new WFDetails();
+			 * 
+			 * wFDetails.setAssignedTo("shashank"); wFDetails.setStatus("RUNNING");
+			 * wFDetails.setSupName(supDetails.getCompEmail());
+			 * 
+			 * wFDetails.setContactNum(supDetails.getPhoneNumber());
+			 * wFDetails.setEmail(supDetails.getCompEmail());
+			 * wFDetails.setExtID(supSaved.getId()); wFDetails.setType(1);
+			 * wFDetails.setTypeDesc("Vendor On Board Request");
+			 * 
+			 * wFDetailsRepo.save(wFDetails);
+			 */
 
 			new Thread(new Runnable() {
 				@Override

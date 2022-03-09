@@ -198,7 +198,7 @@
                                                 <!-- <label>From Date</label> --> <input type="datetime-local" name="fromDate" class="form-control" id="fromDate" style="height: 34px;">
                                             </div>
                                             <div class="col-md-2">
-                                                <!-- <label>To Date</label> --> <input type="datetime-local" name="toDate" class="form-control" id="toDate" style="height: 34px;">
+                                                <!-- <label>To Date</label> --> <input type="datetime" name="toDate" class="form-control" id="toDate" style="height: 34px;">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="exampleInputserverName1" style="visibility: hidden;"></label>
@@ -226,7 +226,7 @@
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Origin Hub</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Destination Hub</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoicing Status</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Payment Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -630,7 +630,7 @@
                 }
             });
 
-/*             $('#fromDate').datepicker({
+            /*  $('#fromDate').datepicker({
                 dateFormat: 'yy-mm-dd',
                 changeMonth: true,
                 changeYear: true,
@@ -642,7 +642,21 @@
                 changeMonth: true,
                 changeYear: true,
 
-            }); */
+            }); */ 
+
+            $('#fromDate').datetimepicker({
+                showOn: "button",
+                showSecond: true,
+                dateFormat: "dd-mm-yy", 
+                timeFormat: "HH:mm:ss"
+            });
+            
+            $('#toDate').datetimepicker({
+                showOn: "button",
+                showSecond: true,
+                dateFormat: "dd-mm-yy", 
+                timeFormat: "HH:mm:ss"
+            });
 
             $.validator.setDefaults({
                 submitHandler: function() {

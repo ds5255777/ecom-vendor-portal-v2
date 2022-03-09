@@ -164,7 +164,7 @@
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Actual Arrival (ATA)</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Origin Hub</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Destination Hub</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Status</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Vendor Status</th>
 
                                             </tr>
                                         </thead>
@@ -520,7 +520,7 @@
                                 var statustemp_mode_Air = '<span class=\"right badge badge-danger\">Air</span>';
 
 
-                                var statustemp_pending = '<span class=\"right badge badge-warning\">Pending for Approval</span>';
+                                var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
                                 var statustemp_approved = '<span class=\"right badge badge-success\">Approved</span>';
                                 
                                 var runType = "";
@@ -549,13 +549,16 @@
                                     tempString[4] = statustemp_mode_Air;
                                 }
                                 
-                                if (result[i].status == "Pending for Approve") {
+                                if (result[i].vendorTripStatus == "Yet To Be Approved") {
                                     tempString[9] = statustemp_pending;
 
-                                } else if (result[i].status == "Approved") {
+                                } else if (result[i].vendorTripStatus == "Approved") {
                                     tempString[9] = statustemp_approved;
 
-                                }
+                                } else if (result[i].vendorTripStatus == "Invoicing") {
+                                    tempString[9] = statustemp_Invoicing;
+
+                                } 
                                 
                                 tabledata.row.add(tempString);
                             

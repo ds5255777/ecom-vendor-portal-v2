@@ -30,7 +30,7 @@ public class InvoiceController {
 
 	
 	@Autowired
-	private InvoiceDetailsRepo invoiceDetailsRepo;
+	private InvoiceGenerationEntityRepo invoiceDetailsRepo;
 	
 	@Autowired
 	private TripDetailsRepo tripDetailsRepo;
@@ -41,7 +41,7 @@ public class InvoiceController {
 	
 	@RequestMapping({ "/getAllInvoice" })
 	@CrossOrigin("*")
-	public String getAllInvoice(HttpServletRequest request, @RequestBody List<InvoiceDetails> invoiceDetails) {
+	public String getAllInvoice(HttpServletRequest request, @RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
 		
 		DataContainer data = new DataContainer();
 		
@@ -144,28 +144,25 @@ public class InvoiceController {
 		return gson.toJson(data).toString();
 	}
 	
-	@RequestMapping({ "/getLineItemDetails" })
-	@CrossOrigin("*")
-	public String getLineItemDetails(HttpServletRequest request,@RequestBody TripDetails obj) {
-		
-		DataContainer data = new DataContainer();
-		
-		String tripID = obj.getTripID();
-		System.out.println("trip id is : "+tripID.toString());
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		try {
-			List<TripDetails> listOfLineItem = tripDetailsRepo.getSelectLineItem(tripID );
-			//System.out.println("size  ....."+listOfLineItem.size());
-			//data.setData(listOfLineItem);
-			data.setMsg("success");
-			
-		} catch (Exception e) {
-			data.setMsg("error");
-			e.printStackTrace();
-		}
-		
-		return gson.toJson(data).toString();
-	}
+	/*
+	 * @RequestMapping({ "/getLineItemDetails" })
+	 * 
+	 * @CrossOrigin("*") public String getLineItemDetails(HttpServletRequest
+	 * request,@RequestBody TripDetails obj) {
+	 * 
+	 * DataContainer data = new DataContainer();
+	 * 
+	 * String tripID = obj.getTripID();
+	 * System.out.println("trip id is : "+tripID.toString()); Gson gson = new
+	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create(); try {
+	 * List<TripDetails> listOfLineItem = tripDetailsRepo.getSelectLineItem(tripID
+	 * ); //System.out.println("size  ....."+listOfLineItem.size());
+	 * //data.setData(listOfLineItem); data.setMsg("success");
+	 * 
+	 * } catch (Exception e) { data.setMsg("error"); e.printStackTrace(); }
+	 * 
+	 * return gson.toJson(data).toString(); }
+	 */
 	
 	
 	@RequestMapping("/saveInvoice")

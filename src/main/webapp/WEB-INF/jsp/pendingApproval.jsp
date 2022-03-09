@@ -475,7 +475,7 @@
 
                                     <form role="form" id="queryDetails" name="queryDetails">
                                         <textarea class="form-control" id="comment" name="comment" maxlength="250" placeholder="If any Query Regardin in This Trip Comment..." rows="3"></textarea>
-                                        `
+                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="tripID" name="tripID" autocomplete="off" disabled>
                                     </form>
                                     <div class="row" style="padding: 15px;">
                                         <button id="openCoaDetails" type="button" class="btn btn-success" style="margin-right:10px;" onclick="saveQuery()">Query</button>
@@ -692,58 +692,6 @@
                 });
             }
 
-<%--            function getTripDataFormDataByTripId(tripId) {
-                console.log("Trip od" + tripId);
-                tripId = $("#tripID").val();
-                localStorage.setItem("tripID", "");
-                if (tripId != "") {
-                    console.log(">>>>>>>>>>>. " + tripId);
-                    var obj = {
-                        "tripId": tripId
-                    }
-                    $.ajax({
-                        type: "POST",
-                        data: JSON.stringify(obj),
-                        url: "<%=GlobalUrl.tripDetailByTripId%>",
-                        dataType: "json",
-                        contentType: "application/json",
-                        async: false,
-                        success: function(data) {
-
-                            if (data.msg == 'success') {
-                                var result = data.data;
-                                globalCheckListObj = result;
-                                console.log(">>>>>>>> >>>" + result.checkListStatus);
-
-                                /* jsondata=JSON.parse(result) */
-                                ;
-                                var myForm = "";
-                                myForm = document.getElementById("tripDetails");
-                                setData(myForm, result);
-                                /* if(result.hasOwnProperty("auditStartDate")){					
-                                	 $("#dateOfFactoryVisit").val(moment(result.auditStartDate, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD'));							
-                                }
-                                else{
-                                	console.log("in else of setData");
-                                	$("#dateOfFactoryVisit").val("");
-                                } */
-
-                                $("#vendorName").val(result.vendorId);
-                                $("#checklistHiddenField").val(result.id);
-                                drawGraphData();
-                            }
-                        },
-                        error: function(jqXHR, textStatue, errorThrown) {
-                            //alert("failed, please try again");
-                            Toast.fire({
-                                type: 'error',
-                                title: 'Failed.. Try Again..'
-                            })
-                        }
-
-                    });
-                }
-            } --%>
             //get Trip All Details
             function getTripDataFormDataByTripId(tripId) {
                 console.log("Trip Id : " + tripId);
@@ -769,10 +717,13 @@
                             ;
                             var myForm = "";
                             var myForm1 = "";
+                            var myForm2="";
                             myForm = document.getElementById("tripDetails");
                             myForm1 = document.getElementById("showQueryDetails");
+                            myForm2 = document.getElementById("tripDetails");
                             setData(myForm, result);
                             setData(myForm1, result);
+                            setData(myForm, result);
 
                             $("#tripID").val(result.tripID);
 
@@ -796,7 +747,9 @@
             }
 
             function saveQuery() {
-
+				var tripid={
+						"tripID":$("#roleId").val(),
+				}
                 var queryDetails = FormDataToJSON('queryDetails');
 
                 const finalObj = {

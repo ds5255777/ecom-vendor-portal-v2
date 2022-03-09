@@ -109,6 +109,27 @@ public class TripControllers {
 
 		return gson.toJson(data).toString();
 	}
+	
+
+	@RequestMapping({ "/getCloseAndApprovedTripsDetails" })
+	@CrossOrigin("*")
+	public String getCloseAndApprovedTripsDetails(HttpServletRequest request, @RequestBody List<TripDetails> tripList) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			List<TripDetails> allTripDetailsList = tripDetailsRepo.getAllCloseAndApproveTrip();
+
+			data.setData(allTripDetailsList);
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
 
 	@RequestMapping({ "/getInTransitTripsDetails" })
 	@CrossOrigin("*")
@@ -216,7 +237,7 @@ public class TripControllers {
 				tripDetail.setRunType(rs.getString("runType"));
 				tripDetail.setRunStatus(rs.getString("runStatus"));
 				tripDetail.setVendorTripStatus(rs.getString("vendorTripStatus"));
-				tripDetail.setActualDeparture(rs.getDate("actualDeparture"));
+				tripDetail.setActualDeparture(rs.getString("actualDeparture"));
 				tripDetail.setActualKM(rs.getDouble("actualKM"));
 				tripDetail.setStandardKM(rs.getDouble("standardKM"));
 				tripDetail.setOriginHub(rs.getString("originHub"));
@@ -272,7 +293,7 @@ public class TripControllers {
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			// tripDetailsRepo.getTripIdbyTripDetail(tripObj.getTripID());
+			 //tripDetailsRepo.getTripIdbyTripDetail(tripObj.getTripID());
 
 			//queryObj.setRaisedOn(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 

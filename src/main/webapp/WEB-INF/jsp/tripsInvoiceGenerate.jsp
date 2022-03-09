@@ -1,8 +1,8 @@
 <%@page import="com.main.commonclasses.GlobalConstants"%>
 <%@page import="com.main.commonclasses.GlobalUrl"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,19 +39,19 @@
     <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
     <style>
-        .table td,
-        .table th {
-            padding: 1px !important;
-        }
-
-        .form-control-sm {
-            border-width: 1px;
-            border-color: #e3e6ea;
-        }
-
-        .card-body {
-            padding: 0.5rem 1.25rem 0.5rem 1.25rem;
-        }
+       .table td, .table th {
+                padding: 1px !important;
+            }
+            .form-control-sm {
+                border-width: 1px;
+                border-color: #e3e6ea;
+            }
+            .card-body {
+                padding: 0.5rem 1.25rem 0.5rem 1.25rem;
+            }
+            .row {
+                margin-bottom: 0.5rem !important;
+            }
 
     </style>
 </head>
@@ -93,9 +93,6 @@
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
                                     <i class="fas fa-minus"></i>
                                 </button>
-                                <!-- <button type="button" class="btn btn-tool" data-card-widget="remove" style="margin-right: 10px;">
-                  <i class="fas fa-times"></i>
-                </button> -->
                             </div>
                         </div>
                         <div class="card-body">
@@ -106,7 +103,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Partner Name <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="BP Name" name="suppName" id="suppName" style="width: 100%;">
+                                                <input class="form-control-sm" type="text" readonly value="${userName}" name="suppName" id="suppName" style="width: 100%; ">
                                             </div>
                                         </div>
                                     </div>
@@ -175,7 +172,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Receiving Date</label>
                                             <div class="col-sm-7">
-                                                <input type="text" class="form-control-sm" name="invoiceReceivingDate" id="invoiceReceivingDate" value="<%=(new java.util.Date()).toLocaleString()%>" style="width: 100%;" disabled>
+                                                <input type="text" class="form-control-sm" name="invoiceReceivingDate" id="invoiceReceivingDate" readonly value="<%=(new java.util.Date()).toLocaleString()%>" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -188,95 +185,7 @@
                                         </div>
                                     </div>
                                     
-                                    <!-- <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">GL Date<span class="text-danger"> *</span></label>
-                                            <div class="col-sm-7">
-                                                <input type="date" class="form-control-sm" name="glDate" id="glDate" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Payment Currency <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="paymentCurrency">
-                                                    <option value="INR">INR</option>
-                                                    <option value="USD">USD</option>
-                                                    <option value="KES">KES</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Operating Unit <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="operatingUnit" id="operatingUnit" placeholder="Operating Unit" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Type <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="type" id="type" placeholder="Type" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Term Date <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input type="date" class="form-control-sm" name="termDate" id="termDate" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Terms <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="terms" id="terms" placeholder="Type" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Payment Method <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="paymentMethod">
-                                                    <option value="Cash">Cash</option>
-                                                    <option value="NEFT/RTGS">NEFT/RTGS</option>
-                                                    <option value="Net-Banking">Net-Banking</option>
-                                                    <option value="Type-4">Type-4</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Pay Groups <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="payGroups">
-                                                    <option value="Cash">Cash</option>
-                                                    <option value="Type-1">Type-1</option>
-                                                    <option value="Type-2">Type-2</option>
-                                                    <option value="Type-3">Type-3</option>
-                                                    <option value="Type-4">Type-4</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Header Description <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <textarea class="form-control p-input" name="headerDescription" id="headerDescription"></textarea>
-                                            </div>
-                                        </div>
-                                    </div> -->
+                                    <!--  -->
                                 </div>
                             </form>
                         </div>
@@ -293,14 +202,6 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body" style="overflow: auto;">
-                            <!-- <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group row">
-                                        <button type="submit" class="btn btn-primary" style="margin-right: 5px;float: right;height: 30px;padding: 2px 10px 2px 10px;" onclick="addrow()">Add Row</button>
-                                        <button type="submit" class="btn btn-primary" onclick="clearPRTable()" style="margin-right: 5px;float: right;height: 30px;padding: 2px 10px 2px 10px;">Clear Table</button>
-                                    </div>
-                                </div>
-                            </div> -->
                             <table id="prTable" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -316,129 +217,36 @@
                                         <th>Actual KM</th>
                                         <th>Total Freight</th>
                                         <th>Line level Description</th>
-
-                                        <!-- <th>Trip Id</th>
-                                        <th>Root</th>
-                                        <th>Actual Arrival</th>
-                                        <th>Actual Departure</th>
-                                        <th>Total Freight</th>
-                                        <th>Type</th>
-                                        <th>Amount</th>
-                                        <th>GL Date</th>
-                                        <th>Account</th>
-                                        <th>Company</th>
-                                        <th>Cost Center</th>
-                                        <th>Business Line</th>
-                                        <th>Natural Account</th>
-                                        <th>Sub Account</th>
-                                        <th>Function</th>
-                                        <th>Line level Description</th> -->
-                                        <th>Action</th>
+                                        <!-- <th>Action</th> -->
                                     </tr>
                                 </thead>
+                                <tbody>
+                                	 <c:forEach var="listItem" items="${listof}">
+                                        <tr class="">
+                                            <td>1</td>
+                                            <td>${listItem.runType}</td>
+                                            <td>${listItem.standardKM}</td>
+                                            <td>${listItem.ratePerKm}</td>
+                                            <td>${listItem.currentFuelRate}</td>
+                                            <td>${listItem.fsBaseRate}</td>
+                                            <td>${listItem.fsDiff}</td>
+                                            <td>${listItem.basicFreight}</td>
+                                            <td>${listItem.fs}</td>
+                                            <td>${listItem.actualKM}</td>
+                                            <td>${listItem.totalFreight}</td>
+                                            <td><input type="text" style="width: 100%;"></td>
+                                            <!-- <td><button type="button" title="Delete" class="btn btn-info" id="prRmv" onClick="delrow(this)" style="margin-right: 1px;height: 25px;padding: 2px 2px 2px 2px;"><i class="fas fa-trash-alt"></i></button></td> -->
+                                        </tr>
+                                    </c:forEach> 
+                                
+                                </tbody>
 
                             </table>
                         </div>
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
-                    <div class="card card-primary">
-                    <!--     <div class="card-header" style="padding: 5px 5px 0px 5px;">
-                            <h4 class="card-title">TDS Detail's</h4>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove" style="margin-right: 10px;">
-                  <i class="fas fa-times"></i>
-                </button>
-                            </div>
-                        </div> -->
-                        <!-- /.card-header -->
-                        <!-- <div class="card-body" style="overflow: auto;">
-                            <form id="stepTwoForm" class="forms-sample">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Line Number<span class="text-danger"> *</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="lineNumber" id="lineNumber" placeholder="Line Number" disabled style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Distribution Number <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="distributionNumber" id="distributionNumber" placeholder="Distribution Number" disabled style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Account</label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Account" name="tdsAccount" id="tdsAccount" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Description</label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="description" id="description" placeholder="Description" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Amount<span class="text-danger"> *</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="tdsAmount" id="tdsAmount" placeholder="Amount" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Section Code<span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="sectionCode">
-                                                    <option value="Type-1">Type-1</option>
-                                                    <option value="Type-2">Type-2</option>
-                                                    <option value="Type-3">Type-3</option>
-                                                    <option value="Type-4">Type-4</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Tax Category</label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="tdsTaxCategory">
-                                                    <option value="Type-1">Type-1</option>
-                                                    <option value="Type-2">Type-2</option>
-                                                    <option value="Type-3">Type-3</option>
-                                                    <option value="Type-4">Type-4</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Check box</label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="checkBox" id="checkBox" placeholder="Check box" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        /.card-body
-                    </div> -->
+                     
                     <div class="card card-primary">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">GST Details</h4>
@@ -453,24 +261,6 @@
                         <div class="card-body" style="overflow: auto;">
                             <form id="stepThreeForm" class="forms-sample">
                                 <div class="row">
-
-                                    <!-- <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Organization<span class="text-danger"> *</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" name="organization" id="organization" type="text" placeholder="Line Number" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Document Number<span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="documentNumber" id="documentNumber" placeholder="Document Number" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div> -->
-
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Taxable Amount</label>
@@ -487,70 +277,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Location<span class="text-danger"> *</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" id="location" name="location" type="text" placeholder="Location" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Supplier Tax Invoice Number<span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" name="supplierTaxInvoiceNumber" id="supplierTaxInvoiceNumber" type="text" placeholder="Supplier Tax Invoice Number" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Supplier Tax Invoice Date</label>
-                                            <div class="col-sm-7">
-                                                <input type="date" name="supplierTaxInvoiceDate" id="supplierTaxInvoiceDate" class="form-control-sm" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Orignal Tax Invoice Number</label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" name="orignalTaxInvoiceNumber" id="orignalTaxInvoiceNumber" type="text" placeholder="Orignal Tax Invoice Number" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Orignal Tax Invoice Date</label>
-                                            <div class="col-sm-7">
-                                                <input type="date" name="orignalTaxInvoiceDate" id="orignalTaxInvoiceDate" class="form-control-sm" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Tax Category<span class="text-danger"> *</span></label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="gstTaxCategory">
-                                                    <option value="Type-1">Type-1</option>
-                                                    <option value="Type-2">Type-2</option>
-                                                    <option value="Type-3">Type-3</option>
-                                                    <option value="Type-4">Type-4</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Intended Use<span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" name="intendedUse" id="" type="text" placeholder="Intended Use" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div> -->
-
                                 </div>
                             </form>
                         </div>
@@ -563,9 +289,7 @@
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
                                     <i class="fas fa-minus"></i>
                                 </button>
-                                <!-- <button type="button" class="btn btn-tool" data-card-widget="remove" style="margin-right: 10px;">
-                  <i class="fas fa-times"></i>
-                </button> -->
+                               
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -691,303 +415,12 @@
 
     </script>
 
-    <!--  <script>
-        function onloadAll() {
-
-            //Initialize Select2 Elements
-            $('.select2').select2()
-
-            //Initialize Select2 Elements
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
-
-            //Datemask dd/mm/yyyy
-            $('#datemask').inputmask('dd/mm/yyyy', {
-                'placeholder': 'dd/mm/yyyy'
-            })
-            //Datemask2 mm/dd/yyyy
-            $('#datemask2').inputmask('mm/dd/yyyy', {
-                'placeholder': 'mm/dd/yyyy'
-            })
-            //Money Euro
-            $('[data-mask]').inputmask()
-
-            //Date picker
-            $('#reservationdate').datetimepicker({
-                format: 'L'
-            });
-
-            //Date and time picker
-            $('#reservationdatetime').datetimepicker({
-                icons: {
-                    time: 'far fa-clock'
-                }
-            });
-
-            //Date range picker
-            $('#reservation').daterangepicker()
-            //Date range picker with time picker
-            $('#reservationtime').daterangepicker({
-                timePicker: true,
-                timePickerIncrement: 30,
-                locale: {
-                    format: 'MM/DD/YYYY hh:mm A'
-                }
-            })
-            //Date range as a button
-            $('#daterange-btn').daterangepicker({
-                    ranges: {
-                        'Today': [moment(), moment()],
-                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                        'This Month': [moment().startOf('month'), moment().endOf('month')],
-                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                    },
-                    startDate: moment().subtract(29, 'days'),
-                    endDate: moment()
-                },
-                function(start, end) {
-                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-                }
-            )
-
-            //Timepicker
-            $('#timepicker').datetimepicker({
-                format: 'LT'
-            })
-
-            //Bootstrap Duallistbox
-            $('.duallistbox').bootstrapDualListbox()
-
-            //Colorpicker
-            $('.my-colorpicker1').colorpicker()
-            //color picker with addon
-            $('.my-colorpicker2').colorpicker()
-
-            $('.my-colorpicker2').on('colorpickerChange', function(event) {
-                $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
-            })
-
-            $("input[data-bootstrap-switch]").each(function() {
-                $(this).bootstrapSwitch('state', $(this).prop('checked'));
-            })
-
-
-            // BS-Stepper Init
-            document.addEventListener('DOMContentLoaded', function() {
-                window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-            })
-
-            // DropzoneJS Demo Code Start
-            Dropzone.autoDiscover = false
-
-            // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
-            var previewNode = document.querySelector("#template")
-            previewNode.id = ""
-            var previewTemplate = previewNode.parentNode.innerHTML
-            previewNode.parentNode.removeChild(previewNode)
-
-            var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-                url: "/target-url", // Set the url
-                thumbnailWidth: 80,
-                thumbnailHeight: 80,
-                parallelUploads: 20,
-                previewTemplate: previewTemplate,
-                autoQueue: false, // Make sure the files aren't queued until manually added
-                previewsContainer: "#previews", // Define the container to display the previews
-                clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
-            })
-
-            myDropzone.on("addedfile", function(file) {
-                // Hookup the start button
-                file.previewElement.querySelector(".start").onclick = function() {
-                    myDropzone.enqueueFile(file)
-                }
-            })
-
-            // Update the total progress bar
-            myDropzone.on("totaluploadprogress", function(progress) {
-                document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
-            })
-
-            myDropzone.on("sending", function(file) {
-                // Show the total progress bar when upload starts
-                document.querySelector("#total-progress").style.opacity = "1"
-                // And disable the start button
-                file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
-            })
-
-            // Hide the total progress bar when nothing's uploading anymore
-            myDropzone.on("queuecomplete", function(progress) {
-                document.querySelector("#total-progress").style.opacity = "0"
-            })
-
-            // Setup the buttons for all transfers
-            // The "add files" button doesn't need to be setup because the config
-            // `clickable` has already been specified.
-            document.querySelector("#actions .start").onclick = function() {
-                myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
-            }
-            document.querySelector("#actions .cancel").onclick = function() {
-                myDropzone.removeAllFiles(true)
-            }
-        }
-
-    </script>
-    <script>
-        $(function() {
-
-            //Initialize Select2 Elements
-            $('.select2').select2()
-
-            //Initialize Select2 Elements
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
-
-            //Datemask dd/mm/yyyy
-            $('#datemask').inputmask('dd/mm/yyyy', {
-                'placeholder': 'dd/mm/yyyy'
-            })
-            //Datemask2 mm/dd/yyyy
-            $('#datemask2').inputmask('mm/dd/yyyy', {
-                'placeholder': 'mm/dd/yyyy'
-            })
-            //Money Euro
-            $('[data-mask]').inputmask()
-
-            //Date picker
-            $('#reservationdate').datetimepicker({
-                format: 'L'
-            });
-
-            //Date and time picker
-            $('#reservationdatetime').datetimepicker({
-                icons: {
-                    time: 'far fa-clock'
-                }
-            });
-
-            //Date range picker
-            $('#reservation').daterangepicker()
-            //Date range picker with time picker
-            $('#reservationtime').daterangepicker({
-                timePicker: true,
-                timePickerIncrement: 30,
-                locale: {
-                    format: 'MM/DD/YYYY hh:mm A'
-                }
-            })
-            //Date range as a button
-            $('#daterange-btn').daterangepicker({
-                    ranges: {
-                        'Today': [moment(), moment()],
-                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                        'This Month': [moment().startOf('month'), moment().endOf('month')],
-                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                    },
-                    startDate: moment().subtract(29, 'days'),
-                    endDate: moment()
-                },
-                function(start, end) {
-                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-                }
-            )
-
-            //Timepicker
-            $('#timepicker').datetimepicker({
-                format: 'LT'
-            })
-
-            //Bootstrap Duallistbox
-            $('.duallistbox').bootstrapDualListbox()
-
-            //Colorpicker
-            $('.my-colorpicker1').colorpicker()
-            //color picker with addon
-            $('.my-colorpicker2').colorpicker()
-
-            $('.my-colorpicker2').on('colorpickerChange', function(event) {
-                $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
-            })
-
-            $("input[data-bootstrap-switch]").each(function() {
-                $(this).bootstrapSwitch('state', $(this).prop('checked'));
-            })
-
-        })
-        // BS-Stepper Init
-        document.addEventListener('DOMContentLoaded', function() {
-            window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-        })
-
-        // DropzoneJS Demo Code Start
-        Dropzone.autoDiscover = false
-
-        // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
-        var previewNode = document.querySelector("#template")
-        previewNode.id = ""
-        var previewTemplate = previewNode.parentNode.innerHTML
-        previewNode.parentNode.removeChild(previewNode)
-
-        var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-            url: "/target-url", // Set the url
-            thumbnailWidth: 80,
-            thumbnailHeight: 80,
-            parallelUploads: 20,
-            previewTemplate: previewTemplate,
-            autoQueue: false, // Make sure the files aren't queued until manually added
-            previewsContainer: "#previews", // Define the container to display the previews
-            clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
-        })
-
-        myDropzone.on("addedfile", function(file) {
-            // Hookup the start button
-            file.previewElement.querySelector(".start").onclick = function() {
-                myDropzone.enqueueFile(file)
-            }
-        })
-
-        // Update the total progress bar
-        myDropzone.on("totaluploadprogress", function(progress) {
-            document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
-        })
-
-        myDropzone.on("sending", function(file) {
-            // Show the total progress bar when upload starts
-            document.querySelector("#total-progress").style.opacity = "1"
-            // And disable the start button
-            file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
-        })
-
-        // Hide the total progress bar when nothing's uploading anymore
-        myDropzone.on("queuecomplete", function(progress) {
-            document.querySelector("#total-progress").style.opacity = "0"
-        })
-
-        // Setup the buttons for all transfers
-        // The "add files" button doesn't need to be setup because the config
-        // `clickable` has already been specified.
-        document.querySelector("#actions .start").onclick = function() {
-            myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
-        }
-        document.querySelector("#actions .cancel").onclick = function() {
-            myDropzone.removeAllFiles(true)
-        }
-        // DropzoneJS Demo Code End
-        
-        
-
-    </script> -->
     <script>
         jQuery.validator.setDefaults({
             debug: true,
             success: "valid"
         });
+        
         $('#stepOneForm').validate({
 
             rules: {
@@ -1018,61 +451,6 @@
         var tripId='${tripID}';
         console.log(tripId);
         
-        
-        
-        getLineItemData();
-        
-        function getLineItemData(){
-        	
-        	//var jsArray = [];
-            $('.loader').show();
-
-            $.ajax({
-                type: "GET",
-                data: JSON.stringify(tripId),
-                url: "<%=GlobalUrl.getLineItemDetails%>",
-                dataType: "json",
-                contentType: "application/json",
-                async: false,
-                success: function(data) {
-                    $('.loader').hide();
-                    if (data.msg == 'success') {
-
-                        var result = data.data;
-                        $('#prTable').DataTable().clear();
-                        
-                        for (var i = 0; i < result.length; i++) {
-                        	tabledata.row.add([result[i].tripID,
-                                result[i].route,
-                                result[i].runType,
-                                result[i].standardKM,
-                                result[i].ratePerKm,
-                                result[i].currentFuelRate,
-                                result[i].fsBaseRate,
-								result[i].fsDiff,
-								result[i].basicFreight,
-								result[i].fs,
-								result[i].totalFreight,
-								result[i].totalFreight,
-								result[i].totalFreight
-								]);
-                        }
-                       // DataTable.draw();
-                        $('#prTable').DataTable().draw();
-                        $("tbody").show();
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed.. Try Again..'
-                        })
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-            });        }
-        
-        
         function sendToServer() {
 
             /* var lineItemArray = [];
@@ -1093,13 +471,12 @@
             //$body.addClass("loading");
 
             var stepOneObj = FormDataToJSON('stepOneForm');
-            var stepTwoObj = FormDataToJSON('stepTwoForm');
+            //var stepTwoObj = FormDataToJSON('stepTwoForm');
             var stepThreeObj = FormDataToJSON('stepThreeForm');
             //var step7Obj = FormDataToJSON('stepSevenForm');
 
             const finalObj = {
                 ...stepOneObj,
-                ...stepTwoObj,
                 ...stepThreeObj
 
             };

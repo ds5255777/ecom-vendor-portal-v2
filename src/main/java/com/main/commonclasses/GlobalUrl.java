@@ -23,6 +23,7 @@ public class GlobalUrl {
 	
 	public static String getAllTripsDetails=tripControllers+"/getAllTripsDetails";
 	public static String getCloseTripsDetails=tripControllers+"/getCloseTripsDetails";
+	public static String getCloseAndApprovedTripsDetails=tripControllers+"/getCloseAndApprovedTripsDetails";
 	public static String getInTransitTripsDetails=tripControllers+"/getInTransitTripsDetails";
 	public static String getPendingApprovelTripsDetails=tripControllers+"/getPendingApprovelTripsDetails";
 	public static String updateVendorTripStatusByTripId=tripControllers+"/updateVendorTripStatusByTripId";

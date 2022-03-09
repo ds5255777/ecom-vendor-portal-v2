@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.RolesEntity;
@@ -34,7 +35,7 @@ import com.main.serviceManager.ServiceManager;
 
 @Controller
 public class UIController {
-	
+
 	@Value("${maxFileSize}")
 	public String maxFileSize;
 
@@ -46,7 +47,7 @@ public class UIController {
 
 	@Autowired
 	TripDetailsRepo tripDetailsRepo;
-	
+
 	@Autowired
 	InvoiceDetailsRepo invoiceDetailsRepo;
 
@@ -76,9 +77,9 @@ public class UIController {
 
 	@GetMapping("/registration")
 	public String registration(Model model) {
-		
+
 		model.addAttribute("maxFileSize", maxFileSize);
-		
+
 		/*
 		 * String regNo="ECOM-".concat(new
 		 * SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
@@ -321,22 +322,21 @@ public class UIController {
 	}
 
 	@GetMapping({ "/", "/dashboard" })
-	public String dashboard(Model model,Principal principal, String error, String logout, HttpServletRequest request) {
+	public String dashboard(Model model, Principal principal, String error, String logout, HttpServletRequest request) {
 		String actionType = "View";
 		String action = "Viewed DashBoard";
 		String rolename = (String) request.getSession().getAttribute("role");
 
 		User us = userService.findByUsername(principal.getName());
 
-
 		int totalTripCount = tripDetailsRepo.getTripCount();
 		int TotalCloseTripCount = tripDetailsRepo.getCloseTripCount();
 		int TotalInTransitTripCount = tripDetailsRepo.getInTransitTripCount();
-		int TotalApprovedAdHocTrips= tripDetailsRepo.getApproveAdHocTripCount();
-		
-		int pendingInvoice=invoiceDetailsRepo.getPendingInvoiceCount();
-		int approveInvoice=invoiceDetailsRepo.getApproveInvoiceCount();
-		int rejectInvoice=invoiceDetailsRepo.getRejecteInvoiceCount();
+		int TotalApprovedAdHocTrips = tripDetailsRepo.getApproveAdHocTripCount();
+
+		int pendingInvoice = invoiceDetailsRepo.getPendingInvoiceCount();
+		int approveInvoice = invoiceDetailsRepo.getApproveInvoiceCount();
+		int rejectInvoice = invoiceDetailsRepo.getRejecteInvoiceCount();
 
 		model.addAttribute("role", rolename);
 		model.addAttribute("totalTripCount", totalTripCount);
@@ -346,9 +346,9 @@ public class UIController {
 		model.addAttribute("approveInvoice", approveInvoice);
 		model.addAttribute("rejectInvoice", rejectInvoice);
 		model.addAttribute("TotalApprovedAdHocTrips", TotalApprovedAdHocTrips);
-		
+
 		model.addAttribute("userStatus", us.getStatus());
-		//System.out.println("User Status : "+us.getStatus());
+		// System.out.println("User Status : "+us.getStatus());
 
 		return "dashboard";
 	}
@@ -367,7 +367,7 @@ public class UIController {
 		return "addUsers";
 
 	}
-	
+
 	@GetMapping({ "/emailConfig" })
 	public String emailConfig(Model model, String error, String logout, HttpServletRequest request) {
 
@@ -406,7 +406,7 @@ public class UIController {
 
 		return "allTrips";
 	}
-	
+
 	@GetMapping("/tripDetailsView")
 	public String tripDetailsView(Model model, Principal principal, HttpServletRequest request) {
 
@@ -426,7 +426,7 @@ public class UIController {
 
 		return "closedTrips";
 	}
-	
+
 	@GetMapping("/closedAndApprovedTrips")
 	public String closedAndApprovedTrips(Model model, Principal principal) {
 
@@ -462,26 +462,34 @@ public class UIController {
 
 		return "approvedInvoice";
 	}
-	
+
 	@GetMapping("/pendingInvoice")
 	public String pendingInvoice(Model model, Principal principal) {
-		
+
 		return "pendingInvoice";
 	}
-	
+
 	@GetMapping("/tripsInvoiceGenerate")
-	public String tripsInvoiceGenerate(Model model, Principal principal, HttpServletRequest request) {
+	@ResponseBody
+	public ModelAndView tripsInvoiceGenerate(Principal principal, HttpServletRequest request) {
 
 		String tripId = request.getParameter("id");
-		
-		//List<TripDetails> listOfLineItem = tripDetailsRepo.findByTripIDIn(tripId);
-		
-		//model.addAttribute("tripId", listOfLineItem);
-		
-		System.out.println("tripId ........."+tripId);
-		
-		
-		return "tripsInvoiceGenerate";
-	}
 
+		tripId = tripId.replaceAll(",", " ");
+		
+		String[] split = tripId.split(" ");
+
+		ModelAndView modelAndView = new ModelAndView("tripsInvoiceGenerate");
+		List<Object> listof = new ArrayList<>();
+		TripDetails findByTripID = null;
+		try {
+			for (String str : split) {
+				findByTripID = tripDetailsRepo.findByTripID(str);
+				listof.add(findByTripID);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return modelAndView.addObject("listof", listof);
+	}
 }

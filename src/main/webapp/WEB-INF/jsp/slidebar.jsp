@@ -25,37 +25,6 @@
                     </a>
                     <hr>
                 </li>
-               <%--  <li class="nav-item has-treeview"><a href="#" class="nav-link">
-						<i class="nav-icon fas fa-circle"></i>
-						<p>
-							Admin <i class="right fas fa-angle-left"></i>
-						</p>
-				</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item"><a href="addUsers"
-							class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("addUsers")) {
-				out.print("active");
-			}%>
-
-                ">
-                <i class="nav-icon fas fa-user"></i>
-                <p>Users</p>
-                </a></li>
-            </ul>
-            <ul class="nav nav-treeview">
-                <li class="nav-item"><a href="emailConfig" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("emailConfig")) {
-				out.print("active");
-			}%>                            
-                            ">
-                        <i class="nav-icon fas fa-envelope"></i>
-                        <p>Email Configuration</p>
-                    </a></li>
-            </ul>
-            <hr>
-            </li> --%>
-
             <li class="nav-item has-treeview"><a href="#" class="nav-link">
                     <i class="nav-icon fas fa-truck"></i>
                     <p>
@@ -225,33 +194,40 @@
                     <i class="nav-icon fas fa-chart-bar"></i>
                     <p>Reports</p>
                 </a></li>
+                
+                 <%-- <li class="nav-item has-treeview"><a href="#" class="nav-link">
+						<i class="nav-icon fas fa-circle"></i>
+						<p>
+							Admin <i class="right fas fa-angle-left"></i>
+						</p>
+				</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item"><a href="addUsers"
+							class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("addUsers")) {
+				out.print("active");
+			}%>
 
-
-            <%-- <li class="nav-item"><a
-					href="${pageContext.request.contextPath}/invoicesQueue"
-					class="nav-link 
-                       <% if (request.getParameter("pagename").equalsIgnoreCase("invoicesQueue")) {
-                               out.print("active");
-                           }%>
-            ">
-            <i class="nav-icon fas fa-circle"> </i>
-            <p>Invoices Queue</p>
-            </a>
+                ">
+                <i class="nav-icon fas fa-user"></i>
+                <p>Users</p>
+                </a></li>
+            </ul>
+            <ul class="nav nav-treeview">
+                <li class="nav-item"><a href="emailConfig" class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("emailConfig")) {
+				out.print("active");
+			}%>                            
+                            ">
+                        <i class="nav-icon fas fa-envelope"></i>
+                        <p>Email Configuration</p>
+                    </a></li>
+            </ul>
             <hr>
             </li> --%>
 
-            <%-- <li class="nav-item"><a
-					href="${pageContext.request.contextPath}/"
-					class="nav-link 
-                       <% if (request.getParameter("pagename").equalsIgnoreCase("allTrips")) {
-                               out.print("active");
-                           }%>
-            ">
-            <i class="nav-icon fas fa-circle"> </i>
-            <p>All Trips</p>
-            </a>
-            <hr>
-            </li> --%>
+
+            
             </ul>
         </nav>
     </div>

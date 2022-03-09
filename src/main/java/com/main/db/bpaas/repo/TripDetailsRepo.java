@@ -16,17 +16,6 @@ import com.main.db.bpaas.entity.TripDetails;
 @Repository
 public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
-	/* Find all records
-	 * @Query(value =
-	 * "select t.id, t.trip_id, t.route, t.run_type, t.run_status, t.status, t.actual_departure, t.actual_km, t.origin_hub, t.dest_hub, t.payment_status from trip_details as t"
-	 * , nativeQuery = true) List<TripDetails> getAllTrips();
-	 */
-
-//	@Query(value = "select  * from Trip_Details as e WHERE e.trip_id IN (:tripID)", nativeQuery = true)
-//	List<TripDetails> getSelectLineItem(@Param("tripID") List<String> tripID);
-	
-	List<TripDetails> findByTripIDIn(List<TripDetails> trip);
-
 	@Query(value = "select * from Trip_Details where trip_id=?", nativeQuery = true)
 	List<TripDetails> getTripDetailsById(String id);
 
@@ -56,11 +45,11 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
 	@Query(value = "select * from Trip_Details where run_status='In-Transit'", nativeQuery = true)
 	List<TripDetails> getAllInTransitTrip();
-	
-	@Query(value = "select * from Trip_Details where run_status='In-Transit' and ", nativeQuery = true)
-	List<TripDetails> getAllClosedAndApproved();
 
-	@Query(value = "select * from trip_details where run_type='Adhoc' and vendor_trip_status='Pending'", nativeQuery = true)
+//	@Query(value = "select * from Trip_Details where run_status='In-Transit' and ", nativeQuery = true)
+//	List<TripDetails> getAllClosedAndApproved();
+
+	@Query(value = "select * from trip_details where run_type='Adhoc' and vendor_trip_status='Yet To Be Approved'", nativeQuery = true)
 	List<TripDetails> getAllPendingTrip();
 
 	@Transactional
@@ -72,12 +61,13 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	List<TripDetails> getTripIdbyTripDetail(@Param("tripID") String tripID);
 
 	TripDetails findByTripID(String tripID);
-	
-	//List<TripDetails> findByBetweenActualArrivalDate(String startDate, String EndDate);
-//
-//	@Query(value = "SELECT * FROM trip_details WHERE actual_arrival BETWEEN :actualDeparture AND :actualArrival ; ", nativeQuery = true)
-//	List<TripDetails> getDateFilterTripsdetails(@Param("actualArrival") String actualArrival,@Param("actualDeparture")String actualDeparture);
-	
-	List<TripDetails> findByActualDepartureBetween(@Param("startDate") String startDate,@Param("endDate")String endDate);
-	
+
+	List<TripDetails> findByActualDepartureBetween(@Param("startDate") String startDate,@Param("endDate") String endDate);
+
+	@Query(value = "select  * from trip_details  where trip_id IN(:tripID)", nativeQuery = true)
+	List<TripDetails> findByTripIDIn(@Param("tripID") String[] tripID);
+
+	@Query(value = "select * from trip_details where run_status='Closed' and vendor_trip_status='Approved'",nativeQuery=true)
+	List<TripDetails> getAllCloseAndApproveTrip();
+
 }

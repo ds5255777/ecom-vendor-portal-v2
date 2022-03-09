@@ -52,7 +52,7 @@ public class TripDetails {
 	private String standardPayloadCapacity;
 
 	@Column(name = "run_status")
-	private String runStatus;//Closed, In-Transit
+	private String runStatus;// Closed, In-Transit
 
 	@Column(name = "origin_hub")
 	private String originHub;
@@ -64,10 +64,10 @@ public class TripDetails {
 	private String destHub;
 
 	@Column(name = "actual_departure")
-	private Date actualDeparture;
+	private String actualDeparture;
 
 	@Column(name = "actual_arrival")
-	private Date actualArrival;
+	private String actualArrival;
 
 	@Column(name = "actual_km")
 	private Double actualKM;
@@ -123,7 +123,7 @@ public class TripDetails {
 
 	@Column(name = "assign_to")
 	private String assignTo;// network Team, Vendor
-	
+
 	@OneToMany(targetEntity = QueryEntity.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "trip_query_fk", referencedColumnName = "id")
 	private List<AccountDetails> accountDetails;
@@ -256,19 +256,19 @@ public class TripDetails {
 		this.destHub = destHub;
 	}
 
-	public Date getActualDeparture() {
+	public String getActualDeparture() {
 		return actualDeparture;
 	}
 
-	public void setActualDeparture(Date actualDeparture) {
+	public void setActualDeparture(String actualDeparture) {
 		this.actualDeparture = actualDeparture;
 	}
 
-	public Date getActualArrival() {
+	public String getActualArrival() {
 		return actualArrival;
 	}
 
-	public void setActualArrival(Date actualArrival) {
+	public void setActualArrival(String actualArrival) {
 		this.actualArrival = actualArrival;
 	}
 
@@ -422,6 +422,40 @@ public class TripDetails {
 
 	public void setAccountDetails(List<AccountDetails> accountDetails) {
 		this.accountDetails = accountDetails;
+	}
+
+	@Override
+	public String toString() {
+		return "TripDetails [id=" + id + ", tripID=" + tripID + ", vendorCode=" + vendorCode + ", route=" + route
+				+ ", runType=" + runType + ", mode=" + mode + ", vehicleNumber=" + vehicleNumber + ", vendorName="
+				+ vendorName + ", actualVechicleType=" + actualVechicleType + ", standardShipmentCapacity="
+				+ standardShipmentCapacity + ", standardPayloadCapacity=" + standardPayloadCapacity + ", runStatus="
+				+ runStatus + ", originHub=" + originHub + ", originRegion=" + originRegion + ", destHub=" + destHub
+				+ ", actualDeparture=" + actualDeparture + ", actualArrival=" + actualArrival + ", actualKM=" + actualKM
+				+ ", standardKM=" + standardKM + ", mileage=" + mileage + ", ratePerKm=" + ratePerKm + ", routeKms="
+				+ routeKms + ", fsBaseRate=" + fsBaseRate + ", currentFuelRate=" + currentFuelRate + ", fsDiff="
+				+ fsDiff + ", basicFreight=" + basicFreight + ", fs=" + fs + ", totalFreight=" + totalFreight
+				+ ", openingReading=" + openingReading + ", closingReading=" + closingReading + ", ActualShipment="
+				+ ActualShipment + ", ActualChargeableWeight=" + ActualChargeableWeight + ", vendorTripStatus="
+				+ vendorTripStatus + ", paymentStatus=" + paymentStatus + ", assignTo=" + assignTo + ", accountDetails="
+				+ accountDetails + ", getId()=" + getId() + ", getTripID()=" + getTripID() + ", getVendorCode()="
+				+ getVendorCode() + ", getRoute()=" + getRoute() + ", getRunType()=" + getRunType() + ", getMode()="
+				+ getMode() + ", getVehicleNumber()=" + getVehicleNumber() + ", getVendorName()=" + getVendorName()
+				+ ", getActualVechicleType()=" + getActualVechicleType() + ", getStandardShipmentCapacity()="
+				+ getStandardShipmentCapacity() + ", getStandardPayloadCapacity()=" + getStandardPayloadCapacity()
+				+ ", getRunStatus()=" + getRunStatus() + ", getOriginHub()=" + getOriginHub() + ", getOriginRegion()="
+				+ getOriginRegion() + ", getDestHub()=" + getDestHub() + ", getActualDeparture()="
+				+ getActualDeparture() + ", getActualArrival()=" + getActualArrival() + ", getActualKM()="
+				+ getActualKM() + ", getStandardKM()=" + getStandardKM() + ", getMileage()=" + getMileage()
+				+ ", getRatePerKm()=" + getRatePerKm() + ", getRouteKms()=" + getRouteKms() + ", getFsBaseRate()="
+				+ getFsBaseRate() + ", getCurrentFuelRate()=" + getCurrentFuelRate() + ", getFsDiff()=" + getFsDiff()
+				+ ", getBasicFreight()=" + getBasicFreight() + ", getFs()=" + getFs() + ", getTotalFreight()="
+				+ getTotalFreight() + ", getOpeningReading()=" + getOpeningReading() + ", getClosingReading()="
+				+ getClosingReading() + ", getActualShipment()=" + getActualShipment()
+				+ ", getActualChargeableWeight()=" + getActualChargeableWeight() + ", getVendorTripStatus()="
+				+ getVendorTripStatus() + ", getPaymentStatus()=" + getPaymentStatus() + ", getAssignTo()="
+				+ getAssignTo() + ", getAccountDetails()=" + getAccountDetails() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 
 }

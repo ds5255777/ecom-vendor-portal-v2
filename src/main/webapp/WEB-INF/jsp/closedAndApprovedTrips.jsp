@@ -482,14 +482,14 @@
             });
 
             var tabledata = $('#tabledata').DataTable({
-            	"paging": true,
+            	"paging": false,
                 "lengthChange": false,
                 "searching": false,
                 "info": true,
                 "autoWidth": false,
                 "aaSorting": [],
                 "scrollX": true,
-                "pageLength": 15,
+                //"pageLength": 15,
             });
 
             $(function() {
@@ -553,7 +553,7 @@
                         arr.push(table.rows[r].cells[1].innerText);
                 } 
                 let values = arr.toString();
-                console.log(values);
+                console.log("All Trip Ids : ",values);
                 
                 $('.loader').show();
                 
@@ -574,7 +574,7 @@
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify(jsArray),
-                    url: "<%=GlobalUrl.getCloseTripsDetails%>",
+                    url: "<%=GlobalUrl.getCloseAndApprovedTripsDetails%>",
                     dataType: "json",
                     contentType: "application/json",
                     async: false,

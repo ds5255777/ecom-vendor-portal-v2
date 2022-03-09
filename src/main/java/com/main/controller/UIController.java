@@ -28,7 +28,6 @@ import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.RolesEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.entity.User;
-import com.main.db.bpaas.repo.InvoiceDetailsRepo;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
 import com.main.service.UserService;
@@ -48,9 +47,6 @@ public class UIController {
 
 	@Autowired
 	TripDetailsRepo tripDetailsRepo;
-
-	@Autowired
-	InvoiceDetailsRepo invoiceDetailsRepo;
 
 	@Autowired
 	InvoiceGenerationEntityRepo invoiceGenerationEntityRepo;

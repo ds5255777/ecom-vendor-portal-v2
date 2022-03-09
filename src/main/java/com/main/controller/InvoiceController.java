@@ -11,17 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
-import com.main.db.bpaas.entity.InvoiceDetails;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
-import com.main.db.bpaas.entity.InvoiceLineItem;
-import com.main.db.bpaas.entity.TripDetails;
-import com.main.db.bpaas.repo.InvoiceDetailsRepo;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.InvoiceLineItemRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
@@ -30,126 +25,124 @@ import com.main.db.bpaas.repo.TripDetailsRepo;
 @RestController
 public class InvoiceController {
 
-	@Autowired
-	private InvoiceDetailsRepo invoiceDetailsRepo;
-	
+//	@Autowired
+//	private InvoiceDetailsRepo invoiceDetailsRepo;
+
 	@Autowired
 	private InvoiceGenerationEntityRepo invoiceGenerationEntityRepo;
-	
+
 	@Autowired
 	private TripDetailsRepo tripDetailsRepo;
-	
-	@Autowired
-	private InvoiceGenerationEntityRepo invoiceGenerationEntityrepo;
-	
+
 	@Autowired
 	private InvoiceLineItemRepo invoiceLineItemRepo;
-	
+
 	@RequestMapping({ "/getAllInvoice" })
 	@CrossOrigin("*")
 	public String getAllInvoice(HttpServletRequest request, @RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
-		
+
 		DataContainer data = new DataContainer();
-		
+
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllInvoice();
-			
+
 			data.setData(pandingInvoice);
 			data.setMsg("success");
-			
+
 		} catch (Exception e) {
 			data.setMsg("error");
 			e.printStackTrace();
 		}
-		
+
 		return gson.toJson(data).toString();
 	}
-	
+
 	@RequestMapping({ "/getAllPendingInvoice" })
 	@CrossOrigin("*")
-	public String getAllPendingInvoice(HttpServletRequest request, @RequestBody List<InvoiceDetails> invoiceDetails) {
-		
+	public String getAllPendingInvoice(HttpServletRequest request, @RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
+
 		DataContainer data = new DataContainer();
-		
+
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceDetails> pandingInvoice = invoiceDetailsRepo.getAllPendingInvoice();
-			
+			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllProcessedInvoice();
+
 			data.setData(pandingInvoice);
 			data.setMsg("success");
-			
+
 		} catch (Exception e) {
 			data.setMsg("error");
 			e.printStackTrace();
 		}
-		
+
 		return gson.toJson(data).toString();
 	}
-	
+
 	@RequestMapping({ "/getAllApproveInvoice" })
 	@CrossOrigin("*")
-	public String getAllApproveInvoice(HttpServletRequest request, @RequestBody List<InvoiceDetails> invoiceDetails) {
-		
+	public String getAllApproveInvoice(HttpServletRequest request, @RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
+
 		DataContainer data = new DataContainer();
-		
+
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceDetails> pandingInvoice = invoiceDetailsRepo.getAllApproveInvoice();
-			
+			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllApproveInvoice();
+
 			data.setData(pandingInvoice);
 			data.setMsg("success");
-			
+
 		} catch (Exception e) {
 			data.setMsg("error");
 			e.printStackTrace();
 		}
-		
+
 		return gson.toJson(data).toString();
 	}
-	
+
 	@RequestMapping({ "/getAllRejectInvoice" })
 	@CrossOrigin("*")
-	public String getAllRejectInvoice(HttpServletRequest request, @RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
-		
+	public String getAllRejectInvoice(HttpServletRequest request,
+			@RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
+
 		DataContainer data = new DataContainer();
-		
+
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceDetails> pandingInvoice = invoiceDetailsRepo.getAllRejectInvoice();
-			
+			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllRejectInvoice();
+
 			data.setData(pandingInvoice);
 			data.setMsg("success");
-			
+
 		} catch (Exception e) {
 			data.setMsg("error");
 			e.printStackTrace();
 		}
-		
+
 		return gson.toJson(data).toString();
 	}
-	
+
 	@RequestMapping({ "/getAllInvoiceToBilling" })
 	@CrossOrigin("*")
 	public String getMonthallyInvoice(HttpServletRequest request) {
-		
+
 		DataContainer data = new DataContainer();
-		
+
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceDetails> pandingInvoice = invoiceDetailsRepo.getAllRejectInvoice();
-			
+			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllRejectInvoice();
+
 			data.setData(pandingInvoice);
 			data.setMsg("success");
-			
+
 		} catch (Exception e) {
 			data.setMsg("error");
 			e.printStackTrace();
 		}
-		
+
 		return gson.toJson(data).toString();
 	}
-	
+
 	/*
 	 * @RequestMapping({ "/getLineItemDetails" })
 	 * 
@@ -169,8 +162,7 @@ public class InvoiceController {
 	 * 
 	 * return gson.toJson(data).toString(); }
 	 */
-	
-	
+
 	@RequestMapping("/saveInvoice")
 	public String saveInvoice(@RequestBody InvoiceGenerationEntity obj) {
 
@@ -180,7 +172,7 @@ public class InvoiceController {
 		try {
 			String filePath = "C:/1.BPAAS/Invoice/" + obj.getInvoiceNumber();
 			String fullFilePathWithName = "";
-			
+
 			System.out.println(filePath);
 
 			System.out.println("getCICFileName : " + obj.getInvoiceFileName());
@@ -195,8 +187,7 @@ public class InvoiceController {
 				// Creating the directory
 //				boolean bool = 
 //				System.out.println("vdsvsv " + bool);
-				fullFilePathWithName = filePath + "/" + "Invoice-"
-						+ obj.getInvoiceFileName();
+				fullFilePathWithName = filePath + "/" + "Invoice-" + obj.getInvoiceFileName();
 //				File file = new File(filePath);
 				System.out.println(fullFilePathWithName);
 
@@ -212,7 +203,7 @@ public class InvoiceController {
 					e.printStackTrace();
 				}
 			}
-			
+
 			System.out.println("Pan File Name : " + obj.getDocumentFileOneName());
 
 			if (null != obj.getDocumentFileOneName()) {
@@ -231,7 +222,7 @@ public class InvoiceController {
 					e.printStackTrace();
 				}
 			}
-			
+
 			System.out.println("Pan File Name : " + obj.getDocumentFileTwoName());
 
 			if (null != obj.getDocumentFileTwoName()) {
@@ -251,10 +242,10 @@ public class InvoiceController {
 				}
 			}
 
-			//InvoiceLineItem  lineItemSaved= invoiceLineItemRepo.save(lineItemObj);
-				obj.setInvoiceStatus("Processed");
+			// InvoiceLineItem lineItemSaved= invoiceLineItemRepo.save(lineItemObj);
+			obj.setInvoiceStatus("Processed");
 
-			obj = invoiceGenerationEntityrepo.save(obj);
+			obj = invoiceGenerationEntityRepo.save(obj);
 
 			data.setData(obj);
 			data.setMsg("success");
@@ -269,5 +260,4 @@ public class InvoiceController {
 
 	}
 
-	
 }

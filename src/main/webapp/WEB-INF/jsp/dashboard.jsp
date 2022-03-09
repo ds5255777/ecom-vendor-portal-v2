@@ -299,7 +299,7 @@
     <!-- ./wrapper -->
     
     <!-- Modal -->
-        <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -324,7 +324,37 @@
                     </div>
                 </div>
             </div>
+        </div> -->
+        
+        <form role="form" id="changePassword1" autocomplete="off">
+        <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">New Password</label>
+                            <input type="hidden" id="passflag">
+                            <input type="password" class="form-control p-input" id="password" name="password" placeholder="New Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Confirm Password </label>
+                            <input type="password" class="form-control p-input" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm Password" >
+                        </div>
+                        <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="changePasswordButton" class="btn btn-primary" onclick="changePassword(document.getElementById('passwordConfirm').value)" disabled>Change Password</button>
+                    </div>
+                </div>
+            </div>
         </div>
+        </form>
 
     <!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
@@ -368,6 +398,8 @@
 	<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
 	<script src="plugins/toastr/toastr.min.js"></script>
+	<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+	<script src="plugins/jquery-validation/additional-methods.min.js"></script>
 		<script>
             $(document).ready(function () {
                 //console.log(${userStatus});
@@ -375,8 +407,34 @@
                     $('#changePassword').modal('show');
                 }
             });
+            
+            
+            $('#changePassword1').validate({
+                rules: {
+                	password: {
+                        required: true
+                    },
+                    passwordConfirm: {
+                        required: true
+                    }
+                },
+	             errorElement: 'span',
+	            errorPlacement: function(error, element) {
+	                error.addClass('invalid-feedback');
+	                element.closest('.form-group').append(error);
+	            },
+	            highlight: function(element, errorClass, validClass) {
+	                $(element).addClass('is-invalid');
+	                document.getElementById("passflag").value ="1";
+	                
+	            },
+	            unhighlight: function(element, errorClass, validClass) {
+	                $(element).removeClass('is-invalid');
+	                document.getElementById("passflag").value ="0";
+	            } 
+       		 });
              
-            $(function() {
+           /*  $(function() {
                 $("#passwordConfirm").keyup(function() {
                     var password = $("#password").val();
                     if ($('#password').val() == $('#passwordConfirm').val()) {
@@ -393,6 +451,29 @@
                   //  $("#divCheckPasswordMatch").html(password == $(this).val() ? "Passwords match." : "Passwords do not match!");
                 });
 
+            });  */
+            
+            $(function() {
+                $("#passwordConfirm").keyup(function() {
+                    var password = $("#password").val();
+                    var passwordConfirm = $("#passwordConfirm").val();
+                    var passflag = $("#passflag").val();
+                    
+                   
+                     if ($('#password').val() == $('#passwordConfirm').val() && passflag!="1" ) {
+            		    $('#divCheckPasswordMatch').html('Passwords match.').css('color', 'green');
+            		    // Enable #x	
+            		    $("#changePasswordButton").prop("disabled", false)
+            		    
+            		  } 
+                     else {
+            		    $('#divCheckPasswordMatch').html('Passwords do not match!').css('color', 'red');
+                 // Disable #x
+        		    $('#changePasswordButton').attr('disabled', true);
+                    return;
+            		  }
+                  //  $("#divCheckPasswordMatch").html(password == $(this).val() ? "Passwords match." : "Passwords do not match!");
+                });
             }); 
             
             const Toast = Swal.mixin({

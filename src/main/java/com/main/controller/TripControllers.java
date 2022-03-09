@@ -44,20 +44,28 @@ public class TripControllers {
 
 	@RequestMapping({ "filterTripDetails" })
 	@CrossOrigin("*")
-	public String filterTripDetails(@RequestParam(name="actualDeparture") String fromDate, @RequestParam(name="actualArrival") String toDate) {
-		
+	public String filterTripDetails(@RequestParam(name = "actualDeparture") String fromDate,
+			@RequestParam(name = "actualArrival") String toDate) {
+
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			System.out.println(fromDate);
 			System.out.println(toDate);
+
+			String startData = fromDate + " " + "00:00:00";
+			String endDate = toDate + " " + "23:59:59";
 			
-			List<TripDetails> getListByDateFilter = tripDetailsRepo.findByActualDepartureBetween(fromDate, toDate);
-			//List<TripDetails> getListByDateFilter = tripDetailsRepo.findByBetweenActualArrivalDate(fromDate, toDate);
-			getListByDateFilter.forEach(w->{
-				System.out.println("all data"+w);
+			System.out.println(startData);
+			System.out.println(endDate);
+
+			List<TripDetails> getListByDateFilter = tripDetailsRepo.findByActualDepartureBetween(startData, endDate);
+			// List<TripDetails> getListByDateFilter =
+			// tripDetailsRepo.findByBetweenActualArrivalDate(fromDate, toDate);
+			getListByDateFilter.forEach(w -> {
+				System.out.println("all data" + w);
 			});
-			
+
 			System.out.println(getListByDateFilter);
 			data.setData(getListByDateFilter);
 			data.setMsg("success");
@@ -109,7 +117,6 @@ public class TripControllers {
 
 		return gson.toJson(data).toString();
 	}
-	
 
 	@RequestMapping({ "/getCloseAndApprovedTripsDetails" })
 	@CrossOrigin("*")
@@ -209,19 +216,19 @@ public class TripControllers {
 					+ " e.dest_hub as destHub, e.payment_status as paymentStatus "
 					+ " from Trip_Details e where  1=1  ";
 
-			System.out.println("Query is :"+sql);
+			System.out.println("Query is :" + sql);
 			if (!"".equalsIgnoreCase(obj.getVendorTripStatus())) {
-				System.out.println("Vendor Trip Status "+obj.getVendorTripStatus());
+				System.out.println("Vendor Trip Status " + obj.getVendorTripStatus());
 				sql += " and vendor_trip_status='" + obj.getVendorTripStatus() + "' ";
 				System.out.println(sql);
 			}
 			if (!"".equalsIgnoreCase(obj.getRunStatus())) {
-				System.out.println("getRunStatus "+obj.getRunStatus());
+				System.out.println("getRunStatus " + obj.getRunStatus());
 				sql += " and run_status='" + obj.getRunStatus() + "' ";
 				System.out.println(sql);
 			}
 			if (!"".equalsIgnoreCase(obj.getPaymentStatus())) {
-				System.out.println("getPaymentStatus "+obj.getPaymentStatus());
+				System.out.println("getPaymentStatus " + obj.getPaymentStatus());
 				sql += " and payment_status='" + obj.getPaymentStatus() + "' ";
 				System.out.println(sql);
 			}
@@ -293,9 +300,10 @@ public class TripControllers {
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			 //tripDetailsRepo.getTripIdbyTripDetail(tripObj.getTripID());
+			// tripDetailsRepo.getTripIdbyTripDetail(tripObj.getTripID());
 
-			//queryObj.setRaisedOn(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			// queryObj.setRaisedOn(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new
+			// Date()));
 
 			queryObj = queryRepo.save(queryObj);
 

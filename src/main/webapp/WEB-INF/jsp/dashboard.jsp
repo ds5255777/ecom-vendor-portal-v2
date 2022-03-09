@@ -153,7 +153,7 @@
                                     <h2>${pendingInvoice}</h2>
 
                                     <p id="invdue" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
-                                        Pending Invoices</p>
+                                        Process Invoices</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-file-invoice-dollar" style="color: #1F8BFF; font-size: 50px;"></i>

@@ -159,8 +159,8 @@
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Payment Currency</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Payment Method</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Route Name</th>
+                                               <!--  <th style="padding: 5px 5px 5px 1.5rem;">Payment Method</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Route Name</th> -->
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Vehicle Number</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Invoice Status</th>
                                                 <!-- <th  style="padding: 5px 5px 5px 1.5rem;">View</th>
@@ -262,7 +262,7 @@
                                 //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].siteQualityId + "','" + result[i].checkListId + "','"+result[i].url+"')\"><i class='fa fa-eye ' ></i></button>";
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "')\" >" + result[i].invoiceNumber + "</button>";
 
-                                tabledata.row.add([view, result[i].supplierName, result[i].supplierNumber, result[i].invoiceDate, result[i].invoiceAmount, result[i].paymentCurrency, result[i].paymentMethod, result[i].routeName, result[i].vehicleNumber, result[i].invoiceStatus]);
+                                tabledata.row.add([view, result[i].suppName, result[i].bpCode, result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceCurrency,  result[i].vehicleNumber, result[i].invoiceStatus]);
                             }
                             tabledata.draw();
                             $("tbody").show();

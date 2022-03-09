@@ -19,25 +19,31 @@ import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.InvoiceDetails;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
+import com.main.db.bpaas.entity.InvoiceLineItem;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.repo.InvoiceDetailsRepo;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
+import com.main.db.bpaas.repo.InvoiceLineItemRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
 
 @RequestMapping("/invoiceController")
 @RestController
 public class InvoiceController {
 
+	@Autowired
+	private InvoiceDetailsRepo invoiceDetailsRepo;
 	
 	@Autowired
-	private InvoiceGenerationEntityRepo invoiceDetailsRepo;
+	private InvoiceGenerationEntityRepo invoiceGenerationEntityRepo;
 	
 	@Autowired
 	private TripDetailsRepo tripDetailsRepo;
 	
-	
 	@Autowired
 	private InvoiceGenerationEntityRepo invoiceGenerationEntityrepo;
+	
+	@Autowired
+	private InvoiceLineItemRepo invoiceLineItemRepo;
 	
 	@RequestMapping({ "/getAllInvoice" })
 	@CrossOrigin("*")
@@ -47,7 +53,7 @@ public class InvoiceController {
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceDetails> pandingInvoice = invoiceDetailsRepo.getAllInvoice();
+			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllInvoice();
 			
 			data.setData(pandingInvoice);
 			data.setMsg("success");
@@ -104,7 +110,7 @@ public class InvoiceController {
 	
 	@RequestMapping({ "/getAllRejectInvoice" })
 	@CrossOrigin("*")
-	public String getAllRejectInvoice(HttpServletRequest request, @RequestBody List<InvoiceDetails> invoiceDetails) {
+	public String getAllRejectInvoice(HttpServletRequest request, @RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
 		
 		DataContainer data = new DataContainer();
 		
@@ -172,7 +178,7 @@ public class InvoiceController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
 		try {
-			String filePath = "D:/1.BPAAS/Invoice/" + obj.getInvoiceNumber();
+			String filePath = "C:/1.BPAAS/Invoice/" + obj.getInvoiceNumber();
 			String fullFilePathWithName = "";
 			
 			System.out.println(filePath);
@@ -245,11 +251,12 @@ public class InvoiceController {
 				}
 			}
 
+			//InvoiceLineItem  lineItemSaved= invoiceLineItemRepo.save(lineItemObj);
+				obj.setInvoiceStatus("Processed");
 
+			obj = invoiceGenerationEntityrepo.save(obj);
 
-			InvoiceGenerationEntity invoiceSaved = invoiceGenerationEntityrepo.save(obj);
-
-			data.setData(invoiceSaved);
+			data.setData(obj);
 			data.setMsg("success");
 
 		} catch (Exception e) {

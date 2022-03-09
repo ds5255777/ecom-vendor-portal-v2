@@ -148,7 +148,7 @@
                             ">
                             <!-- <i class="nav-icon fas fa-times"></i> -->
                             <i class="nav-icon far fa-file-alt"></i>
-                            <p>Invoice Pending</p>
+                            <p>Invoice Process</p>
                         </a></li>
                 </ul>
                 <ul class="nav nav-treeview">

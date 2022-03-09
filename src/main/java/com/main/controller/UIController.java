@@ -29,6 +29,7 @@ import com.main.db.bpaas.entity.RolesEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.db.bpaas.repo.InvoiceDetailsRepo;
+import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
 import com.main.service.UserService;
 import com.main.serviceManager.ServiceManager;
@@ -50,6 +51,9 @@ public class UIController {
 
 	@Autowired
 	InvoiceDetailsRepo invoiceDetailsRepo;
+
+	@Autowired
+	InvoiceGenerationEntityRepo invoiceGenerationEntityRepo;
 
 	@GetMapping({ "/login" })
 	public String login(Model model, String error, String logout) {
@@ -334,15 +338,15 @@ public class UIController {
 		int TotalInTransitTripCount = tripDetailsRepo.getInTransitTripCount();
 		int TotalApprovedAdHocTrips = tripDetailsRepo.getApproveAdHocTripCount();
 
-		int pendingInvoice = invoiceDetailsRepo.getPendingInvoiceCount();
-		int approveInvoice = invoiceDetailsRepo.getApproveInvoiceCount();
-		int rejectInvoice = invoiceDetailsRepo.getRejecteInvoiceCount();
+		long allInvoiceCount = invoiceGenerationEntityRepo.count();
+		int approveInvoice = invoiceGenerationEntityRepo.getPendingInvoiceCount();
+		int rejectInvoice = invoiceGenerationEntityRepo.getRejecteInvoiceCount();
 
 		model.addAttribute("role", rolename);
 		model.addAttribute("totalTripCount", totalTripCount);
 		model.addAttribute("TotalCloseTripCount", TotalCloseTripCount);
 		model.addAttribute("TotalInTransitTripCount", TotalInTransitTripCount);
-		model.addAttribute("pendingInvoice", pendingInvoice);
+		model.addAttribute("pendingInvoice", allInvoiceCount);
 		model.addAttribute("approveInvoice", approveInvoice);
 		model.addAttribute("rejectInvoice", rejectInvoice);
 		model.addAttribute("TotalApprovedAdHocTrips", TotalApprovedAdHocTrips);
@@ -476,7 +480,7 @@ public class UIController {
 		String tripId = request.getParameter("id");
 
 		tripId = tripId.replaceAll(",", " ");
-		
+
 		String[] split = tripId.split(" ");
 
 		ModelAndView modelAndView = new ModelAndView("tripsInvoiceGenerate");

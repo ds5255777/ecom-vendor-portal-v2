@@ -1,10 +1,15 @@
 package com.main.db.bpaas.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -15,78 +20,40 @@ public class InvoiceGenerationEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+// Form one
 	@Column(name = "bp_code")
 	private String bpCode;
-	@Column(name = "bp_name")
-	private String bpName;
+	@Column(name = "supp_name")
+	private String suppName;
 	@Column(name = "site_name")
 	private String siteName;
-	@Column(name = "invoice_number")
-	private String invoiceNumber;
-	@Column(name = "invoice_receiving_date")
-	private String invoiceReceivingDate;
 	@Column(name = "invoice_date")
 	private String invoiceDate;
+	@Column(name = "invoice_number")
+	private String invoiceNumber;
 	@Column(name = "invoice_currency")
 	private String invoiceCurrency;
 	@Column(name = "invoice_amount")
 	private String invoiceAmount;
-	@Column(name = "gl_date")
-	private String glDate;
-	@Column(name = "payment_currency")
-	private String paymentCurrency;
-	@Column(name = "operating_unit")
-	private String operatingUnit;
-	@Column(name = "type")
-	private String type;
-	@Column(name = "term_date")
-	private String termDate;
-	@Column(name = "terms")
-	private String terms;
-	@Column(name = "payment_method")
-	private String paymentMethod;
-	@Column(name = "pay_groups")
-	private String payGroups;
-	@Column(name = "header_description")
-	private String headerDescription;
-	@Column(name = "line_number")
-	private String lineNumber;
-	@Column(name = "distribution_number")
-	private String distributionNumber;
-	@Column(name = "tds_account")
-	private String tdsAccount;
-	@Column(name = "description")
-	private String description;
-	@Column(name = "tds_amount")
-	private String tdsAmount;
-	@Column(name = "section_code")
-	private String sectionCode;
-	@Column(name = "tds_tax_category")
-	private String tdsTaxCategory;
-	@Column(name = "check_box")
-	private String checkBox;
-	@Column(name = "organization")
-	private String organization;
-	@Column(name = "document_number")
-	private String documentNumber;
+	@Column(name = "invoice_receiving_date")
+	private String invoiceReceivingDate;
+	@Column(name = "vehicle_number")
+	private String vehicleNumber;
+	@Column(name = "invoice_status")
+	private String invoiceStatus;// Processed, Approved, Rejected
+
+	// form Two
+
 	@Column(name = "taxable_amount")
 	private String taxableAmount;
 	@Column(name = "tax_amount")
 	private String taxAmount;
-	@Column(name = "location")
-	private String location;
-	@Column(name = "supplier_tax_invoice_number")
-	private String supplierTaxInvoiceNumber;
-	@Column(name = "supplier_tax_invoice_date")
-	private String supplierTaxInvoiceDate;
-	@Column(name = "orignal_tax_invoice_number")
-	private String orignalTaxInvoiceNumber;
-	@Column(name = "orignal_tax_invoice_date")
-	private String orignalTaxInvoiceDate;
-	@Column(name = "gst_tax_category")
-	private String gstTaxCategory;
 
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn
+	private List<InvoiceLineItem> invoiceLineItem;
+
+	// form 3
 	@Transient
 	private String invoiceFileName;
 	@Transient
@@ -116,12 +83,12 @@ public class InvoiceGenerationEntity {
 		this.bpCode = bpCode;
 	}
 
-	public String getBpName() {
-		return bpName;
+	public String getSuppName() {
+		return suppName;
 	}
 
-	public void setBpName(String bpName) {
-		this.bpName = bpName;
+	public void setSuppName(String suppName) {
+		this.suppName = suppName;
 	}
 
 	public String getSiteName() {
@@ -132,28 +99,20 @@ public class InvoiceGenerationEntity {
 		this.siteName = siteName;
 	}
 
-	public String getInvoiceNumber() {
-		return invoiceNumber;
-	}
-
-	public void setInvoiceNumber(String invoiceNumber) {
-		this.invoiceNumber = invoiceNumber;
-	}
-
-	public String getInvoiceReceivingDate() {
-		return invoiceReceivingDate;
-	}
-
-	public void setInvoiceReceivingDate(String invoiceReceivingDate) {
-		this.invoiceReceivingDate = invoiceReceivingDate;
-	}
-
 	public String getInvoiceDate() {
 		return invoiceDate;
 	}
 
 	public void setInvoiceDate(String invoiceDate) {
 		this.invoiceDate = invoiceDate;
+	}
+
+	public String getInvoiceNumber() {
+		return invoiceNumber;
+	}
+
+	public void setInvoiceNumber(String invoiceNumber) {
+		this.invoiceNumber = invoiceNumber;
 	}
 
 	public String getInvoiceCurrency() {
@@ -172,156 +131,36 @@ public class InvoiceGenerationEntity {
 		this.invoiceAmount = invoiceAmount;
 	}
 
-	public String getGlDate() {
-		return glDate;
+	public String getInvoiceReceivingDate() {
+		return invoiceReceivingDate;
 	}
 
-	public void setGlDate(String glDate) {
-		this.glDate = glDate;
+	public void setInvoiceReceivingDate(String invoiceReceivingDate) {
+		this.invoiceReceivingDate = invoiceReceivingDate;
 	}
 
-	public String getPaymentCurrency() {
-		return paymentCurrency;
+	public String getVehicleNumber() {
+		return vehicleNumber;
 	}
 
-	public void setPaymentCurrency(String paymentCurrency) {
-		this.paymentCurrency = paymentCurrency;
+	public void setVehicleNumber(String vehicleNumber) {
+		this.vehicleNumber = vehicleNumber;
 	}
 
-	public String getOperatingUnit() {
-		return operatingUnit;
+	public String getInvoiceStatus() {
+		return invoiceStatus;
 	}
 
-	public void setOperatingUnit(String operatingUnit) {
-		this.operatingUnit = operatingUnit;
+	public void setInvoiceStatus(String invoiceStatus) {
+		this.invoiceStatus = invoiceStatus;
 	}
 
-	public String getType() {
-		return type;
+	public List<InvoiceLineItem> getInvoiceLineItem() {
+		return invoiceLineItem;
 	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getTermDate() {
-		return termDate;
-	}
-
-	public void setTermDate(String termDate) {
-		this.termDate = termDate;
-	}
-
-	public String getTerms() {
-		return terms;
-	}
-
-	public void setTerms(String terms) {
-		this.terms = terms;
-	}
-
-	public String getPaymentMethod() {
-		return paymentMethod;
-	}
-
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
-	}
-
-	public String getPayGroups() {
-		return payGroups;
-	}
-
-	public void setPayGroups(String payGroups) {
-		this.payGroups = payGroups;
-	}
-
-	public String getHeaderDescription() {
-		return headerDescription;
-	}
-
-	public void setHeaderDescription(String headerDescription) {
-		this.headerDescription = headerDescription;
-	}
-
-	public String getLineNumber() {
-		return lineNumber;
-	}
-
-	public void setLineNumber(String lineNumber) {
-		this.lineNumber = lineNumber;
-	}
-
-	public String getDistributionNumber() {
-		return distributionNumber;
-	}
-
-	public void setDistributionNumber(String distributionNumber) {
-		this.distributionNumber = distributionNumber;
-	}
-
-	public String getTdsAccount() {
-		return tdsAccount;
-	}
-
-	public void setTdsAccount(String tdsAccount) {
-		this.tdsAccount = tdsAccount;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getTdsAmount() {
-		return tdsAmount;
-	}
-
-	public void setTdsAmount(String tdsAmount) {
-		this.tdsAmount = tdsAmount;
-	}
-
-	public String getSectionCode() {
-		return sectionCode;
-	}
-
-	public void setSectionCode(String sectionCode) {
-		this.sectionCode = sectionCode;
-	}
-
-	public String getTdsTaxCategory() {
-		return tdsTaxCategory;
-	}
-
-	public void setTdsTaxCategory(String tdsTaxCategory) {
-		this.tdsTaxCategory = tdsTaxCategory;
-	}
-
-	public String getCheckBox() {
-		return checkBox;
-	}
-
-	public void setCheckBox(String checkBox) {
-		this.checkBox = checkBox;
-	}
-
-	public String getOrganization() {
-		return organization;
-	}
-
-	public void setOrganization(String organization) {
-		this.organization = organization;
-	}
-
-	public String getDocumentNumber() {
-		return documentNumber;
-	}
-
-	public void setDocumentNumber(String documentNumber) {
-		this.documentNumber = documentNumber;
+	public void setInvoiceLineItem(List<InvoiceLineItem> invoiceLineItem) {
+		this.invoiceLineItem = invoiceLineItem;
 	}
 
 	public String getTaxableAmount() {
@@ -338,54 +177,6 @@ public class InvoiceGenerationEntity {
 
 	public void setTaxAmount(String taxAmount) {
 		this.taxAmount = taxAmount;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public String getSupplierTaxInvoiceNumber() {
-		return supplierTaxInvoiceNumber;
-	}
-
-	public void setSupplierTaxInvoiceNumber(String supplierTaxInvoiceNumber) {
-		this.supplierTaxInvoiceNumber = supplierTaxInvoiceNumber;
-	}
-
-	public String getSupplierTaxInvoiceDate() {
-		return supplierTaxInvoiceDate;
-	}
-
-	public void setSupplierTaxInvoiceDate(String supplierTaxInvoiceDate) {
-		this.supplierTaxInvoiceDate = supplierTaxInvoiceDate;
-	}
-
-	public String getOrignalTaxInvoiceNumber() {
-		return orignalTaxInvoiceNumber;
-	}
-
-	public void setOrignalTaxInvoiceNumber(String orignalTaxInvoiceNumber) {
-		this.orignalTaxInvoiceNumber = orignalTaxInvoiceNumber;
-	}
-
-	public String getOrignalTaxInvoiceDate() {
-		return orignalTaxInvoiceDate;
-	}
-
-	public void setOrignalTaxInvoiceDate(String orignalTaxInvoiceDate) {
-		this.orignalTaxInvoiceDate = orignalTaxInvoiceDate;
-	}
-
-	public String getGstTaxCategory() {
-		return gstTaxCategory;
-	}
-
-	public void setGstTaxCategory(String gstTaxCategory) {
-		this.gstTaxCategory = gstTaxCategory;
 	}
 
 	public String getInvoiceFileName() {

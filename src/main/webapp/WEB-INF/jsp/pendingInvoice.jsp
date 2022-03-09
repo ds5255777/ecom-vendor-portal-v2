@@ -111,7 +111,7 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <jsp:include page="navbar.jsp?pagename=Pending Invoice" />
+        <jsp:include page="navbar.jsp?pagename=Process Invoice" />
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
@@ -146,7 +146,7 @@
                             <!-- general form elements -->
                             <div class="card card-primary ">
                                 <div class="card-header">
-                                    <h3 class="card-title" style="font-size: 15px;">Pending Invoice List</h3>
+                                    <h3 class="card-title" style="font-size: 15px;">Process Invoice List</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body ">

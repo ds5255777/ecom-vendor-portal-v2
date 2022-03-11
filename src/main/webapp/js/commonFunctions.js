@@ -72,7 +72,7 @@ $(document).keypress(
 function setData(myForm,result){
 	
 	for (var i = 0; i < myForm.elements.length; i++) {
-        // console.log(myForm.elements[i].id);
+       
          	var idOfElement=myForm.elements[i].id;
          	if(idOfElement!=""){
          		

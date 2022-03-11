@@ -2,6 +2,7 @@ package com.main.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -11,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
+import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.InvoiceLineItemRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
@@ -60,7 +63,8 @@ public class InvoiceController {
 
 	@RequestMapping({ "/getAllPendingInvoice" })
 	@CrossOrigin("*")
-	public String getAllPendingInvoice(HttpServletRequest request, @RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
+	public String getAllPendingInvoice(HttpServletRequest request,
+			@RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
 
 		DataContainer data = new DataContainer();
 
@@ -81,7 +85,8 @@ public class InvoiceController {
 
 	@RequestMapping({ "/getAllApproveInvoice" })
 	@CrossOrigin("*")
-	public String getAllApproveInvoice(HttpServletRequest request, @RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
+	public String getAllApproveInvoice(HttpServletRequest request,
+			@RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
 
 		DataContainer data = new DataContainer();
 
@@ -143,25 +148,42 @@ public class InvoiceController {
 		return gson.toJson(data).toString();
 	}
 
-	/*
-	 * @RequestMapping({ "/getLineItemDetails" })
-	 * 
-	 * @CrossOrigin("*") public String getLineItemDetails(HttpServletRequest
-	 * request,@RequestBody TripDetails obj) {
-	 * 
-	 * DataContainer data = new DataContainer();
-	 * 
-	 * String tripID = obj.getTripID();
-	 * System.out.println("trip id is : "+tripID.toString()); Gson gson = new
-	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create(); try {
-	 * List<TripDetails> listOfLineItem = tripDetailsRepo.getSelectLineItem(tripID
-	 * ); //System.out.println("size  ....."+listOfLineItem.size());
-	 * //data.setData(listOfLineItem); data.setMsg("success");
-	 * 
-	 * } catch (Exception e) { data.setMsg("error"); e.printStackTrace(); }
-	 * 
-	 * return gson.toJson(data).toString(); }
-	 */
+	@RequestMapping({ "/getLineItemDetails" })
+	@CrossOrigin("*")
+	public String getLineItemDetails(HttpServletRequest request, @RequestBody TripDetails obj) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String tripID = obj.getTripID();
+			System.out.println(tripID);
+		try {
+			
+			
+			tripID = tripID.replaceAll(",", " ");
+
+			System.out.println(tripID + "--------");
+
+			String[] split = tripID.split(" ");
+
+			List<Object> listofTrips = new ArrayList<>();
+
+			for (String str : split) {
+				System.out.println(str);
+				TripDetails findByTripID = tripDetailsRepo.findByTripID(str);
+				listofTrips.add(findByTripID);
+				System.out.println("Trip Details :" + findByTripID);
+			}
+			listofTrips.forEach(m -> System.out.println("----" + m + "-----"));
+			data.setData(listofTrips);
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
 
 	@RequestMapping("/saveInvoice")
 	public String saveInvoice(@RequestBody InvoiceGenerationEntity obj) {

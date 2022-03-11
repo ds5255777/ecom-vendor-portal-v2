@@ -135,6 +135,16 @@ public class TripDetails {
 	 */
 	// private List<QueryEntity> vendorQuerys;
 
+
+//Saurabh
+@Column(name = "processed_On")
+private String processedOn;//
+
+@Column(name = "processed_By")
+private String processedBy;//
+
+//END
+
 	public Integer getId() {
 		return id;
 	}

@@ -705,7 +705,9 @@
                 $('#refreshDashboardButton').attr('disabled', 'disabled');
                 getData();
                 $('#refreshDashboardButton').removeAttr('disabled');
-                $('#selectTripStatus').clear('');
+                $('#selectTripStatus').val('');
+                $('#selectStatus').val('');
+                $('#selectPaymentStatus').val('');
             })
 
             getData();

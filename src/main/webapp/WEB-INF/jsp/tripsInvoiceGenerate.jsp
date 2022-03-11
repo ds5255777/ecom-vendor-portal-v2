@@ -10,7 +10,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${titleName}| Invoice Process</title>
+<title>${titleName}|InvoiceProcess</title>
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -262,7 +262,7 @@
 										<!-- <th>Action</th> -->
 									</tr>
 								</thead>
-								<tbody>
+								<%-- <tbody>
 									<c:forEach var="listItem" items="${listof}">
 										<tr class="">
 											<td>1</td>
@@ -276,12 +276,12 @@
 											<td>${listItem.fs}</td>
 											<td>${listItem.actualKM}</td>
 											<td>${listItem.totalFreight}</td>
-											<td><input type="text" style="width: 100%;"></td>
+											<td><input type="text" style="width: 100%;" oninput="loadData(this.value,${listItem.tripID})" ></td>
 											<!-- <td><button type="button" title="Delete" class="btn btn-info" id="prRmv" onClick="delrow(this)" style="margin-right: 1px;height: 25px;padding: 2px 2px 2px 2px;"><i class="fas fa-trash-alt"></i></button></td> -->
 										</tr>
 									</c:forEach>
 
-								</tbody>
+								</tbody> --%>
 
 							</table>
 						</div>
@@ -484,9 +484,10 @@
             });
         })
 
-    </script>
-
-	<script>
+  var allTripId='${tripId}';
+  
+  console.log(allTripId);
+        
         jQuery.validator.setDefaults({
             debug: true,
             success: "valid"
@@ -519,8 +520,7 @@
             }
         });
 
-        var tripId='${tripID}';
-        console.log(tripId);
+       
         
         function sendToServer() {
 
@@ -595,6 +595,57 @@
             })(f);
             // Read in the image file as a data URL.
             reader.readAsBinaryString(f);
+        }
+        getTripDetails();
+        
+        function getTripDetails() {
+
+        	var obj={
+        			"tripID":allTripId
+        	}
+        	
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(obj),
+                url: "<%=GlobalUrl.getLineItemDetails%>",
+                dataType: "json",
+                contentType: "application/json",
+                success: function(response) {
+
+                	 if (response.msg == 'success') {
+                		 console.log(obj);
+                		 var result = response.data;
+                		 $('#prTable').DataTable().clear();
+
+                         for (var i = 0; i < result.length; i++) {
+                        	 $('#prTable').DataTable().row.add([i+1, result[i].runType, result[i].standardKM, result[i].ratePerKm, result[i].currentFuelRate, result[i].fsBaseRate,  result[i].fsDiff, result[i].basicFreight, result[i].fs, result[i].actualKM], result[i].totalFreight,result[i].totalFreight );                         
+                        	 }
+                         //swal.fire("Thanks", "your Invoice Process Sucessfully", "success", "OK")
+
+                         $('#prTable').DataTable().draw();
+                         $("tbody").show();
+                     } else {
+                        alert("failed");
+                    }
+                },
+                error: function(jqXHR, textStatue, errorThrown) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+                }
+            });
+        }
+        
+        
+        var tripArray=[];
+        function loadData(textValue,tripId){
+        	var obj={
+        			"tripID":tripId,
+        			"lineLevelDescription":textValue.trim()
+        	}
+        	
         }
         
     </script>

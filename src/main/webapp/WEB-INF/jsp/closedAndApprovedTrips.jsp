@@ -545,16 +545,30 @@
 				}  */
 
 				
-             function invoiceProcessing() {
-                var table = document.getElementById('tabledata');
-                var arr=[];
-                
-                for (var r = 1, n = table.rows.length; r < n; r++) {
-                        arr.push(table.rows[r].cells[1].innerText);
-                } 
-                let values = arr.toString();
-                console.log("All Trip Ids : ",values);
-                
+             		function invoiceProcessing() {
+					 var table = document.getElementById('tabledata');
+		                var checkflag = [];
+		                  $("input:checkbox[name='option']:checked").each(function(){    
+		                  checkflag.push($(this).val());    		
+		                  	});
+		              
+		                /* var arr=[];
+		                
+		                for (var r = 1, n = table.rows.length; r < n; r++) {
+		                        arr.push(table.rows[r].cells[1].innerText);
+		                }  */
+		               // let values = arr.toString();
+		              	let values = checkflag.toString(); 
+		                console.log("All Trip Ids : ",values);
+		                if(values=="" || values==null){
+		                	Toast.fire({
+		                        type: 'error',
+		                        title: 'Please select atleast one trip'
+		                    })
+		                    return;
+		                }
+		                
+
                 $('.loader').show();
                 
                 var urlOftripsDetail = "tripsInvoiceGenerate?id="+values;

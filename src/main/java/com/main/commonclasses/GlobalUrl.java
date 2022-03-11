@@ -1,6 +1,6 @@
 package com.main.commonclasses;
 
-public class GlobalUrl {
+ public class GlobalUrl {
 
 	public static String userController="userController";	
 	
@@ -47,6 +47,13 @@ public class GlobalUrl {
 	public static String dashboardController="dashboardController";
 	
 	public static String getDashboardDetails=dashboardController+"/getDashboardDetails";
+
+//Added by Saurabh
+public static String getDashboardDetailsForNetwork=dashboardController+"/getDashboardDetailsForNetwork";
+public static String getTripsById = tripControllers+"/getTripsById";
+public static String updateDetailsforNetwork = dashboardController+"/updateDetailsforNetwork";
+
+//END
 	
 		
 }

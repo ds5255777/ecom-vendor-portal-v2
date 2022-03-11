@@ -150,54 +150,33 @@
                                 <form role="form" id="addForm" autocomplete="off">
                                     <div class="card-body">
                                         <div class="row">
-                                        
-                                        
-                                        <div class="col-md-3">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" name="firstName" class="form-control" id="firstName" pattern="[a-zA-Z]+">
+                                                    <label for="exampleInputserverName1">User Name</label> <input type="text" name="username" class="form-control" id="username">
 
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" name="lastName" class="form-control" id="lastName" pattern="[a-zA-Z]+">
+                                                    <label for="exampleInputserverName1">Password</label> <input type="password" name="password" class="form-control" id="password">
                                                 </div>
 
                                             </div>
-                                        
-                                        
-                                        
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">User Name</label> <input type="text" name="username" class="form-control" id="username" pattern="[a-zA-Z][a-zA-Z0-9]+">
+                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" name="firstName" class="form-control" id="firstName">
 
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Password</label> <input type="password" name="password" class="form-control" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter">
-                                                </div>
-
-                                            </div>
-                                            
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" class="form-control" id="emailId">
-
+                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" name="lastName" class="form-control" id="lastName">
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputserverName1">Contact No.</label> <input type="text" name="contactNo" class="form-control" id="contactNo" pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$" title="Enter Valid mobile number ex.9811111111" required>
-                                                </div>
-                                            </div>
-                                            
-                                            
-                                            
-                                                 <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleId" style="height: 34px;">
                                                         <c:forEach items="${rolesList}" var="role">
@@ -207,7 +186,19 @@
                                                 </div>
 
                                             </div>
-                                                                                        <div class="col-md-3">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" class="form-control" id="emailId">
+
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputserverName1">Contact No.</label> <input type="text" name="contactNo" class="form-control" id="contactNo">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
                                                 <div class="form-group"></div>
                                             </div>
                                         </div>
@@ -285,21 +276,29 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Password</label> <input type="password" name="password" class="form-control" id="passwordEdit" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter">
+                                                    <label for="exampleInputserverName1">Password</label> <input type="password" name="password" class="form-control" id="passwordEdit">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" name="firstName" class="form-control" id="firstNameEdit" pattern="[a-zA-Z]+">
+                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" name="firstName" class="form-control" id="firstNameEdit">
 
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" name="lastName" class="form-control" id="lastNameEdit" pattern="[a-zA-Z]+">
+                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" name="lastName" class="form-control" id="lastNameEdit">
                                                 </div>
                                             </div>
-                                           
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleIdEdit" style="height: 34px;">
+                                                        <c:forEach items="${rolesList}" var="role">
+                                                            <option value="${role.id}">${role.roleName}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" class="form-control" id="emailIdEdit">
@@ -308,16 +307,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Contact No</label> <input type="text" name="contactNo" class="form-control" id="contactNoEdit" pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$" title="Enter Valid mobile number ex.9811111111" required>
-                                                </div>
-                                            </div>
-                                             <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleIdEdit" style="height: 34px;">
-                                                        <c:forEach items="${rolesList}" var="role">
-                                                            <option value="${role.id}">${role.roleName}</option>
-                                                        </c:forEach>
-                                                    </select>
+                                                    <label for="exampleInputserverName1">Contact No</label> <input type="text" name="contactNo" class="form-control" id="contactNoEdit">
                                                 </div>
                                             </div>
 
@@ -483,14 +473,6 @@
                     required: true
 
                 },
-                username: {
-                    required: true
-
-                },
-                password: {
-                    required: true
-
-                },
                 emailId: {
                     email: true,
                     required: true
@@ -500,7 +482,14 @@
                     required: true
 
                 },
-               
+                username: {
+                    required: true
+
+                },
+                password: {
+                    required: true
+
+                },
                 roleId: {
                     required: true
 
@@ -788,8 +777,8 @@
                             if (result[i].hasOwnProperty("lastName")) {
                                 lastName = result[i].lastName;
                             }
-                          
-                            tabledata.row.add([result[i].username, result[i].firstName, lastName, result[i].rolesObj.roleName, result[i].emailId, result[i].contactNo ,edit + " " + inactive]);
+
+                            tabledata.row.add([result[i].username, result[i].firstName, lastName, result[i].rolesObj.roleName, result[i].emailId, result[i].contactNo, edit + " " + inactive]);
 
                         }
 

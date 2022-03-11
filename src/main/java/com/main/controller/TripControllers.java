@@ -294,9 +294,7 @@ public class TripControllers {
         // System.out.println("trip Query "+queryObj.getTripDetails());
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         try {
-            //tripDetailsRepo.getTripIdbyTripDetail(tripObj.getTripID());
 
-            //queryObj.setRaisedOn(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             queryObj = queryRepo.save(queryObj);
 
             data.setData(queryObj);

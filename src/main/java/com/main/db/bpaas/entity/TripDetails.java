@@ -124,8 +124,15 @@ public class TripDetails {
     private String assignTo;// network Team, Vendor
 
     @OneToMany(targetEntity = QueryEntity.class, cascade = CascadeType.ALL)
+
     @JoinColumn(name = "trip_query_fk", referencedColumnName = "id")
-    private List<AccountDetails> accountDetails;
+
+    /*
+		 * @OneToMany(cascade = CascadeType.ALL)
+		 * 
+		 * @JoinColumn
+     */
+    private List<QueryEntity> queryEntity;
 
     // targetEntity = QueryEntity.class,
     /*
@@ -134,54 +141,6 @@ public class TripDetails {
 	 * @JoinColumn(name ="cp_fk",referencedColumnName = "id")
      */
     // private List<QueryEntity> vendorQuerys;
-//Saurabh
-    @Column(name = "processed_On")
-    private String processedOn;//
-
-    @Column(name = "processed_By")
-    private String processedBy;//
-
-    @Column(name = "lumpSome_CheckBox")
-    private String LumpSomeCheckBox;
-
-    @Column(name = "lumpSome_Amount")
-    private String lumpSomeAmount;
-
-    public String getProcessedOn() {
-        return processedOn;
-    }
-
-    public void setProcessedOn(String processedOn) {
-        this.processedOn = processedOn;
-    }
-
-    public String getProcessedBy() {
-        return processedBy;
-    }
-
-    public void setProcessedBy(String processedBy) {
-        this.processedBy = processedBy;
-    }
-
-    public String getLumpSomeCheckBox() {
-        return LumpSomeCheckBox;
-    }
-
-    public void setLumpSomeCheckBox(String LumpSomeCheckBox) {
-        this.LumpSomeCheckBox = LumpSomeCheckBox;
-    }
-
-    public String getLumpSomeAmount() {
-        return lumpSomeAmount;
-    }
-
-    public void setLumpSomeAmount(String lumpSomeAmount) {
-        this.lumpSomeAmount = lumpSomeAmount;
-    }
-
-   
-
-//END
     public Integer getId() {
         return id;
     }
@@ -462,46 +421,12 @@ public class TripDetails {
         this.assignTo = assignTo;
     }
 
-    public List<AccountDetails> getAccountDetails() {
-        return accountDetails;
+    public List<QueryEntity> getQueryEntity() {
+        return queryEntity;
     }
 
-    public void setAccountDetails(List<AccountDetails> accountDetails) {
-        this.accountDetails = accountDetails;
-    }
-
-    @Override
-    public String toString() {
-        return "TripDetails [id=" + id + ", tripID=" + tripID + ", vendorCode=" + vendorCode + ", route=" + route
-                + ", runType=" + runType + ", mode=" + mode + ", vehicleNumber=" + vehicleNumber + ", vendorName="
-                + vendorName + ", actualVechicleType=" + actualVechicleType + ", standardShipmentCapacity="
-                + standardShipmentCapacity + ", standardPayloadCapacity=" + standardPayloadCapacity + ", runStatus="
-                + runStatus + ", originHub=" + originHub + ", originRegion=" + originRegion + ", destHub=" + destHub
-                + ", actualDeparture=" + actualDeparture + ", actualArrival=" + actualArrival + ", actualKM=" + actualKM
-                + ", standardKM=" + standardKM + ", mileage=" + mileage + ", ratePerKm=" + ratePerKm + ", routeKms="
-                + routeKms + ", fsBaseRate=" + fsBaseRate + ", currentFuelRate=" + currentFuelRate + ", fsDiff="
-                + fsDiff + ", basicFreight=" + basicFreight + ", fs=" + fs + ", totalFreight=" + totalFreight
-                + ", openingReading=" + openingReading + ", closingReading=" + closingReading + ", ActualShipment="
-                + ActualShipment + ", ActualChargeableWeight=" + ActualChargeableWeight + ", vendorTripStatus="
-                + vendorTripStatus + ", paymentStatus=" + paymentStatus + ", assignTo=" + assignTo + ", accountDetails="
-                + accountDetails + ", getId()=" + getId() + ", getTripID()=" + getTripID() + ", getVendorCode()="
-                + getVendorCode() + ", getRoute()=" + getRoute() + ", getRunType()=" + getRunType() + ", getMode()="
-                + getMode() + ", getVehicleNumber()=" + getVehicleNumber() + ", getVendorName()=" + getVendorName()
-                + ", getActualVechicleType()=" + getActualVechicleType() + ", getStandardShipmentCapacity()="
-                + getStandardShipmentCapacity() + ", getStandardPayloadCapacity()=" + getStandardPayloadCapacity()
-                + ", getRunStatus()=" + getRunStatus() + ", getOriginHub()=" + getOriginHub() + ", getOriginRegion()="
-                + getOriginRegion() + ", getDestHub()=" + getDestHub() + ", getActualDeparture()="
-                + getActualDeparture() + ", getActualArrival()=" + getActualArrival() + ", getActualKM()="
-                + getActualKM() + ", getStandardKM()=" + getStandardKM() + ", getMileage()=" + getMileage()
-                + ", getRatePerKm()=" + getRatePerKm() + ", getRouteKms()=" + getRouteKms() + ", getFsBaseRate()="
-                + getFsBaseRate() + ", getCurrentFuelRate()=" + getCurrentFuelRate() + ", getFsDiff()=" + getFsDiff()
-                + ", getBasicFreight()=" + getBasicFreight() + ", getFs()=" + getFs() + ", getTotalFreight()="
-                + getTotalFreight() + ", getOpeningReading()=" + getOpeningReading() + ", getClosingReading()="
-                + getClosingReading() + ", getActualShipment()=" + getActualShipment()
-                + ", getActualChargeableWeight()=" + getActualChargeableWeight() + ", getVendorTripStatus()="
-                + getVendorTripStatus() + ", getPaymentStatus()=" + getPaymentStatus() + ", getAssignTo()="
-                + getAssignTo() + ", getAccountDetails()=" + getAccountDetails() + ", getClass()=" + getClass()
-                + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+    public void setQueryEntity(List<QueryEntity> queryEntity) {
+        this.queryEntity = queryEntity;
     }
 
 }

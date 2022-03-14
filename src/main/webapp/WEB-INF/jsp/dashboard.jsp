@@ -146,8 +146,8 @@
                         </div>
 
                         <!-- ./col -->
-                        <div class="col-lg-2 col-6">
-                            <!-- small box -->
+<!--                        <div class="col-lg-2 col-6">
+                             small box 
                             <div class="small-box bg-white">
                                 <div class="inner">
                                     <h2>${pendingInvoice}</h2>
@@ -162,7 +162,7 @@
                                     info <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
-                        </div>
+                        </div>-->
 
                         <!-- ./col -->
                         <!-- <div class="col-lg-2 col-6">
@@ -182,8 +182,8 @@
                         <!-- ./col -->
                         <!-- ./col -->
 
-                        <div class="col-lg-2 col-6">
-                            <!-- small box -->
+<!--                        <div class="col-lg-2 col-6">
+                             small box 
                             <div class="small-box bg-white">
                                 <div class="inner">
                                     <h2>${approveInvoice}</h2>
@@ -198,9 +198,9 @@
                                     info <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
-                        </div>
-                        <div class="col-lg-2 col-6">
-                            <!-- small box -->
+                        </div>-->
+<!--                        <div class="col-lg-2 col-6">
+                             small box 
                             <div class="small-box bg-white">
                                 <div class="inner">
                                     <h2>${rejectInvoice}</h2>
@@ -214,7 +214,7 @@
                                     info <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
-                        </div>
+                        </div>-->
 
 
                         <!-- ./col -->

@@ -33,4 +33,10 @@ public class TripServiceImpl implements TripService {
         return TripDetailsRepo.getInTransitTripCountByRunTypeAndRunStatus(runtype, runStatus);
     }
 
+    @Override
+    public List<TripDetails> getInTransitTripByRunTypeAndRunStatus(String runtype, String runStatus) {
+        System.out.println("*************getInTransitTripByRunTypeAndRunStatus***************");
+        return TripDetailsRepo.getInTransitTripByRunTypeAndRunStatus(runtype, runStatus);
+    }
+
 }

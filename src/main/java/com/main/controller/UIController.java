@@ -347,8 +347,8 @@ public class UIController {
 
             System.out.println(" **********************************************yetTobeApproved.size()" + yetTobeApproved.size());
 
-            int getInTransitTripCountForAdhoc = tripDetailsRepo.getInTransitTripCountByRunTypeAndRunStatus("Adhoc", "In-Transit");
-            model.addAttribute("getInTransitTripCountForAdhoc", getInTransitTripCountForAdhoc);
+            List<TripDetails> getTripCountForQueryAdhoc = tripDetailsRepo.getQueryTripsForNetwork("Query");
+            model.addAttribute("getTripCountForQueryAdhoc", getTripCountForQueryAdhoc.size());
 
             int getInClosedTripCountForAdhoc = tripDetailsRepo.getInTransitTripCountByRunTypeAndRunStatus("Adhoc", "Closed");
             model.addAttribute("getInClosedTripCountForAdhoc", getInClosedTripCountForAdhoc);
@@ -584,14 +584,14 @@ public class UIController {
     }
 
 
-    @GetMapping("/IntransitAndAdhoc")
-    public String IntransitAndAdhoc(Model model, Principal principal) {
-        System.out.println("********************In IntransitAndAdhoc**************");
-        List<TripDetails> AllDetailsForNetwork = tripService.getInTransitTripByRunTypeAndRunStatus("Adhoc", "In-Transit");
-        System.out.println("AllDetailsForNetwork In Trnasit and Adhoc Trips  :::::::::::::::::::; " + AllDetailsForNetwork.size());
+    @GetMapping("/QueryTripsForNetwork")
+    public String QueryTripsForNetwork(Model model, Principal principal) {
+        System.out.println("********************In QueryTripsForNetwork**************");
+        List<TripDetails> AllDetailsForNetwork = tripDetailsRepo.getQueryTripsForNetwork("Query");
+        System.out.println("AllDetailsForNetwork Query and Adhoc Trips  :::::::::::::::::::; " + AllDetailsForNetwork.size());
         model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
 
-        return "IntransitAndAdhoc";
+        return "QueryTripsForNetwork";
     }
 
 

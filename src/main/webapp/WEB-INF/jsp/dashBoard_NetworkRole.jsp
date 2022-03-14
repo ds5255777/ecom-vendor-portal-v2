@@ -158,15 +158,15 @@
                                 <!-- small box -->
                                 <div class="small-box bg-white">
                                     <div class="inner">
-                                        <h2>${getInTransitTripCountForAdhoc}</h2>
+                                        <h2>${getTripCountForQueryAdhoc}</h2>
 
-                                        <p id="opeTickets" data-toggle="tooltip" data-placement="bottom" title="Running Trips">In-Transit
-                                            (AdHoc)</p>
+                                        <p id="opeTickets" data-toggle="tooltip" data-placement="bottom" title="Trips in which query are raised">Query Trips
+                                            </p>
                                     </div>
                                     <div class="icon">
-                                        <i class="fas fa-map-marked-alt" style="color: #00a65a; font-size: 50px;"></i>
+                                        <i class="fas fa-question" style="color: #fd7e14; font-size: 50px;"></i>
                                     </div>
-                                    <a href="IntransitAndAdhoc" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
+                                    <a href="QueryTripsForNetwork" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
                                         info <i class="fas fa-arrow-circle-right"></i>
                                     </a>
                                 </div>

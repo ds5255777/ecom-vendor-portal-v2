@@ -10,7 +10,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>${titleName}|Pending Approval Trips</title>
+        <title>${titleName}|Closed and Adhoc Trips</title>
 
         <!-- Tell the browser to be responsive to screen width -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -115,11 +115,11 @@
         <div class="wrapper">
 
             <!-- Navbar -->
-            <jsp:include page="navbar.jsp?pagename=Pending For Approval" />
+            <jsp:include page="navbar.jsp?pagename=Closed (Adhoc) Trips" />
             <!-- /.navbar -->
 
             <!-- Main Sidebar Container -->
-            <jsp:include page="slidebar.jsp?pagename=Pending For Approval" />
+            <jsp:include page="slidebar.jsp?pagename=Closed (Adhoc) Trips" />
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -150,7 +150,7 @@
                                 <!-- general form elements -->
                                 <div class="card card-primary ">
                                     <div class="card-header" style="padding: 4px 0px 4px 4px;">
-                                        <h3 class="card-title" style="font-size: 15px;">Pending Approval Trips List</h3>
+                                        <h3 class="card-title" style="font-size: 15px;">Closed and Adhoc Trips</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body table-responsive p-0" style="height: 420px;">
@@ -168,13 +168,13 @@
                                             </thead>
 
                                             <tbody>
-                                                <c:forEach var="yetTobeApprovedAllDetails" items="${yetTobeApprovedAllDetails}">
+                                                <c:forEach var="ApprovedAllDetails" items="${AllDetailsForNetwork}">
                                                     <tr>
-                                                        <td><a href="javascript:setTripStatus(${yetTobeApprovedAllDetails.tripID})">${yetTobeApprovedAllDetails.tripID}</a></td>
-                                                        <td>${yetTobeApprovedAllDetails.route}</td>
-                                                        <td>${yetTobeApprovedAllDetails.runType}</td>
-                                                        <td>${yetTobeApprovedAllDetails.runStatus}</td>
-                                                        <td>${yetTobeApprovedAllDetails.vehicleNumber}</td>
+                                                        <td><a href="javascript:setTripStatus(${ApprovedAllDetails.tripID})">${ApprovedAllDetails.tripID}</a></td>
+                                                        <td>${ApprovedAllDetails.route}</td>
+                                                        <td>${ApprovedAllDetails.runType}</td>
+                                                        <td>${ApprovedAllDetails.runStatus}</td>
+                                                        <td>${ApprovedAllDetails.vehicleNumber}</td>
 
 
                                                     </tr>
@@ -221,7 +221,7 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <div class="row"> <label style="margin-top: 5px; margin-left: 10px;">Trip ID</label></div>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="tripID" name="tripID" autocomplete="off" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="tripID" name="tripID" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div>
 
@@ -229,7 +229,7 @@
 
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Vendor Name</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="vendorName" name="vendorName" autocomplete="off" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="vendorName" name="vendorName" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div> 
 
@@ -237,7 +237,7 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Route</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="route" name="route" autocomplete="off" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="route" name="route" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div>
 
@@ -245,7 +245,7 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Run Type</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="runType" name="runType" autocomplete="off" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="runType" name="runType" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -255,14 +255,14 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Mode</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="mode" name="mode" autocomplete="off" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="mode" name="mode" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Vehicle Number</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="vehicleNumber" name="vehicleNumber" autocomplete="off" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="vehicleNumber" name="vehicleNumber" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div> 
 
@@ -270,14 +270,14 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Actual Vehicle Type</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="actualVechicleType" name="actualVechicleType" autocomplete="off" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="actualVechicleType" name="actualVechicleType" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Standard Shipment Capacity</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="standardShipmentCapacity" name="standardShipmentCapacity" autocomplete="off" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="standardShipmentCapacity" name="standardShipmentCapacity" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div>
 
@@ -287,7 +287,7 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Standard Payload Capacity</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="standardPayloadCapacity" name="standardPayloadCapacity" autocomplete="off" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="standardPayloadCapacity" name="standardPayloadCapacity" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
@@ -295,7 +295,7 @@
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Run Status</label>
                                                                         <div class="form-group">
-                                                                            <input type="text" class="form-control" style="height: 30px;" id="runStatus" name="runStatus" autocomplete="off" d>
+                                                                            <input type="text" class="form-control" style="height: 30px;" id="runStatus" name="runStatus" autocomplete="off" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -305,7 +305,7 @@
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Origin Hub</label>
                                                                         <div class="form-group">
-                                                                            <input type="text" class="form-control" autocomplete="off" style="height: 30px;" id="originHub" name="originHub" d>
+                                                                            <input type="text" class="form-control" autocomplete="off" style="height: 30px;" id="originHub" name="originHub" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -313,7 +313,7 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Origin Region</label>
-                                                                        <input type="text" class="form-control" autocomplete="off" style="height: 30px;" placeholder="Enter" id="originRegion" name="originRegion" d>
+                                                                        <input type="text" class="form-control" autocomplete="off" style="height: 30px;" placeholder="Enter" id="originRegion" name="originRegion" disabled>
                                                                     </div>
                                                                 </div>
 
@@ -326,14 +326,14 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Dest Hub</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="destHub" name="destHub" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="destHub" name="destHub" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Actual Departure (ATD)</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualDeparture" name="actualDeparture" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualDeparture" name="actualDeparture" disabled>
                                                                     </div>
                                                                 </div> 
 
@@ -341,14 +341,14 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Actual Arrival (ATA)</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualArrival" name="actualArrival" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualArrival" name="actualArrival" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Actual KM</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualKM" name="actualKM" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualKM" name="actualKM" disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -360,14 +360,14 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Standard KM</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="standardKM" name="standardKM" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="standardKM" name="standardKM" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Mileage</label>
-                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="mileage" name="mileage" d>
+                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="mileage" name="mileage" disabled>
                                                                     </div>
                                                                 </div>
 
@@ -375,14 +375,14 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Rate per KM</label>
-                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="ratePerKm" name="ratePerKm" d>
+                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="ratePerKm" name="ratePerKm" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Billable KM</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="routeKms" name="routeKms" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="routeKms" name="routeKms" disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -397,14 +397,14 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">FS Base Rate</label>
-                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fsBaseRate" name="fsBaseRate" d>
+                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fsBaseRate" name="fsBaseRate" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Current Fuel Rate</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="currentFuelRate" name="currentFuelRate" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="currentFuelRate" name="currentFuelRate" disabled>
                                                                     </div>
                                                                 </div> 
 
@@ -412,14 +412,14 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">FS Diff</label>
-                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fsDiff" name="fsDiff" d>
+                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fsDiff" name="fsDiff" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Basic Freight</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="basicFreight" name="basicFreight" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="basicFreight" name="basicFreight" disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -429,14 +429,14 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">FS</label>
-                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fs" name="fs" d>
+                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fs" name="fs" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Total Freight (Total Trip Cost)</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="totalFreight" name="totalFreight" d>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="totalFreight" name="totalFreight" disabled>
                                                                     </div>
                                                                 </div>
 
@@ -444,14 +444,14 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Opening Reading</label>
-                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="openingReading" name="openingReading" >
+                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="openingReading" name="openingReading" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Closing Reading</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="closingReading" name="closingReading" >
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="closingReading" name="closingReading" disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -473,7 +473,7 @@
                                                                 </div>
 
                                                                 <div class = "col-sm-6">
-                                                                    <textarea class="form-control" id="comment" name="comment" maxlength="250" placeholder="Remarks if any" rows="3"></textarea>
+                                                                    <textarea class="form-control" id="comment" name="comment" maxlength="250" placeholder="Remarks if any" rows="3" disabled></textarea>
                                                                 </div>
 
 
@@ -489,9 +489,9 @@
 
                                             <div class="row" style="padding: 15px;">
 
-                                                <button id="saveCoaDetails" type="button" class="btn btn-success" style="margin-right:10px;" onclick="updateTripDataByNetworkTeam()">Submit to Vendor</button>
+                                                <!--<button id="saveCoaDetails" type="button" class="btn btn-success" style="margin-right:10px;" onclick="updateTripDataByNetworkTeam()">Submit to Vendor</button>-->
                                                 <!--                                                <button id="openCoaDetails" type="button" class="btn btn-success" style="margin-right:10px;" onclick="saveQuery()">Query</button>-->
-                                                <button type="button" class="btn btn-secondary" id="closeModal" data-dismiss="modal">Close</button>
+                                                <!--<button type="button" class="btn btn-secondary" id="closeModal" data-dismiss="modal">Close</button>-->
                                             </div>
 
 

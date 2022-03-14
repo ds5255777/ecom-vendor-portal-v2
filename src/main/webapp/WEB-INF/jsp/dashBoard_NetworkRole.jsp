@@ -124,7 +124,7 @@
 
                                         <i class="fas fa fa-check" style="color: #28a745; font-size: 50px;"></i>
                                     </div>
-                                    <a href="approvedInvoiceNetwork" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
+                                    <a href="getApprovedAdhocTrips" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
                                         info <i class="fas fa-arrow-circle-right"></i>
                                     </a>
                                 </div>
@@ -166,7 +166,7 @@
                                     <div class="icon">
                                         <i class="fas fa-map-marked-alt" style="color: #00a65a; font-size: 50px;"></i>
                                     </div>
-                                    <a href="inTransitTrips" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
+                                    <a href="IntransitAndAdhoc" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
                                         info <i class="fas fa-arrow-circle-right"></i>
                                     </a>
                                 </div>
@@ -183,7 +183,7 @@
                                     <div class="icon">
                                         <i class="far fa-times-circle" style="color: #17a2b8; font-size: 50px;"></i>
                                     </div>
-                                    <a href="closedTrips" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
+                                    <a href="ClosedAdhoc" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
                                         info <i class="fas fa-arrow-circle-right"></i>
                                     </a>
                                 </div>
@@ -444,56 +444,7 @@
                 options: unresolvedstsOptions
             })
 
-            getDashBoardInformation();
-
-            function getDashBoardInformation() {
-
-                var id = "";
-                var obj = {
-                    "id": id
-                }
-
-                $.ajax({
-                    type: "POST",
-                    data: JSON.stringify(obj),
-                    url: "<%=GlobalUrl.getDashboardDetailsForNetwork%>",
-                    dataType: "json",
-                    contentType: "application/json",
-                    async: false,
-                    success: function (data) {
-
-                        if (data.msg == 'success') {
-                            console.log(data.data);
-                            var result = data.data
-                            var tripList = data.data.tripList;
-                            console.log(tripList);
-                            tabledata.clear();
-                            var count = 0;
-                            //var editBtn;
-                            for (var i = 0; i < result.length; i++) {
-
-                                count++;
-                                tabledata.row.add([result[i].tripID,
-                                    result[i].route,
-                                    result[i].runType,
-                                    result[i].vendorTripStatus,
-                                    result[i].paymentStatus,
-                                ]);
-                            }
-                            tabledata.draw();
-                            $("tbody").show();
-                        } else {
-                            Toast.fire({
-                                type: 'error',
-                                title: 'Failed.. Try Again..'
-                            })
-                        }
-                    },
-                    error: function (jqXHR, textStatue, errorThrown) {
-                        alert("failed, please try again letter");
-                    }
-                });
-            }
+           
 
             function changePassword(password) {
                 console.log(document.getElementById('passwordch').value);

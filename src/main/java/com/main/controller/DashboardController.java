@@ -21,11 +21,16 @@ import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.JdbcConnection;
 import com.main.db.bpaas.entity.AgreementMaster;
+import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
+import com.main.db.bpaas.repo.QueryRepo;
+
 import com.main.db.bpaas.repo.TripDetailsRepo;
+
 import com.main.serviceManager.ServiceManager;
 import java.security.Principal;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
@@ -48,6 +53,9 @@ public class DashboardController {
 
     @Autowired
     TripDetailsRepo tripDetailsRepo;
+
+    @Autowired
+    QueryRepo queryRepo;
 
     @RequestMapping({"getDashboardDetails"})
     @CrossOrigin("*")
@@ -108,26 +116,72 @@ public class DashboardController {
 
     @RequestMapping("/updateDetailsforNetwork")
     @CrossOrigin("*")
-    public void updateDetailsforNetwork(Model model, Principal principal, @RequestBody String agrn) {
+    public String updateDetailsforNetwork(Model model, Principal principal, @RequestBody String agrn) {
 
         System.out.println("************************Data is ::" + agrn);
-     
-            JSONObject jsonObject = new JSONObject(agrn);
-            String processedon = jsonObject.get("processedOn").toString();
-            String tripid = jsonObject.get("tripID").toString();
-            String AssigenedTo = jsonObject.get("AssigenedTo").toString();
 
-            System.out.println("processedon" + processedon);
-            System.out.println("tripid" + tripid);
-            System.out.println("AssigenedTo" + AssigenedTo);
+        JSONObject jsonObject = new JSONObject(agrn);
+        String processedon = jsonObject.get("processedOn").toString();
+        String processedBy = jsonObject.getString("processedBy").toString();
+        String tripid = jsonObject.get("tripID").toString();
+        String AssigenedTo = jsonObject.get("AssigenedTo").toString();
+        String LumpSomeCheckBox = "";
+        String LumpSomeAmount = jsonObject.getString("LumpSomeAmount").toString();
 
-            tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid);
+//fs
+//totalFreight
+//basicFreight
+        String fs = jsonObject.getString("fs").toString();
+        String totalFreight = jsonObject.getString("totalFreight").toString();
+        String basicFreight = jsonObject.getString("basicFreight").toString();
+        String commentsByUSer = jsonObject.getString("commentsby").toString();
 
-            DataContainer data = new DataContainer();
-            data.setMsg("success");
-            //  System.out.println("Value of S si :"+s);
-       
+///
+        System.out.println("fs " + fs
+                + "\ntotalFreight " + totalFreight
+                + "\nbasicFreight " + basicFreight + ""
+                + "\ncommentsByUSer " + commentsByUSer);
 
-      
+        if ("".equalsIgnoreCase(LumpSomeAmount)) {
+            LumpSomeCheckBox = "false";
+        } else {
+            LumpSomeCheckBox = "true";
+        }
+
+        if ("".equalsIgnoreCase(LumpSomeAmount)) {
+            LumpSomeAmount = "0";
+        }
+
+        System.out.println("processedon" + processedon);
+        System.out.println("tripid" + tripid);
+        System.out.println("processedBy" + processedBy);
+        System.out.println("AssigenedTo" + AssigenedTo);
+        System.out.println("LumpSomeCheckBox" + LumpSomeCheckBox);
+        System.out.println("LumpSomeAmount" + LumpSomeAmount);
+
+        tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox, LumpSomeAmount,"Approved By Network Team");
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        DataContainer data = new DataContainer();
+        data.setMsg("success");
+        //  System.out.println("Value of S si :"+s);
+
+        QueryEntity comm = new QueryEntity();
+        comm.setRaisedBy(processedBy);
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date date = new Date();
+            System.out.println(formatter.format(date));
+            comm.setRaisedOn(formatter.format(date));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        comm.setReferenceid(tripid);
+        comm.setComment(commentsByUSer);
+
+        queryRepo.save(comm);
+
+        return gson.toJson(data).toString();
+
     }
 }

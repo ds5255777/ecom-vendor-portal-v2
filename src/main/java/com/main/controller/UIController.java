@@ -337,8 +337,10 @@ public class UIController {
             int totalTripCount = tripDetailsRepo.getADHocTripCount("Adhoc");
             model.addAttribute("totalTripCount", totalTripCount);
 
-            List<TripDetails> allApprovedTripscount = tripService.findAllTripsByStatus("Approved");
+            List<TripDetails> allApprovedTripscount = tripService.findAllTripsByStatus("Approved By Network Team");
             model.addAttribute("ApprovedTripscount", allApprovedTripscount.size());
+
+            System.out.println("Approved by Network team " + allApprovedTripscount.size());
 
             List<TripDetails> yetTobeApproved = tripService.findAllTripsByStatus("");
             model.addAttribute("yetTobeApproved", yetTobeApproved.size());
@@ -504,15 +506,14 @@ public class UIController {
         return "pendingInvoice";
     }
 
-   @GetMapping("/tripsInvoiceGenerate")
-	public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
+    @GetMapping("/tripsInvoiceGenerate")
+    public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
 
-		String tripId = request.getParameter("id");
-		model.addAttribute("tripId", tripId);
-		
-		return "tripsInvoiceGenerate";
-	}
+        String tripId = request.getParameter("id");
+        model.addAttribute("tripId", tripId);
 
+        return "tripsInvoiceGenerate";
+    }
 
 //Added by Saurabh for Network Module Part
     @GetMapping("/dashbaordNetwork")
@@ -566,11 +567,43 @@ public class UIController {
     @GetMapping("/pendingApprovalNetwork")
     public String pendingApprovalNetwork(Model model, Principal principal) {
         List<TripDetails> yetTobeApproved = tripService.findAllTripsByStatus("");
-        System.out.println("Size of pending approval trips is ::"+yetTobeApproved.size());
+        System.out.println("Size of pending approval trips is ::" + yetTobeApproved.size());
         model.addAttribute("yetTobeApprovedAllDetails", yetTobeApproved);
         return "pendingApprovalNetwork";
     }
 
+//getApprovedAdhocTrips
+    @GetMapping("/getApprovedAdhocTrips")
+    public String getApprovedAdhocTrips(Model model, Principal principal) {
+        System.out.println("In getApprovedAdhocTrips");
+        List<TripDetails> allApprovedTripscount = tripService.findAllTripsByStatus("Approved By Network Team");
+        System.out.println("allApprovedTripscount  :::::::::::::::::::; " + allApprovedTripscount.size());
+        model.addAttribute("ApprovedAllDetailsForNetwork", allApprovedTripscount);
 
+        return "getApprovedAdhocTrips";
+    }
+
+
+    @GetMapping("/IntransitAndAdhoc")
+    public String IntransitAndAdhoc(Model model, Principal principal) {
+        System.out.println("********************In IntransitAndAdhoc**************");
+        List<TripDetails> AllDetailsForNetwork = tripService.getInTransitTripByRunTypeAndRunStatus("Adhoc", "In-Transit");
+        System.out.println("AllDetailsForNetwork In Trnasit and Adhoc Trips  :::::::::::::::::::; " + AllDetailsForNetwork.size());
+        model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
+
+        return "IntransitAndAdhoc";
+    }
+
+
+//ClosedAdhoc
+ @GetMapping("/ClosedAdhoc")
+    public String ClosedAdhoc(Model model, Principal principal) {
+        System.out.println("********************In ClosedAndAdhoc**************");
+        List<TripDetails> AllDetailsForNetwork = tripService.getInTransitTripByRunTypeAndRunStatus("Adhoc", "Closed");
+        System.out.println("AllDetailsForNetwork In closed and Adhoc Trips  :::::::::::::::::::; " + AllDetailsForNetwork.size());
+        model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
+
+        return "IntransitAndAdhoc";
+    }
 
 }

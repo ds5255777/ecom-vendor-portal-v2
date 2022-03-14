@@ -28,6 +28,7 @@ import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.repo.QueryRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
+import org.json.JSONObject;
 
 @RequestMapping("/tripControllers")
 @RestController
@@ -226,8 +227,6 @@ public class TripControllers {
             }
             System.out.println("after query" + sql);
 
-
-
             stmt = conn.createStatement();
             rs = stmt.executeQuery(sql);
 
@@ -308,6 +307,33 @@ public class TripControllers {
         return gson.toJson(data).toString();
     }
 
+///getRemarksByRefID
+    @RequestMapping({"/getRemarksByRefID"})
+    @CrossOrigin("*")
+    public String getRemarksByRefID(HttpServletRequest request, @RequestBody String obj) {
+
+        DataContainer data = new DataContainer();
+
+        // System.out.println("trip Query "+queryObj.getTripDetails());
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        try {
+            JSONObject jsonObject = new JSONObject(obj);
+            System.out.println("jsonObject "+jsonObject.toString());
+            String tripID = jsonObject.get("tripID").toString();
+            System.out.println(" Trip id is ::"+tripID);
+             List<QueryEntity> qe = queryRepo.findCommentsByRefID(tripID);
+            System.out.println("Query cahl gyi size hai"+qe.size());
+            data.setData(qe.toString());
+            data.setMsg("success");
+            System.out.println("Trip id is ::" + tripID);
+
+        } catch (Exception e) {
+            data.setMsg("error");
+            e.printStackTrace();
+        }
+
+        return gson.toJson(data).toString();
+    }
 
 //
 }

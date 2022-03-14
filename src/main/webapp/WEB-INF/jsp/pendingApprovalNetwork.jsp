@@ -683,32 +683,32 @@
 
 
                                                         //Ajax to get remarks
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            data: JSON.stringify(json),
-                                                            url: "<%=GlobalUrl.getRemarksByRefID%>",
-                                                            dataType: "json",
-                                                            contentType: "application/json",
-                                                            async: false,
-                                                            success: function (data) {
-                                                                console.log("data.msg" + data.msg);
-                                                                console.log("data.msg "+data.data);
-                                                                if (data.msg == 'success') {
-                                                                    var result = data.data;
-                                                                   var obj = $.parseJSON(result.responseText);
-                                                                    
-                                                                  //  console.log("vghv "+abc.comment);
-                                                                
-
-                                                                   
-                                                                    
-
-
-                                                                }
-                                                            }
-
-
-                                                        });
+//                                                        $.ajax({
+//                                                            type: "POST",
+//                                                            data: JSON.stringify(json),
+//                                                            url: "<%=GlobalUrl.getRemarksByRefID%>",
+//                                                            dataType: "json",
+//                                                            contentType: "application/json",
+//                                                            async: false,
+//                                                            success: function (data) {
+//                                                                console.log("data.msg" + data.msg);
+//                                                                console.log("data.msg "+data.data);
+//                                                                if (data.msg == 'success') {
+//                                                                    var result = data.data;
+//                                                                   var obj = $.parseJSON(result.responseText);
+//                                                                    
+//                                                                  //  console.log("vghv "+abc.comment);
+//                                                                
+//
+//                                                                   
+//                                                                    
+//
+//
+//                                                                }
+//                                                            }
+//
+//
+//                                                        });
 
 
                                                     }
@@ -936,6 +936,7 @@
 
 
                                                         $('#tripValue').modal('hide');
+                                                        location. reload();
 
 
                                                     }

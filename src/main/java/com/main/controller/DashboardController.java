@@ -31,6 +31,7 @@ import com.main.serviceManager.ServiceManager;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
@@ -171,7 +172,7 @@ public class DashboardController {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Date date = new Date();
             System.out.println(formatter.format(date));
-            comm.setRaisedOn(formatter.format(date));
+            comm.setRaisedOn(date);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

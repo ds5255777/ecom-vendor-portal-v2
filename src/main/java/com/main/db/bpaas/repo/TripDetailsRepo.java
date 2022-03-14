@@ -73,20 +73,30 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "select count(*) from Trip_Details where run_type = ?", nativeQuery = true)
     int getADHocTripCount(String type);
 
-    @Query(value = "SELECT id,processed_By,processed_On,lumpSome_CheckBox,lumpSome_Amount, actual_arrival, actual_departure, actual_km, actual_vechicle_type, assign_to, basic_freight, closing_reading, current_fuel_rate, dest_hub, fs, fs_base_rate, fs_diff, mileage, mode, opening_reading, origin_hub, origin_region, payment_status, rate_per_km, route, route_kms, run_status, run_type, standard_km, standard_payload_capacity, standard_shipment_capacity, status, total_freight, trip_id, trip_starting_date, vehicle_number, vendor_code, vendor_name, vendor_trip_status, tripdetails_id, actual_shipment, actual_chargeable_weight, approval_status FROM trip_details where vendor_trip_status=:ApprovalStatus and assign_to = 'Network' and  run_type='Adhoc'; ", nativeQuery = true)
+    @Query(value = "SELECT id,processed_By,processed_On,lumpSome_CheckBox,lumpSome_Amount, actual_arrival, actual_departure, actual_km, actual_vechicle_type, assign_to, basic_freight, closing_reading, current_fuel_rate, dest_hub, fs, fs_base_rate, fs_diff, mileage, mode, opening_reading, origin_hub, origin_region, payment_status, rate_per_km, route, route_kms, run_status, run_type, standard_km, standard_payload_capacity, standard_shipment_capacity, status, total_freight, trip_id, trip_starting_date, vehicle_number, vendor_code, vendor_name, vendor_trip_status, tripdetails_id, actual_shipment, actual_chargeable_weight FROM trip_details where vendor_trip_status=:ApprovalStatus and assign_to = 'Network' and  run_type='Adhoc'; ", nativeQuery = true)
     List<TripDetails> findAllTripsByStatus(@Param("ApprovalStatus") String ApprovalStatus);
 
-    @Query(value = "SELECT id,processed_By,processed_On,lumpSome_CheckBox,lumpSome_Amount, actual_arrival, actual_departure, actual_km, actual_vechicle_type, assign_to, basic_freight, closing_reading, current_fuel_rate, dest_hub, fs, fs_base_rate, fs_diff, mileage, mode, opening_reading, origin_hub, origin_region, payment_status, rate_per_km, route, route_kms, run_status, run_type, standard_km, standard_payload_capacity, standard_shipment_capacity, status, total_freight, trip_id, trip_starting_date, vehicle_number, vendor_code, vendor_name, vendor_trip_status, tripdetails_id, actual_shipment, actual_chargeable_weight, approval_status FROM trip_details where vendor_trip_status = 'Yet To Be Approved By Network Team' and assign_to = 'Network' and run_type='Adhoc' and run_status = 'Closed'; ", nativeQuery = true)
+    @Query(value = "SELECT id,processed_By,processed_On,lumpSome_CheckBox,lumpSome_Amount, actual_arrival, actual_departure, actual_km, actual_vechicle_type, assign_to, basic_freight, closing_reading, current_fuel_rate, dest_hub, fs, fs_base_rate, fs_diff, mileage, mode, opening_reading, origin_hub, origin_region, payment_status, rate_per_km, route, route_kms, run_status, run_type, standard_km, standard_payload_capacity, standard_shipment_capacity, status, total_freight, trip_id, trip_starting_date, vehicle_number, vendor_code, vendor_name, vendor_trip_status, tripdetails_id, actual_shipment, actual_chargeable_weight FROM trip_details where vendor_trip_status = 'Yet To Be Approved By Network Team' and assign_to = 'Network' and run_type='Adhoc' and run_status = 'Closed'; ", nativeQuery = true)
     List<TripDetails> findAllTripsWhoseStatusIsNull();
 
     @Query(value = "select count(*) from Trip_Details where run_status=:runStatus and run_type= :runtype", nativeQuery = true)
     int getInTransitTripCountByRunTypeAndRunStatus(@Param("runtype") String runtype, @Param("runStatus") String runStatus);
 
-    @Query(value = "select id,processed_By,processed_On,lumpSome_CheckBox,lumpSome_Amount, actual_arrival, actual_departure, actual_km, actual_vechicle_type, assign_to, basic_freight, closing_reading, current_fuel_rate, dest_hub, fs, fs_base_rate, fs_diff, mileage, mode, opening_reading, origin_hub, origin_region, payment_status, rate_per_km, route, route_kms, run_status, run_type, standard_km, standard_payload_capacity, standard_shipment_capacity, status, total_freight, trip_id, trip_starting_date, vehicle_number, vendor_code, vendor_name, vendor_trip_status, tripdetails_id, actual_shipment, actual_chargeable_weight, approval_status from Trip_Details where run_status=:runStatus and run_type= :runtype", nativeQuery = true)
+    @Query(value = "select id,processed_By,processed_On,lumpSome_CheckBox,lumpSome_Amount, actual_arrival, actual_departure, actual_km, actual_vechicle_type, assign_to, basic_freight, closing_reading, current_fuel_rate, dest_hub, fs, fs_base_rate, fs_diff, mileage, mode, opening_reading, origin_hub, origin_region, payment_status, rate_per_km, route, route_kms, run_status, run_type, standard_km, standard_payload_capacity, standard_shipment_capacity, status, total_freight, trip_id, trip_starting_date, vehicle_number, vendor_code, vendor_name, vendor_trip_status, tripdetails_id, actual_shipment, actual_chargeable_weight from Trip_Details where run_status=:runStatus and run_type= :runtype", nativeQuery = true)
     List<TripDetails> getInTransitTripByRunTypeAndRunStatus(@Param("runtype") String runtype, @Param("runStatus") String runStatus);
 
-    @Query(value = "SELECT id,processed_By,processed_On,lumpSome_CheckBox,lumpSome_Amount, actual_arrival, actual_departure, actual_km, actual_vechicle_type, assign_to, basic_freight, closing_reading, current_fuel_rate, dest_hub, fs, fs_base_rate, fs_diff, mileage, mode, opening_reading, origin_hub, origin_region, payment_status, rate_per_km, route, route_kms, run_status, run_type, standard_km, standard_payload_capacity, standard_shipment_capacity, status, total_freight, trip_id, trip_starting_date, vehicle_number, vendor_code, vendor_name, vendor_trip_status, tripdetails_id, actual_shipment, actual_chargeable_weight, approval_status FROM trip_details where trip_id =:tripID ; ", nativeQuery = true)
+    @Query(value = "SELECT id,processed_By,processed_On,lumpSome_CheckBox,lumpSome_Amount, actual_arrival, actual_departure, actual_km, actual_vechicle_type, assign_to, basic_freight, closing_reading, current_fuel_rate, dest_hub, fs, fs_base_rate, fs_diff, mileage, mode, opening_reading, origin_hub, origin_region, payment_status, rate_per_km, route, route_kms, run_status, run_type, standard_km, standard_payload_capacity, standard_shipment_capacity, status, total_freight, trip_id, trip_starting_date, vehicle_number, vendor_code, vendor_name, vendor_trip_status, tripdetails_id, actual_shipment, actual_chargeable_weight FROM trip_details where trip_id =:tripID ; ", nativeQuery = true)
     List<TripDetails> findTripsByID(@Param("tripID") String tripID);
+
+
+
+
+
+
+//getQueryTripsForNetwork
+@Query(value = "select id,processed_By,processed_On,lumpSome_CheckBox,lumpSome_Amount, actual_arrival, actual_departure, actual_km, actual_vechicle_type, assign_to, basic_freight, closing_reading, current_fuel_rate, dest_hub, fs, fs_base_rate, fs_diff, mileage, mode, opening_reading, origin_hub, origin_region, payment_status, rate_per_km, route, route_kms, run_status, run_type, standard_km, standard_payload_capacity, standard_shipment_capacity, status, total_freight, trip_id, trip_starting_date, vehicle_number, vendor_code, vendor_name, vendor_trip_status, tripdetails_id, actual_shipment, actual_chargeable_weight from Trip_Details where run_type='Adhoc' and vendor_trip_status= ?", nativeQuery = true)
+ List<TripDetails> getQueryTripsForNetwork(String vendor_trip_status);
+
 
     @Transactional
     @Modifying
@@ -99,6 +109,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
             @Param("LumpSomeCheckBox") String LumpSomeCheckBox,
             @Param("LumpSomeAmount") String LumpSomeAmount,
             @Param("vendor_tripStatus") String vendor_tripStatus);
+
+
 
 //END
 }

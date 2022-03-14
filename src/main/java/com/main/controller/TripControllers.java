@@ -318,12 +318,14 @@ public class TripControllers {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         try {
             JSONObject jsonObject = new JSONObject(obj);
-            System.out.println("jsonObject "+jsonObject.toString());
+            System.out.println("jsonObject " + jsonObject.toString());
             String tripID = jsonObject.get("tripID").toString();
-            System.out.println(" Trip id is ::"+tripID);
-             List<QueryEntity> qe = queryRepo.findCommentsByRefID(tripID);
-            System.out.println("Query cahl gyi size hai"+qe.size());
-            data.setData(qe.toString());
+            System.out.println(" Trip id is ::" + tripID);
+            List<QueryEntity> qe = queryRepo.findCommentsByRefID(tripID);
+            System.out.println("Query cahl gyi size hai" + qe.size() + ""
+                    + "" + qe.get(0).getComment());
+
+            data.setData(qe);
             data.setMsg("success");
             System.out.println("Trip id is ::" + tripID);
 

@@ -65,13 +65,13 @@
                             </a></li>
                     </ul>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item"><a href="IntransitAndAdhoc" class="nav-link
-                                                <%if (request.getParameter("pagename").equalsIgnoreCase("inTransitTrips")) {
+                        <li class="nav-item"><a href="QueryTripsForNetwork" class="nav-link
+                                                <%if (request.getParameter("pagename").equalsIgnoreCase("Query Raised")) {
                                     out.print("active");
                                 }%>
                                                 ">
-                                <i class="nav-icon fas fa-map-marked-alt"></i>
-                                <p>In-Transit (Adhoc) Trips</p>
+                                <i class="nav-icon fas fa-question"></i>
+                                <p>Query Raised</p>
                             </a></li>
                     </ul>
 

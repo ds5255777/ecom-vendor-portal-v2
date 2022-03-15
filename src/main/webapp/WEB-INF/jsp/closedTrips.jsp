@@ -115,7 +115,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <jsp:include page="slidebar.jsp?pagename=closedTrips" />
+        <jsp:include page="sidebar_Vendor.jsp?pagename=closedTrips" />
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

@@ -440,8 +440,13 @@ public class UIController {
     // vendor ui
     @GetMapping("/allTrips")
     public String allTrips(Model model, Principal principal, HttpServletRequest request) {
-
-        return "allTrips";
+        String rolename = (String) request.getSession().getAttribute("role");
+        if (rolename.equalsIgnoreCase("Network")) {
+            return "allTripsNetwork";
+        } else if (rolename.equalsIgnoreCase("Vendor")) {
+            return "allTrips";
+        }
+        return "";
     }
 
     @GetMapping("/tripDetailsView")
@@ -583,7 +588,6 @@ public class UIController {
         return "getApprovedAdhocTrips";
     }
 
-
     @GetMapping("/QueryTripsForNetwork")
     public String QueryTripsForNetwork(Model model, Principal principal) {
         System.out.println("********************In QueryTripsForNetwork**************");
@@ -594,16 +598,15 @@ public class UIController {
         return "QueryTripsForNetwork";
     }
 
-
 //ClosedAdhoc
- @GetMapping("/ClosedAdhoc")
+    @GetMapping("/ClosedAdhoc")
     public String ClosedAdhoc(Model model, Principal principal) {
         System.out.println("********************In ClosedAndAdhoc**************");
         List<TripDetails> AllDetailsForNetwork = tripService.getInTransitTripByRunTypeAndRunStatus("Adhoc", "Closed");
         System.out.println("AllDetailsForNetwork In closed and Adhoc Trips  :::::::::::::::::::; " + AllDetailsForNetwork.size());
         model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
 
-        return "IntransitAndAdhoc";
+        return "ClosedAdhoc";
     }
 
 }

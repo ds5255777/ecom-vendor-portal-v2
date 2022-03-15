@@ -111,7 +111,7 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <jsp:include page="navbar.jsp?pagename=All Invoice" />
+        <jsp:include page="sidebar_Vendor.jsp?pagename=All Invoice" />
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->

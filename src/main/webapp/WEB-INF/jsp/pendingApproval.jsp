@@ -115,7 +115,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <jsp:include page="slidebar.jsp?pagename=pendingApproval" />
+        <jsp:include page="sidebar_Vendor.jsp?pagename=pendingApproval" />
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

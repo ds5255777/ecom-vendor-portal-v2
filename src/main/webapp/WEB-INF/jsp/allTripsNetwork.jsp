@@ -35,12 +35,12 @@
             var statusObject = {
                 "In-Transit": {
                     "Yet To Be Approved": ["NA"],
-                    "Yet To Be Approved By Network Team":["NA"],
+                    "Yet To Be Approved By Network Team": ["NA"],
                 },
                 "Closed": {
                     "Yet To Be Approved": ["NA"],
-                    "Approved By Network Team":["NA"],
-                    "Yet To Be Approved By Network Team":["NA"],
+                    "Approved By Network Team": ["NA"],
+                    "Yet To Be Approved By Network Team": ["NA"],
                     "Approved": ["Pending"],
                     "Invoicing": ["Pending", "Approved"],
                 }
@@ -757,6 +757,9 @@
                                                                             var statustemp_approved = '<span class=\"right badge badge-success\">Approved By Network Team</span>';
                                                                             var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
                                                                             var statustemp_Query = '<span class=\"right badge badge-warning\">Query</span>';
+                                                                            var statustemp_pending_Vendor = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
+                                                                            var statustemp_approved_Vendor = '<span class=\"right badge badge-success\">Approved</span>';
+
 
                                                                             var paymentStatus = "";
                                                                             var runStatus = "";
@@ -786,6 +789,12 @@
 
                                                                             } else if (result[i].vendorTripStatus == "Query") {
                                                                                 tempString[4] = statustemp_Query;
+
+                                                                            } else if (result[i].vendorTripStatus == "Yet To Be Approved") {
+                                                                                tempString[4] = statustemp_pending_Vendor;
+
+                                                                            } else if (result[i].vendorTripStatus == "Approved") {
+                                                                                tempString[4] = statustemp_approved_Vendor;
 
                                                                             }
 
@@ -894,7 +903,7 @@
                                                                             var statustemp_runststus_Intransit = '<span class=\"right badge badge-warning\">In-Transit</span>';
                                                                             var statustemp_runststus_Closed = '<span class=\"right badge badge-success\">Closed</span>';
 
-                                                                           var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved By Network Team</span>';
+                                                                            var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved By Network Team</span>';
                                                                             var statustemp_approved = '<span class=\"right badge badge-success\">Approved By Network Team</span>';
                                                                             var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
                                                                             var statustemp_Query = '<span class=\"right badge badge-warning\">Query</span>';
@@ -994,7 +1003,7 @@
                                                                             var statustemp_runststus_Intransit = '<span class=\"right badge badge-warning\">In-Transit</span>';
                                                                             var statustemp_runststus_Closed = '<span class=\"right badge badge-success\">Closed</span>';
 
-                                                                           var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved By Network Team</span>';
+                                                                            var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved By Network Team</span>';
                                                                             var statustemp_approved = '<span class=\"right badge badge-success\">Approved By Network Team</span>';
                                                                             var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
                                                                             var statustemp_Query = '<span class=\"right badge badge-warning\">Query</span>';

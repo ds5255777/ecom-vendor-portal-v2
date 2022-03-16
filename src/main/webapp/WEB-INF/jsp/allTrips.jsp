@@ -155,7 +155,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <jsp:include page="slidebar_Vendor.jsp?pagename=allTrips" />
+        <jsp:include page="slidebar.jsp?pagename=allTrips" />
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

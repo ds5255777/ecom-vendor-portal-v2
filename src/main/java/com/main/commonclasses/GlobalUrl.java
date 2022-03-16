@@ -30,6 +30,7 @@ public class GlobalUrl {
     public static String tripDetailByTripId = tripControllers + "/tripDetailByTripId";
     public static String getRemarksByRefID = tripControllers + "/getRemarksByRefID";
     public static String status = tripControllers + "/status";
+    public static String statusNetwork = tripControllers + "/statusNetwork";
     public static String filterTripDetails = tripControllers + "/filterTripDetails";
     public static String saveTripQuery = tripControllers + "/saveTripQuery";
     //public static String dateFilter=tripControllers+"/searchTripDetailsFromDate";

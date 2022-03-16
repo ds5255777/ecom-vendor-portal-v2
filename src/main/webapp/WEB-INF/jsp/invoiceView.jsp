@@ -134,7 +134,7 @@
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="text"
 													placeholder="Business Partner Code" name="bpCode"
-													id="bpCode" style="width: 100%;">
+													id="bpCode" readonly style="width: 100%;">
 											</div>
 										</div>
 									</div>
@@ -145,7 +145,7 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
-												<select class="form-control-sm select2" style="width: 100%;"
+												<select class="form-control-sm select2"  style="width: 100%;"
 													id="siteName" name="siteName">
 													<option value="Site_1">Site 1</option>
 													<option value="Site_2">Site 2</option>
@@ -160,7 +160,7 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<input type="date" name="invoiceDate" id="invoiceDate"
-													class="form-control-sm" style="width: 100%;">
+													readonly class="form-control-sm" style="width: 100%;">
 											</div>
 										</div>
 									</div>
@@ -171,7 +171,7 @@
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="text"
 													placeholder="Invoice Number" name="invoiceNumber"
-													id="invoiceNumber" style="width: 100%;">
+													id="invoiceNumber" readonly style="width: 100%;">
 											</div>
 										</div>
 									</div>
@@ -196,7 +196,7 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="number"
-													name="invoiceAmount" id="invoiceAmount"
+													name="invoiceAmount" readonly id="invoiceAmount"
 													placeholder="Invoice Amount" style="width: 100%;">
 											</div>
 										</div>
@@ -220,7 +220,7 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="text"
-													name="vehicleNumber" id="vehicleNumber"
+													name="vehicleNumber" readonly id="vehicleNumber"
 													placeholder="vehicleNumber" style="width: 100%;">
 											</div>
 										</div>
@@ -244,28 +244,26 @@
 						</div>
 						<!-- /.card-header -->
 						<form id="stepTwoForm" class="forms-sample">
-							<div class="card-body" style="overflow: auto;">
-								<table id="prTable" class="table table-bordered table-striped">
-									<thead>
-										<tr>
-											<th style="padding: 5px 5px 5px 1.5rem;">Number</th>
-											<th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-											<th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-											<th style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
-											<th style="padding: 5px 5px 5px 1.5rem;">Current Fuel
-												Rate</th>
-											<th style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
-											<th style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
-											<th style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
-											<th style="padding: 5px 5px 5px 1.5rem;">FS</th>
-											<th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-											<th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-											<th style="padding: 5px 5px 5px 1.5rem;">Line level
-												Description</th>
-										</tr>
-									</thead>
-								</table>
-							</div>
+						<div class="card-body" style="overflow: auto;">
+							<table id="prTable" class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<!-- <th style="padding: 5px 5px 5px 1.5rem;">Number</th> -->
+										<th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+										<th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
+										<th style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
+										<th style="padding: 5px 5px 5px 1.5rem;">Current Fuel Rate</th>
+										<th style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
+										<th style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
+										<th style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
+										<th style="padding: 5px 5px 5px 1.5rem;">FS</th>
+										<th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
+										<th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
+										<th style="padding: 5px 5px 5px 1.5rem;">Line level Description</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
 						</form>
 						<!-- /.card-body -->
 					</div>
@@ -291,7 +289,7 @@
 											<label class="col-sm-5">Taxable Amount</label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" name="taxableAmount"
-													id="taxableAmount" type="text" placeholder="Taxable Amount"
+													id="taxableAmount" type="text" readonly placeholder="Taxable Amount"
 													style="width: 100%;">
 											</div>
 										</div>
@@ -301,7 +299,7 @@
 											<label class="col-sm-5">Tax Amount</label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" name="taxAmount"
-													id="taxAmount" type="text" placeholder="Tax Amount"
+													id="taxAmount" type="text" readonly placeholder="Tax Amount"
 													style="width: 100%;">
 											</div>
 										</div>
@@ -311,7 +309,7 @@
 						</div>
 						<!-- /.card-body -->
 					</div>
-					<div class="card card-primary">
+					<!--<div class="card card-primary">
 						<div class="card-header" style="padding: 5px 5px 0px 5px;">
 							<h4 class="card-title">Document Upload</h4>
 							<div class="card-tools">
@@ -322,8 +320,8 @@
 
 							</div>
 						</div>
-						<!-- /.card-header -->
-						<div class="card-body" style="overflow: auto;">
+						
+						 <div class="card-body" style="overflow: auto;">
 							<form id="stepFourForm" class="forms-sample">
 								<div class="row">
 
@@ -334,7 +332,7 @@
 											<div class="col-sm-7">
 												<input type="file" id="InvoiceUpload" name="InvoiceUpload"
 													class="form-control-sm"
-													onchange="handleFileSelect(event,'InvoiceFileText'), onValidateFile('InvoiceUpload')"
+													onchange="handleFileSelect(event,'InvoiceFileText')"
 													class="form-control p-input">
 												<textarea id="InvoiceFileText" name="InvoiceFileText"
 													rows="5" style="display: none;"></textarea>
@@ -348,7 +346,7 @@
 											<div class="col-sm-7">
 												<input type="file" id="DocumentFileOne"
 													name="DocumentFileOne" class="form-control-sm"
-													onchange="handleFileSelect(event,'DocumentFileOneText'), onValidateFile('DocumentFileOne')"
+													onchange="handleFileSelect(event,'DocumentFileOneText')"
 													class="form-control p-input">
 												<textarea id="DocumentFileOneText"
 													name="DocumentFileOneText" rows="5" style="display: none;"></textarea>
@@ -362,7 +360,7 @@
 											<div class="col-sm-7">
 												<input type="file" id="DocumentFileTwo"
 													name="DocumentFileTwo" class="form-control-sm"
-													onchange="handleFileSelect(event,'DocumentFileTwoText'), onValidateFile('DocumentFileTwo')"
+													onchange="handleFileSelect(event,'DocumentFileTwoText')"
 													class="form-control p-input">
 												<textarea id="DocumentFileTwoText"
 													name="DocumentFileTwoText" rows="5" style="display: none;"></textarea>
@@ -372,17 +370,12 @@
 								</div>
 							</form>
 						</div>
-						<!-- /.card-body -->
-					</div>
+						/.card-body
+					</div> -->
 					<center>
 						<div class="form-group">
-							<label style="visibility: hidden;">Select </label>
-							<button type="button" onclick="sendToServer()"
-								class="btn btn-info">Submit Invoice</button>
-
-							<label style="visibility: hidden;">Select</label>
-							<button type="button" onclick="updateVentorTripStats()"
-								class="btn btn-info">Close Invoice</button>
+							<label style="visibility: hidden;">Select </label> <br>
+							 <button type="button" class="btn btn-primary" id="closeModal" onclick="closeWin()">Close</button>
 						</div>
 					</center>
 					<!-- /.row -->
@@ -439,7 +432,7 @@
 	<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 	<script
 		src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-	<script
+	<script 
 		src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 	<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
 	<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
@@ -450,8 +443,8 @@
 	<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 	<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 	<script src="plugins/select2/js/select2.full.min.js"></script>
-	<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
-	<script src="plugins/jquery-validation/additional-methods.min.js"></script>
+        <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+        <script src="plugins/jquery-validation/additional-methods.min.js"></script>
 	<!-- Select2 -->
 	<script src="plugins/select2/js/select2.full.min.js"></script>
 
@@ -459,335 +452,84 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
 
 	<script>
-	const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000
-    });
-      
-
-            var prTable = $("#prTable").DataTable({
-            	"paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "info": true,
-                "autoWidth": false,
-                "aaSorting": [],
-                "scrollX": true,
-                "pageLength": 15,
-                });
-            function onValidateFile(id){
-            	var fileInput3 = document.getElementById(id).value;
-            	var gst = document.getElementById(id);
-            	var allowedExtensions = /(\.jpg|\.jpeg|\.pdf)$/i;
-            	 /* if (!allowedExtensions.exec(fileInput3)) {
-            		 $("#GSTFile").val("");
-                 	swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File....", "warning");
-                 	return false;
-                 } */
-            	 if (typeof (gst.files) != "undefined") {
-                 	//alert("hello");
-                 	
-                 	const fsize = gst.files.item(0).size;
-                 	
-                 	console.log(fsize);
-                 	const file = Math.round((fsize / 1024));
-                 	console.log(file);
-                    // var size = parseFloat(cc.files[0].size / (1024 * 1024)).toFixed(2);
-                     //alert("Your File Size is "+(file/1024)+"MB");
-                     if(file > ${maxFileSize}) {
-                     	swal.fire("Alert", "Please select File size less than 5 MB....", "warning");
-                     	$("#" + id).val("");
-                     }else{
-                     	 var ext = fileInput3.split(".")[1];
-                         // alert("Extension is "+ext);
-                          
-                          if( ext=="pdf" || ext=="jpg" || ext=="JPEG" || ext=="JPG" || ext=="jpeg" || ext=="PDF" ){
-                          	//Sab valid hai
-                          }else{
-                          	swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File....", "warning");
-                              
-                          	$("#" + id).val("");
-                              return false;	
-                          }
-                     }
-                 } else {
-                     alert("This browser does not support HTML5.");
-                 }
-            }
-        
-
-  		var allTripId='${tripId}';
+	var prTable = $("#prTable").DataTable({
+    	"paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "info": true,
+        "autoWidth": false,
+        "aaSorting": [],
+        "scrollX": true,
+        "pageLength": 15,
+        });
+	
+	function closeWin(){
+		window.close()  
+	}
+  		
+  		var invoiceNumber='${invoiceNumber}';
   		
   		var tripLineArray=[];
   
- 		//console.log(allTripId);
+ 		console.log("invoiceNumber : ",invoiceNumber);
+ 		
+        setInvoiceDetails();
         
-         /* jQuery.validator.setDefaults({
-            debug: true,
-            success: "valid"
-        });  */
-         
-         $.validator.setDefaults({
-             submitHandler: function() {
-            	 sendToServer();
+        function setInvoiceDetails() {
 
-                 //alert("insode add");
-             }
-         });
-        
-        function updateVentorTripStats(){
+        	var obj={
+        			"invoiceNumber":invoiceNumber
+        	}
         	
-        			var obj={
-                			"tripID":allTripId,
-                            "vendorTripStatus": "Approved",
-                	}
-        			
-        	console.log("my obj : ",obj)
         	$.ajax({
                 type: "POST",
                 data: JSON.stringify(obj),
-                url: "<%=GlobalUrl.updateVendortripStatusByTripID%>",
+                url: "<%=GlobalUrl.getSelectInvoiceDetails%>",
                 dataType: "json",
                 contentType: "application/json",
-                success: function(response) {
+                async: false,
+                success: function(data) {
 
-                	 if (response.msg == 'success') {
-                		
-                     } else {
-                        alert("failed");
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    })
-                }
-            });
-        }
-        
-        
-        function sendToServer() {
-        	
-        	//invoiceDate
-			var invoiceDa = document.getElementById("invoiceDate").value;
-			if (invoiceDa === "" || invoiceDa === null || invoiceDa === '') {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please Select Date'
-                });
-                document.getElementById("invoiceDate").focus();
-                return "";
-            }
-        	
-        	var invoiceNu = document.getElementById("invoiceNumber").value;
-			if (invoiceNu === "" || invoiceNu === null || invoiceNu === '') {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please fill Invoice Number'
-                });
-                document.getElementById("invoiceNumber").focus();
-                return "";
-            }
-			
-			//invoiceDate
-			var invoiceAm = document.getElementById("invoiceAmount").value;
-			if (invoiceAm === "" || invoiceAm === null || invoiceAm === '') {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please fill Invoice Amount'
-                });
-                document.getElementById("invoiceAmount").focus();
-                return "";
-            }
-			
-			//vehicleNumber
-			var vehicleNu = document.getElementById("vehicleNumber").value;
-			if (vehicleNu === "" || vehicleNu === null || vehicleNu === '') {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please fill vehicle Number'
-                });
-                document.getElementById("vehicleNumber").focus();
-                return "";
-            }
-
-			//vehicleNumber
-			var invoiceDoc = document.getElementById("InvoiceUpload").value;
-			if (invoiceDoc === "" || invoiceDoc === null || invoiceDoc === '') {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please Upload Document'
-                });
-                document.getElementById("InvoiceUpload").focus();
-                return "";
-            }
-			//vehicleNumber
-			var docOne = document.getElementById("DocumentFileOne").value;
-			if (docOne === "" || docOne === null || docOne === '') {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please Upload Document'
-                });
-                document.getElementById("DocumentFileOne").focus();
-                return "";
-            }
-			//vehicleNumber
-			var docTwo = document.getElementById("DocumentFileTwo").value;
-			if (docTwo === "" || docTwo === null || docTwo === '') {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please Upload Document'
-                });
-                document.getElementById("DocumentFileTwo").focus();
-                return "";
-            }
-
-            var stepOneObj = FormDataToJSON('stepOneForm');
-            var stepThreeObj = FormDataToJSON('stepThreeForm');
-
-            const finalObj = {
-                ...stepOneObj,
-                ...stepThreeObj
-            };
-
-            if (document.getElementById("InvoiceUpload").files.length > 0) {
-                finalObj.invoiceFileName = document.getElementById("InvoiceUpload").files.item(0).name;
-                finalObj.invoiceFileText = $("#InvoiceFileText").val();
-            }
-            if (document.getElementById("DocumentFileOne").files.length > 0) {
-                finalObj.documentFileOneName = document.getElementById("DocumentFileOne").files.item(0).name;
-                finalObj.documentFileOneText = $("#DocumentFileOneText").val();
-            }
-            if (document.getElementById("DocumentFileTwo").files.length > 0) {
-                finalObj.documentFileTwoName = document.getElementById("DocumentFileTwo").files.item(0).name;
-                finalObj.documentFileTwoText = $("#DocumentFileTwoText").val();
-            }
-
-            
-         // after
-            tripLineArray.forEach((item) => {
-            	item.id=null;
-            });
-            
-            finalObj.invoiceLineItem=tripLineArray;
-            
-            console.log(finalObj);
-//return;
-            
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(finalObj),
-                url: "<%=GlobalUrl.saveInvoice%>",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(response) {
-
-                	 if (response.msg == 'success') {
-                         swal.fire("Thanks", "your Invoice Process Sucessfully", "success", "OK").then(function() {
-                             window.close();
-                             //window.location="closedAndApprovedTrips";
-                         });
-                         
-                         
-                         setTimeout(function(response) {
-
-                         }, 2000);
-                     } else {
-                        alert("failed");
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    })
-                }
-            });
-        }
-
-        function handleFileSelect(evt, id) {
-            var f = evt.target.files[0]; // FileList object
-            var reader = new FileReader();
-            // Closure to capture the file information.
-            reader.onload = (function(theFile) {
-                return function(e) {
-                    var binaryData = e.target.result;
-                    //Converting Binary Data to base 64
-                    var base64String = window.btoa(binaryData);
-                    //showing file converted to base64
-                  //  console.log(base64String);
-
-                    $("#" + id).val(base64String);
-
-                    //  document.getElementById(evt.target.id + 'Text').value = base64String;
-                    //alert('File converted to base64 successfuly!\nCheck in Textarea');
-                };
-            })(f);
-            // Read in the image file as a data URL.
-            reader.readAsBinaryString(f);
-        }
-        getTripDetails();
-        
-        function getTripDetails() {
-			var id=[];
-        	tripLineArray=[];
-        	var obj={
-        			"tripID":allTripId
-        	}
-        	
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(obj),
-                url: "<%=GlobalUrl.getLineItemDetails%>",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(response) {
-
-                	 if (response.msg == 'success') {
-                		// console.log(obj);
-                		 var result = response.data;
-                		 tripLineArray=result;
-                		 $('#prTable').DataTable().clear();
-                		 
-                		 var textBox="";
-                		 				
-
-                         for (var i = 0; i < result.length; i++) {
+                    if (data.msg == 'success') {
+                        var result = data.data;
+                        /* jsondata=JSON.parse(result) */
+                        //console.log(result);
+                         tripLineArray = data.data.invoiceLineItem;
+                         console.log(tripLineArray);
+                        var myForm = "";
+                        var myFormOne ="";
+                        myForm = document.getElementById("stepOneForm");
+                        setData(myForm, result);
+                        myFormOne = document.getElementById("stepThreeForm");
+                        setData(myFormOne, result);
+                        $('#prTable').DataTable().clear();
+                        for (var i = 0; i < tripLineArray.length; i++) {
+                            console.log(tripLineArray[i].runType);
+                      	 $('#prTable').DataTable().row.add([  tripLineArray[i].runType, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate,  tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription ]);                         
+                       console.log(tripLineArray[i].totalFreight);
+                       }
+                        $("#invoiceNumber").val(result.invoiceNumber);
                         
-                        	  textBox="<input type=\"text\" class=\"form-control\" id=\"form-control\" placeholder=\"Fill Description\" oninput=\"updateTextData('"+i+"',this.value)\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
-                        	 $('#prTable').DataTable().row.add([ i+1, result[i].runType, result[i].standardKM, result[i].ratePerKm, result[i].currentFuelRate, result[i].fsBaseRate,  result[i].fsDiff, result[i].basicFreight, result[i].fs, result[i].actualKM, result[i].totalFreight, textBox ]);                         
-                         		id=(result[i].id);
-                        	 console.log(result[i].totalFreight);
-                         }
-                         console.log("============",id);
-                         //swal.fire("Thanks", "your Invoice Process Sucessfully", "success", "OK")
-                         $('#prTable').DataTable().draw();
-                         $("tbody").show();
-                     } else {
-                        alert("failed");
+                       $('#prTable').DataTable().draw();
+                       $("tbody").show();
+                       
+                        
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            title: 'Failed.. Try Again..'
+                        })
                     }
                 },
                 error: function(jqXHR, textStatue, errorThrown) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
+                    //alert("failed, please try again");
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Failed.. Try Again..'
                     })
                 }
             });
-        }
-        
-        
-        
-        function updateTextData(index,textValue){
-        	
-        	tripLineArray[index].lineLevelDescription=textValue.trim();
-        	
+            
         }
         
     </script>

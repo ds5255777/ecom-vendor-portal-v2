@@ -197,75 +197,23 @@ public class TripControllers {
     @RequestMapping(value = "/status", method = RequestMethod.POST)
     @CrossOrigin("*")
     public String status(@RequestBody TripDetails obj) throws UnsupportedEncodingException, MessagingException {
+System.out.println("*******************************Inside status");
+    	   DataContainer data = new DataContainer();
+           Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
-        DataContainer data = new DataContainer();
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        List<TripDetails> TripDetailsList = new ArrayList<TripDetails>();
-        TripDetails tripDetail = null;
+           String runStatus = obj.getRunStatus().toString();
+           String vendortripStatus = obj.getVendorTripStatus().toString();
+           String paymentStatus = obj.getPaymentStatus().toString();
 
-        try {
-            conn = dbconnection.getConnection();
+           System.out.println("runStatus  " + runStatus);
+           System.out.println("vendortripStatus " + vendortripStatus);
+           System.out.println("paymentStatus  " + paymentStatus);
 
-            if (conn == null) {
-                System.out.println("*********************JDBC Connection is null*************************");
-            }
+           List<TripDetails> obj1 = tripService.getTripsByFilters(runStatus, vendortripStatus, paymentStatus);
+           data.setData(obj1);
+           data.setMsg("success");
 
-            String sql = "select e.id as id, e.trip_id as tripID, e.route as route, e.run_type as runType, e.vendor_trip_status as vendorTripStatus, "
-                    + " e.actual_departure as actualDeparture, e.actual_km as actualKM, e.standard_km as standardKM, e.run_status as runStatus, e.origin_hub as originHub, "
-                    + " e.dest_hub as destHub, e.payment_status as paymentStatus "
-                    + " from Trip_Details e where  1=1  ";
-
-            System.out.println("Query is :" + sql);
-            if (!"".equalsIgnoreCase(obj.getVendorTripStatus())) {
-                System.out.println("Vendor Trip Status " + obj.getVendorTripStatus());
-                sql += " and vendor_trip_status='" + obj.getVendorTripStatus() + "' ";
-                System.out.println(sql);
-            }
-            if (!"".equalsIgnoreCase(obj.getRunStatus())) {
-                System.out.println("getRunStatus " + obj.getRunStatus());
-                sql += " and run_status='" + obj.getRunStatus() + "' ";
-                System.out.println(sql);
-            }
-            if (!"".equalsIgnoreCase(obj.getPaymentStatus())) {
-                System.out.println("getPaymentStatus " + obj.getPaymentStatus());
-                sql += " and payment_status='" + obj.getPaymentStatus() + "' ";
-                System.out.println(sql);
-            }
-            System.out.println("after query" + sql);
-
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql);
-
-            while (rs.next()) {
-                tripDetail = new TripDetails();
-                tripDetail.setId(Integer.parseInt(rs.getString("id")));
-                tripDetail.setTripID(rs.getString("tripID"));
-                tripDetail.setRoute(rs.getString("route"));
-                tripDetail.setRunType(rs.getString("runType"));
-                tripDetail.setRunStatus(rs.getString("runStatus"));
-                tripDetail.setVendorTripStatus(rs.getString("vendorTripStatus"));
-                tripDetail.setActualDeparture(rs.getString("actualDeparture"));
-                tripDetail.setActualKM(rs.getDouble("actualKM"));
-                tripDetail.setStandardKM(rs.getDouble("standardKM"));
-                tripDetail.setOriginHub(rs.getString("originHub"));
-                tripDetail.setDestHub(rs.getString("destHub"));
-                tripDetail.setPaymentStatus(rs.getString("paymentStatus"));
-                TripDetailsList.add(tripDetail);
-            }
-
-            System.out.println("list size>> " + TripDetailsList.size());
-            data.setMsg("success");
-            data.setData(TripDetailsList);
-
-        } catch (Exception e) {
-            data.setMsg("Failed");
-            // TODO: handle exception
-            e.printStackTrace();
-        }
-       return gson.toJson(data).toString();
+           return gson.toJson(data).toString();
     }
 
     @RequestMapping(value = "/statusNetwork", method = RequestMethod.POST)
@@ -336,6 +284,44 @@ public class TripControllers {
 
         return gson.toJson(data).toString();
     }
+    
+    @RequestMapping({ "/updateVendortripStatusByTripID" })
+	@CrossOrigin("*")
+	public String updateVendortripStatusByTripID(HttpServletRequest request, @RequestBody TripDetails obj) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			
+			String tripId = obj.getTripID();
+			System.out.println(tripId);
+
+			tripId = tripId.replaceAll(",", " ");
+
+			String[] split = tripId.split(" ");
+			System.out.println(split);
+			//List<Object> listof = new ArrayList<>();
+			TripDetails findByTripID = null;
+
+				for (String str : split) {
+					findByTripID = tripDetailsRepo.findByTripID(str);
+					
+					if(null!=findByTripID.getTripID()) {
+						findByTripID.setVendorTripStatus("Approved");
+						tripDetailsRepo.updateVendorInvoiceStatusByTripId(findByTripID.getVendorTripStatus(),findByTripID.getTripID());
+					}
+				}
+		
+			data.setData(obj);
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
 
 ///getRemarksByRefID
     @RequestMapping({"/getRemarksByRefID"})

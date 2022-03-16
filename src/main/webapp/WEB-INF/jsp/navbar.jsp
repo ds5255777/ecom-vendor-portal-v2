@@ -122,7 +122,7 @@ function GetSelectedTextValue() {
                      var statustemp_runststus_Intransit = '<span class=\"right badge badge-warning\">In-Transit</span>';
                      var statustemp_runststus_Closed = '<span class=\"right badge badge-success\">Closed</span>';
 
-                     var statustemp_pending = '<span class=\"right badge badge-warning\">Pending for Approval</span>';
+                     var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
                      var statustemp_approved = '<span class=\"right badge badge-success\">Approved</span>';
                      var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
 
@@ -142,15 +142,14 @@ function GetSelectedTextValue() {
                          tempString[10] = statustemp_payment_No;
 
                      }
-
-
-                     if (result[i].status == "Pending for Approve") {
+console.log("result[i].status "+result[i].vendorTripStatus);
+                     if (result[i].vendorTripStatus == "Yet To Be Approved") {
                          tempString[4] = statustemp_pending;
 
-                     } else if (result[i].status == "Approved") {
+                     } else if (result[i].vendorTripStatus == "Approved") {
                          tempString[4] = statustemp_approved;
 
-                     } else if (result[i].status == "Invoicing") {
+                     } else if (result[i].vendorTripStatus == "Invoicing") {
                          tempString[4] = statustemp_Invoicing;
 
                      }

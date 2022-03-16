@@ -34,16 +34,18 @@ public class GlobalUrl {
     public static String filterTripDetails = tripControllers + "/filterTripDetails";
     public static String saveTripQuery = tripControllers + "/saveTripQuery";
     //public static String dateFilter=tripControllers+"/searchTripDetailsFromDate";
+   
 
-    public static String invoiceController = "invoiceController";
-
-    public static String getAllInvoice = invoiceController + "/getAllInvoice";
-    public static String getAllPendingInvoice = invoiceController + "/getAllPendingInvoice";
-    public static String getAllApproveInvoice = invoiceController + "/getAllApproveInvoice";
-    public static String getAllRejectInvoice = invoiceController + "/getAllRejectInvoice";
-    public static String saveInvoice = invoiceController + "/saveInvoice";
-    public static String getAllInvoiceToBilling = invoiceController + "/getAllInvoiceToBilling";
-    public static String getLineItemDetails = invoiceController + "/getLineItemDetails";
+public static String invoiceController="invoiceController";
+	
+	public static String getAllInvoice=invoiceController+"/getAllInvoice";
+	public static String getAllPendingInvoice=invoiceController+"/getAllPendingInvoice";
+	public static String getAllApproveInvoice=invoiceController+"/getAllApproveInvoice";
+	public static String getAllRejectInvoice=invoiceController+"/getAllRejectInvoice";
+	public static String saveInvoice=invoiceController+"/saveInvoice";
+	public static String getAllInvoiceToBilling=invoiceController+"/getAllInvoiceToBilling";
+	public static String getLineItemDetails=invoiceController+"/getLineItemDetails";
+	public static String getSelectInvoiceDetails=invoiceController+"/getSelectInvoiceDetails";
 
     public static String dashboardController = "dashboardController";
 

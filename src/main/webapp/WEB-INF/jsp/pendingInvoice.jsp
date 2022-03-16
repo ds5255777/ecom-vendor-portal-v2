@@ -159,9 +159,11 @@
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Payment Currency</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Payment Method</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Route Name</th>
+                                               <!--  <th style="padding: 5px 5px 5px 1.5rem;">Payment Method</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Route Name</th> -->
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Vehicle Number</th>
+                                                <!-- <th  style="padding: 5px 5px 5px 1.5rem;">View</th>
+ -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -231,7 +233,7 @@
             });
 
 
-            getData();
+<%--             getData();
 
             function getData() {
 
@@ -280,6 +282,67 @@
                 console.log("id >> " + id + " >> " + type);
                 location.href = "vendorDashBoadinfo?type=" + type + "&id=" + id
             }
+ --%>
+ getData();
+
+ function getData() {
+
+     var jsArray = [];
+
+     $('.loader').show();
+
+     $.ajax({
+         type: "POST",
+         data: JSON.stringify(jsArray),
+         url: "<%=GlobalUrl.getAllPendingInvoice%>",
+         dataType: "json",
+         contentType: "application/json",
+         async: false,
+         success: function(data) {
+
+             $('.loader').hide();
+             if (data.msg == 'success') {
+
+                 var result = data.data;
+                 tabledata.clear();
+
+                 for (var i = 0; i < result.length; i++) {
+
+                     //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].siteQualityId + "','" + result[i].checkListId + "','"+result[i].url+"')\"><i class='fa fa-eye ' ></i></button>";
+                     var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "')\" >" + result[i].invoiceNumber + "</button>";
+
+                     tabledata.row.add([view, result[i].suppName, result[i].bpCode, result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceCurrency,  result[i].vehicleNumber]);
+                 }
+                 tabledata.draw();
+                 $("tbody").show();
+             } else {
+                 Toast.fire({
+                     type: 'error',
+                     title: 'Failed.. Try Again..'
+                 })
+             }
+         },
+         error: function(jqXHR, textStatue, errorThrown) {
+             alert("failed, please try again leter");
+         }
+     });
+ }
+
+/*  function viewCheckList(id, type) {
+     console.log("id >> " + id + " >> " + type);
+     location.href = "vendorDashBoadinfo?type=" + type + "&id=" + id
+ } */
+ 
+ function getInvoiceDataFormDataByInvoiceNumber(id){
+ 	console.log(id);
+ 	 $('.loader').show();
+      
+      var urlOftripsDetail = "invoiceView?id="+id;
+      window.open(urlOftripsDetail, "invoiceView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
+     
+      
+      $('.loader').hide();
+ }
 
         </script>
 </body>

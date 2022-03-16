@@ -26,6 +26,8 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 
 	@Query(value = "select count(*) from invoice_generation where invoice_status='Reject'", nativeQuery = true)
 	int getRejecteInvoiceCount();
+	
+	InvoiceGenerationEntity findByInvoiceNumber(String invoiceNumber);
 
  //Saurabh
 @Query(value = "select count(*) from invoice_details", nativeQuery = true)

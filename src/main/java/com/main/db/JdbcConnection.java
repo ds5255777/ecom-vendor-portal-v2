@@ -9,31 +9,35 @@ import org.springframework.stereotype.Service;
 @Service
 public class JdbcConnection {
 
-	
-	@Value("${spring.datasource.jdbcUrl}")
-	public  String url;
+    @Value("${spring.datasource.jdbcUrl}")
+    public String url;
 
-	@Value("${driver}")
-	public  String driver;
+    @Value("${driver}")
+    public String driver;
 
-	@Value("${spring.datasource.username}")
-	public  String dbusername;
+    @Value("${spring.datasource.username}")
+    public String dbusername;
 
-	@Value("${spring.datasource.password}")
-	public  String password;
+    @Value("${spring.datasource.password}")
+    public String password;
 
-	public  Connection getConnection() {
-		/*System.out.println("url >> " + url);
+    public Connection getConnection() {
+        /*System.out.println("url >> " + url);
 		System.out.println("url >> " + dbusername);*/
-		Connection con = null;
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, dbusername, password);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+        System.out.println("********************Printing details for JDBC connection*******************");
+        System.out.println("url " + url
+                + "driver " + driver
+                + "dbusername " + dbusername
+                + "password  " + password);
+        Connection con = null;
+        try {
+            Class.forName(driver);
+            con = DriverManager.getConnection(url, dbusername, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return con;
-	}
+        return con;
+    }
 
 }

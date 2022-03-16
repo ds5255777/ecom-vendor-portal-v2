@@ -27,6 +27,7 @@ import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.repo.QueryRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
+import com.main.service.TripService;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 import org.json.JSONObject;
 
@@ -42,6 +43,9 @@ public class TripControllers {
 
     @Autowired
     JdbcConnection dbconnection;
+
+    @Autowired
+    private TripService tripService;
 
     @RequestMapping({"filterTripDetails"})
     @CrossOrigin("*")
@@ -204,6 +208,11 @@ public class TripControllers {
 
         try {
             conn = dbconnection.getConnection();
+
+            if (conn == null) {
+                System.out.println("*********************JDBC Connection is null*************************");
+            }
+
             String sql = "select e.id as id, e.trip_id as tripID, e.route as route, e.run_type as runType, e.vendor_trip_status as vendorTripStatus, "
                     + " e.actual_departure as actualDeparture, e.actual_km as actualKM, e.standard_km as standardKM, e.run_status as runStatus, e.origin_hub as originHub, "
                     + " e.dest_hub as destHub, e.payment_status as paymentStatus "
@@ -256,6 +265,27 @@ public class TripControllers {
             // TODO: handle exception
             e.printStackTrace();
         }
+       return gson.toJson(data).toString();
+    }
+
+    @RequestMapping(value = "/statusNetwork", method = RequestMethod.POST)
+    @CrossOrigin("*")
+    public String statusNetwork(@RequestBody TripDetails obj) throws UnsupportedEncodingException, MessagingException {
+
+        DataContainer data = new DataContainer();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+        String runStatus = obj.getRunStatus().toString();
+        String vendortripStatus = obj.getVendorTripStatus().toString();
+        String paymentStatus = obj.getPaymentStatus().toString();
+
+        System.out.println("runStatus  " + runStatus);
+        System.out.println("vendortripStatus " + vendortripStatus);
+        System.out.println("paymentStatus  " + paymentStatus);
+
+        List<TripDetails> obj1 = tripService.getTripsByFilters(runStatus, vendortripStatus, paymentStatus);
+        data.setData(obj1);
+        data.setMsg("success");
 
         return gson.toJson(data).toString();
     }

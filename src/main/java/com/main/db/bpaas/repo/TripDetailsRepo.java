@@ -110,6 +110,17 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
             @Param("LumpSomeAmount") String LumpSomeAmount,
             @Param("vendor_tripStatus") String vendor_tripStatus);
 
+@Query(value = "select * from  Trip_Details where 1=1 and run_status=:runStatus", nativeQuery = true)
+ List<TripDetails> getTripsByFiltersVendorRunStatus(@Param("runStatus") String runStatus);
+
+
+
+@Query(value = "select * from Trip_Details where 1=1 and vendor_trip_status=:vendorTripStatus and run_status=:runStatus", nativeQuery = true)
+ List<TripDetails> getTripsByFiltersRunStatus_VendorTripStatus(@Param("runStatus") String runStatus,@Param("vendorTripStatus") String vendorTripStatus);
+
+@Query(value = "select * from Trip_Details where 1=1 and vendor_trip_status=:vendorTripStatus and run_status=:runStatus and payment_status=:PaymentStatus", nativeQuery = true)
+List<TripDetails> getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus(@Param("vendorTripStatus") String vendorTripStatus,@Param("runStatus") String runStatus,@Param("PaymentStatus") String PaymentStatus);
+
 
 
 //END

@@ -39,4 +39,20 @@ public class TripServiceImpl implements TripService {
         return TripDetailsRepo.getInTransitTripByRunTypeAndRunStatus(runtype, runStatus);
     }
 
+    @Override
+    public List<TripDetails> getTripsByFilters(String runStatus, String vendorTripStatus, String PaymentStatus) {
+        System.out.println("vendorTripStatus " + vendorTripStatus
+                + "\nrunStatus " + runStatus + ""
+                + "\nPaymentStatus " + PaymentStatus);
+
+        if ("".equalsIgnoreCase(vendorTripStatus) && "".equalsIgnoreCase(PaymentStatus)) {
+            return TripDetailsRepo.getTripsByFiltersVendorRunStatus(runStatus);
+        } else if (runStatus!="" && vendorTripStatus!="" && "".equalsIgnoreCase(PaymentStatus)) {
+            return TripDetailsRepo.getTripsByFiltersRunStatus_VendorTripStatus(runStatus, vendorTripStatus);
+        } else {
+            return TripDetailsRepo.getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus(runStatus, vendorTripStatus, PaymentStatus);
+        }
+
+    }
+
 }

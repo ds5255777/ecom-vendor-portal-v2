@@ -281,5 +281,28 @@ public class InvoiceController {
 		return gson.toJson(data).toString();
 
 	}
+	
+	@RequestMapping({ "/getSelectInvoiceDetails" })
+	@CrossOrigin("*")
+	public String getSelectInvoiceDetails(HttpServletRequest request, @RequestBody InvoiceGenerationEntity inviceObj) {
+
+		DataContainer data = new DataContainer();
+		System.out.println("trip id : " + inviceObj.getInvoiceNumber());
+
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			 inviceObj = invoiceGenerationEntityRepo.findByInvoiceNumber(inviceObj.getInvoiceNumber());
+			data.setData(inviceObj);
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
+	
+	
 
 }

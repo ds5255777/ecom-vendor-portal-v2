@@ -511,14 +511,14 @@ public class UIController {
         return "pendingInvoice";
     }
 
-    @GetMapping("/tripsInvoiceGenerate")
-    public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
-
-        String tripId = request.getParameter("id");
-        model.addAttribute("tripId", tripId);
-
-        return "tripsInvoiceGenerate";
-    }
+//    @GetMapping("/tripsInvoiceGenerate")
+//    public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
+//
+//        String tripId = request.getParameter("id");
+//        model.addAttribute("tripId", tripId);
+//
+//        return "tripsInvoiceGenerate";
+//    }
 
 //Added by Saurabh for Network Module Part
     @GetMapping("/dashbaordNetwork")
@@ -608,5 +608,48 @@ public class UIController {
 
         return "ClosedAdhoc";
     }
+    
+    @GetMapping("/tripsInvoiceGenerate")
+	public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
+
+		String tripId = request.getParameter("id");
+		System.out.println(tripId);
+		model.addAttribute("maxFileSize", maxFileSize);
+		model.addAttribute("tripId", tripId);
+
+		String tripUpdateId = tripId;
+		System.out.println(tripUpdateId);
+		tripUpdateId = tripUpdateId.replaceAll(",", " ");
+
+		String[] split = tripUpdateId.split(" ");
+		System.out.println(split);
+		List<Object> listof = new ArrayList<>();
+		TripDetails findByTripID = null;
+
+		try {
+
+			for (String str : split) {
+				findByTripID = tripDetailsRepo.findByTripID(str);
+				
+				if(null!=findByTripID.getTripID()) {
+				findByTripID.setVendorTripStatus("Invoicing");
+				tripDetailsRepo.save(findByTripID);
+				}
+			}
+			listof.forEach(System.out::println); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "tripsInvoiceGenerate";
+	}
+    
+    @GetMapping("/invoiceView")
+	public String invoiceView(Model model, HttpServletRequest request, Principal principal) {
+
+		String invoiceNumber = request.getParameter("id");
+		model.addAttribute("invoiceNumber", invoiceNumber);
+		return "invoiceView";
+	}
 
 }

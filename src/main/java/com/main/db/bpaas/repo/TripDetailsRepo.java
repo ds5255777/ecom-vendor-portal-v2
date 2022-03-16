@@ -68,6 +68,12 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
     @Query(value = "select * from trip_details where run_status='Closed' and vendor_trip_status='Approved'", nativeQuery = true)
     List<TripDetails> getAllCloseAndApproveTrip();
+    
+    @Transactional
+	@Modifying
+	@Query(value = "update Trip_Details set vendor_trip_status=:status where trip_id=:tripID ; ", nativeQuery = true)
+	void updateVendorInvoiceStatusByTripId(@Param("status") String status, @Param("tripID") String tripID);
+
 
 //SAurabh
     @Query(value = "select count(*) from Trip_Details where run_type = ?", nativeQuery = true)

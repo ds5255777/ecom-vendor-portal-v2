@@ -57,6 +57,7 @@
                 for (var y in statusObject[this.value]) {
                     status.options[status.options.length] = new Option(y, y);
                 }
+                GetSelectedTextValue();
             }
             status.onchange = function() {
                 //empty Chapters dropdown
@@ -66,6 +67,7 @@
                 for (var i = 0; i < z.length; i++) {
                     paymentStatus.options[paymentStatus.options.length] = new Option(z[i], z[i]);
                 }
+                GetSelectedTextValue();
             }
         }
 
@@ -155,7 +157,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <jsp:include page="slidebar.jsp?pagename=allTrips" />
+        <jsp:include page="sidebar_Vendor.jsp?pagename=allTrips" />
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

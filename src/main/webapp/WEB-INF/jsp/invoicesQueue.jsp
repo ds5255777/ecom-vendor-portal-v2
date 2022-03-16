@@ -111,11 +111,11 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <jsp:include page="sidebar_Vendor.jsp?pagename=All Invoice" />
+        <jsp:include page="navbar.jsp?pagename=All Invoice" />
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <jsp:include page="slidebar.jsp?pagename=invoiceQueue" />
+        <jsp:include page="sidebar_Vendor.jsp?pagename=invoiceQueue" />
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -279,9 +279,20 @@
                 });
             }
 
-            function viewCheckList(id, type) {
+           /*  function viewCheckList(id, type) {
                 console.log("id >> " + id + " >> " + type);
                 location.href = "vendorDashBoadinfo?type=" + type + "&id=" + id
+            } */
+            
+            function getInvoiceDataFormDataByInvoiceNumber(id){
+            	console.log(id);
+            	 $('.loader').show();
+                 
+                 var urlOftripsDetail = "invoiceView?id="+id;
+                 window.open(urlOftripsDetail, "invoiceView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
+                
+                 
+                 $('.loader').hide();
             }
 
         </script>

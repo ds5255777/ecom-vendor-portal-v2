@@ -548,13 +548,16 @@
         	$.ajax({
                 type: "POST",
                 data: JSON.stringify(obj),
-                url: "<%=GlobalUrl.updateVendortripStatusByTripID%>",
+                url: "<%=GlobalUrl.updateVendorTripStatusByTrips%>",
                 dataType: "json",
                 contentType: "application/json",
                 success: function(response) {
 
                 	 if (response.msg == 'success') {
-                		
+                		 swal.fire("Thanks", "your Invoice Not Process", "warning", "OK").then(function() {
+                             window.close();
+                             //window.location="closedAndApprovedTrips";
+                         });
                      } else {
                         alert("failed");
                     }

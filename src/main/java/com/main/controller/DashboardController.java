@@ -66,51 +66,48 @@ public class DashboardController {
         DataContainer data = new DataContainer();
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-
-        List<TripDetails> tripList = new ArrayList<TripDetails>();
-        TripDetails tripDetails = null;
+        List<TripDetails> findAll = tripDetailsRepo.findAll();
+		/*
+		 * Connection conn = null; Statement stmt = null; ResultSet rs = null;
+		 * 
+		 * List<TripDetails> tripList = new ArrayList<TripDetails>(); TripDetails
+		 * tripDetails = null;
+		 */
         try {
-            conn = dbconnection.getConnection();
-            String sql = "Select e.id as id, e.trip_id as tripId, e.route as route, e.run_type as run,"
-                    + " e.vendor_Trip_Status as status , e.payment_status as payment "
-                    + "from Trip_Details e where  1=1 ORDER BY id DESC LIMIT " + dataLimit + ";";
+			/*
+			 * conn = dbconnection.getConnection(); String sql =
+			 * "Select e.id as id, e.trip_id as tripId, e.route as route, e.run_type as run,"
+			 * + " e.vendor_Trip_Status as status , e.payment_status as payment " +
+			 * "from Trip_Details e where  1=1 ORDER BY id DESC LIMIT " + dataLimit + ";";
+			 * 
+			 * //System.out.println("query >> " + sql); stmt = conn.createStatement(); rs =
+			 * stmt.executeQuery(sql);
+			 */
 
-            //System.out.println("query >> " + sql);
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql);
-
-            while (rs.next()) {
-                tripDetails = new TripDetails();
-
-                tripDetails.setId(rs.getInt("id"));
-                tripDetails.setTripID(rs.getString("tripId"));
-                tripDetails.setRoute(rs.getString("route"));
-                tripDetails.setRunType(rs.getString("run"));
-                tripDetails.setVendorTripStatus(rs.getString("status"));
-                tripDetails.setPaymentStatus(rs.getString("payment"));
-
-                tripList.add(tripDetails);
-            }
-            data.setData(tripList);
+			/*
+			 * while (rs.next()) { tripDetails = new TripDetails();
+			 * 
+			 * tripDetails.setId(rs.getInt("id"));
+			 * tripDetails.setTripID(rs.getString("tripId"));
+			 * tripDetails.setRoute(rs.getString("route"));
+			 * tripDetails.setRunType(rs.getString("run"));
+			 * tripDetails.setVendorTripStatus(rs.getString("status"));
+			 * tripDetails.setPaymentStatus(rs.getString("payment"));
+			 * 
+			 * tripList.add(tripDetails); }
+			 */
+            data.setData(findAll);
             data.setMsg("success");
 
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
             data.setMsg("error");
-        } finally {
-            try {
-                stmt.close();
-                rs.close();
-                conn.close();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+		} /*
+			 * finally { try { stmt.close(); rs.close(); conn.close();
+			 * 
+			 * } catch (Exception e) { e.printStackTrace(); } }
+			 */
 
         return gson.toJson(data).toString();
     }

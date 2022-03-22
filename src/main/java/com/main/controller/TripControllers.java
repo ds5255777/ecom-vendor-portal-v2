@@ -1,16 +1,12 @@
 package com.main.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +25,6 @@ import com.main.db.bpaas.repo.QueryRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
 import com.main.service.TripService;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
-import org.json.JSONObject;
 
 @RequestMapping("/tripControllers")
 @RestController
@@ -46,6 +41,9 @@ public class TripControllers {
 
     @Autowired
     private TripService tripService;
+    
+    
+    
 
     @RequestMapping({"filterTripDetails"})
     @CrossOrigin("*")
@@ -264,30 +262,38 @@ System.out.println("*******************************Inside status");
 
     @RequestMapping({"/saveTripQuery"})
     @CrossOrigin("*")
-    public String saveTripQuery(@RequestBody QueryEntity queryObj) {
+    public String saveTripQuery(HttpServletRequest request, @RequestBody QueryEntity entity) {
 
-        DataContainer data = new DataContainer();
+    	
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			Integer getid=entity.getId();
+			
+			Integer id=getid;
+			queryRepo.updateStatusByUserid("Query","Network", id);
+			
+			if(getid !=null) {
+				entity.setId(null);
+				entity.setTripqueryfk(getid);
+				entity.setRaisedOn(new Date());
+				queryRepo.save(entity);
+			}
+			
+			data.setData(entity);
+			data.setMsg("success");
 
-        // System.out.println("trip Query "+queryObj.getTripDetails());
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-        try {
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
 
-            queryObj = queryRepo.save(queryObj);
-
-            data.setData(queryObj);
-            data.setMsg("success");
-
-        } catch (Exception e) {
-            data.setMsg("error");
-            e.printStackTrace();
-        }
-
-        return gson.toJson(data).toString();
-    }
+		return gson.toJson(data).toString();
+	}
     
-    @RequestMapping({ "/updateVendortripStatusByTripID" })
+    @RequestMapping({ "/updateVendorTripStatusByTrips" })
 	@CrossOrigin("*")
-	public String updateVendortripStatusByTripID(HttpServletRequest request, @RequestBody TripDetails obj) {
+	public String updateVendortripStatusByTrips(HttpServletRequest request, @RequestBody TripDetails obj) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();

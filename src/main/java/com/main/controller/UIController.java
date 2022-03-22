@@ -363,23 +363,24 @@ public class UIController {
         } else if (rolename.equalsIgnoreCase("Admin")) {
             return "";
         } else if (rolename.equalsIgnoreCase("Vendor")) {
-            int totalTripCount = tripDetailsRepo.getTripCount();
-            int TotalCloseTripCount = tripDetailsRepo.getCloseTripCount();
-            int TotalInTransitTripCount = tripDetailsRepo.getInTransitTripCount();
-            int TotalApprovedAdHocTrips = tripDetailsRepo.getApproveAdHocTripCount();
+        	int totalTripCount = tripDetailsRepo.getTripCount();
+    		int TotalCloseTripCount = tripDetailsRepo.getCloseTripCount();
+    		int TotalInTransitTripCount = tripDetailsRepo.getInTransitTripCount();
+    		int TotalApprovedAdHocTrips = tripDetailsRepo.getApproveAdHocTripCount();
 
-            long allInvoiceCount = invoiceGenerationEntityRepo.count();
-            int approveInvoice = invoiceGenerationEntityRepo.getPendingInvoiceCount();
-            int rejectInvoice = invoiceGenerationEntityRepo.getRejecteInvoiceCount();
+    		long processInvoice = invoiceGenerationEntityRepo.getPendingInvoiceCount();
+    		int approveInvoice = invoiceGenerationEntityRepo.getApproveInvoiceCount();
+    		int rejectInvoice = invoiceGenerationEntityRepo.getRejecteInvoiceCount();
 
-            model.addAttribute("role", rolename);
-            model.addAttribute("totalTripCount", totalTripCount);
-            model.addAttribute("TotalCloseTripCount", TotalCloseTripCount);
-            model.addAttribute("TotalInTransitTripCount", TotalInTransitTripCount);
-            model.addAttribute("pendingInvoice", allInvoiceCount);
-            model.addAttribute("approveInvoice", approveInvoice);
-            model.addAttribute("rejectInvoice", rejectInvoice);
-            model.addAttribute("TotalApprovedAdHocTrips", TotalApprovedAdHocTrips);
+    		model.addAttribute("role", rolename);
+    		model.addAttribute("totalTripCount", totalTripCount);
+    		model.addAttribute("TotalCloseTripCount", TotalCloseTripCount);
+    		model.addAttribute("TotalInTransitTripCount", TotalInTransitTripCount);
+    		model.addAttribute("pendingInvoice", processInvoice);
+    		model.addAttribute("approveInvoice", approveInvoice);
+    		model.addAttribute("rejectInvoice", rejectInvoice);
+    		model.addAttribute("TotalApprovedAdHocTrips", TotalApprovedAdHocTrips);
+
 
             model.addAttribute("userStatus", us.getStatus());
             // System.out.println("User Status : "+us.getStatus());

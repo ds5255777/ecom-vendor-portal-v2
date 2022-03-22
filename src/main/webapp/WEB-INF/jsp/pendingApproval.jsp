@@ -945,7 +945,7 @@ tbody {
                 "comment": $("#comment").val(),
                 "raisedAgainQuery": $("#tripID").val(),
                 "raisedBy": $("#vendorName").val(),
-              //  "id": $("#id").val(),
+                "id": $("#id").val(),
                 
                 }
                 console.log(json);

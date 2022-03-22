@@ -66,8 +66,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "select  * from trip_details  where trip_id IN(:tripID)", nativeQuery = true)
     List<TripDetails> findByTripIDIn(@Param("tripID") String[] tripID);
 
-    @Query(value = "select * from trip_details where run_status='Closed' and vendor_trip_status='Approved'", nativeQuery = true)
-    List<TripDetails> getAllCloseAndApproveTrip();
+    @Query(value = "select * from trip_details where run_status='Closed' and vendor_trip_status='Approved'",nativeQuery=true)
+	List<TripDetails> getAllCloseAndApproveTrip();
     
     @Transactional
 	@Modifying
@@ -126,7 +126,6 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
 @Query(value = "select * from Trip_Details where 1=1 and vendor_trip_status=:vendorTripStatus and run_status=:runStatus and payment_status=:PaymentStatus", nativeQuery = true)
 List<TripDetails> getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus(@Param("vendorTripStatus") String vendorTripStatus,@Param("runStatus") String runStatus,@Param("PaymentStatus") String PaymentStatus);
-
 
 
 //END

@@ -367,7 +367,7 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Mileage</label>
-                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="mileage" name="mileage" d>
+                                                                        <input type="number" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="mileage"  name ="mileage">
                                                                     </div>
                                                                 </div>
 
@@ -393,6 +393,15 @@
 
 
                                                             <div class="row">
+
+
+                                                                <div class="col-sm-3">
+                                                                    <!-- text input -->
+                                                                    <div class="form-group">
+                                                                        <label style="margin-bottom: 1px;">Current Fuel Rate</label>
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="currentFuelRate" onclick="setTimeout(calcualteFormulae, 3000)" name="currentFuelRate" d>
+                                                                    </div>
+                                                                </div> 
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
@@ -400,13 +409,7 @@
                                                                         <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fsBaseRate" name="fsBaseRate" d>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-sm-3">
-                                                                    <!-- text input -->
-                                                                    <div class="form-group">
-                                                                        <label style="margin-bottom: 1px;">Current Fuel Rate</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="currentFuelRate" name="currentFuelRate" d>
-                                                                    </div>
-                                                                </div> 
+
 
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
@@ -491,7 +494,12 @@
 
                                                 <button id="saveCoaDetails" type="button" class="btn btn-success" style="margin-right:10px;" onclick="updateTripDataByNetworkTeam()">Submit to Vendor</button>
                                                 <!--                                                <button id="openCoaDetails" type="button" class="btn btn-success" style="margin-right:10px;" onclick="saveQuery()">Query</button>-->
+                                                
+                                                 <button type="button" class="btn btn-info" id="recalculate" onclick="calcualteFormulae()" >Re-Calculate</button>&nbsp;&nbsp;
+                                                
                                                 <button type="button" class="btn btn-secondary" id="closeModal" data-dismiss="modal">Close</button>
+                                                
+                                               
                                             </div>
 
 
@@ -936,10 +944,39 @@
 
 
                                                         $('#tripValue').modal('hide');
-                                                        location. reload();
+                                                        location.reload();
 
 
                                                     }
+
+
+                                                    function calcualteFormulae() {
+                                                        var currentFuelRate = document.getElementById("currentFuelRate").value;
+                                                        var fsBaseRate = document.getElementById("fsBaseRate").value;
+
+                                                        console.log("currentFuelRate " + currentFuelRate);
+                                                        console.log("fsBaseRate " + fsBaseRate);
+
+
+                                                        var basicFreight = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
+                                                        document.getElementById("basicFreight").value = basicFreight.toFixed(2);
+                                                        
+                                                        var mileage = document.getElementById("mileage").value;
+                                                        var routeKms = document.getElementById("routeKms").value;
+                                                        console.log("mileage " + mileage);
+                                                        console.log("routeKms " + routeKms);
+                                                        var fs = (parseFloat(basicFreight) / parseFloat(mileage)) * parseFloat(routeKms);
+                                                        document.getElementById("fs").value = fs.toFixed(2);
+                                                        ;
+
+
+
+                                                        var totalFreight = parseFloat(basicFreight) + parseFloat(fs);
+                                                        document.getElementById("totalFreight").value = totalFreight.toFixed(2);
+
+                                                    }
+                                                    
+                                                    
 
                 </script>
                 </body>

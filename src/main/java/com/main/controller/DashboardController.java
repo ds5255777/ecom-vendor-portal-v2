@@ -157,7 +157,7 @@ public class DashboardController {
         System.out.println("LumpSomeCheckBox" + LumpSomeCheckBox);
         System.out.println("LumpSomeAmount" + LumpSomeAmount);
 
-        tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox, LumpSomeAmount,"Approved By Network Team");
+        tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox, LumpSomeAmount,"Yet To Be Approved");
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         DataContainer data = new DataContainer();
         data.setMsg("success");

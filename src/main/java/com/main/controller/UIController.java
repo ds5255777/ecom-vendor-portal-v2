@@ -363,24 +363,26 @@ public class UIController {
         } else if (rolename.equalsIgnoreCase("Admin")) {
             return "";
         } else if (rolename.equalsIgnoreCase("Vendor")) {
-        	int totalTripCount = tripDetailsRepo.getTripCount();
-    		int TotalCloseTripCount = tripDetailsRepo.getCloseTripCount();
-    		int TotalInTransitTripCount = tripDetailsRepo.getInTransitTripCount();
-    		int TotalApprovedAdHocTrips = tripDetailsRepo.getApproveAdHocTripCount();
+//Saurabh
+            String vendorCode = request.getSession().getAttribute("userName").toString();
+//Saurabh
+            int totalTripCount = tripDetailsRepo.getTripCount(vendorCode);
+            int TotalCloseTripCount = tripDetailsRepo.getCloseTripCount(vendorCode);
+            int TotalInTransitTripCount = tripDetailsRepo.getInTransitTripCount(vendorCode);
+            int TotalApprovedAdHocTrips = tripDetailsRepo.getApproveAdHocTripCount(vendorCode);
 
-    		long processInvoice = invoiceGenerationEntityRepo.getPendingInvoiceCount();
-    		int approveInvoice = invoiceGenerationEntityRepo.getApproveInvoiceCount();
-    		int rejectInvoice = invoiceGenerationEntityRepo.getRejecteInvoiceCount();
+            long processInvoice = invoiceGenerationEntityRepo.getPendingInvoiceCount();
+            int approveInvoice = invoiceGenerationEntityRepo.getApproveInvoiceCount();
+            int rejectInvoice = invoiceGenerationEntityRepo.getRejecteInvoiceCount();
 
-    		model.addAttribute("role", rolename);
-    		model.addAttribute("totalTripCount", totalTripCount);
-    		model.addAttribute("TotalCloseTripCount", TotalCloseTripCount);
-    		model.addAttribute("TotalInTransitTripCount", TotalInTransitTripCount);
-    		model.addAttribute("pendingInvoice", processInvoice);
-    		model.addAttribute("approveInvoice", approveInvoice);
-    		model.addAttribute("rejectInvoice", rejectInvoice);
-    		model.addAttribute("TotalApprovedAdHocTrips", TotalApprovedAdHocTrips);
-
+            model.addAttribute("role", rolename);
+            model.addAttribute("totalTripCount", totalTripCount);
+            model.addAttribute("TotalCloseTripCount", TotalCloseTripCount);
+            model.addAttribute("TotalInTransitTripCount", TotalInTransitTripCount);
+            model.addAttribute("pendingInvoice", processInvoice);
+            model.addAttribute("approveInvoice", approveInvoice);
+            model.addAttribute("rejectInvoice", rejectInvoice);
+            model.addAttribute("TotalApprovedAdHocTrips", TotalApprovedAdHocTrips);
 
             model.addAttribute("userStatus", us.getStatus());
             // System.out.println("User Status : "+us.getStatus());
@@ -520,7 +522,6 @@ public class UIController {
 //
 //        return "tripsInvoiceGenerate";
 //    }
-
 //Added by Saurabh for Network Module Part
     @GetMapping("/dashbaordNetwork")
     public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {
@@ -533,8 +534,7 @@ public class UIController {
         int totalTripCount = tripDetailsRepo.getADHocTripCount("Adhoc");
         model.addAttribute("totalTripCount", totalTripCount);
 
-        //int TotalCloseTripCount = tripDetailsRepo.getCloseTripCount();
-        //int TotalInTransitTripCount = tripDetailsRepo.getInTransitTripCount();
+       
         return "dashBoard_NetworkRole";
     }
 
@@ -609,48 +609,48 @@ public class UIController {
 
         return "ClosedAdhoc";
     }
-    
+
     @GetMapping("/tripsInvoiceGenerate")
-	public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
+    public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
 
-		String tripId = request.getParameter("id");
-		System.out.println(tripId);
-		model.addAttribute("maxFileSize", maxFileSize);
-		model.addAttribute("tripId", tripId);
+        String tripId = request.getParameter("id");
+        System.out.println(tripId);
+        model.addAttribute("maxFileSize", maxFileSize);
+        model.addAttribute("tripId", tripId);
 
-		String tripUpdateId = tripId;
-		System.out.println(tripUpdateId);
-		tripUpdateId = tripUpdateId.replaceAll(",", " ");
+        String tripUpdateId = tripId;
+        System.out.println(tripUpdateId);
+        tripUpdateId = tripUpdateId.replaceAll(",", " ");
 
-		String[] split = tripUpdateId.split(" ");
-		System.out.println(split);
-		List<Object> listof = new ArrayList<>();
-		TripDetails findByTripID = null;
+        String[] split = tripUpdateId.split(" ");
+        System.out.println(split);
+        List<Object> listof = new ArrayList<>();
+        TripDetails findByTripID = null;
 
-		try {
+        try {
 
-			for (String str : split) {
-				findByTripID = tripDetailsRepo.findByTripID(str);
-				
-				if(null!=findByTripID.getTripID()) {
-				findByTripID.setVendorTripStatus("Invoicing");
-				tripDetailsRepo.save(findByTripID);
-				}
-			}
-			listof.forEach(System.out::println); 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            for (String str : split) {
+                findByTripID = tripDetailsRepo.findByTripID(str);
 
-		return "tripsInvoiceGenerate";
-	}
-    
+                if (null != findByTripID.getTripID()) {
+                    findByTripID.setVendorTripStatus("Invoicing");
+                    tripDetailsRepo.save(findByTripID);
+                }
+            }
+            listof.forEach(System.out::println);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "tripsInvoiceGenerate";
+    }
+
     @GetMapping("/invoiceView")
-	public String invoiceView(Model model, HttpServletRequest request, Principal principal) {
+    public String invoiceView(Model model, HttpServletRequest request, Principal principal) {
 
-		String invoiceNumber = request.getParameter("id");
-		model.addAttribute("invoiceNumber", invoiceNumber);
-		return "invoiceView";
-	}
+        String invoiceNumber = request.getParameter("id");
+        model.addAttribute("invoiceNumber", invoiceNumber);
+        return "invoiceView";
+    }
 
 }

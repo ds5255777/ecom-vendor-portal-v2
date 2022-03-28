@@ -80,7 +80,7 @@
 
 <script>
 function GetSelectedTextValue() {
-	console.log("****GetSelected******");
+	console.log("****GetSelected for vendor******");
 	var tripStatus=$("#selectTripStatus").val();
 	var selectStatus=$("#selectStatus").val();
 	var selectPaymentStatus=$("#selectPaymentStatus").val();

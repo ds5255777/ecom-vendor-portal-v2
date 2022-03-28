@@ -20,6 +20,7 @@ public class TripDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
     @Column(name = "trip_id")
     private String tripID;
 

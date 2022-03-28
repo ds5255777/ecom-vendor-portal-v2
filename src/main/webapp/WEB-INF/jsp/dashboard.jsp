@@ -203,14 +203,14 @@
                             <!-- small box -->
                             <div class="small-box bg-white">
                                 <div class="inner">
-                                    <h2>${rejectInvoice}</h2>
+                                    <h2>${draftInvoice}</h2>
 
-                                    <p id="UnTickets" data-toggle="tooltip" data-placement="bottom" title="invoice Rejected some Reasons">Rejected Invoice</p>
+                                    <p id="UnTickets" data-toggle="tooltip" data-placement="bottom" title="invoice Rejected some Reasons">Draft Invoice</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-ban" style="color: #dc3545; font-size: 50px;"></i>
                                 </div>
-                                <a href="rejectedInvoice" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
+                                <a href="draftInvoice" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
                                     info <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
@@ -518,11 +518,14 @@
             labels: [
                 'Closed',
                 'In-Transit',
-                'Approved Ad-Hoc'
+                'All Trips',
+                'Process Invoices',
+                'Approved Invoice',
+                'Draft Invoice'
             ],
             datasets: [{
-                data: [${TotalCloseTripCount}, ${TotalInTransitTripCount}, ${TotalApprovedAdHocTrips}],
-                backgroundColor: ['#17a2b8', '#00a65a', '#faa654'],
+                data: [${TotalCloseTripCount}, ${TotalInTransitTripCount}, ${totalTripCount}, ${pendingInvoice}, ${approveInvoice}, ${draftInvoice}],
+                backgroundColor: ['#17a2b8', '#00a65a', '#faa654', '#007bff', '#dc3545', '#6f42c1'],
             }]
         }
         var unresolvedstsOptions = {

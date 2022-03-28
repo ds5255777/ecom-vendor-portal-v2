@@ -575,7 +575,7 @@
                 window.open(urlOftripsDetail, "tripsInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
                
                 
-                $('.loader').hide();
+               
                
 				} 
 				
@@ -705,6 +705,12 @@
 
                 });
             }
+			 
+			 function refereshList(){
+				 getData();
+				 $('.loader').hide();
+			 }
+			 //window.opener.refereshList()
 
         </script>
 </body>

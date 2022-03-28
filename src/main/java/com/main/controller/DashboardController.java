@@ -43,98 +43,62 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 public class DashboardController {
 
-    @Value("${dataLimit}")
-    public String dataLimit;
+	@Value("${dataLimit}")
+	public String dataLimit;
 
-    @Autowired
-    ServiceManager serviceManager;
+	@Autowired
+	ServiceManager serviceManager;
 
-    @Autowired
-    JdbcConnection dbconnection;
+	@Autowired
+	JdbcConnection dbconnection;
 
-    @Autowired
-    TripDetailsRepo tripDetailsRepo;
+	@Autowired
+	TripDetailsRepo tripDetailsRepo;
 
-    @Autowired
-    QueryRepo queryRepo;
+	@Autowired
+	QueryRepo queryRepo;
 
-    @RequestMapping({"getDashboardDetails"})
-    @CrossOrigin("*")
-    public String getDashBoardDetails(@RequestBody TripDetails reqObj, HttpSession session,
-            HttpServletRequest request) {
-        //System.out.println("start getting dashboard details");
-        DataContainer data = new DataContainer();
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-//Saurabh
-        String vendorCode = request.getSession().getAttribute("userName").toString();
-//Saurabh
-        List<TripDetails> findAll = tripDetailsRepo.getAllTripByVendorCode(vendorCode);
-		/*
-		 * Connection conn = null; Statement stmt = null; ResultSet rs = null;
-		 * 
-		 * List<TripDetails> tripList = new ArrayList<TripDetails>(); TripDetails
-		 * tripDetails = null;
-		 */
-        try {
-			/*
-			 * conn = dbconnection.getConnection(); String sql =
-			 * "Select e.id as id, e.trip_id as tripId, e.route as route, e.run_type as run,"
-			 * + " e.vendor_Trip_Status as status , e.payment_status as payment " +
-			 * "from Trip_Details e where  1=1 ORDER BY id DESC LIMIT " + dataLimit + ";";
-			 * 
-			 * //System.out.println("query >> " + sql); stmt = conn.createStatement(); rs =
-			 * stmt.executeQuery(sql);
-			 */
+	@RequestMapping({ "getDashboardDetails" })
+	@CrossOrigin("*")
+	public String getDashBoardDetails(@RequestBody TripDetails reqObj, HttpSession session,
+			HttpServletRequest request) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			List<TripDetails> topTripRecods = tripDetailsRepo.getTopTripRecods(Integer.parseInt(dataLimit));
 
-			/*
-			 * while (rs.next()) { tripDetails = new TripDetails();
-			 * 
-			 * tripDetails.setId(rs.getInt("id"));
-			 * tripDetails.setTripID(rs.getString("tripId"));
-			 * tripDetails.setRoute(rs.getString("route"));
-			 * tripDetails.setRunType(rs.getString("run"));
-			 * tripDetails.setVendorTripStatus(rs.getString("status"));
-			 * tripDetails.setPaymentStatus(rs.getString("payment"));
-			 * 
-			 * tripList.add(tripDetails); }
-			 */
-            data.setData(findAll);
-            data.setMsg("success");
+			data.setData(topTripRecods);
+			data.setMsg("success");
 
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
-            data.setMsg("error");
-		} /*
-			 * finally { try { stmt.close(); rs.close(); conn.close();
-			 * 
-			 * } catch (Exception e) { e.printStackTrace(); } }
-			 */
+		} catch (Exception e) {
+			e.printStackTrace();
+			data.setMsg("error");
+		}
 
-        return gson.toJson(data).toString();
-    }
+		return gson.toJson(data).toString();
+	}
 
-    @RequestMapping("/updateDetailsforNetwork")
-    @CrossOrigin("*")
-    public String updateDetailsforNetwork(Model model, Principal principal, @RequestBody String agrn) {
+	@RequestMapping("/updateDetailsforNetwork")
+	@CrossOrigin("*")
+	public String updateDetailsforNetwork(Model model, Principal principal, @RequestBody String agrn) {
 
-        System.out.println("************************Data is ::" + agrn);
+		System.out.println("************************Data is ::" + agrn);
 
-        JSONObject jsonObject = new JSONObject(agrn);
-        String processedon = jsonObject.get("processedOn").toString();
-        String processedBy = jsonObject.getString("processedBy").toString();
-        String tripid = jsonObject.get("tripID").toString();
-        String AssigenedTo = jsonObject.get("AssigenedTo").toString();
-        String LumpSomeCheckBox = "";
-        String LumpSomeAmount = jsonObject.getString("LumpSomeAmount").toString();
+		JSONObject jsonObject = new JSONObject(agrn);
+		String processedon = jsonObject.get("processedOn").toString();
+		String processedBy = jsonObject.getString("processedBy").toString();
+		String tripid = jsonObject.get("tripID").toString();
+		String AssigenedTo = jsonObject.get("AssigenedTo").toString();
+		String LumpSomeCheckBox = "";
+		String LumpSomeAmount = jsonObject.getString("LumpSomeAmount").toString();
 
 //fs
 //totalFreight
 //basicFreight
-        String fs = jsonObject.getString("fs").toString();
-        String totalFreight = jsonObject.getString("totalFreight").toString();
-        String basicFreight = jsonObject.getString("basicFreight").toString();
-        String commentsByUSer = jsonObject.getString("commentsby").toString();
+		String fs = jsonObject.getString("fs").toString();
+		String totalFreight = jsonObject.getString("totalFreight").toString();
+		String basicFreight = jsonObject.getString("basicFreight").toString();
+		String commentsByUSer = jsonObject.getString("commentsby").toString();
 
 ///
         System.out.println("fs " + fs

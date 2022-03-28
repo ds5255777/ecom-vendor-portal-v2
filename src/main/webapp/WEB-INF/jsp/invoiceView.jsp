@@ -89,7 +89,7 @@
 			<ul class="navbar-nav ml-auto">
 				<!-- Navbar Search -->
 				<h6 class="float-sm-right" style="color: white;">
-					<b>Invoice Number : </b> ECOM-INV-1001
+					<b>Invoice Number : </b> <input type="text" id="ecomInvoiceNumber" name="ecomInvoiceNumber" readonly style="background: #007BFF; color: white; border: 0px;">
 				</h6>
 			</ul>
 		</nav>
@@ -509,7 +509,7 @@
                        console.log(tripLineArray[i].totalFreight);
                        }
                         $("#invoiceNumber").val(result.invoiceNumber);
-                        
+                        $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);
                        $('#prTable').DataTable().draw();
                        $("tbody").show();
                        

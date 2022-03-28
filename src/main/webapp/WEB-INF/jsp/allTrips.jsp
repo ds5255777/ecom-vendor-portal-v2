@@ -35,11 +35,13 @@
         var statusObject = {
             "In-Transit": {
                 "Yet To Be Approved": ["NA"],
+                "Query": ["NA"],
             },
             "Closed": {
-            	"Yet To Be Approved": ["NA"],
+                "Yet To Be Approved": ["NA"],
                 "Approved": ["Pending"],
-                "Invoicing":["Pending","Approved"],
+                "Draft-Invoicing": ["Pending"],
+                "Invoicing": ["Pending", "Approved"],
             }
         }
         window.onload = function() {
@@ -198,7 +200,7 @@
                                 <div class="card-body ">
                                     <form role="form" id="addForm" autocomplete="off">
                                         <div class="row">
-                                        
+
                                             <div class="col-md-2">
                                                 <input type="text" name="fromDate" placeholder="Select Starting Date" required class="form-control" id="fromDate" style="height: 34px;">
                                             </div>
@@ -516,6 +518,35 @@
 
                                     
                                     <div class="container">
+                                        <div class="card card-primary ">
+                                            <div class="card-header" style="padding: 4px 0px 4px 4px;">
+                                                <h3 class="card-title" style="font-size: 15px;">Trips Query</h3>
+                                            </div>
+
+                                            <div class="card-body ">
+                                                <form role="form" id="showQueryDetails" name="showQueryDetails">
+                                                    <table class="table table-bordered table-hover" id="tabledataQuery">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
+                                                                <th style="padding: 5px 5px 5px 1.5rem;">Raised By</th>
+                                                                <th style="padding: 5px 5px 5px 1.5rem;">Raised On</th>
+                                                                <th style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        </tbody>
+                                                    </table>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="container">
                                         <div class="col-md-12 text-center" style="padding-top: 0px;">
                                             <button type="button" class="btn btn-primary" id="closeModal" data-dismiss="modal">Close</button>
                                         </div>
@@ -673,7 +704,16 @@
                 "aaSorting": []
             });
 
-              $('#fromDate').datepicker({
+            var tabledataQuery = $('#tabledataQuery').DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "info": false,
+                "autoWidth": false,
+                "aaSorting": []
+            });
+
+            $('#fromDate').datepicker({
                 dateFormat: 'yy-mm-dd',
                 changeMonth: true,
                 changeYear: true,
@@ -790,8 +830,8 @@
                                 var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
                                 var statustemp_approved = '<span class=\"right badge badge-success\">Approved</span>';
                                 var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
-                                
-                                var query = '<span class=\"right badge badge-warning\"  style=\"background-color: violet;\">Query</span>';
+                                var statustemp_Draft_Invoicing = '<span class=\"right badge badge-danger\">Draft-Invoicing</span>';
+                                var statustemp_query = '<span class=\"right badge badge-warning\"  style=\"background-color: violet;\">Query</span>';
 
                                 var paymentStatus = "";
                                 var runStatus = "";
@@ -822,7 +862,10 @@
                                     tempString[4] = statustemp_Invoicing;
 
                                 } else if (result[i].vendorTripStatus == "Query") {
-                                    tempString[4] = query;
+                                    tempString[4] = statustemp_query;
+
+                                } else if (result[i].vendorTripStatus == "Draft-Invoicing") {
+                                    tempString[4] = statustemp_Draft_Invoicing;
 
                                 }
 
@@ -937,7 +980,6 @@
                             tabledata.clear();
                             for (var i = 0; i < result.length; i++) {
 
-                                //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
                                 var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
@@ -950,6 +992,8 @@
                                 var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
                                 var statustemp_approved = '<span class=\"right badge badge-success\">Approved</span>';
                                 var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
+                                var statustemp_Draft_Invoicing = '<span class=\"right badge badge-danger\">Draft-Invoicing</span>';
+                                var statustemp_query = '<span class=\"right badge badge-warning\"  style=\"background-color: violet;\">Query</span>';
 
                                 var query = '<span class=\"right badge badge-warning\"  style=\"background-color: violet;\">Query</span>';
                                 
@@ -981,7 +1025,12 @@
                                     tempString[4] = statustemp_Invoicing;
 
                                 } else if (result[i].vendorTripStatus == "Query") {
-                                    tempString[4] = query;
+                                    tempString[4] = statustemp_query;
+
+                                } else if (result[i].vendorTripStatus == "Draft-Invoicing") {
+                                    tempString[4] = statustemp_Draft_Invoicing;
+
+                                }
 
                                 } 
                                 
@@ -997,6 +1046,7 @@
                             }
                             tabledata.draw();
                             $("tbody").show();
+
                         } else {
                             alert("failed");
                         }
@@ -1037,7 +1087,7 @@
                 $('.loader').show();
                 
                 //const d = new Date();
-                
+
                 //let text = fromDate.toString();
                 //let text2 = toDate.toString();
 
@@ -1062,7 +1112,6 @@
 
                             for (var i = 0; i < result.length; i++) {
 
-                                //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
                                 var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
@@ -1075,8 +1124,8 @@
                                 var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
                                 var statustemp_approved = '<span class=\"right badge badge-success\">Approved</span>';
                                 var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
-                                
-                                var query = '<span class=\"right badge badge-warning\"  style=\"background-color: violet;\">Query</span>';
+                                var statustemp_Draft_Invoicing = '<span class=\"right badge badge-danger\">Draft-Invoicing</span>';
+                                var statustemp_query = '<span class=\"right badge badge-warning\"  style=\"background-color: violet;\">Query</span>';
 
                                 var paymentStatus = "";
                                 var runStatus = "";
@@ -1104,10 +1153,13 @@
                                 } else if (result[i].vendorTripStatus == "Invoicing") {
                                     tempString[4] = statustemp_Invoicing;
 
-                                } 
-                                else if (result[i].vendorTripStatus == "Query") {
-                                    tempString[4] = query;
-                                } 
+                                } else if (result[i].vendorTripStatus == "Query") {
+                                    tempString[4] = statustemp_query;
+
+                                } else if (result[i].vendorTripStatus == "Draft-Invoicing") {
+                                    tempString[4] = statustemp_Draft_Invoicing;
+
+                                }
 
                                 if (result[i].runStatus == "In-Transit") {
                                     tempString[3] = statustemp_runststus_Intransit;

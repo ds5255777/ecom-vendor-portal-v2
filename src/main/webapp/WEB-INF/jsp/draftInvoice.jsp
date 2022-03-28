@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>${titleName}|Rejected Invoice</title>
+    <title>${titleName} | Draft Invoice</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -111,11 +111,11 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <jsp:include page="navbar.jsp?pagename=Rejected Invoice" />
+        <jsp:include page="navbar.jsp?pagename=Draft Invoice" />
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <jsp:include page="sidebar_Vendor.jsp?pagename=rejectedInvoice" />
+        <jsp:include page="sidebar_Vendor.jsp?pagename=draftInvoice" />
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -146,7 +146,7 @@
                             <!-- general form elements -->
                             <div class="card card-primary ">
                                 <div class="card-header">
-                                    <h3 class="card-title" style="font-size: 15px;">Rejected Invoice List</h3>
+                                    <h3 class="card-title" style="font-size: 15px;">Draft Invoice List</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body ">
@@ -156,12 +156,12 @@
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Invoice Number</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Supplier Name</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Supplier Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Action</th> 
+                                                <!-- <th style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Payment Currency</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Payment Method</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Route Name</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Vehicle Number</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Vehicle Number</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -230,7 +230,6 @@
                 "aaSorting": []
             });
 
-
             getData();
 
             function getData() {
@@ -242,7 +241,7 @@
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify(jsArray),
-                    url: "<%=GlobalUrl.getAllRejectInvoice%>",
+                    url: "<%=GlobalUrl.getAllDraftInvoice%>",
                     dataType: "json",
                     contentType: "application/json",
                     async: false,
@@ -256,10 +255,9 @@
 
                             for (var i = 0; i < result.length; i++) {
 
-                                //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].siteQualityId + "','" + result[i].checkListId + "','"+result[i].url+"')\"><i class='fa fa-eye ' ></i></button>";
-                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "')\" >" + result[i].invoiceNumber + "</button>";
-
-                                tabledata.row.add([view, result[i].supplierName, result[i].supplierNumber, result[i].invoiceDate, result[i].invoiceAmount, result[i].paymentCurrency, result[i].paymentMethod, result[i].routeName, result[i].vehicleNumber]);
+                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].ecomInvoiceNumber + "')\" >" + result[i].ecomInvoiceNumber + "</button>";
+								var action="<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteInvoice('" + result[i].id + "','" + result[i].ecomInvoiceNumber + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
+                                tabledata.row.add([view, result[i].suppName, result[i].bpCode, action]);
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -276,10 +274,64 @@
                 });
             }
 
-            function viewCheckList(id, type) {
+            /* function viewCheckList(id, type) {
                 console.log("id >> " + id + " >> " + type);
                 location.href = "vendorDashBoadinfo?type=" + type + "&id=" + id
+            } */
+            
+            function getInvoiceDataFormDataByInvoiceNumber(invoiceNumber) {
+            	console.log(invoiceNumber);
+           	 $('.loader').show();
+                
+                var urlOftripsDetail = "draftInvoiceGenerate?id="+invoiceNumber;
+                window.open(urlOftripsDetail, "draftInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
             }
+            
+            function deleteInvoice(invoiceID, ecomInvoiceNumber ){
+            	
+            	 var json = {
+                         "id": invoiceID,
+                         "ecomInvoiceNumber": ecomInvoiceNumber,
+                     }
+            	 console.log(json);
+                     $.ajax({
+                         type: "POST",
+                         data: JSON.stringify(json),
+                         url: "<%=GlobalUrl.deleteDraftInvoice%>",
+                         dataType: "json",
+                         contentType: "application/json",
+                         async: false,
+                         success: function(data) {
+
+                             if (data.msg == 'success') {
+
+                                 Toast.fire({
+                                     type: 'success',
+                                     title: 'Deleted Successfully..'
+                                 })
+
+
+                                 getData();
+                             } else {
+                                 Toast.fire({
+                                     type: 'error',
+                                     title: 'Failed.. Try Again..'
+                                 })
+                             }
+
+                         },
+                         error: function(jqXHR, textStatue, errorThrown) {
+                             alert("failed, please try again");
+                         }
+
+                     });
+            	
+            }
+            
+            function refereshList(){
+				 getData();
+				 $('.loader').hide();
+			 }
 
         </script>
 </body>

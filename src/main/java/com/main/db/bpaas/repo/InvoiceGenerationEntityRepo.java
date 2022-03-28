@@ -27,8 +27,11 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 	@Query(value = "select count(*) from invoice_generation where invoice_status='Processed'", nativeQuery = true)
 	int getPendingInvoiceCount();
 
-	@Query(value = "select count(*) from invoice_generation where invoice_status='Reject'", nativeQuery = true)
-	int getRejecteInvoiceCount();
+	@Query(value = "select count(*) from invoice_generation where invoice_status='Draft-Invoicing'", nativeQuery = true)
+	int getDraftInvoiceCount();
+	
+	@Query(value = "select ID from invoice_generation where ecom_invoice_nunmber=?", nativeQuery = true)
+	Long getIdByinvocienumber(String invocienumber);
 
 	InvoiceGenerationEntity findByInvoiceNumber(String invoiceNumber);
 	

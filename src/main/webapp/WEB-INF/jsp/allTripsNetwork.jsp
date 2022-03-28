@@ -893,6 +893,7 @@
                                                                         tabledata.clear();
                                                                         for (var i = 0; i < result.length; i++) {
 
+
                                                                             //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
                                                                             var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
@@ -907,6 +908,8 @@
                                                                             var statustemp_approved = '<span class=\"right badge badge-success\">Approved By Network Team</span>';
                                                                             var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
                                                                             var statustemp_Query = '<span class=\"right badge badge-warning\">Query</span>';
+                                                                            var statustemp_pending_Vendor = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
+                                                                            var statustemp_approved_Vendor = '<span class=\"right badge badge-success\">Approved</span>';
 
 
                                                                             var paymentStatus = "";
@@ -925,7 +928,7 @@
                                                                                 tempString[10] = statustemp_payment_No;
 
                                                                             }
-
+                                                                            console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
                                                                             if (result[i].vendorTripStatus == "Yet To Be Approved By Network Team") {
                                                                                 tempString[4] = statustemp_pending;
 
@@ -937,6 +940,12 @@
 
                                                                             } else if (result[i].vendorTripStatus == "Query") {
                                                                                 tempString[4] = statustemp_Query;
+
+                                                                            } else if (result[i].vendorTripStatus == "Yet To Be Approved") {
+                                                                                tempString[4] = statustemp_pending_Vendor;
+
+                                                                            } else if (result[i].vendorTripStatus == "Approved") {
+                                                                                tempString[4] = statustemp_approved_Vendor;
 
                                                                             }
 
@@ -1007,6 +1016,9 @@
                                                                             var statustemp_approved = '<span class=\"right badge badge-success\">Approved By Network Team</span>';
                                                                             var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
                                                                             var statustemp_Query = '<span class=\"right badge badge-warning\">Query</span>';
+                                                                            var statustemp_pending_Vendor = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
+                                                                            var statustemp_approved_Vendor = '<span class=\"right badge badge-success\">Approved</span>';
+
 
                                                                             var paymentStatus = "";
                                                                             var runStatus = "";
@@ -1024,7 +1036,7 @@
                                                                                 tempString[10] = statustemp_payment_No;
 
                                                                             }
-
+                                                                            console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
                                                                             if (result[i].vendorTripStatus == "Yet To Be Approved By Network Team") {
                                                                                 tempString[4] = statustemp_pending;
 
@@ -1036,6 +1048,12 @@
 
                                                                             } else if (result[i].vendorTripStatus == "Query") {
                                                                                 tempString[4] = statustemp_Query;
+
+                                                                            } else if (result[i].vendorTripStatus == "Yet To Be Approved") {
+                                                                                tempString[4] = statustemp_pending_Vendor;
+
+                                                                            } else if (result[i].vendorTripStatus == "Approved") {
+                                                                                tempString[4] = statustemp_approved_Vendor;
 
                                                                             }
 
@@ -1107,11 +1125,12 @@
 
                                                                         for (var i = 0; i < result.length; i++) {
 
+                                                                            //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
                                                                             var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
                                                                             var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
                                                                             var statustemp_payment_Pending = '<span class=\"right badge badge-warning\">Pending</span>';
-                                                                            var statustemp_payment_No = '<span>NA</span>';
+                                                                            var statustemp_payment_No = '<span class=\"right badge badge-primary\">NA</span>';
 
                                                                             var statustemp_runststus_Intransit = '<span class=\"right badge badge-warning\">In-Transit</span>';
                                                                             var statustemp_runststus_Closed = '<span class=\"right badge badge-success\">Closed</span>';
@@ -1120,10 +1139,13 @@
                                                                             var statustemp_approved = '<span class=\"right badge badge-success\">Approved By Network Team</span>';
                                                                             var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
                                                                             var statustemp_Query = '<span class=\"right badge badge-warning\">Query</span>';
+                                                                            var statustemp_pending_Vendor = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
+                                                                            var statustemp_approved_Vendor = '<span class=\"right badge badge-success\">Approved</span>';
+
 
                                                                             var paymentStatus = "";
                                                                             var runStatus = "";
-                                                                            var status = "";
+                                                                            var vendorTripStatus = "";
                                                                             //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
                                                                             var tempString = [view, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
 
@@ -1137,8 +1159,7 @@
                                                                                 tempString[10] = statustemp_payment_No;
 
                                                                             }
-
-
+                                                                            console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
                                                                             if (result[i].vendorTripStatus == "Yet To Be Approved By Network Team") {
                                                                                 tempString[4] = statustemp_pending;
 
@@ -1150,6 +1171,12 @@
 
                                                                             } else if (result[i].vendorTripStatus == "Query") {
                                                                                 tempString[4] = statustemp_Query;
+
+                                                                            } else if (result[i].vendorTripStatus == "Yet To Be Approved") {
+                                                                                tempString[4] = statustemp_pending_Vendor;
+
+                                                                            } else if (result[i].vendorTripStatus == "Approved") {
+                                                                                tempString[4] = statustemp_approved_Vendor;
 
                                                                             }
 

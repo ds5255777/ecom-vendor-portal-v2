@@ -711,10 +711,10 @@ tbody {
             });
 
             var tabledata = $('#tabledata').DataTable({
-                "paging": false,
+                "paging": true,
                 "lengthChange": false,
-                "searching": false,
-                "info": false,
+                "searching": true,
+                "info": true,
                 "autoWidth": false,
                 "aaSorting": []
             });

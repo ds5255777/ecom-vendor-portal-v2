@@ -101,50 +101,51 @@ public class DashboardController {
 		String commentsByUSer = jsonObject.getString("commentsby").toString();
 
 ///
-		System.out.println("fs " + fs + "\ntotalFreight " + totalFreight + "\nbasicFreight " + basicFreight + ""
-				+ "\ncommentsByUSer " + commentsByUSer);
+        System.out.println("fs " + fs
+                + "\ntotalFreight " + totalFreight
+                + "\nbasicFreight " + basicFreight + ""
+                + "\ncommentsByUSer " + commentsByUSer);
 
-		if ("".equalsIgnoreCase(LumpSomeAmount)) {
-			LumpSomeCheckBox = "false";
-		} else {
-			LumpSomeCheckBox = "true";
-		}
+        if ("".equalsIgnoreCase(LumpSomeAmount)) {
+            LumpSomeCheckBox = "false";
+        } else {
+            LumpSomeCheckBox = "true";
+        }
 
-		if ("".equalsIgnoreCase(LumpSomeAmount)) {
-			LumpSomeAmount = "0";
-		}
+        if ("".equalsIgnoreCase(LumpSomeAmount)) {
+            LumpSomeAmount = "0";
+        }
 
-		System.out.println("processedon" + processedon);
-		System.out.println("tripid" + tripid);
-		System.out.println("processedBy" + processedBy);
-		System.out.println("AssigenedTo" + AssigenedTo);
-		System.out.println("LumpSomeCheckBox" + LumpSomeCheckBox);
-		System.out.println("LumpSomeAmount" + LumpSomeAmount);
+        System.out.println("processedon" + processedon);
+        System.out.println("tripid" + tripid);
+        System.out.println("processedBy" + processedBy);
+        System.out.println("AssigenedTo" + AssigenedTo);
+        System.out.println("LumpSomeCheckBox" + LumpSomeCheckBox);
+        System.out.println("LumpSomeAmount" + LumpSomeAmount);
 
-		tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox,
-				LumpSomeAmount, "Approved By Network Team");
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		DataContainer data = new DataContainer();
-		data.setMsg("success");
-		// System.out.println("Value of S si :"+s);
+        tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox, LumpSomeAmount,"Yet To Be Approved");
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        DataContainer data = new DataContainer();
+        data.setMsg("success");
+        //  System.out.println("Value of S si :"+s);
 
-		QueryEntity comm = new QueryEntity();
-		comm.setRaisedBy(processedBy);
-		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			Date date = new Date();
-			System.out.println(formatter.format(date));
-			comm.setRaisedOn(date);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+        QueryEntity comm = new QueryEntity();
+        comm.setRaisedBy(processedBy);
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date date = new Date();
+            System.out.println(formatter.format(date));
+            comm.setRaisedOn(date);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
-		comm.setReferenceid(tripid);
-		comm.setComment(commentsByUSer);
+        comm.setReferenceid(tripid);
+        comm.setComment(commentsByUSer);
 
-		queryRepo.save(comm);
+        queryRepo.save(comm);
 
-		return gson.toJson(data).toString();
+        return gson.toJson(data).toString();
 
-	}
+    }
 }

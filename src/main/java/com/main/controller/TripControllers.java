@@ -1,7 +1,6 @@
 package com.main.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -73,11 +72,34 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllTripsDetails" })
-	@CrossOrigin("*")
-	public String getAllTripsDetails(HttpServletRequest request, @RequestBody List<TripDetails> tripList) {
+            List<TripDetails> getListByDateFilter = tripDetailsRepo.findByActualDepartureBetween(fromDate, toDate);
+            //List<TripDetails> getListByDateFilter = tripDetailsRepo.findByBetweenActualArrivalDate(fromDate, toDate);
+            getListByDateFilter.forEach(w -> {
+                System.out.println("all data" + w);
+            });
 
-		DataContainer data = new DataContainer();
+            System.out.println(getListByDateFilter);
+            data.setData(getListByDateFilter);
+            data.setMsg("success");
+        } catch (Exception e) {
+            // TODO: handle exception
+            data.setMsg("error");
+            e.printStackTrace();
+        }
+        return gson.toJson(data).toString();
+    }
+
+    @RequestMapping({"/getAllTripsDetails"})
+    @CrossOrigin("*")
+    public String getAllTripsDetails(HttpServletRequest request, @RequestBody List<TripDetails> tripList) {
+
+        DataContainer data = new DataContainer();
+//Saurabh
+        String vendorCode = request.getSession().getAttribute("userName").toString();
+//Saurabh
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        try {
+            List<TripDetails> allTripDetailsList = tripDetailsRepo.getAllTripByVendorCode(vendorCode);
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
@@ -106,10 +128,14 @@ public class TripControllers {
 			data.setData(allTripDetailsList);
 			data.setMsg("success");
 
-		} catch (Exception e) {
-			data.setMsg("error");
-			e.printStackTrace();
-		}
+    @RequestMapping({"/getInTransitTripsDetails"})
+    @CrossOrigin("*")
+    public String getInTransitTripsDetails(HttpServletRequest request, @RequestBody List<TripDetails> tripList) {
+        String vendorCode = request.getSession().getAttribute("userName").toString();
+        DataContainer data = new DataContainer();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        try {
+            List<TripDetails> allTripDetailsList = tripDetailsRepo.getAllInTransitTrip(vendorCode);
 
 		return gson.toJson(data).toString();
 	}
@@ -123,13 +149,14 @@ public class TripControllers {
 		try {
 			List<TripDetails> allTripDetailsList = tripDetailsRepo.getAllCloseAndApproveTrip();
 
-			data.setData(allTripDetailsList);
-			data.setMsg("success");
-
-		} catch (Exception e) {
-			data.setMsg("error");
-			e.printStackTrace();
-		}
+    @RequestMapping({"/getPendingApprovelTripsDetails"})
+    @CrossOrigin("*")
+    public String getPendingApprovelTripsDetails(HttpServletRequest request, @RequestBody List<TripDetails> tripList) {
+        String vendorCode = request.getSession().getAttribute("userName").toString();
+        DataContainer data = new DataContainer();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        try {
+            List<TripDetails> allTripDetailsList = tripDetailsRepo.getAllPendingTrip(vendorCode);
 
 		return gson.toJson(data).toString();
 	}
@@ -163,24 +190,27 @@ public class TripControllers {
 		try {
 			List<TripDetails> allTripDetailsList = tripDetailsRepo.getAllPendingTrip();
 
-			data.setData(allTripDetailsList);
-			data.setMsg("success");
+    @RequestMapping(value = "/status", method = RequestMethod.POST)
+    @CrossOrigin("*")
+    public String status(@RequestBody TripDetails obj) throws UnsupportedEncodingException, MessagingException {
+        System.out.println("*******************************Inside status");
+        DataContainer data = new DataContainer();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
-		} catch (Exception e) {
-			data.setMsg("error");
-			e.printStackTrace();
-		}
+        String runStatus = obj.getRunStatus().toString();
+        String vendortripStatus = obj.getVendorTripStatus().toString();
+        String paymentStatus = obj.getPaymentStatus().toString();
 
-		return gson.toJson(data).toString();
-	}
+        System.out.println("runStatus  " + runStatus);
+        System.out.println("vendortripStatus " + vendortripStatus);
+        System.out.println("paymentStatus  " + paymentStatus);
 
-	@RequestMapping({ "/updateVendorTripStatusByTripId" })
-	@CrossOrigin("*")
-	public String getApprovePendingApprovelTripsDetails(HttpServletRequest request, @RequestBody TripDetails tripObj) {
+        List<TripDetails> obj1 = tripService.getTripsByFilters(runStatus, vendortripStatus, paymentStatus);
+        data.setData(obj1);
+        data.setMsg("success");
 
-		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		try {
+        return gson.toJson(data).toString();
+    }
 
 			tripDetailsRepo.updateVendorTripStatusByTripId(tripObj.getVendorTripStatus(), tripObj.getTripID());
 			data.setMsg("success");
@@ -208,12 +238,11 @@ public class TripControllers {
 		System.out.println("vendortripStatus " + vendortripStatus);
 		System.out.println("paymentStatus  " + paymentStatus);
 
-		List<TripDetails> obj1 = tripService.getTripsByFilters(runStatus, vendortripStatus, paymentStatus);
-		data.setData(obj1);
-		data.setMsg("success");
-
-		return gson.toJson(data).toString();
-	}
+    @RequestMapping({"/tripDetailByTripId"})
+    @CrossOrigin("*")
+    public String getTripsDetailsByTripId(HttpServletRequest request, @RequestBody TripDetails tripObj) {
+        System.out.println("Inside getTripsDetailsByTripId");
+        DataContainer data = new DataContainer();
 
 	@RequestMapping(value = "/statusNetwork", method = RequestMethod.POST)
 	@CrossOrigin("*")
@@ -237,98 +266,71 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/tripDetailByTripId" })
-	@CrossOrigin("*")
-	public String getTripsDetailsByTripId(HttpServletRequest request, @RequestBody TripDetails tripObj) {
+    @RequestMapping({"/saveTripQuery"})
+    @CrossOrigin("*")
+    public String saveTripQuery(HttpServletRequest request, @RequestBody QueryEntity entity) {
 
-		DataContainer data = new DataContainer();
+        DataContainer data = new DataContainer();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        try {
+            Integer getid = entity.getId();
 
-		// System.out.println("trip id : " + tripObj.getTripID());
+            Integer id = getid;
+            queryRepo.updateStatusByUserid("Query", "Network", id);
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		try {
+            if (getid != null) {
+                entity.setId(null);
+                entity.setTripqueryfk(getid);
+                entity.setRaisedOn(new Date());
+                queryRepo.save(entity);
+            }
 
-			tripObj = tripDetailsRepo.findByTripID(tripObj.getTripID());
+            data.setData(entity);
+            data.setMsg("success");
+
+        } catch (Exception e) {
+            data.setMsg("error");
+            e.printStackTrace();
+        }
+
+        return gson.toJson(data).toString();
+    }
+
+    @RequestMapping({"/updateVendorTripStatusByTrips"})
+    @CrossOrigin("*")
+    public String updateVendortripStatusByTrips(HttpServletRequest request, @RequestBody TripDetails obj) {
+
+        DataContainer data = new DataContainer();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        try {
+
+            String tripId = obj.getTripID();
+            System.out.println(tripId);
+
+            tripId = tripId.replaceAll(",", " ");
+
+            String[] split = tripId.split(" ");
+            System.out.println(split);
+            //List<Object> listof = new ArrayList<>();
+            TripDetails findByTripID = null;
+
+            for (String str : split) {
+                findByTripID = tripDetailsRepo.findByTripID(str);
+
+                if (null != findByTripID.getTripID()) {
+                    findByTripID.setVendorTripStatus("Approved");
+                    tripDetailsRepo.updateVendorInvoiceStatusByTripId(findByTripID.getVendorTripStatus(), findByTripID.getTripID());
+                }
+            }
+
+            data.setData(obj);
+            data.setMsg("success");
 
 			data.setData(tripObj);
 			data.setMsg("success");
 
-		} catch (Exception e) {
-			data.setMsg("error");
-			e.printStackTrace();
-		}
-
-		return gson.toJson(data).toString();
-	}
-
-	@RequestMapping({ "/saveTripQuery" })
-	@CrossOrigin("*")
-	public String saveTripQuery(HttpServletRequest request, @RequestBody QueryEntity entity) {
-
-		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		try {
-			Integer getid = entity.getId();
-
-			Integer id = getid;
-			queryRepo.updateStatusByUserid("Query", "Network", id);
-
-			if (getid != null) {
-				entity.setId(null);
-				entity.setTripqueryfk(getid);
-				entity.setRaisedOn(new Date());
-				queryRepo.save(entity);
-			}
-
-			data.setData(entity);
-			data.setMsg("success");
-
-		} catch (Exception e) {
-			data.setMsg("error");
-			e.printStackTrace();
-		}
-
-		return gson.toJson(data).toString();
-	}
-
-	@RequestMapping({ "/updateVendorTripStatusByTrips" })
-	@CrossOrigin("*")
-	public String updateVendortripStatusByTrips(HttpServletRequest request, @RequestBody TripDetails obj) {
-
-		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		try {
-
-			String tripId = obj.getTripID();
-			System.out.println(tripId);
-
-			tripId = tripId.replaceAll(",", " ");
-
-			String[] split = tripId.split(" ");
-			System.out.println(split);
-			// List<Object> listof = new ArrayList<>();
-			TripDetails findByTripID = null;
-
-			for (String str : split) {
-				findByTripID = tripDetailsRepo.findByTripID(str);
-
-				if (null != findByTripID.getTripID()) {
-					findByTripID.setVendorTripStatus("Draft-Invoicing");
-					tripDetailsRepo.updateVendorInvoiceStatusByTripId(findByTripID.getVendorTripStatus(),
-							findByTripID.getTripID());
-				}
-			}
-
-			data.setData(obj);
-			data.setMsg("success");
-
-		} catch (Exception e) {
-			data.setMsg("error");
-			e.printStackTrace();
-		}
-
-		return gson.toJson(data).toString();
-	}
+        return gson.toJson(data).toString();
+    }
 
 ///getRemarksByRefID
 	@RequestMapping({ "/getRemarksByRefID" })

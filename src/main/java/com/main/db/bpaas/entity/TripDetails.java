@@ -20,7 +20,8 @@ public class TripDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique=true,name = "trip_id")
+
+    @Column(name = "trip_id")
     private String tripID;
 
     @Column(name = "vendor_code")

@@ -43,146 +43,108 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 public class DashboardController {
 
-    @Value("${dataLimit}")
-    public String dataLimit;
+	@Value("${dataLimit}")
+	public String dataLimit;
 
-    @Autowired
-    ServiceManager serviceManager;
+	@Autowired
+	ServiceManager serviceManager;
 
-    @Autowired
-    JdbcConnection dbconnection;
+	@Autowired
+	JdbcConnection dbconnection;
 
-    @Autowired
-    TripDetailsRepo tripDetailsRepo;
+	@Autowired
+	TripDetailsRepo tripDetailsRepo;
 
-    @Autowired
-    QueryRepo queryRepo;
+	@Autowired
+	QueryRepo queryRepo;
 
-    @RequestMapping({"getDashboardDetails"})
-    @CrossOrigin("*")
-    public String getDashBoardDetails(@RequestBody TripDetails reqObj, HttpSession session,
-            HttpServletRequest request) {
-        //System.out.println("start getting dashboard details");
-        DataContainer data = new DataContainer();
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+	@RequestMapping({ "getDashboardDetails" })
+	@CrossOrigin("*")
+	public String getDashBoardDetails(@RequestBody TripDetails reqObj, HttpSession session,
+			HttpServletRequest request) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			List<TripDetails> topTripRecods = tripDetailsRepo.getTopTripRecods(Integer.parseInt(dataLimit));
 
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+			data.setData(topTripRecods);
+			data.setMsg("success");
 
-        List<TripDetails> tripList = new ArrayList<TripDetails>();
-        TripDetails tripDetails = null;
-        try {
-            conn = dbconnection.getConnection();
-            String sql = "Select e.id as id, e.trip_id as tripId, e.route as route, e.run_type as run,"
-                    + " e.vendor_Trip_Status as status , e.payment_status as payment "
-                    + "from Trip_Details e where  1=1 ORDER BY id DESC LIMIT " + dataLimit + ";";
+		} catch (Exception e) {
+			e.printStackTrace();
+			data.setMsg("error");
+		}
 
-            //System.out.println("query >> " + sql);
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql);
+		return gson.toJson(data).toString();
+	}
 
-            while (rs.next()) {
-                tripDetails = new TripDetails();
+	@RequestMapping("/updateDetailsforNetwork")
+	@CrossOrigin("*")
+	public String updateDetailsforNetwork(Model model, Principal principal, @RequestBody String agrn) {
 
-                tripDetails.setId(rs.getInt("id"));
-                tripDetails.setTripID(rs.getString("tripId"));
-                tripDetails.setRoute(rs.getString("route"));
-                tripDetails.setRunType(rs.getString("run"));
-                tripDetails.setVendorTripStatus(rs.getString("status"));
-                tripDetails.setPaymentStatus(rs.getString("payment"));
+		System.out.println("************************Data is ::" + agrn);
 
-                tripList.add(tripDetails);
-            }
-            data.setData(tripList);
-            data.setMsg("success");
-
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
-            data.setMsg("error");
-        } finally {
-            try {
-                stmt.close();
-                rs.close();
-                conn.close();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return gson.toJson(data).toString();
-    }
-
-    @RequestMapping("/updateDetailsforNetwork")
-    @CrossOrigin("*")
-    public String updateDetailsforNetwork(Model model, Principal principal, @RequestBody String agrn) {
-
-        System.out.println("************************Data is ::" + agrn);
-
-        JSONObject jsonObject = new JSONObject(agrn);
-        String processedon = jsonObject.get("processedOn").toString();
-        String processedBy = jsonObject.getString("processedBy").toString();
-        String tripid = jsonObject.get("tripID").toString();
-        String AssigenedTo = jsonObject.get("AssigenedTo").toString();
-        String LumpSomeCheckBox = "";
-        String LumpSomeAmount = jsonObject.getString("LumpSomeAmount").toString();
+		JSONObject jsonObject = new JSONObject(agrn);
+		String processedon = jsonObject.get("processedOn").toString();
+		String processedBy = jsonObject.getString("processedBy").toString();
+		String tripid = jsonObject.get("tripID").toString();
+		String AssigenedTo = jsonObject.get("AssigenedTo").toString();
+		String LumpSomeCheckBox = "";
+		String LumpSomeAmount = jsonObject.getString("LumpSomeAmount").toString();
 
 //fs
 //totalFreight
 //basicFreight
-        String fs = jsonObject.getString("fs").toString();
-        String totalFreight = jsonObject.getString("totalFreight").toString();
-        String basicFreight = jsonObject.getString("basicFreight").toString();
-        String commentsByUSer = jsonObject.getString("commentsby").toString();
+		String fs = jsonObject.getString("fs").toString();
+		String totalFreight = jsonObject.getString("totalFreight").toString();
+		String basicFreight = jsonObject.getString("basicFreight").toString();
+		String commentsByUSer = jsonObject.getString("commentsby").toString();
 
 ///
-        System.out.println("fs " + fs
-                + "\ntotalFreight " + totalFreight
-                + "\nbasicFreight " + basicFreight + ""
-                + "\ncommentsByUSer " + commentsByUSer);
+		System.out.println("fs " + fs + "\ntotalFreight " + totalFreight + "\nbasicFreight " + basicFreight + ""
+				+ "\ncommentsByUSer " + commentsByUSer);
 
-        if ("".equalsIgnoreCase(LumpSomeAmount)) {
-            LumpSomeCheckBox = "false";
-        } else {
-            LumpSomeCheckBox = "true";
-        }
+		if ("".equalsIgnoreCase(LumpSomeAmount)) {
+			LumpSomeCheckBox = "false";
+		} else {
+			LumpSomeCheckBox = "true";
+		}
 
-        if ("".equalsIgnoreCase(LumpSomeAmount)) {
-            LumpSomeAmount = "0";
-        }
+		if ("".equalsIgnoreCase(LumpSomeAmount)) {
+			LumpSomeAmount = "0";
+		}
 
-        System.out.println("processedon" + processedon);
-        System.out.println("tripid" + tripid);
-        System.out.println("processedBy" + processedBy);
-        System.out.println("AssigenedTo" + AssigenedTo);
-        System.out.println("LumpSomeCheckBox" + LumpSomeCheckBox);
-        System.out.println("LumpSomeAmount" + LumpSomeAmount);
+		System.out.println("processedon" + processedon);
+		System.out.println("tripid" + tripid);
+		System.out.println("processedBy" + processedBy);
+		System.out.println("AssigenedTo" + AssigenedTo);
+		System.out.println("LumpSomeCheckBox" + LumpSomeCheckBox);
+		System.out.println("LumpSomeAmount" + LumpSomeAmount);
 
-        tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox, LumpSomeAmount,"Approved By Network Team");
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-        DataContainer data = new DataContainer();
-        data.setMsg("success");
-        //  System.out.println("Value of S si :"+s);
+		tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox,
+				LumpSomeAmount, "Approved By Network Team");
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		DataContainer data = new DataContainer();
+		data.setMsg("success");
+		// System.out.println("Value of S si :"+s);
 
-        QueryEntity comm = new QueryEntity();
-        comm.setRaisedBy(processedBy);
-        try {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            Date date = new Date();
-            System.out.println(formatter.format(date));
-            comm.setRaisedOn(date);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+		QueryEntity comm = new QueryEntity();
+		comm.setRaisedBy(processedBy);
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			Date date = new Date();
+			System.out.println(formatter.format(date));
+			comm.setRaisedOn(date);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 
-        comm.setReferenceid(tripid);
-        comm.setComment(commentsByUSer);
+		comm.setReferenceid(tripid);
+		comm.setComment(commentsByUSer);
 
-        queryRepo.save(comm);
+		queryRepo.save(comm);
 
-        return gson.toJson(data).toString();
+		return gson.toJson(data).toString();
 
-    }
+	}
 }

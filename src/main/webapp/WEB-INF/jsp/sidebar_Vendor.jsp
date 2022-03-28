@@ -162,14 +162,14 @@
                         </a></li>
                 </ul>
                 <ul class="nav nav-treeview">
-                    <li class="nav-item"><a href="rejectedInvoice" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("rejectedInvoice")) {
+                    <li class="nav-item"><a href="draftInvoice" class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("draftInvoice")) {
 				out.print("active");
 			}%>                            
                             ">
                             <!-- <i class="nav-icon fas fa-times"></i> -->
                             <i class="nav-icon far fa-times-circle"></i>
-                            <p>Invoice Rejected</p>
+                            <p>Draft Invoice</p>
                         </a></li>
                 </ul>
                 <hr>
@@ -195,7 +195,7 @@
                     <p>Reports</p>
                 </a></li>
                 
-                 <%-- <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                 <%--  <li class="nav-item has-treeview"><a href="#" class="nav-link">
 						<i class="nav-icon fas fa-circle"></i>
 						<p>
 							Admin <i class="right fas fa-angle-left"></i>
@@ -221,10 +221,10 @@
                             ">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>Email Configuration</p>
-                    </a></li>
+                    </a></li> --%>
             </ul>
             <hr>
-            </li> --%>
+            </li> 
 
 
             

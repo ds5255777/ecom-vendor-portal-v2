@@ -20,6 +20,8 @@ public class InvoiceGenerationEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column( name = "ecom_invoice_nunmber")
+	private String ecomInvoiceNumber;
 // Form one
 	@Column(name = "bp_code")
 	private String bpCode;
@@ -66,6 +68,14 @@ public class InvoiceGenerationEntity {
 	private String documentFileTwoName;
 	@Transient
 	String documentFileTwoText;
+
+	public String getEcomInvoiceNumber() {
+		return ecomInvoiceNumber;
+	}
+
+	public void setEcomInvoiceNumber(String ecomInvoiceNumber) {
+		this.ecomInvoiceNumber = ecomInvoiceNumber;
+	}
 
 	public Long getId() {
 		return id;

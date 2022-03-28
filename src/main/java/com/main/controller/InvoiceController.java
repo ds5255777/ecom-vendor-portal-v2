@@ -37,9 +37,6 @@ public class InvoiceController {
 	@Autowired
 	private TripDetailsRepo tripDetailsRepo;
 
-	@Autowired
-	private InvoiceLineItemRepo invoiceLineItemRepo;
-
 	@RequestMapping({ "/getAllInvoice" })
 	@CrossOrigin("*")
 	public String getAllInvoice(HttpServletRequest request, @RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
@@ -155,10 +152,9 @@ public class InvoiceController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String tripID = obj.getTripID();
-			System.out.println(tripID);
+		System.out.println(tripID);
 		try {
-			
-			
+
 			tripID = tripID.replaceAll(",", " ");
 
 			System.out.println(tripID + "--------");
@@ -263,25 +259,32 @@ public class InvoiceController {
 					e.printStackTrace();
 				}
 			}
+			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
 
-			// InvoiceLineItem lineItemSaved= invoiceLineItemRepo.save(lineItemObj);
-			obj.setInvoiceStatus("Processed");
-
-			obj = invoiceGenerationEntityRepo.save(obj);
+			Long idByinvocienumber = invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
+			System.out.println(idByinvocienumber);
+			
+			if (null != idByinvocienumber) {
+				obj.setInvoiceStatus("Processed");
+				obj.setId(idByinvocienumber);
+				System.out.println(ecomInvoiceNumber);
+				tripDetailsRepo.updateVendorTripStatusAgainsInvoiceNumber(ecomInvoiceNumber);
+				obj = invoiceGenerationEntityRepo.save(obj);
+			}
 
 			data.setData(obj);
 			data.setMsg("success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			data.setData(e.toString());
+			//data.setData(e.toString());
 			e.printStackTrace();
 		}
 
 		return gson.toJson(data).toString();
 
 	}
-	
+
 	@RequestMapping({ "/getSelectInvoiceDetails" })
 	@CrossOrigin("*")
 	public String getSelectInvoiceDetails(HttpServletRequest request, @RequestBody InvoiceGenerationEntity inviceObj) {
@@ -291,7 +294,7 @@ public class InvoiceController {
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			 inviceObj = invoiceGenerationEntityRepo.findByInvoiceNumber(inviceObj.getInvoiceNumber());
+			inviceObj = invoiceGenerationEntityRepo.findByInvoiceNumber(inviceObj.getInvoiceNumber());
 			data.setData(inviceObj);
 			data.setMsg("success");
 
@@ -302,7 +305,102 @@ public class InvoiceController {
 
 		return gson.toJson(data).toString();
 	}
+
+	@RequestMapping({ "/getAllDraftInvoice" })
+	@CrossOrigin("*")
+	public String getAllDraftInvoice(HttpServletRequest request,
+			@RequestBody List<InvoiceGenerationEntity> invoiceList) {
+
+		DataContainer data = new DataContainer();
+
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			invoiceList = invoiceGenerationEntityRepo.getDraftInvoice();
+
+			data.setData(invoiceList);
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
+
+	@RequestMapping({ "/deleteDraftInvoice" })
+	@CrossOrigin("*")
+	public String deleteDraftInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
+
+		DataContainer data = new DataContainer();
+
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+
+			Long id = obj.getId();
+			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
+			invoiceGenerationEntityRepo.deleteById(id);
+			tripDetailsRepo.updatetripStatusagainsInvoiceNumber(ecomInvoiceNumber);
+
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
 	
+
+	@RequestMapping({ "/deleteLineItem" })
+	@CrossOrigin("*")
+	public String deleteLineItem(HttpServletRequest request, @RequestBody TripDetails obj) {
+
+		DataContainer data = new DataContainer();
+
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+
+			String tripID = obj.getTripID();
+			
+			tripDetailsRepo.updateVendorTripStatus(tripID);
+
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
 	
+	@RequestMapping({ "/discardDraftInvoice" })
+	@CrossOrigin("*")
+	public String discardDraftInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
+
+		DataContainer data = new DataContainer();
+
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+
+			String invoiceNumber = obj.getEcomInvoiceNumber();
+			
+			System.out.println(invoiceNumber);
+			
+			tripDetailsRepo.discardDraftInvoice(invoiceNumber);
+			
+			tripDetailsRepo.updateVendorTripStatusAgainsInvoice(invoiceNumber);
+
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
 
 }

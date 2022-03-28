@@ -10,7 +10,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${titleName}|InvoiceProcess</title>
+<title>${titleName}|Draft Invoice Generate</title>
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -89,14 +89,16 @@
 			<ul class="navbar-nav ml-auto">
 				<!-- Navbar Search -->
 				<h6 class="float-sm-right" style="color: white;">
-					<b>Invoice Number : </b> <input type="text" name="ecomInvoiceNumber" id="ecomInvoiceNumber" readonly value="${invoiceNumber }" style="background: #007BFF; color: white; border: 0px;">
+					<b>Invoice Number : </b> <input type="text"
+						name="ecomInvoiceNumber" id="ecomInvoiceNumber" readonly
+						value="${invoiceNumber }"
+						style="background: #007BFF; color: white; border: 0px;">
 				</h6>
 			</ul>
 		</nav>
 
 		<!-- /.navbar -->
 		<!-- Content Wrapper. Contains page content -->
-		
 		<div class="content-wrapper" style="margin-left: 0px !important;">
 			<!-- Main content -->
 			<section class="content" style="overflow: hidden;">
@@ -122,7 +124,7 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="text" readonly
-													value="${userName}" name="suppName" id="suppName"
+													name="suppName" id="suppName" value="${userName }"
 													style="width: 100%;">
 											</div>
 										</div>
@@ -135,7 +137,7 @@
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="text"
 													placeholder="Business Partner Code" name="bpCode" value="${mobileNo }"
-													id="bpCode" style="width: 100%;">
+													 id="bpCode" style="width: 100%;">
 											</div>
 										</div>
 									</div>
@@ -227,17 +229,8 @@
 										</div>
 									</div>
 									
-									<div class="col-md-3">
-										<div class="form-group row">
-											<label class="col-sm-5" hidden><span
-												class="text-danger">*</span></label>
-											<div class="col-sm-7">
-												<input class="form-control-sm" type="text"
-													name="ecomInvoiceNumber" id="ecomInvoiceNumber"
-													placeholder="vehicleNumber" readonly value="${invoiceNumber }" hidden style="width: 100%;">
-											</div>
-										</div>
-									</div>
+									<input type="text" id="id" name="id" hidden>
+									<input type="text" id="ecomInvoiceNumber" name="ecomInvoiceNumber" hidden value="${invoiceNumber }">
 
 									<!--  -->
 								</div>
@@ -255,38 +248,45 @@
 								</button>
 							</div>
 						</div>
-						<!-- /.card-header -->
-						<!-- <form action="">
-						<div class="card-body" style="overflow: auto;">
-                                    <div class="col-md-4">
+						
+						<!-- Add new trip in this invoice***************************************************************** -->
+                            <!-- /.card-header -->
+                            <div class="card-body" style="overflow: auto;">
+                            <form id="stepTwoForm" class="forms-sample">
+                                <div class="row">
+                                    <div class="col-md-3">  
                                         <div class="form-group row">
-                                            <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="templateName" onchange="showTemplate()">
-                                                    
+                                            <label class="col-sm-4 control-label">Trip Id</label>
+                                            <div class ="col-sm-8"> 
+                                                <select id ="tripList" name="tripList" class="form-control-sm select2"  style="width: 100% !important;">
+                                                    <option>Select Trip ID</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-3">
-                                        <div class="form-group row">
-
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-right: 5px;float: right;height: 30px;padding: 2px 10px 2px 10px;">Add Trip</button>
-                                            
-                                        </div>
-                                    </div>
                                         </div>
                                     </div>
                                     
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-primary" style="margin-right:
+                                                    5px;height: 30px;padding: 2px 10px 2px 10px;" id="docBtn" name="docBtn" onclick="AddDocCheck()">Add</button>
+
+                                        </div>
+                                    </div>
                                     
                                 </div>
+                                </form>
+                            </div>
+                                               
+						<!-- Add new trip in this invoice************************************************************************* -->
 						
+						<!-- /.card-header -->
 						
-						</form> -->
-						
-						<form id="stepTwoForm" class="forms-sample">
 							<div class="card-body" style="overflow: auto;">
 								<table id="prTable" class="table table-bordered table-striped">
 									<thead>
 										<tr>
 											<th style="padding: 5px 5px 5px 1.5rem;">Number</th>
+											<th style="padding: 5px 5px 5px 1.5rem;">Trip ID</th>
 											<th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
 											<th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
 											<th style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
@@ -305,7 +305,6 @@
 									</thead>
 								</table>
 							</div>
-						</form>
 						<!-- /.card-body -->
 					</div>
 					<!-- /.card -->
@@ -383,7 +382,7 @@
 									<div class="col-md-4">
 										<div class="form-group row">
 											<label class="col-sm-5 control-label">Document1<span
-												class="text-danger"> </span></label>
+												class="text-danger"> *</span></label>
 											<div class="col-sm-7">
 												<input type="file" id="DocumentFileOne"
 													name="DocumentFileOne" class="form-control-sm"
@@ -397,7 +396,7 @@
 									<div class="col-md-4">
 										<div class="form-group row">
 											<label class="col-sm-5 control-label">Document2<span
-												class="text-danger"> </span></label>
+												class="text-danger"> *</span></label>
 											<div class="col-sm-7">
 												<input type="file" id="DocumentFileTwo"
 													name="DocumentFileTwo" class="form-control-sm"
@@ -420,8 +419,12 @@
 								class="btn btn-info">Submit Invoice</button>
 
 							<label style="visibility: hidden;">Select</label>
-							<button type="button" onclick="updateVentorTripStats()"
-								class="btn btn-info">Save To Draft</button>
+							<button type="button" onclick="discardInvoice()"
+								class="btn btn-info">Discard Invoice</button>
+								
+								<label style="visibility: hidden;">Select</label>
+							<button type="button" onclick="closeWin()"
+								class="btn btn-info">Close</button>
 						</div>
 					</center>
 					<!-- /.row -->
@@ -498,6 +501,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
 
 	<script>
+	function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
+	$(document).on("keydown", disableF5);
+	
+	
 	const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -507,15 +514,22 @@
       
 
             var prTable = $("#prTable").DataTable({
-            	"paging": false,
+            	"paging": true,
                 "lengthChange": false,
                 "searching": false,
                 "info": true,
                 "autoWidth": false,
                 "aaSorting": [],
                 "scrollX": true,
-                /* "pageLength": 15, */
+                "pageLength": 15,
                 });
+            
+            function closeWin(){
+            	window.opener.refereshList();
+        		window.close()  
+        	}
+            
+            
             function onValidateFile(id){
             	var fileInput3 = document.getElementById(id).value;
             	var gst = document.getElementById(id);
@@ -530,9 +544,9 @@
                  	
                  	const fsize = gst.files.item(0).size;
                  	
-                 	//console.log(fsize);
+                 	console.log(fsize);
                  	const file = Math.round((fsize / 1024));
-                 	//console.log(file);
+                 	console.log(file);
                     // var size = parseFloat(cc.files[0].size / (1024 * 1024)).toFixed(2);
                      //alert("Your File Size is "+(file/1024)+"MB");
                      if(file > ${maxFileSize}) {
@@ -555,29 +569,78 @@
                      alert("This browser does not support HTML5.");
                  }
             }
+            
+            function AddDocCheck() {
+              //alert();
+              var invoiceNumber=$("#ecomInvoiceNumber").val();
+              
+              var tripID=document.getElementById("tripList").value;
+              
+              var json={
+            		  "tripID": tripID,
+            		  "invoiceNumber":invoiceNumber
+              }
+              
+              console.log(json);
+  			
+  			$.ajax({
+  		      	type: "POST",
+  		      	data: JSON.stringify(json),
+  		        url: "<%=GlobalUrl.findByTripDetailUsingTripID%>",
+  				dataType : "json",
+  				contentType : "application/json",
+  				async : false,
+  				success : function(data) {
+
+  					if (data.msg == 'success') {					
+  						
+  						 Toast.fire({
+                             type: 'success',
+                             title: 'Add Successfully..'
+                         })
+                         getTripDetails();
+  						getSelectTripList();
+  						 
+  					} else {
+  						Toast.fire({
+  							type : 'error',
+  							title : 'Failed.. Try Again..'
+  						})
+  					}
+
+  				},
+  				error : function(jqXHR, textStatue, errorThrown) {
+  					alert("failed, please try again");
+  				}
+
+  			});
+
+              
+               
+            }
         
 
-  		var allTripId='${tripId}';
+  		var allTripId=${listofTrips};
   		
   		var tripLineArray=[];
   
- 		console.log(allTripId);
-        	console.log(tripLineArray);
+ 		//console.log(allTripId);
+        
          /* jQuery.validator.setDefaults({
             debug: true,
             success: "valid"
         });  */
          
-         $.validator.setDefaults({
+         /* $.validator.setDefaults({
              submitHandler: function() {
-            	 sendToServer();
+            	 getTripDetails();
 
                  //alert("insode add");
              }
-         });
+         }); */
         
         function updateVentorTripStats(){
-        	
+        	//alert("hiii");
         			var obj={
                 			"tripID":allTripId,
                             "vendorTripStatus": "Approved",
@@ -593,8 +656,7 @@
                 success: function(response) {
 
                 	 if (response.msg == 'success') {
-                		 swal.fire("", "Save to Draft-Invoice.. ", "success", "OK").then(function() {
-                			 window.opener.refereshList();
+                		 swal.fire("Ohhh....", "Discard Your Invoice...", "warning", "OK").then(function() {
                              window.close();
                              //window.location="closedAndApprovedTrips";
                          });
@@ -713,8 +775,6 @@
             
          // after
             tripLineArray.forEach((item) => {
-            	console.log(tripLineArray);
-            	console.log(item);
             	item.id=null;
             });
          
@@ -737,7 +797,7 @@
                          swal.fire("Thanks", "your Invoice Process Sucessfully", "success", "OK").then(function() {
                         	 window.opener.refereshList();
                              window.close();
-                             //window.location="closedAndApprovedTrips";
+                        	 //window.location="closedAndApprovedTrips";
                          });
                          
                          
@@ -781,17 +841,22 @@
         }
         getTripDetails();
         
+        
+        function updateTextData(index,textValue){
+        	tripLineArray[index].lineLevelDescription=textValue.trim();
+        }
+        
         function getTripDetails() {
-			var id=[];
-        	tripLineArray=[];
+        	var invoiceNumber=$("#ecomInvoiceNumber").val();
+
         	var obj={
-        			"tripID":allTripId
+        			"invoiceNumber":invoiceNumber
         	}
-        	
+        	//console.log("============",obj);
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(obj),
-                url: "<%=GlobalUrl.getLineItemDetails%>",
+                url: "<%=GlobalUrl.getDraftLineTripDetails%>",
                 dataType: "json",
                 contentType: "application/json",
                 success: function(response) {
@@ -799,25 +864,23 @@
                 	 if (response.msg == 'success') {
                 		// console.log(obj);
                 		 var result = response.data;
-                		 tripLineArray=result;
-                		 $('#prTable').DataTable().clear();
-                		 
+                		 var action="";	
                 		 var textBox="";
-                		 var action="";				
-
+                		 tripLineArray=result;
+ 						$('#prTable').DataTable().clear();
                          for (var i = 0; i < result.length; i++) {
-                        
-                        	  textBox="<input type=\"text\" class=\"form-control\" id=\"form-control\" placeholder=\"Fill Description\" oninput=\"updateTextData('"+i+"',this.value)\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
-                        	 	action="<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteRow('" + result[i].tripID + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-                        	  $('#prTable').DataTable().row.add([ i+1, result[i].runType, result[i].standardKM, result[i].ratePerKm, result[i].currentFuelRate, result[i].fsBaseRate,  result[i].fsDiff, result[i].basicFreight, result[i].fs, result[i].actualKM, result[i].totalFreight, textBox, action ]);                         
+                        	   textBox="<input type=\"text\" class=\"form-control\" id=\"form-control\" placeholder=\"Fill Description\" oninput=\"updateTextData('"+i+"',this.value)\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
+                        	   action="<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteRow('" + result[i].tripID + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
+                        	   $('#prTable').DataTable().row.add([ i+1, result[i].tripID,result[i].runType, result[i].standardKM, result[i].ratePerKm, result[i].currentFuelRate, result[i].fsBaseRate,  result[i].fsDiff, result[i].basicFreight, result[i].fs, result[i].actualKM, result[i].totalFreight, textBox, action ]);                         
                          		id=(result[i].id);
-                        	// console.log(result[i].totalFreight);
+                         		
+                         		//allTripId=result[i].tripID;
+                        	 //console.log(result[i].tripID);
+                        	 //console.log("Line 826 : ",allTripId);
                          }
-                         //console.log("============",id);
-                         //swal.fire("Thanks", "your Invoice Process Sucessfully", "success", "OK")
                          $('#prTable').DataTable().draw();
                          $("tbody").show();
-                     } else {
+                	 } else {
                         alert("failed");
                     }
                 },
@@ -831,14 +894,46 @@
             });
         }
         
-        
-        
-        function updateTextData(index,textValue){
-        	
-        	tripLineArray[index].lineLevelDescription=textValue.trim();
-        	
+        function discardInvoice(){
+        	var invoiceNumber=$("#ecomInvoiceNumber").val();
+
+        	var obj={
+        			"ecomInvoiceNumber":invoiceNumber
+        	}
+                $.ajax({
+                    type: "POST",
+                    data: JSON.stringify(obj),
+                    url: "<%=GlobalUrl.discardDraftInvoice%>",
+                    dataType: "json",
+                    contentType: "application/json",
+                    async: false,
+                    success: function(data) {
+
+                        if (data.msg == 'success') {
+                        	 swal.fire("", "Deleted Successfully..", "success", "OK").then(function() {
+                        		 window.opener.refereshList();
+                                 window.close();
+                                 //window.location="closedAndApprovedTrips";
+                             });
+                             
+                             
+                             setTimeout(function(response) {
+
+                             }, 2000);
+                        } else {
+                            Toast.fire({
+                                type: 'error',
+                                title: 'Failed.. Try Again..'
+                            })
+                        }
+
+                    },
+                    error: function(jqXHR, textStatue, errorThrown) {
+                        alert("failed, please try again");
+                    }
+
+                });
         }
-        
         function deleteRow(tripID) {
             prTable
             .row( $(tripID).parents('tr') )
@@ -846,8 +941,9 @@
             .draw();
             deleteThisTrip(tripID);
             getTripDetails();
-            alert("hiii");
         }
+        
+      
         
        function deleteThisTrip(tripID){
         var json = {
@@ -869,7 +965,8 @@
                             type: 'success',
                             title: 'Deleted Successfully..'
                         })
-                        
+                        getSelectTripList();
+
                     } else {
                         Toast.fire({
                             type: 'error',
@@ -885,7 +982,54 @@
             });
    	
         }
-        
+       
+       getSelectTripList();
+      
+           var bpname = ${userName};
+		
+		function getSelectTripList(){
+			
+			 var obj ={
+					"vendorCode" : bpname
+			} 
+			 console.log(obj);
+			
+			$.ajax({
+		      	type: "POST",
+		      	data: JSON.stringify(obj),
+		        url: "<%=GlobalUrl.getTripDetailByTripId%>",
+				dataType : "json",
+				contentType : "application/json",
+				async : false,
+				success : function(data) {
+
+					if (data.msg == 'success') {					
+						var result = data.data;
+						$("#tripList ").empty();
+						console.log(result);
+						if (result.length !== 0) {							
+							
+							for (var i = 0; i < result.length; i++) {																						
+								$('#tripList').append($('<option/>').attr("value", result[i].tripID).text(result[i].tripID));
+							}		
+						}
+
+					} else {
+						Toast.fire({
+							type : 'error',
+							title : 'Failed.. Try Again..'
+						})
+					}
+
+				},
+				error : function(jqXHR, textStatue, errorThrown) {
+					alert("failed, please try again");
+				}
+
+			});
+
+		}
+		
     </script>
 
 </body>

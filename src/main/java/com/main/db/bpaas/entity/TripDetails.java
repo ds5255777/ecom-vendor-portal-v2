@@ -20,7 +20,7 @@ public class TripDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "trip_id")
+    @Column(unique=true,name = "trip_id")
     private String tripID;
 
     @Column(name = "vendor_code")
@@ -122,6 +122,9 @@ public class TripDetails {
 
     @Column(name = "assign_to")
     private String assignTo;// network Team, Vendor
+    
+    @Column(name="invoice_number")
+    private String invoiceNumber;
 
     @OneToMany(targetEntity = QueryEntity.class, cascade = CascadeType.ALL)
 
@@ -428,5 +431,13 @@ public class TripDetails {
     public void setQueryEntity(List<QueryEntity> queryEntity) {
         this.queryEntity = queryEntity;
     }
+
+	public String getInvoiceNumber() {
+		return invoiceNumber;
+	}
+
+	public void setInvoiceNumber(String invoiceNumber) {
+		this.invoiceNumber = invoiceNumber;
+	}
 
 }

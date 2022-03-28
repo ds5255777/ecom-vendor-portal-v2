@@ -15,23 +15,34 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 	@Query(value = "select * from invoice_generation where invoice_status='Approve'", nativeQuery = true)
 	List<InvoiceGenerationEntity> getAllApproveInvoice();
 
-	@Query(value = "select * from invoice_generation where invoice_status='Reject'", nativeQuery = true)
+	@Query(value = "select * from invoice_generation where invoice_status='Draft-Invoicing'", nativeQuery = true)
 	List<InvoiceGenerationEntity> getAllRejectInvoice();
-
-	@Query(value = "select * from invoice_generation", nativeQuery = true)
+	
+	@Query(value = "select * from invoice_generation where invoice_status IN ('Processed', 'Approve') ", nativeQuery = true)
 	List<InvoiceGenerationEntity> getAllInvoice();
+	
+	 @Query(value = "select * from invoice_generation WHERE invoice_status='Draft-Invoicing'", nativeQuery = true)
+	    List<InvoiceGenerationEntity> getDraftInvoice();
 
-	@Query(value = "select count(*) from invoice_generation where invoice_status='Pending'", nativeQuery = true)
+	@Query(value = "select count(*) from invoice_generation where invoice_status='Processed'", nativeQuery = true)
 	int getPendingInvoiceCount();
 
-	@Query(value = "select count(*) from invoice_generation where invoice_status='Reject'", nativeQuery = true)
-	int getRejecteInvoiceCount();
+	@Query(value = "select count(*) from invoice_generation where invoice_status='Draft-Invoicing'", nativeQuery = true)
+	int getDraftInvoiceCount();
 	
-	InvoiceGenerationEntity findByInvoiceNumber(String invoiceNumber);
+	@Query(value = "select ID from invoice_generation where ecom_invoice_nunmber=?", nativeQuery = true)
+	Long getIdByinvocienumber(String invocienumber);
 
- //Saurabh
-@Query(value = "select count(*) from invoice_details", nativeQuery = true)
-    int getCountForAllInvoices();
+	InvoiceGenerationEntity findByInvoiceNumber(String invoiceNumber);
+	
+	@Query(value = "select count(*) from invoice_generation where invoice_status='Approve'", nativeQuery = true)
+	int getApproveInvoiceCount();
+
+	// Saurabh
+	@Query(value = "select count(*) from invoice_details", nativeQuery = true)
+	int getCountForAllInvoices();
+
 //
+	
 
 }

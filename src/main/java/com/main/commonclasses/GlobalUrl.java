@@ -27,12 +27,18 @@ public class GlobalUrl {
     public static String getInTransitTripsDetails = tripControllers + "/getInTransitTripsDetails";
     public static String getPendingApprovelTripsDetails = tripControllers + "/getPendingApprovelTripsDetails";
     public static String updateVendorTripStatusByTripId = tripControllers + "/updateVendorTripStatusByTripId";
+    public static String updateVendorTripStatusByTrips = tripControllers + "/updateVendorTripStatusByTrips";
     public static String tripDetailByTripId = tripControllers + "/tripDetailByTripId";
     public static String getRemarksByRefID = tripControllers + "/getRemarksByRefID";
     public static String status = tripControllers + "/status";
     public static String statusNetwork = tripControllers + "/statusNetwork";
     public static String filterTripDetails = tripControllers + "/filterTripDetails";
     public static String saveTripQuery = tripControllers + "/saveTripQuery";
+    public static String getDraftLineTripDetails = tripControllers + "/getDraftLineTripDetails";
+    public static String getTripDetailByTripId = tripControllers + "/getTripDetailByTripId";
+    public static String findByTripDetailUsingTripID = tripControllers + "/findByTripDetailUsingTripID";
+    //
+    
     //public static String dateFilter=tripControllers+"/searchTripDetailsFromDate";
    
 
@@ -46,7 +52,11 @@ public static String invoiceController="invoiceController";
 	public static String getAllInvoiceToBilling=invoiceController+"/getAllInvoiceToBilling";
 	public static String getLineItemDetails=invoiceController+"/getLineItemDetails";
 	public static String getSelectInvoiceDetails=invoiceController+"/getSelectInvoiceDetails";
-
+	public static String getAllDraftInvoice = invoiceController + "/getAllDraftInvoice";
+	public static String deleteDraftInvoice = invoiceController + "/deleteDraftInvoice";
+	public static String deleteLineItem = invoiceController + "/deleteLineItem";
+	public static String discardDraftInvoice = invoiceController + "/discardDraftInvoice";
+	
     public static String dashboardController = "dashboardController";
 
     public static String getDashboardDetails = dashboardController + "/getDashboardDetails";

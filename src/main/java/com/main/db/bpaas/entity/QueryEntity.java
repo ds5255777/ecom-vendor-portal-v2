@@ -39,6 +39,9 @@ public class QueryEntity {
 
     @Column(name = "raised_again_query")
     private String raisedAgainQuery;
+    
+    @Column(name = "trip_query_fk")
+	private Integer tripqueryfk;
 
     /*@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -84,4 +87,13 @@ public class QueryEntity {
         this.raisedAgainQuery = raisedAgainQuery;
     }
 
+	public Integer getTripqueryfk() {
+		return tripqueryfk;
+	}
+
+	public void setTripqueryfk(Integer tripqueryfk) {
+		this.tripqueryfk = tripqueryfk;
+	}
+
+    
 }

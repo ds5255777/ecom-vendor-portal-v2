@@ -50,6 +50,7 @@
                 tripStatus.options[tripStatus.options.length] = new Option(x, x);
             }
             tripStatus.onchange = function() {
+                console.log("inside vendor on change");
                 //empty Chapters- and Topics- dropdowns
                 paymentStatus.length = 1;
                 status.length = 1;
@@ -57,8 +58,10 @@
                 for (var y in statusObject[this.value]) {
                     status.options[status.options.length] = new Option(y, y);
                 }
+                GetSelectedTextValue();
             }
             status.onchange = function() {
+                console.log("inside vendor on change");
                 //empty Chapters dropdown
                 paymentStatus.length = 1;
                 //display correct values
@@ -66,6 +69,7 @@
                 for (var i = 0; i < z.length; i++) {
                     paymentStatus.options[paymentStatus.options.length] = new Option(z[i], z[i]);
                 }
+                GetSelectedTextValue();
             }
         }
 
@@ -854,14 +858,14 @@
 			    window.open(urlOftripsDetail, "TripsDetails", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
 
 		  	} */
-            function setTripStatus(tripId) {
-                globalTripId = "";
-                globalTripId = tripId;
-                console.log("tripid : " + globalTripId);
-            }
+//            function setTripStatus(tripId) {
+//                globalTripId = "";
+//                globalTripId = tripId;
+//                console.log("tripid : " + globalTripId);
+//            }
 
             function setTripStatus(tripId) {
-                console.log("Trip od" + tripId);
+                console.log("Trip Id" + tripId);
                 //	 tripId =  $("#tripID").val();		
 
                 var json = {

@@ -65,8 +65,10 @@ public class DashboardController {
         //System.out.println("start getting dashboard details");
         DataContainer data = new DataContainer();
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-
-        List<TripDetails> findAll = tripDetailsRepo.findAll();
+//Saurabh
+        String vendorCode = request.getSession().getAttribute("userName").toString();
+//Saurabh
+        List<TripDetails> findAll = tripDetailsRepo.getAllTripByVendorCode(vendorCode);
 		/*
 		 * Connection conn = null; Statement stmt = null; ResultSet rs = null;
 		 * 

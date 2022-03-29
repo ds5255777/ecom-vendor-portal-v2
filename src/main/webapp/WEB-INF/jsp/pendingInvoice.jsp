@@ -311,7 +311,7 @@
                      //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].siteQualityId + "','" + result[i].checkListId + "','"+result[i].url+"')\"><i class='fa fa-eye ' ></i></button>";
                      var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "')\" >" + result[i].invoiceNumber + "</button>";
 
-                     tabledata.row.add([view, result[i].suppName, result[i].bpCode, result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceCurrency,  result[i].vehicleNumber]);
+                     tabledata.row.add([view, result[i].vendorName, result[i].vendorCode, result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceCurrency,  result[i].vehicleNumber]);
                  }
                  tabledata.draw();
                  $("tbody").show();

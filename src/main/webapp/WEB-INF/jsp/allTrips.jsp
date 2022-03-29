@@ -479,6 +479,13 @@
                                                             <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="totalFreight" name="totalFreight" disabled>
                                                         </div>
                                                     </div>
+                                                    <div class="col-sm-3">
+                                                        <!-- text input -->
+                                                        <div class="form-group">
+                                                            <label style="margin-bottom: 1px;">Lump Sum Amount (Total Trip Cost)</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="lumpsomeamount" name="lumpsomeamount" disabled>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>

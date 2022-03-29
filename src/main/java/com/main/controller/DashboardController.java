@@ -64,8 +64,9 @@ public class DashboardController {
 			HttpServletRequest request) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String vendorCode = request.getSession().getAttribute("userName").toString();
 		try {
-			List<TripDetails> topTripRecods = tripDetailsRepo.getTopTripRecods(Integer.parseInt(dataLimit));
+			List<TripDetails> topTripRecods = tripDetailsRepo.getTopTripRecods(vendorCode, Integer.parseInt(dataLimit));
 
 			data.setData(topTripRecods);
 			data.setMsg("success");

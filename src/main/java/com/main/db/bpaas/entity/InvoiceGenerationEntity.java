@@ -20,13 +20,13 @@ public class InvoiceGenerationEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column( name = "ecom_invoice_nunmber")
+	@Column(name = "ecom_invoice_nunmber")
 	private String ecomInvoiceNumber;
 // Form one
-	@Column(name = "bp_code")
-	private String bpCode;
-	@Column(name = "supp_name")
-	private String suppName;
+	@Column(name = "vendor_code")
+	private String vendorCode;
+	@Column(name = "vendor_name")
+	private String vendorName;
 	@Column(name = "site_name")
 	private String siteName;
 	@Column(name = "invoice_date")
@@ -85,20 +85,20 @@ public class InvoiceGenerationEntity {
 		this.id = id;
 	}
 
-	public String getBpCode() {
-		return bpCode;
+	public String getVendorCode() {
+		return vendorCode;
 	}
 
-	public void setBpCode(String bpCode) {
-		this.bpCode = bpCode;
+	public void setVendorCode(String vendorCode) {
+		this.vendorCode = vendorCode;
 	}
 
-	public String getSuppName() {
-		return suppName;
+	public String getVendorName() {
+		return vendorName;
 	}
 
-	public void setSuppName(String suppName) {
-		this.suppName = suppName;
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
 	}
 
 	public String getSiteName() {

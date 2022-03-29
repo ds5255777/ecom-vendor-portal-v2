@@ -22,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itextpdf.text.log.SysoCounter;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.RolesEntity;
 import com.main.db.bpaas.entity.TripDetails;
@@ -378,9 +379,9 @@ System.out.println(" fifty truips only");
             System.out.println("totalTripCount  " + totalTripCount + ""
                     + "TotalCloseTripCount " + TotalCloseTripCount + ""
                     + "TotalInTransitTripCount  " + TotalInTransitTripCount);
-            long processInvoice = invoiceGenerationEntityRepo.getPendingInvoiceCount();
-            int approveInvoice = invoiceGenerationEntityRepo.getApproveInvoiceCount();
-            int draftInvoice = invoiceGenerationEntityRepo.getDraftInvoiceCount();
+            long processInvoice = invoiceGenerationEntityRepo.getPendingInvoiceCount(vendorCode);
+            int approveInvoice = invoiceGenerationEntityRepo.getApproveInvoiceCount(vendorCode);
+            int draftInvoice = invoiceGenerationEntityRepo.getDraftInvoiceCount(vendorCode);
 
             model.addAttribute("role", rolename);
             model.addAttribute("totalTripCount", totalTripCount);
@@ -622,11 +623,13 @@ System.out.println(" fifty truips only");
     @GetMapping("/tripsInvoiceGenerate")
     public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
         //New invoice
-        String userName = (String) request.getSession().getAttribute("userName");
-        String userCode = (String) request.getSession().getAttribute("mobileNo");
+       // String userName = (String) request.getSession().getAttribute("userName");
+        //String userCode = (String) request.getSession().getAttribute("mobileNo");
+        
+        String userName = principal.getName();
         String userNameIs = userName.substring(0, 4).toUpperCase();
         String invoiceNumber = "";
-
+        
         invoiceNumber = "ECOM-" + userNameIs.concat(new SimpleDateFormat("yyyyHHmmssSSS").format(new Date()));
 
         model.addAttribute("invoiceNumber", invoiceNumber);
@@ -636,6 +639,8 @@ System.out.println(" fifty truips only");
         System.out.println(tripId);
         model.addAttribute("maxFileSize", maxFileSize);
         model.addAttribute("tripId", tripId);
+        model.addAttribute("userName", userName);
+        
 
         String tripUpdateId = tripId;
         System.out.println(tripUpdateId);
@@ -645,24 +650,27 @@ System.out.println(" fifty truips only");
         System.out.println(split);
         //List<Object> listof = new ArrayList<>();
         TripDetails findByTripID = null;
+        
 
         try {
 
             for (String str : split) {
                 findByTripID = tripDetailsRepo.findByTripID(str);
-
+                
                 if (null != findByTripID.getTripID()) {
                     findByTripID.setVendorTripStatus("Draft-Invoicing");
                     findByTripID.setInvoiceNumber(invoiceNumber);
                     tripDetailsRepo.save(findByTripID);
                 }
             }
-
+            String vendorName = findByTripID.getVendorName();
+            model.addAttribute("vendorName", vendorName);
+            System.out.println(vendorName);
             //heasder
             InvoiceGenerationEntity invoiceSave = new InvoiceGenerationEntity();
-            invoiceSave.setSuppName(userName);
+            invoiceSave.setVendorName(vendorName);
             invoiceSave.setEcomInvoiceNumber(invoiceNumber);
-            invoiceSave.setBpCode(userCode);
+            invoiceSave.setVendorCode(userName);
             invoiceSave.setInvoiceStatus("Draft-Invoicing");
             invoiceGenerationEntityRepo.save(invoiceSave);
             //listof.forEach(System.out::println);
@@ -694,7 +702,9 @@ System.out.println(" fifty truips only");
     @GetMapping("/draftInvoiceGenerate")
     public String draftInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 
+    	String vendorName=null;
         String invoiceNumber = request.getParameter("id");
+        
         System.out.println(invoiceNumber);
         model.addAttribute("maxFileSize", maxFileSize);
         model.addAttribute("invoiceNumber", invoiceNumber);
@@ -702,12 +712,15 @@ System.out.println(" fifty truips only");
         System.out.println(invoiceNumber);
         List<TripDetails> list = tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber);
         List<Object> listofTrips = new ArrayList<>();
+        
         for (TripDetails tripDetails : list) {
             System.out.println(tripDetails.getTripID());
             String tripID = tripDetails.getTripID();
             listofTrips.add(tripID);
-
+             vendorName = tripDetails.getVendorName();
         }
+        
+        model.addAttribute("vendorName",vendorName);
         model.addAttribute("listofTrips", listofTrips);
         return "draftInvoiceGenerate";
     }

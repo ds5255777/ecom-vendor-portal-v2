@@ -462,4 +462,36 @@ private String lumpsomeamount;
 		this.invoiceNumber = invoiceNumber;
 	}
 
+	public String getProcessedOn() {
+		return processedOn;
+	}
+
+	public void setProcessedOn(String processedOn) {
+		this.processedOn = processedOn;
+	}
+
+	public String getProcessedBy() {
+		return processedBy;
+	}
+
+	public void setProcessedBy(String processedBy) {
+		this.processedBy = processedBy;
+	}
+
+	public String getLumpsomecheckbox() {
+		return lumpsomecheckbox;
+	}
+
+	public void setLumpsomecheckbox(String lumpsomecheckbox) {
+		this.lumpsomecheckbox = lumpsomecheckbox;
+	}
+
+	public String getLumpsomeamount() {
+		return lumpsomeamount;
+	}
+
+	public void setLumpsomeamount(String lumpsomeamount) {
+		this.lumpsomeamount = lumpsomeamount;
+	}
+
 }

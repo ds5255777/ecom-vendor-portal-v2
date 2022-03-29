@@ -51,8 +51,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "select * from trip_details where vendor_trip_status='Yet To Be Approved' and assign_to = 'Vendor' and vendor_code=?", nativeQuery = true)
     List<TripDetails> getAllPendingTrip(String vendorCode);
 
-    @Query(value = "select * from trip_details  ORDER by id desc limit ?", nativeQuery = true)
-    List<TripDetails> getTopTripRecods(int limit);
+    @Query(value = "select * from trip_details where vendor_code=?  ORDER by id desc limit ?", nativeQuery = true)
+    List<TripDetails> getTopTripRecods(String vendorCode, int limit );
 
     @Query(value = "select * from trip_details  where invoice_number=:invoiceNumber ; ", nativeQuery = true)
     List<TripDetails> findByTripAgainsInvoiceNumber(String invoiceNumber);

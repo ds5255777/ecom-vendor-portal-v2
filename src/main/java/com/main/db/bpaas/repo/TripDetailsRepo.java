@@ -163,5 +163,9 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "select * from Trip_Details where vendor_code=?", nativeQuery = true)
     List<TripDetails> getAllTripByVendorCode(String vendorCode);
 
+
+@Query(value = "SELECT * FROM trip_details where vendor_trip_status = 'Yet To Be Approved By Network Team' and assign_to = 'Network' and run_type='Adhoc' and run_status = 'Closed' order by id limit 50; ", nativeQuery = true)
+List<TripDetails> findAllTripsLimitFifty();
+
 //END
 }

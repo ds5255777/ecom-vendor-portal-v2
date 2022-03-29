@@ -158,7 +158,7 @@
                                             <thead>
                                                 <tr>
 
-                                                    <th class="bg-primary" >Trip ID--</th>
+                                                    <th class="bg-primary" >Trip ID</th>
                                                     <th class="bg-primary" >Route</th>
                                                     <th class="bg-primary" >Run Type</th>
                                                     <th class="bg-primary" >Trip Status</th>
@@ -221,7 +221,7 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <div class="row"> <label style="margin-top: 5px; margin-left: 10px;">Trip ID</label></div>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="tripID" name="tripID" autocomplete="off" >
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="tripID" name="tripID" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div>
 
@@ -229,7 +229,7 @@
 
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Vendor Name</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="vendorName" name="vendorName" autocomplete="off" >
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="vendorName" name="vendorName" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div> 
 
@@ -245,7 +245,7 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Run Type</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="runType" name="runType" autocomplete="off" >
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="runType" name="runType" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -255,7 +255,7 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Mode</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="mode" name="mode" autocomplete="off" >
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="mode" name="mode" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
@@ -270,14 +270,14 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Actual Vehicle Type</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="actualVechicleType" name="actualVechicleType" autocomplete="off" >
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="actualVechicleType" name="actualVechicleType" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Standard Shipment Capacity</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="standardShipmentCapacity" name="standardShipmentCapacity" autocomplete="off" >
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="standardShipmentCapacity" name="standardShipmentCapacity" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div>
 
@@ -287,7 +287,7 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Standard Payload Capacity</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="standardPayloadCapacity" name="standardPayloadCapacity" autocomplete="off" >
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="standardPayloadCapacity" name="standardPayloadCapacity" autocomplete="off" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
@@ -295,7 +295,7 @@
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Run Status</label>
                                                                         <div class="form-group">
-                                                                            <input type="text" class="form-control" style="height: 30px;" id="runStatus" name="runStatus" autocomplete="off" >
+                                                                            <input type="text" class="form-control" style="height: 30px;" id="runStatus" name="runStatus" autocomplete="off" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -305,7 +305,7 @@
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Origin Hub</label>
                                                                         <div class="form-group">
-                                                                            <input type="text" class="form-control" autocomplete="off" style="height: 30px;" id="originHub" name="originHub" >
+                                                                            <input type="text" class="form-control" autocomplete="off" style="height: 30px;" id="originHub" name="originHub" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -313,7 +313,7 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Origin Region</label>
-                                                                        <input type="text" class="form-control" autocomplete="off" style="height: 30px;" placeholder="Enter" id="originRegion" name="originRegion" >
+                                                                        <input type="text" class="form-control" autocomplete="off" style="height: 30px;" placeholder="Enter" id="originRegion" name="originRegion" disabled>
                                                                     </div>
                                                                 </div>
 
@@ -326,14 +326,14 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Dest Hub</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="destHub" name="destHub" >
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="destHub" name="destHub" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Actual Departure (ATD)</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualDeparture" name="actualDeparture" >
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualDeparture" name="actualDeparture" disabled>
                                                                     </div>
                                                                 </div> 
 
@@ -341,14 +341,14 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Actual Arrival (ATA)</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualArrival" name="actualArrival" >
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualArrival" name="actualArrival" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">Actual KM</label>
-                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualKM" name="actualKM" >
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualKM" name="actualKM" disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -397,7 +397,7 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">FS Base Rate</label>
-                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fsBaseRate" name="fsBaseRate" >
+                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" onclick="setTimeout(calcualteFormulae, 3000)" autocomplete="off" id="fsBaseRate" name="fsBaseRate" >
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
@@ -412,7 +412,7 @@
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label style="margin-bottom: 1px;">FS Diff</label>
-                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fsDiff" name="fsDiff" >
+                                                                        <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" onclick="setTimeout(calcualteFormulae, 3000)" placeholder="Enter" autocomplete="off" id="fsDiff" name="fsDiff" >
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-3">
@@ -784,6 +784,8 @@
 
                                                         //Validations
                                                         var ratePerKm = document.getElementById("ratePerKm").value;
+                                                        var milage = document.getElementById("mileage").value;
+
                                                         var routeKms = document.getElementById("routeKms").value;
                                                         var fsBaseRate = document.getElementById("fsBaseRate").value;
                                                         var currentFuelRate = document.getElementById("currentFuelRate").value;
@@ -808,8 +810,19 @@
                                                         console.log("closingReading " + closingReading);
                                                         console.log("AmountLumpSum " + AmountLumpSum);
                                                         console.log("lumpsum " + lumpsum);
+                                                        console.log("Milage ::" + milage);
 
                                                         console.log("ratePerKm " + ratePerKm);
+                                                        if (milage === "" || milage === null || milage === '') {
+                                                            Toast.fire({
+                                                                type: 'error',
+                                                                title: 'Mileage cannot be empty!! '
+                                                            });
+                                                            document.getElementById("mileage").focus();
+                                                            return "";
+                                                        }
+
+
                                                         if (ratePerKm === "" || ratePerKm === null || ratePerKm === '') {
                                                             Toast.fire({
                                                                 type: 'error',
@@ -818,6 +831,28 @@
                                                             document.getElementById("ratePerKm").focus();
                                                             return "";
                                                         }
+
+                                                        if (routeKms === "" || routeKms === null || routeKms === '') {
+                                                            Toast.fire({
+                                                                type: 'error',
+                                                                title: 'Billable Kms cannot be empty!!'
+                                                            });
+                                                            document.getElementById("routeKms").focus();
+                                                            return "";
+                                                        }
+
+                                                        //currentFuelRate
+
+                                                        if (currentFuelRate === "" || currentFuelRate === null || currentFuelRate === '') {
+                                                            Toast.fire({
+                                                                type: 'error',
+                                                                title: 'Current Fuel Rate cannot be empty!!'
+                                                            });
+                                                            document.getElementById("currentFuelRate").focus();
+                                                            return "";
+                                                        }
+
+
 
                                                         if (fsBaseRate === "" || fsBaseRate === null || fsBaseRate === '') {
                                                             Toast.fire({
@@ -848,7 +883,7 @@
                                                         var dateTime = date + ' ' + time;
                                                         var checkedValue = $('.messageCheckbox:checked').val();
 
-                                                        console.log("checkedValue " + checkedValue);
+                                                        console.log("checkedValue is" + checkedValue);
 
                                                         if (checkedValue != '' || checkedValue != "") {
                                                             checkedValue = 'unchecked';
@@ -884,16 +919,22 @@
 
 
                                                         } else {
-                                                            if (AmountLumpSum == '' || AmountLumpSum == null || AmountLumpSum == '0' || AmountLumpSum == '0.0') {
+                                                            console.log("lumpsonme amoynt sceneroir " + AmountLumpSum);
+                                                            if (AmountLumpSum === '' || AmountLumpSum === null || AmountLumpSum === '0' || AmountLumpSum === '0.0') {
                                                                 Toast.fire({
                                                                     type: 'error',
-                                                                    title: 'Please chcek the Value of Lump Sum Amount'
+                                                                    title: 'Please check the Value of Lump Sum Amount'
                                                                 });
+                                                                document.getElementById("AmountLumpSum").focus();
+                                                                return "";
+
                                                             }
 
-                                                            return "";
 
                                                         }
+                                                        console.log("After Validation ::");
+
+                                                        calcualteFormulae();
 
                                                         var fs = document.getElementById("fs").value;
                                                         console.log("fs" + fs);
@@ -914,8 +955,8 @@
 
                                                         }
 
-
-
+                                                        //  calcualteFormulae();
+                                                        console.log("Commin here before ajax call");
                                                         $.ajax({
                                                             type: "POST",
                                                             data: JSON.stringify(obj),
@@ -949,7 +990,36 @@
                                                         $('#tripValue').modal('hide');
                                                         location.reload();
 
+
                                                     }
+
+
+                                                    function calcualteFormulae() {
+                                                        var currentFuelRate = document.getElementById("currentFuelRate").value;
+                                                        var fsBaseRate = document.getElementById("fsBaseRate").value;
+
+                                                        console.log("currentFuelRate " + currentFuelRate);
+                                                        console.log("fsBaseRate " + fsBaseRate);
+
+
+                                                        var basicFreight = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
+                                                        document.getElementById("basicFreight").value = basicFreight.toFixed(2);
+
+                                                        var mileage = document.getElementById("mileage").value;
+                                                        var routeKms = document.getElementById("routeKms").value;
+                                                        console.log("mileage " + mileage);
+                                                        console.log("routeKms " + routeKms);
+                                                        var fs = (parseFloat(basicFreight) / parseFloat(mileage)) * parseFloat(routeKms);
+                                                        document.getElementById("fs").value = fs.toFixed(2);
+                                                        ;
+
+
+
+                                                        var totalFreight = parseFloat(basicFreight) + parseFloat(fs);
+                                                        document.getElementById("totalFreight").value = totalFreight.toFixed(2);
+
+                                                    }
+
 
                 </script>
                 </body>

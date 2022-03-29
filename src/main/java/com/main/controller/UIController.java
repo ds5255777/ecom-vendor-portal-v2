@@ -356,8 +356,12 @@ public class UIController {
             int getAllInvoiceCount = invoiceGenerationEntityRepo.getCountForAllInvoices();
             model.addAttribute("getAllInvoiceCount", getAllInvoiceCount);
 
-            model.addAttribute("yetTobeApprovedAllDetails", yetTobeApproved);
 
+//Changes made for limit and 50 trips only
+System.out.println(" fifty truips only");
+            List<TripDetails> findAllTripsLimitFifty = tripService.findAllTripsLimitFifty();
+            model.addAttribute("yetTobeApprovedAllDetails", findAllTripsLimitFifty);
+//changes end
             return "dashBoard_NetworkRole";
 
         } else if (rolename.equalsIgnoreCase("Admin")) {

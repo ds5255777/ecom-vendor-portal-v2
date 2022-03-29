@@ -21,6 +21,8 @@ int getInTransitTripCountByRunTypeAndRunStatus(String runtype,String runStatus);
 List<TripDetails> getInTransitTripByRunTypeAndRunStatus(String runtype,String runStatus);
 
 List<TripDetails> getTripsByFilters(String vendorTripStatus, String runStatus, String PaymentStatus);
+
+List<TripDetails> findAllTripsLimitFifty();
  
   
 }

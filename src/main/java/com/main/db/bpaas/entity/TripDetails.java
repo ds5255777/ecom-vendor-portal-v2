@@ -145,6 +145,27 @@ public class TripDetails {
 	 * @JoinColumn(name ="cp_fk",referencedColumnName = "id")
      */
     // private List<QueryEntity> vendorQuerys;
+
+
+//Saurabh
+
+@Column(name = "processed_On")
+private String processedOn;//
+
+@Column(name = "processed_By")
+private String processedBy;//
+
+@Column(name = "lumpsome_checkbox")
+private String lumpsomecheckbox;
+
+//lumpsome_amount
+@Column(name = "lumpsome_amount")
+private String lumpsomeamount;
+
+
+//Saurabh End
+
+
     public Integer getId() {
         return id;
     }

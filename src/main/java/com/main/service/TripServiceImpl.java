@@ -47,12 +47,18 @@ public class TripServiceImpl implements TripService {
 
         if ("".equalsIgnoreCase(vendorTripStatus) && "".equalsIgnoreCase(PaymentStatus)) {
             return TripDetailsRepo.getTripsByFiltersVendorRunStatus(runStatus);
-        } else if (runStatus!="" && vendorTripStatus!="" && "".equalsIgnoreCase(PaymentStatus)) {
+        } else if (runStatus != "" && vendorTripStatus != "" && "".equalsIgnoreCase(PaymentStatus)) {
             return TripDetailsRepo.getTripsByFiltersRunStatus_VendorTripStatus(runStatus, vendorTripStatus);
         } else {
             return TripDetailsRepo.getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus(runStatus, vendorTripStatus, PaymentStatus);
         }
 
+    }
+
+    @Override
+    public List<TripDetails> findAllTripsLimitFifty() {
+        System.out.println("*******Inside findAllTripsLimitFifty*******");
+        return TripDetailsRepo.findAllTripsLimitFifty();
     }
 
 }

@@ -414,10 +414,10 @@
         <!-- table Data -->
         <script>
             var tabledata = $('#tabledata').DataTable({
-                "paging": false,
+                "paging": true,
                 "lengthChange": false,
                 "searching": false,
-                "info": false,
+                "info": true,
                 "autoWidth": false,
                 "aaSorting": []
             });

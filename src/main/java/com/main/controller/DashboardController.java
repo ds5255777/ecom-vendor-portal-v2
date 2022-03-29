@@ -43,62 +43,62 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 public class DashboardController {
 
-	@Value("${dataLimit}")
-	public String dataLimit;
+    @Value("${dataLimit}")
+    public String dataLimit;
 
-	@Autowired
-	ServiceManager serviceManager;
+    @Autowired
+    ServiceManager serviceManager;
 
-	@Autowired
-	JdbcConnection dbconnection;
+    @Autowired
+    JdbcConnection dbconnection;
 
-	@Autowired
-	TripDetailsRepo tripDetailsRepo;
+    @Autowired
+    TripDetailsRepo tripDetailsRepo;
 
-	@Autowired
-	QueryRepo queryRepo;
+    @Autowired
+    QueryRepo queryRepo;
 
-	@RequestMapping({ "getDashboardDetails" })
-	@CrossOrigin("*")
-	public String getDashBoardDetails(@RequestBody TripDetails reqObj, HttpSession session,
-			HttpServletRequest request) {
-		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		try {
-			List<TripDetails> topTripRecods = tripDetailsRepo.getTopTripRecods(Integer.parseInt(dataLimit));
+    @RequestMapping({"getDashboardDetails"})
+    @CrossOrigin("*")
+    public String getDashBoardDetails(@RequestBody TripDetails reqObj, HttpSession session,
+            HttpServletRequest request) {
+        DataContainer data = new DataContainer();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        try {
+            List<TripDetails> topTripRecods = tripDetailsRepo.getTopTripRecods(Integer.parseInt(dataLimit));
 
-			data.setData(topTripRecods);
-			data.setMsg("success");
+            data.setData(topTripRecods);
+            data.setMsg("success");
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			data.setMsg("error");
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+            data.setMsg("error");
+        }
 
-		return gson.toJson(data).toString();
-	}
+        return gson.toJson(data).toString();
+    }
 
-	@RequestMapping("/updateDetailsforNetwork")
-	@CrossOrigin("*")
-	public String updateDetailsforNetwork(Model model, Principal principal, @RequestBody String agrn) {
+    @RequestMapping("/updateDetailsforNetwork")
+    @CrossOrigin("*")
+    public String updateDetailsforNetwork(Model model, Principal principal, @RequestBody String agrn) {
 
-		System.out.println("************************Data is ::" + agrn);
+        System.out.println("************************Data is ::" + agrn);
 
-		JSONObject jsonObject = new JSONObject(agrn);
-		String processedon = jsonObject.get("processedOn").toString();
-		String processedBy = jsonObject.getString("processedBy").toString();
-		String tripid = jsonObject.get("tripID").toString();
-		String AssigenedTo = jsonObject.get("AssigenedTo").toString();
-		String LumpSomeCheckBox = "";
-		String LumpSomeAmount = jsonObject.getString("LumpSomeAmount").toString();
+        JSONObject jsonObject = new JSONObject(agrn);
+        String processedon = jsonObject.get("processedOn").toString();
+        String processedBy = jsonObject.getString("processedBy").toString();
+        String tripid = jsonObject.get("tripID").toString();
+        String AssigenedTo = jsonObject.get("AssigenedTo").toString();
+        String LumpSomeCheckBox = "";
+        String LumpSomeAmount = jsonObject.getString("LumpSomeAmount").toString();
 
 //fs
 //totalFreight
 //basicFreight
-		String fs = jsonObject.getString("fs").toString();
-		String totalFreight = jsonObject.getString("totalFreight").toString();
-		String basicFreight = jsonObject.getString("basicFreight").toString();
-		String commentsByUSer = jsonObject.getString("commentsby").toString();
+        String fs = jsonObject.getString("fs").toString();
+        String totalFreight = jsonObject.getString("totalFreight").toString();
+        String basicFreight = jsonObject.getString("basicFreight").toString();
+        String commentsByUSer = jsonObject.getString("commentsby").toString();
 
 ///
         System.out.println("fs " + fs
@@ -123,7 +123,7 @@ public class DashboardController {
         System.out.println("LumpSomeCheckBox" + LumpSomeCheckBox);
         System.out.println("LumpSomeAmount" + LumpSomeAmount);
 
-        tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox, LumpSomeAmount,"Yet To Be Approved");
+        tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox, LumpSomeAmount, "Yet To Be Approved");
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         DataContainer data = new DataContainer();
         data.setMsg("success");
@@ -140,8 +140,13 @@ public class DashboardController {
             ex.printStackTrace();
         }
 
+//Find ID on the basic of tripid
+        TripDetails obj = tripDetailsRepo.findByTripID(tripid);
+        int id = (int)obj.getId();
+
         comm.setReferenceid(tripid);
         comm.setComment(commentsByUSer);
+comm.setTripqueryfk(id);
 
         queryRepo.save(comm);
 

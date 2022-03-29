@@ -123,8 +123,8 @@
 											<label class="col-sm-5">Partner Name <span
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
-												<input class="form-control-sm" type="text" readonly
-													name="suppName" id="suppName" value="${userName }"
+												<input class="form-control-sm" type="text" 
+													name="vendorName" id="vendorName" readonly value="${vendorName }"
 													style="width: 100%;">
 											</div>
 										</div>
@@ -136,8 +136,8 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="text"
-													placeholder="Business Partner Code" name="bpCode" value="${mobileNo }"
-													 id="bpCode" style="width: 100%;">
+													placeholder="Business Partner Code" name="vendorCode" readonly value="${userName }"
+													 id="vendorCode" style="width: 100%;">
 											</div>
 										</div>
 									</div>
@@ -528,6 +528,8 @@
             	window.opener.refereshList();
         		window.close()  
         	}
+            
+            // invoiceAmount
             
             
             function onValidateFile(id){

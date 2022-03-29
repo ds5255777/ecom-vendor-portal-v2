@@ -44,8 +44,9 @@ public class InvoiceController {
 		DataContainer data = new DataContainer();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		 String vendorCode = request.getSession().getAttribute("userName").toString();
 		try {
-			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllInvoice();
+			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllInvoice(vendorCode);
 
 			data.setData(pandingInvoice);
 			data.setMsg("success");
@@ -64,10 +65,12 @@ public class InvoiceController {
 			@RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
 
 		DataContainer data = new DataContainer();
+		String vendorCode = request.getSession().getAttribute("userName").toString();
+		System.out.println(vendorCode);
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllProcessedInvoice();
+			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllProcessedInvoice(vendorCode);
 
 			data.setData(pandingInvoice);
 			data.setMsg("success");
@@ -86,10 +89,12 @@ public class InvoiceController {
 			@RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
 
 		DataContainer data = new DataContainer();
+		String vendorCode = request.getSession().getAttribute("userName").toString();
+		System.out.println(vendorCode);
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllApproveInvoice();
+			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllApproveInvoice(vendorCode);
 
 			data.setData(pandingInvoice);
 			data.setMsg("success");
@@ -110,8 +115,9 @@ public class InvoiceController {
 		DataContainer data = new DataContainer();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String vendorCode = request.getSession().getAttribute("userName").toString();
 		try {
-			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllRejectInvoice();
+			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllRejectInvoice(vendorCode);
 
 			data.setData(pandingInvoice);
 			data.setMsg("success");
@@ -131,8 +137,9 @@ public class InvoiceController {
 		DataContainer data = new DataContainer();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String vendorCode = request.getSession().getAttribute("userName").toString();
 		try {
-			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllRejectInvoice();
+			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllRejectInvoice(vendorCode);
 
 			data.setData(pandingInvoice);
 			data.setMsg("success");
@@ -312,10 +319,10 @@ public class InvoiceController {
 			@RequestBody List<InvoiceGenerationEntity> invoiceList) {
 
 		DataContainer data = new DataContainer();
-
+		String vendorCode = request.getSession().getAttribute("userName").toString();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			invoiceList = invoiceGenerationEntityRepo.getDraftInvoice();
+			invoiceList = invoiceGenerationEntityRepo.getDraftInvoice(vendorCode);
 
 			data.setData(invoiceList);
 			data.setMsg("success");

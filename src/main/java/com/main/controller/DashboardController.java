@@ -58,14 +58,15 @@ public class DashboardController {
     @Autowired
     QueryRepo queryRepo;
 
-    @RequestMapping({"getDashboardDetails"})
-    @CrossOrigin("*")
-    public String getDashBoardDetails(@RequestBody TripDetails reqObj, HttpSession session,
-            HttpServletRequest request) {
-        DataContainer data = new DataContainer();
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-        try {
-            List<TripDetails> topTripRecods = tripDetailsRepo.getTopTripRecods(Integer.parseInt(dataLimit));
+	@RequestMapping({ "getDashboardDetails" })
+	@CrossOrigin("*")
+	public String getDashBoardDetails(@RequestBody TripDetails reqObj, HttpSession session,
+			HttpServletRequest request) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String vendorCode = request.getSession().getAttribute("userName").toString();
+		try {
+			List<TripDetails> topTripRecods = tripDetailsRepo.getTopTripRecods(vendorCode, Integer.parseInt(dataLimit));
 
             data.setData(topTripRecods);
             data.setMsg("success");

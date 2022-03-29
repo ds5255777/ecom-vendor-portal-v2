@@ -3,6 +3,7 @@ package com.main.controller;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -45,11 +46,12 @@ public class TripControllers {
 
     @RequestMapping({"filterTripDetails"})
     @CrossOrigin("*")
-    public String filterTripDetails(@RequestParam(name = "actualDeparture") String fromDate,
+    public String filterTripDetails(HttpServletRequest request, @RequestParam(name = "actualDeparture") String fromDate,
             @RequestParam(name = "actualArrival") String toDate) {
 
         DataContainer data = new DataContainer();
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        //String vendorCode = request.getSession().getAttribute("userName").toString();
         try {
             System.out.println(fromDate);
             System.out.println(toDate);
@@ -294,12 +296,18 @@ public class TripControllers {
             Integer getid = entity.getId();
 
             Integer id = getid;
+            System.out.println(id);
+             Optional<TripDetails> findById = tripDetailsRepo.findById(id);
             queryRepo.updateStatusByUserid("Query", "Network", id);
+             TripDetails tripDetails = findById.get();
+             String tripID = tripDetails.getTripID();
+             System.out.println(tripID);
 
             if (getid != null) {
                 entity.setId(null);
                 entity.setTripqueryfk(getid);
                 entity.setRaisedOn(new Date());
+                entity.setReferenceid(tripID);
                 queryRepo.save(entity);
             }
 

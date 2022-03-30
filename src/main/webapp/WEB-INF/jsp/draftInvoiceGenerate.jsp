@@ -200,7 +200,7 @@
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="number"
 													name="invoiceAmount" id="invoiceAmount"
-													placeholder="Invoice Amount" style="width: 100%;">
+													placeholder="Invoice Amount" readonly style="width: 100%;">
 											</div>
 										</div>
 									</div>
@@ -298,6 +298,7 @@
 											<th style="padding: 5px 5px 5px 1.5rem;">FS</th>
 											<th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
 											<th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
+											<th style="padding: 5px 5px 5px 1.5rem;">lumpsome Amount</th>
 											<th style="padding: 5px 5px 5px 1.5rem;">Line level
 												Description</th>
 											<th style="padding: 5px 5px 5px 1.5rem;">Action</th>
@@ -330,17 +331,18 @@
 											<div class="col-sm-7">
 												<input class="form-control-sm" name="taxableAmount"
 													id="taxableAmount" type="text" placeholder="Taxable Amount"
-													style="width: 100%;">
+													style="width: 100%;" readonly>
 											</div>
 										</div>
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label class="col-sm-5">Tax Amount</label>
+											<label class="col-sm-5">Tax Amount<span
+												class="text-danger"> *</span></label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" name="taxAmount"
-													id="taxAmount" type="text" placeholder="Tax Amount"
-													style="width: 100%;">
+													id="taxAmount" type="text" placeholder="Tax Amount" onfocusout="calculateInvoice()"
+													style="width: 100%;" on>
 											</div>
 										</div>
 									</div>
@@ -382,7 +384,7 @@
 									<div class="col-md-4">
 										<div class="form-group row">
 											<label class="col-sm-5 control-label">Document1<span
-												class="text-danger"> *</span></label>
+												class="text-danger"> </span></label>
 											<div class="col-sm-7">
 												<input type="file" id="DocumentFileOne"
 													name="DocumentFileOne" class="form-control-sm"
@@ -396,7 +398,7 @@
 									<div class="col-md-4">
 										<div class="form-group row">
 											<label class="col-sm-5 control-label">Document2<span
-												class="text-danger"> *</span></label>
+												class="text-danger"> </span></label>
 											<div class="col-sm-7">
 												<input type="file" id="DocumentFileTwo"
 													name="DocumentFileTwo" class="form-control-sm"
@@ -504,7 +506,6 @@
 	function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
 	$(document).on("keydown", disableF5);
 	
-	
 	const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -512,7 +513,6 @@
         timer: 3000
     });
       
-
             var prTable = $("#prTable").DataTable({
             	"paging": true,
                 "lengthChange": false,
@@ -528,9 +528,6 @@
             	window.opener.refereshList();
         		window.close()  
         	}
-            
-            // invoiceAmount
-            
             
             function onValidateFile(id){
             	var fileInput3 = document.getElementById(id).value;
@@ -617,32 +614,15 @@
 
   			});
 
-              
-               
             }
-        
-
+            
+      //varable***********************************  
   		var allTripId=${listofTrips};
-  		
   		var tripLineArray=[];
-  
- 		//console.log(allTripId);
-        
-         /* jQuery.validator.setDefaults({
-            debug: true,
-            success: "valid"
-        });  */
-         
-         /* $.validator.setDefaults({
-             submitHandler: function() {
-            	 getTripDetails();
-
-                 //alert("insode add");
-             }
-         }); */
-        
+  		var totalFreight=0;
+  		var lumpsomeamount=parseFloat(0);
+       
         function updateVentorTripStats(){
-        	//alert("hiii");
         			var obj={
                 			"tripID":allTripId,
                             "vendorTripStatus": "Approved",
@@ -774,8 +754,7 @@
                 finalObj.documentFileTwoText = $("#DocumentFileTwoText").val();
             }
 
-            
-         // after
+            // after
             tripLineArray.forEach((item) => {
             	item.id=null;
             });
@@ -868,18 +847,70 @@
                 		 var result = response.data;
                 		 var action="";	
                 		 var textBox="";
+                		 var temp=[];
+                		 var temp1=[];
                 		 tripLineArray=result;
+                		 
+                		 
  						$('#prTable').DataTable().clear();
                          for (var i = 0; i < result.length; i++) {
+                        	 
+                        	 if(!result[i].hasOwnProperty("tripID")){
+      							result[i].tripID="";
+      						}
+                        	 if(!result[i].hasOwnProperty("runType")){
+       							result[i].runType="";
+       						}
+                        	 if(!result[i].hasOwnProperty("standardKM")){
+       							result[i].standardKM="";
+       						}
+                        	 if(!result[i].hasOwnProperty("ratePerKm")){
+       							result[i].ratePerKm="";
+       						}
+                        	 if(!result[i].hasOwnProperty("currentFuelRate")){
+       							result[i].currentFuelRate="";
+       						}
+                        	 if(!result[i].hasOwnProperty("fsBaseRate")){
+       							result[i].fsBaseRate="";
+       						}
+                        	 if(!result[i].hasOwnProperty("fsDiff")){
+       							result[i].fsDiff="";
+       						}
+                        	 if(!result[i].hasOwnProperty("basicFreight")){
+       							result[i].basicFreight="";
+       						}
+                        	 if(!result[i].hasOwnProperty("fs")){
+       							result[i].fs="";
+       						}
+                        	 if(!result[i].hasOwnProperty("actualKM")){
+       							result[i].actualKM="";
+       						}
+                        	 if(!result[i].hasOwnProperty("totalFreight")){
+       							result[i].totalFreight="";
+       						}
+                        	 if(!result[i].hasOwnProperty("lumpsomeamount")){
+       							result[i].lumpsomeamount="";
+       						}
+                        	 
                         	   textBox="<input type=\"text\" class=\"form-control\" id=\"form-control\" placeholder=\"Fill Description\" oninput=\"updateTextData('"+i+"',this.value)\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
                         	   action="<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteRow('" + result[i].tripID + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-                        	   $('#prTable').DataTable().row.add([ i+1, result[i].tripID,result[i].runType, result[i].standardKM, result[i].ratePerKm, result[i].currentFuelRate, result[i].fsBaseRate,  result[i].fsDiff, result[i].basicFreight, result[i].fs, result[i].actualKM, result[i].totalFreight, textBox, action ]);                         
+                        	   $('#prTable').DataTable().row.add([ i+1, result[i].tripID,result[i].runType, result[i].standardKM, result[i].ratePerKm, result[i].currentFuelRate, result[i].fsBaseRate,  result[i].fsDiff, result[i].basicFreight, result[i].fs, result[i].actualKM, result[i].totalFreight, result[i].lumpsomeamount, textBox, action ]);                         
                          		id=(result[i].id);
                          		
-                         		//allTripId=result[i].tripID;
-                        	 //console.log(result[i].tripID);
-                        	 //console.log("Line 826 : ",allTripId);
+                         		temp.push(result[i].totalFreight);
+                         		temp1.push(parseFloat(result[i].lumpsomeamount));
                          }
+                         var sum=0;
+                         for (let i = 0; i < temp.length; i++) {
+                             sum += temp[i];
+                         }
+                         var sum1=0;
+                         for (let i = 0; i < temp1.length; i++) {
+                             sum1 += temp1[i];
+                         }
+                                                 
+                         $("#taxableAmount").val(sum+sum1);
+                         
                          $('#prTable').DataTable().draw();
                          $("tbody").show();
                 	 } else {
@@ -1030,6 +1061,13 @@
 
 			});
 
+		}
+		function calculateInvoice() {
+		var taxAmount =	$("#taxAmount").val();
+		var taxableAmount	= $("#taxableAmount").val();
+		var invoiceAmount= parseFloat(taxAmount)+parseFloat(taxableAmount);
+			console.log(invoiceAmount);
+			$("#invoiceAmount").val(invoiceAmount);
 		}
 		
     </script>

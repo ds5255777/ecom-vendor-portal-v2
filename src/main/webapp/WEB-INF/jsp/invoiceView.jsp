@@ -121,7 +121,7 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="text" readonly
-													value="${userName}" name="suppName" id="suppName"
+													 name="vendorName" id="vendorName"
 													style="width: 100%;">
 											</div>
 										</div>
@@ -133,8 +133,8 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="text"
-													placeholder="Business Partner Code" name="bpCode"
-													id="bpCode" readonly style="width: 100%;">
+													placeholder="Business Partner Code" name="vendorCode"
+													id="vendorCode" readonly style="width: 100%;">
 											</div>
 										</div>
 									</div>
@@ -256,7 +256,7 @@
 										<th style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
 										<th style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
 										<th style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
-										<th style="padding: 5px 5px 5px 1.5rem;">FS</th>
+										<th style="padding: 5px 5px 5px 1.5rem;">FS</th> 
 										<th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
 										<th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
 										<th style="padding: 5px 5px 5px 1.5rem;">Line level Description</th>
@@ -471,7 +471,7 @@
   		
   		var tripLineArray=[];
   
- 		console.log("invoiceNumber : ",invoiceNumber);
+ 		//console.log("invoiceNumber : ",invoiceNumber);
  		
         setInvoiceDetails();
         
@@ -493,9 +493,11 @@
                     if (data.msg == 'success') {
                         var result = data.data;
                         /* jsondata=JSON.parse(result) */
-                        //console.log(result);
+                        console.log(result);
+                        
+                        
                          tripLineArray = data.data.invoiceLineItem;
-                         console.log(tripLineArray);
+                        // console.log(tripLineArray);
                         var myForm = "";
                         var myFormOne ="";
                         myForm = document.getElementById("stepOneForm");
@@ -504,15 +506,66 @@
                         setData(myFormOne, result);
                         $('#prTable').DataTable().clear();
                         for (var i = 0; i < tripLineArray.length; i++) {
-                            console.log(tripLineArray[i].runType);
-                      	 $('#prTable').DataTable().row.add([  tripLineArray[i].runType, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate,  tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription ]);                         
-                       console.log(tripLineArray[i].totalFreight);
+                            //console.log(tripLineArray[i].runType);
+                            console.log(tripLineArray);
+                            //return;
+                            if(!tripLineArray[i].hasOwnProperty("tripID")){
+      							tripLineArray[i].tripID="";
+      						}
+                        	 if(!tripLineArray[i].hasOwnProperty("runType")){
+       							tripLineArray[i].runType="";
+       						}
+                        	 if(!tripLineArray[i].hasOwnProperty("standardKM")){
+       							tripLineArray[i].standardKM="";
+       						}
+                        	 if(!tripLineArray[i].hasOwnProperty("ratePerKm")){
+       							tripLineArray[i].ratePerKm="";
+       						}
+                        	 if(!tripLineArray[i].hasOwnProperty("currentFuelRate")){
+       							tripLineArray[i].currentFuelRate="";
+       						}
+                        	 if(!tripLineArray[i].hasOwnProperty("fsBaseRate")){
+       							tripLineArray[i].fsBaseRate="";
+       						}
+                        	 if(!tripLineArray[i].hasOwnProperty("fsDiff")){
+       							tripLineArray[i].fsDiff="";
+       						}
+                        	 if(!tripLineArray[i].hasOwnProperty("basicFreight")){
+       							tripLineArray[i].basicFreight="";
+       						}
+                        	 if(!tripLineArray[i].hasOwnProperty("fs")){
+       							tripLineArray[i].fs="";
+       						}
+                        	 if(!tripLineArray[i].hasOwnProperty("actualKM")){
+       							tripLineArray[i].actualKM="";
+       						}
+                        	 if(!tripLineArray[i].hasOwnProperty("totalFreight")){
+       							tripLineArray[i].totalFreight="";
+       						}
+                        	 if(!tripLineArray[i].hasOwnProperty("lumpsomeamount")){
+       							tripLineArray[i].lumpsomeamount="";
+       						}
+                        	 
+                            $('#prTable').DataTable().row.add([  tripLineArray[i].runType, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate,  tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription ]);                         
+
+                            
+                      	/*  $('#prTable').DataTable().row.add([    !tripLineArray[i].runType===""? " NA " : tripLineArray[i].runType, 
+                      			 								tripLineArray[i].standardKM===""?" NA ":tripLineArray[i].standardKM, 
+                      			 								tripLineArray[i].ratePerKm===""?" NA ":tripLineArray[i].ratePerKm, 
+                      			 								tripLineArray[i].currentFuelRate===""?" NA ":tripLineArray[i].currentFuelRate, 
+                      			 								tripLineArray[i].fsBaseRate===""?" NA ":tripLineArray[i].fsBaseRate,  
+                      			 								tripLineArray[i].fsDiff===""?" NA ":tripLineArray[i].fsDiff, 
+                      			 								tripLineArray[i].basicFreight===""?" NA ":tripLineArray[i].basicFreight, 
+                      			 								tripLineArray[i].fs===""?" NA ":tripLineArray[i].fs, 
+                      			 								tripLineArray[i].actualKM===""? "NA" :tripLineArray[i].actualKM, 
+                      			 								tripLineArray[i].totalFreight===""? "NA" :tripLineArray[i].totalFreight, 
+                      			 								tripLineArray[i].lineLevelDescription===""? "NA" :tripLineArray[i].lineLevelDescription ]); */ 
                        }
+                        //console.log(tripLineArray[i].actualKM);
                         $("#invoiceNumber").val(result.invoiceNumber);
                         $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);
                        $('#prTable').DataTable().draw();
                        $("tbody").show();
-                       
                         
                     } else {
                         Toast.fire({

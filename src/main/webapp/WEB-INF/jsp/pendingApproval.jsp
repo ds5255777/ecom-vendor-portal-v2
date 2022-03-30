@@ -771,13 +771,39 @@ tbody {
                             tabledata.clear();
 
                             for (var i = 0; i < result.length; i++) {
+                            	
+                            	if(!result[i].hasOwnProperty("tripID")){
+     								result[i].tripID="";
+     							}
+                                 if(!result[i].hasOwnProperty("route")){
+     								result[i].route="";
+     							}
+                                 if(!result[i].hasOwnProperty("runType")){
+     								result[i].runType="";
+     							}
+                                 if(!result[i].hasOwnProperty("actualKM")){
+     								result[i].actualKM="";
+     							}
+                                 if(!result[i].hasOwnProperty("standardKM")){
+     								result[i].standardKM="";
+     							}
+                                 if(!result[i].hasOwnProperty("mode")){
+      								result[i].mode="";
+      							}
+                                  if(!result[i].hasOwnProperty("originHub")){
+      								result[i].originHub="";
+      							}
+                                  if(!result[i].hasOwnProperty("destHub")){
+      								result[i].destHub="";
+      							}
                                 var approve = "<button type=\"button\" class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#myModal\" onclick=\"setTripStatus('" + result[i].tripID + "')\" ><i class=\"nav-icon fas fa-pencil-square-o\"> </i> </button>";
                                 //var view = "<button type=\"button\" class=\" btn-xs\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >"+result[i].tripID+"</button>";
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getTripDataFormDataByTripId('" + result[i].tripID + "')\" >" + result[i].tripID + "</a>";
 
                                 //var	edit="<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"   data-original-title=\"Click To Approve\" style=\"width: 43px;\"  onclick=\"tripsInvoiceDisplay("+result[i].invoiceNumber+")\"><i class=\"nav-icon fas fa-pencil-square-o\"> </i> </button>"; 
                                 //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].siteQualityId + "','" + result[i].checkListId + "','"+result[i].url+"')\"><i class='fa fa-eye ' ></i></button>";
-                                tabledata.row.add([view, result[i].route, result[i].runType, result[i].mode, result[i].standardKM, result[i].actualKM, result[i].originHub, result[i].destHub, approve]);
+                                tabledata.row.add([view, result[i].route, result[i].runType, result[i].mode, result[i].standardKM, result[i].actualKM, 
+                                	result[i].originHub, result[i].destHub, approve]);
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -799,7 +825,7 @@ tbody {
                 globalTripId = "";
                 globalTripId = tripId;
             }
-
+//****************************
             function updateTripData() {
 
                 if (globalTripId == "") {
@@ -890,6 +916,15 @@ tbody {
                             for (var i = 0; i < queryArray.length; i++) {
                                 console.log(queryArray[i].raisedOn);
                           	 /* $('#tabledataQuery').DataTable() */
+                                if(!result[i].hasOwnProperty("raisedBy")){
+         							result[i].raisedBy="";
+         						}
+                                if(!result[i].hasOwnProperty("raisedOn")){
+         							result[i].raisedOn="";
+         						}
+                                if(!result[i].hasOwnProperty("comment")){
+         							result[i].comment="";
+         						}
                           	 tabledataQuery.row.add([ i+1, queryArray[i].raisedBy, queryArray[i].raisedOn, queryArray[i].comment ]);                         
                            console.log(queryArray[i].raisedBy);
                            }
@@ -990,7 +1025,8 @@ tbody {
          } else {
              return;
          }
-         }       
+         }
+     //**************************
             
 function updateTripDataByVendor(tripID){
 	
@@ -1011,7 +1047,7 @@ function updateTripDataByVendor(tripID){
 
     $.ajax({
         type: "POST",
-        url: "<%=GlobalUrl.updateVendorTripStatusByTripId%>",
+        url: "<%=GlobalUrl.updateVendorTripStatusAndOpenCloseReadingByTripId%>",
         data: JSON.stringify(obj),
         dataType: "json",
         contentType: "application/json",

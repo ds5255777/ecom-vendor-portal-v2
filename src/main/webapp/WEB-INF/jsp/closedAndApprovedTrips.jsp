@@ -160,15 +160,11 @@
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Route</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-                                                <!-- <th style="padding: 5px 5px 5px 1.5rem;">Trip Status</th>
-												<th style="padding: 5px 5px 5px 1.5rem;">Payment Status</th> -->
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Mode</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Actual Departure (ATD)</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Actual Arrival (ATA)</th>
-                                                <!-- <th style="padding: 5px 5px 5px 1.5rem;">Origin Hub</th>
-												<th style="padding: 5px 5px 5px 1.5rem;">Destination Hub</th> -->
 
                                             </tr>
                                         </thead>
@@ -600,6 +596,33 @@
                             tabledata.clear();
 
                             for (var i = 0; i < result.length; i++) {
+                            	
+                            	if(!result[i].hasOwnProperty("tripID")){
+     								result[i].tripID="";
+     							}
+                                 if(!result[i].hasOwnProperty("route")){
+     								result[i].route="";
+     							}
+                                 if(!result[i].hasOwnProperty("runType")){
+     								result[i].runType="";
+     							}
+                                 if(!result[i].hasOwnProperty("actualKM")){
+     								result[i].actualKM="";
+     							}
+                                 if(!result[i].hasOwnProperty("standardKM")){
+     								result[i].standardKM="";
+     							}
+                                 if(!result[i].hasOwnProperty("mode")){
+      								result[i].mode="";
+      							}
+                                  if(!result[i].hasOwnProperty("actualDeparture")){
+      								result[i].actualDeparture="";
+      							}
+                                  if(!result[i].hasOwnProperty("actualArrival")){
+      								result[i].actualArrival="";
+      							}
+                            	
+                            	
                                 //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].siteQualityId + "','" + result[i].checkListId + "','"+result[i].url+"')\"><i class='fa fa-eye ' ></i></button>";
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
                                 var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\""+result[i].tripID+"\" ><\div>";

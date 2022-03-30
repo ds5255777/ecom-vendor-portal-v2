@@ -254,6 +254,16 @@
                             tabledata.clear();
 
                             for (var i = 0; i < result.length; i++) {
+                            	
+                            	 if(!result[i].hasOwnProperty("ecomInvoiceNumber")){
+         							result[i].ecomInvoiceNumber="";
+         						}
+	                          	if(!result[i].hasOwnProperty("vendorName")){
+	         							result[i].vendorName="";
+	         						}
+	                          	if(!result[i].hasOwnProperty("vendorCode")){
+         							result[i].vendorCode="";
+         						}
 
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].ecomInvoiceNumber + "')\" >" + result[i].ecomInvoiceNumber + "</button>";
 								var action="<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteInvoice('" + result[i].id + "','" + result[i].ecomInvoiceNumber + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";

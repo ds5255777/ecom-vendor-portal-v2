@@ -27,6 +27,7 @@ public class GlobalUrl {
     public static String getInTransitTripsDetails = tripControllers + "/getInTransitTripsDetails";
     public static String getPendingApprovelTripsDetails = tripControllers + "/getPendingApprovelTripsDetails";
     public static String updateVendorTripStatusByTripId = tripControllers + "/updateVendorTripStatusByTripId";
+    public static String updateVendorTripStatusAndOpenCloseReadingByTripId = tripControllers + "/updateVendorTripStatusAndOpenCloseReadingByTripId";
     public static String updateVendorTripStatusByTrips = tripControllers + "/updateVendorTripStatusByTrips";
     public static String tripDetailByTripId = tripControllers + "/tripDetailByTripId";
     public static String getRemarksByRefID = tripControllers + "/getRemarksByRefID";

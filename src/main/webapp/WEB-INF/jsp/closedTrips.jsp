@@ -506,6 +506,32 @@
                             tabledata.clear();
 
                             for (var i = 0; i < result.length; i++) {
+                            	
+                            	 if(!result[i].hasOwnProperty("tripID")){
+     								result[i].tripID="";
+     							}
+                                 if(!result[i].hasOwnProperty("route")){
+     								result[i].route="";
+     							}
+                                 if(!result[i].hasOwnProperty("runType")){
+     								result[i].runType="";
+     							}
+                                 if(!result[i].hasOwnProperty("actualKM")){
+     								result[i].actualKM="";
+     							}
+                                 if(!result[i].hasOwnProperty("standardKM")){
+     								result[i].standardKM="";
+     							}
+                                 if(!result[i].hasOwnProperty("mode")){
+      								result[i].mode="";
+      							}
+                                  if(!result[i].hasOwnProperty("actualDeparture")){
+      								result[i].actualDeparture="";
+      							}
+                                  if(!result[i].hasOwnProperty("actualArrival")){
+      								result[i].actualArrival="";
+      							}
+                            	
                                 //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].siteQualityId + "','" + result[i].checkListId + "','"+result[i].url+"')\"><i class='fa fa-eye ' ></i></button>";
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
                                 //var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\""+result[i].tripID+"\" ><\div>";
@@ -522,7 +548,7 @@
 
 
                                 // tabledata.row.add([checkbox, view, result[i].route, result[i].runType, result[i].actualKM, result[i].standardKM, result[i].mode, result[i].actualDeparture, result[i].actualArrival, result[i].status]);
-                                var tempString = [view, result[i].route, runType, result[i].actualKM, result[i].standardKM, mode, result[i].actualDeparture, result[i].actualArrival, result[i].status];
+                                var tempString = [view, result[i].route, runType, result[i].actualKM, result[i].standardKM, mode, result[i].actualDeparture, result[i].actualArrival];
 
                                 if (result[i].runType == "Scheduled") {
                                     tempString[2] = statustemp_runType_Scheduled;

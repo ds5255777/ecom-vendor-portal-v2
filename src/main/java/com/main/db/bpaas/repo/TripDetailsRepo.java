@@ -61,6 +61,11 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Modifying
     @Query(value = "update Trip_Details set vendor_trip_status=:status where trip_id=:tripID ; ", nativeQuery = true)
     void updateVendorTripStatusByTripId(@Param("status") String status, @Param("tripID") String tripID);
+    
+    @Transactional
+    @Modifying
+    @Query(value = "update trip_details set vendor_trip_status=:vendorTripStatus, opening_reading=:openingReading, closing_reading=:closingReading where trip_id=:tripID ; ", nativeQuery = true)
+    void updateVendorTripStatusByTripId(@Param("tripID") String tripID, @Param("vendorTripStatus") String vendorTripStatus, @Param("openingReading") String openingReading, @Param("closingReading") String closingReading);
 
     @Transactional
     @Modifying
@@ -166,6 +171,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
 @Query(value = "SELECT * FROM trip_details where vendor_trip_status = 'Yet To Be Approved By Network Team' and assign_to = 'Network' and run_type='Adhoc' and run_status = 'Closed' order by id limit 50; ", nativeQuery = true)
 List<TripDetails> findAllTripsLimitFifty();
+
+
 
 //END
 }

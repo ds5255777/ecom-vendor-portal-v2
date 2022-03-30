@@ -782,6 +782,37 @@
                             //console.log("result" + result);
 
                             for (var i = 0; i < result.length; i++) {
+                            	
+                            	if(!result[i].hasOwnProperty("tripID")){
+     								result[i].tripID="";
+     							}
+                                 if(!result[i].hasOwnProperty("route")){
+     								result[i].route="";
+     							}
+                                 if(!result[i].hasOwnProperty("runType")){
+     								result[i].runType="";
+     							}
+                                 if(!result[i].hasOwnProperty("vendorTripStatus")){
+     								result[i].vendorTripStatus="";
+     							}
+                                 if(!result[i].hasOwnProperty("actualDeparture")){
+      								result[i].actualDeparture="";
+      							}
+                                 if(!result[i].hasOwnProperty("actualKM")){
+      								result[i].actualKM="";
+      							}
+                                 if(!result[i].hasOwnProperty("standardKM")){
+     								result[i].standardKM="";
+     							}
+                                  if(!result[i].hasOwnProperty("originHub")){
+      								result[i].originHub="";
+      							}
+                                  if(!result[i].hasOwnProperty("destHub")){
+      								result[i].destHub="";
+      							}
+                                  if(!result[i].hasOwnProperty("paymentStatus")){
+        							result[i].paymentStatus="";
+        						}
 
                                 //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
@@ -903,6 +934,15 @@
                             for (var i = 0; i < queryArray.length; i++) {
                                 console.log(queryArray[i].raisedOn);
                                 /* $('#tabledataQuery').DataTable() */
+                                if(!result[i].hasOwnProperty("raisedBy")){
+      								result[i].raisedBy="";
+      							}
+                                if(!result[i].hasOwnProperty("raisedOn")){
+      								result[i].raisedOn="";
+      							}
+                                if(!result[i].hasOwnProperty("comment")){
+      								result[i].comment="";
+      							}
                                 tabledataQuery.row.add([i + 1, queryArray[i].raisedBy, queryArray[i].raisedOn, queryArray[i].comment]);
                                 console.log(queryArray[i].raisedBy);
                             }
@@ -943,6 +983,37 @@
                             var result = data.data;
                             tabledata.clear();
                             for (var i = 0; i < result.length; i++) {
+                            	
+                            	if(!result[i].hasOwnProperty("tripID")){
+     								result[i].tripID="";
+     							}
+                                 if(!result[i].hasOwnProperty("route")){
+     								result[i].route="";
+     							}
+                                 if(!result[i].hasOwnProperty("runType")){
+     								result[i].runType="";
+     							}
+                                 if(!result[i].hasOwnProperty("vendorTripStatus")){
+     								result[i].vendorTripStatus="";
+     							}
+                                 if(!result[i].hasOwnProperty("actualDeparture")){
+      								result[i].actualDeparture="";
+      							}
+                                 if(!result[i].hasOwnProperty("actualKM")){
+      								result[i].actualKM="";
+      							}
+                                 if(!result[i].hasOwnProperty("standardKM")){
+     								result[i].standardKM="";
+     							}
+                                  if(!result[i].hasOwnProperty("originHub")){
+      								result[i].originHub="";
+      							}
+                                  if(!result[i].hasOwnProperty("destHub")){
+      								result[i].destHub="";
+      							}
+                                  if(!result[i].hasOwnProperty("paymentStatus")){
+        							result[i].paymentStatus="";
+        						}
 
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
@@ -1070,6 +1141,37 @@
                             tabledata.clear();
 
                             for (var i = 0; i < result.length; i++) {
+                            	
+                            	if(!result[i].hasOwnProperty("tripID")){
+     								result[i].tripID="";
+     							}
+                                 if(!result[i].hasOwnProperty("route")){
+     								result[i].route="";
+     							}
+                                 if(!result[i].hasOwnProperty("runType")){
+     								result[i].runType="";
+     							}
+                                 if(!result[i].hasOwnProperty("vendorTripStatus")){
+     								result[i].vendorTripStatus="";
+     							}
+                                 if(!result[i].hasOwnProperty("actualDeparture")){
+      								result[i].actualDeparture="";
+      							}
+                                 if(!result[i].hasOwnProperty("actualKM")){
+      								result[i].actualKM="";
+      							}
+                                 if(!result[i].hasOwnProperty("standardKM")){
+     								result[i].standardKM="";
+     							}
+                                  if(!result[i].hasOwnProperty("originHub")){
+      								result[i].originHub="";
+      							}
+                                  if(!result[i].hasOwnProperty("destHub")){
+      								result[i].destHub="";
+      							}
+                                  if(!result[i].hasOwnProperty("paymentStatus")){
+        							result[i].paymentStatus="";
+        						}
 
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 

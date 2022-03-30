@@ -567,6 +567,22 @@
                         for (var i = 0; i < result.length; i++) {
 
                             count++;
+                            if(!result[i].hasOwnProperty("tripID")){
+								result[i].tripID="";
+							}
+                            if(!result[i].hasOwnProperty("route")){
+								result[i].route="";
+							}
+                            if(!result[i].hasOwnProperty("runType")){
+								result[i].runType="";
+							}
+                            if(!result[i].hasOwnProperty("vendorTripStatus")){
+								result[i].vendorTripStatus="";
+							}
+                            if(!result[i].hasOwnProperty("paymentStatus")){
+								result[i].paymentStatus="";
+							}
+                            
                             tabledata.row.add([result[i].tripID,
                                 result[i].route,
                                 result[i].runType,

@@ -2,6 +2,7 @@ package com.main.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -39,12 +40,14 @@ public class InvoiceController {
 
 	@RequestMapping({ "/getAllInvoice" })
 	@CrossOrigin("*")
-	public String getAllInvoice(HttpServletRequest request, @RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
+	public String getAllInvoice(Principal principal, HttpServletRequest request,
+			@RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
 
 		DataContainer data = new DataContainer();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		 String vendorCode = request.getSession().getAttribute("userName").toString();
+		// String vendorCode = request.getSession().getAttribute("userName").toString();
+		String vendorCode = principal.getName();
 		try {
 			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllInvoice(vendorCode);
 
@@ -61,16 +64,17 @@ public class InvoiceController {
 
 	@RequestMapping({ "/getAllPendingInvoice" })
 	@CrossOrigin("*")
-	public String getAllPendingInvoice(HttpServletRequest request,
+	public String getAllPendingInvoice(Principal principal, HttpServletRequest request,
 			@RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
 
 		DataContainer data = new DataContainer();
-		String vendorCode = request.getSession().getAttribute("userName").toString();
-		System.out.println(vendorCode);
+		// String vendorCode = request.getSession().getAttribute("userName").toString();
+		String vendorCode = principal.getName();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllProcessedInvoice(vendorCode);
+			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo
+					.getAllProcessedInvoice(vendorCode);
 
 			data.setData(pandingInvoice);
 			data.setMsg("success");
@@ -85,13 +89,11 @@ public class InvoiceController {
 
 	@RequestMapping({ "/getAllApproveInvoice" })
 	@CrossOrigin("*")
-	public String getAllApproveInvoice(HttpServletRequest request,
+	public String getAllApproveInvoice(Principal principal, HttpServletRequest request,
 			@RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
 
 		DataContainer data = new DataContainer();
-		String vendorCode = request.getSession().getAttribute("userName").toString();
-		System.out.println(vendorCode);
-
+		String vendorCode = principal.getName();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllApproveInvoice(vendorCode);
@@ -109,13 +111,13 @@ public class InvoiceController {
 
 	@RequestMapping({ "/getAllRejectInvoice" })
 	@CrossOrigin("*")
-	public String getAllRejectInvoice(HttpServletRequest request,
+	public String getAllRejectInvoice(Principal principal, HttpServletRequest request,
 			@RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
 
 		DataContainer data = new DataContainer();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		String vendorCode = request.getSession().getAttribute("userName").toString();
+		String vendorCode = principal.getName();
 		try {
 			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllRejectInvoice(vendorCode);
 
@@ -132,12 +134,12 @@ public class InvoiceController {
 
 	@RequestMapping({ "/getAllInvoiceToBilling" })
 	@CrossOrigin("*")
-	public String getMonthallyInvoice(HttpServletRequest request) {
+	public String getMonthallyInvoice(Principal principal, HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		String vendorCode = request.getSession().getAttribute("userName").toString();
+		String vendorCode = principal.getName();
 		try {
 			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllRejectInvoice(vendorCode);
 
@@ -270,7 +272,7 @@ public class InvoiceController {
 
 			Long idByinvocienumber = invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
 			System.out.println(idByinvocienumber);
-			
+
 			if (null != idByinvocienumber) {
 				obj.setInvoiceStatus("Processed");
 				obj.setId(idByinvocienumber);
@@ -284,7 +286,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			//data.setData(e.toString());
+			// data.setData(e.toString());
 			e.printStackTrace();
 		}
 
@@ -302,6 +304,7 @@ public class InvoiceController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			inviceObj = invoiceGenerationEntityRepo.findByInvoiceNumber(inviceObj.getInvoiceNumber());
+			inviceObj.getInvoiceLineItem().forEach(t -> System.out.println(t.getActualKM()));
 			data.setData(inviceObj);
 			data.setMsg("success");
 
@@ -315,11 +318,11 @@ public class InvoiceController {
 
 	@RequestMapping({ "/getAllDraftInvoice" })
 	@CrossOrigin("*")
-	public String getAllDraftInvoice(HttpServletRequest request,
+	public String getAllDraftInvoice(Principal principal, HttpServletRequest request,
 			@RequestBody List<InvoiceGenerationEntity> invoiceList) {
 
 		DataContainer data = new DataContainer();
-		String vendorCode = request.getSession().getAttribute("userName").toString();
+		String vendorCode = principal.getName();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			invoiceList = invoiceGenerationEntityRepo.getDraftInvoice(vendorCode);
@@ -358,7 +361,6 @@ public class InvoiceController {
 
 		return gson.toJson(data).toString();
 	}
-	
 
 	@RequestMapping({ "/deleteLineItem" })
 	@CrossOrigin("*")
@@ -370,7 +372,7 @@ public class InvoiceController {
 		try {
 
 			String tripID = obj.getTripID();
-			
+
 			tripDetailsRepo.updateVendorTripStatus(tripID);
 
 			data.setMsg("success");
@@ -382,7 +384,7 @@ public class InvoiceController {
 
 		return gson.toJson(data).toString();
 	}
-	
+
 	@RequestMapping({ "/discardDraftInvoice" })
 	@CrossOrigin("*")
 	public String discardDraftInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
@@ -393,11 +395,11 @@ public class InvoiceController {
 		try {
 
 			String invoiceNumber = obj.getEcomInvoiceNumber();
-			
+
 			System.out.println(invoiceNumber);
-			
+
 			tripDetailsRepo.discardDraftInvoice(invoiceNumber);
-			
+
 			tripDetailsRepo.updateVendorTripStatusAgainsInvoice(invoiceNumber);
 
 			data.setMsg("success");

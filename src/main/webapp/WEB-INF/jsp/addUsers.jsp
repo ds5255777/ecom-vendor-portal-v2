@@ -143,7 +143,7 @@
                             <!-- general form elements -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Add User</h3>
+                                    <h3 class="card-title">Add User Applicable Only for Admin or Audit</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
@@ -176,7 +176,7 @@
                                                 </div>
 
                                             </div>
-                                            <div class="col-md-3">
+                                            <%-- <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleId" style="height: 34px;">
                                                         <c:forEach items="${rolesList}" var="role">
@@ -185,7 +185,22 @@
                                                     </select>
                                                 </div>
 
+                                            </div> --%>
+                                            
+                                            
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleId" style="height: 34px;">
+                                                       
+                                                            <option value="1">Admin</option>
+                                                            <option value="3">Audit</option>
+                                                       
+                                                    </select>
+                                                </div>
+
                                             </div>
+                                            
+                                            
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" class="form-control" id="emailId">
@@ -195,7 +210,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Contact No.</label> <input type="text" name="contactNo" class="form-control" id="contactNo">
+                                                    <label for="exampleInputserverName1">Contact No.</label> <input type="text" name="contactNo" class="form-control" id="contactNo" maxlength="10">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -231,7 +246,8 @@
                                                 <th>Role</th>
                                                 <th>Email</th>
                                                 <th>Contact No</th>
-                                                <th>Action</th>
+                                                <th>Status</th>
+                                                <th>Action</th> 
                                             </tr>
                                         </thead>
                                     </table>
@@ -308,6 +324,17 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Contact No</label> <input type="text" name="contactNo" class="form-control" id="contactNoEdit">
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                             <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputserverName1">Status</label> <select class="form-control" id="statusEdit" style="height: 34px;">
+                                                        
+                                                            <option value="1">Active</option>
+                                                        	<option value="0">In-Active</option>
+                                                    </select>
                                                 </div>
                                             </div>
 
@@ -702,7 +729,8 @@
                 "emailId": $("#emailIdEdit").val(),
                 "lastName": $("#lastNameEdit").val(),
                 "firstName": $("#firstNameEdit").val(),
-                "status": status,
+               // "status": status,
+                "status": $("#statusEdit").val(), 
 
             }
 
@@ -777,8 +805,13 @@
                             if (result[i].hasOwnProperty("lastName")) {
                                 lastName = result[i].lastName;
                             }
-
-                            tabledata.row.add([result[i].username, result[i].firstName, lastName, result[i].rolesObj.roleName, result[i].emailId, result[i].contactNo, edit + " " + inactive]);
+							var status="";
+                            if(result[i].status==1){
+                            	status="Active";
+                            }else if(result[i].status==0){
+                            	status="In-Active";
+                            }
+                            tabledata.row.add([result[i].username, result[i].firstName, lastName, result[i].rolesObj.roleName, result[i].emailId, result[i].contactNo,status, edit + " " + inactive]);
 
                         }
 

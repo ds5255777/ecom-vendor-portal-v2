@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.main.db.bpaas.entity.SupDetails;										   
 import com.main.db.bpaas.entity.User;
 
 
@@ -33,17 +34,17 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	List<User> findByStatusIn(List<String> userStatusList);
 
-/*	
-   for postgress 
-   @Query(value="select username from users where username ~*:username and status in(:userStatusList) ; ", nativeQuery=true)
-	String checkForExistingUserName(@Param("username") String username, @Param("userStatusList") List<String> userStatusList);
-*/
 	
-	// for sql server
-	@Query(value="select username from users where username =:username COLLATE SQL_Latin1_General_CP1_CI_AS and status in(:userStatusList) ; ", nativeQuery=true)
+  // for postgress 
+   @Query(value="select username from users where username ~*:username and status in(:userStatusList) ; ", nativeQuery=true)
 	String checkForExistingUserName(@Param("username") String username, @Param("userStatusList") List<String> userStatusList);
 
 	
+	/*// for sql server
+	@Query(value="select username from users where username =:username COLLATE SQL_Latin1_General_CP1_CI_AS and status in(:userStatusList) ; ", nativeQuery=true)
+	String checkForExistingUserName(@Param("username") String username, @Param("userStatusList") List<String> userStatusList);
+
+*/	
 	User findByUsernameIgnoreCaseAndStatusIn(String username, List<String> userStatusList);
 
 
@@ -73,4 +74,23 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	String getemailIdById(@Param("id") Integer id);
 
    
+	//Manish added
+	 @Query(value="select count(*) from users; ", nativeQuery=true) 
+	 int getCountForAllUsers();
+	 
+	@Query(value="select count(*) from users where status='1'; ", nativeQuery=true)
+	int getCountForAllActiveUsers();
+	
+	@Query(value="select count(*) from users where status='0'; ", nativeQuery=true)
+	int getCountForAllInActiveUsers();
+	
+	@Query(value="select count(*) from supdetails; ", nativeQuery=true)
+	int getAllVendorCount();
+	
+	@Query(value="select count(*) from supdetails where ven_status='2'; ", nativeQuery=true)
+	int getAllActiveVendorCount();
+	
+	@Query(value="select count(*) from supdetails where ven_status='0'; ", nativeQuery=true)
+	int getAllInActiveVendorCount();
+	//End																			
 }

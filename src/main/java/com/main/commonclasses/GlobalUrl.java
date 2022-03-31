@@ -11,6 +11,10 @@ public class GlobalUrl {
     public static String checkForExistingUserName = userController + "/checkForExistingUserName";
     public static String getUserByRole = userController + "/getUserByRole";
     public static String changePassword = userController + "/changePassword";
+	  //vendor details
+    public static String getActiveVendorData = userController + "/getActiveVendorData";
+    public static String getVendorById = userController + "/getVendorById";
+    //end																				   
 
     public static String emailConfigurationController = "emailConfigurationController";
 
@@ -68,4 +72,13 @@ public static String invoiceController="invoiceController";
     public static String updateDetailsforNetwork = dashboardController + "/updateDetailsforNetwork";
 
 //END
+    
+    //Added by Manish
+    public static String masterController="masterController";	
+	public static String saveTripMaster=masterController+"/saveTripMaster";
+	public static String getActiveMasterData=masterController+"/getActiveMasterData";
+	public static String getMasterById=masterController+"/getMasterById";
+	public static String saveUpdateMasterDetails=masterController+"/saveUpdateMasterDetails";
+	public static String deleteMaster=masterController+"/deleteMaster";
+	//End					 
 }

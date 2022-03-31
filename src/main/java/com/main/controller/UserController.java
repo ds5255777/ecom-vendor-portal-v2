@@ -20,7 +20,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.commonclasses.GlobalConstants;
+import com.main.db.bpaas.entity.SupDetails;										   
 import com.main.db.bpaas.entity.User;
+import com.main.db.bpaas.repo.SupDetailsRepo;
+import com.main.db.bpaas.repo.UserRepository;											 
 import com.main.service.UserService;
 import com.main.serviceManager.ServiceManager;
 
@@ -33,6 +36,9 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	SupDetailsRepo supDetailsRepo;
+		   
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -98,6 +104,7 @@ public class UserController {
 			List<String> userStatusList = new ArrayList<>();
 			userStatusList.add(GlobalConstants.ACTIVE_STATUS);
 			userStatusList.add(GlobalConstants.CHANGE_PASSWORD_STATUS);
+			userStatusList.add(GlobalConstants.INACTIVE_STATUS);										   
 
 			List<User> userList = serviceManager.userRepository.findByStatusIn(userStatusList);
 
@@ -246,4 +253,53 @@ public class UserController {
 
 		return gson.toJson(data).toString();
 	}
+	
+	@RequestMapping({ "/getActiveVendorData" })
+	@CrossOrigin("*")
+	public String getActiveVendorData(HttpServletRequest request) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+		
+			List<SupDetails> vendorList = supDetailsRepo.getAllInActiveVendor();
+			data.setData(vendorList);
+			data.setMsg("success");
+			System.out.println("end  to getActiveVendorData ");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+
+
+	@RequestMapping({ "/getVendorById" })
+	@CrossOrigin("*")
+	public String getVendorById(HttpServletRequest request ,@RequestBody SupDetails details) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+		
+			List<SupDetails> supDetails = supDetailsRepo.findByVendorCode(details.getBpCode());
+
+			data.setData(supDetails);
+			data.setMsg("success");
+
+			System.out.println(" end to vendor details method");
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+
 }

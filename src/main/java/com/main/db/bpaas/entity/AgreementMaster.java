@@ -15,40 +15,47 @@ public class AgreementMaster {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "current_Fuel_Rate")
+    private double currentFuelRate;
+    
     @Column(name = "Type")
-    private String Type;
+    private String type;
+    
     @Column(name = "Sr_No")
-    private String SrNo;
+    private String srNo;
+    
     @Column(name = "Zone")
-    private String Zone;
+    private String zone;
+    
     @Column(name = "City")
-    private String City;
+    private String city;
+    
     @Column(name = "Vendor_Name")
-    private String VendorName;
+    private String vendorName;
     @Column(name = "Vehicle_Type")
-    private String VehicleType;
+    private String vehicleType;
     @Column(name = "Route")
-    private String Route;
+    private String route;
     @Column(name = "Trip_Details")
-    private String TripDetails;
+    private String tripDetails;
     @Column(name = "Rate")
-    private double Rate;
+    private double rate;
     @Column(name = "Trip_Cost")
-    private double TripCost;
+    private double tripCost;
     @Column(name = "Base_Rate")
-    private double BaseRate;
+    private double baseRate;
     @Column(name = "Std_Mileage_Per_Km")
-    private double StdMileagePerKm;
+    private double stdMileagePerKm;
     @Column(name = "Max_Kms")
-    private double MaxKms;
+    private double maxKms;
     @Column(name = "Credit_Period_In_Days")
-    private String CreditPeriodInDays;
+    private String creditPeriodInDays;
     @Column(name = "Agreement_Made_Date")
-    private String AgreementMadeDate;
+    private String agreementMadeDate;
     @Column(name = "Agreement_Expiry_Date")
-    private String AgreementExpiryDate;
+    private String agreementExpiryDate;
     @Column(name = "Vendor_Code")
-    private String VendorCode;
+    private String vendorCode;
 
     public Long getId() {
         return id;
@@ -58,142 +65,150 @@ public class AgreementMaster {
         this.id = id;
     }
 
-    public String getType() {
-        return Type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setType(String Type) {
-        this.Type = Type;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public String getSrNo() {
-        return SrNo;
-    }
+	public String getSrNo() {
+		return srNo;
+	}
 
-    public void setSrNo(String SrNo) {
-        this.SrNo = SrNo;
-    }
+	public void setSrNo(String srNo) {
+		this.srNo = srNo;
+	}
 
-    public String getZone() {
-        return Zone;
-    }
+	public String getZone() {
+		return zone;
+	}
 
-    public void setZone(String Zone) {
-        this.Zone = Zone;
-    }
+	public void setZone(String zone) {
+		this.zone = zone;
+	}
 
-    public String getCity() {
-        return City;
-    }
+	public String getCity() {
+		return city;
+	}
 
-    public void setCity(String City) {
-        this.City = City;
-    }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-    public String getVendorName() {
-        return VendorName;
-    }
+	public String getVendorName() {
+		return vendorName;
+	}
 
-    public void setVendorName(String VendorName) {
-        this.VendorName = VendorName;
-    }
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
+	}
 
-    public String getVehicleType() {
-        return VehicleType;
-    }
+	public String getVehicleType() {
+		return vehicleType;
+	}
 
-    public void setVehicleType(String VehicleType) {
-        this.VehicleType = VehicleType;
-    }
+	public void setVehicleType(String vehicleType) {
+		this.vehicleType = vehicleType;
+	}
 
-    public String getRoute() {
-        return Route;
-    }
+	public String getRoute() {
+		return route;
+	}
 
-    public void setRoute(String Route) {
-        this.Route = Route;
-    }
+	public void setRoute(String route) {
+		this.route = route;
+	}
 
-    public String getTripDetails() {
-        return TripDetails;
-    }
+	public String getTripDetails() {
+		return tripDetails;
+	}
 
-    public void setTripDetails(String TripDetails) {
-        this.TripDetails = TripDetails;
-    }
+	public void setTripDetails(String tripDetails) {
+		this.tripDetails = tripDetails;
+	}
 
-    public double getRate() {
-        return Rate;
-    }
+	public double getRate() {
+		return rate;
+	}
 
-    public void setRate(double Rate) {
-        this.Rate = Rate;
-    }
+	public void setRate(double rate) {
+		this.rate = rate;
+	}
 
-    public double getTripCost() {
-        return TripCost;
-    }
+	public double getTripCost() {
+		return tripCost;
+	}
 
-    public void setTripCost(double TripCost) {
-        this.TripCost = TripCost;
-    }
+	public void setTripCost(double tripCost) {
+		this.tripCost = tripCost;
+	}
 
-    public double getBaseRate() {
-        return BaseRate;
-    }
+	public double getBaseRate() {
+		return baseRate;
+	}
 
-    public void setBaseRate(double BaseRate) {
-        this.BaseRate = BaseRate;
-    }
+	public void setBaseRate(double baseRate) {
+		this.baseRate = baseRate;
+	}
 
-    public double getStdMileagePerKm() {
-        return StdMileagePerKm;
-    }
+	public double getStdMileagePerKm() {
+		return stdMileagePerKm;
+	}
 
-    public void setStdMileagePerKm(double StdMileagePerKm) {
-        this.StdMileagePerKm = StdMileagePerKm;
-    }
+	public void setStdMileagePerKm(double stdMileagePerKm) {
+		this.stdMileagePerKm = stdMileagePerKm;
+	}
 
-    public double getMaxKms() {
-        return MaxKms;
-    }
+	public double getMaxKms() {
+		return maxKms;
+	}
 
-    public void setMaxKms(double MaxKms) {
-        this.MaxKms = MaxKms;
-    }
+	public void setMaxKms(double maxKms) {
+		this.maxKms = maxKms;
+	}
 
-    public String getCreditPeriodInDays() {
-        return CreditPeriodInDays;
-    }
+	public String getCreditPeriodInDays() {
+		return creditPeriodInDays;
+	}
 
-    public void setCreditPeriodInDays(String CreditPeriodInDays) {
-        this.CreditPeriodInDays = CreditPeriodInDays;
-    }
+	public void setCreditPeriodInDays(String creditPeriodInDays) {
+		this.creditPeriodInDays = creditPeriodInDays;
+	}
 
-    public String getAgreementMadeDate() {
-        return AgreementMadeDate;
-    }
+	public String getAgreementMadeDate() {
+		return agreementMadeDate;
+	}
 
-    public void setAgreementMadeDate(String AgreementMadeDate) {
-        this.AgreementMadeDate = AgreementMadeDate;
-    }
+	public void setAgreementMadeDate(String agreementMadeDate) {
+		this.agreementMadeDate = agreementMadeDate;
+	}
 
-    public String getAgreementExpiryDate() {
-        return AgreementExpiryDate;
-    }
+	public String getAgreementExpiryDate() {
+		return agreementExpiryDate;
+	}
 
-    public void setAgreementExpiryDate(String AgreementExpiryDate) {
-        this.AgreementExpiryDate = AgreementExpiryDate;
-    }
+	public void setAgreementExpiryDate(String agreementExpiryDate) {
+		this.agreementExpiryDate = agreementExpiryDate;
+	}
 
-    public String getVendorCode() {
-        return VendorCode;
-    }
+	public String getVendorCode() {
+		return vendorCode;
+	}
 
-    public void setVendorCode(String VendorCode) {
-        this.VendorCode = VendorCode;
-    }
+	public void setVendorCode(String vendorCode) {
+		this.vendorCode = vendorCode;
+	}
 
+	public double getCurrentFuelRate() {
+		return currentFuelRate;
+	}
 
+	public void setCurrentFuelRate(double currentFuelRate) {
+		this.currentFuelRate = currentFuelRate;
+	}
+
+  
 
 }

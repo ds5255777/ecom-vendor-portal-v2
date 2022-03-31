@@ -138,7 +138,25 @@ public class TripControllers {
 				data.setMsg("error");
 				e.printStackTrace();
 			}
-		}
+		}else if (rolename.equalsIgnoreCase("Admin")) {
+
+			//Manish
+			
+			
+		        try {
+		            List<TripDetails> allTripDetailsList = tripDetailsRepo.findAll();
+
+		            data.setData(allTripDetailsList);
+		            data.setMsg("success");
+
+		        } catch (Exception e) {
+		            data.setMsg("error");
+		            e.printStackTrace();
+		        }
+			
+			
+						
+					}
 
 		return gson.toJson(data).toString();
 	}

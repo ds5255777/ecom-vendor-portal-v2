@@ -26,6 +26,7 @@ import com.main.db.bpaas.repo.TripDetailsRepo;
 import com.main.service.TripService;
 import com.main.service.UserService;
 import com.main.serviceManager.ServiceManager;
+import com.main.db.bpaas.repo.UserRepository;
 
 @Controller
 public class UIController {
@@ -50,6 +51,9 @@ public class UIController {
 
 	@Autowired
 	TripService tripService;
+	
+	@Autowired
+    UserRepository userRepository;
 
 	@GetMapping({ "/login" })
 	public String login(Model model, String error, String logout) {
@@ -118,7 +122,46 @@ public class UIController {
 			return "dashBoard_NetworkRole";
 
 		} else if (rolename.equalsIgnoreCase("Admin")) {
-			return "";
+			
+   
+             //Manish added dashBoard_AdminRole
+             //Users
+             int  getAllUserCount = userRepository.getCountForAllUsers();
+             int  totalActiveUser = userRepository.getCountForAllActiveUsers();
+             int  totalInActiveUser = userRepository.getCountForAllInActiveUsers();
+             model.addAttribute("getAllUserCount", getAllUserCount);
+             model.addAttribute("totalActiveUser", totalActiveUser);
+             model.addAttribute("totalInActiveUser", totalInActiveUser);
+             
+             //Vendor
+             int  getAllVendorCount = userRepository.getAllVendorCount();
+             int  allActiveVendorCount = userRepository.getAllActiveVendorCount();
+             int  allInActiveVendorCount = userRepository.getAllInActiveVendorCount();
+             model.addAttribute("getAllVendorCount", getAllVendorCount);
+             model.addAttribute("allActiveVendorCount", allActiveVendorCount);
+             model.addAttribute("allInActiveVendorCount", allInActiveVendorCount);
+             
+             //Trips
+             int totalTripCount = tripDetailsRepo.getTripCount();
+             int TotalCloseTripCount = tripDetailsRepo.getCloseTripCount();
+             int TotalInTransitTripCount = tripDetailsRepo.getInTransitTripCount();
+             model.addAttribute("totalTripCount", totalTripCount);
+             model.addAttribute("TotalCloseTripCount", TotalCloseTripCount);
+             model.addAttribute("TotalInTransitTripCount", TotalInTransitTripCount);
+             
+             //Invoices
+             int getAllInvoiceCount = invoiceGenerationEntityRepo.getCountForAllInvoices();
+             int countForAllProcessedInvoice = invoiceGenerationEntityRepo.getCountForAllProcessedInvoice();
+             int countForAllApproveInvoice = invoiceGenerationEntityRepo.getCountForAllApproveInvoice();
+             model.addAttribute("getAllInvoiceCount", getAllInvoiceCount);
+             model.addAttribute("countForAllProcessedInvoice", countForAllProcessedInvoice);
+             model.addAttribute("countForAllApproveInvoice", countForAllApproveInvoice);
+             
+        	
+            return "dashBoard_AdminRole";
+            
+            
+        
 		} else if (rolename.equalsIgnoreCase("Vendor")) {
 //Saurabh
 			String vendorCode = principal.getName();
@@ -210,7 +253,9 @@ public class UIController {
 			return "allTripsNetwork";
 		} else if (rolename.equalsIgnoreCase("Vendor")) {
 			return "allTrips";
-		}
+		} else if (rolename.equalsIgnoreCase("Admin")) {
+            return "allTrips";
+        }
 		return "";
 	}
 
@@ -275,6 +320,29 @@ public class UIController {
 
 		return "pendingInvoice";
 	}
+	 //Added by Manish
+    @GetMapping("/tripMaster")
+	public String tripMaster(Model model, Principal principal, HttpServletRequest request) {
+		
+		return "tripMaster";
+	}
+    @GetMapping("/vendorDetails")
+   	public String vendorDetails(Model model, Principal principal, HttpServletRequest request) {
+   		
+   		return "vendorDetails";
+   	}
+    @GetMapping("/notification")
+   	public String notification(Model model, Principal principal, HttpServletRequest request) {
+   		
+   		return "notification";
+   	}
+     
+	 @GetMapping("/vendorRegistrastion")
+   	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
+   		
+   		return "vendorRegistrastion";
+   	}
+	//End
 
 //    @GetMapping("/tripsInvoiceGenerate")
 //    public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {

@@ -43,6 +43,13 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 	int getCountForAllInvoices();
 
 //
+	//Manish Added , count for Admin
+		@Query(value = "select count(*) from invoice_generation where invoice_status='Processed'", nativeQuery = true)
+		int  getCountForAllProcessedInvoice();
+
+		@Query(value = "select count(*) from invoice_generation where invoice_status='Approve'", nativeQuery = true)
+		int  getCountForAllApproveInvoice();
+	//End
 	
 
 }

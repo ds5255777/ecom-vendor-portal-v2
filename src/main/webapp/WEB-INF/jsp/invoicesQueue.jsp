@@ -115,7 +115,21 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <jsp:include page="sidebar_Vendor.jsp?pagename=invoiceQueue" />
+         <%
+    	String rolename = (String) request.getSession().getAttribute("role");
+        
+        %>
+        <c:choose>  
+			    <c:when test='<%=rolename.equalsIgnoreCase("Admin")%>'>  
+			      <jsp:include page="sidebar_Admin.jsp?pagename=invoiceQueue" />  
+			    </c:when>  
+			    <c:otherwise>  
+			        <jsp:include page="sidebar_Vendor.jsp?pagename=invoiceQueue" />
+			    </c:otherwise>  
+  		</c:choose>
+        
+        
+       
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

@@ -237,6 +237,14 @@
     </div>
     <!-- ./wrapper -->
 
+ 
+<!-- <script type = "text/javascript">  
+window.onload = function(){  
+	
+	alert("hii")
+	select();
+}  
+</script> -->
 
 
     <div class="modal fade" id="userModal" role="dialog">
@@ -262,7 +270,7 @@
 							</div>
 						<div id="basicDetailsHeadData" aria-labelledby="basicDetailsHead"
 								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
-                               <form role="form" id="stepOneForm" class="forms-sample" style="padding: 20px;" autocomplete="off">
+                               <form role="form" id="stepOneForm" class="forms-sample" style="padding: 20px;" autocomplete="off" >
 									<table class="table center-aligned-table" id="fromTable" name="fromTable">
 										<thead>
 										</thead>
@@ -291,16 +299,18 @@
 													id="message"></span></td>
 
 											</tr>
+											
+											
 											<tr>
 
 												<td><label>Business Partner Type<span
 														class="required adHocRequired">*</span></label></td>
 												
 												<td style="width: auto">
-                                                <select class="js-example-basic-multiple select2"  name="states" id="states" onchange="select()" multiple="multiple" >
-                                                    <option  name="option[]"  value="Network">&emsp;&emsp;Network</option>
-                                                    <option name="option[]" value="Fixed Asset">&emsp;&emsp;Fixed Asset</option>
-                                                    <option name="option[]"  value="Other">&emsp;&emsp;Other</option>
+                                                <select class=""  name="states" id="states" onchange="select()" multiple="multiple" >
+                                                    <option  name="option[]"id="option[]"  value="Network">&emsp;&emsp;Network</option>
+                                                    <option name="option[]" id="option[]"value="Fixed Asset">&emsp;&emsp;Fixed Asset</option>
+                                                    <option name="option[]" id="option[]" value="Other">&emsp;&emsp;Other</option>
                                                  </select>
                                                     
 													
@@ -324,7 +334,7 @@
 											<script>
 											
 											function select(){
-										
+												 
 												
 												var element = document.getElementById('states');
 									        	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
@@ -332,14 +342,14 @@
 									            $("#states :selected").each(function(){
 									                selectedValues.push($(this).val()); 
 									            });
-									           // alert(selectedValues);
+									            //alert(selectedValues);
 									            
 									            let values = selectedValues.toString();
 									         
 									        	document.getElementById("roleId").value=values;
 									        	//alert("roleId111: "+num);
 												
-										
+									        
 												
 												var val = document.getElementById("states").value
 												if (val == "Network") {
@@ -392,8 +402,7 @@
 														class="required adHocRequired">*</span></label></td>
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="panNumber"
-													name="panNumber" placeholder="Pan Number"oninput="this.value = this.value.toUpperCase()"
-													onchange="ValidatePAN()">
+													name="panNumber" placeholder="Pan Number"oninput="this.value = this.value.toUpperCase()">
 													<span id="lblPANCard" class="error">Invalid PAN Number</span>
 													</td>
 
@@ -1319,6 +1328,34 @@
 
                          for (var i = 0; i < result.length; i++) {
                         	
+                        	 if(!result[i].hasOwnProperty("introducedByName")){
+     							result[i].introducedByName="";
+     						}
+                        	 if(!result[i].hasOwnProperty("suppName")){
+     							result[i].suppName="";
+     						}
+                        	 if(!result[i].hasOwnProperty("compEmail")){
+     							result[i].compEmail="";
+     						}
+                        	 if(!result[i].hasOwnProperty("introducedByEmailID")){
+     							result[i].introducedByEmailID="";
+     						}
+                        	 if(!result[i].hasOwnProperty("compGstn")){
+     							result[i].compGstn="";
+     						}
+                        	 if(!result[i].hasOwnProperty("natureOfTransactions")){
+     							result[i].natureOfTransactions="";
+     						}
+                        	 if(!result[i].hasOwnProperty("partnerType")){
+     							result[i].partnerType="";
+     						}
+                        	 if(!result[i].hasOwnProperty("vendorType")){
+     							result[i].vendorType="";
+     						}
+                        	 if(!result[i].hasOwnProperty("phoneNumber")){
+     							result[i].phoneNumber="";
+     						}
+
                         	 
                         	 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#\" onclick=\"editData('" + result[i].bpCode + "')\" >" + result[i].bpCode + "</button>";
                         	
@@ -1328,6 +1365,8 @@
 
                         tabledata.draw();
                         $("tbody").show();
+                        
+                        
 
                     } else {
                         Toast.fire({
@@ -1444,6 +1483,17 @@
                         
                            var vendorType=result[0].vendorType;
                            document.getElementById("states").value=vendorType; 
+                           
+                          /* var str = vendorType.split(",");
+                           
+                           for (let i = 0; i < str.length; i++) {
+                        	   alert("str"+str[i]);
+                        	   document.getElementById("option[]").checked=str[i];
+                        	  var ii=document.getElementById("option[]").value
+                        	  alert("ii"+ii);
+                        	 }//manish pending code */
+                           
+                        	 select();
                            
                           /*  $("#states").append("<option>Network</option>"); */
                            
@@ -1758,7 +1808,7 @@
 
         
         
-        function ValidatePAN() {
+       /*  function ValidatePAN() {
             var txtPANCard = document.getElementById("panNumber");
             var lblPANCard = document.getElementById("lblPANCard")
             var regex = /([A-Z]){5}([0-9]){4}([A-Z]){1}$/;
@@ -1770,13 +1820,24 @@
                 return false;
             }
         }
-        
+         */
         
         
         function sendToServer() {
         	
        
-        	
+        	var txtPANCard = document.getElementById("panNumber");
+            var lblPANCard = document.getElementById("lblPANCard")
+            var regex = /([A-Z]){5}([0-9]){4}([A-Z]){1}$/;
+            if (regex.test(txtPANCard.value.toUpperCase())) {
+                lblPANCard.style.visibility = "hidden";
+                
+            } else {
+                lblPANCard.style.visibility = "visible";
+                swal.fire("Alert", "Invalid Pan Number", "warning");
+                return false;
+            } 
+        	//alert("hii");
         	console.log("Inside Step One");
             var mandFields = "introducedByName,introducedByEmailID,suppName,compEmail,panNumber,natureOfTransactions";
             var mandFieldsArr = mandFields.split(",");
@@ -2046,6 +2107,24 @@
             } 
         } 
 
+        
+        function AadharValidate() {
+            var aadhar = document.getElementById("aadharNumber").value;
+            var adharcardTwelveDigit = /^\d{12}$/;
+            var adharSixteenDigit = /^\d{16}$/;
+            if (aadhar != '') {
+                if (aadhar.match(adharcardTwelveDigit)) {
+                    return true;
+                } else if (aadhar.match(adharSixteenDigit)) {
+                    return true;
+                } else {
+                    alert("Enter valid Aadhar Number");
+                    $("#aadharNumber").val('');
+                    $("#aadharNumber").focus();
+                    //return false;
+                }
+            }
+        }
         
         function removeValCssByID(controlName) {
             $('#' + controlName.id).css({

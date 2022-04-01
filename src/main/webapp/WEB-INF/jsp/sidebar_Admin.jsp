@@ -42,75 +42,11 @@
                             <p>All Trips</p>
                         </a></li>
                 </ul>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item"><a href="closedTrips" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("closedTrips")) {
-				out.print("active");
-			}%>                            
-                            ">
-                            <!-- <i class="nav-icon fas fa-times"></i> -->
-                            <i class="nav-icon far fa-window-close"></i>
-                            <p>Closed Trips</p>
-                        </a></li>
-                </ul>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item"><a href="closedAndApprovedTrips" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("closedAndApprovedTrips")) {
-				out.print("active");
-			}%>                            
-                            ">
-                            <!-- <i class="nav-icon fas fa-times"></i> -->
-                            <i class="nav-icon far fa-window-close"></i>
-                            <p>Closed And Approved Trips</p>
-                        </a></li>
-                </ul>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item"><a href="inTransitTrips" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("inTransitTrips")) {
-				out.print("active");
-			}%>                            
-                            ">
-                            <i class="nav-icon fas fa-truck"></i>
-                            <p>In-Transit Trips</p>
-                        </a></li>
-                </ul>
+            
                 <hr>
             </li>
 
-            <%-- <li class="nav-item"><a
-					href="${pageContext.request.contextPath}/allTrips"
-					class="nav-link 
-                       <% if (request.getParameter("pagename").equalsIgnoreCase("allTrips")) {
-                               out.print("active");
-                           }%>
-            ">
-            <i class="nav-icon fas fa-circle"> </i>
-            <p>All Trips</p>
-            </a>
-            <hr>
-            </li>
 
-            <li class="nav-item"><a href="${pageContext.request.contextPath}/closedTrips" class="nav-link 
-                       <% if (request.getParameter("pagename").equalsIgnoreCase("closedTrips")) {
-                               out.print("active");
-                           }%>
-                       ">
-                    <i class="nav-icon fas fa-circle"> </i>
-                    <p>Closed Trips</p>
-                </a>
-                <hr>
-            </li>
-
-            <li class="nav-item"><a href="${pageContext.request.contextPath}/inTransitTrips" class="nav-link 
-                       <% if (request.getParameter("pagename").equalsIgnoreCase("inTransitTrips")) {
-                               out.print("active");
-                           }%>
-                       ">
-                    <i class="nav-icon fas fa-circle"> </i>
-                    <p>in-Transit Trips</p>
-                </a>
-                <hr>
-            </li> --%>
 
             <li class="nav-item"><a href="tripMaster" class="nav-link 
                        <% if (request.getParameter("pagename").equalsIgnoreCase("tripMaster")) {
@@ -147,7 +83,22 @@
                         <p>&ensp;Notification</p>
                     </a></li>
                     
+                   
+                    <li class="nav-item"><a href="vendorRegistrastion" target="_blank" rel="noopener noreferrer" class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("vendorRegistrastion")) {
+				out.print("active");
+			}%>                            
+                            ">
+                         
+                      <!-- <i class="fa-solid fa-id-card"></i> -->
+                      
+                     <i class="fas fa-registered"></i>
+                      
+                      
+					
                     
+                       <p>&ensp;Vendor Registrastion</p> 
+                    </a></li> 
                     
                     
 
@@ -168,39 +119,7 @@
                             <p>All Invoice</p>
                         </a></li>
                 </ul>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item"><a href="pendingInvoice" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("pendingInvoice")) {
-				out.print("active");
-			}%>                            
-                            ">
-                            <!-- <i class="nav-icon fas fa-times"></i> -->
-                            <i class="nav-icon far fa-file-alt"></i>
-                            <p>Invoice Process</p>
-                        </a></li>
-                </ul>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item"><a href="approvedInvoice" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("approvedInvoice")) {
-				out.print("active");
-			}%>                            
-                            ">
-                            <i class="nav-icon fas fa-thumbs-up"></i>
-                            <p>Invoice Approved</p>
-                        </a></li>
-                </ul>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item"><a href="rejectedInvoice" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("rejectedInvoice")) {
-				out.print("active");
-			}%>                            
-                            ">
-                            <!-- <i class="nav-icon fas fa-times"></i> -->
-                            <i class="nav-icon far fa-times-circle"></i>
-                            <p>Invoice Rejected</p>
-                        </a></li>
-                </ul>
-                <hr>
+                               <hr>
             </li>
 
             <li class="nav-item"><a href="#" class="nav-link
@@ -223,35 +142,10 @@
                     <p>Reports</p>
                 </a></li>
                 
-                <!--  <li class="nav-item has-treeview"><a href="#" class="nav-link">
-						<i class="nav-icon fas fa-circle"></i>
-						<p>
-							Admin <i class="right fas fa-angle-left"></i>
-						</p>
-				</a> -->
-					<%-- <ul class="nav nav-treeview">
-						<li class="nav-item"><a href="addUsers"
-							class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("addUsers")) {
-				out.print("active");
-			}%>
-
-                ">
-                <i class="nav-icon fas fa-user"></i>
-                <p>Users</p>
-                </a></li>
-            </ul> --%>
-            
+                           
             </ul>
             <hr>
-            
-            
-            
-             
-
-
-            
-           
+                       
         </nav>
     </div>
 </aside>

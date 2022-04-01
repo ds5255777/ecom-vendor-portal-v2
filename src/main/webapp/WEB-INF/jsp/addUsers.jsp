@@ -103,7 +103,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <jsp:include page="slidebar.jsp?pagename=addUsers" />
+        <jsp:include page="sidebar_Admin.jsp?pagename=addUsers" />
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

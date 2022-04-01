@@ -202,14 +202,24 @@ public class UIController {
 	@GetMapping({ "/addUsers" })
 	public String addUsers(Model model, String error, String logout, HttpServletRequest request) {
 
+		
+		String rolename = (String) request.getSession().getAttribute("role");
+
+
+		if (rolename.equalsIgnoreCase("Admin")) {
+		
 		List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive("1");
 		model.addAttribute("rolesList", roleList);
 
 //		String actionType = "View";
 //		String action = "Viewed All Users";
 
-//		      serviceManager.insertAddUpdateInMaster(request, action, actionType, null, null, null);
+//		serviceManager.insertAddUpdateInMaster(request, action, actionType, null, null, null);
 		return "addUsers";
+		
+		}
+		return "";
+		
 
 	}
 
@@ -323,24 +333,49 @@ public class UIController {
 	 //Added by Manish
     @GetMapping("/tripMaster")
 	public String tripMaster(Model model, Principal principal, HttpServletRequest request) {
-		
+    	
+    	String rolename = (String) request.getSession().getAttribute("role");
+
+		if (rolename.equalsIgnoreCase("Admin")) {
+			
 		return "tripMaster";
+		
+		}
+		return "";
 	}
     @GetMapping("/vendorDetails")
    	public String vendorDetails(Model model, Principal principal, HttpServletRequest request) {
-   		
-   		return "vendorDetails";
+    	String rolename = (String) request.getSession().getAttribute("role");
+
+		if (rolename.equalsIgnoreCase("Admin")) {
+			
+			return "vendorDetails";
+		}
+   		return "";
    	}
     @GetMapping("/notification")
    	public String notification(Model model, Principal principal, HttpServletRequest request) {
    		
-   		return "notification";
+    	String rolename = (String) request.getSession().getAttribute("role");
+
+		if (rolename.equalsIgnoreCase("Admin")) {
+			
+			return "notification";
+		}
+   		return "";
    	}
      
 	 @GetMapping("/vendorRegistrastion")
    	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
    		
-   		return "vendorRegistrastion";
+		 String rolename = (String) request.getSession().getAttribute("role");
+
+			if (rolename.equalsIgnoreCase("Admin")) {
+				
+				return "vendorRegistrastion";
+				
+			}
+   		return "";
    	}
 	//End
 

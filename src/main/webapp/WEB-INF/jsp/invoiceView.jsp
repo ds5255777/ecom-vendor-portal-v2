@@ -509,7 +509,9 @@
                             //console.log(tripLineArray[i].runType);
                             console.log(tripLineArray);
                             //return;
-                            
+                            if(!tripLineArray[i].hasOwnProperty("tripID")){
+      							tripLineArray[i].tripID="";
+      						}
                         	 if(!tripLineArray[i].hasOwnProperty("runType")){
        							tripLineArray[i].runType="";
        						}
@@ -541,11 +543,11 @@
        							tripLineArray[i].totalFreight="";
        						}
                         	 if(!tripLineArray[i].hasOwnProperty("lumpsomeamount")){
-       							tripLineArray[i].lumpsomeamount="";
+       							tripLineArray[i].lumpsomeamount="0";
        						}
                         	 if(!tripLineArray[i].hasOwnProperty("lineLevelDescription")){
         							tripLineArray[i].lineLevelDescription="";
-        					}
+        						}
                         	 
                             $('#prTable').DataTable().row.add([  tripLineArray[i].runType, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate,  tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription ]);                         
                        }

@@ -1,6 +1,5 @@
 package com.main.db.bpaas.repo;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -87,8 +86,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "update Trip_Details set vendor_trip_status='Draft-Invoicing', invoice_number=:invoiceNumber where trip_id=:tripID  ; ", nativeQuery = true)
     void findTripDetailAgainTripID(String invoiceNumber, String tripID);
 
-    @Query(value = "select  * from Trip_Details WHERE vendor_trip_status = 'Approved' ; ", nativeQuery = true)
-    List<TripDetails> findAllTripIdStatsIsClosedAndApprove();
+    @Query(value = "select  * from Trip_Details WHERE vendor_trip_status = 'Approved' And vendor_code=?; ", nativeQuery = true)
+    List<TripDetails> findAllTripIdStatsIsClosedAndApprove(String vendorCode);
 
     @Query(value = "select  * from Trip_Details where trip_id=:tripID ; ", nativeQuery = true)
     List<TripDetails> getTripIdbyTripDetail(@Param("tripID") String tripID);
@@ -103,8 +102,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "select  * from trip_details  where invoice_number=:invoiceNumber ", nativeQuery = true)
     List<TripDetails> getTripStatusIsDraftInvoicing(String invoiceNumber);
 
-    @Query(value = "select * from trip_details where run_status='Closed' and vendor_trip_status='Approved'", nativeQuery = true)
-    List<TripDetails> getAllCloseAndApproveTrip();
+    @Query(value = "select * from trip_details where run_status='Closed' and vendor_trip_status='Approved' AND vendor_code=?", nativeQuery = true)
+    List<TripDetails> getAllCloseAndApproveTrip(String vendorCode);
 
     @Transactional
     @Modifying

@@ -509,7 +509,9 @@
                             //console.log(tripLineArray[i].runType);
                             console.log(tripLineArray);
                             //return;
-                            
+                            if(!tripLineArray[i].hasOwnProperty("tripID")){
+      							tripLineArray[i].tripID="";
+      						}
                         	 if(!tripLineArray[i].hasOwnProperty("runType")){
        							tripLineArray[i].runType="";
        						}

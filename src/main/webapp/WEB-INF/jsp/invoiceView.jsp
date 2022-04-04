@@ -543,25 +543,14 @@
        							tripLineArray[i].totalFreight="";
        						}
                         	 if(!tripLineArray[i].hasOwnProperty("lumpsomeamount")){
-       							tripLineArray[i].lumpsomeamount="";
+       							tripLineArray[i].lumpsomeamount="0";
        						}
+                        	 if(!tripLineArray[i].hasOwnProperty("lineLevelDescription")){
+        							tripLineArray[i].lineLevelDescription="";
+        						}
                         	 
                             $('#prTable').DataTable().row.add([  tripLineArray[i].runType, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate,  tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription ]);                         
-
-                            
-                      	/*  $('#prTable').DataTable().row.add([    !tripLineArray[i].runType===""? " NA " : tripLineArray[i].runType, 
-                      			 								tripLineArray[i].standardKM===""?" NA ":tripLineArray[i].standardKM, 
-                      			 								tripLineArray[i].ratePerKm===""?" NA ":tripLineArray[i].ratePerKm, 
-                      			 								tripLineArray[i].currentFuelRate===""?" NA ":tripLineArray[i].currentFuelRate, 
-                      			 								tripLineArray[i].fsBaseRate===""?" NA ":tripLineArray[i].fsBaseRate,  
-                      			 								tripLineArray[i].fsDiff===""?" NA ":tripLineArray[i].fsDiff, 
-                      			 								tripLineArray[i].basicFreight===""?" NA ":tripLineArray[i].basicFreight, 
-                      			 								tripLineArray[i].fs===""?" NA ":tripLineArray[i].fs, 
-                      			 								tripLineArray[i].actualKM===""? "NA" :tripLineArray[i].actualKM, 
-                      			 								tripLineArray[i].totalFreight===""? "NA" :tripLineArray[i].totalFreight, 
-                      			 								tripLineArray[i].lineLevelDescription===""? "NA" :tripLineArray[i].lineLevelDescription ]); */ 
                        }
-                        //console.log(tripLineArray[i].actualKM);
                         $("#invoiceNumber").val(result.invoiceNumber);
                         $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);
                        $('#prTable').DataTable().draw();

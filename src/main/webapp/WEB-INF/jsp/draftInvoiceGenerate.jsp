@@ -373,7 +373,7 @@
 												class="text-danger"> *</span></label>
 											<div class="col-sm-7">
 												<input type="file" id="InvoiceUpload" name="InvoiceUpload"
-													class="form-control-sm"
+													class="form-control-sm" accept=".jpg, .jpeg, .pdf"
 													onchange="handleFileSelect(event,'InvoiceFileText'), onValidateFile('InvoiceUpload')"
 													class="form-control p-input">
 												<textarea id="InvoiceFileText" name="InvoiceFileText"
@@ -387,7 +387,7 @@
 												class="text-danger"> </span></label>
 											<div class="col-sm-7">
 												<input type="file" id="DocumentFileOne"
-													name="DocumentFileOne" class="form-control-sm"
+													name="DocumentFileOne" class="form-control-sm" accept=".jpg, .jpeg, .pdf"
 													onchange="handleFileSelect(event,'DocumentFileOneText'), onValidateFile('DocumentFileOne')"
 													class="form-control p-input">
 												<textarea id="DocumentFileOneText"
@@ -401,7 +401,7 @@
 												class="text-danger"> </span></label>
 											<div class="col-sm-7">
 												<input type="file" id="DocumentFileTwo"
-													name="DocumentFileTwo" class="form-control-sm"
+													name="DocumentFileTwo" class="form-control-sm" accept=".jpg, .jpeg, .pdf"
 													onchange="handleFileSelect(event,'DocumentFileTwoText'), onValidateFile('DocumentFileTwo')"
 													class="form-control p-input">
 												<textarea id="DocumentFileTwoText"
@@ -886,10 +886,10 @@
        							result[i].actualKM="";
        						}
                         	 if(!result[i].hasOwnProperty("totalFreight")){
-       							result[i].totalFreight="";
+       							result[i].totalFreight="0";
        						}
                         	 if(!result[i].hasOwnProperty("lumpsomeamount")){
-       							result[i].lumpsomeamount="";
+       							result[i].lumpsomeamount="0";
        						}
                         	 
                         	   textBox="<input type=\"text\" class=\"form-control\" id=\"form-control\" placeholder=\"Fill Description\" oninput=\"updateTextData('"+i+"',this.value)\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
@@ -897,20 +897,25 @@
                         	   $('#prTable').DataTable().row.add([ i+1, result[i].tripID,result[i].runType, result[i].standardKM, result[i].ratePerKm, result[i].currentFuelRate, result[i].fsBaseRate,  result[i].fsDiff, result[i].basicFreight, result[i].fs, result[i].actualKM, result[i].totalFreight, result[i].lumpsomeamount, textBox, action ]);                         
                          		id=(result[i].id);
                          		
-                         		temp.push(result[i].totalFreight);
+                         		temp.push(parseFloat(result[i].totalFreight));
                          		temp1.push(parseFloat(result[i].lumpsomeamount));
                          }
                          var sum=0;
                          for (let i = 0; i < temp.length; i++) {
+                        	 console.log(sum," sum ",i)
                              sum += temp[i];
                          }
+                         console.log(sum,"sum-----");
                          var sum1=0;
                          for (let i = 0; i < temp1.length; i++) {
+                        	 console.log(sum1," sum1 ",i)
                              sum1 += temp1[i];
                          }
+                         console.log(sum1,"sum1-----");
                                                  
-                         $("#taxableAmount").val(sum+sum1);
+                         $("#taxableAmount").val((sum+sum1).toFixed(2));
                          
+                         console.log(sum+sum1);
                          $('#prTable').DataTable().draw();
                          $("tbody").show();
                 	 } else {
@@ -1025,7 +1030,7 @@
 			 var obj ={
 					"vendorCode" : bpname
 			} 
-			 console.log(obj);
+			 //console.log(obj);
 			
 			$.ajax({
 		      	type: "POST",
@@ -1039,7 +1044,7 @@
 					if (data.msg == 'success') {					
 						var result = data.data;
 						$("#tripList ").empty();
-						console.log(result);
+						//console.log(result);
 						if (result.length !== 0) {							
 							
 							for (var i = 0; i < result.length; i++) {																						
@@ -1067,7 +1072,7 @@
 		var taxableAmount	= $("#taxableAmount").val();
 		var invoiceAmount= parseFloat(taxAmount)+parseFloat(taxableAmount);
 			console.log(invoiceAmount);
-			$("#invoiceAmount").val(invoiceAmount);
+			$("#invoiceAmount").val((invoiceAmount).toFixed(2));
 		}
 		
     </script>

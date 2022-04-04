@@ -307,10 +307,10 @@ window.onload = function(){
 														class="required adHocRequired">*</span></label></td>
 												
 												<td style="width: auto">
-                                                <select class=""  name="states" id="states" onchange="select()" multiple="multiple" >
-                                                    <option  name="option[]"id="option[]"  value="Network">&emsp;&emsp;Network</option>
-                                                    <option name="option[]" id="option[]"value="Fixed Asset">&emsp;&emsp;Fixed Asset</option>
-                                                    <option name="option[]" id="option[]" value="Other">&emsp;&emsp;Other</option>
+                                                <select class="js-example-basic-multiple select2"  name="states[]" id="states" onchange="select()" multiple="multiple" >
+                                                    <option  name="option[]"  value="Network">&emsp;&emsp;Network</option>
+                                                    <option name="option[]" value="Fixed Asset">&emsp;&emsp;Fixed Asset</option>
+                                                    <option name="option[]"  value="Other">&emsp;&emsp;Other</option>
                                                  </select>
                                                     
 													
@@ -354,7 +354,9 @@ window.onload = function(){
 												var val = document.getElementById("states").value
 												if (val == "Network") {
 													document.getElementById("partnerType").disabled = false;
+													if(document.getElementById("partnerType").value == ''){
 													document.getElementById("partnerType").value = "Scheduled";
+													}
 												}else{
 													document.getElementById("partnerType").disabled = true;
 													document.getElementById("partnerType").value = "";
@@ -878,7 +880,7 @@ window.onload = function(){
 										</form>
 									</div>
 								</div>
-								</div></div></div>
+								</div>
 								
 								
 								
@@ -948,8 +950,8 @@ window.onload = function(){
 											</div>
 										</form>
 									</div>
-								</div>
-							</div>
+								
+							
 
 							<!-- End -->
 
@@ -1163,15 +1165,11 @@ window.onload = function(){
 								
 								
 							<!-- model End -->	
-						 </div>
-                        </div>
-                    </div>
+						 
+                  
 
-                </div>
-
-            </div>
-        </div>
-    </div>
+            
+      
 
 
 
@@ -1482,7 +1480,26 @@ window.onload = function(){
                         setData(myForm, result[0]);
                         
                            var vendorType=result[0].vendorType;
+                           
+                          /*  var $example = $(".js-example-basic-multiple").select2();
+                           var $exampleMulti = $(".js-example-basic-multiple").select2();
+                            
+                           $(".js-example-basic-multiple").each("click", function () {
+                        	   $exampleMulti.val(["Network", "Other"]).trigger("change");
+                        	   }); */
+ 
+                           
+                           
+                          /*   $("#states :selected").each(function(){
+				                selectedValues.push($(this).val()); 
+				            }) */;
+                            
+                           
                            document.getElementById("states").value=vendorType; 
+                           
+                         /*   $("#states :selected").each(function(){
+				                selectedValues.push($(this).val()); 
+				            }) */
                            
                           /* var str = vendorType.split(",");
                            
@@ -2157,7 +2174,12 @@ window.onload = function(){
             }
         }
 
-
+      /*  function docview(){
+        	
+    	   var fileToLoad = document.getElementById("GSTFile").files[0];
+    	   alert("fileToLoad"+fileToLoad);
+    	   window.open(fileToLoad);
+        } */
         
         
     </script>

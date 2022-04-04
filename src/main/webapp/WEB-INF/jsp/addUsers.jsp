@@ -176,16 +176,7 @@
                                                 </div>
 
                                             </div>
-                                            <%-- <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleId" style="height: 34px;">
-                                                        <c:forEach items="${rolesList}" var="role">
-                                                            <option value="${role.id}">${role.roleName}</option>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>
-
-                                            </div> --%>
+                                            
                                             
                                             
                                             <div class="col-md-3">
@@ -309,11 +300,13 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleIdEdit" style="height: 34px;">
-                                                        <c:forEach items="${rolesList}" var="role">
-                                                            <option value="${role.id}">${role.roleName}</option>
-                                                        </c:forEach>
+                                                       
+                                                            <option value="1">Admin</option>
+                                                            <option value="3">Audit</option>
+                                                       
                                                     </select>
                                                 </div>
+
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
@@ -568,6 +561,7 @@
                     required: true
 
                 },
+                
                 username: {
                     required: true
 

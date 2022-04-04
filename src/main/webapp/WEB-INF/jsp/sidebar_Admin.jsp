@@ -83,6 +83,19 @@
                         <p>&ensp;Notification</p>
                     </a></li>
                     
+                    
+                     <li class="nav nav-treeview">
+                                               <li class="nav-item"><a href="addUsers"
+                                                       class="nav-link
+                           <%if (request.getParameter("pagename").equalsIgnoreCase("addUsers")) {
+                               out.print("active");
+                       }%>
+
+                ">
+                <i class="nav-icon fas fa-user"></i>
+                <p>Users</p>
+                </a></li>
+            </li>
                    
                     <li class="nav-item"><a href="vendorRegistrastion" target="_blank" rel="noopener noreferrer" class="nav-link
                             <%if (request.getParameter("pagename").equalsIgnoreCase("vendorRegistrastion")) {

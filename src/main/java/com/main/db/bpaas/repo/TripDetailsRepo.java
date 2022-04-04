@@ -171,8 +171,38 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
 @Query(value = "SELECT * FROM trip_details where vendor_trip_status = 'Yet To Be Approved By Network Team' and assign_to = 'Network' and run_type='Adhoc' and run_status = 'Closed' order by id limit 50; ", nativeQuery = true)
 List<TripDetails> findAllTripsLimitFifty();
-
-
-
 //END
+
+
+
+//Added by Manish , Trip count For Admin
+@Query(value = "select count(*) from Trip_Details", nativeQuery = true)
+int getTripCount();
+
+@Query(value = "select count(*) from Trip_Details where run_status='Closed'", nativeQuery = true)
+int getCloseTripCount();
+
+@Query(value = "select count(*) from Trip_Details where run_status='In-Transit'", nativeQuery = true)
+int getInTransitTripCount();
+
+@Query(value = "select count(*) from trip_details where run_type='Adhoc' and vendor_trip_status='Approved'", nativeQuery = true)
+int getApproveAdHocTripCount();
+
+@Query(value = "select * from Trip_Details where run_status='Closed'", nativeQuery = true)
+List<TripDetails> getAllCloseTrip();
+
+@Query(value = "select * from Trip_Details where run_status='In-Transit'", nativeQuery = true)
+List<TripDetails> getAllInTransitTrip();
+
+//@Query(value = "select * from Trip_Details where run_status='In-Transit' and ", nativeQuery = true)
+//List<TripDetails> getAllClosedAndApproved();
+@Query(value = "select * from trip_details where vendor_trip_status='Yet To Be Approved' and assign_to = 'Vendor'", nativeQuery = true)
+List<TripDetails> getAllPendingTrip();
+
+//end 
+
+
+
+
+
 }

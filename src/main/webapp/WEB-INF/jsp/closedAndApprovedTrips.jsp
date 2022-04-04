@@ -1,7 +1,6 @@
 <%@page import="com.main.commonclasses.GlobalConstants"%>
 <%@page import="com.main.commonclasses.GlobalUrl"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
@@ -10,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>${titleName}|Closed Trips</title>
+    <title>${titleName} | Closed And Approved Trips</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -124,23 +123,16 @@
                     <div class="row mb-2">
                         <div class="col-sm-6"></div>
                         <div class="col-sm-6">
-                            <!-- <ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li>
-						</ol> -->
                         </div>
-
                     </div>
                 </div>
             </div>
 
             <!-- /.content-header -->
 
-
             <!-- Main content -->
             <section class="content mt-2">
                 <div class="container-fluid">
-
                     <div class="row">
                         <div class="col-md-12" style="font-size: 14px;">
                             <!-- general form elements -->
@@ -149,9 +141,7 @@
                                     <h3 class="card-title" style="font-size: 15px;">Closed And Approved Trips</h3>
                                 </div>
                                 <!-- /.card-header -->
-                               
                                 <div class="card-body ">
-                                  
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
@@ -165,32 +155,21 @@
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Mode</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Actual Departure (ATD)</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Actual Arrival (ATA)</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
-
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="modal-footer">
-
                                     <input id="flipToInvoice" type="submit" class="submit-input" onclick="invoiceProcessing()" value="Flip to Invoice " />
                                 </div>
                                 <!-- /.card-body -->
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </section>
-
-            <!-- Control Sidebar -->
-            <!-- <aside class="control-sidebar control-sidebar-dark">
-			Control sidebar content goes here
-		</aside>
-		/.control-sidebar -->
         </div>
         <!-- ./wrapper -->
 
@@ -206,11 +185,9 @@
                                     <input type="hidden" id="headerDetailsId" class="form-control">
                                     <!-- <table class="table " id="property-desc"> -->
                                     <div class="card card-primary">
-                                         <div class="card-header" style="padding: 4px 0px 4px 4px;">
+                                        <div class="card-header" style="padding: 4px 0px 4px 4px;">
                                             <h3 class="card-title" style="font-size: 15px;">Trip Details</h3>
                                         </div>
-
-
                                         <!-- /.card-header -->
                                         <div class="card-body">
                                             <form role="form" id="tripForm">
@@ -243,7 +220,6 @@
                                                             <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="mode" name="mode" autocomplete="off" disabled>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-3">
@@ -275,7 +251,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="row">
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
@@ -311,7 +286,6 @@
                                                     </div>
 
                                                 </div>
-
                                                 <div class="row">
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
@@ -341,9 +315,7 @@
                                                             <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualKM" name="actualKM" disabled>
                                                         </div>
                                                     </div>
-
                                                 </div>
-
                                                 <div class="row">
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
@@ -374,7 +346,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="row">
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
@@ -404,7 +375,6 @@
                                                             <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="basicFreight" name="basicFreight" disabled>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-3">
@@ -427,29 +397,25 @@
                                         <!-- /.card-body -->
                                     </div>
                                     <!-- /.card -->
-									<div class="container">
-										<div class="col-md-12 text-center" style="padding-top: 0px;">
-	                       					 <button type="button" class="btn btn-primary" id="closeModal" data-dismiss="modal">Close</button>
-	                  			    	</div>
-                  			    	</div>
+                                    <div class="container">
+                                        <div class="col-md-12 text-center" style="padding-top: 0px;">
+                                            <button type="button" class="btn btn-primary" id="closeModal" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
         <!-- model End -->
 
         <script src="plugins/jquery/jquery.min.js"></script>
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
             $.widget.bridge('uibutton', $.ui.button);
             $.widget.bridge('uitooltip', $.ui.tooltip);
-
         </script>
         <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/commonFunctions.js"></script>
@@ -468,7 +434,6 @@
         <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
         <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
         <script src="plugins/toastr/toastr.min.js"></script>
-
         <script type="text/javascript">
             const Toast = Swal.mixin({
                 toast: true,
@@ -478,7 +443,7 @@
             });
 
             var tabledata = $('#tabledata').DataTable({
-            	"paging": false,
+                "paging": false,
                 "lengthChange": false,
                 "searching": false,
                 "info": true,
@@ -523,64 +488,32 @@
                     }
                 })
             })
-            
-           /*  var arr=[];
-              document.getElementById('flipToInvoice').onclick = function() {
-            	$('input[name="option"]:checked').each(function() {
-            		   //	console.log(this.value); 
-            		   var table = document.getElementById('tabledata');
-                       
-                       
-                       for (var r = 1, n = table.rows.length; r < n; r++) {
-                               arr.push(table.rows[r].cells[1].innerText);
-                       } 
-                       
-            		});	
-            	let values = arr.toString();
-                console.log(values);
-				}  */
 
-				
-             		function invoiceProcessing() {
-					 var table = document.getElementById('tabledata');
-		                var checkflag = [];
-		                  $("input:checkbox[name='option']:checked").each(function(){    
-		                  checkflag.push($(this).val());    		
-		                  	});
-		              
-		                /* var arr=[];
-		                
-		                for (var r = 1, n = table.rows.length; r < n; r++) {
-		                        arr.push(table.rows[r].cells[1].innerText);
-		                }  */
-		               // let values = arr.toString();
-		              	let values = checkflag.toString(); 
-		                console.log("All Trip Ids : ",values);
-		                if(values=="" || values==null){
-		                	Toast.fire({
-		                        type: 'error',
-		                        title: 'Please select atleast one trip'
-		                    })
-		                    return;
-		                }
-		                
+            function invoiceProcessing() {
+                var table = document.getElementById('tabledata');
+                var checkflag = [];
+                $("input:checkbox[name='option']:checked").each(function() {
+                    checkflag.push($(this).val());
+                });
 
+                let values = checkflag.toString();
+                if (values == "" || values == null) {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Please select atleast one trip'
+                    })
+                    return;
+                }
                 $('.loader').show();
-                
-                var urlOftripsDetail = "tripsInvoiceGenerate?id="+values;
+                var urlOftripsDetail = "tripsInvoiceGenerate?id=" + values;
                 window.open(urlOftripsDetail, "tripsInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
-               
-                
-               
-               
-				} 
-				
+            }
+
             getData();
 
             function getData() {
                 var jsArray = [];
                 $('.loader').show();
-
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify(jsArray),
@@ -591,74 +524,61 @@
                     success: function(data) {
                         $('.loader').hide();
                         if (data.msg == 'success') {
-
                             var result = data.data;
                             tabledata.clear();
-
                             for (var i = 0; i < result.length; i++) {
-                            	
-                            	if(!result[i].hasOwnProperty("tripID")){
-     								result[i].tripID="";
-     							}
-                                 if(!result[i].hasOwnProperty("route")){
-     								result[i].route="";
-     							}
-                                 if(!result[i].hasOwnProperty("runType")){
-     								result[i].runType="";
-     							}
-                                 if(!result[i].hasOwnProperty("actualKM")){
-     								result[i].actualKM="";
-     							}
-                                 if(!result[i].hasOwnProperty("standardKM")){
-     								result[i].standardKM="";
-     							}
-                                 if(!result[i].hasOwnProperty("mode")){
-      								result[i].mode="";
-      							}
-                                  if(!result[i].hasOwnProperty("actualDeparture")){
-      								result[i].actualDeparture="";
-      							}
-                                  if(!result[i].hasOwnProperty("actualArrival")){
-      								result[i].actualArrival="";
-      							}
-                            	
-                            	
-                                //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].siteQualityId + "','" + result[i].checkListId + "','"+result[i].url+"')\"><i class='fa fa-eye ' ></i></button>";
+                                if (!result[i].hasOwnProperty("tripID")) {
+                                    result[i].tripID = "";
+                                }
+                                if (!result[i].hasOwnProperty("route")) {
+                                    result[i].route = "";
+                                }
+                                if (!result[i].hasOwnProperty("runType")) {
+                                    result[i].runType = "";
+                                }
+                                if (!result[i].hasOwnProperty("actualKM")) {
+                                    result[i].actualKM = "";
+                                }
+                                if (!result[i].hasOwnProperty("standardKM")) {
+                                    result[i].standardKM = "";
+                                }
+                                if (!result[i].hasOwnProperty("mode")) {
+                                    result[i].mode = "";
+                                }
+                                if (!result[i].hasOwnProperty("actualDeparture")) {
+                                    result[i].actualDeparture = "";
+                                }
+                                if (!result[i].hasOwnProperty("actualArrival")) {
+                                    result[i].actualArrival = "";
+                                }
+
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
-                                var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\""+result[i].tripID+"\" ><\div>";
-                                
+                                var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\"" + result[i].tripID + "\" ><\div>";
                                 var statustemp_runType_Scheduled = '<span class=\"right badge badge-warning\">Scheduled</span>';
                                 var statustemp_runType_AdHoc = '<span class=\"right badge badge-success\">Adhoc</span>';
-
                                 var statustemp_mode_MilkRun = '<span class=\"right badge badge-warning\">Surface Milk Run</span>';
                                 var statustemp_mode_LineHaul = '<span class=\"right badge badge-success\">Linehaul Run</span>';
                                 var statustemp_mode_AdHocRun = '<span class=\"right badge badge-primary\">Adhoc Run</span>';
 
                                 var runType = "";
                                 var mode = "";
-                                
-                                
-                               // tabledata.row.add([checkbox, view, result[i].route, result[i].runType, result[i].actualKM, result[i].standardKM, result[i].mode, result[i].actualDeparture, result[i].actualArrival, result[i].status]);
-                                var tempString=[checkbox, view, result[i].route, runType, result[i].actualKM, result[i].standardKM, mode, result[i].actualDeparture, result[i].actualArrival, result[i].status];
-                                
+
+                                var tempString = [checkbox, view, result[i].route, runType, result[i].actualKM, result[i].standardKM, mode, result[i].actualDeparture, result[i].actualArrival];
+
                                 if (result[i].runType == "Scheduled") {
                                     tempString[3] = statustemp_runType_Scheduled;
-
                                 } else if (result[i].runType == "Adhoc") {
                                     tempString[3] = statustemp_runType_AdHoc;
-
                                 }
-                                
+
                                 if (result[i].mode == "Surface Milk Run") {
                                     tempString[6] = statustemp_mode_MilkRun;
-
                                 } else if (result[i].mode == "Linehaul Run") {
                                     tempString[6] = statustemp_mode_LineHaul;
-
                                 } else if (result[i].mode == "Adhoc Run") {
                                     tempString[6] = statustemp_mode_AdHocRun;
                                 }
-                                
+
                                 tabledata.row.add(tempString);
                             }
                             tabledata.draw();
@@ -676,16 +596,7 @@
                 });
             }
 
-            /* function setTripStatus(tripId){
-				 console.log("try to oepn checklist");
-				 console.log("tripid : "+tripId);
-							 
-			 } */
-
             function setTripStatus(tripId) {
-                console.log("Trip od" + tripId);
-                //	 tripId =  $("#tripID").val();		
-
                 var json = {
                     "tripID": tripId
                 }
@@ -701,16 +612,10 @@
 
                         if (data.msg == 'success') {
                             var result = data.data;
-
-                            /* jsondata=JSON.parse(result) */
-                            ;
                             var myForm = "";
                             myForm = document.getElementById("tripForm");
                             setData(myForm, result);
-
                             $("#tripID").val(result.tripID);
-
-
                         } else {
                             Toast.fire({
                                 type: 'error',
@@ -719,23 +624,19 @@
                         }
                     },
                     error: function(jqXHR, textStatue, errorThrown) {
-                        //alert("failed, please try again");
                         Toast.fire({
                             type: 'error',
                             title: 'Failed.. Try Again..'
                         })
                     }
-
                 });
             }
-			 
-			 function refereshList(){
-				 getData();
-				 $('.loader').hide();
-			 }
-			 //window.opener.refereshList()
 
+            function refereshList() {
+                getData();
+                $('.loader').hide();
+            }
+            //window.opener.refereshList()
         </script>
 </body>
-
 </html>

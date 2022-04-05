@@ -38,6 +38,7 @@ public class GlobalUrl {
     public static String status = tripControllers + "/status";
     public static String statusNetwork = tripControllers + "/statusNetwork";
     public static String filterTripDetails = tripControllers + "/filterTripDetails";
+    public static String filterTripDetailsByNetwork = tripControllers + "/filterTripDetailsByNetwork";
     public static String saveTripQuery = tripControllers + "/saveTripQuery";
     public static String getDraftLineTripDetails = tripControllers + "/getDraftLineTripDetails";
     public static String getTripDetailByTripId = tripControllers + "/getTripDetailByTripId";

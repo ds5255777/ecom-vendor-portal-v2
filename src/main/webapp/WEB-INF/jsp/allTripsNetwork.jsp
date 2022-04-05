@@ -975,23 +975,39 @@
                                                             $('.loader').show();
                                                             var fromDate = $("#fromDate").val();
                                                             var toDate = $("#toDate").val();
+                                                            
+                                                            if (fromDate == "" || fromDate == null) {
+                                                                //alert("plaese select from date"+fromDate);
+                                                                Toast.fire({
+                                                                    type: 'error',
+                                                                    title: 'Please Select Start Date..'
+                                                                });
+                                                                document.getElementById("fromDate").focus();
+                                                                return;
+                                                            }
 
-                                                            //const d = new Date();
-
-                                                            //let text = fromDate.toString();
-                                                            //let text2 = toDate.toString();
+                                                            if (toDate == "" || toDate == null) {
+                                                                //alert("plaese select from date"+fromDate);
+                                                                Toast.fire({
+                                                                    type: 'error',
+                                                                    title: 'Please Select End Date..'
+                                                                });
+                                                                document.getElementById("toDate").focus();
+                                                                return;
+                                                            }
 
                                                             $.ajax({
                                                                 type: "GET",
                                                                 data: {
-                                                                    "actualDeparture": fromDate,
-                                                                    "actualArrival": toDate
+                                                                	"actualDeparture": fromDate.concat(" ","00:00:00"),
+                                                                    "actualArrival": toDate.concat(" ","23:59:59")
                                                                 },
-                                                                url: "<%=GlobalUrl.filterTripDetails%>",
+                                                                url: "<%=GlobalUrl.filterTripDetailsByNetwork%>",
                                                                 dataType: "json",
                                                                 contentType: "application/json",
 
                                                                 success: function (data) {
+                                                                	console.log(data," : data : ");
                                                                     $('.loader').hide();
                                                                     if (data.msg == 'success') {
                                                                         //alert("Hiii");

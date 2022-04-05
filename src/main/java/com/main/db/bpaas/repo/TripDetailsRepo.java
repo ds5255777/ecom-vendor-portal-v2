@@ -92,6 +92,9 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
     TripDetails findByTripID(String tripID);
 
+    @Query(value = "select  * from Trip_Details WHERE  1=1 AND actual_departure BETWEEN (:startDate) AND (:endDate) ; ", nativeQuery = true)
+    List<TripDetails> findByActualDepartureBetween(@Param("startDate") String startDate, @Param("endDate") String endDate);
+
     @Query(value = "select  * from Trip_Details WHERE  vendor_code=:vendorCode AND actual_departure BETWEEN (:startDate) AND (:endDate) ; ", nativeQuery = true)
     List<TripDetails> findByActualDepartureBetween(@Param("startDate") String startDate, @Param("endDate") String endDate, @Param("vendorCode") String vendorCode);
 

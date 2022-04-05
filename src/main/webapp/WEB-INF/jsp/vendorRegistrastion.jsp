@@ -186,11 +186,12 @@
             console.log("stepNo " + stepNo);
             if (stepNo == 0) {
 
-                /* if ($("#partnerType").val() == "Scheduled") { */
+                
 
                 	
                     console.log("Inside Step One");
-                    //var mandFields = "introducedByName,introducedByEmailID,suppName,compEmail,panNumber,natureOfTransactions,opeUnitReqMap";
+                   
+                    
                     var mandFields = "introducedByName,introducedByEmailID,suppName,compEmail,panNumber,natureOfTransactions";
                     var mandFieldsArr = mandFields.split(",");
                     for (i = 0; i < mandFieldsArr.length; i++) {
@@ -202,23 +203,8 @@
                         }
                     }
 
-                    //  
-                /* } else {
-                    console.log("Inside Step One");
-                    //
-
-                    var mandFields = "partnerType,introducedByName,introducedByEmailID,suppName,compEmail,phoneNumber";
-                    var mandFieldsArr = mandFields.split(",");
-                    for (i = 0; i < mandFieldsArr.length; i++) {
-                        console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
-                        if (document.getElementById(mandFieldsArr[i]).value == '') {
-                            notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                            console.log("Mandatory Check :: " + mandFieldsArr[i]);
-                            return false;
-                        }
-                    }
-                } */
-
+                   
+             
 
             } else if (stepNo == 1) {
                 console.log("Inside Step Two");
@@ -1814,7 +1800,6 @@ width: 100% !important;
         function sendToServer() {
         	
         
-        	
         	console.log("Inside Step One");
             var mandFields = "introducedByName,introducedByEmailID,suppName,compEmail,panNumber,natureOfTransactions";
             var mandFieldsArr = mandFields.split(",");
@@ -1827,7 +1812,17 @@ width: 100% !important;
                 }
             }
         	
-        	
+            var element = document.getElementById('states');
+        	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
+        	var selectedValues = [];    
+            $("#states :selected").each(function(){
+                selectedValues.push($(this).val()); 
+            });
+            if(selectedValues== ""){
+            	swal.fire("Alert", "please select Business Partner Type....", "warning")
+                return regex.test(inputvalues);
+            }
+           
         	
             var addressDetailsArray = [];
             var table = document.getElementById('addBookGrid');
@@ -1849,8 +1844,8 @@ width: 100% !important;
             
             if(addressDetailsArray.length==0 && partnerType!="Ad-Hoc"){
             	
-            	 swal.fire("please add address");
-                 return regex.test(inputvalues);
+            	swal.fire("Alert", "please add addres....", "warning")
+                return regex.test(inputvalues);
             }
             
             var accountDetailsArray = [];
@@ -1872,8 +1867,8 @@ width: 100% !important;
 
             if(accountDetailsArray.length==0  && partnerType!="Ad-Hoc"){
             	
-            	 swal.fire("please add accountDetails");
-                 return regex.test(inputvalues);
+            	swal.fire("Alert", "please add accountDetails....", "warning")
+                return regex.test(inputvalues);
             }
             
             var contactDetailsArray = [];
@@ -1894,8 +1889,8 @@ width: 100% !important;
             
             if(contactDetailsArray.length==0  && partnerType!="Ad-Hoc"){
             	
-            	 swal.fire("please add contactDetails");
-                 return regex.test(inputvalues);
+				swal.fire("Alert", "please add contactDetails....", "warning")
+                return regex.test(inputvalues);
             }
             
             var itrDetailsArray = [];
@@ -1912,10 +1907,35 @@ width: 100% !important;
                 itrDetailsArray.push(pushItrObj);
             }
             
-           /*  if(itrDetailsArray.length==0 || itrDetailsArray.length==null){
-            	alert("please add itrDetails");
-            	return;
-            } */
+          
+            
+            if ($("#partnerType").val() != "Ad-Hoc") { 
+        		  
+        		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,ITRFile,FUVFFile,MSMECFile,AMFile,ITRAFile,NMISFile";
+                  var mandFieldsArr = mandFields.split(",");
+
+                  for (i = 0; i < mandFieldsArr.length; i++) {
+                      console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
+                      if (document.getElementById(mandFieldsArr[i]).value == '') {
+                          notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                          console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                          return false;
+                      }
+                  }
+        	   } 
+        	   else{
+        		  var mandFields = "suppName,compEmail";
+                  var mandFieldsArr = mandFields.split(",");
+                  for (i = 0; i < mandFieldsArr.length; i++) {
+                      console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
+                      if (document.getElementById(mandFieldsArr[i]).value == '') {
+                          notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                          console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                          return false;
+                      }
+                  }
+        	  } 
+
             
             
             $body.addClass("loading");
@@ -1998,7 +2018,7 @@ width: 100% !important;
             
            var values= document.getElementById("roleId").value ;
             
-            alert("values : "+values);
+            
             
             finalObj.vendorType = values;
             

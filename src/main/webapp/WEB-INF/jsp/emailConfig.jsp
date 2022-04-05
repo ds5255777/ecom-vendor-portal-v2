@@ -102,7 +102,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <jsp:include page="slidebar.jsp?pagename=emailConfig" />
+        <jsp:include page="sidebar_Admin.jsp?pagename=emailConfig" />
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

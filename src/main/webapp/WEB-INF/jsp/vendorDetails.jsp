@@ -237,6 +237,14 @@
     </div>
     <!-- ./wrapper -->
 
+ 
+<!-- <script type = "text/javascript">  
+window.onload = function(){  
+	
+	alert("hii")
+	select();
+}  
+</script> -->
 
 
     <div class="modal fade" id="userModal" role="dialog">
@@ -262,7 +270,7 @@
 							</div>
 						<div id="basicDetailsHeadData" aria-labelledby="basicDetailsHead"
 								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
-                               <form role="form" id="stepOneForm" class="forms-sample" style="padding: 20px;" autocomplete="off">
+                               <form role="form" id="stepOneForm" class="forms-sample" style="padding: 20px;" autocomplete="off" >
 									<table class="table center-aligned-table" id="fromTable" name="fromTable">
 										<thead>
 										</thead>
@@ -291,18 +299,19 @@
 													id="message"></span></td>
 
 											</tr>
+											
+											
 											<tr>
 
 												<td><label>Business Partner Type<span
 														class="required adHocRequired">*</span></label></td>
 												
 												<td style="width: auto">
-                                                <select class="js-example-basic-multiple select2"  name="states" id="states" onchange="select()" multiple="multiple" >
-                                                    <option  name="option[]"  value="Network">&emsp;&emsp;Network</option>
-                                                    <option name="option[]" value="Fixed Asset">&emsp;&emsp;Fixed Asset</option>
-                                                    <option name="option[]"  value="Other">&emsp;&emsp;Other</option>
-                                                 </select>
-                                                    
+												<select class="js-example-basic-multiple select2"  name="states[]" style="color: red;" id="states" value="Network" onchange="select()" multiple="multiple" >
+												<option    value="Network">&emsp;&emsp;Network</option>
+												<option  value="Fixed Asset">&emsp;&emsp;Fixed Asset</option>
+												<option   value="Other">&emsp;&emsp;Other</option>
+												</select>
 													
 												</td>
 												
@@ -324,7 +333,7 @@
 											<script>
 											
 											function select(){
-										
+												 
 												
 												var element = document.getElementById('states');
 									        	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
@@ -332,19 +341,21 @@
 									            $("#states :selected").each(function(){
 									                selectedValues.push($(this).val()); 
 									            });
-									           // alert(selectedValues);
+									            //alert(selectedValues);
 									            
 									            let values = selectedValues.toString();
 									         
 									        	document.getElementById("roleId").value=values;
 									        	//alert("roleId111: "+num);
 												
-										
+									        
 												
 												var val = document.getElementById("states").value
 												if (val == "Network") {
 													document.getElementById("partnerType").disabled = false;
+													if(document.getElementById("partnerType").value == ''){
 													document.getElementById("partnerType").value = "Scheduled";
+													}
 												}else{
 													document.getElementById("partnerType").disabled = true;
 													document.getElementById("partnerType").value = "";
@@ -392,8 +403,7 @@
 														class="required adHocRequired">*</span></label></td>
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="panNumber"
-													name="panNumber" placeholder="Pan Number"oninput="this.value = this.value.toUpperCase()"
-													onchange="ValidatePAN()">
+													name="panNumber" placeholder="Pan Number"oninput="this.value = this.value.toUpperCase()">
 													<span id="lblPANCard" class="error">Invalid PAN Number</span>
 													</td>
 
@@ -813,13 +823,13 @@
 							</div>
 						</div>
 
-							</div>	
+				</div>	
 
 
 
 
 								<div id="step-4" class="">
-						<div class="card" style="margin-bottom: 10px;">
+						<div class="card" style="margin-bottom: 0px;">
 
 							<!-- Start -->
 
@@ -869,7 +879,7 @@
 										</form>
 									</div>
 								</div>
-								</div></div></div>
+								</div>
 								
 								
 								
@@ -939,8 +949,8 @@
 											</div>
 										</form>
 									</div>
-								</div>
-							</div>
+								
+							
 
 							<!-- End -->
 
@@ -1139,30 +1149,21 @@
 								</div>
 							</div>
 						</div>
-								
-								
-								
-								
+							
 								<div class="card-footer" align="center">
                                         <button type="submit" id="updateBtn" onclick="sendToServer()" class="btn btn-primary">Update</button>
                                         <button type="button" class="btn btn-primary" id="closePopBtn" data-dismiss="modal">Close</button>
                                     </div>
-								
-								
-								
-								
-								
-								
+							
 							<!-- model End -->	
-						 </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
+				
+            		</div>
+				</div>
+			</div>
+		</div>
+	</div>
+            
+      </div></div></div></div></div>
 
 
 
@@ -1268,23 +1269,7 @@
             "aaSorting": [],
             "scrollX": true 
         });
-        
-       /*  var addBookGrid = $('#addBookGrid').DataTable({
-           // "paging": true,
-           // "lengthChange": false,
-          //  "searching": true,
-          //  "info": true,
-          //  "autoWidth": false,
-          //  "aaSorting": [],
-         //   "scrollX": true
-        }); */
 
-      
-        
-        
-        
-        
-        
 
         const Toast = Swal.mixin({
             toast: true,
@@ -1319,6 +1304,34 @@
 
                          for (var i = 0; i < result.length; i++) {
                         	
+                        	 if(!result[i].hasOwnProperty("introducedByName")){
+     							result[i].introducedByName="";
+     						}
+                        	 if(!result[i].hasOwnProperty("suppName")){
+     							result[i].suppName="";
+     						}
+                        	 if(!result[i].hasOwnProperty("compEmail")){
+     							result[i].compEmail="";
+     						}
+                        	 if(!result[i].hasOwnProperty("introducedByEmailID")){
+     							result[i].introducedByEmailID="";
+     						}
+                        	 if(!result[i].hasOwnProperty("compGstn")){
+     							result[i].compGstn="";
+     						}
+                        	 if(!result[i].hasOwnProperty("natureOfTransactions")){
+     							result[i].natureOfTransactions="";
+     						}
+                        	 if(!result[i].hasOwnProperty("partnerType")){
+     							result[i].partnerType="";
+     						}
+                        	 if(!result[i].hasOwnProperty("vendorType")){
+     							result[i].vendorType="";
+     						}
+                        	 if(!result[i].hasOwnProperty("phoneNumber")){
+     							result[i].phoneNumber="";
+     						}
+
                         	 
                         	 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#\" onclick=\"editData('" + result[i].bpCode + "')\" >" + result[i].bpCode + "</button>";
                         	
@@ -1328,6 +1341,8 @@
 
                         tabledata.draw();
                         $("tbody").show();
+                        
+                        
 
                     } else {
                         Toast.fire({
@@ -1430,51 +1445,52 @@
                     if (data.msg == 'success') {
                         var result = data.data;
                     	console.log(result);
-                    	//alert("hii id : "+result[0].addressDetails[0].pinCode)
-                    	
+                    
                     	id=result[0].id;
-                    	//bpCode=result[0].bpCode;
-                    	
-                    	
-                    	// $("#userModal").modal('show');
-                    	
+                    
                     	var myForm = "";
                         myForm = document.getElementById("stepOneForm");
                         setData(myForm, result[0]);
                         
                            var vendorType=result[0].vendorType;
-                           document.getElementById("states").value=vendorType; 
+                        
+                           var str = vendorType.split(",");
                            
-                          /*  $("#states").append("<option>Network</option>"); */
+                         
+                        	   for (let i = 0; i < str.length; i++) {
+                            	  // alert("str"+str[i]);
+                            	   
+                            	    if(str[i] == 'Network' && str[i+1] == 'Fixed Asset' && str[i+2] == 'Other'){
+                            	    		$('#states').val(["Network","Fixed Asset","Other"]).change() 
+                            				break;
+                            	    
+                            	   	}else if(str[i] == 'Network' && str[i+1] == 'Fixed Asset' ){
+                               		   		$('#states').val(["Network","Fixed Asset"]).change()
+                               		  	 	break;
+                               	   	}else if(str[i] == 'Fixed Asset' && str[i+1] == 'Other'){
+                                  		  	 $('#states').val(["Fixed Asset","Other"]).change()
+                                  			break;
+                                  	 }else if(str[i] == 'Network' && str[i+1] == 'Other'){
+                              		  	 $('#states').val(["Network","Other"]).change()
+                               			break;
+                               	 	}else if(str[i] == 'Network'){
+                                    		 
+                                  		   $('#states').val('Network').submit().trigger('change');
+                                  			 break;
+                                  	 }else if(str[i] == 'Fixed Asset'){
+                                    		 
+                                  		   $('#states').val('Fixed Asset').submit().trigger('change'); 
+                                  		 	break;
+                                  	 }else if(str[i] == 'Other'){
+                              				$('#states').val('Other').trigger('change');
+                              		 		break;
+                              	   }    	
+                            	  
+                        	 } 
+                        
                            
-                           
-                           /* $(function () {
-                               $.getJSON( "/f3/tokenize/PO_SoW", function(respond) {
-                                   $('#states').select2({
-                                       multiple: true,
-                                       data: respond
-                                   });
-                                });
-                   });
-                            */
-                           
-                           
-                         /*   $("#states").val(result[0].vendorType);
-                       alert("vendorType : "+vendorType); */
-                       
-                      // document.getElementById("states").value=vendorType; 
+                        	 select();
                       
-                     /*  $("#states").val(vendorType); */
-                     
-                    /*  var str = vendorType.split(",");
-                       alert("str : "+str);
-                       
-                       
-                       for (let i = 0; i < str.length; i++) {
-                    	   alert("str"+str[i]);
-                    	  // document.getElementById("option[]").checked=str[i];
-                    	 }//manish pending code */
-
                   
                        if(result[0].partnerType!="Ad-Hoc"){
                     	   
@@ -1527,26 +1543,15 @@
                          }
                         
                     
-                        /* myForm = document.getElementById("Form-3");
-                        setData(myForm, result[0].contactDetails[0]); */
                        
-                        
-                        /* myForm = document.getElementById("Form-4");
-                        setData(myForm, result[0].accountDetails[0]);
-                        //alert("in Form-4"); */
                         
                         myForm = document.getElementById("stepSixForm");
                         setData(myForm, result[0]);
-                       // alert("in Form-6");
+                      
                         
                         myForm = document.getElementById("stepSevenForm");
                         setData(myForm, result[0]);
-                        //alert("in Form-7");
-                        
-                       /*  myForm = document.getElementById("StepEightForm");
-                        setData(myForm, result[0].itrDetails[0]);
-                       // alert("in Form-8"); */
-                       
+
                        } 
                         
                        // $("#id").val(result[0].id);
@@ -1758,7 +1763,7 @@
 
         
         
-        function ValidatePAN() {
+       /*  function ValidatePAN() {
             var txtPANCard = document.getElementById("panNumber");
             var lblPANCard = document.getElementById("lblPANCard")
             var regex = /([A-Z]){5}([0-9]){4}([A-Z]){1}$/;
@@ -1770,13 +1775,24 @@
                 return false;
             }
         }
-        
+         */
         
         
         function sendToServer() {
         	
        
-        	
+        	var txtPANCard = document.getElementById("panNumber");
+            var lblPANCard = document.getElementById("lblPANCard")
+            var regex = /([A-Z]){5}([0-9]){4}([A-Z]){1}$/;
+            if (regex.test(txtPANCard.value.toUpperCase())) {
+                lblPANCard.style.visibility = "hidden";
+                
+            } else {
+                lblPANCard.style.visibility = "visible";
+                swal.fire("Alert", "Invalid Pan Number", "warning");
+                return false;
+            } 
+        	//alert("hii");
         	console.log("Inside Step One");
             var mandFields = "introducedByName,introducedByEmailID,suppName,compEmail,panNumber,natureOfTransactions";
             var mandFieldsArr = mandFields.split(",");
@@ -1789,7 +1805,18 @@
                 }
             }
         	
-       
+            var element = document.getElementById('states');
+        	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
+        	var selectedValues = [];    
+            $("#states :selected").each(function(){
+                selectedValues.push($(this).val()); 
+            });
+            if(selectedValues== ""){
+            	swal.fire("Alert", "please select Business Partner Type....", "warning")
+                return regex.test(inputvalues);
+            }
+            
+            
             var addressDetailsArray = [];
             var table = document.getElementById('addBookGrid');
             var rowLength = table.rows.length;
@@ -1877,11 +1904,7 @@
                 itrDetailsArray.push(pushItrObj);
             }
             
-           /*  if(itrDetailsArray.length==0 || itrDetailsArray.length==null){
-            	alert("please add itrDetails");
-            	return;
-            }
-             */
+           
             
             $body.addClass("loading");
 
@@ -2047,6 +2070,24 @@
         } 
 
         
+        function AadharValidate() {
+            var aadhar = document.getElementById("aadharNumber").value;
+            var adharcardTwelveDigit = /^\d{12}$/;
+            var adharSixteenDigit = /^\d{16}$/;
+            if (aadhar != '') {
+                if (aadhar.match(adharcardTwelveDigit)) {
+                    return true;
+                } else if (aadhar.match(adharSixteenDigit)) {
+                    return true;
+                } else {
+                    alert("Enter valid Aadhar Number");
+                    $("#aadharNumber").val('');
+                    $("#aadharNumber").focus();
+                    //return false;
+                }
+            }
+        }
+        
         function removeValCssByID(controlName) {
             $('#' + controlName.id).css({
                 'border': '1px solid #b7b7b7',
@@ -2078,8 +2119,7 @@
             }
         }
 
-
-        
+     
         
     </script>
 </body>

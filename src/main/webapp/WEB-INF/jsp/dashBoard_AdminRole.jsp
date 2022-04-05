@@ -112,44 +112,7 @@
                             </div>
                         </div>
 
-                       <%--  <div class="col-lg-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                    <h2>${TotalCloseTripCount}</h2>
-
-                                    <p id="perTicket" data-toggle="tooltip" data-placement="bottom" title="Complet Trip from vendor Side">Closed Trips</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="far fa-times-circle" style="color: #17a2b8; font-size: 50px;"></i>
-                                </div>
-                                <a href="closedTrips" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                    info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
- --%>
-
-                        <!-- ./col -->
-                       <%--  <div class="col-lg-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                    <h2>${TotalInTransitTripCount}</h2>
-
-                                    <p id="opeTickets" data-toggle="tooltip" data-placement="bottom" title="Running Trips">In-Transit
-                                        Trip</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-map-marked-alt" style="color: #00a65a; font-size: 50px;"></i>
-                                </div>
-                                <a href="inTransitTrips" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                    info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div> --%>
-
-
+                      
 							
 							<div class="col-lg-3 col-6">
                             <!-- small box -->
@@ -160,10 +123,10 @@
                                     <p id="invdue" data-toggle="tooltip" data-placement="bottom" title="All user">
                                       <a style="font-size: larger;"> Total No of Users : </a><b>${getAllUserCount}</b></p>
                                        
-                                       <p id="invdue" data-toggle="tooltip" data-placement="bottom" title="All Active User">
+                                       <p id="allActive" data-toggle="tooltip" data-placement="bottom" title="All Active User">
                                        Active User : <b>${totalActiveUser}</b></p>
                                        
-                                       <p id="invdue" data-toggle="tooltip" data-placement="bottom" title="All In-Active Users">
+                                       <p id="allInactive" data-toggle="tooltip" data-placement="bottom" title="All In-Active Users">
                                         In-Active Users : <b>${totalInActiveUser}</b></p>
                                 </div>
                                 <div class="icon">
@@ -185,13 +148,13 @@
                                 <div class="inner">
                                     <%-- <h2>${getAllInvoiceCount}</h2> --%>
 
-                                    <p id="invdue" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
+                                    <p id="noofinvoice" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
                                      <a style="font-size: larger;"> Total No of Invoices : </a><b>${getAllInvoiceCount}</b></p>
                                        
-                                       <p id="invdue" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
+                                       <p id="proinvoice" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
                                        Process Invoices : <b>${countForAllProcessedInvoice}</b></p>
                                        
-                                       <p id="invdue" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
+                                       <p id="appinvoice" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
                                        Approved Invoices : <b>${countForAllApproveInvoice}</b></p>
                                 </div>
                                 <div class="icon">
@@ -214,13 +177,13 @@
                                 <div class="inner">
                                     <%-- <h2>${getAllVendorCount}</h2> --%>
 
-                                    <p id="invdue" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
+                                    <p id="vendors" data-toggle="tooltip" data-placement="bottom" title="All Vendors ">
                                        <a style="font-size: larger;">Total No of Vendors : </a><b>${getAllVendorCount}</b></p>
                                        
-                                     <p id="invdue" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
+                                     <p id="Actvendors" data-toggle="tooltip" data-placement="bottom" title="All Active Vendors">
                                        Active Vendors : <b>${allActiveVendorCount}</b></p>
                                 
-                                 	<p id="invdue" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
+                                 	<p id="inactVendor" data-toggle="tooltip" data-placement="bottom" title="All InActive Vendors">
                                        In-Active Vendors : <b>${allInActiveVendorCount}</b></p>
                                 
                                        
@@ -363,7 +326,7 @@
                             <div class="card card-primary  card-outline ">
                                 <div class="card-body">
                                     <p><strong>User By Status</strong></p>
-                                    <canvas id="unresolvedsts" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                    <canvas id="unresolvedsts" style="min-height: 385px;  max-height: 377px; max-width: 100%;display: block;width: 401px;height: 459px;"></canvas>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -589,6 +552,18 @@
             $('#UnTickets').bstooltip();
             $('#iamwatch').bstooltip();
             $('#perTicket').bstooltip();
+            $('#allActive').bstooltip();
+            
+            $('#allInactive').bstooltip();
+            $('#noofinvoice').bstooltip();
+            $('#proinvoice').bstooltip();
+            $('#appinvoice').bstooltip();
+            $('#vendors').bstooltip();
+            $('#Actvendors').bstooltip();
+            $('#inactVendor').bstooltip();
+           
+            
+            
         })
 
     </script>

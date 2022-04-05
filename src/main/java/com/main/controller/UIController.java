@@ -20,7 +20,6 @@ import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.RolesEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.entity.User;
-import com.main.db.bpaas.repo.InvoiceDetailsRepo;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
 import com.main.service.TripService;
@@ -44,16 +43,13 @@ public class UIController {
 	TripDetailsRepo tripDetailsRepo;
 
 	@Autowired
-	InvoiceDetailsRepo invoiceDetailsRepo;
-
-	@Autowired
 	InvoiceGenerationEntityRepo invoiceGenerationEntityRepo;
 
 	@Autowired
 	TripService tripService;
-	
+
 	@Autowired
-    UserRepository userRepository;
+	UserRepository userRepository;
 
 	@GetMapping({ "/login" })
 	public String login(Model model, String error, String logout) {
@@ -80,29 +76,20 @@ public class UIController {
 
 	@GetMapping({ "/", "/dashboard" })
 	public String dashboard(Model model, Principal principal, String error, String logout, HttpServletRequest request) {
-		/*
-		 * String actionType = "View"; String action = "Viewed DashBoard";
-		 */
-		String rolename = (String) request.getSession().getAttribute("role");
 
+		String rolename = (String) request.getSession().getAttribute("role");
 		User us = userService.findByUsername(principal.getName());
 
 		if (rolename.equalsIgnoreCase("Network")) {
 
-			// int totalTripCount = tripDetailsRepo.getADHocTripCount("Adhoc");
 			List<TripDetails> totalTripCount = tripDetailsRepo.findAll();
 			model.addAttribute("totalTripCount", totalTripCount.size());
 
 			List<TripDetails> allApprovedTripscount = tripService.findAllTripsByStatus("Approved By Network Team");
 			model.addAttribute("ApprovedTripscount", allApprovedTripscount.size());
 
-			System.out.println("Approved by Network team " + allApprovedTripscount.size());
-
 			List<TripDetails> yetTobeApproved = tripService.findAllTripsByStatus("");
 			model.addAttribute("yetTobeApproved", yetTobeApproved.size());
-
-			System.out.println(
-					" **********************************************yetTobeApproved.size()" + yetTobeApproved.size());
 
 			List<TripDetails> getTripCountForQueryAdhoc = tripDetailsRepo.getQueryTripsForNetwork("Query");
 			model.addAttribute("getTripCountForQueryAdhoc", getTripCountForQueryAdhoc.size());
@@ -114,66 +101,55 @@ public class UIController {
 			int getAllInvoiceCount = invoiceGenerationEntityRepo.getCountForAllInvoices();
 			model.addAttribute("getAllInvoiceCount", getAllInvoiceCount);
 
-//Changes made for limit and 50 trips only
-			System.out.println(" fifty truips only");
+			// Changes made for limit and 50 trips only
 			List<TripDetails> findAllTripsLimitFifty = tripService.findAllTripsLimitFifty();
 			model.addAttribute("yetTobeApprovedAllDetails", findAllTripsLimitFifty);
-//changes end
+			// changes end
 			return "dashBoard_NetworkRole";
 
 		} else if (rolename.equalsIgnoreCase("Admin")) {
-			
-   
-             //Manish added dashBoard_AdminRole
-             //Users
-             int  getAllUserCount = userRepository.getCountForAllUsers();
-             int  totalActiveUser = userRepository.getCountForAllActiveUsers();
-             int  totalInActiveUser = userRepository.getCountForAllInActiveUsers();
-             model.addAttribute("getAllUserCount", getAllUserCount);
-             model.addAttribute("totalActiveUser", totalActiveUser);
-             model.addAttribute("totalInActiveUser", totalInActiveUser);
-             
-             //Vendor
-             int  getAllVendorCount = userRepository.getAllVendorCount();
-             int  allActiveVendorCount = userRepository.getAllActiveVendorCount();
-             int  allInActiveVendorCount = userRepository.getAllInActiveVendorCount();
-             model.addAttribute("getAllVendorCount", getAllVendorCount);
-             model.addAttribute("allActiveVendorCount", allActiveVendorCount);
-             model.addAttribute("allInActiveVendorCount", allInActiveVendorCount);
-             
-             //Trips
-             int totalTripCount = tripDetailsRepo.getTripCount();
-             int TotalCloseTripCount = tripDetailsRepo.getCloseTripCount();
-             int TotalInTransitTripCount = tripDetailsRepo.getInTransitTripCount();
-             model.addAttribute("totalTripCount", totalTripCount);
-             model.addAttribute("TotalCloseTripCount", TotalCloseTripCount);
-             model.addAttribute("TotalInTransitTripCount", TotalInTransitTripCount);
-             
-             //Invoices
-             int getAllInvoiceCount = invoiceGenerationEntityRepo.getCountForAllInvoices();
-             int countForAllProcessedInvoice = invoiceGenerationEntityRepo.getCountForAllProcessedInvoice();
-             int countForAllApproveInvoice = invoiceGenerationEntityRepo.getCountForAllApproveInvoice();
-             model.addAttribute("getAllInvoiceCount", getAllInvoiceCount);
-             model.addAttribute("countForAllProcessedInvoice", countForAllProcessedInvoice);
-             model.addAttribute("countForAllApproveInvoice", countForAllApproveInvoice);
-             
-        	
-            return "dashBoard_AdminRole";
-            
-            
-        
+
+			// Manish added dashBoard_AdminRole
+			int getAllUserCount = userRepository.getCountForAllUsers();
+			int totalActiveUser = userRepository.getCountForAllActiveUsers();
+			int totalInActiveUser = userRepository.getCountForAllInActiveUsers();
+			model.addAttribute("getAllUserCount", getAllUserCount);
+			model.addAttribute("totalActiveUser", totalActiveUser);
+			model.addAttribute("totalInActiveUser", totalInActiveUser);
+
+			// Vendor
+			int getAllVendorCount = userRepository.getAllVendorCount();
+			int allActiveVendorCount = userRepository.getAllActiveVendorCount();
+			int allInActiveVendorCount = userRepository.getAllInActiveVendorCount();
+			model.addAttribute("getAllVendorCount", getAllVendorCount);
+			model.addAttribute("allActiveVendorCount", allActiveVendorCount);
+			model.addAttribute("allInActiveVendorCount", allInActiveVendorCount);
+
+			// Trips
+			int totalTripCount = tripDetailsRepo.getTripCount();
+			int TotalCloseTripCount = tripDetailsRepo.getCloseTripCount();
+			int TotalInTransitTripCount = tripDetailsRepo.getInTransitTripCount();
+			model.addAttribute("totalTripCount", totalTripCount);
+			model.addAttribute("TotalCloseTripCount", TotalCloseTripCount);
+			model.addAttribute("TotalInTransitTripCount", TotalInTransitTripCount);
+
+			// Invoices
+			int getAllInvoiceCount = invoiceGenerationEntityRepo.getCountForAllInvoices();
+			int countForAllProcessedInvoice = invoiceGenerationEntityRepo.getCountForAllProcessedInvoice();
+			int countForAllApproveInvoice = invoiceGenerationEntityRepo.getCountForAllApproveInvoice();
+			model.addAttribute("getAllInvoiceCount", getAllInvoiceCount);
+			model.addAttribute("countForAllProcessedInvoice", countForAllProcessedInvoice);
+			model.addAttribute("countForAllApproveInvoice", countForAllApproveInvoice);
+
+			return "dashBoard_AdminRole";
+
 		} else if (rolename.equalsIgnoreCase("Vendor")) {
-//Saurabh
+
 			String vendorCode = principal.getName();
-//Saurabh
 			int totalTripCount = tripDetailsRepo.getTripCount(vendorCode);
 			int TotalCloseTripCount = tripDetailsRepo.getCloseTripCount(vendorCode);
 			int TotalInTransitTripCount = tripDetailsRepo.getInTransitTripCount(vendorCode);
-			// int TotalApprovedAdHocTrips =
-			// tripDetailsRepo.getApproveAdHocTripCount(vendorCode);
 
-			System.out.println("totalTripCount  " + totalTripCount + "" + "TotalCloseTripCount " + TotalCloseTripCount
-					+ "" + "TotalInTransitTripCount  " + TotalInTransitTripCount);
 			long processInvoice = invoiceGenerationEntityRepo.getPendingInvoiceCount(vendorCode);
 			int approveInvoice = invoiceGenerationEntityRepo.getApproveInvoiceCount(vendorCode);
 			int draftInvoice = invoiceGenerationEntityRepo.getDraftInvoiceCount(vendorCode);
@@ -185,10 +161,7 @@ public class UIController {
 			model.addAttribute("pendingInvoice", processInvoice);
 			model.addAttribute("approveInvoice", approveInvoice);
 			model.addAttribute("draftInvoice", draftInvoice);
-			// model.addAttribute("TotalApprovedAdHocTrips", TotalApprovedAdHocTrips);
-
 			model.addAttribute("userStatus", us.getStatus());
-			// System.out.println("User Status : "+us.getStatus());
 
 			return "dashboard";
 		} else if (rolename.equalsIgnoreCase("Audit")) {
@@ -211,10 +184,7 @@ public class UIController {
 		List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive("1");
 		model.addAttribute("rolesList", roleList);
 
-//		String actionType = "View";
-//		String action = "Viewed All Users";
-
-//		serviceManager.insertAddUpdateInMaster(request, action, actionType, null, null, null);
+//		      serviceManager.insertAddUpdateInMaster(request, action, actionType, null, null, null);
 		return "addUsers";
 		
 		}
@@ -264,8 +234,8 @@ public class UIController {
 		} else if (rolename.equalsIgnoreCase("Vendor")) {
 			return "allTrips";
 		} else if (rolename.equalsIgnoreCase("Admin")) {
-            return "allTrips";
-        }
+			return "allTrips";
+		}
 		return "";
 	}
 
@@ -330,8 +300,9 @@ public class UIController {
 
 		return "pendingInvoice";
 	}
-	 //Added by Manish
-    @GetMapping("/tripMaster")
+
+	// Added by Manish
+	@GetMapping("/tripMaster")
 	public String tripMaster(Model model, Principal principal, HttpServletRequest request) {
     	
     	String rolename = (String) request.getSession().getAttribute("role");
@@ -478,9 +449,6 @@ public class UIController {
 
 	@GetMapping("/tripsInvoiceGenerate")
 	public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
-		// New invoice
-		// String userName = (String) request.getSession().getAttribute("userName");
-		// String userCode = (String) request.getSession().getAttribute("mobileNo");
 
 		String userName = principal.getName();
 		String userNameIs = userName.substring(0, 4).toUpperCase();
@@ -492,18 +460,14 @@ public class UIController {
 		request.getSession().setAttribute("invoiceNumber", invoiceNumber);
 
 		String tripId = request.getParameter("id");
-		System.out.println(tripId);
 		model.addAttribute("maxFileSize", maxFileSize);
 		model.addAttribute("tripId", tripId);
 		model.addAttribute("userName", userName);
 
 		String tripUpdateId = tripId;
-		System.out.println(tripUpdateId);
 		tripUpdateId = tripUpdateId.replaceAll(",", " ");
 
 		String[] split = tripUpdateId.split(" ");
-		System.out.println(split);
-		// List<Object> listof = new ArrayList<>();
 		TripDetails findByTripID = null;
 
 		try {
@@ -559,7 +523,6 @@ public class UIController {
 		String vendorName = null;
 		String invoiceNumber = request.getParameter("id");
 
-		System.out.println(invoiceNumber);
 		model.addAttribute("maxFileSize", maxFileSize);
 		model.addAttribute("invoiceNumber", invoiceNumber);
 
@@ -568,7 +531,6 @@ public class UIController {
 		List<Object> listofTrips = new ArrayList<>();
 
 		for (TripDetails tripDetails : list) {
-			System.out.println(tripDetails.getTripID());
 			String tripID = tripDetails.getTripID();
 			listofTrips.add(tripID);
 			vendorName = tripDetails.getVendorName();

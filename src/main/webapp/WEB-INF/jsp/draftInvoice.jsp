@@ -124,23 +124,15 @@
                     <div class="row mb-2">
                         <div class="col-sm-6"></div>
                         <div class="col-sm-6">
-                            <!-- <ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li>
-						</ol> -->
                         </div>
-
                     </div>
                 </div>
             </div>
-
             <!-- /.content-header -->
-
 
             <!-- Main content -->
             <section class="content mt-2">
                 <div class="container-fluid">
-
                     <div class="row">
                         <div class="col-md-12" style="font-size: 14px;">
                             <!-- general form elements -->
@@ -156,12 +148,7 @@
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Invoice Number</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Supplier Name</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Supplier Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Action</th> 
-                                                <!-- <th style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Payment Currency</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Payment Method</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Route Name</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Vehicle Number</th> -->
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -171,30 +158,19 @@
                                 </div>
                                 <!-- /.card-body -->
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </section>
-
             <!-- Control Sidebar -->
-            <!-- <aside class="control-sidebar control-sidebar-dark">
-			Control sidebar content goes here
-		</aside>
-		/.control-sidebar -->
         </div>
         <!-- ./wrapper -->
-
-
-
         <script src="plugins/jquery/jquery.min.js"></script>
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
             $.widget.bridge('uibutton', $.ui.button);
             $.widget.bridge('uitooltip', $.ui.tooltip);
-
         </script>
         <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="plugins/sparklines/sparkline.js"></script>
@@ -224,20 +200,18 @@
             var tabledata = $('#tabledata').DataTable({
                 "paging": false,
                 "lengthChange": false,
-                "searching": false,
-                "info": false,
+                "searching": true,
+                "info": true,
                 "autoWidth": false,
-                "aaSorting": []
+                "aaSorting": [],
+                "pageLength": 25
             });
 
             getData();
 
             function getData() {
-
                 var jsArray = [];
-
                 $('.loader').show();
-
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify(jsArray),
@@ -249,24 +223,20 @@
 
                         $('.loader').hide();
                         if (data.msg == 'success') {
-
                             var result = data.data;
                             tabledata.clear();
-
                             for (var i = 0; i < result.length; i++) {
-                            	
-                            	 if(!result[i].hasOwnProperty("ecomInvoiceNumber")){
-         							result[i].ecomInvoiceNumber="";
-         						}
-	                          	if(!result[i].hasOwnProperty("vendorName")){
-	         							result[i].vendorName="";
-	         						}
-	                          	if(!result[i].hasOwnProperty("vendorCode")){
-         							result[i].vendorCode="";
-         						}
-
+                                if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
+                                    result[i].ecomInvoiceNumber = "";
+                                }
+                                if (!result[i].hasOwnProperty("vendorName")) {
+                                    result[i].vendorName = "";
+                                }
+                                if (!result[i].hasOwnProperty("vendorCode")) {
+                                    result[i].vendorCode = "";
+                                }
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].ecomInvoiceNumber + "')\" >" + result[i].ecomInvoiceNumber + "</button>";
-								var action="<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteInvoice('" + result[i].id + "','" + result[i].ecomInvoiceNumber + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
+                                var action = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteInvoice('" + result[i].id + "','" + result[i].ecomInvoiceNumber + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
                                 tabledata.row.add([view, result[i].vendorName, result[i].vendorCode, action]);
                             }
                             tabledata.draw();
@@ -284,65 +254,50 @@
                 });
             }
 
-            /* function viewCheckList(id, type) {
-                console.log("id >> " + id + " >> " + type);
-                location.href = "vendorDashBoadinfo?type=" + type + "&id=" + id
-            } */
-            
             function getInvoiceDataFormDataByInvoiceNumber(invoiceNumber) {
-            	console.log(invoiceNumber);
-           	 $('.loader').show();
-                
-                var urlOftripsDetail = "draftInvoiceGenerate?id="+invoiceNumber;
+                $('.loader').show();
+                var urlOftripsDetail = "draftInvoiceGenerate?id=" + invoiceNumber;
                 window.open(urlOftripsDetail, "draftInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
             }
-            
-            function deleteInvoice(invoiceID, ecomInvoiceNumber ){
-            	
-            	 var json = {
-                         "id": invoiceID,
-                         "ecomInvoiceNumber": ecomInvoiceNumber,
-                     }
-            	 console.log(json);
-                     $.ajax({
-                         type: "POST",
-                         data: JSON.stringify(json),
-                         url: "<%=GlobalUrl.deleteDraftInvoice%>",
-                         dataType: "json",
-                         contentType: "application/json",
-                         async: false,
-                         success: function(data) {
 
-                             if (data.msg == 'success') {
+            function deleteInvoice(invoiceID, ecomInvoiceNumber) {
 
-                                 Toast.fire({
-                                     type: 'success',
-                                     title: 'Deleted Successfully..'
-                                 })
+                var json = {
+                    "id": invoiceID,
+                    "ecomInvoiceNumber": ecomInvoiceNumber,
+                }
+                $.ajax({
+                    type: "POST",
+                    data: JSON.stringify(json),
+                    url: "<%=GlobalUrl.deleteDraftInvoice%>",
+                    dataType: "json",
+                    contentType: "application/json",
+                    async: false,
+                    success: function(data) {
 
-
-                                 getData();
-                             } else {
-                                 Toast.fire({
-                                     type: 'error',
-                                     title: 'Failed.. Try Again..'
-                                 })
-                             }
-
-                         },
-                         error: function(jqXHR, textStatue, errorThrown) {
-                             alert("failed, please try again");
-                         }
-
-                     });
-            	
+                        if (data.msg == 'success') {
+                            Toast.fire({
+                                type: 'success',
+                                title: 'Deleted Successfully..'
+                            })
+                            getData();
+                        } else {
+                            Toast.fire({
+                                type: 'error',
+                                title: 'Failed.. Try Again..'
+                            })
+                        }
+                    },
+                    error: function(jqXHR, textStatue, errorThrown) {
+                        alert("failed, please try again");
+                    }
+                });
             }
-            
-            function refereshList(){
-				 getData();
-				 $('.loader').hide();
-			 }
 
+            function refereshList() {
+                getData();
+                $('.loader').hide();
+            }
         </script>
 </body>
 

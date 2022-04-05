@@ -53,23 +53,12 @@ public class TripControllers {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		// String vendorCode = request.getSession().getAttribute("userName").toString();
 		String vendorCode = principal.getName();
 		try {
-			System.out.println(fromDate);
-			System.out.println(toDate);
-
 			List<TripDetails> getListByDateFilter = tripDetailsRepo.findByActualDepartureBetween(fromDate, toDate);
-
-			getListByDateFilter.forEach(w -> {
-				System.out.println("all data" + w);
-			});
-
-			System.out.println(getListByDateFilter);
 			data.setData(getListByDateFilter);
 			data.setMsg("success");
 		} catch (Exception e) {
-			// TODO: handle exception
 			data.setMsg("error");
 			e.printStackTrace();
 		}
@@ -80,18 +69,13 @@ public class TripControllers {
 	@CrossOrigin("*")
 	public String getCloseTripsDetails(Principal principal, HttpServletRequest request,
 			@RequestBody List<TripDetails> tripList) {
-
 		DataContainer data = new DataContainer();
-//Saurabh
 		String vendorCode = principal.getName();
-//Saurabh
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			List<TripDetails> allTripDetailsList = tripDetailsRepo.getAllCloseTrip(vendorCode);
-
 			data.setData(allTripDetailsList);
 			data.setMsg("success");
-
 		} catch (Exception e) {
 			data.setMsg("error");
 			e.printStackTrace();
@@ -105,79 +89,56 @@ public class TripControllers {
 	public String getAllTripsDetails(Principal principal, HttpServletRequest request,
 			@RequestBody List<TripDetails> tripList) {
 		String rolename = (String) request.getSession().getAttribute("role");
-		System.out.println("Role name ::" + rolename);
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-
 		if (rolename.equalsIgnoreCase("Network")) {
-			System.out.println("All trips in network");
-
 			try {
 				List<TripDetails> allTripDetailsList = tripDetailsRepo.findAll();
-
 				data.setData(allTripDetailsList);
 				data.setMsg("success");
-
 			} catch (Exception e) {
 				data.setMsg("error");
 				e.printStackTrace();
 			}
 		} else if (rolename.equalsIgnoreCase("Vendor")) {
-
-//Saurabh
 			String vendorCode = principal.getName();
-//Saurabh
-
 			try {
 				List<TripDetails> allTripDetailsList = tripDetailsRepo.getAllTripByVendorCode(vendorCode);
-
 				data.setData(allTripDetailsList);
 				data.setMsg("success");
-
 			} catch (Exception e) {
 				data.setMsg("error");
 				e.printStackTrace();
 			}
-		}else if (rolename.equalsIgnoreCase("Admin")) {
-
-			//Manish
-			
-			
-		        try {
-		            List<TripDetails> allTripDetailsList = tripDetailsRepo.findAll();
-
-		            data.setData(allTripDetailsList);
-		            data.setMsg("success");
-
-		        } catch (Exception e) {
-		            data.setMsg("error");
-		            e.printStackTrace();
-		        }
-			
-			
-						
-					}
-
+		} else if (rolename.equalsIgnoreCase("Admin")) {
+			try {
+				List<TripDetails> allTripDetailsList = tripDetailsRepo.findAll();
+				data.setData(allTripDetailsList);
+				data.setMsg("success");
+			} catch (Exception e) {
+				data.setMsg("error");
+				e.printStackTrace();
+			}
+		}
 		return gson.toJson(data).toString();
 	}
 
 	@RequestMapping({ "/getCloseAndApprovedTripsDetails" })
 	@CrossOrigin("*")
-	public String getCloseAndApprovedTripsDetails(HttpServletRequest request, @RequestBody List<TripDetails> tripList) {
+	public String getCloseAndApprovedTripsDetails(Principal principal, HttpServletRequest request,
+			@RequestBody List<TripDetails> tripList) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String vendorCode = principal.getName();
 		try {
-			List<TripDetails> allTripDetailsList = tripDetailsRepo.getAllCloseAndApproveTrip();
-
+			List<TripDetails> allTripDetailsList = tripDetailsRepo.getAllCloseAndApproveTrip(vendorCode);
 			data.setData(allTripDetailsList);
 			data.setMsg("success");
-
 		} catch (Exception e) {
 			data.setMsg("error");
 			e.printStackTrace();
 		}
-
 		return gson.toJson(data).toString();
 	}
 
@@ -190,36 +151,33 @@ public class TripControllers {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			List<TripDetails> allTripDetailsList = tripDetailsRepo.getAllInTransitTrip(vendorCode);
-
 			data.setData(allTripDetailsList);
 			data.setMsg("success");
-
 		} catch (Exception e) {
 			data.setMsg("error");
 			e.printStackTrace();
 		}
-
 		return gson.toJson(data).toString();
 	}
 
 	@RequestMapping(value = "/statusNetwork", method = RequestMethod.POST)
 	@CrossOrigin("*")
 	public String statusNetwork(@RequestBody TripDetails obj) throws UnsupportedEncodingException, MessagingException {
-
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
+		try {
 		String runStatus = obj.getRunStatus().toString();
 		String vendortripStatus = obj.getVendorTripStatus().toString();
 		String paymentStatus = obj.getPaymentStatus().toString();
 
-		System.out.println("runStatus  " + runStatus);
-		System.out.println("vendortripStatus " + vendortripStatus);
-		System.out.println("paymentStatus  " + paymentStatus);
-
 		List<TripDetails> obj1 = tripService.getTripsByFilters(runStatus, vendortripStatus, paymentStatus);
 		data.setData(obj1);
 		data.setMsg("success");
+		}catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
 
 		return gson.toJson(data).toString();
 	}
@@ -229,8 +187,6 @@ public class TripControllers {
 	public String getApprovePendingApprovelTripsDetails(HttpServletRequest request, @RequestBody TripDetails tripObj) {
 
 		DataContainer data = new DataContainer();
-
-		System.out.println("**********Inside getApprovePendingApprovelTripsDetails********************");
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
@@ -319,8 +275,6 @@ public class TripControllers {
 	public String getTripsDetailsByTripId(HttpServletRequest request, @RequestBody TripDetails tripObj) {
 
 		DataContainer data = new DataContainer();
-
-		// System.out.println("trip id : " + tripObj.getTripID());
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
@@ -388,7 +342,6 @@ public class TripControllers {
 
 			String[] split = tripId.split(" ");
 			System.out.println(split);
-			// List<Object> listof = new ArrayList<>();
 			TripDetails findByTripID = null;
 
 			for (String str : split) {
@@ -412,14 +365,11 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-///getRemarksByRefID
 	@RequestMapping({ "/getRemarksByRefID" })
 	@CrossOrigin("*")
 	public String getRemarksByRefID(HttpServletRequest request, @RequestBody String obj) {
 
 		DataContainer data = new DataContainer();
-
-		// System.out.println("trip Query "+queryObj.getTripDetails());
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			JSONObject jsonObject = new JSONObject(obj);
@@ -441,7 +391,6 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-//
 	@RequestMapping(value = "/getDraftLineTripDetails", method = RequestMethod.POST)
 	@CrossOrigin("*")
 	public String getDraftLineTripDetails(@RequestBody TripDetails obj, HttpSession session, HttpServletRequest request)
@@ -468,15 +417,15 @@ public class TripControllers {
 	}
 
 	@RequestMapping({ "/getTripDetailByTripId" })
-	public String getTripDetailByTripId(@RequestBody TripDetails obj) {
+	public String getTripDetailByTripId(Principal principal, @RequestBody TripDetails obj) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		// List<TripDetails> newlist = new ArrayList<TripDetails>();
+		String vendorCode = principal.getName();
 		try {
 
 			System.out.println("check user id >> " + obj.getTripID());
-			List<TripDetails> list = tripDetailsRepo.findAllTripIdStatsIsClosedAndApprove();
+			List<TripDetails> list = tripDetailsRepo.findAllTripIdStatsIsClosedAndApprove(vendorCode);
 			data.setData(list);
 			data.setMsg("success");
 
@@ -492,11 +441,11 @@ public class TripControllers {
 	}
 
 	@RequestMapping({ "/findByTripDetailUsingTripID" })
-	public String findByTripDetailUsingTripID(@RequestBody TripDetails obj) {
+	public String findByTripDetailUsingTripID(Principal principal, @RequestBody TripDetails obj) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		// List<TripDetails> newlist = new ArrayList<TripDetails>();
+		String vendorCode = principal.getName();
 		try {
 			String tripID = obj.getTripID();
 			String invoiceNumber = obj.getInvoiceNumber();

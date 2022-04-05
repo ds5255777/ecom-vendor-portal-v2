@@ -307,12 +307,11 @@ window.onload = function(){
 														class="required adHocRequired">*</span></label></td>
 												
 												<td style="width: auto">
-                                                <select class="js-example-basic-multiple select2"  name="states[]" id="states" onchange="select()" multiple="multiple" >
-                                                    <option  name="option[]"  value="Network">&emsp;&emsp;Network</option>
-                                                    <option name="option[]" value="Fixed Asset">&emsp;&emsp;Fixed Asset</option>
-                                                    <option name="option[]"  value="Other">&emsp;&emsp;Other</option>
-                                                 </select>
-                                                    
+												<select class="js-example-basic-multiple select2"  name="states[]" style="color: red;" id="states" value="Network" onchange="select()" multiple="multiple" >
+												<option    value="Network">&emsp;&emsp;Network</option>
+												<option  value="Fixed Asset">&emsp;&emsp;Fixed Asset</option>
+												<option   value="Other">&emsp;&emsp;Other</option>
+												</select>
 													
 												</td>
 												
@@ -824,13 +823,13 @@ window.onload = function(){
 							</div>
 						</div>
 
-							</div>	
+				</div>	
 
 
 
 
 								<div id="step-4" class="">
-						<div class="card" style="margin-bottom: 10px;">
+						<div class="card" style="margin-bottom: 0px;">
 
 							<!-- Start -->
 
@@ -1150,26 +1149,21 @@ window.onload = function(){
 								</div>
 							</div>
 						</div>
-								
-								
-								
-								
+							
 								<div class="card-footer" align="center">
                                         <button type="submit" id="updateBtn" onclick="sendToServer()" class="btn btn-primary">Update</button>
                                         <button type="button" class="btn btn-primary" id="closePopBtn" data-dismiss="modal">Close</button>
                                     </div>
-								
-								
-								
-								
-								
-								
+							
 							<!-- model End -->	
-						 
-                  
-
+				
+            		</div>
+				</div>
+			</div>
+		</div>
+	</div>
             
-      
+      </div></div></div></div></div>
 
 
 
@@ -1275,23 +1269,7 @@ window.onload = function(){
             "aaSorting": [],
             "scrollX": true 
         });
-        
-       /*  var addBookGrid = $('#addBookGrid').DataTable({
-           // "paging": true,
-           // "lengthChange": false,
-          //  "searching": true,
-          //  "info": true,
-          //  "autoWidth": false,
-          //  "aaSorting": [],
-         //   "scrollX": true
-        }); */
 
-      
-        
-        
-        
-        
-        
 
         const Toast = Swal.mixin({
             toast: true,
@@ -1467,81 +1445,52 @@ window.onload = function(){
                     if (data.msg == 'success') {
                         var result = data.data;
                     	console.log(result);
-                    	//alert("hii id : "+result[0].addressDetails[0].pinCode)
-                    	
+                    
                     	id=result[0].id;
-                    	//bpCode=result[0].bpCode;
-                    	
-                    	
-                    	// $("#userModal").modal('show');
-                    	
+                    
                     	var myForm = "";
                         myForm = document.getElementById("stepOneForm");
                         setData(myForm, result[0]);
                         
                            var vendorType=result[0].vendorType;
+                        
+                           var str = vendorType.split(",");
                            
-                          /*  var $example = $(".js-example-basic-multiple").select2();
-                           var $exampleMulti = $(".js-example-basic-multiple").select2();
-                            
-                           $(".js-example-basic-multiple").each("click", function () {
-                        	   $exampleMulti.val(["Network", "Other"]).trigger("change");
-                        	   }); */
- 
-                           
-                           
-                          /*   $("#states :selected").each(function(){
-				                selectedValues.push($(this).val()); 
-				            }) */;
-                            
-                           
-                           document.getElementById("states").value=vendorType; 
-                           
-                         /*   $("#states :selected").each(function(){
-				                selectedValues.push($(this).val()); 
-				            }) */
-                           
-                          /* var str = vendorType.split(",");
-                           
-                           for (let i = 0; i < str.length; i++) {
-                        	   alert("str"+str[i]);
-                        	   document.getElementById("option[]").checked=str[i];
-                        	  var ii=document.getElementById("option[]").value
-                        	  alert("ii"+ii);
-                        	 }//manish pending code */
+                         
+                        	   for (let i = 0; i < str.length; i++) {
+                            	  // alert("str"+str[i]);
+                            	   
+                            	    if(str[i] == 'Network' && str[i+1] == 'Fixed Asset' && str[i+2] == 'Other'){
+                            	    		$('#states').val(["Network","Fixed Asset","Other"]).change() 
+                            				break;
+                            	    
+                            	   	}else if(str[i] == 'Network' && str[i+1] == 'Fixed Asset' ){
+                               		   		$('#states').val(["Network","Fixed Asset"]).change()
+                               		  	 	break;
+                               	   	}else if(str[i] == 'Fixed Asset' && str[i+1] == 'Other'){
+                                  		  	 $('#states').val(["Fixed Asset","Other"]).change()
+                                  			break;
+                                  	 }else if(str[i] == 'Network' && str[i+1] == 'Other'){
+                              		  	 $('#states').val(["Network","Other"]).change()
+                               			break;
+                               	 	}else if(str[i] == 'Network'){
+                                    		 
+                                  		   $('#states').val('Network').submit().trigger('change');
+                                  			 break;
+                                  	 }else if(str[i] == 'Fixed Asset'){
+                                    		 
+                                  		   $('#states').val('Fixed Asset').submit().trigger('change'); 
+                                  		 	break;
+                                  	 }else if(str[i] == 'Other'){
+                              				$('#states').val('Other').trigger('change');
+                              		 		break;
+                              	   }    	
+                            	  
+                        	 } 
+                        
                            
                         	 select();
-                           
-                          /*  $("#states").append("<option>Network</option>"); */
-                           
-                           
-                           /* $(function () {
-                               $.getJSON( "/f3/tokenize/PO_SoW", function(respond) {
-                                   $('#states').select2({
-                                       multiple: true,
-                                       data: respond
-                                   });
-                                });
-                   });
-                            */
-                           
-                           
-                         /*   $("#states").val(result[0].vendorType);
-                       alert("vendorType : "+vendorType); */
-                       
-                      // document.getElementById("states").value=vendorType; 
                       
-                     /*  $("#states").val(vendorType); */
-                     
-                    /*  var str = vendorType.split(",");
-                       alert("str : "+str);
-                       
-                       
-                       for (let i = 0; i < str.length; i++) {
-                    	   alert("str"+str[i]);
-                    	  // document.getElementById("option[]").checked=str[i];
-                    	 }//manish pending code */
-
                   
                        if(result[0].partnerType!="Ad-Hoc"){
                     	   
@@ -1594,26 +1543,15 @@ window.onload = function(){
                          }
                         
                     
-                        /* myForm = document.getElementById("Form-3");
-                        setData(myForm, result[0].contactDetails[0]); */
                        
-                        
-                        /* myForm = document.getElementById("Form-4");
-                        setData(myForm, result[0].accountDetails[0]);
-                        //alert("in Form-4"); */
                         
                         myForm = document.getElementById("stepSixForm");
                         setData(myForm, result[0]);
-                       // alert("in Form-6");
+                      
                         
                         myForm = document.getElementById("stepSevenForm");
                         setData(myForm, result[0]);
-                        //alert("in Form-7");
-                        
-                       /*  myForm = document.getElementById("StepEightForm");
-                        setData(myForm, result[0].itrDetails[0]);
-                       // alert("in Form-8"); */
-                       
+
                        } 
                         
                        // $("#id").val(result[0].id);
@@ -1867,7 +1805,18 @@ window.onload = function(){
                 }
             }
         	
-       
+            var element = document.getElementById('states');
+        	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
+        	var selectedValues = [];    
+            $("#states :selected").each(function(){
+                selectedValues.push($(this).val()); 
+            });
+            if(selectedValues== ""){
+            	swal.fire("Alert", "please select Business Partner Type....", "warning")
+                return regex.test(inputvalues);
+            }
+            
+            
             var addressDetailsArray = [];
             var table = document.getElementById('addBookGrid');
             var rowLength = table.rows.length;
@@ -1955,11 +1904,7 @@ window.onload = function(){
                 itrDetailsArray.push(pushItrObj);
             }
             
-           /*  if(itrDetailsArray.length==0 || itrDetailsArray.length==null){
-            	alert("please add itrDetails");
-            	return;
-            }
-             */
+           
             
             $body.addClass("loading");
 
@@ -2174,13 +2119,7 @@ window.onload = function(){
             }
         }
 
-      /*  function docview(){
-        	
-    	   var fileToLoad = document.getElementById("GSTFile").files[0];
-    	   alert("fileToLoad"+fileToLoad);
-    	   window.open(fileToLoad);
-        } */
-        
+     
         
     </script>
 </body>

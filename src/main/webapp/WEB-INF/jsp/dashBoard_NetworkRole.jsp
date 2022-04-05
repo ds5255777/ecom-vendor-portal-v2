@@ -273,7 +273,7 @@
                                 <div class="card card-primary  card-outline ">
                                     <div class="card-body">
                                         <p><strong>Trip by Approval Status</strong></p>
-                                        <canvas id="unresolvedsts" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                        <canvas id="unresolvedsts" style="min-height: 385px;  max-height: 377px; max-width: 100%;display: block;width: 401px;height: 459px;"></canvas>
                                     </div>
                                     <!-- /.card-body -->
                                 </div>

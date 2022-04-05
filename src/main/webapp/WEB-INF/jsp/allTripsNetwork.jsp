@@ -777,7 +777,7 @@
                                                                                 tempString[10] = statustemp_payment_No;
 
                                                                             }
-                                                                            console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
+                                                                           // console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
                                                                             if (result[i].vendorTripStatus == "Yet To Be Approved By Network Team") {
                                                                                 tempString[4] = statustemp_pending;
 
@@ -1092,7 +1092,7 @@
 
 
                                                         function GetSelectedTextValue1() {
-                                                            console.log("****GetSelected******%%%%%%");
+                                                            
                                                             var tripStatus = $("#selectTripStatus").val();
                                                             var selectStatus = $("#selectStatus").val();
                                                             var selectPaymentStatus = $("#selectPaymentStatus").val();
@@ -1102,7 +1102,7 @@
                                                                 "paymentStatus": selectPaymentStatus,
                                                             }
 
-
+															console.log("Status : ",obj);
 
 
 
@@ -1121,6 +1121,7 @@
                                                                     if (data.msg == "success") {
 
                                                                         var result = data.data;
+                                                                        console.log("****GetSelected******%%%%%%"+result);
                                                                         tabledata.clear();
 
                                                                         for (var i = 0; i < result.length; i++) {

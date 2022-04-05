@@ -49,13 +49,14 @@ public class TripControllers {
 	@CrossOrigin("*")
 	public String filterTripDetails(Principal principal, HttpServletRequest request,
 			@RequestParam(name = "actualDeparture") String fromDate,
-			@RequestParam(name = "actualArrival") String toDate) {
+			@RequestParam(name = "actualArrival") String toDate, @RequestParam(name = "vendorCode") String vendorCode) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		String vendorCode = principal.getName();
+		System.out.println(fromDate);
 		try {
-			List<TripDetails> getListByDateFilter = tripDetailsRepo.findByActualDepartureBetween(fromDate, toDate);
+			List<TripDetails> getListByDateFilter = tripDetailsRepo.findByActualDepartureBetween(fromDate, toDate,
+					vendorCode);
 			data.setData(getListByDateFilter);
 			data.setMsg("success");
 		} catch (Exception e) {
@@ -167,14 +168,14 @@ public class TripControllers {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
 		try {
-		String runStatus = obj.getRunStatus().toString();
-		String vendortripStatus = obj.getVendorTripStatus().toString();
-		String paymentStatus = obj.getPaymentStatus().toString();
+			String runStatus = obj.getRunStatus().toString();
+			String vendortripStatus = obj.getVendorTripStatus().toString();
+			String paymentStatus = obj.getPaymentStatus().toString();
 
-		List<TripDetails> obj1 = tripService.getTripsByFilters(runStatus, vendortripStatus, paymentStatus);
-		data.setData(obj1);
-		data.setMsg("success");
-		}catch (Exception e) {
+			List<TripDetails> obj1 = tripService.getTripsByFiltersNetwork(runStatus, vendortripStatus, paymentStatus);
+			data.setData(obj1);
+			data.setMsg("success");
+		} catch (Exception e) {
 			data.setMsg("error");
 			e.printStackTrace();
 		}
@@ -251,21 +252,23 @@ public class TripControllers {
 	@RequestMapping(value = "/status", method = RequestMethod.POST)
 	@CrossOrigin("*")
 	public String status(@RequestBody TripDetails obj) throws UnsupportedEncodingException, MessagingException {
-		// System.out.println("*******************************Inside status");
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
-		String runStatus = obj.getRunStatus().toString();
-		String vendortripStatus = obj.getVendorTripStatus().toString();
-		String paymentStatus = obj.getPaymentStatus().toString();
+		try {
+			String runStatus = obj.getRunStatus().toString();
+			String vendortripStatus = obj.getVendorTripStatus().toString();
+			String paymentStatus = obj.getPaymentStatus().toString();
+			String vendorCode = obj.getVendorCode().toString();
 
-		System.out.println("runStatus  " + runStatus);
-		System.out.println("vendortripStatus " + vendortripStatus);
-		System.out.println("paymentStatus  " + paymentStatus);
-
-		List<TripDetails> obj1 = tripService.getTripsByFilters(runStatus, vendortripStatus, paymentStatus);
-		data.setData(obj1);
-		data.setMsg("success");
+			List<TripDetails> obj1 = tripService.getTripsByFilters(runStatus, vendortripStatus, paymentStatus,
+					vendorCode);
+			data.setData(obj1);
+			data.setMsg("success");
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
 
 		return gson.toJson(data).toString();
 	}

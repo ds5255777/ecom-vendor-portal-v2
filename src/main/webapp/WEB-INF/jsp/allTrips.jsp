@@ -486,6 +486,13 @@
                                                             <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="lumpsomeamount" name="lumpsomeamount" disabled>
                                                         </div>
                                                     </div>
+                                                    <div class="col-sm-3">
+                                                        <!-- text input -->
+                                                        <div class="form-group">
+                                                            
+                                                            <input type="hidden" class="form-control" style="height: 30px;" placeholder="Enter" id="vendorCode" name="vendorCode" value=${userName } readonly>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -1092,6 +1099,9 @@
 
                 var fromDate = $("#fromDate").val();
                 var toDate = $("#toDate").val();
+                var vendorCode = $("#vendorCode").val();
+                
+                console.log(vendorCode,"vendorCode");
 
 
 
@@ -1124,8 +1134,9 @@
                 $.ajax({
                     type: "GET",
                     data: {
-                        "actualDeparture": fromDate,
-                        "actualArrival": toDate
+                        "actualDeparture": fromDate.concat(" ","00:00:00"),
+                        "actualArrival": toDate.concat(" ","23:59:59"),
+                        "vendorCode": vendorCode
                     },
                     url: "<%=GlobalUrl.filterTripDetails%>",
                     dataType: "json",

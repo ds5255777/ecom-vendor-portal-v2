@@ -45,8 +45,6 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "select * from Trip_Details where run_status='In-Transit' and vendor_code=?", nativeQuery = true)
     List<TripDetails> getAllInTransitTrip(String vendorCode);
 
-//	@Query(value = "select * from Trip_Details where run_status='In-Transit' and ", nativeQuery = true)
-//	List<TripDetails> getAllClosedAndApproved();
     @Query(value = "select * from trip_details where vendor_trip_status='Yet To Be Approved' and assign_to = 'Vendor' and vendor_code=?", nativeQuery = true)
     List<TripDetails> getAllPendingTrip(String vendorCode);
 
@@ -84,7 +82,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Transactional
     @Modifying
     @Query(value = "update Trip_Details set vendor_trip_status='Draft-Invoicing', invoice_number=:invoiceNumber where trip_id=:tripID  ; ", nativeQuery = true)
-    void findTripDetailAgainTripID(String invoiceNumber, String tripID);
+	void findTripDetailAgainTripID(String invoiceNumber, String tripID);
 
     @Query(value = "select  * from Trip_Details WHERE vendor_trip_status = 'Approved' And vendor_code=?; ", nativeQuery = true)
     List<TripDetails> findAllTripIdStatsIsClosedAndApprove(String vendorCode);
@@ -94,7 +92,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
     TripDetails findByTripID(String tripID);
 
-    List<TripDetails> findByActualDepartureBetween(@Param("startDate") String startDate, @Param("endDate") String endDate);
+    @Query(value = "select  * from Trip_Details WHERE  vendor_code=:vendorCode AND actual_departure BETWEEN (:startDate) AND (:endDate) ; ", nativeQuery = true)
+    List<TripDetails> findByActualDepartureBetween(@Param("startDate") String startDate, @Param("endDate") String endDate, @Param("vendorCode") String vendorCode);
 
     @Query(value = "select  * from trip_details  where trip_id IN(:tripID)", nativeQuery = true)
     List<TripDetails> findByTripIDIn(@Param("tripID") String[] tripID);
@@ -120,9 +119,9 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "update Trip_Details set vendor_trip_status='Invoicing',payment_status='Pending' where invoice_number=:ecomInvoiceNumber ; ", nativeQuery = true)
     void updateVendorTripStatusAgainsInvoiceNumber(String ecomInvoiceNumber);
 
-//SAurabh
     @Query(value = "select count(*) from Trip_Details where run_type = ?", nativeQuery = true)
     int getADHocTripCount(String type);
+    
 //Changed assign_to from network to vendor
     @Query(value = "SELECT * FROM trip_details where vendor_trip_status=:ApprovalStatus and assign_to = 'Vendor' and  run_type='Adhoc'; ", nativeQuery = true)
     List<TripDetails> findAllTripsByStatus(@Param("ApprovalStatus") String ApprovalStatus);
@@ -155,53 +154,53 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
             @Param("LumpSomeAmount") String LumpSomeAmount,
             @Param("vendor_tripStatus") String vendor_tripStatus);
 
+    @Query(value = "select * from  Trip_Details where 1=1 and run_status=:runStatus and vendor_code=:vendorCode", nativeQuery = true)
+    List<TripDetails> getTripsByFiltersVendorRunStatus(@Param("runStatus") String runStatus, @Param("vendorCode") String vendorCode);
+
+    @Query(value = "select * from Trip_Details where 1=1 and vendor_trip_status=:vendorTripStatus and run_status=:runStatus and vendor_code=:vendorCode", nativeQuery = true)
+    List<TripDetails> getTripsByFiltersRunStatus_VendorTripStatus(@Param("runStatus") String runStatus, @Param("vendorTripStatus") String vendorTripStatus, @Param("vendorCode") String vendorCode);
+
+    //(runStatus, vendorTripStatus, paymentStatus
+    @Query(value = "select * from Trip_Details where 1=1 and run_status=:runStatus and vendor_trip_status=:vendorTripStatus and  payment_status=:paymentStatus and vendor_code=:vendorCode", nativeQuery = true)
+    List<TripDetails> getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus( @Param("runStatus") String runStatus, @Param("vendorTripStatus") String vendorTripStatus, @Param("paymentStatus") String paymentStatus, @Param("vendorCode") String vendorCode);
+
+    //Network Trips Filter
     @Query(value = "select * from  Trip_Details where 1=1 and run_status=:runStatus", nativeQuery = true)
     List<TripDetails> getTripsByFiltersVendorRunStatus(@Param("runStatus") String runStatus);
 
     @Query(value = "select * from Trip_Details where 1=1 and vendor_trip_status=:vendorTripStatus and run_status=:runStatus", nativeQuery = true)
     List<TripDetails> getTripsByFiltersRunStatus_VendorTripStatus(@Param("runStatus") String runStatus, @Param("vendorTripStatus") String vendorTripStatus);
 
-    @Query(value = "select * from Trip_Details where 1=1 and vendor_trip_status=:vendorTripStatus and run_status=:runStatus and payment_status=:PaymentStatus", nativeQuery = true)
-    List<TripDetails> getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus(@Param("vendorTripStatus") String vendorTripStatus, @Param("runStatus") String runStatus, @Param("PaymentStatus") String PaymentStatus);
+    @Query(value = "select * from Trip_Details where 1=1 and run_status=:runStatus and vendor_trip_status=:vendorTripStatus and  payment_status=:paymentStatus ", nativeQuery = true)
+    List<TripDetails> getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus( @Param("runStatus") String runStatus, @Param("vendorTripStatus") String vendorTripStatus, @Param("paymentStatus") String paymentStatus);
 
+    
     @Query(value = "select * from Trip_Details where vendor_code=?", nativeQuery = true)
     List<TripDetails> getAllTripByVendorCode(String vendorCode);
 
 
-@Query(value = "SELECT * FROM trip_details where vendor_trip_status = 'Yet To Be Approved By Network Team' and assign_to = 'Network' and run_type='Adhoc' and run_status = 'Closed' order by id limit 50; ", nativeQuery = true)
-List<TripDetails> findAllTripsLimitFifty();
-//END
+	@Query(value = "SELECT * FROM trip_details where vendor_trip_status = 'Yet To Be Approved By Network Team' and assign_to = 'Network' and run_type='Adhoc' and run_status = 'Closed' order by id limit 50; ", nativeQuery = true)
+	List<TripDetails> findAllTripsLimitFifty();
 
+	@Query(value = "select count(*) from Trip_Details", nativeQuery = true)
+	int getTripCount();
 
+	@Query(value = "select count(*) from Trip_Details where run_status='Closed'", nativeQuery = true)
+	int getCloseTripCount();
 
-//Added by Manish , Trip count For Admin
-@Query(value = "select count(*) from Trip_Details", nativeQuery = true)
-int getTripCount();
-
-@Query(value = "select count(*) from Trip_Details where run_status='Closed'", nativeQuery = true)
-int getCloseTripCount();
-
-@Query(value = "select count(*) from Trip_Details where run_status='In-Transit'", nativeQuery = true)
-int getInTransitTripCount();
-
-@Query(value = "select count(*) from trip_details where run_type='Adhoc' and vendor_trip_status='Approved'", nativeQuery = true)
-int getApproveAdHocTripCount();
-
-@Query(value = "select * from Trip_Details where run_status='Closed'", nativeQuery = true)
-List<TripDetails> getAllCloseTrip();
-
-@Query(value = "select * from Trip_Details where run_status='In-Transit'", nativeQuery = true)
-List<TripDetails> getAllInTransitTrip();
-
-//@Query(value = "select * from Trip_Details where run_status='In-Transit' and ", nativeQuery = true)
-//List<TripDetails> getAllClosedAndApproved();
-@Query(value = "select * from trip_details where vendor_trip_status='Yet To Be Approved' and assign_to = 'Vendor'", nativeQuery = true)
-List<TripDetails> getAllPendingTrip();
-
-//end 
-
-
-
-
+	@Query(value = "select count(*) from Trip_Details where run_status='In-Transit'", nativeQuery = true)
+	int getInTransitTripCount();
+	
+	@Query(value = "select count(*) from trip_details where run_type='Adhoc' and vendor_trip_status='Approved'", nativeQuery = true)
+	int getApproveAdHocTripCount();
+	
+	@Query(value = "select * from Trip_Details where run_status='Closed'", nativeQuery = true)
+	List<TripDetails> getAllCloseTrip();
+	
+	@Query(value = "select * from Trip_Details where run_status='In-Transit'", nativeQuery = true)
+	List<TripDetails> getAllInTransitTrip();
+	
+	@Query(value = "select * from trip_details where vendor_trip_status='Yet To Be Approved' and assign_to = 'Vendor'", nativeQuery = true)
+	List<TripDetails> getAllPendingTrip();
 
 }

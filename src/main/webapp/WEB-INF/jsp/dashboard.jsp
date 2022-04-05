@@ -273,16 +273,6 @@
                                 </div>
                                 <!-- /.card-body -->
                             </div>
-                            <%-- <div class="card card-primary  card-outline ">
-								<div class="card-body">
-									<p>
-										<strong>Trip Status</strong>
-									</p>
-									<canvas id="unresolvedsts"
-										style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-								</div>
-								<!-- /.card-body -->
-							</div> --%>
                         </div>
                     </div>
                 </div>
@@ -299,32 +289,6 @@
     <!-- ./wrapper -->
     
     <!-- Modal -->
-        <!-- <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">New Password</label>
-                            <input type="password" class="form-control p-input" id="password" placeholder="New Password">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Confirm Password </label>
-                            <input type="password" class="form-control p-input" id="passwordConfirm" placeholder="Confirm Password">
-                        </div>
-                        <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="changePasswordButton" class="btn btn-primary" onclick="changePassword(document.getElementById('passwordConfirm').value)" >Change Password</button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         
         <form role="form" id="changePassword1" autocomplete="off">
         <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

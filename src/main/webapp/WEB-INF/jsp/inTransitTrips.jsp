@@ -553,6 +553,7 @@
 
                                 var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
                                 var statustemp_approved = '<span class=\"right badge badge-success\">Approved</span>';
+                                var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
                                 
                                 var runType = "";
                                 var mode = "";

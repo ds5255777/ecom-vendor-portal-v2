@@ -440,7 +440,7 @@
         function AddDocCheck() {
             var invoiceNumber = $("#ecomInvoiceNumber").val();
             var tripID = document.getElementById("tripList").value;
-
+			if(tripID != ''){
             var json = {
                 "tripID": tripID,
                 "invoiceNumber": invoiceNumber
@@ -473,6 +473,7 @@
                     alert("failed, please try again");
                 }
             });
+			}
         }
 
         var allTripId = ${listofTrips};

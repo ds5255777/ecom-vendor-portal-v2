@@ -55,10 +55,39 @@ public class TripControllers {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println(fromDate);
 		try {
-			List<TripDetails> getListByDateFilter = tripDetailsRepo.findByActualDepartureBetween(fromDate, toDate,
-					vendorCode);
-			data.setData(getListByDateFilter);
-			data.setMsg("success");
+			if(fromDate != "" && toDate != "") {
+				List<TripDetails> getListByDateFilter = tripDetailsRepo.findByActualDepartureBetween(fromDate, toDate);
+				data.setData(getListByDateFilter);
+				data.setMsg("success");
+			}
+			if(fromDate != "" && toDate != "" && vendorCode != ""  ) {
+				List<TripDetails> getListByDateFilter = tripDetailsRepo.findByActualDepartureBetween(fromDate, toDate,
+						vendorCode);
+				data.setData(getListByDateFilter);
+				data.setMsg("success");
+			}
+			
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+		return gson.toJson(data).toString();
+	}
+	
+	@RequestMapping({ "filterTripDetailsByNetwork" })
+	@CrossOrigin("*")
+	public String filterTripDetailsByNetwork(Principal principal, HttpServletRequest request,
+			@RequestParam(name = "actualDeparture") String fromDate,
+			@RequestParam(name = "actualArrival") String toDate) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		System.out.println(fromDate);
+		try {
+				List<TripDetails> getListByDateFilter = tripDetailsRepo.findByActualDepartureBetween(fromDate, toDate);
+				data.setData(getListByDateFilter);
+				data.setMsg("success");
+			
 		} catch (Exception e) {
 			data.setMsg("error");
 			e.printStackTrace();

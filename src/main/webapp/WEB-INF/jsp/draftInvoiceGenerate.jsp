@@ -222,7 +222,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <button type="button" class="btn btn-primary" style="margin-right:
-                                                    5px;height: 30px;padding: 2px 10px 2px 10px;" id="docBtn" name="docBtn" onclick="AddDocCheck()">Add</button>
+                                                    5px;height: 30px;padding: 2px 10px 2px 10px;" id="docBtn" name="f" onclick="AddDocCheck()">Add</button>
 
                                         </div>
                                     </div>
@@ -440,7 +440,7 @@
         function AddDocCheck() {
             var invoiceNumber = $("#ecomInvoiceNumber").val();
             var tripID = document.getElementById("tripList").value;
-
+			if(tripID != ''){
             var json = {
                 "tripID": tripID,
                 "invoiceNumber": invoiceNumber
@@ -473,6 +473,7 @@
                     alert("failed, please try again");
                 }
             });
+			}
         }
 
         var allTripId = ${listofTrips};

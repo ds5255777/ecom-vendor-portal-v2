@@ -349,6 +349,44 @@ public class UIController {
    		return "";
    	}
 	//End
+	 @GetMapping("/allPO")
+	   	public String allPo(Model model, Principal principal, HttpServletRequest request) {
+	   		
+			 String rolename = (String) request.getSession().getAttribute("role");
+
+				if (rolename.equalsIgnoreCase("Vendor")) {
+					
+					return "allPO";
+					
+				}
+	   		return "";
+	   	}
+	 @GetMapping("/processPO")
+	   	public String processPO(Model model, Principal principal, HttpServletRequest request) {
+	   		
+			 String rolename = (String) request.getSession().getAttribute("role");
+
+				if (rolename.equalsIgnoreCase("Vendor")) {
+					
+					return "processPO";
+					
+				}
+	   		return "";
+	   	}
+	
+	 @GetMapping("/unprocessPO")
+	   	public String unprocessPO(Model model, Principal principal, HttpServletRequest request) {
+	   		
+			 String rolename = (String) request.getSession().getAttribute("role");
+
+				if (rolename.equalsIgnoreCase("Vendor")) {
+					
+					return "unprocessPO";
+					
+				}
+	   		return "";
+	   	}
+	
 
 //    @GetMapping("/tripsInvoiceGenerate")
 //    public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {

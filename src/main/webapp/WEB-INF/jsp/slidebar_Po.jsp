@@ -16,7 +16,7 @@
 
                 <!-- DASHBOARD -->
                 <li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link
-                                        <% if (request.getParameter("pagename").equalsIgnoreCase("dashboard")) {
+                                        <% if (request.getParameter("pagename").equalsIgnoreCase("dashboard_Po")) {
                                                 out.print("active");
                                             }%>
                                         ">

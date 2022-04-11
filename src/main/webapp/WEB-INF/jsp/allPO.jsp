@@ -236,17 +236,14 @@
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">null</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">null</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">null</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">null</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">null</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">null</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">null</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">null</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">null</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">null</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">null</th>
+												 <th style="padding: 5px 5px 5px 1.5rem;">PO Number</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Type</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">UOM</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Need By Date</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Amount</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Status</th>
+                                               
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -283,12 +280,12 @@
                     <div class="modal-body" style="overflow-y: auto;">
                         <div class="container-fluid panel2" id="headerLineItemForm">
                             <div class="row">
-                                <div class="col-md-12 propTableContainer" style="overflow-y: auto; height: 620px;">
+                                <div class="col-md-12 propTableContainer" style="overflow-y: auto; height: 574px;">
                                     <input type="hidden" id="headerDetailsId" class="form-control">
                                     <!-- <table class="table " id="property-desc"> -->
                                     <div class="card card-primary">
                                         <div class="card-header" style="padding: 4px 0px 4px 4px;">
-                                            <h3 class="card-title" style="font-size: 15px;">Trip Details</h3>
+                                            <h3 class="card-title" style="font-size: 15px;">PO Details</h3>
                                         </div>
 
 
@@ -299,29 +296,29 @@
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Trip ID</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="tripID" name="tripID" autocomplete="off" disabled>
+                                                            <label style="margin-bottom: 1px;">PO Number</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="poNo" name="poNo" autocomplete="off" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Route</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="route" name="route" autocomplete="off" disabled>
+                                                            <label style="margin-bottom: 1px;">Supplier Site</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="supplierSite" name="supplierSite" autocomplete="off" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Run Type</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="runType" name="runType" autocomplete="off" disabled>
+                                                            <label style="margin-bottom: 1px;">Ship To</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="shipTo" name="shipTo" autocomplete="off" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Mode</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="mode" name="mode" autocomplete="off" disabled>
+                                                            <label style="margin-bottom: 1px;">Bill To</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="billTo" name="billTo" autocomplete="off" disabled>
                                                         </div>
                                                     </div>
 
@@ -330,29 +327,29 @@
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Vehicle Number</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="vehicleNumber" name="vehicleNumber" autocomplete="off" disabled>
+                                                            <label style="margin-bottom: 1px;">Buyer</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="buyer" name="buyer" autocomplete="off" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Vendor Name</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="vendorName" name="vendorName" autocomplete="off" disabled>
+                                                            <label style="margin-bottom: 1px;">Currency</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="currency" name="currency" autocomplete="off" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Actual Vehicle Type</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="actualVechicleType" name="actualVechicleType" autocomplete="off" disabled>
+                                                            <label style="margin-bottom: 1px;">Line Number</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="lineNumber" name="lineNumber" autocomplete="off" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Standard Payload Capacity</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="standardPayloadCapacity" name="standardPayloadCapacity" autocomplete="off" disabled>
+                                                            <label style="margin-bottom: 1px;">Item Type</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="itemType" name="itemType" autocomplete="off" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -361,32 +358,32 @@
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Standard Shipment Capacity</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="standardShipmentCapacity" name="standardShipmentCapacity" autocomplete="off" disabled>
+                                                            <label style="margin-bottom: 1px;">Item</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="item" name="item" autocomplete="off" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Run Status</label>
+                                                            <label style="margin-bottom: 1px;">Category</label>
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" style="height: 30px;" id="runStatus" name="runStatus" autocomplete="off" disabled>
+                                                                <input type="text" class="form-control" style="height: 30px;" id="category" name="category" autocomplete="off" disabled>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Origin Hub</label>
+                                                            <label style="margin-bottom: 1px;">UOM</label>
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" autocomplete="off" style="height: 30px;" id="originHub" name="originHub" disabled>
+                                                                <input type="text" class="form-control" autocomplete="off" style="height: 30px;" id="uOM" name="uOM" disabled>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Origin Region</label>
-                                                            <input type="text" class="form-control" autocomplete="off" style="height: 30px;" placeholder="Enter" id="originRegion" name="originRegion" disabled>
+                                                            <label style="margin-bottom: 1px;">Quantity</label>
+                                                            <input type="text" class="form-control" autocomplete="off" style="height: 30px;" placeholder="Enter" id="quantity" name="quantity" disabled>
                                                         </div>
                                                     </div>
 
@@ -396,29 +393,29 @@
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Dest Hub</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="destHub" name="destHub" disabled>
+                                                            <label style="margin-bottom: 1px;">Price</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="price" name="price" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Actual Departure (ATD)</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualDeparture" name="actualDeparture" disabled>
+                                                            <label style="margin-bottom: 1px;">Need By Date</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="needByDate" name="needByDate" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Actual Arrival (ATA)</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualArrival" name="actualArrival" disabled>
+                                                            <label style="margin-bottom: 1px;">Charge Account</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="chargeAccount" name="chargeAccount" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Actual KM</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualKM" name="actualKM" disabled>
+                                                            <label style="margin-bottom: 1px;">Org</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="org" name="org" disabled>
                                                         </div>
                                                     </div>
 
@@ -428,29 +425,29 @@
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Standard KM</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="standardKM" name="standardKM" disabled>
+                                                            <label style="margin-bottom: 1px;">Amount</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="amount" name="amount" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Mileage</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="mileage" name="mileage" disabled>
+                                                            <label style="margin-bottom: 1px;">Match Approval Level</label>
+                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="matchApprovalLevel" name="matchApprovalLevel" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Rate per KM</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="ratePerKm" name="ratePerKm" disabled>
+                                                            <label style="margin-bottom: 1px;">Invoice Match option</label>
+                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="invoiceMatchoption" name="invoiceMatchoption" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Bilable KM</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="routeKms" name="routeKms" disabled>
+                                                            <label style="margin-bottom: 1px;">Accrue at Receipt flag</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="accrueatReceiptflag" name="accrueatReceiptflag" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -459,96 +456,28 @@
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">FS Base Rate</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fsBaseRate" name="fsBaseRate" disabled>
+                                                            <label style="margin-bottom: 1px;">Deliver To</label>
+                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="deliverTo" name="deliverTo" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Current Fuel Rate</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="currentFuelRate" name="currentFuelRate" disabled>
+                                                            <label style="margin-bottom: 1px;">Description</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="description" name="description" disabled>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">FS Diff</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fsDiff" name="fsDiff" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Basic Freight</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="basicFreight" name="basicFreight" disabled>
-                                                        </div>
-                                                    </div>
+                                                  
+                                                   
 
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">FS</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fs" name="fs" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Total Freight (Total Trip Cost)</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="totalFreight" name="totalFreight" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Lump Sum Amount (Total Trip Cost)</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="lumpsomeamount" name="lumpsomeamount" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            
-                                                            <input type="hidden" class="form-control" style="height: 30px;" placeholder="Enter" id="vendorCode" name="vendorCode" value=${userName } readonly>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                             </form>
                                         </div>
                                         <!-- /.card-body -->
                                     </div>
                                     <!-- /.card -->
-                                    <div class="container">
-                                        <div class="card card-primary ">
-                                            <div class="card-header" style="padding: 4px 0px 4px 4px;">
-                                                <h3 class="card-title" style="font-size: 15px;">Trips Query</h3>
-                                            </div>
-
-                                            <div class="card-body ">
-                                                <form role="form" id="showQueryDetails" name="showQueryDetails">
-                                                    <table class="table table-bordered table-hover" id="tabledataQuery">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Raised By</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Raised On</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
-
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-
-                                                        </tbody>
-                                                    </table>
-                                                </form>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
+                                    
 
                                     <div class="container">
                                         <div class="col-md-12 text-center" style="padding-top: 0px;">
@@ -606,390 +535,166 @@
 
         <script type="text/javascript">
         
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
         
         
-        $('#poListTable')
-		.jqxGrid(
-				{
-
-					width :'100%',
-					autoheight :true,
-					source : poListDataAdapter,
-					sortable : true,
-					filterable : true,
-					showfilterrow : true,
-					rowsheight:22,
-					columnsresize : true,
-					enabletooltips : true,
-					altrows : true,
-					theme : 'ehtheme',
-					pageable : true,
-					showtoolbar : true,
-					virtualmode : true,
-					rendergridrows : function() {
-						return poListDataAdapter.records;
-					},
-					rendertoolbar : function(toolbar) {
-						var me = this;
-						var container = $("<div style='margin: 5px;' align='left'></div>");
-						toolbar.append(container);
-						container
-								.append('<input type="button" id="viewPObutton" name="viewPObutton" value="<spring:message code="poWorkbench.viewPo" text="View PO" />">');
-
-						$("#viewPObutton").jqxButton({
-							theme : 'ehtheme'
-						});
-
-						$("#viewPObutton").on('click',function() {
-							
-							var selIndex = $("#poListTable").jqxGrid('selectedrowindex');
-							if (selIndex == -1) {
-								$("#appStatusMsg").html('<div class="heading_message heading_message_error" style="color:white;font-family:Cairo;">Please select a row and click desired action!</div>');
-								$("#pagestatusWindow").jqxWindow('open');
-							
-							}else {
-
-								var selDataRow = $('#poListTable').jqxGrid('getrowdata',selIndex);
-								jQuery("#headerId").val(selDataRow.headerId);
-								
-								jQuery("#po-form").attr('action', "repmgmt/genPOReportsAPI");
-								jQuery("#po-form").submit();
-							}
-							
-						});
-						
-						/*container
-						.append('&nbsp;|&nbsp;<input type="button" id="ackPO" name="ackPO" value="Acknowledge PO">');
-						
-						$("#ackPO").jqxButton({
-							theme : 'ehtheme'
-						});
-						
-						$("#ackPO").on('click',function() {
-							
-							var selIndex = $("#poListTable").jqxGrid('selectedrowindex');
-							if (selIndex == -1) {
-								$("#appStatusMsg").html('<div class="heading_message heading_message_error">Please select a row and click desired action!</div>');
-								$("#pagestatusWindow").jqxWindow('open');
-							
-							}else {
-
-								var selDataRow = $('#poListTable').jqxGrid('getrowdata',selIndex);
-								
-								jQuery("#poNumber").val(selDataRow.poNumber);
-								progressTimer = setTimeout( progress, 2000 );
-						        $("#progressWindow").jqxWindow('open');
-								jQuery("#po-form").attr('action', "invoicemgmt/poAcknowledge");
-								jQuery("#po-form").submit();
-							}
-							
-						});*/
-						
-						/*container
-						.append('&nbsp;|&nbsp;<input type="button" id="delNotes" name="delNotes" value="Create Delivery Note">');
-
-						$("#delNotes").jqxButton({
-							theme : 'ehtheme'
-						});
-						
-						$("#delNotes").on('click',function() {
-							
-							var selIndex = $("#poListTable").jqxGrid('selectedrowindex');
-							if (selIndex == -1) {
-								$("#appStatusMsg").html('<div class="heading_message heading_message_error">Please select a row and click desired action!</div>');
-								$("#pagestatusWindow").jqxWindow('open');
-							
-							}else {
-
-								var selDataRow = $('#poListTable').jqxGrid('getrowdata',selIndex);
-								
-								jQuery("#headerId").val(selDataRow.headerId);
-								
-								jQuery("#po-form").attr('action', "invoicemgmt/createDeliveryNote");
-								jQuery("#po-form").submit();
-							}
-							
-						});
-						
-						container
-						.append('&nbsp;|&nbsp;<input type="button" id="raiseInvoice" name="raiseInvoice" value="Raise Invoice">' );
-
-						$("#raiseInvoice").jqxButton({
-							theme : 'ehtheme'
-						});
-						
-						$("#raiseInvoice").on('click',function() {
-							
-							var selIndex = $("#poListTable").jqxGrid('selectedrowindex');
-							if (selIndex == -1) {
-								$("#appStatusMsg").html('<div class="heading_message heading_message_error">Please select a row and click desired action!</div>');
-								$("#pagestatusWindow").jqxWindow('open');
-							
-							}else {
-
-								var selDataRow = $('#poListTable').jqxGrid('getrowdata',selIndex);
-								
-								jQuery("#headerId").val(selDataRow.headerId);
-								
-								jQuery("#po-form").attr('action', "invoicemgmt/poBasedInvoice");
-								jQuery("#po-form").submit();
-							}
-							
-							
-						});*/
-						
-						if($("#country").val() =='MA'){
-//                                                                || $("#country").val() =='RS' ){
-                                                            container.append('&nbsp;|&nbsp;<input type="button" id="raiseInvoice" name="raiseInvoice" value="Raise Invoice">' );
-                                                            $("#raiseInvoice").jqxButton({theme : 'ehtheme'});
-						
-                                                            $("#raiseInvoice").on('click',function() {
-							
-                                                                var selIndex = $("#poListTable").jqxGrid('selectedrowindex');
-                                                                if (selIndex == -1) {
-                                                                        $("#appStatusMsg").html('<div class="heading_message heading_message_error">Please select a row and click desired action!</div>');
-                                                                        $("#pagestatusWindow").jqxWindow('open');
-
-                                                                }else {
-
-                                                                        var selDataRow = $('#poListTable').jqxGrid('getrowdata',selIndex);
-
-                                                                        if(selDataRow.poStatus == 'CLOSED'){
-                                                                            $("#appStatusMsg").html('<div class="heading_message heading_message_error">You cannot raise invoice against closed PO</div>');
-                                                                            $("#pagestatusWindow").jqxWindow('open');
-                                                                        }else{
-                                                                            jQuery("#headerId").val(selDataRow.headerId);
-
-                                                                            jQuery("#po-form").attr('action', "invoicemgmt/poBasedInvoice");
-                                                                            jQuery("#po-form").submit();
-                                                                        }
-                                                                }
-							
-                                                            });
-                                                    } else{
-						
-                                                        container.append('&nbsp;|&nbsp;<input type="button" id="raiseGenInvoice" name="raiseGenInvoice" value="<spring:message code="poWorkbench.RaiseInv" text="Raise Invoice" />">');
-
-                                                        $("#raiseGenInvoice").jqxButton({theme : 'ehtheme'});
-						
-                                                        $("#raiseGenInvoice").on('click',function() {
-
-                                                                var selIndex = $("#poListTable").jqxGrid('selectedrowindex');
-                                                                if (selIndex == -1) {
-                                                                        $("#appStatusMsg").html('<div class="heading_message heading_message_error" style="color:white;font-family:Cairo;">Please select a row and click desired action!</div>');
-                                                                        $("#pagestatusWindow").jqxWindow('open');
-
-                                                                }else {
-
-                                                                        var selDataRow = $('#poListTable').jqxGrid('getrowdata',selIndex);
-                                                                        if(selDataRow.poStatus == 'CLOSED'){
-                                                                            $("#appStatusMsg").html('<div class="heading_message heading_message_error">You cannot raise invoice against closed PO</div>');
-                                                                            $("#pagestatusWindow").jqxWindow('open');
-                                                                        }else{
-                                                                            jQuery("#headerId").val(selDataRow.headerId);
-
-                                                                            jQuery("#po-form").attr('action', "invoicemgmt/poLinesBasedInvoice");
-                                                                            jQuery("#po-form").submit();
-                                                                        }
-                                                                }
-
-                                                        });
-						
-						}
-						container
-						.append('&nbsp;|&nbsp;<input type="button" id="raisePrepayInvoice" name="raisePrepayInvoice" value="<spring:message code="poWorkbench.RaiseAdvInv" text="Raise Advance Invoice" />">');
-
-						$("#raisePrepayInvoice").jqxButton({
-							theme : 'ehtheme'
-						});
-						
-						$("#raisePrepayInvoice").on('click',function() {
-							
-							var selIndex = $("#poListTable").jqxGrid('selectedrowindex');
-							if (selIndex == -1) {
-								$("#appStatusMsg").html('<div class="heading_message heading_message_error" style="color:white;font-family:Cairo;">Please select a row and click desired action!</div>');
-								$("#pagestatusWindow").jqxWindow('open');
-							
-							}else {
-
-                                                                var selDataRow = $('#poListTable').jqxGrid('getrowdata',selIndex);
-                                                                if(selDataRow.poStatus == 'CLOSED'){
-                                                                    $("#appStatusMsg").html('<div class="heading_message heading_message_error">You cannot raise invoice against closed PO.</div>');
-                                                                    $("#pagestatusWindow").jqxWindow('open');
-                                                                 }else{
-								jQuery("#headerId").val(selDataRow.headerId);
-								
-								jQuery("#po-form").attr('action', "invoicemgmt/poLinesBasedPrepayInvoice");
-								jQuery("#po-form").submit();
-                                                                }   
-							}
-							
-						});
-						
-						container
-						.append('&nbsp;|&nbsp;<input type="button" id="exlExport" name="exlExport" value="<spring:message code="poWorkbench.ExportExc" text="Export to Excel" />">');
-
-						$("#exlExport").jqxButton({
-							theme : 'ehtheme'
-						});
-						
-						$("#exlExport").on('click',function() {
-							pageSize = $("#poListTable").jqxGrid('pagesize');
-							
-							$("#poListTable").jqxGrid(({ pagesize: poList.totalrecords }));
-							
-							exportData=true;
-							
-						});
-						
-						
-					},
-				
-					columns : [
-							{
-								text : 'PO No',
-								datafield : 'poNumber',
-								filtertype : 'input',
-								hidden : false,
-								columntype : 'textbox',
-								width :'10%'
-							},
-							{
-								text : 'Description',
-								datafield : 'poDescription',
-								filtertype : 'none',
-								width :'15%',
-								filtertype : 'input',
-								columntype : 'textbox'
-							},
-							{
-								text : '<spring:message code="poWorkbench.Status" text="Status" />',
-								datafield : 'poStatus',
-								filtertype : 'checkedlist',
-								hidden : false,
-								width :'10%'
-							},
-							{
-								text : '<spring:message code="poWorkbench.POCost" text="PO Cost" />',
-								datafield : 'poTotalCost',
-								columntype : 'textbox',
-								cellsformat:'f2',
-								filtertype : 'input',
-								width :'10%',
-								filterable : false
-							}
-							,
-							{
-								text : '<spring:message code="reference.Currency" text="Currency" />',
-								datafield : 'poCurrency',
-								filtertype : 'checkedlist',
-								width :'10%'
-							},
-                                                             <c:if test="${propertiesService.baseCountry =='RS'}">
-                                                                {
-								text : 'Secondary Currency',
-								datafield : 'secondLocalCurrency',
-								columntype : 'textbox',
-								cellsformat:'f2',
-								filtertype : 'input',
-								width : 135,
-								filterable : true
-							},
-                                                                {
-								text : '<spring:message code="poWorkbench.ExchRate" text="Exchange Rate (EUR to RSD)" />',
-								datafield : 'secondExchangeRate',
-								columntype : 'textbox',
-								cellsformat:'f2',
-								filtertype : 'input',
-								width : 170,
-								filterable : true
-							},
-                                                                {
-								text : '<spring:message code="poWorkbench.POTotalCost" text="PO Total Cost (EUR)" />',
-								datafield : 'secondLocalCurrencyAmount',
-								columntype : 'textbox',
-								cellsformat:'f2',
-								filtertype : 'input',
-								width : 150,
-								filterable : true
-							},
-                                                             </c:if>
-							{
-								text : '<spring:message code="poWorkbench.PODate" text="PO Date" />',
-								datafield : 'poIssueDate',
-								columntype : 'textbox',
-								filtertype: 'range',
-								cellsformat: 'dd-MMM-yyyy',
-								filterable:true,
-								width :'10%'
-							},
-							{
-								text : '<spring:message code="poWorkbench.OrdQty" text="Ord. Qty" />',
-								datafield : 'orderQty',
-								columntype : 'textbox',
-								filtertype : 'input',
-								filterable : false,
-								width : '10%'
-							},
-
-							{
-								text : '<spring:message code="poWorkbench.RecQty" text="Rec. Qty" />',
-								datafield : 'recievedQty',
-								columntype : 'textbox',
-								filtertype : 'input',
-								filterable : false,
-								width : '10%'
-							},
-							{
-								text : '<spring:message code="poWorkbench.RejQty" text="Rej. Qty" />',
-								datafield : 'rejectedQty',
-								columntype : 'textbox',
-								filtertype : 'input',
-								filterable : false,
-								width :'10%'
-							},{
-								text : '<spring:message code="poWorkbench.InvAm" text="Inv. Amount" />',
-								datafield : 'invoicedAmount',
-								columntype : 'textbox',
-								cellsformat:'f2',
-								filtertype : 'input',
-								width :'10%',
-								filterable : false
-							}
-							,
-							
-							{
-								text : 'Department',
-								datafield : 'departmentName',
-								filtertype : 'checkedlist',
-								width :'15%',
-								hidden : false
-							},
-							
-							{
-								text : '<spring:message code="poWorkbench.ReqBy" text="Requested By" />',
-								datafield : 'poOwnerName',
-								filtertype : 'checkedlist',
-								width :'15%',
-								hidden : false
-							},{
-								text : '<spring:message code="poWorkbench.Org" text="Organization" />',
-								datafield : 'attribute6',
-								filtertype : 'checkedlist',
-								width : '15%',
-								hidden : false
-								}
-							
-
-					]
-
-		});
-
-
+        var tabledata = $('#tabledata').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "info": true,
+            "autoWidth": false,
+            "aaSorting": [],
+            "scrollX": true
+        });
         
-        
-        
+        getData();
 
+        function getData() {
+
+            var jsArray = [];
+            $('.loader').show();
+
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(jsArray),
+                url: "<%=GlobalUrl.getAllPODetails%>",
+                dataType: "json",
+                contentType: "application/json",
+                async: false,
+                success: function(data) {
+
+                    $('.loader').hide();
+                    if (data.msg == 'success') {
+
+                        var result = data.data;
+                        tabledata.clear();
+                        console.log("result" + result);
+
+                        for (var i = 0; i < result.length; i++) {
+                        	
+                        	if(!result[i].hasOwnProperty("id")){
+ 								result[i].id="";
+ 							}
+                        	if(!result[i].hasOwnProperty("poNo")){
+ 								result[i].poNo="";
+ 							}
+                             if(!result[i].hasOwnProperty("type")){
+ 								result[i].type="";
+ 							}
+                             if(!result[i].hasOwnProperty("uom")){
+ 								result[i].uom="";
+ 							}
+                             if(!result[i].hasOwnProperty("quantity")){
+ 								result[i].quantity="";
+ 							}
+                             if(!result[i].hasOwnProperty("needByDate")){
+  								result[i].needByDate="";
+  							}
+                             if(!result[i].hasOwnProperty("amount")){
+  								result[i].ammount="";
+  							}
+                             if(!result[i].hasOwnProperty("status")){
+ 								result[i].status="";
+ 							}
+                             
+							// tabledata.row.add([view ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].ammount,result[i].status ]);  
+                             //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
+                            var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" +  result[i].poNo + "')\" >" + result[i].poNo + "</button>";
+                            var unprocess_status = '<span class=\"right badge badge-warning\">UnProcess</span>';
+                            var process_status = '<span class=\"right badge badge-success\">Process</span>';
+                            /*  var statustemp_payment_Pending = '<span class=\"right badge badge-warning\">Pending</span>';
+                            var statustemp_payment_No = '<span class=\"right badge badge-primary\">NA</span>';
+
+                            var statustemp_runststus_Intransit = '<span class=\"right badge badge-warning\">In-Transit</span>';
+                            var statustemp_runststus_Closed = '<span class=\"right badge badge-success\">Closed</span>';
+
+                           
+                            var paymentStatus = "";
+                            var runStatus = "";
+                            var vendorTripStatus = "";
+                            //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
+                            var tempString = [view, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
+
+                                                       tabledata.row.add(tempString); */
+                           var postatus="";                       
+                         if (result[i].status == "Process") {
+                        	 postatus = process_status;
+
+                              } else if(result[i].status == "Unprocess"){
+                            	  postatus = unprocess_status;
+                              } 
+                            tabledata.row.add([view ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].amount,postatus ]);  				        	
+                        }
+                        tabledata.draw();
+                        $("tbody").show();
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            title: 'Failed.. Try Again..'
+                        })
+                    }
+                },
+                error: function(jqXHR, textStatue, errorThrown) {
+                    alert("failed, please try again");
+                }
+            });
+        }
+
+        function setTripStatus(poNo) {
+            console.log("poNo" + poNo);
+            //	 tripId =  $("#tripID").val();		
+
+            var json = {
+                "poNo": poNo
+            }
+
+            
+
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(json),
+                url: "<%=GlobalUrl.poDetailsByPoNo%>",
+                dataType: "json",
+                contentType: "application/json",
+                async: false,
+                success: function(data) {
+
+                    if (data.msg == 'success') {
+                        var result = data.data;
+                        
+                       
+                        var myForm = "";
+                        myForm = document.getElementById("tripForm");
+                        setData(myForm, result);
+                       
+                        
+
+                        
+					
+                       
+                        $("tbody").show();
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            title: 'Failed.. Try Again..'
+                        })
+                    }
+                },
+                error: function(jqXHR, textStatue, errorThrown) {
+                    //alert("failed, please try again");
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Failed.. Try Again..'
+                    })
+                }
+            });
+        }
         </script>
 </body>
 

@@ -21,6 +21,8 @@ import com.main.db.bpaas.entity.RolesEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
+import com.main.db.bpaas.repo.SupDetailsRepo;
+import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
 import com.main.service.TripService;
 import com.main.service.UserService;
@@ -50,6 +52,15 @@ public class UIController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	PoDetailsRepo PoDetailsRepo;
+	
+	@Autowired 
+	PoDetailsRepo podetailsRepo;
+	
+	@Autowired
+	SupDetailsRepo supDetailsRepo;
 
 	@GetMapping({ "/login" })
 	public String login(Model model, String error, String logout) {
@@ -79,6 +90,20 @@ public class UIController {
 
 		String rolename = (String) request.getSession().getAttribute("role");
 		User us = userService.findByUsername(principal.getName());
+		
+		//pending
+		//String bpCode="1012";
+		String bpCode=userRepository.getBpCode(principal.getName());
+		if(bpCode =="" || bpCode==null ) {
+			bpCode="";
+		}
+		
+		String vendorType = supDetailsRepo.findVendorType(bpCode);
+		if(vendorType=="" || vendorType==null) {
+			vendorType="vendor";
+		}
+		System.out.println("vendorType in dashboard : "+vendorType);
+				
 
 		if (rolename.equalsIgnoreCase("Network")) {
 
@@ -104,6 +129,10 @@ public class UIController {
 			// Changes made for limit and 50 trips only
 			List<TripDetails> findAllTripsLimitFifty = tripService.findAllTripsLimitFifty();
 			model.addAttribute("yetTobeApprovedAllDetails", findAllTripsLimitFifty);
+			
+			request.setAttribute("vendorType", vendorType);
+			
+			
 			// changes end
 			return "dashBoard_NetworkRole";
 
@@ -162,7 +191,17 @@ public class UIController {
 			model.addAttribute("approveInvoice", approveInvoice);
 			model.addAttribute("draftInvoice", draftInvoice);
 			model.addAttribute("userStatus", us.getStatus());
+			
+			request.setAttribute("vendorType", vendorType);
+			model.addAttribute("vendorType", vendorType);
 
+			//po Details
+			/*
+			 * int totalProcessPoCount = PoDetailsRepo.getAllProcessPoCount(vendorCode);
+			 * model.addAttribute("totalProcessPoCount", totalProcessPoCount);
+			 * System.out.println("totalProcessPoCount : "+totalProcessPoCount);
+			 */
+			
 			return "dashboard";
 		} else if (rolename.equalsIgnoreCase("Audit")) {
 			return "";
@@ -171,6 +210,8 @@ public class UIController {
 		return "";
 
 	}
+	
+	
 
 	@GetMapping({ "/addUsers" })
 	public String addUsers(Model model, String error, String logout, HttpServletRequest request) {
@@ -386,8 +427,35 @@ public class UIController {
 				}
 	   		return "";
 	   	}
+	 
+	 @GetMapping("/dashboard_Po")
+	   	public String dashboard_Po(Model model, Principal principal, HttpServletRequest request) {
+	   		
+			 String rolename = (String) request.getSession().getAttribute("role");
+			 String vendorCode = (String) request.getSession().getAttribute("userName");
+				
+				//po Details
+				int totalProcessPoCount = podetailsRepo.getAllProcessPoCount(vendorCode);
+				model.addAttribute("totalProcessPoCount", totalProcessPoCount);
+				System.out.println("totalProcessPoCount : "+totalProcessPoCount);
+				int totalUnprocessPOCount= podetailsRepo.getAllUnProcessPoCount(vendorCode);
+				model.addAttribute("totalUnprocessPOCount", totalUnprocessPOCount);
+				//Query
+				int totalQueryCount= podetailsRepo.getAllQueryCount(vendorCode);
+				model.addAttribute("totalQueryCount", totalQueryCount);
+				
+				System.out.println("end of dashboard_Po");
+			 
+			 
+				if (rolename.equalsIgnoreCase("Vendor")) {
+					
+					return "dashboard_Po";
+					
+				}
+	   		return "";
+	   	}
 	
-
+	 
 //    @GetMapping("/tripsInvoiceGenerate")
 //    public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
 //
@@ -407,6 +475,42 @@ public class UIController {
 
 		int totalTripCount = tripDetailsRepo.getADHocTripCount("Adhoc");
 		model.addAttribute("totalTripCount", totalTripCount);
+		
+		//List<TripDetails> totalTripCount = tripDetailsRepo.findAll();
+		//model.addAttribute("totalTripCount", totalTripCount.size());
+
+		List<TripDetails> allApprovedTripscount = tripService.findAllTripsByStatus("Approved By Network Team");
+		model.addAttribute("ApprovedTripscount", allApprovedTripscount.size());
+
+		List<TripDetails> yetTobeApproved = tripService.findAllTripsByStatus("");
+		model.addAttribute("yetTobeApproved", yetTobeApproved.size());
+
+		List<TripDetails> getTripCountForQueryAdhoc = tripDetailsRepo.getQueryTripsForNetwork("Query");
+		model.addAttribute("getTripCountForQueryAdhoc", getTripCountForQueryAdhoc.size());
+
+		int getInClosedTripCountForAdhoc = tripDetailsRepo.getInTransitTripCountByRunTypeAndRunStatus("Adhoc",
+				"Closed");
+		model.addAttribute("getInClosedTripCountForAdhoc", getInClosedTripCountForAdhoc);
+
+		int getAllInvoiceCount = invoiceGenerationEntityRepo.getCountForAllInvoices();
+		model.addAttribute("getAllInvoiceCount", getAllInvoiceCount);
+
+		// Changes made for limit and 50 trips only
+		List<TripDetails> findAllTripsLimitFifty = tripService.findAllTripsLimitFifty();
+		model.addAttribute("yetTobeApprovedAllDetails", findAllTripsLimitFifty);
+		
+		String bpCode=userRepository.getBpCode(principal.getName());
+		if(bpCode =="" || bpCode==null ) {
+			bpCode="";
+		}
+		
+		String vendorType = supDetailsRepo.findVendorType(bpCode);
+		if(vendorType=="" || vendorType==null) {
+			vendorType="vendor";
+		}
+		System.out.println("vendorType in dashboard : "+vendorType);
+		
+		request.setAttribute("vendorType", vendorType);
 
 		return "dashBoard_NetworkRole";
 	}

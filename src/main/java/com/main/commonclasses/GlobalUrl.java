@@ -81,5 +81,20 @@ public static String invoiceController="invoiceController";
 	public static String getMasterById=masterController+"/getMasterById";
 	public static String saveUpdateMasterDetails=masterController+"/saveUpdateMasterDetails";
 	public static String deleteMaster=masterController+"/deleteMaster";
-	//End					 
+	//End	
+	
+	
+	 public static String poController="poController";
+	 public static String getAllPODetails=poController+"/getAllPODetails";
+	 public static String poDetailsByPoNo=poController+"/poDetailsByPoNo";
+	 public static String getAllProcessPo=poController+"/getAllProcessPo";
+	 public static String getAllUnProcessPo=poController+"/getAllUnProcessPo";
+	 
+	 
+	 
+	 
+	 
+	
+	
+	
 }

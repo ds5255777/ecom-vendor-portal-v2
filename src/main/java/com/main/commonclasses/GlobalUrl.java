@@ -6,7 +6,7 @@ public class GlobalUrl {
 
     public static String saveUpdateUserDetails = userController + "/saveUpdateUserDetails";
     public static String getUserById = userController + "/getUserById";
-    public static String getActiveUsersData = userController + "/getActiveUsersData";
+	public static String getActiveUsersData = userController + "/getActiveUsersData";
     public static String setStatusOfUserById = userController + "/setStatusOfUserById";
     public static String checkForExistingUserName = userController + "/checkForExistingUserName";
     public static String getUserByRole = userController + "/getUserByRole";
@@ -62,6 +62,7 @@ public static String invoiceController="invoiceController";
 	public static String deleteDraftInvoice = invoiceController + "/deleteDraftInvoice";
 	public static String deleteLineItem = invoiceController + "/deleteLineItem";
 	public static String discardDraftInvoice = invoiceController + "/discardDraftInvoice";
+	public static String checkForExistingInvoiceNumber = invoiceController + "/checkForExistingInvoiceNumber";
 	
     public static String dashboardController = "dashboardController";
 
@@ -71,6 +72,7 @@ public static String invoiceController="invoiceController";
     public static String getDashboardDetailsForNetwork = dashboardController + "/getDashboardDetailsForNetwork";
     public static String getTripsById = tripControllers + "/getTripsById";
     public static String updateDetailsforNetwork = dashboardController + "/updateDetailsforNetwork";
+    public static String getFinanceDashBoardDetails = dashboardController + "/getFinanceDashBoardDetails";
 
 //END
     
@@ -81,5 +83,8 @@ public static String invoiceController="invoiceController";
 	public static String getMasterById=masterController+"/getMasterById";
 	public static String saveUpdateMasterDetails=masterController+"/saveUpdateMasterDetails";
 	public static String deleteMaster=masterController+"/deleteMaster";
-	//End					 
+	//End	
+	
+	public static String financeController="financeController";
+	public static String viewAllInvoiceForFinanceTeam=financeController+"/viewAllInvoiceForFinanceTeam";
 }

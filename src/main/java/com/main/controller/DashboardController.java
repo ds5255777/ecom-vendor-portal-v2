@@ -1,16 +1,17 @@
 package com.main.controller;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,24 +21,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.JdbcConnection;
-import com.main.db.bpaas.entity.AgreementMaster;
+import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.repo.QueryRepo;
-
 import com.main.db.bpaas.repo.TripDetailsRepo;
-
+import com.main.service.InvoiceServiceImpl;
 import com.main.serviceManager.ServiceManager;
-import java.security.Principal;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @RequestMapping("/dashboardController")
 @RestController
@@ -57,6 +47,9 @@ public class DashboardController {
 
     @Autowired
     QueryRepo queryRepo;
+    
+    @Autowired
+    InvoiceServiceImpl invoiceServiceImpl;
 
 	@RequestMapping({ "getDashboardDetails" })
 	@CrossOrigin("*")
@@ -154,4 +147,24 @@ comm.setTripqueryfk(id);
         return gson.toJson(data).toString();
 
     }
+    
+    @RequestMapping({ "getFinanceDashBoardDetails" })
+	@CrossOrigin("*")
+	public String getFinanceDashBoardDetails( HttpSession session,HttpServletRequest request) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			List<InvoiceGenerationEntity> allInvoice = invoiceServiceImpl.getAllInvoice();
+            data.setData(allInvoice);
+            data.setMsg("success");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            data.setMsg("error");
+        }
+
+        return gson.toJson(data).toString();
+    }
+    
+    
 }

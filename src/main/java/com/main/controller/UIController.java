@@ -22,6 +22,7 @@ import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
+import com.main.service.InvoiceServiceImpl;
 import com.main.service.TripService;
 import com.main.service.UserService;
 import com.main.serviceManager.ServiceManager;
@@ -50,6 +51,9 @@ public class UIController {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	InvoiceServiceImpl invoiceServiceImpl;
 
 	@GetMapping({ "/login" })
 	public String login(Model model, String error, String logout) {
@@ -164,6 +168,11 @@ public class UIController {
 			model.addAttribute("userStatus", us.getStatus());
 
 			return "dashboard";
+		} else if (rolename.equalsIgnoreCase("Finance")) {
+			long count = invoiceGenerationEntityRepo.count();
+			model.addAttribute("count",count);
+
+			return "dashBoard_Finance";
 		} else if (rolename.equalsIgnoreCase("Audit")) {
 			return "";
 		}
@@ -175,21 +184,18 @@ public class UIController {
 	@GetMapping({ "/addUsers" })
 	public String addUsers(Model model, String error, String logout, HttpServletRequest request) {
 
-		
 		String rolename = (String) request.getSession().getAttribute("role");
 
-
 		if (rolename.equalsIgnoreCase("Admin")) {
-		
-		List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive("1");
-		model.addAttribute("rolesList", roleList);
+
+			List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive("1");
+			model.addAttribute("rolesList", roleList);
 
 //		      serviceManager.insertAddUpdateInMaster(request, action, actionType, null, null, null);
-		return "addUsers";
-		
+			return "addUsers";
+
 		}
 		return "";
-		
 
 	}
 
@@ -304,60 +310,53 @@ public class UIController {
 	// Added by Manish
 	@GetMapping("/tripMaster")
 	public String tripMaster(Model model, Principal principal, HttpServletRequest request) {
-    	
-    	String rolename = (String) request.getSession().getAttribute("role");
+
+		String rolename = (String) request.getSession().getAttribute("role");
 
 		if (rolename.equalsIgnoreCase("Admin")) {
-			
-		return "tripMaster";
-		
+
+			return "tripMaster";
+
 		}
 		return "";
 	}
-    @GetMapping("/vendorDetails")
-   	public String vendorDetails(Model model, Principal principal, HttpServletRequest request) {
-    	String rolename = (String) request.getSession().getAttribute("role");
+
+	@GetMapping("/vendorDetails")
+	public String vendorDetails(Model model, Principal principal, HttpServletRequest request) {
+		String rolename = (String) request.getSession().getAttribute("role");
 
 		if (rolename.equalsIgnoreCase("Admin")) {
-			
+
 			return "vendorDetails";
 		}
-   		return "";
-   	}
-    @GetMapping("/notification")
-   	public String notification(Model model, Principal principal, HttpServletRequest request) {
-   		
-    	String rolename = (String) request.getSession().getAttribute("role");
+		return "";
+	}
+
+	@GetMapping("/notification")
+	public String notification(Model model, Principal principal, HttpServletRequest request) {
+
+		String rolename = (String) request.getSession().getAttribute("role");
 
 		if (rolename.equalsIgnoreCase("Admin")) {
-			
+
 			return "notification";
 		}
-   		return "";
-   	}
-     
-	 @GetMapping("/vendorRegistrastion")
-   	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
-   		
-		 String rolename = (String) request.getSession().getAttribute("role");
+		return "";
+	}
 
-			if (rolename.equalsIgnoreCase("Admin")) {
-				
-				return "vendorRegistrastion";
-				
-			}
-   		return "";
-   	}
-	//End
+	@GetMapping("/vendorRegistrastion")
+	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
 
-//    @GetMapping("/tripsInvoiceGenerate")
-//    public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
-//
-//        String tripId = request.getParameter("id");
-//        model.addAttribute("tripId", tripId);
-//
-//        return "tripsInvoiceGenerate";
-//    }
+		String rolename = (String) request.getSession().getAttribute("role");
+
+		if (rolename.equalsIgnoreCase("Admin")) {
+
+			return "vendorRegistrastion";
+
+		}
+		return "";
+	}
+
 //Added by Saurabh for Network Module Part
 	@GetMapping("/dashbaordNetwork")
 	public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {
@@ -546,5 +545,16 @@ public class UIController {
 
 		return "changePassword";
 	}
+//allInvoices_Finance
+	@GetMapping("/allInvoices_Finance")
+	public String allInvoicesFinance(Model model, HttpServletRequest request, Principal principal) {
 
+		return "allInvoices_Finance";
+	}
+	
+	@GetMapping("/invoiceView_Finance")
+	public String invoiceView_Finance(Model model, HttpServletRequest request, Principal principal) {
+
+		return "invoiceView_Finance";
+	}
 }

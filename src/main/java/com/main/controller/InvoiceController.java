@@ -411,5 +411,34 @@ public class InvoiceController {
 
 		return gson.toJson(data).toString();
 	}
+	
+	//finance Controller
+	//checkForExistingInvoiceNumber
+	@RequestMapping({ "/checkForExistingInvoiceNumber" })
+	@CrossOrigin("*")
+	public String checkForExistingInvoiceNumber(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
+
+		DataContainer data = new DataContainer();
+
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			String invoiceNumber = invoiceGenerationEntityRepo.checkForExistingInvoiceNumber( obj.getVendorCode(),obj.getInvoiceNumber());
+			
+			System.out.println(invoiceNumber);
+			
+			if (null == invoiceNumber) {
+				data.setMsg("success");
+			} else {
+				data.setMsg("exist");
+			}
+
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
 
 }

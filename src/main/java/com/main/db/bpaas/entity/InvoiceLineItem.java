@@ -24,6 +24,9 @@ public class InvoiceLineItem {
 	@Column(name = "rate_per_km")
 	private String ratePerKm;
 
+	@Column(name = "route")
+	private String route;
+
 	@Column(name = "current_fuel_rate")
 	private String currentFuelRate;
 
@@ -102,6 +105,14 @@ public class InvoiceLineItem {
 
 	public void setFsDiff(String fsDiff) {
 		this.fsDiff = fsDiff;
+	}
+
+	public String getRoute() {
+		return route;
+	}
+
+	public void setRoute(String route) {
+		this.route = route;
 	}
 
 	public String getBasicFreight() {

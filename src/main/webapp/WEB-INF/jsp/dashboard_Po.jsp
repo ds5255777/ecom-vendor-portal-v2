@@ -62,7 +62,7 @@ tbody {
 
 
 		<!-- Right navbar links -->
-		<jsp:include page="slidebar_Po.jsp?pagename=dashboard" />
+		<jsp:include page="slidebar_Po.jsp?pagename=dashboard_Po" />
 
 		<!-- /.navbar -->
 
@@ -104,8 +104,7 @@ tbody {
 								</div>
 								<div class="icon">
 
-									<i class="fas fa-ban"
-										style="color: #FFA07A; font-size: 70px;"></i>
+									<i class="fa fa-tasks" style="color: #dc3545; font-size: 70px;"></i>
 								</div>
 								<a href="unprocessPO" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -125,8 +124,7 @@ tbody {
 								</div>
 								<div class="icon">
 
-									<i class="fas fa-braille"
-										style="color: #28a745; font-size: 70px;"></i>
+									<i class="fas fa fa-check" style="color: #28a745; font-size: 70px;"></i>
 								</div>
 								<a href="processPO" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -173,7 +171,7 @@ tbody {
 
 									
 									
-									<i class="fas fa-asterisk"style="color:#ee82ee; font-size: 70px;"></i>
+									<i class="fas fa-question"style="color: #fd7e14; font-size: 70px;"></i>
 								</div>
 								<a href="QueryTripsForNetwork" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More

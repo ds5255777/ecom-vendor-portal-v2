@@ -15,7 +15,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                 <!-- DASHBOARD -->
-                <li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link
+                <li class="nav-item"><a href="dashboard_Po" class="nav-link
                                         <% if (request.getParameter("pagename").equalsIgnoreCase("dashboard_Po")) {
                                                 out.print("active");
                                             }%>

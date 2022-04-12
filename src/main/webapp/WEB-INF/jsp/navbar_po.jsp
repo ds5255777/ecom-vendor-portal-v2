@@ -66,7 +66,7 @@
 				<form>
 				<select name="list" id="list" accesskey="target"  onchange="goToNewPage()"  style="height: 34px;font-size: 17px;">
 				   <option value="">-- Please select --</option>
-				    <option value="dashbaordNetwork">Network Dashboard </option>
+				    <option value="dashbaordNetworkPo">Network Dashboard </option>
 				    <option value="dashboard_Po">Po Dashboard</option>
 				    
 				</select>

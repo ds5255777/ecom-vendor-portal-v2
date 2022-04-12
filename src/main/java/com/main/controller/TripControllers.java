@@ -25,7 +25,9 @@ import com.main.db.JdbcConnection;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.repo.QueryRepo;
+import com.main.db.bpaas.repo.SupDetailsRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
+import com.main.db.bpaas.repo.UserRepository;
 import com.main.service.TripService;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
@@ -44,6 +46,12 @@ public class TripControllers {
 
 	@Autowired
 	private TripService tripService;
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
+	SupDetailsRepo supDetailsRepo;
 
 	@RequestMapping({ "filterTripDetails" })
 	@CrossOrigin("*")
@@ -121,6 +129,29 @@ public class TripControllers {
 		String rolename = (String) request.getSession().getAttribute("role");
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		
+		 String bpCode=userRepository.getBpCode(principal.getName()); 
+	 		if(bpCode =="" || bpCode==null ) { 
+	 			bpCode=""; 
+	 			} 
+	 	String vendorType = supDetailsRepo.findVendorType(bpCode);
+			 if(vendorType==""|| vendorType==null) { 
+				 vendorType="vendor";
+				 }
+			 String[] strArray = null;  
+		       
+		      strArray = vendorType.split(","); 
+		      
+		      for (int i = 0; i < strArray.length; i++) {
+		         	
+	         	     if(strArray[i].equalsIgnoreCase("Network")  && strArray[i+1].equalsIgnoreCase("Fixed Asset")){
+	         	    	 System.out.println("vendor type in allTrips: "+strArray[i]+" and "+strArray[i+1]); 
+	         	    	rolename="networkpo";
+	         	    	 break;
+	         	     }
+		      }
+		
+		
 		if (rolename.equalsIgnoreCase("Network")) {
 			try {
 				List<TripDetails> allTripDetailsList = tripDetailsRepo.findAll();
@@ -144,6 +175,16 @@ public class TripControllers {
 			try {
 				List<TripDetails> allTripDetailsList = tripDetailsRepo.findAll();
 				data.setData(allTripDetailsList);
+				data.setMsg("success");
+			} catch (Exception e) {
+				data.setMsg("error");
+				e.printStackTrace();
+			}
+		}else if (rolename.equalsIgnoreCase("networkpo")) {
+			try {
+				List<TripDetails> allTripDetailsList = tripDetailsRepo.findAll();
+				data.setData(allTripDetailsList);
+				System.out.println("In network & PO role");
 				data.setMsg("success");
 			} catch (Exception e) {
 				data.setMsg("error");

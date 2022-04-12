@@ -269,6 +269,9 @@ public class UIController {
 	public String allTrips(Model model, Principal principal, HttpServletRequest request) {
 		String rolename = (String) request.getSession().getAttribute("role");
 		System.out.println("Role is ::" + rolename);
+		
+		
+		
 		if (rolename.equalsIgnoreCase("Network")) {
 			System.out.println("All trips in network");
 			return "allTripsNetwork";
@@ -465,57 +468,65 @@ public class UIController {
 //        return "tripsInvoiceGenerate";
 //    }
 //Added by Saurabh for Network Module Part
-	@GetMapping("/dashbaordNetwork")
-	public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {
+	 @GetMapping("/dashbaordNetwork")
+		public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {
 
-		String tripId = request.getParameter("id");
-		model.addAttribute("tripId", tripId);
+			String tripId = request.getParameter("id");
+			model.addAttribute("tripId", tripId);
 
-		System.out.println("tripId ........." + tripId);
+			System.out.println("tripId ........." + tripId);
 
-		int totalTripCount = tripDetailsRepo.getADHocTripCount("Adhoc");
-		model.addAttribute("totalTripCount", totalTripCount);
-		
-		//List<TripDetails> totalTripCount = tripDetailsRepo.findAll();
-		//model.addAttribute("totalTripCount", totalTripCount.size());
+			int totalTripCount = tripDetailsRepo.getADHocTripCount("Adhoc");
+			model.addAttribute("totalTripCount", totalTripCount);
 
-		List<TripDetails> allApprovedTripscount = tripService.findAllTripsByStatus("Approved By Network Team");
-		model.addAttribute("ApprovedTripscount", allApprovedTripscount.size());
-
-		List<TripDetails> yetTobeApproved = tripService.findAllTripsByStatus("");
-		model.addAttribute("yetTobeApproved", yetTobeApproved.size());
-
-		List<TripDetails> getTripCountForQueryAdhoc = tripDetailsRepo.getQueryTripsForNetwork("Query");
-		model.addAttribute("getTripCountForQueryAdhoc", getTripCountForQueryAdhoc.size());
-
-		int getInClosedTripCountForAdhoc = tripDetailsRepo.getInTransitTripCountByRunTypeAndRunStatus("Adhoc",
-				"Closed");
-		model.addAttribute("getInClosedTripCountForAdhoc", getInClosedTripCountForAdhoc);
-
-		int getAllInvoiceCount = invoiceGenerationEntityRepo.getCountForAllInvoices();
-		model.addAttribute("getAllInvoiceCount", getAllInvoiceCount);
-
-		// Changes made for limit and 50 trips only
-		List<TripDetails> findAllTripsLimitFifty = tripService.findAllTripsLimitFifty();
-		model.addAttribute("yetTobeApprovedAllDetails", findAllTripsLimitFifty);
-		
-		String bpCode=userRepository.getBpCode(principal.getName());
-		if(bpCode =="" || bpCode==null ) {
-			bpCode="";
+			return "dashBoard_NetworkRole";
 		}
-		
-		String vendorType = supDetailsRepo.findVendorType(bpCode);
-		if(vendorType=="" || vendorType==null) {
-			vendorType="vendor";
+	 
+	 @GetMapping("/dashbaordNetworkPo")
+		public String dashbaordNetworkPo(Model model, Principal principal, HttpServletRequest request) {
+
+			List<TripDetails> totalTripCount = tripDetailsRepo.findAll();
+			model.addAttribute("totalTripCount", totalTripCount.size());
+
+			List<TripDetails> allApprovedTripscount = tripService.findAllTripsByStatus("Approved By Network Team");
+			model.addAttribute("ApprovedTripscount", allApprovedTripscount.size());
+
+			List<TripDetails> yetTobeApproved = tripService.findAllTripsByStatus("");
+			model.addAttribute("yetTobeApproved", yetTobeApproved.size());
+
+			List<TripDetails> getTripCountForQueryAdhoc = tripDetailsRepo.getQueryTripsForNetwork("Query");
+			model.addAttribute("getTripCountForQueryAdhoc", getTripCountForQueryAdhoc.size());
+
+			int getInClosedTripCountForAdhoc = tripDetailsRepo.getInTransitTripCountByRunTypeAndRunStatus("Adhoc",
+					"Closed");
+			model.addAttribute("getInClosedTripCountForAdhoc", getInClosedTripCountForAdhoc);
+
+			int getAllInvoiceCount = invoiceGenerationEntityRepo.getCountForAllInvoices();
+			model.addAttribute("getAllInvoiceCount", getAllInvoiceCount);
+
+			// Changes made for limit and 50 trips only
+			List<TripDetails> findAllTripsLimitFifty = tripService.findAllTripsLimitFifty();
+			model.addAttribute("yetTobeApprovedAllDetails", findAllTripsLimitFifty);
+			
+			 String bpCode=userRepository.getBpCode(principal.getName()); 
+			 		if(bpCode =="" || bpCode==null ) { 
+			 			bpCode=""; 
+			 			}
+					 
+			 String vendorType = supDetailsRepo.findVendorType(bpCode);
+					 if(vendorType==""|| vendorType==null) { 
+						 vendorType="vendor";
+						 }
+			 System.out.println("vendorType in dashboard : "+vendorType);
+					  
+			 request.setAttribute("vendorType", vendorType);
+					  
+					  return "dashBoard_NetworkRole"; 
+			
+			
+			
 		}
-		System.out.println("vendorType in dashboard : "+vendorType);
-		
-		request.setAttribute("vendorType", vendorType);
-
-		return "dashBoard_NetworkRole";
-	}
-
-	@GetMapping("/InsertTrip")
+			@GetMapping("/InsertTrip")
 	public void InsertTrip(Model model, Principal principal, HttpServletRequest request) throws FileNotFoundException {
 		System.out.println("***************************Inside Trip************************************************");
 		TripDetails tripDetails = new TripDetails();

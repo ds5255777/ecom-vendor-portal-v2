@@ -175,7 +175,7 @@ tbody {
 									
 									<i class="fas fa-asterisk"style="color:#ee82ee; font-size: 70px;"></i>
 								</div>
-								<a href="#" class="small-box-footer"
+								<a href="QueryTripsForNetwork" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
 									info <i class="fas fa-arrow-circle-right"></i>
 								</a>

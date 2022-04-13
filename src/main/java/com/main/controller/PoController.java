@@ -20,7 +20,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.PoDetails;
+import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.repo.PoDetailsRepo;
+import com.main.db.bpaas.repo.PoInvoiceRepo;
 
 
 
@@ -31,6 +33,8 @@ public class PoController {
 	
 	@Autowired 
 	PoDetailsRepo podetailsRepo;
+	@Autowired
+	PoInvoiceRepo poInvoiceRepo;
 	
 	@RequestMapping({ "/getAllPODetails" })
 	@CrossOrigin("*")
@@ -129,24 +133,55 @@ public class PoController {
 	}
 	
 	
-	
-	
-	//@CrossOrigin("*")
-	/*@GetMapping("/dashboard_Po")
-	public String dashboard(Model model,  HttpServletRequest request) {
+	@RequestMapping({ "/getAllInvoiceDetails" })
+	@CrossOrigin("*")
+	public String getAllInvoiceDetails(HttpServletRequest request ) {
 
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
+			System.out.println("vendorCode in getAllUnProcessPo : "+vendorCode);
+			List<PoInvoiceDetails> details = poInvoiceRepo.findByVendorCode(vendorCode);
 			
-			//po Details
-			int totalProcessPoCount = podetailsRepo.getAllProcessPoCount(vendorCode);
-			model.addAttribute("totalProcessPoCount", totalProcessPoCount);
-			System.out.println("totalProcessPoCount : "+totalProcessPoCount);
-			//request.setAttribute("totalProcessPoCount", totalProcessPoCount);
-			
-		
-			System.out.println("end of dashboard_Po");
+			data.setData(details);
+			data.setMsg("success");
+			System.out.println("end of allPoDetails");
 
-		return "dashboard_Po";
-	}*/
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+	@RequestMapping({ "/getSelectInvoiceDetailsPo" })
+	@CrossOrigin("*")
+	public String getSelectInvoiceDetailsPo(HttpServletRequest request ,@RequestBody PoInvoiceDetails details ) {
+
+		DataContainer data = new DataContainer();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			
+			List<PoInvoiceDetails> poInvoiceDetails = poInvoiceRepo.findByInvoiceNumber(details.getInvoiceNumber());
+			
+			data.setData(poInvoiceDetails);
+			data.setMsg("success");
+			System.out.println("end of allPoDetails");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+
+	
 	
 }

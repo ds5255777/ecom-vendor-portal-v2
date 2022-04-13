@@ -23,6 +23,7 @@ import com.main.db.bpaas.entity.User;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.SupDetailsRepo;
 import com.main.db.bpaas.repo.PoDetailsRepo;
+import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
 import com.main.service.TripService;
 import com.main.service.UserService;
@@ -61,6 +62,9 @@ public class UIController {
 	
 	@Autowired
 	SupDetailsRepo supDetailsRepo;
+	
+	@Autowired
+	PoInvoiceRepo poinvoiceRepo;
 
 	@GetMapping({ "/login" })
 	public String login(Model model, String error, String logout) {
@@ -444,6 +448,10 @@ public class UIController {
 				int totalQueryCount= podetailsRepo.getAllQueryCount(vendorCode);
 				model.addAttribute("totalQueryCount", totalQueryCount);
 				
+				//Query
+				int totalInvoiceCount= poinvoiceRepo.getAllInvoiceCount(vendorCode);
+				model.addAttribute("totalInvoiceCount", totalInvoiceCount);
+				
 				System.out.println("end of dashboard_Po");
 			 
 			 
@@ -454,6 +462,23 @@ public class UIController {
 				}
 	   		return "";
 	   	}
+	 
+	 
+	 
+	 @GetMapping("/poInvoiceDetails")
+	   	public String poInvoiceDetails(Model model, Principal principal, HttpServletRequest request) {
+	   		
+			 String rolename = (String) request.getSession().getAttribute("role");
+			
+				if (rolename.equalsIgnoreCase("Vendor")) {
+					
+					return "poInvoiceDetails";
+					
+				}
+	   		return "";
+	   	}
+	 
+	 
 	
 	 
 //    @GetMapping("/tripsInvoiceGenerate")
@@ -621,6 +646,15 @@ public class UIController {
 		String invoiceNumber = request.getParameter("id");
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		return "invoiceView";
+	}
+	
+	@GetMapping("/invoiceViewPo")
+	public String invoiceViewPo(Model model, HttpServletRequest request, Principal principal) {
+
+		String invoiceNumber = request.getParameter("id");
+		System.out.println("invoiceNo"+invoiceNumber);
+		model.addAttribute("invoiceNo", invoiceNumber);
+		return "invoiceViewPo";
 	}
 
 	@GetMapping("/draftInvoiceGenerate")

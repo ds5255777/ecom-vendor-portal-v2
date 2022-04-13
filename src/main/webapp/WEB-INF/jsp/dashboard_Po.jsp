@@ -137,7 +137,7 @@ tbody {
 							<!-- small box -->
 							<div class="small-box bg-white">
 								<div class="inner">
-									<h2>null</h2>
+									<h2>${totalInvoiceCount}</h2>
 									
 									<%-- <%Object totalProcessPoCount=request.getAttribute("totalProcessPoCount"); %>
 									<h2><%=totalProcessPoCount %></h2> --%>
@@ -150,7 +150,7 @@ tbody {
 									<i class="fas fa-file-invoice-dollar"
 										style="color: #007bff; font-size: 75px;"></i>
 								</div>
-								<a href="#" class="small-box-footer"
+								<a href="poInvoiceDetails" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
 									info <i class="fas fa-arrow-circle-right"></i>
 								</a>

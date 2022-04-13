@@ -70,7 +70,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item"><a href="#" class="nav-link
+                        <li class="nav-item"><a href="poInvoiceDetails" class="nav-link
                                                 <%if (request.getParameter("pagename").equalsIgnoreCase("All Invoice")) {
                                     out.print("active");
                                 }%> ">

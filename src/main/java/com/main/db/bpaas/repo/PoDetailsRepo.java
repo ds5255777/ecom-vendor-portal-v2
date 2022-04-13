@@ -32,5 +32,6 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long>{
 	int getAllQueryCount(String vendorCode);
 	
 	
+	 
 	
 }

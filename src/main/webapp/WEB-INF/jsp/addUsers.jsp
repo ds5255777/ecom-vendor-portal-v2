@@ -145,7 +145,7 @@
                             <!-- general form elements -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Add User Applicable Only for Admin or Audit or Finance</h3>
+                                    <h3 class="card-title">Add User, Applicable Only for Admin or Audit or Finance</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
@@ -320,7 +320,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Contact No</label> <input type="text" name="contactNo" class="form-control" id="contactNoEdit">
+                                                    <label for="exampleInputserverName1">Contact No</label> <input type="text" name="contactNo" maxlength="10" class="form-control" id="contactNoEdit">
                                                 </div>
                                             </div>
                                             
@@ -843,7 +843,7 @@
                  return false;
         		 
         	 } 
-        	 let text="Are You sure to delete this user !";
+        	 let text="Are You sure to delete "+name;
         	 if (confirm(text) != true) {
         		 
         		    

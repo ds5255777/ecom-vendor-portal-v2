@@ -1074,11 +1074,7 @@ width: 100% !important;
 														class="form-control p-input" id="bankName" name="bankName"
 														placeholder="Bank Name"></td>
 
-													<td><label for="ifscCode">RTGS/ IFSC Code<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="ifscCode" name="ifscCode"
-														placeholder="RTGS/ IFSC Code"></td>
+													
 
 
 													<td><label for="accoutNumber">Account Number<span
@@ -1088,17 +1084,23 @@ width: 100% !important;
 														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 														name="accoutNumber" placeholder="Account Number"></td>
 														
-														
-
-												</tr>
-												<tr class="">
-												<td><label for="Confirmed accoutNumber">Confirmed Account Number<span
+														<td><label for="Confirmed accoutNumber">Confirmed Account Number<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><input type="text"
 														class="form-control p-input" id="confirmedAccoutNumber"
 														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 														name="confirmedAccoutNumber"  placeholder="Confirmed Account Number"></td>
+
+												</tr>
+												<tr class="">
+												
 														
+													<td><label for="ifscCode">RTGS/ IFSC Code<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="ifscCode" name="ifscCode"
+														placeholder="RTGS/ IFSC Code"></td>
+															
 													<td><label for="accoutCurrency">Currency<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><select id="accoutCurrency"

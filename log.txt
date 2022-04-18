@@ -1,0 +1,12 @@
+2022-04-14 17:18:46.491  WARN 4816 --- [main] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/Dell/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/Dell/.m2/repository/org/json/json/20180813/json-20180813.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2022-04-14 17:18:46.565  INFO 4816 --- [main] c.b.EcomVendorPortelApplicationTests     : Starting EcomVendorPortelApplicationTests using Java 1.8.0_321 on DESKTOP-SCV23EK with PID 4816 (started by Dell in C:\Users\Dell\Desktop\Complete web  developement\ecom-vendor-portal-v2)
+2022-04-14 17:18:46.567  INFO 4816 --- [main] c.b.EcomVendorPortelApplicationTests     : The following profiles are active: dev
+2022-04-14 17:18:47.411  INFO 4816 --- [main] c.b.EcomVendorPortelApplicationTests     : Started EcomVendorPortelApplicationTests in 2.267 seconds (JVM running for 5.611)

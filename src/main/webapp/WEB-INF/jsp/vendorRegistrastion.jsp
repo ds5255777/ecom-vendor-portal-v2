@@ -664,10 +664,10 @@ width: 100% !important;
 										<tbody>
 											<tr class="">
 
-
+								
 												<td><label for="name">Introduced By Name<span
 														class="required adHocRequired">*</span></label></td>
-												<td colspan='1'><input type="text"
+												<td colspan='1'><input type="text" value="${uname}"
 													class="form-control p-input" id="introducedByName"
 													name="introducedByName" placeholder="Reference Name"
 													onchange="removeValCssByID(this)" required></td>
@@ -1087,9 +1087,18 @@ width: 100% !important;
 														class="form-control p-input" id="accoutNumber"
 														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 														name="accoutNumber" placeholder="Account Number"></td>
+														
+														
 
 												</tr>
 												<tr class="">
+												<td><label for="Confirmed accoutNumber">Confirmed Account Number<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="confirmedAccoutNumber"
+														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+														name="confirmedAccoutNumber"  placeholder="Confirmed Account Number"></td>
+														
 													<td><label for="accoutCurrency">Currency<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><select id="accoutCurrency"
@@ -1104,6 +1113,8 @@ width: 100% !important;
 															name="addBankGridButt" class="btn btn-primary">Add
 															Account Details</button>
 													</td>
+													 <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
+													
 												</tr>
 
 											</tbody>
@@ -1119,6 +1130,7 @@ width: 100% !important;
 															<th>RTGS/ IFSC Code</th>
 															<th>Currency</th>
 															<th>Account Number</th>
+															
 															<th></th>
 															<th>Action</th>
 														</tr>
@@ -1152,10 +1164,9 @@ width: 100% !important;
 															Currency<span class="required adHocRequired">*</span>
 													</label></td>
 													<td colspan='2'><select id="invoiceCurrency"
-														name="invoiceCurrency" class="form-control p-input">
-															<option value="INR">INR</option>
-															<option value="USD">USD</option>
-															<option value="KES">KES</option>
+														name="invoiceCurrency" readonly class="form-control p-input">
+															<option value="INR" >INR</option>
+															
 													</select></td>
 
 													<td><label for="paymentCurrency">Payment
@@ -1226,15 +1237,15 @@ width: 100% !important;
 												</thead>
 												<tbody>
 													<tr class="">
-														<td><label class="addressLable" for="tdsApplication">TDS
+														<!-- <td><label class="addressLable" for="tdsApplication">TDS
 																Applicable<span
 															class="required adHocRequired">*</span></label></td>
 														<td colspan='2'><select id="tdsApplication"
 															name="tdsApplication" onchange="changetextbox();"
 															class="form-control p-input ">
 																<option value="Yes">Yes</option>
-																<!-- <option value="No">No</option> -->
-														</select></td>
+																<option value="No">No</option>
+														</select></td> -->
 
 														<td><label class="addressLable" for="tdsSection">TDS
 																Section<span
@@ -1628,6 +1639,9 @@ width: 100% !important;
             var abc = document.getElementById('bankName').value;
             var abc2 = document.getElementById('ifscCode').value;
             var abc3 = document.getElementById('accoutNumber').value;
+            var abc4 = document.getElementById('confirmedAccoutNumber').value;
+            table = document.getElementById('addBankGrid');
+            rowLength = table.rows.length;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
                 swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
@@ -1675,7 +1689,13 @@ width: 100% !important;
             } else if (abc3 == null || abc3 == "") {
                 swal.fire("Alert", "Fill Mandatory Field ! Account Number", "warning");
                 return false;
-            } else {
+            }else if (abc4 == null || abc4 == "") {
+                swal.fire("Alert", "Fill Mandatory Field ! Confirmed Account Number", "warning");
+                return false;
+            }
+           
+            else if(rowLength<2) {
+           
                 $("#addBankGrid").append('<tr class=""><td>' +
                     document.getElementById('bankName').value + '</td><td>' +
                     document.getElementById('ifscCode').value + '</td><td>' +
@@ -1685,6 +1705,14 @@ width: 100% !important;
                 document.getElementById('bankName').value = "";
                 document.getElementById('ifscCode').value = "";
                 document.getElementById('accoutNumber').value = "";
+                document.getElementById('confirmedAccoutNumber').value = "";
+            }else{
+            	 swal.fire("Alert", "only add one bank details", "warning");
+            	 document.getElementById('bankName').value = "";
+                 document.getElementById('ifscCode').value = "";
+                 document.getElementById('accoutNumber').value = "";
+                 document.getElementById('confirmedAccoutNumber').value = "";
+                 return false;
             }
         });
 
@@ -2132,7 +2160,54 @@ width: 100% !important;
              }
          }
 
-         
+       
+        
+        $(function() {
+            $("#confirmedAccoutNumber").keyup(function() {
+                var password = $("#accoutNumber").val();
+                var passwordConfirm = $("#confirmedAccoutNumber").val();
+                var passflag = $("#passflag").val();
+                
+               
+                 if ($('#accoutNumber').val() == $('#confirmedAccoutNumber').val() && passflag!="1" ) {
+        		    $('#divCheckPasswordMatch').html('Account number match.').css('color', 'green');
+        		    // Enable #x	
+        		    $("#addBankGridButt").prop("disabled", false)
+        		    
+        		  } 
+                 else {
+        		    $('#divCheckPasswordMatch').html('Account number do not match!').css('color', 'red');
+             // Disable #x
+    		    $('#addBankGridButt').attr('disabled', true);
+                return;
+        		  }
+              //  $("#divCheckPasswordMatch").html(password == $(this).val() ? "Passwords match." : "Passwords do not match!");
+            });
+        }); 
+        
+        $(function() {
+            $("#accoutNumber").keyup(function() {
+                var password = $("#accoutNumber").val();
+                var passwordConfirm = $("#confirmedAccoutNumber").val();
+                var passflag = $("#passflag").val();
+                
+               
+                 if ($('#accoutNumber').val() == $('#confirmedAccoutNumber').val() && passflag!="1" ) {
+        		    $('#divCheckPasswordMatch').html('Account number match.').css('color', 'green');
+        		    // Enable #x	
+        		    $("#addBankGridButt").prop("disabled", false)
+        		    
+        		  } 
+                 else {
+        		    $('#divCheckPasswordMatch').html('Account number do not match!').css('color', 'red');
+             // Disable #x
+    		    $('#addBankGridButt').attr('disabled', true);
+                return;
+        		  }
+              //  $("#divCheckPasswordMatch").html(password == $(this).val() ? "Passwords match." : "Passwords do not match!");
+            });
+        }); 
+        
          
     </script>
 

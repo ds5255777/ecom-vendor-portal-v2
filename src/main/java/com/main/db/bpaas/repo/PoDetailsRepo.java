@@ -31,6 +31,9 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long>{
 	@Query(value = "select count(*) from query_details where reference_id=:vendorCode", nativeQuery = true)
 	int getAllQueryCount(String vendorCode);
 	
+	@Query(value = "select * from po_details where po_number=? and vendor_code=?" , nativeQuery = true)
+	List<PoDetails> getPoDetailsByPoNo(String poNo,String vendorCode);
+	
 	
 	 
 	

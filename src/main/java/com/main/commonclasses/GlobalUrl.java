@@ -89,9 +89,18 @@ public static String invoiceController="invoiceController";
 	 public static String poDetailsByPoNo=poController+"/poDetailsByPoNo";
 	 public static String getAllProcessPo=poController+"/getAllProcessPo";
 	 public static String getAllUnProcessPo=poController+"/getAllUnProcessPo";
+	 public static String getSelectPoDetails=poController+"/getSelectPoDetails";
+	 public static String getAllPODetailsByPoNo=poController+"/getAllPODetailsByPoNo";
+	 
 	 
 	 public static String getAllInvoiceDetails=poController+"/getAllInvoiceDetails";
 	 public static String getSelectInvoiceDetailsPo=poController+"/getSelectInvoiceDetailsPo";
+	 public static String savePoInvoiceQuery=poController+"/savePoInvoiceQuery";
+	 public static String getPoQueryData=poController+"/getPoQueryData";
+	 
+	 
+	 
+	 
 	 
 	 
 	 

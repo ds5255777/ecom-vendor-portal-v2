@@ -81,6 +81,9 @@ public class PoInvoiceDetails {
 	@Column(name = "Account")
 	private String account;
 	
+	@Column(name = "Po_number")
+	private String poNumber;
+	
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn
@@ -270,6 +273,14 @@ public class PoInvoiceDetails {
 
 	public void setAccount(String account) {
 		this.account = account;
+	}
+
+	public String getPoNumber() {
+		return poNumber;
+	}
+
+	public void setPoNumber(String poNumber) {
+		this.poNumber = poNumber;
 	}
 
 

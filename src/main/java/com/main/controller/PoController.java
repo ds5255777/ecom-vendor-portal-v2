@@ -3,6 +3,7 @@ package com.main.controller;
 
 
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,8 +22,10 @@ import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoInvoiceDetails;
+import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.PoInvoiceRepo;
+import com.main.db.bpaas.repo.QueryRepo;
 
 
 
@@ -35,6 +38,9 @@ public class PoController {
 	PoDetailsRepo podetailsRepo;
 	@Autowired
 	PoInvoiceRepo poInvoiceRepo;
+	
+	@Autowired
+	QueryRepo  queryRepo;
 	
 	@RequestMapping({ "/getAllPODetails" })
 	@CrossOrigin("*")
@@ -171,6 +177,90 @@ public class PoController {
 			data.setData(poInvoiceDetails);
 			data.setMsg("success");
 			System.out.println("end of allPoDetails");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+
+	@RequestMapping({ "/getAllPODetailsByPoNo" })
+	@CrossOrigin("*")
+	public String getAllPODetailsByPoNo(HttpServletRequest request ,@RequestBody PoDetails details ) {
+
+		DataContainer data = new DataContainer();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			String vendorCode = (String) request.getSession().getAttribute("userName");
+			
+			List<PoDetails> poInvoiceDetails = podetailsRepo.getPoDetailsByPoNo(details.getPoNo(),vendorCode);
+			
+			data.setData(poInvoiceDetails);
+			data.setMsg("success");
+			System.out.println("end of allPoDetails success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+	
+	@RequestMapping({ "/savePoInvoiceQuery" })
+	@CrossOrigin("*")
+	public String savePoInvoiceQuery(HttpServletRequest request ,@RequestBody  QueryEntity details) {
+
+		DataContainer data = new DataContainer();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			String raisedBy = (String) request.getSession().getAttribute("userName");
+			
+			details.setRaisedBy(raisedBy);
+			System.out.println("commt : "+details.getComment());
+			details.setRaisedOn(new Date());
+			
+			
+			
+			queryRepo.save(details);
+			
+			data.setMsg("success");
+			System.out.println("end of allPoDetails success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+	
+	@RequestMapping({ "/getPoQueryData" })
+	@CrossOrigin("*")
+	public String getPoQueryData(HttpServletRequest request ,@RequestBody  QueryEntity details) {
+
+		DataContainer data = new DataContainer();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			
+			
+			List<QueryEntity> getPoQueryData = queryRepo.findCommentsByRefID(details.getReferenceid());
+			
+			data.setData(getPoQueryData);
+			
+			data.setMsg("success");
+			System.out.println("end of getPoQueryData success");
 
 		} catch (Exception e) {
 			data.setMsg("error");

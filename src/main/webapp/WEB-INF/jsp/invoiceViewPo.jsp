@@ -38,7 +38,9 @@
     <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
+     <script src="plugins/toastr/toastr.min.js"></script>
     <style>
+    
         .table td,
         .table th {
             padding: 1px !important;
@@ -95,6 +97,15 @@
                             <form id="stepOneForm" class="forms-sample">
                                 <div class="row">
                                    
+                                   
+                                      <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Invoice Number <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="Invoice Number" name="invoiceNumber" id="invoiceNumber" readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Type <span class="text-danger">*</span></label>
@@ -105,14 +116,14 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Supplier Site <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Po Number<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
-                                                <input class="form-control-sm" type="text" placeholder="Supplier Site" name="supplierSite" id="supplierSite" readonly style="width: 100%;">
+                                                <input type="text" name="poNumber" id="poNumber" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    
+                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Date <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
@@ -120,14 +131,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Number <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Number" name="invoiceNumber" id="invoiceNumber" readonly style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
+                                 
+                                    
+                                   
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Currency <span class="text-danger">*</span></label>
@@ -137,6 +143,16 @@
                                                     <option value="USD">USD</option>
                                                     <option value="KES">KES</option>
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Supplier Site <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
+                                                <input class="form-control-sm" type="text" placeholder="Supplier Site" name="supplierSite" id="supplierSite" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -160,7 +176,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Supplier Number<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="supplierNumber" id="supplierNumber"  placeholder="Supplier Number" style="width: 100%;" on>
+                                                <input class="form-control-sm" name="supplierNumber" id="supplierNumber" readonly="readonly"  placeholder="Supplier Number" style="width: 100%;" on>
                                             </div>
                                         </div>
                                     </div>
@@ -177,7 +193,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Payment Currency<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="paymentCurrency" id="paymentCurrency" type="number" placeholder="Payment Currency" onfocusout="calculateInvoice()" style="width: 100%;" on>
+                                                <input class="form-control-sm" name="paymentCurrency" id="paymentCurrency" type="number" readonly="readonly" placeholder="Payment Currency" onfocusout="calculateInvoice()" style="width: 100%;" on>
                                             </div>
                                         </div>
                                     </div>
@@ -194,7 +210,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Terms Date<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="termsDate" id="termsDate"  placeholder="Terms Date"  style="width: 100%;" on>
+                                                <input class="form-control-sm" name="termsDate" id="termsDate" readonly="readonly" placeholder="Terms Date"  style="width: 100%;" on>
                                             </div>
                                         </div>
                                     </div>
@@ -202,7 +218,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Terms <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm"  name="terms" id="terms" placeholder="Terms" readonly style="width: 100%;">
+                                                <input class="form-control-sm"  name="terms" id="terms" placeholder="Terms" readonly style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -211,7 +227,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Payment Method<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="paymentMethod" id="paymentMethod"  placeholder="Payment Method"  style="width: 100%;" on>
+                                                <input class="form-control-sm" name="paymentMethod" id="paymentMethod"  placeholder="Payment Method"  style="width: 100%;" readonly="readonly">
                                             </div>
                                         </div>
                                     </div>
@@ -227,7 +243,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Remit To bank account name<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Remit To bank account name" style="width: 100%;" on>
+                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Remit To bank account name" style="width: 100%;" readonly="readonly">
                                             </div>
                                         </div>
                                     </div>
@@ -244,7 +260,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Supplier Invoice number (DFF)<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Supplier Invoice number"  style="width: 100%;" on>
+                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Supplier Invoice number"  style="width: 100%;" readonly="readonly">
                                             </div>
                                         </div>
                                     </div>
@@ -282,7 +298,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Line type <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="lineType" name="lineType" id="lineType"  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="lineType" name="lineType" id="lineType" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -290,7 +306,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Account<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="account" id="account"  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="account" id="account" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -298,7 +314,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">GL Date<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="GL Date" name="gldate" id="gldate"  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="GL Date" name="gldate" id="gldate" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -306,7 +322,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Amount <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="amount" id="amount"  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="amount" id="amount" readonly  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -353,6 +369,76 @@
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
+                    <!-- Query Form -->
+                    
+                    <div class="card card-primary" id="queryWindow" style="margin-top: 1rem;">
+                        <div class="card-header" style="padding: 5px 5px 0px 5px;">
+                            <h4 class="card-title">Remarks</h4>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form id="queryForm" class="forms-sample">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+										    <label class="col-sm-3" >Remarks <span class="text-danger">*</span></label>
+										    <div class="col-sm-9">
+										    <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Remarks if Any"></textarea>
+										 </div>
+										 </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <div class="col-md-1"  id="raiseQueryDiv">
+								<button type="button" id="raiseQuery" value="raiseQuery"
+									onclick="raiseQueryModel()" class="btn btn-primary">Replay
+									</button>
+							</div></div>
+                                    
+                                </div>
+                                
+                                
+                            </form>
+                        </div>
+                    </div>
+                    
+                    
+							
+                    <!-- Query -->
+                     <div class="card card-primary" style="margin-top: 1rem;">
+                        <div class="card-header" style="padding: 5px 5px 0px 5px;">
+                            <h4 class="card-title">Remarks List</h4>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form id="queryForm" class="forms-sample">
+                                <table class="table table-bordered table-hover"
+														id="tabledataQuery">
+														<thead>
+															<tr>
+																<th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
+																<th style="padding: 5px 5px 5px 1.5rem;">Raised By</th>
+																<th style="padding: 5px 5px 5px 1.5rem;">Raised On</th>
+																<th style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
+															</tr>
+														</thead>
+														<tbody>
+
+														</tbody>
+													</table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                    
+                    
                     <center>
                         <div class="form-group">
                             <label style="visibility: hidden;">Select </label> <br>
@@ -435,7 +521,19 @@
             "scrollX": true,
             "pageLength": 15,
         });
-
+        
+        var prTable = $("#tabledataQuery").DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "info": true,
+            "autoWidth": false,
+            "aaSorting": [],
+            "scrollX": true,
+            "pageLength": 15,
+        });
+        
+        
         function closeWin() {
             window.close()
         }
@@ -531,6 +629,127 @@
                 }
             });
         }
+        
+        var referenceid='${invoiceNo}';
+        function raiseQueryModel(){
+			var comment = document.getElementById("comment").value;
+			
+            if (comment === "" || comment === null || comment === '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Please Insert Remarks'
+                });
+                document.getElementById("comment").focus();
+                return "";
+            }
+            
+            var obj = {
+                    "comment": comment,
+                    "referenceid": referenceid
+                }
+            
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(obj),
+                url: "<%=GlobalUrl.savePoInvoiceQuery%>",
+                dataType: "json",
+                contentType: "application/json",
+                async: false,
+                success: function(data) {
+
+                    if (data.msg == 'success') {
+
+                    	document.getElementById("comment").value='';
+                        $('.loader').hide();
+                        swal.fire("Thanks", "Sucessfully Submitted", "success", "OK")
+                       // location.reload();
+                      
+					
+                        getData();
+                    } else {
+                        $("#submitBtn").prop("disabled", false);
+                        $('.loader').hide();
+
+                        Toast.fire({
+                            type: 'error',
+                            title: 'Failed.. Try Again..'
+                        })
+                    }
+
+                },
+                error: function(jqXHR, textStatue, errorThrown) {
+                    $("#submitBtn").prop("disabled", false);
+                    $('.loader').hide();
+                    alert("failed, please try again");
+                }
+
+            });
+            
+            
+        } 
+        
+        
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        
+        
+        getData();
+        function getData(){
+        	
+        	 var obj = {
+                    
+                     "referenceid": referenceid
+                 }
+             
+             $.ajax({
+                 type: "POST",
+                 data: JSON.stringify(obj),
+                 url: "<%=GlobalUrl.getPoQueryData%>",
+                 dataType: "json",
+                 contentType: "application/json",
+                 async: false,
+                 success: function(data) {
+                	 
+                	
+
+                     if (data.msg == 'success') {
+
+                    	 $('#tabledataQuery').DataTable().clear();
+                    	 var result = data.data;
+                    	 
+                    	 for (var i = 0; i < result.length; i++) {
+                    	 $('#tabledataQuery').DataTable().row.add([i+1,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
+                    	 }
+                    	   $('#tabledataQuery').DataTable().draw();
+                           $("tbody").show();
+                    	 
+                     } else {
+                         $("#submitBtn").prop("disabled", false);
+                         $('.loader').hide();
+
+                         Toast.fire({
+                             type: 'error',
+                             title: 'Failed.. Try Again..'
+                         })
+                     }
+
+                 },
+                 error: function(jqXHR, textStatue, errorThrown) {
+                     $("#submitBtn").prop("disabled", false);
+                     $('.loader').hide();
+                     alert("failed, please try again");
+                 }
+
+             });
+             
+
+        }
+       
+        
     </script>
 </body>
 

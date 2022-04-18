@@ -656,7 +656,16 @@ public class UIController {
 		model.addAttribute("invoiceNo", invoiceNumber);
 		return "invoiceViewPo";
 	}
+	@GetMapping("/PoView")
+	public String PoView(Model model, HttpServletRequest request, Principal principal) {
 
+		String poNumber = request.getParameter("id");
+		System.out.println("poNumber"+poNumber);
+		model.addAttribute("poNumber", poNumber);
+		return "PoView";
+	}
+	
+	
 	@GetMapping("/draftInvoiceGenerate")
 	public String draftInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 

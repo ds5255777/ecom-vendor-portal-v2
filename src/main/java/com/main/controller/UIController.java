@@ -173,7 +173,7 @@ public class UIController {
 	}
 
 	@GetMapping({ "/addUsers" })
-	public String addUsers(Model model, String error, String logout, HttpServletRequest request) {
+	public String addUsers(Model model,Principal principal ,String error, String logout, HttpServletRequest request) {
 
 		
 		String rolename = (String) request.getSession().getAttribute("role");
@@ -183,6 +183,8 @@ public class UIController {
 		
 		List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive("1");
 		model.addAttribute("rolesList", roleList);
+		String uname = principal.getName();
+		model.addAttribute("uname", uname);
 
 //		      serviceManager.insertAddUpdateInMaster(request, action, actionType, null, null, null);
 		return "addUsers";
@@ -342,6 +344,9 @@ public class UIController {
 		 String rolename = (String) request.getSession().getAttribute("role");
 
 			if (rolename.equalsIgnoreCase("Admin")) {
+				
+				String uname = principal.getName();
+				model.addAttribute("uname", uname);
 				
 				return "vendorRegistrastion";
 				

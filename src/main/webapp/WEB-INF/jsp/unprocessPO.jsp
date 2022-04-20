@@ -246,228 +246,7 @@
 
 
 
-        <!-- Model Start -->
-        <div class="modal fade" id="tripValue" role="dialog">
-            <div class="modal-dialog " style="max-width: 1200px;">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-body" style="overflow-y: auto;">
-                        <div class="container-fluid panel2" id="headerLineItemForm">
-                            <div class="row">
-                                <div class="col-md-12 propTableContainer" style="overflow-y: auto; height: 574px;">
-                                    <input type="hidden" id="headerDetailsId" class="form-control">
-                                    <!-- <table class="table " id="property-desc"> -->
-                                    <div class="card card-primary">
-                                        <div class="card-header" style="padding: 4px 0px 4px 4px;">
-                                            <h3 class="card-title" style="font-size: 15px;">PO Details</h3>
-                                        </div>
 
-
-                                        <!-- /.card-header -->
-                                        <div class="card-body">
-                                            <form role="form" id="tripForm">
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">PO Number</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="poNo" name="poNo" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Supplier Site</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="supplierSite" name="supplierSite" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Ship To</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="shipTo" name="shipTo" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Bill To</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="billTo" name="billTo" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Buyer</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="buyer" name="buyer" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Currency</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="currency" name="currency" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Line Number</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="lineNumber" name="lineNumber" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Item Type</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="itemType" name="itemType" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Item</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="item" name="item" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Category</label>
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" style="height: 30px;" id="category" name="category" autocomplete="off" disabled>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">UOM</label>
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" autocomplete="off" style="height: 30px;" id="uOM" name="uOM" disabled>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Quantity</label>
-                                                            <input type="text" class="form-control" autocomplete="off" style="height: 30px;" placeholder="Enter" id="quantity" name="quantity" disabled>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Price</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="price" name="price" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Need By Date</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="needByDate" name="needByDate" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Charge Account</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="chargeAccount" name="chargeAccount" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Org</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="org" name="org" disabled>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Amount</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="amount" name="amount" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Match Approval Level</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="matchApprovalLevel" name="matchApprovalLevel" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Invoice Match option</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="invoiceMatchoption" name="invoiceMatchoption" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Accrue at Receipt flag</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="accrueatReceiptflag" name="accrueatReceiptflag" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Deliver To</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="deliverTo" name="deliverTo" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Description</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="description" name="description" disabled>
-                                                        </div>
-                                                    </div>
-                                                  
-                                                   
-
-                                                </div>
-                                                
-                                            </form>
-                                        </div>
-                                        <!-- /.card-body -->
-                                    </div>
-                                    <!-- /.card -->
-                                    
-
-                                    <div class="container">
-                                        <div class="col-md-12 text-center" style="padding-top: 0px;">
-                                            <button type="button" class="btn btn-primary" id="closeModal" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-        <!-- model Start -->
 
         <script src="plugins/jquery/jquery.min.js"></script>
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -549,9 +328,11 @@
                         var result = data.data;
                         tabledata.clear();
                         console.log("result" + result);
-
+                        
+                        var poLineDetails = result[0].poLineDetails;
+                   
                         for (var i = 0; i < result.length; i++) {
-                        	
+                        	for(var k = 0; k< poLineDetails.length; k++){
                         	if(!result[i].hasOwnProperty("id")){
  								result[i].id="";
  							}
@@ -561,47 +342,34 @@
                              if(!result[i].hasOwnProperty("type")){
  								result[i].type="";
  							}
-                             if(!result[i].hasOwnProperty("uom")){
- 								result[i].uom="";
+                              if(!result[i].poLineDetails[k].hasOwnProperty("uom")){
+ 								result[i].poLineDetails[k].uom="";
  							}
-                             if(!result[i].hasOwnProperty("quantity")){
- 								result[i].quantity="";
+                             if(!result[i].poLineDetails[k].hasOwnProperty("quantity")){
+ 								result[i].poLineDetails[k].quantity="";
  							}
-                             if(!result[i].hasOwnProperty("needByDate")){
-  								result[i].needByDate="";
-  							}
-                             if(!result[i].hasOwnProperty("ammount")){
-  								result[i].ammount="";
+                             if(!result[i].poLineDetails[k].hasOwnProperty("needByDate")){
+  								result[i].poLineDetails[k].needByDate="";
+  							} 
+                             if(!result[i].poLineDetails[k].hasOwnProperty("amount")){
+  								result[i].poLineDetails[k].ammount="";
   							}
                              if(!result[i].hasOwnProperty("status")){
- 								result[i].status="";
+ 								result[i].poLineDetails[i].status="";
  							}
                              
-							// tabledata.row.add([view ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].ammount,result[i].status ]);  
-                             //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
-                            var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" +  result[i].poNo + "')\" >" + result[i].poNo + "</button>";
-                            var status = '<span class=\"right badge badge-warning\">Pending</span>';
-                            /* var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
-                            var statustemp_payment_Pending = '<span class=\"right badge badge-warning\">Pending</span>';
-                            var statustemp_payment_No = '<span class=\"right badge badge-primary\">NA</span>';
+							 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getPoDataFormDataByPoNumber('" +  result[i].poNo + "')\" >" + result[i].poNo + "</button>";
+                            var unprocess_status = '<span class=\"right badge badge-warning\">UnProcess</span>';
+                            var process_status = '<span class=\"right badge badge-success\">Process</span>';
+                             var postatus="";                       
+                         if (result[i].status == "Process") {
+                        	 postatus = process_status;
 
-                            var statustemp_runststus_Intransit = '<span class=\"right badge badge-warning\">In-Transit</span>';
-                            var statustemp_runststus_Closed = '<span class=\"right badge badge-success\">Closed</span>';
-
-                           
-                            var paymentStatus = "";
-                            var runStatus = "";
-                            var vendorTripStatus = "";
-                            //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
-                            var tempString = [view, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
-
-                                                       tabledata.row.add(tempString); */
-                           var postatus="";                       
-                         if (result[i].status == "Pending") {
-                        	 postatus = status;
-
-                              }  
-                            tabledata.row.add([view ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].amount,postatus ]);  				        	
+                              } else if(result[i].status == "Unprocess"){
+                            	  postatus = unprocess_status;
+                              } 
+                            tabledata.row.add([view ,result[i].type,result[i].poLineDetails[k].uom,result[i].poLineDetails[k].quantity,result[i].poLineDetails[k].needByDate,result[i].poLineDetails[k].amount,postatus ]);  				        	
+                        }
                         }
                         tabledata.draw();
                         $("tbody").show();

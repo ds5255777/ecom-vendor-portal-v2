@@ -44,6 +44,9 @@ public class PoDetails {
 	@Column(name = "Bill_To")
 	private String billTo;
 	
+	@Column(name = "need_By_Date")
+	private String needByDate;
+	
 	//line
 	
 	
@@ -198,6 +201,12 @@ public class PoDetails {
 	}
 	public void setPoLineDetails(List<PoLineDetails> poLineDetails) {
 		this.poLineDetails = poLineDetails;
+	}
+	public String getNeedByDate() {
+		return needByDate;
+	}
+	public void setNeedByDate(String needByDate) {
+		this.needByDate = needByDate;
 	}
 	
 	

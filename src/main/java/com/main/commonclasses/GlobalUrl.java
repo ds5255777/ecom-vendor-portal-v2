@@ -63,9 +63,13 @@ public static String invoiceController="invoiceController";
 	public static String deleteLineItem = invoiceController + "/deleteLineItem";
 	public static String discardDraftInvoice = invoiceController + "/discardDraftInvoice";
 	
+	public static String getAllQueryInvoiceVendorPo = invoiceController + "/getAllQueryInvoiceVendorPo";
+	
     public static String dashboardController = "dashboardController";
 
     public static String getDashboardDetails = dashboardController + "/getDashboardDetails";
+    
+    
 
 //Added by Saurabh
     public static String getDashboardDetailsForNetwork = dashboardController + "/getDashboardDetailsForNetwork";
@@ -91,6 +95,8 @@ public static String invoiceController="invoiceController";
 	 public static String getAllUnProcessPo=poController+"/getAllUnProcessPo";
 	 public static String getSelectPoDetails=poController+"/getSelectPoDetails";
 	 public static String getAllPODetailsByPoNo=poController+"/getAllPODetailsByPoNo";
+	 public static String filterPoDetails=poController+"/filterPoDetails";
+	 
 	 
 	 
 	 public static String getAllInvoiceDetails=poController+"/getAllInvoiceDetails";

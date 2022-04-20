@@ -160,22 +160,8 @@
 
         <!-- Main Sidebar Container -->
         
-        <%
-    	String rolename = (String) request.getSession().getAttribute("role");
-        
-        %>
-        <c:choose>  
-			    <c:when test='<%=rolename.equalsIgnoreCase("Admin")%>'>  
-			      <jsp:include page="sidebar_Admin.jsp?pagename=allTrips" />  
-			    </c:when>  
-			    <c:otherwise>  
 			       <jsp:include page="slidebar_Po.jsp?pagename=All PO" /> 
-			    </c:otherwise>  
-  		</c:choose>
-  
-  
-        
-
+		
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="content-header" style="padding: 0px;">
@@ -211,28 +197,7 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body ">
-                                    <form role="form" id="addForm" autocomplete="off">
-                                        <div class="row">
-
-                                            <div class="col-md-2">
-                                                <input type="text" name="fromDate" placeholder="Select Starting Date" required class="form-control" id="fromDate" style="height: 34px;">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <input type="text" name="toDate" placeholder="Select End Date" required class="form-control" id="toDate" style="height: 34px;">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="exampleInputserverName1" style="visibility: hidden;">Text</label>
-                                                <button type="button" onclick="getFilterData()" class="btn btn-primary">Search</button>
-                                            </div>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Export Details </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#" id="exportLinkPdf">Download PDF</a>
-                                                    <a class="dropdown-item" href="#" id="exportLink">Download Excel</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
+                                  
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
@@ -355,11 +320,11 @@
                         var result = data.data;
                         tabledata.clear();
                         console.log("result" + result);
-
                         
-                        
+                        var poLineDetails = result[0].poLineDetails;
+                     
                         for (var i = 0; i < result.length; i++) {
-                        	
+                        	for(var k = 0; k< poLineDetails.length; k++){
                         	if(!result[i].hasOwnProperty("id")){
  								result[i].id="";
  							}
@@ -369,17 +334,17 @@
                              if(!result[i].hasOwnProperty("type")){
  								result[i].type="";
  							}
-                             if(!result[i].poLineDetails[i].hasOwnProperty("uom")){
- 								result[i].poLineDetails[i].uom="";
+                              if(!result[i].poLineDetails[k].hasOwnProperty("uom")){
+ 								result[i].poLineDetails[k].uom="";
  							}
-                             if(!result[i].poLineDetails[i].hasOwnProperty("quantity")){
- 								result[i].poLineDetails[i].quantity="";
+                             if(!result[i].poLineDetails[k].hasOwnProperty("quantity")){
+ 								result[i].poLineDetails[k].quantity="";
  							}
-                             if(!result[i].poLineDetails[i].hasOwnProperty("needByDate")){
-  								result[i].poLineDetails[i].needByDate="";
-  							}
-                             if(!result[i].hasOwnProperty("amount")){
-  								result[i].poLineDetails[i].ammount="";
+                             if(!result[i].hasOwnProperty("needByDate")){
+  								result[i].needByDate="";
+  							} 
+                             if(!result[i].poLineDetails[k].hasOwnProperty("amount")){
+  								result[i].poLineDetails[k].ammount="";
   							}
                              if(!result[i].hasOwnProperty("status")){
  								result[i].poLineDetails[i].status="";
@@ -395,7 +360,8 @@
                               } else if(result[i].status == "Unprocess"){
                             	  postatus = unprocess_status;
                               } 
-                            tabledata.row.add([view ,result[i].type,result[i].poLineDetails[i].uom,result[i].poLineDetails[i].quantity,result[i].poLineDetails[i].needByDate,result[i].poLineDetails[i].amount,postatus ]);  				        	
+                            tabledata.row.add([view ,result[i].type,result[i].poLineDetails[k].uom,result[i].poLineDetails[k].quantity,result[i].needByDate,result[i].poLineDetails[k].amount,postatus ]);  				        	
+                        }
                         }
                         tabledata.draw();
                         $("tbody").show();
@@ -418,6 +384,167 @@
             window.open(urlOftripsDetail, "PoView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
             $('.loader').hide();
         }
+        
+        $('#fromDate').datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+
+        });
+
+        $('#toDate').datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+
+        });
+        
+        $.validator.setDefaults({
+            submitHandler: function() {
+                getFilterData();
+
+                //alert("insode add");
+            }
+        });
+
+        $("#refreshDashboardButton").click(function(e) {
+            e.preventDefault();
+            $('#refreshDashboardButton').attr('disabled', 'disabled');
+            getData();
+            $('#refreshDashboardButton').removeAttr('disabled');
+           $()
+        })
+        
+        
+        function getFilterData() {
+
+
+            var fromDate = $("#fromDate").val();
+            var toDate = $("#toDate").val();
+           
+
+
+
+            if (fromDate == "" || fromDate == null) {
+                //alert("plaese select from date"+fromDate);
+                Toast.fire({
+                    type: 'error',
+                    title: 'Please Select Start Date..'
+                });
+                document.getElementById("fromDate").focus();
+                return;
+            }
+
+            if (toDate == "" || toDate == null) {
+                //alert("plaese select from date"+fromDate);
+                Toast.fire({
+                    type: 'error',
+                    title: 'Please Select End Date..'
+                });
+                document.getElementById("toDate").focus();
+                return;
+            }
+            $('.loader').show();
+
+        
+
+            $.ajax({
+                type: "GET",
+                data: {
+                    "actualDeparture": fromDate.concat(" ","00:00:00"),
+                    "actualArrival": toDate.concat(" ","23:59:59")
+                   
+                },
+                url: "<%=GlobalUrl.filterPoDetails%>",
+                dataType: "json",
+                contentType: "application/json",
+
+                success: function(data) {
+                    $('.loader').hide();
+                    if (data.msg == 'success' ) {
+                    	
+						
+                        var result = data.data;
+                       
+                        tabledata.clear();
+                        console.log("result" + result);
+                        
+                        if(result.length!=0 ){
+                        	
+                        var poLineDetails = result[0].poLineDetails;
+                     
+                        for (var i = 0; i < result.length; i++) {
+                        	for(var k = 0; k< poLineDetails.length; k++){
+                        	if(!result[i].hasOwnProperty("id")){
+ 								result[i].id="";
+ 							}
+                        	if(!result[i].hasOwnProperty("poNo")){
+ 								result[i].poNo="";
+ 							}
+                             if(!result[i].hasOwnProperty("type")){
+ 								result[i].type="";
+ 							}
+                              if(!result[i].poLineDetails[k].hasOwnProperty("uom")){
+ 								result[i].poLineDetails[k].uom="";
+ 							}
+                             if(!result[i].poLineDetails[k].hasOwnProperty("quantity")){
+ 								result[i].poLineDetails[k].quantity="";
+ 							}
+                             if(!result[i].hasOwnProperty("needByDate")){
+  								result[i].needByDate="";
+  							} 
+                             if(!result[i].poLineDetails[k].hasOwnProperty("amount")){
+  								result[i].poLineDetails[k].ammount="";
+  							}
+                             if(!result[i].hasOwnProperty("status")){
+ 								result[i].poLineDetails[i].status="";
+ 							}
+                             
+							 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getPoDataFormDataByPoNumber('" +  result[i].poNo + "')\" >" + result[i].poNo + "</button>";
+                            var unprocess_status = '<span class=\"right badge badge-warning\">UnProcess</span>';
+                            var process_status = '<span class=\"right badge badge-success\">Process</span>';
+                             var postatus="";                       
+                         if (result[i].status == "Process") {
+                        	 postatus = process_status;
+
+                              } else if(result[i].status == "Unprocess"){
+                            	  postatus = unprocess_status;
+                              } 
+                            tabledata.row.add([view ,result[i].type,result[i].poLineDetails[k].uom,result[i].poLineDetails[k].quantity,result[i].needByDate,result[i].poLineDetails[k].amount,postatus ]);  				        	
+                        }
+                        }
+                        tabledata.draw();
+                        $("tbody").show();
+                        }else{
+                        	tabledata.clear();
+                        	
+                            tabledata.draw();
+                        	 Toast.fire({
+                        		 type: 'error',
+                                 title: 'No.. Data Found !..'
+                             })
+                        }
+                    } else {
+                        console.log(data);
+                        Toast.fire({
+                            type: 'error',
+                            title: 'Failed.. Try Again..'
+                        })
+                    }
+
+                },
+                error: function(jqXHR, textStatue, errorThrown) {
+                    $('.loader').hide();
+                    Toast.fire({
+                        type: 'error',
+                        title: '.. Try Again..'
+                    })
+                }
+
+            });
+
+        }
+
         </script>
 </body>
 

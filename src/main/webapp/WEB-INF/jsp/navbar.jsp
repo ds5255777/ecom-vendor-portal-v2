@@ -58,6 +58,57 @@
                 </div>
             </c:when>
             
+                        <c:when test="${pageName=='All PO'}">
+                <li class="nav-item d-none d-sm-inline-block"><a class="black-text nav-link quickHelp" data-toggle="tooltip" data-placement="bottom" title="Back" href="#" onclick="history.back()" style="padding-right: 0px;"><b style="font-size: 18px;color: #12344dd6;"><i class="fa fa-fast-backward"></i></b></a></li>
+                <li class="nav-item d-none d-sm-inline-block"><b><a class="nav-link"><%=request.getParameter("pagename")%></a></b></li>
+                
+              
+                
+                <li class="nav-item d-none d-sm-inline-block" style="padding: 6px;" >
+                
+                    <form role="form" id="addForm" autocomplete="off">
+                                        <div class="row">
+											<div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="text" name="fromDate" placeholder="Select Starting NeedByDate" required class="form-control" id="fromDate" style="height: 34px;width: 190px;">
+                                            </div>
+                                            </div>
+                                          <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="text" name="toDate" placeholder="Select End NeedByDate" required class="form-control" id="toDate" style="height: 34px;width: 190px;">
+                                           
+                                            </div>
+                                            
+                                            </div>
+                                            
+                                           <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputserverName1" style="visibility: hidden;">Text</label>
+                                                <button type="button" style= "font-size: small;" onclick="getFilterData()" class="btn btn-primary">Search</button>
+                                          
+                                            <button type="button" class="btn btn-default btn-sm " id="refreshDashboardButton" > <i class="fas fa-sync-alt"></i></button>
+                                            </div>
+                                         </div>
+                                         
+                                        </div>
+                                    </form>
+                   
+                    
+                </li>
+                <div class="input-group-prepend">
+                    <%-- <div class="btn-group">
+						<button type="button" class="btn"
+							style="font-size: 20px; font-weight: 500;"><%=request.getParameter("pagename")%></button> --%>
+                    <form role="form" id="addForm" autocomplete="off">
+                        <div class="row">
+                        
+                           
+                          
+                        </div>
+                    </form>
+                </div>
+            </c:when>
+            
             <c:otherwise>
                 <li class="nav-item d-none d-sm-inline-block"><a class="black-text nav-link quickHelp" data-toggle="tooltip" data-placement="bottom" title="Back" href="#" onclick="history.back()" style="padding-right: 0px;"><b style="font-size: 18px;color: #12344dd6;"><i class="fa fa-fast-backward"></i></b></a></li>
                 <li class="nav-item d-none d-sm-inline-block"><b><a class="nav-link"><%=request.getParameter("pagename")%></a></b></li>

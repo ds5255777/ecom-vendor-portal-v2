@@ -478,6 +478,19 @@ public class UIController {
 	   		return "";
 	   	}
 	 
+	 @GetMapping("/QueryPo")
+	   	public String QueryPo(Model model, Principal principal, HttpServletRequest request) {
+	   		
+			 String rolename = (String) request.getSession().getAttribute("role");
+			
+				if (rolename.equalsIgnoreCase("Vendor")) {
+					
+					return "QueryPo";
+					
+				}
+	   		return "";
+	   	}
+	 
 	 
 	
 	 

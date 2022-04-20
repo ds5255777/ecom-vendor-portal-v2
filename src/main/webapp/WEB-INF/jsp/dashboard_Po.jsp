@@ -173,7 +173,7 @@ tbody {
 									
 									<i class="fas fa-question"style="color: #fd7e14; font-size: 70px;"></i>
 								</div>
-								<a href="QueryTripsForNetwork" class="small-box-footer"
+								<a href="QueryPo" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
 									info <i class="fas fa-arrow-circle-right"></i>
 								</a>
@@ -213,7 +213,7 @@ tbody {
 												<th class="bg-primary">Quantity</th>
 												<th class="bg-primary">Need By Date</th>
 												<th class="bg-primary">Amount</th>
-												<th class="bg-primary">Status</th>
+												
 											</tr>
 										</thead>
 									</table>
@@ -452,7 +452,7 @@ tbody {
             ],//#FF0000(red),00a65a(inactive)
             datasets: [{
                 data: [11, ${totalProcessPoCount},${totalUnprocessPOCount},1,${totalQueryCount}],
-                backgroundColor: ['#17a2b8', '#28a745', '#FFA07A', '#007bff', '#ee82ee'],
+                backgroundColor: ['#17a2b8', '#28a745', '#dc3545', '#007bff', '#fd7e14'],
             }]
         }
         var unresolvedstsOptions = {
@@ -486,47 +486,46 @@ tbody {
                 success: function(data) {
 
                 	 if (data.msg == 'success') {
-                		 
-                		 var result = data.data;
 
-                		                         
+                         var result = data.data;
                          tabledata.clear();
-
+                         console.log("result" + result);
+                         
+                         var poLineDetails = result[0].poLineDetails;
+                    
                          for (var i = 0; i < result.length; i++) {
-
-                        	 if(!result[i].hasOwnProperty("id")){
- 								result[i].id="";
- 							}
-                      	if(!result[i].hasOwnProperty("poNo")){
- 								result[i].poNo="";
- 							}
-                           if(!result[i].hasOwnProperty("type")){
- 								result[i].type="";
- 							}
-                           if(!result[i].hasOwnProperty("uom")){
- 								result[i].uom="";
- 							}
-                           if(!result[i].hasOwnProperty("quantity")){
- 								result[i].quantity="";
- 							}
-                           if(!result[i].hasOwnProperty("needByDate")){
- 								result[i].needByDate="";
- 							}
-                           if(!result[i].hasOwnProperty("ammount")){
- 								result[i].ammount="";
- 							}
-                           if(!result[i].hasOwnProperty("status")){
- 								result[i].status="";
- 							}
-                          
-
-                        	 
-                        	 tabledata.row.add([result[i].poNo ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].amount,result[i].status ]); 
+                         	for(var k = 0; k< poLineDetails.length; k++){
+                         	if(!result[i].hasOwnProperty("id")){
+  								result[i].id="";
+  							}
+                         	if(!result[i].hasOwnProperty("poNo")){
+  								result[i].poNo="";
+  							}
+                              if(!result[i].hasOwnProperty("type")){
+  								result[i].type="";
+  							}
+                               if(!result[i].poLineDetails[k].hasOwnProperty("uom")){
+  								result[i].poLineDetails[k].uom="";
+  							}
+                              if(!result[i].poLineDetails[k].hasOwnProperty("quantity")){
+  								result[i].poLineDetails[k].quantity="";
+  							}
+                              if(!result[i].poLineDetails[k].hasOwnProperty("needByDate")){
+   								result[i].poLineDetails[k].needByDate="";
+   							} 
+                              if(!result[i].poLineDetails[k].hasOwnProperty("amount")){
+   								result[i].poLineDetails[k].ammount="";
+   							}
+                              if(!result[i].hasOwnProperty("status")){
+  								result[i].poLineDetails[i].status="";
+  							}
+                              
+ 				
+                             tabledata.row.add([result[i].poNo ,result[i].type,result[i].poLineDetails[k].uom,result[i].poLineDetails[k].quantity,result[i].poLineDetails[k].needByDate,result[i].poLineDetails[k].amount ]);  				        	
                          }
-
+                         }
                          tabledata.draw();
                          $("tbody").show();
-
                      } else {
                     	Toast.fire({
                             type: 'error',

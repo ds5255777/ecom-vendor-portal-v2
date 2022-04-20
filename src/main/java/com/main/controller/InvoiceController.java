@@ -411,5 +411,28 @@ public class InvoiceController {
 
 		return gson.toJson(data).toString();
 	}
+	@RequestMapping({ "/getAllQueryInvoiceVendorPo" })
+	@CrossOrigin("*")
+	public String getAllQueryInvoiceVendorPo(Principal principal, HttpServletRequest request) {
+
+		DataContainer data = new DataContainer();
+		String vendorCode = principal.getName();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			List<InvoiceGenerationEntity> queryInvoice = invoiceGenerationEntityRepo.getAllQueryInvoiceVendorPo(vendorCode);
+
+			data.setData(queryInvoice);
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+			}
+
+	
+	
 
 }

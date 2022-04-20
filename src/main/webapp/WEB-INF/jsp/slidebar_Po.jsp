@@ -38,7 +38,7 @@
                                 }%>
 
                                                 ">
-                                <i class="nav-icon fas fa-truck"></i>
+                               <i class="nav-icon fas fa-list"></i>
                                 <p>All PO</p>
                             </a></li>
                     </ul>
@@ -47,7 +47,9 @@
                                                 <%if (request.getParameter("pagename").equalsIgnoreCase("Unprocessed PO")) {
                                     out.print("active");
                                 }%> ">
-                                <i class="nav-icon fas fa fa-check"></i>
+                                
+                                 
+                                 <i class="nav-icon fa fa-tasks"></i>
                                 <p>Unprocessed PO</p>
                             </a></li>
                     </ul>
@@ -56,7 +58,7 @@
                                                 <%if (request.getParameter("pagename").equalsIgnoreCase("Processed PO")) {
                                     out.print("active");
                                 }%>">
-                                <i class="nav-icon fas fa-list"></i>
+                                <i class="nav-icon fas fa fa-check"></i>
                                 <p>Processed PO</p>
                             </a></li>
                     </ul>
@@ -81,7 +83,7 @@
                     <hr>
                 </li>
 
-                <li class="nav-item"><a href="#" class="nav-link
+              <%--   <li class="nav-item"><a href="#" class="nav-link
                                         <%if (request.getParameter("pagename").equalsIgnoreCase("")) {
                                     out.print("active");
                                 }%>
@@ -99,7 +101,7 @@
                                         ">
                         <i class="nav-icon fas fa-chart-bar"></i>
                         <p>Reports</p>
-                    </a></li>
+                    </a></li> --%>
             </ul>
         </nav>
     </div>

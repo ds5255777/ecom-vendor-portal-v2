@@ -92,11 +92,15 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
     TripDetails findByTripID(String tripID);
 
-    @Query(value = "select  * from Trip_Details WHERE  1=1 AND actual_departure BETWEEN (:startDate) AND (:endDate) ; ", nativeQuery = true)
+	/*
+	 * @Query(value =
+	 * "select  * from Trip_Details WHERE  1=1 AND actual_departure BETWEEN (:startDate) AND (:endDate) ; "
+	 * , nativeQuery = true) List<TripDetails>
+	 * findByActualDepartureBetween(@Param("startDate") String
+	 * startDate, @Param("endDate") String endDate);
+	 */
+//    @Query(value = "select  * from Trip_Details WHERE  vendor_code=:vendorCode AND actual_departure BETWEEN >=:startDate AND <=:endDate ; ", nativeQuery = true)
     List<TripDetails> findByActualDepartureBetween(@Param("startDate") String startDate, @Param("endDate") String endDate);
-
-    @Query(value = "select  * from Trip_Details WHERE  vendor_code=:vendorCode AND actual_departure BETWEEN (:startDate) AND (:endDate) ; ", nativeQuery = true)
-    List<TripDetails> findByActualDepartureBetween(@Param("startDate") String startDate, @Param("endDate") String endDate, @Param("vendorCode") String vendorCode);
 
     @Query(value = "select  * from trip_details  where trip_id IN(:tripID)", nativeQuery = true)
     List<TripDetails> findByTripIDIn(@Param("tripID") String[] tripID);
@@ -205,5 +209,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	
 	@Query(value = "select * from trip_details where vendor_trip_status='Yet To Be Approved' and assign_to = 'Vendor'", nativeQuery = true)
 	List<TripDetails> getAllPendingTrip();
+
+	List<TripDetails> findByVendorCodeAndActualDepartureBetween(String vendorCode,String fromDate, String toDate);
 
 }

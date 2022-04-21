@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "AgreementMaster")
+@Table(name = "Agreement_Master")
 public class AgreementMaster {
 
     @Id
@@ -208,7 +208,5 @@ public class AgreementMaster {
 	public void setCurrentFuelRate(double currentFuelRate) {
 		this.currentFuelRate = currentFuelRate;
 	}
-
-  
 
 }

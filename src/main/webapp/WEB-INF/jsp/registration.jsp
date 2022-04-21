@@ -169,7 +169,7 @@
                 /* if ($("#partnerType").val() == "Scheduled") { */
 
                     console.log("Inside Step One");
-                    var mandFields = "introducedByName,introducedByEmailID,suppName,compEmail,panNumber,natureOfTransactions,opeUnitReqMap";
+                    var mandFields = "introducedByName,introducedByEmailID,suppName,compEmail,panNumber,natureOfTransactions";
                     var mandFieldsArr = mandFields.split(",");
                     for (i = 0; i < mandFieldsArr.length; i++) {
                         console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
@@ -696,21 +696,44 @@
 
                                                 <td><label for="natureOfTransactions">Nature of
                                                         transactions<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="natureOfTransactions" name="natureOfTransactions" placeholder="Nature of transactions" onchange="removeValCssByID(this)"></td>
+                                                        
+                                                <td>
+                                                	<select colspan='1' class="form-control p-input" id="natureOfTransactions" name="natureOfTransactions" placeholder="Nature of transactions" onchange="removeValCssByID(this)">
+                                                		<option id="select" value="">Select</option>
+                                                		<option id="otherExpenses" value="OTHER EXPENSES">OTHER EXPENSES</option>
+                                                		<!-- <option id="rent" value="RENT">RENT</option> -->
+                                                		<option id="fixedAssets" value="FIXED ASSETS">FIXED ASSETS</option>
+                                                		<option id="networkCreditors" value="NETWORK CREDITORS">NETWORK CREDITORS</option>
+                                                		<!-- <option id="courierSerCou" value="COURIER SER_COU">COURIER SER_COU</option>
+                                                		<option id="employeeNominee" value="EMPLOYEE NOMINEE">EMPLOYEE NOMINEE</option> -->
+                                         	
+                                                	</select> 
+                                                	</td>
                                             </tr>
 
                                             <tr>
 
-                                                <td><label for="businessClassification">Business
-                                                        Classification</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="businessClassification" name="businessClassification" placeholder="Business Classification" onchange="removeValCssByID(this)"></td>
+                                                <td><label for="businessClassification">Business Classification</label></td>
+                                                <td>
+                                                	<select id="businessClassification" name="businessClassification" class="form-control p-input" 
+                                                	colspan='1' placeholder="Business Classification" onchange="removeValCssByID(this)">
+                                                	<option id="select" value="">Select</option>
+                                                	<option id="microEnterprise" value="Micro Enterprise">Micro Enterprise</option>
+                                                	<option id="mediumEnterprise" value="Medium Enterprise">Medium Enterprise</option>
+                                                	<option id="smallEnterprise" value="Small Enterprise">Small Enterprise</option>
+                                                	<option id="otherEnterprise" value="Other Enterprise">Other Enterprise</option>
+                                                	</select>
+                                                </td>
+                                                <!-- <td colspan='1'><input type="text" class="form-control p-input" id="businessClassification" name="businessClassification" placeholder="Business Classification" 
+                                                
+                                                onchange="removeValCssByID(this)"></td> -->
 
-                                                <td><label for="siteDff">SITE DFF</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="siteDff" name="siteDff" placeholder="SITE DFF"></td>
+                                                <!-- <td><label for="siteDff">SITE DFF</label></td>
+                                                <td colspan='1'><input type="text" class="form-control p-input" id="siteDff" name="siteDff" placeholder="SITE DFF"></td> -->
 
-                                                <td><label for="opeUnitReqMap">Operating Unit
+                                                <!-- <td><label for="opeUnitReqMap">Operating Unit
                                                         required to MAP<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="opeUnitReqMap" name="opeUnitReqMap" placeholder="Operating Unit required to MAP" onchange="removeValCssByID(this)"></td>
+                                                <td colspan='1'><input type="text" class="form-control p-input" id="opeUnitReqMap" name="opeUnitReqMap" placeholder="Operating Unit required to MAP" onchange="removeValCssByID(this)"></td> -->
 
                                             </tr>
 
@@ -982,9 +1005,17 @@
                                                             <option value="KES">KES</option>
                                                         </select></td>
 
-                                                    <td><label for="creditTerms">Payment / Credit
-                                                            Terms<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="creditTerms" name="creditTerms" onchange="removeValCssByID(this)" placeholder="Payment / Credit Terms"></td>
+                                                    <td><label for="creditTerms">Payment / Credit Terms<span class="required adHocRequired">*</span></label></td>
+                                                    <td>
+                                                   	 <select id="creditTerms" name="creditTerms" class="form-control p-input" colspan='2' placeholder="Payment / Credit Terms" onchange="removeValCssByID(this)">
+                                                    	 <option id="select" value="">Select</option>
+                                                    	 <option id="immediatePayments" value="Immediate Payments">Immediate Payments</option>
+                                                   		 <option id="nET15Days" value="NET 15 Days">NET 15 Days</option>
+                                                   		 <option id="nET30Days" value="NET 30 Days">NET 30 Days</option>
+                                                   		 <option id="nET45Days" value="NET 45 Days">NET 45 Days</option>
+                                                   		 <option id="nET60Days" value="NET 60 Days">NET 60 Days</option>
+                                                     </select>  
+                                                    </td>
                                                 </tr>
                                                 <tr class="">
 													<td><label for="paymentMethod">Payment Method<span class="required adHocRequired">*</span></label></td>
@@ -1033,7 +1064,26 @@
                                                             </select></td>
 
                                                         <td><label class="addressLable" for="tdsSection">TDS Section</label></td>
-                                                        <td colspan='2'><input type="text" class="form-control p-input" id="tdsSection" name="tdsSection" placeholder="TDS Section"></td>
+                                                        <td> 
+                                                        	<select id="tdsSection" name="tdsSection" class="form-control p-input" colspan='2' placeholder="TDS Section">
+                                                        		<option id="select" value="">Select</option>
+                                                        		<option id="sec194(A)" value="Sec. 194(A)">Sec. 194(A)</option>
+                                                        		<option id="sec194(C)" value="Sec. 194(C)">Sec. 194(C)</option>
+                                                        		<option id="sec194(C)" value="SEC. 194(H)">SEC. 194(H)</option>
+                                                        		<option id="sec194(I)" value="Sec. 194(I)">Sec. 194(I)</option>
+                                                        		<option id="sec194(J)" value="Sec. 194(J)">Sec. 194(J)</option>
+                                                        		<option id="sec194(Q)" value="SEC. 194(Q)">SEC. 194(Q)</option>
+                                                        		<option id="sec194I(A)" value="SEC. 194I(A)">SEC. 194I(A)</option>
+                                                        		<option id="sec194I(B)" value="SEC. 194I(B)">SEC. 194I(B)</option>
+                                                        		<option id="sec194(LB)" value="SEC. 194(LB)">SEC. 194(LB)</option>
+                                                        		<option id="sec194(LC)" value="SEC. 194(LC)">SEC. 194(LC)</option>
+                                                        		<option id="sec194(LD)" value="SEC. 194(LD)">SEC. 194(LD)</option>
+                                                        		<option id="sec195" value="Sec. 195">Sec. 195</option>
+                                                        		
+                                                        		
+                                                        	</select>
+                                                       
+                                                        </td>
 
                                                         <td><label for="tdsRate">TDS Exemption Rate
                                                                 (If Any)</label></td>

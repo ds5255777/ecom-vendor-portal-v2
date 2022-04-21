@@ -32,6 +32,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value="select password from users where id=:id ; ", nativeQuery=true)
 	String getUserPasswordById(@Param("id") Integer id);
 
+	
+	@Query(value="select * from users where role_id !='4' and status in(:userStatusList) ; ", nativeQuery=true)
 	List<User> findByStatusIn(List<String> userStatusList);
 
 	
@@ -75,13 +77,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
    
 	//Manish added
-	 @Query(value="select count(*) from users; ", nativeQuery=true) 
+	 @Query(value="select count(*) from users where role_id !='4'; ", nativeQuery=true) 
 	 int getCountForAllUsers();
 	 
-	@Query(value="select count(*) from users where status='1'; ", nativeQuery=true)
+	@Query(value="select count(*) from users where status='1' and role_id !='4'; ", nativeQuery=true)
 	int getCountForAllActiveUsers();
 	
-	@Query(value="select count(*) from users where status='0'; ", nativeQuery=true)
+	@Query(value="select count(*) from users where status='0' and role_id !='4'; ", nativeQuery=true)
 	int getCountForAllInActiveUsers();
 	
 	@Query(value="select count(*) from supdetails; ", nativeQuery=true)

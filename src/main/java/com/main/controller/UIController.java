@@ -199,14 +199,16 @@ public class UIController {
 	}
 
 	@GetMapping({ "/addUsers" })
-	public String addUsers(Model model, String error, String logout, HttpServletRequest request) {
+	public String addUsers(Model model,Principal principal ,String error, String logout, HttpServletRequest request) {
 
 		String rolename = (String) request.getSession().getAttribute("role");
 
 		if (rolename.equalsIgnoreCase("Admin")) {
-
-			List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive("1");
-			model.addAttribute("rolesList", roleList);
+		
+		List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive("1");
+		model.addAttribute("rolesList", roleList);
+		String uname = principal.getName();
+		model.addAttribute("uname", uname);
 
 //		      serviceManager.insertAddUpdateInMaster(request, action, actionType, null, null, null);
 			return "addUsers";
@@ -362,22 +364,34 @@ public class UIController {
 
 			return "notification";
 		}
-		return "";
-	}
+   		return "";
+   	}
+     
+	 @GetMapping("/vendorRegistrastion")
+   	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
+   		
+		 String rolename = (String) request.getSession().getAttribute("role");
 
-	@GetMapping("/vendorRegistrastion")
-	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
+			if (rolename.equalsIgnoreCase("Admin")) {
+				
+				String uname = principal.getName();
+				model.addAttribute("uname", uname);
+				
+				return "vendorRegistrastion";
+				
+			}
+   		return "";
+   	}
+	//End
 
-		String rolename = (String) request.getSession().getAttribute("role");
-
-		if (rolename.equalsIgnoreCase("Admin")) {
-
-			return "vendorRegistrastion";
-
-		}
-		return "";
-	}
-
+//    @GetMapping("/tripsInvoiceGenerate")
+//    public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
+//
+//        String tripId = request.getParameter("id");
+//        model.addAttribute("tripId", tripId);
+//
+//        return "tripsInvoiceGenerate";
+//    }
 //Added by Saurabh for Network Module Part
 	@GetMapping("/dashbaordNetwork")
 	public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {

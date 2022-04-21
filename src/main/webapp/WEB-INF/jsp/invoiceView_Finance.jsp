@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>${titleName}|InvoiceView</title>
+    <title>${titleName}|InvoiceView Finance</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
     <style>
         .table td,
         .table th {
@@ -84,7 +85,7 @@
                     <!-- SELECT2 EXAMPLE -->
                     <div class="card card-primary" style="margin-top: 1rem;">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
-                            <h4 class="card-title">BASIC DETAILS</h4>
+                            <h4 class="card-title">Basic Details</h4>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
                                     <i class="fas fa-minus"></i>
@@ -127,6 +128,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Date <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
+                                            <input type="hidden" id="id" name="id" disabled>
                                                 <input type="date" name="invoiceDate" id="invoiceDate" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
@@ -171,7 +173,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Tax Amount<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount" onfocusout="calculateInvoice()" style="width: 100%;" on>
+                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount"  style="width: 100%;" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -223,14 +225,131 @@
                         </form>
                         <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
-                    <center>
-                        <div class="form-group">
-                            <label style="visibility: hidden;">Select </label> <br>
-                            <button type="button" class="btn btn-primary" id="closeModal" onclick="closeWin()">Close</button>
+                    
+                    <!-- Query Form -->
+                    
+                    <div class="card card-primary" id="queryWindow" style="display: none;" style="margin-top: 1rem;">
+                        <div class="card-header" style="padding: 5px 5px 0px 5px;">
+                            <h4 class="card-title">Remarks</h4>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
-                    </center>
-                    <!-- /.row -->
+                        <div class="card-body" >
+                            <form id="queryForm" class="forms-sample">
+                                <div class="row">
+                                
+                                <!-- <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Invoice Status <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <select class="form-control-sm select2" style="width: 100%;" id="invoiceStatus" name="invoiceStatus">
+                                                    <option value="Approved">Approved</option>
+                                                    <option value="Payment Relase">Payment Relase</option>
+                                                    <option value="Pending For Approval">Pending For Approval</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                
+                                
+                                    <div class="col-md-6" >
+                                        <div class="form-group row">
+										    <label class="col-sm-3" >Remarks <span class="text-danger">*</span></label>
+										    <div class="col-sm-9">
+										    <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Remarks if Any"></textarea>
+										 </div>
+										 </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- /.card -->
+					<div class="row" >
+
+						<div class="col-md-3"></div>
+							<div class="col-md-2" style="display: none;" id="prosInvBtn">
+								<button type="button" style="float: right;" class="btn btn-success btn-lg"
+									data-toggle="modal" data-target="#myModal">Approve Invoice</button>
+							</div>
+
+							<div class="col-md-1" style="display: none;" id="raiseQueryDiv">
+								<button type="button" id="raiseQuery" value="raiseQuery"
+									onclick="raiseQueryModel()" class="btn btn-warning btn-lg">Raise
+									Query</button>
+							</div>
+
+							<div class="col-md-2" style="display: none;"
+								id="viewAttachmentDiv">
+								<button type="button" id="viewAttachment"
+									onclick="displayAttachmentForPoDetails()" value="viewAttachment"
+									class="btn btn-primary btn-lg">View Attachment</button>
+							</div>
+							<div class="col-md-1" style="    margin-left: -102px;">
+								<button type="button" onclick="closeWin()"
+									class="btn btn-info btn-lg">Close</button>
+							</div>
+							
+
+					</div>
+					<!-- /.row -->
+                    
+                    <!-- Modal -->
+			<div class="modal fade" id="myModal" role="dialog">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="modal-title">Confirmation</h3>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<p>Are You Sure to Confirm This Invoice....</p>
+						</div>
+						<div class="modal-footer">
+
+							<button type="button" onclick="approveInvoice()"
+								id="updateBtnBtn" name="updateBtnBtn" class="btn btn-primary">Approve</button>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+                    
+                    <!-- Query table -->
+                    
+                    <div class="card card-primary" id="remarkWindow" style="display: none;" style="margin-top: 1rem;">
+                        <div class="card-header" style="padding: 5px 5px 0px 5px;">
+                            <h4 class="card-title">Remarks List</h4>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form id="queryForm" class="forms-sample">
+                                <table class="table table-bordered table-hover"
+														id="tabledataQuery">
+														<thead>
+															<tr>
+																<th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
+																<th style="padding: 5px 5px 5px 1.5rem;">Raised By</th>
+																<th style="padding: 5px 5px 5px 1.5rem;">Raised On</th>
+																<th style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
+															</tr>
+														</thead>
+														<tbody>
+
+														</tbody>
+													</table>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
             </section>
@@ -243,6 +362,55 @@
             <!-- Control sidebar content goes here -->
         </aside>
         <!-- /.control-sidebar -->
+    </div>
+
+
+		<!-- Document  Modal  -->
+		
+		<div class="modal fade" id="viewAttachmentPopUp" role="dialog">
+        <div class="modal-dialog " style="max-width: 1300px;">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container-fluid panel1">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row innerRow">
+                                    
+                                    
+                                    <div class="col-md-8">
+                                       <div class="form-group">
+                                            <label>Document Name</label>
+                                            <select class="form-control" id="multipleAttachment" style="height: 35px;" >
+                                                
+                                            </select>
+                                             
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-3" style="display: none" id="uploadeddateDiv">
+                                        <div class="form-group">
+                                            <label>Uploaded Date</label>
+                                            <input type="text" class="form-control" id="uploadeddate" style="height: 35px;" readonly>                                               
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid panel2">
+                        <div class="row">                            
+                            <div class="col-lg-12" style="height: 400px;">
+                            <a id="ifrmameHref"   target="_blank">Click Here to open doc in new window</a>
+                                <iframe id="pdfLink" style="height:100%; width:100%"  ></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
     </div>
 
     <!-- jQuery -->
@@ -294,8 +462,16 @@
     <script src="plugins/jquery-validation/additional-methods.min.js"></script>
     <!-- Select2 -->
     <script src="plugins/select2/js/select2.full.min.js"></script>
+    <script src="plugins/toastr/toastr.min.js"></script>
 
     <script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    });
+    
         var prTable = $("#prTable").DataTable({
             "paging": false,
             "lengthChange": false,
@@ -306,20 +482,71 @@
             "scrollX": true,
             "pageLength": 15,
         });
+        
+        var tabledataQuery = $('#tabledataQuery').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "info": false,
+            "autoWidth": false,
+            "aaSorting": []
+        });
 
+        var invoiceNumber = '${invoiceNumber}';
+        var type = '${type}';
+        var role = '${role}';
+        
+        showHideButton();
+
+        function showHideButton(){
+        
+        	if( type =="In-Processed Invoice" || type =="Query Invoice" ){
+        		if(role=="<%=GlobalConstants.ROLE_FINANCE%>"){
+        		$("#prosInvBtn").css("display","block");
+        		$("#viewAttachmentDiv").css("display","block");
+        		$("#raiseQueryDiv").css("display","block");
+        		$("#queryWindow").css("display","block");
+        		}else{
+        			$("#prosInvBtn").css("display","none");
+            		$("#viewAttachmentDiv").css("display","block");
+            		$("#raiseQueryDiv").css("display","none");
+            		$("#queryWindow").css("display","none");
+        		}
+        	} else if(type == "Pending For Approval"){
+        		if(role=="<%=GlobalConstants.ROLE_FINANCE_HEAD%>"){
+        			$("#prosInvBtn").css("display","block");
+            		$("#viewAttachmentDiv").css("display","block");
+            		$("#raiseQueryDiv").css("display","block");
+            		$("#queryWindow").css("display","block");
+        		}else{
+            		$("#prosInvBtn").css("display","none");
+            		$("#viewAttachmentDiv").css("display","block");
+            		$("#raiseQueryDiv").css("display","none");
+            		$("#queryWindow").css("display","none");
+            		$("#remarkWindow").css("display","block");
+        		}
+        	} else if(type == "All Invoices" || type == "Processed Invoice"){
+        		$("#prosInvBtn").css("display","none");
+        		$("#viewAttachmentDiv").css("display","block");
+        		$("#raiseQueryDiv").css("display","none");
+        		$("#queryWindow").css("display","none");
+        		$("#remarkWindow").css("display","block");
+        	}
+        }
+        
         function closeWin() {
             window.close()
         }
-        var invoiceNumber = '${invoiceNumber}';
+        
         var tripLineArray = [];
         setInvoiceDetails();
 
         function setInvoiceDetails() {
 
             var obj = {
-                "invoiceNumber": invoiceNumber
+                "invoiceNumber": invoiceNumber,
             }
-
+			console.log(obj);
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(obj),
@@ -397,6 +624,257 @@
                 }
             });
         }
+        
+		function displayAttachment(){
+			
+			var invoiceNumber = $("#invoiceNumber").val();
+			console.log("id >> "+id);
+			
+			var obj ={
+					"invoiceNumber": invoiceNumber,	
+			}
+			
+			$.ajax({
+				type : "POST",
+				url : "<%=GlobalUrl.getDocumentByInvoiceNumber%>",
+				async : false,
+				data :JSON.stringify(obj),
+				dataType : "json",
+				contentType : "application/json",
+				success : function(response) {
+					if (response.msg == "success") {
+					
+						
+					} else {
+						Toast.fire({
+							type : 'error',
+							title : 'Failed Added..'
+						})
+					}
+				},
+				error : function(jqXHR, textStatue, errorThrown) {
+					Toast.fire({
+						type : 'error',
+						title : 'Failed Added try again..'
+					})
+
+				}
+			}); 								 
+		}
+		
+		function approveInvoice(){
+			
+			var ecomInvoiceNumber=$("#ecomInvoiceNumber").val();
+			
+			if (ecomInvoiceNumber == "") {
+                return;
+            }
+            $('.loader').show();
+            var obj ={
+					"ecomInvoiceNumber": ecomInvoiceNumber
+			}
+
+            $.ajax({
+                type: "POST",
+                url: "<%=GlobalUrl.approveInvoiceFinanceSide%>",
+                data: JSON.stringify(obj),
+                dataType: "json",
+                contentType: "application/json",
+                success: function(response) {
+                    $('.loader').hide();
+                    $("#myModal").modal('hide');
+                    if (response.msg == "success") {
+                        Swal.fire({
+                            type: 'success',
+                            title: 'Aprove Invoice Successfully..'
+                        }).then(function() {
+                        	window.opener.refereshList();
+                            window.close(); 
+                        });
+                        
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            title: 'Failed Added..'
+                        })
+                    }
+                },
+                error: function(jqXHR, textStatue, errorThrown) {
+                    $('.loader').hide();
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Failed Added..'
+                    })
+                }
+            });
+
+		}
+		
+		function raiseQueryModel(){
+			var query = document.getElementById("comment").value;
+            if (query === "" || query === null || query === '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Please Insert Remarks'
+                });
+                document.getElementById("comment").focus();
+                return "";
+            }
+            
+            var finalObj={
+                    "comment": $("#comment").val(),
+                    "raisedAgainQuery": $("#invoiceNumber").val(),
+                    "id": $("#id").val(),
+                    "type":"Invoice"
+                    }
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(finalObj),
+                url: "<%=GlobalUrl.saveQuery%>",
+                dataType: "json",
+                contentType: "application/json",
+                success: function(response) {
+
+                    if (response.msg == 'success') {
+                        swal.fire("", "your Remarks Sucessfully Save", "success", "OK").then(function() {
+                        	window.opener.refereshList();
+                            window.close(); 
+                        });
+                        setTimeout(function(response) {}, 2000);
+                    } else {
+                        alert("failed");
+                    }
+                },
+                error: function(jqXHR, textStatue, errorThrown) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+                }
+            });
+		}
+		
+		/* Document Modal code */
+		
+		 function displayAttachmentForPoDetails(){
+				
+			 $('#multipleAttachment').empty();
+			 
+			 var obj ={
+						"foreignKey": $('#ecomInvoiceNumber').val(),
+						"type": "Invoice"
+				}
+				
+				$.ajax({
+					type : "POST",
+					url : "<%=GlobalUrl.getDocumentByTypeAndForeignKey%>",
+					data :JSON.stringify(obj),
+					dataType : "json",
+					contentType : "application/json",
+					success : function(response) {
+						if (response.msg == "success") {
+						
+							if("data" in response){
+							
+								var result = response.data;												
+								
+								$('#multipleAttachment').append($('<option/>').attr("value", '').text("Select"));
+								
+								for (var i = 0; i < result.length; i++) {																						
+									$('#multipleAttachment').append($('<option/>').attr("value", result[i].docPath).text(result[i].docName));			
+								}
+								$("#viewAttachmentPopUp").modal('show');
+								
+							}else{
+								Toast.fire({
+									type : 'error',
+									title : 'Attachment Not Available..'
+								})
+							}
+						} else {
+							Toast.fire({
+								type : 'error',
+								title : 'Failed ..'
+							})
+						}
+					},
+					error : function(jqXHR, textStatue, errorThrown) {
+						
+						Toast.fire({
+							type : 'error',
+							title : 'Failed Added try again..'
+						})
+
+					}
+				}); 								 
+			}
+		
+		 $("#multipleAttachment").change(function () {
+			 
+			 $("#pdfLink").contents().find("body").html(" ");
+			    var fileName = $("#multipleAttachment option:selected").text();
+			    
+			    console.log("fileName from drop down >> " + fileName);
+				var filePath = $("#multipleAttachment").val();
+			    
+				 fileName = encodeURIComponent(fileName);
+			     filePath = encodeURIComponent(filePath);
+					var urlpath = "getDoc" + "?name=" + fileName+ "&path=" + filePath;
+
+					$('#pdfLink').attr('src', urlpath);
+					$('#ifrmameHref').attr('href', urlpath);
+
+				});
+		 getQueryData();
+		 
+		 function getQueryData(){
+			 
+			 var obj ={
+						"referenceid": $('#invoiceNumber').val(),
+						"type": "Invoice"
+				}
+				
+				$.ajax({
+					type : "POST",
+					url : "<%=GlobalUrl.getQueryByTypeAndForeignKey%>",
+					data :JSON.stringify(obj),
+					dataType : "json",
+					contentType : "application/json",
+					success : function(response) {
+						if (response.msg == "success") {
+						
+							if("data" in response){
+							
+								var result = response.data;												
+								
+							     	tabledataQuery.clear();
+							     	var count=0;
+				                        for (var i = 0; i < result.length; i++) {
+				                        	count++;
+				                        	tabledataQuery.row.add([count,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
+				                        }
+				                        tabledataQuery.draw();
+				                        $("tbody").show();
+								}
+						} else {
+							Toast.fire({
+								type : 'error',
+								title : 'Failed ..'
+							})
+						}
+					},
+					error : function(jqXHR, textStatue, errorThrown) {
+						
+						Toast.fire({
+							type : 'error',
+							title : 'Failed Added try again..'
+						})
+					}
+				}); 
+		 }
+			
+		
     </script>
 </body>
 

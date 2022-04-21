@@ -110,7 +110,7 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <jsp:include page="navbar.jsp?pagename=All Invoice" />
+        <jsp:include page="navbar.jsp?pagename=Vendor Invoice" />
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
@@ -145,14 +145,32 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body ">
+                                <form role="form" id="addForm" autocomplete="off">
+                                        <div class="row">
+
+                                            <div class="col-md-2">
+                                                <input type="text" name="fromDate" placeholder="Select Invoice Start Date" required class="form-control" id="fromDate" style="height: 34px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" name="toDate" placeholder="Select Invoice End Date" required class="form-control" id="toDate" style="height: 34px;">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="exampleInputserverName1" style="visibility: hidden;">Text</label>
+                                                <button type="button" onclick="getFilterData()" class="btn btn-primary">Search</button>
+                                            </div>
+                                            
+                                        </div>
+                                    </form>
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">ECOM Invoice Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Receiving Date</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Vendor Invoice Number</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Vendor Code</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Vendor Name</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Receiving Date</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Route</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Total Amount</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Invoice Status</th>
                                             </tr>
                                         </thead>
@@ -209,6 +227,32 @@
                 "aaSorting": [],
                 "pageLength": 20
             });
+            
+            $("#refreshDashboardButton").click(function(e) {
+                e.preventDefault();
+                $('#refreshDashboardButton').attr('disabled', 'disabled');
+                getData();
+                $('#refreshDashboardButton').removeAttr('disabled');
+                $('#selectVendorCode').val('');
+                $('#selectInvoicingStatus').val('');
+                $('#fromDate').val('');
+                $('#toDate').val('');
+            })
+            
+            
+            $('#fromDate').datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+
+            });
+
+            $('#toDate').datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+
+            });
 
             getData();
 
@@ -246,9 +290,9 @@
                                 if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
                                     result[i].invoiceStatus = "";
                                 }
-                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "')\" >" + result[i].ecomInvoiceNumber + "</button>";
+                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "','All Invoices')\" >" + result[i].ecomInvoiceNumber + "</button>";
 
-                                tabledata.row.add([view, result[i].invoiceReceivingDate, result[i].invoiceNumber, result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceStatus]);
+                                tabledata.row.add([view, result[i].invoiceNumber, result[i].vendorCode, result[i].vendorName, result[i].invoiceReceivingDate,  result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceStatus]);
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -264,11 +308,102 @@
                     }
                 });
             }
+            
+            //date filter
+            
+            function getFilterData() {
 
-            function getInvoiceDataFormDataByInvoiceNumber(id) {
+                var fromDate = $("#fromDate").val();
+                var toDate = $("#toDate").val();
+                
+                if (fromDate == "" || fromDate == null) {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Please Select Start Date..'
+                    });
+                    document.getElementById("fromDate").focus();
+                    return;
+                }
+
+                if (toDate == "" || toDate == null) {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Please Select End Date..'
+                    });
+                    document.getElementById("toDate").focus();
+                    return;
+                }
                 $('.loader').show();
 
-                var urlOftripsDetail = "invoiceView?id=" + id;
+
+                $.ajax({
+                    type: "GET",
+                    data: {
+                        "actualDeparture": fromDate,
+                        "actualArrival": toDate
+                    },
+                    url: "<%=GlobalUrl.filterInvoiceDetails%>",
+                    dataType: "json",
+                    contentType: "application/json",
+
+                    success: function(data) {
+                    	
+                        $('.loader').hide();
+                        if (data.msg == 'success') {
+                            
+                            var result = data.data;
+                            tabledata.clear();
+
+                            for (var i = 0; i < result.length; i++) {
+                            	 if (!result[i].hasOwnProperty("invoiceNumber")) {
+                                     result[i].invoiceNumber = "";
+                                 }
+                                 if (!result[i].hasOwnProperty("invoiceDate")) {
+                                     result[i].invoiceDate = "";
+                                 }
+                                 if (!result[i].hasOwnProperty("invoiceAmount")) {
+                                     result[i].invoiceAmount = "";
+                                 }
+                                 if (!result[i].hasOwnProperty("invoiceReceivingDate")) {
+                                     result[i].vehicleNumber = "";
+                                 }
+                                 if (!result[i].hasOwnProperty("invoiceStatus")) {
+                                     result[i].invoiceStatus = "";
+                                 }
+                                 if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
+                                     result[i].invoiceStatus = "";
+                                 }
+                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "','All Invoices')\" >" + result[i].ecomInvoiceNumber + "</button>";
+
+                                 tabledata.row.add([view, result[i].invoiceNumber, result[i].vendorCode, result[i].vendorName, result[i].invoiceReceivingDate,  result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceStatus]);
+                             }
+                             tabledata.draw();
+                             $("tbody").show();                 
+                        } else {
+                            console.log(data);
+                            Toast.fire({
+                                type: 'error',
+                                title: 'Failed.. Try Again..'
+                            })
+                        }
+
+                    },
+                    error: function(jqXHR, textStatue, errorThrown) {
+                        $('.loader').hide();
+                        Toast.fire({
+                            type: 'error',
+                            title: '.. Try Again..'
+                        })
+                    }
+
+                });
+
+            }
+
+            function getInvoiceDataFormDataByInvoiceNumber(id,type) {
+                $('.loader').show();
+
+                var urlOftripsDetail = "invoiceView_Finance?id=" + id+"&type="+type;
                 window.open(urlOftripsDetail, "invoiceView_Finance", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
                 $('.loader').hide();
             }

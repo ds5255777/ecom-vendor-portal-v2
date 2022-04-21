@@ -10,33 +10,42 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
+import com.main.db.bpaas.entity.Document;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
+import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
+import com.main.db.bpaas.repo.DocumentRepo;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
-import com.main.db.bpaas.repo.InvoiceLineItemRepo;
+import com.main.db.bpaas.repo.QueryRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
 
 @RequestMapping("/invoiceController")
 @RestController
 public class InvoiceController {
 
-//	@Autowired
-//	private InvoiceDetailsRepo invoiceDetailsRepo;
+	@Value("${filepath}")
+	private String filepath;
 
 	@Autowired
 	private InvoiceGenerationEntityRepo invoiceGenerationEntityRepo;
 
 	@Autowired
 	private TripDetailsRepo tripDetailsRepo;
+	
+	@Autowired
+	private QueryRepo queryRepo;
+
+	@Autowired
+	private DocumentRepo documentRepo;
 
 	@RequestMapping({ "/getAllInvoice" })
 	@CrossOrigin("*")
@@ -46,7 +55,6 @@ public class InvoiceController {
 		DataContainer data = new DataContainer();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		// String vendorCode = request.getSession().getAttribute("userName").toString();
 		String vendorCode = principal.getName();
 		try {
 			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllInvoice(vendorCode);
@@ -68,7 +76,6 @@ public class InvoiceController {
 			@RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
 
 		DataContainer data = new DataContainer();
-		// String vendorCode = request.getSession().getAttribute("userName").toString();
 		String vendorCode = principal.getName();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -99,6 +106,27 @@ public class InvoiceController {
 			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllApproveInvoice(vendorCode);
 
 			data.setData(pandingInvoice);
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
+	
+	@RequestMapping({ "/getAllQueryInvoiceVendor" })
+	@CrossOrigin("*")
+	public String getAllQueryInvoiceVendor(Principal principal, HttpServletRequest request) {
+
+		DataContainer data = new DataContainer();
+		String vendorCode = principal.getName();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			List<InvoiceGenerationEntity> queryInvoice = invoiceGenerationEntityRepo.getAllQueryInvoiceVendor(vendorCode);
+
+			data.setData(queryInvoice);
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -197,7 +225,7 @@ public class InvoiceController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
 		try {
-			String filePath = "C:/1.BPAAS/Invoice/" + obj.getInvoiceNumber();
+			String filePath = filepath + "/" + obj.getInvoiceNumber();
 			String fullFilePathWithName = "";
 
 			System.out.println(filePath);
@@ -211,16 +239,18 @@ public class InvoiceController {
 				if (!file1.exists()) {
 					file1.mkdirs();
 				}
-				// Creating the directory
-//				boolean bool = 
-//				System.out.println("vdsvsv " + bool);
 				fullFilePathWithName = filePath + "/" + "Invoice-" + obj.getInvoiceFileName();
-//				File file = new File(filePath);
 				System.out.println(fullFilePathWithName);
 
+				Document doc = new Document();
+				doc.setDocName(obj.getInvoiceFileName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType("Invoice");
+				doc.setForeignKey(obj.getEcomInvoiceNumber());
+				documentRepo.save(doc);
+
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					// To be short I use a corrupted PDF string, so make sure to use a valid one if
-					// you want to preview the PDF file
 					String b64 = obj.getInvoiceFileText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
@@ -235,11 +265,17 @@ public class InvoiceController {
 
 			if (null != obj.getDocumentFileOneName()) {
 
-				fullFilePathWithName = filePath + "/" + "Document One-" + obj.getDocumentFileOneName();
+				fullFilePathWithName = filePath + "/" + "Summary Sheet-" + obj.getDocumentFileOneName();
+
+				Document doc = new Document();
+				doc.setDocName(obj.getDocumentFileOneName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType("Invoice");
+				doc.setForeignKey(obj.getEcomInvoiceNumber());
+				documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					// To be short I use a corrupted PDF string, so make sure to use a valid one if
-					// you want to preview the PDF file
 					String b64 = obj.getDocumentFileOneText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
@@ -254,11 +290,17 @@ public class InvoiceController {
 
 			if (null != obj.getDocumentFileTwoName()) {
 
-				fullFilePathWithName = filePath + "/" + "Document Two-" + obj.getDocumentFileTwoName();
+				fullFilePathWithName = filePath + "/" +"FS Calculation Sheet-"+ obj.getDocumentFileTwoName();
+
+				Document doc = new Document();
+				doc.setDocName(obj.getDocumentFileTwoName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType("Invoice");
+				doc.setForeignKey(obj.getEcomInvoiceNumber());
+				documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					// To be short I use a corrupted PDF string, so make sure to use a valid one if
-					// you want to preview the PDF file
 					String b64 = obj.getDocumentFileTwoText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
@@ -274,8 +316,9 @@ public class InvoiceController {
 			System.out.println(idByinvocienumber);
 
 			if (null != idByinvocienumber) {
-				obj.setInvoiceStatus("Processed");
+				obj.setInvoiceStatus("In-Review");
 				obj.setId(idByinvocienumber);
+				obj.setAssignTo("Finance");
 				System.out.println(ecomInvoiceNumber);
 				tripDetailsRepo.updateVendorTripStatusAgainsInvoiceNumber(ecomInvoiceNumber);
 				obj = invoiceGenerationEntityRepo.save(obj);
@@ -286,7 +329,6 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			// data.setData(e.toString());
 			e.printStackTrace();
 		}
 
@@ -300,11 +342,11 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 		System.out.println("trip id : " + inviceObj.getInvoiceNumber());
+		//System.out.println("trip id : " + inviceObj.getEcomInvoiceNumber());
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			inviceObj = invoiceGenerationEntityRepo.findByInvoiceNumber(inviceObj.getInvoiceNumber());
-			inviceObj.getInvoiceLineItem().forEach(t -> System.out.println(t.getActualKM()));
 			data.setData(inviceObj);
 			data.setMsg("success");
 
@@ -411,9 +453,8 @@ public class InvoiceController {
 
 		return gson.toJson(data).toString();
 	}
-	
-	//finance Controller
-	//checkForExistingInvoiceNumber
+
+	// checkForExistingInvoiceNumber
 	@RequestMapping({ "/checkForExistingInvoiceNumber" })
 	@CrossOrigin("*")
 	public String checkForExistingInvoiceNumber(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
@@ -422,16 +463,16 @@ public class InvoiceController {
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			String invoiceNumber = invoiceGenerationEntityRepo.checkForExistingInvoiceNumber( obj.getVendorCode(),obj.getInvoiceNumber());
-			
+			String invoiceNumber = invoiceGenerationEntityRepo.checkForExistingInvoiceNumber(obj.getVendorCode(),
+					obj.getInvoiceNumber());
+
 			System.out.println(invoiceNumber);
-			
+
 			if (null == invoiceNumber) {
 				data.setMsg("success");
 			} else {
 				data.setMsg("exist");
 			}
-
 
 		} catch (Exception e) {
 			data.setMsg("error");

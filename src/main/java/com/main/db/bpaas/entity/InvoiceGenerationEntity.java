@@ -43,6 +43,8 @@ public class InvoiceGenerationEntity {
 	private String vehicleNumber;
 	@Column(name = "invoice_status")
 	private String invoiceStatus;// Processed, Approved, Rejected
+	@Column(name = "assign_to")
+    private String assignTo;// network Team, Vendor
 
 	// form Two
 
@@ -236,5 +238,14 @@ public class InvoiceGenerationEntity {
 	public void setDocumentFileTwoText(String documentFileTwoText) {
 		this.documentFileTwoText = documentFileTwoText;
 	}
+
+	public String getAssignTo() {
+		return assignTo;
+	}
+
+	public void setAssignTo(String assignTo) {
+		this.assignTo = assignTo;
+	}
+	
 
 }

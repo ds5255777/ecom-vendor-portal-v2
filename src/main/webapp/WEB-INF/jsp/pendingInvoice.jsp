@@ -240,7 +240,7 @@
                                 if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
                                     result[i].invoiceStatus = "";
                                 }
-                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "')\" >" + result[i].ecomInvoiceNumber + "</button>";
+                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "','Pending Queue')\" >" + result[i].ecomInvoiceNumber + "</button>";
 
                                 tabledata.row.add([view, result[i].invoiceReceivingDate, result[i].invoiceNumber, result[i].invoiceDate, result[i].invoiceAmount]);
                             }
@@ -259,9 +259,9 @@
                 });
             }
 
-            function getInvoiceDataFormDataByInvoiceNumber(id) {
+            function getInvoiceDataFormDataByInvoiceNumber(id, type) {
                 $('.loader').show();
-                var urlOftripsDetail = "invoiceView?id=" + id;
+                var urlOftripsDetail = "invoiceView?id=" + id+"&type="+type;
                 window.open(urlOftripsDetail, "invoiceView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
                 $('.loader').hide();
             }

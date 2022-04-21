@@ -108,22 +108,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                    <h2>${TotalCloseTripCount}</h2>
-
-                                    <p id="perTicket" data-toggle="tooltip" data-placement="bottom" title="Complet Trip from vendor Side">Closed Trips</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="far fa-times-circle" style="color: #17a2b8; font-size: 50px;"></i>
-                                </div>
-                                <a href="closedTrips" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                    info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
+                        
 
 
                         <!-- ./col -->
@@ -208,9 +193,27 @@
                                     <p id="UnTickets" data-toggle="tooltip" data-placement="bottom" title="invoice Rejected some Reasons">Draft Invoice</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fas fa-ban" style="color: #dc3545; font-size: 50px;"></i>
+                                <i class="fab fa-firstdraft" style="color: #dc3545; font-size: 50px;"></i>
+                                   <!--  <i class="fas fa-ban" style="color: #dc3545; font-size: 50px;"></i> -->
                                 </div>
                                 <a href="draftInvoice" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
+                                    info <i class="fas fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-2 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-white">
+                                <div class="inner">
+                                    <h2>${TotalCloseTripCount}</h2>
+
+                                    <p id="perTicket" data-toggle="tooltip" data-placement="bottom" title="Complet Trip from vendor Side">Query Invoice</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="far fas fa-question" style="color: #17a2b8; font-size: 50px;"></i>
+                                </div>
+                                <a href="queryInvoiceVendor" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
                                     info <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
@@ -480,7 +483,7 @@
         var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
         var unresolvedstsData = {
             labels: [
-                'Closed',
+                'Query Invoice',
                 'In-Transit',
                 'All Trips',
                 'Process Invoices',

@@ -552,12 +552,7 @@ tbody {
 														<div class="col-sm-6">
 
 															<div class="form-group">
-																<!-- <input type="checkbox" id="lumpsum" name="lumpsum" class="messageCheckbox" value="" onclick="lumpsomePropertyChange()">
-                                                                        <label for="lumsum"> If Lump Some amount is applicable</label><br> 
-                                                                        <div class="form-group">
-                                                                            <label style="margin-bottom: 1px;">Amount</label>
-                                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="AmountLumpSum" name="AmountLumpSum" disabled>
-                                                                        </div> -->
+																
 																<div class="row" style="padding: 15px;">
 																<!-- <button id="saveCoaDetails" type="button"
 																		class="btn btn-success" style="margin-right: 10px;"
@@ -584,47 +579,6 @@ tbody {
 										<!-- /.card -->
 									</table>
 
-									<!-- <form role="form" id="queryDetails" name="queryDetails">
-                                        <textarea class="form-control" id="comment" name="comment" maxlength="250" placeholder="If any Query Regardin in This Trip Comment..." rows="3"></textarea>
-                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="tripID" name="tripID" autocomplete="off" disabled>
-                                    </form> -->
-
-
-									<!-- </div> -->
-									<%-- <div class="col-md-5">
-                                    <a href="${pageContext.request.contextPath}/getDoc" target="_blank">Click Here to open doc in new window</a>
-                                    <!-- <iframe id="pdfLink" style="height:100%; width:100%"> -->
-
-                                    <!-- Comment History window -->
-                                    <div class="card card-primary ">
-                                        <div class="card-header" style="padding: 4px 0px 4px 4px;">
-                                            <h3 class="card-title" style="font-size: 15px;">Ad-Hoc Trips Query</h3>
-                                        </div>
-                                        <!-- /.card-header -->
-                                        <div class="card-body ">
-                                            <form role="form" id="showQueryDetails" name="showQueryDetails">
-                                                <table class="table table-bordered table-hover" id="tabledata">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
-                                                            <th style="padding: 5px 5px 5px 1.5rem;">Date</th>
-                                                            <th style="padding: 5px 5px 5px 1.5rem;">Comment</th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
-                                            </form>
-                                        </div>
-                                        <!-- /.card-body -->
-                                    </div>
-
-                                    <!-- Comment History window -->
-
-
-                                </div> --%>
 									<div class="col-md-12">
 										<div class="card card-primary ">
 											<div class="card-header" style="padding: 4px 0px 4px 4px;">
@@ -655,11 +609,6 @@ tbody {
 
 										</div>
 									</div>
-									<!-- <div class="row" style="padding: 15px;">
-                                        <button id="openCoaDetails" type="button" class="btn btn-success" style="margin-right:10px;" onclick="saveQuery()">Query</button>
-                                        <button id="saveCoaDetails" type="button" class="btn btn-success" style="margin-right:10px;" onclick="updateTripData()">Approve</button>
-                                        <button type="button" class="btn btn-secondary" id="closeModal" data-dismiss="modal">Close</button>
-                                    </div> -->
 								</div>
 							</div>
 						</div>
@@ -729,22 +678,6 @@ tbody {
             });
             
             
-               /*  console.log(document.getElementById("mode").value);
-                //alert(document.getElementById("mode").value);
-                if (document.getElementById("mode").value === "Line Haul") {
-                    document.getElementById("openingReading").disabled = 'true';
-                    document.getElementById("closingReading").disabled = 'true';
-                    //    document.getElementById("tdsRate").val()="";
-                    //            	    document.getElementById("tdsSection").value()="";
-                    $("#tdsSection").val("");
-                    $("#tdsRate").val("");
-
-                } else {
-                    document.getElementById("openingReading").disabled = '';
-                    document.getElementById("closingReading").disabled = '';
-                } */
-            
-
             var globalTripId = "";
 
             getData();
@@ -897,41 +830,10 @@ tbody {
                             var result = data.data;
 							
                             queryArray = data.data.queryEntity;
-                            /* jsondata=JSON.parse(result) */
-                            ;
                             var myForm = "";
-                            //var myForm1 = "";
-                            //var myForm2="";
                             myForm = document.getElementById("tripForm");
-                            //myForm1 = document.getElementById("showQueryDetails");
-                           // myForm2 = document.getElementById("tripDetails");
                             setData(myForm, result);
-                            //setData(myForm1, result);
-                           // setData(myForm, result);
                             $("#tripID").val(result.tripID);
-                            
-                           // $('#tabledataQuery').DataTable().clear();
-                            tabledataQuery.clear();
-                           
-                            for (var i = 0; i < queryArray.length; i++) {
-                                console.log(queryArray[i].raisedOn);
-                          	 /* $('#tabledataQuery').DataTable() */
-                                if(!result[i].hasOwnProperty("raisedBy")){
-         							result[i].raisedBy="";
-         						}
-                                if(!result[i].hasOwnProperty("raisedOn")){
-         							result[i].raisedOn="";
-         						}
-                                if(!result[i].hasOwnProperty("comment")){
-         							result[i].comment="";
-         						}
-                          	 tabledataQuery.row.add([ i+1, queryArray[i].raisedBy, queryArray[i].raisedOn, queryArray[i].comment ]);                         
-                           console.log(queryArray[i].raisedBy);
-                           }
-                            
-                            
-                           //$('#queryArray').DataTable().draw();
-                           tabledataQuery.draw();
                            $("tbody").show(); 
 
 
@@ -981,6 +883,7 @@ tbody {
                 "raisedAgainQuery": $("#tripID").val(),
                 "raisedBy": $("#vendorName").val(),
                 "id": $("#id").val(),
+                "type":"Trip"
                 
                 }
                 console.log(json);
@@ -988,7 +891,7 @@ tbody {
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify(json),
-                    url: "<%=GlobalUrl.saveTripQuery%>",
+                    url: "<%=GlobalUrl.saveQuery%>",
                     dataType: "json",
                     contentType: "application/json",
 
@@ -996,7 +899,7 @@ tbody {
                         if (response.msg == 'success') {
                         	
                         	
-                            swal.fire("Thanks", "your Query Sucessfully Submitted", "success", "OK").then(function() {
+                            swal.fire("", "your Query Sucessfully Submitted", "success", "OK").then(function() {
                                 window.location = "pendingApproval";
                             });
 

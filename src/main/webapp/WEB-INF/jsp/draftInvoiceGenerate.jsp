@@ -136,7 +136,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Number <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Number" name="invoiceNumber" id="invoiceNumber" style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Invoice Number" oninput="this.value = this.value.replace(/[^0-9-_A-Za-z]/g, '').replace(/(\..*)\./g, '$1');this.value = this.value.toUpperCase();" name="invoiceNumber" id="invoiceNumber" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -173,7 +173,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Tax (%)<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount" value="18" oninput="calculateInvoice()" style="width: 100%;" >
+                                                <input class="form-control-sm" readonly name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount" value="18" oninput="calculateInvoice()" style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -286,18 +286,18 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Summary Sheet<span class="text-danger"></span></label>
+                                            <label class="col-sm-5 control-label">Summary Sheet<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="file" id="DocumentFileOne" name="DocumentFileOne" class="form-control-sm"  onchange="handleFileSelect(event,'DocumentFileOneText'), onValidateFileOne('DocumentFileOne')" class="form-control p-input">
+                                                <input type="file" id="DocumentFileOne" name="DocumentFileOne" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx" onchange="handleFileSelect(event,'DocumentFileOneText'), onValidateFileOne('DocumentFileOne')" class="form-control p-input">
                                                 <textarea id="DocumentFileOneText" name="DocumentFileOneText" rows="5" style="display: none;"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label class="col-sm-5 control-label">FS Calculation Sheet<span class="text-danger"></span></label>
+                                            <label class="col-sm-5 control-label">FS Calculation Sheet<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="file" id="DocumentFileTwo" name="DocumentFileTwo" class="form-control-sm"  onchange="handleFileSelect(event,'DocumentFileTwoText'), onValidateFileOne('DocumentFileTwo')" class="form-control p-input">
+                                                <input type="file" id="DocumentFileTwo" name="DocumentFileTwo" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx"  onchange="handleFileSelect(event,'DocumentFileTwoText'), onValidateFileOne('DocumentFileTwo')" class="form-control p-input">
                                                 <textarea id="DocumentFileTwoText" name="DocumentFileTwoText" rows="5" style="display: none;"></textarea>
                                             </div>
                                         </div>
@@ -413,7 +413,7 @@
             window.close()
         }
 
-        function onValidateFile(InvoiceUpload) {
+        function onValidateFile(id) {
             var fileInput3 = document.getElementById(id).value;
             var gst = document.getElementById(id);
             var allowedExtensions = /(\.jpg|\.jpeg|\.pdf)$/i;
@@ -423,12 +423,12 @@
                 const fsize = gst.files.item(0).size;
                 const file = Math.round((fsize / 1024));
                 if (file > ${maxFileSize}) {
-                    swal.fire("Alert", "Please select File size less than 5 MB....", "warning");
+                    swal.fire("", "Please select File size less than 5 MB....", "warning");
                     $("#" + id).val("");
                 } else {
                     var ext = fileInput3.split(".")[1];
                     if (ext == "pdf" || ext == "jpg" || ext == "JPEG" || ext == "JPG" || ext == "jpeg" || ext == "PDF") {} else {
-                        swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File....", "warning");
+                        swal.fire("", "Invalid File Type, Select Only JPEG & PDF File....", "warning");
                         $("#" + id).val("");
                         return false;
                     }
@@ -441,19 +441,19 @@
         function onValidateFileOne(id) {
             var fileInput3 = document.getElementById(id).value;
             var gst = document.getElementById(id);
-            var allowedExtensions = /(\.jpg|\.jpeg|\.pdf|\.doc|\.docx|\.xls|\.xlsx)$/i;
+            var allowedExtensions = /(\.pdf|\.doc|\.docx|\.xls|\.xlsx)$/i;
 
             if (typeof(gst.files) != "undefined") {
 
                 const fsize = gst.files.item(0).size;
                 const file = Math.round((fsize / 1024));
                 if (file > ${maxFileSize}) {
-                    swal.fire("Alert", "Please select File size less than 5 MB....", "warning");
+                    swal.fire("", "Please select File size less than 5 MB....", "warning");
                     $("#" + id).val("");
                 } else {
                     var ext = fileInput3.split(".")[1];
-                    if (ext == "pdf" || ext == "jpg" || ext == "JPEG" || ext == "JPG" || ext == "jpeg" || ext == "PDF" || ext == "doc" || ext == "DOC" || ext == "docx" || ext == "DOCX" || ext == "xls" || ext == "XLS" || ext == "xlsx" || ext == "XLSX") {} else {
-                        swal.fire("Alert", "Invalid File Type, Select Only DOC, XLSX, JPEG & PDF File....", "warning");
+                    if (ext == "pdf" || ext == "PDF" || ext == "doc" || ext == "DOC" || ext == "docx" || ext == "DOCX" || ext == "xls" || ext == "XLS" || ext == "xlsx" || ext == "XLSX") {} else {
+                        swal.fire("", "Invalid File Type, Select Only DOC, XLSX & PDF File....", "warning");
                         $("#" + id).val("");
                         return false;
                     }
@@ -585,6 +585,26 @@
                     title: 'Please Upload Invoice Document'
                 });
                 document.getElementById("InvoiceUpload").focus();
+                return "";
+            }
+            
+            var docOne = document.getElementById("DocumentFileOne").value;
+            if (docOne === "" || docOne === null || docOne === '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Please Upload Summary Sheet'
+                });
+                document.getElementById("docOne").focus();
+                return "";
+            }
+            
+            var docTwo = document.getElementById("DocumentFileTwo").value;
+            if (docTwo === "" || docTwo === null || docTwo === '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Please Upload FS Calculation Sheet'
+                });
+                document.getElementById("docTwo").focus();
                 return "";
             }
             console.log(tripLineArray.length);

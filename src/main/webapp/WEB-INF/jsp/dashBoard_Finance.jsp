@@ -38,9 +38,11 @@
 <!-- summernote -->
 <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
 <!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet" href="build/fontawesome-icon/css/all.min.css">
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" /> -->
 <style>
 tbody {
 	font-size: 12.9px;
@@ -55,6 +57,15 @@ tbody {
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<%
+String financeRole = GlobalConstants.ROLE_FINANCE;
+String financeHeadRole = GlobalConstants.ROLE_FINANCE_HEAD;
+
+request.setAttribute("financeRole", financeRole);
+request.setAttribute("financeHeadRole", financeHeadRole);
+
+
+%>
 	<div class="wrapper">
 
 		<!-- Navbar -->
@@ -88,22 +99,24 @@ tbody {
 			<!-- Main content -->
 			<section class="content">
 				<div class="container-fluid">
+				
+				
+				<c:if test="${role.equalsIgnoreCase(financeRole) }">
 					<!-- Small boxes (Stat box) -->
 					<div class="row">
 						<!-- ./col -->
-						<div class="col-lg-3 col-6">
+						<div class="col-lg-2 col-6">
 							<!-- small box -->
 							<div class="small-box bg-white">
 								<div class="inner">
-									<h2>${count}</h2>
+									<h2>${allInvoice}</h2>
 
 									<p id="iamwatch" data-toggle="tooltip" data-placement="bottom"
 										title="All Processed and Unprocessed Invoice">All Invoice</p>
 								</div>
 								<div class="icon">
+								<i class="fas fa-file-invoice" style="color: #6610f2; font-size: 75px;"></i>
 
-									<i class="fas fa fa-check"
-										style="color: #28a745; font-size: 50px;"></i>
 								</div>
 								<a href="allInvoices_Finance" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -111,65 +124,103 @@ tbody {
 								</a>
 							</div>
 						</div>
-
-						<!-- ./col -->
-						<div class="col-lg-3 col-6">
+						<div class="col-lg-2 col-6">
 							<!-- small box -->
 							<div class="small-box bg-white">
 								<div class="inner">
-									<h2>10</h2>
+									<h2>${inReviewInvoice}</h2>
+
+									<p id="UnTickets" data-toggle="tooltip" data-placement="bottom"
+										title="Unprocessed Invoice">In-Review Invoice</p>
+								</div>
+								<div class="icon">
+
+									<i class="fas fa-file-contract"
+										style="color: #1F8BFF; font-size: 75px;"></i>
+								</div>
+								<a href="InProcessInvoiceFinance" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
+						
+												<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${countForPendingForApprovalInvoice}</h2>
+
+									<p id="UnTickets" data-toggle="tooltip" data-placement="bottom"
+										title="Unprocessed Invoice">Pending For Approval</p>
+								</div>
+								<div class="icon">
+								<i class="fa-solid fa-receipt"
+										style="color: #1F8BFF; font-size: 75px;"></i>
+								</div>
+								<a href="pendingForApprovalInvoice" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
+						<!-- ./col -->
+						<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${countForApprovedInvoice }</h2>
 
 									<p id="opeTickets" data-toggle="tooltip"
-										data-placement="bottom" title="Processed Invoice Only">Processed
+										data-placement="bottom" title="Processed Invoice Only">Approved
 										Invoice</p>
 								</div>
 								<div class="icon">
-
-									<i class="fas fa fa-check"
-										style="color: #28a745; font-size: 50px;"></i>
+										
+									<i class="fa fas fa fa-check"
+										style="color: #28a745; font-size: 75px;"></i>
 								</div>
-								<a href="#" class="small-box-footer"
+								<a href="processInvoiceFinance" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
 									info <i class="fas fa-arrow-circle-right"></i>
 								</a>
 							</div>
 						</div>
-
-						<div class="col-lg-3 col-6">
+						<div class="col-lg-2 col-6">
 							<!-- small box -->
 							<div class="small-box bg-white">
 								<div class="inner">
-									<h2>12</h2>
+									<h2>${countForPaymentrelaseInvoice}</h2>
 
 									<p id="UnTickets" data-toggle="tooltip" data-placement="bottom"
-										title="Unprocessed Invoice">In-Processed Invoice</p>
+										title="Unprocessed Invoice">Payment Release</p>
 								</div>
 								<div class="icon">
 
-									<i class="fas fa fa-check"
-										style="color: #28a745; font-size: 50px;"></i>
+									<i class="fas fa-file-invoice-dollar"
+										style="color: #1F8BFF; font-size: 75px;"></i>
 								</div>
-								<a href="#" class="small-box-footer"
+								<a href="paymentRelaseInvoice" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
 									info <i class="fas fa-arrow-circle-right"></i>
 								</a>
 							</div>
 						</div>
-						<div class="col-lg-3 col-6">
+						<div class="col-lg-2 col-6">
 							<!-- small box -->
 							<div class="small-box bg-white">
 								<div class="inner">
-									<h2>3</h2>
+									<h2>${queryCount }</h2>
 
 									<p id="perTicket" data-toggle="tooltip" data-placement="bottom"
 										title="Invoice Regarding Query For Vendor or Finance Team">Query</p>
 								</div>
 								<div class="icon">
 
-									<i class="fas fa fa-check"
-										style="color: #28a745; font-size: 50px;"></i>
+									<i class="fas fa-question"
+										style="color: #fd7e14; font-size: 75px;"></i>
 								</div>
-								<a href="#" class="small-box-footer"
+								<a href="queryInvoiceFinance" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
 									info <i class="fas fa-arrow-circle-right"></i>
 								</a>
@@ -177,7 +228,83 @@ tbody {
 						</div>
 						<!-- ./col -->
 					</div>
+					</c:if>
 					<!-- /.row -->
+					
+					<c:if test="${role.equalsIgnoreCase(financeHeadRole) }">
+					
+					<div class="row">
+						<!-- ./col -->
+						<div class="col-lg-4 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${allInvoice}</h2>
+
+									<p id="iamwatch" data-toggle="tooltip" data-placement="bottom"
+										title="All Processed and Unprocessed Invoice">All Invoice</p>
+								</div>
+								<div class="icon">
+								<i class="fas fa-file-invoice" style="color: #6610f2; font-size: 75px;"></i>
+
+									<!-- <i class="fas fa-file-invoice-dollar"
+										style="color: #1F8BFF; font-size: 75px;"></i> -->
+								</div>
+								<a href="allInvoices_Finance" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+				 		</div>
+						
+						<div class="col-lg-4 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${countForPendingForApprovalInvoice}</h2>
+
+									<p id="UnTickets" data-toggle="tooltip" data-placement="bottom"
+										title="Unprocessed Invoice">Pending For Approval</p>
+								</div>
+								<div class="icon">
+									<i class="fa-solid fa-receipt"
+										style="color: #1F8BFF; font-size: 75px;"></i>
+								</div>
+								<a href="pendingForApprovalInvoice" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
+						
+						<div class="col-lg-4 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${countForApprovedInvoice }</h2>
+
+									<p id="opeTickets" data-toggle="tooltip"
+										data-placement="bottom" title="Processed Invoice Only">Approved
+										Invoice</p>
+								</div>
+								<div class="icon">
+
+									<i class="fa fas fa fa-check"
+										style="color: #28a745; font-size: 75px;"></i>
+								</div>
+								<a href="processInvoiceFinance" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
+						<!-- ./col -->
+					</div>
+					</c:if>
+					
+					
+					
+					
 					<!-- Main row -->
 
 					<!-- /.row (main row) -->
@@ -188,6 +315,7 @@ tbody {
 			<!-- Main content -->
 			<section class="content">
 				<div class="container-fluid">
+				<c:if test="${role.equalsIgnoreCase(financeRole) }">
 					<div class="row">
 						<div class="col-md-8">
 
@@ -195,7 +323,7 @@ tbody {
 								<div class="card-header">
 									<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
 										data-placement="bottom" title="Top 50 Pending Trips">Top
-										50 In-Processed Invoice</h3>
+										50 In-Review Invoice</h3>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body table-responsive p-0"
@@ -234,6 +362,56 @@ tbody {
 							</div>
 						</div>
 					</div>
+					</c:if>
+					
+					<c:if test="${role.equalsIgnoreCase(financeHeadRole) }">
+					<div class="row">
+						<div class="col-md-8">
+
+							<div class="card card-primary  card-outline ">
+								<div class="card-header">
+									<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
+										data-placement="bottom" title="Top 50 Pending Trips">Top
+										50 Pending For Approval Invoice</h3>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body table-responsive p-0"
+									style="height: 420px;">
+									<table class="table table-head-fixed" id="tabledata">
+										<thead>
+											<tr>
+												<th class="bg-primary">Invoice Number</th>
+												<th class="bg-primary">Invoice Date</th>
+												<th class="bg-primary">Vendor Code</th>
+												<th class="bg-primary">Vendor name</th>
+												<th class="bg-primary">Amount</th>
+												<th class="bg-primary">Tax</th>
+												<th class="bg-primary">Total Amount</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- body -->
+										</tbody>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+						</div>
+						<div class="col-md-4">
+							<!-- DONUT CHART -->
+							<div class="card card-primary  card-outline ">
+								<div class="card-body">
+									<p>
+										<strong>Invoice Status</strong>
+									</p>
+									<canvas id="unresolvedsts"
+										style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
+								</div>
+								<!-- /.card-body -->
+							</div>
+						</div>
+					</div>
+					</c:if>
 				</div>
 			</section>
 			<!-- /.content -->
@@ -298,8 +476,8 @@ tbody {
 	<!-- Sparkline -->
 	<script src="plugins/sparklines/sparkline.js"></script>
 	<!-- JQVMap -->
-	<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-	<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+	<!-- <script src="plugins/jqvmap/jquery.vmap.min.js"></script> -->
+	<!-- <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script> -->
 	<!-- jQuery Knob Chart -->
 	<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
 	<!-- daterangepicker -->
@@ -349,13 +527,16 @@ tbody {
             var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
             var unresolvedstsData = {
                 labels: [
-                    'Approved',
-                    'Yet To be Approved',
-                    'Total'
+                    'All Invoice',
+                    'Pending For Approval',
+                    'Payment Relase Invoice',
+                    'Approved Invoice',
+                    'In-Review Invoice',
+                    'Query'
                 ],
                 datasets: [{
-                        data: [${count}, ${yetTobeApproved}, ${totalTripCount}],
-                        backgroundColor: ['#17a2b8', '#00a65a', '#faa654'],
+                        data: [${allInvoice}, ${inReviewInvoice}, ${countForPendingForApprovalInvoice}, ${countForApprovedInvoice},${countForPaymentrelaseInvoice}, ${queryCount}],
+                        backgroundColor: ['#6610f2', 'yellow', '#28a745', '#1F8BFF','red','#fd7e14'],
                     }]
             }
             var unresolvedstsOptions = {

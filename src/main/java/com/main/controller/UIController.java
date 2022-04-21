@@ -1,5 +1,7 @@
 package com.main.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
@@ -8,13 +10,18 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.RolesEntity;
@@ -151,7 +158,7 @@ public class UIController {
 
 			String vendorCode = principal.getName();
 			int totalTripCount = tripDetailsRepo.getTripCount(vendorCode);
-			int TotalCloseTripCount = tripDetailsRepo.getCloseTripCount(vendorCode);
+			int TotalCloseTripCount = invoiceGenerationEntityRepo.getQueryInvoiceCount(vendorCode);
 			int TotalInTransitTripCount = tripDetailsRepo.getInTransitTripCount(vendorCode);
 
 			long processInvoice = invoiceGenerationEntityRepo.getPendingInvoiceCount(vendorCode);
@@ -168,10 +175,20 @@ public class UIController {
 			model.addAttribute("userStatus", us.getStatus());
 
 			return "dashboard";
-		} else if (rolename.equalsIgnoreCase("Finance")) {
-			long count = invoiceGenerationEntityRepo.count();
-			model.addAttribute("count",count);
-
+		} else if (rolename.equalsIgnoreCase("Finance") || rolename.equalsIgnoreCase("Finance Head")) {
+			long allInvoice = invoiceGenerationEntityRepo.getCountForAllInvoice();
+			long inReviewInvoice = invoiceGenerationEntityRepo.getCountForInReviewInvoice();
+			int countForPendingForApprovalInvoice = invoiceGenerationEntityRepo.getCountForPendingForApprovalInvoice();
+			int countForApprovedInvoice = invoiceGenerationEntityRepo.getCountForApprovedInvoice();
+			int countForPaymentrelaseInvoice = invoiceGenerationEntityRepo.getCountForPaymentrelaseInvoice();
+			int queryCount = invoiceGenerationEntityRepo.getQueryzInvoice();
+			
+			model.addAttribute("allInvoice", allInvoice);
+			model.addAttribute("inReviewInvoice", inReviewInvoice);
+			model.addAttribute("countForPendingForApprovalInvoice",countForPendingForApprovalInvoice);
+			model.addAttribute("countForApprovedInvoice",countForApprovedInvoice);
+			model.addAttribute("countForPaymentrelaseInvoice",countForPaymentrelaseInvoice);
+			model.addAttribute("queryCount",queryCount);
 			return "dashBoard_Finance";
 		} else if (rolename.equalsIgnoreCase("Audit")) {
 			return "";
@@ -233,6 +250,10 @@ public class UIController {
 	@GetMapping("/allTrips")
 	public String allTrips(Model model, Principal principal, HttpServletRequest request) {
 		String rolename = (String) request.getSession().getAttribute("role");
+		
+		String currentDate=new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		model.addAttribute("currentDate", currentDate);
+		
 		System.out.println("Role is ::" + rolename);
 		if (rolename.equalsIgnoreCase("Network")) {
 			System.out.println("All trips in network");
@@ -512,6 +533,8 @@ public class UIController {
 	public String invoiceView(Model model, HttpServletRequest request, Principal principal) {
 
 		String invoiceNumber = request.getParameter("id");
+		String invoiceType = request.getParameter("type");
+		model.addAttribute("type", invoiceType);
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		return "invoiceView";
 	}
@@ -545,16 +568,92 @@ public class UIController {
 
 		return "changePassword";
 	}
+
 //allInvoices_Finance
 	@GetMapping("/allInvoices_Finance")
 	public String allInvoicesFinance(Model model, HttpServletRequest request, Principal principal) {
 
 		return "allInvoices_Finance";
 	}
-	
+
 	@GetMapping("/invoiceView_Finance")
 	public String invoiceView_Finance(Model model, HttpServletRequest request, Principal principal) {
-
+		String invoiceNumber = request.getParameter("id");
+		String invoiceType = request.getParameter("type");
+		model.addAttribute("invoiceNumber", invoiceNumber);
+		model.addAttribute("type", invoiceType);
 		return "invoiceView_Finance";
 	}
+
+	@GetMapping("/processInvoiceFinance")
+	public String processInvoiceFinance(Model model, HttpServletRequest request, Principal principal) {
+
+		return "processInvoiceFinance";
+	}
+
+	@GetMapping("/InProcessInvoiceFinance")
+	public String InProcessInvoiceFinance(Model model, HttpServletRequest request, Principal principal) {
+
+		return "InProcessInvoiceFinance";
+	}
+	
+	@GetMapping("/pendingForApprovalInvoice")
+	public String pendingForApprovalInvoice(Model model, HttpServletRequest request, Principal principal) {
+
+		return "pendingForApprovalInvoice";
+	}
+	
+	@GetMapping("/paymentRelaseInvoice")
+	public String paymentRelaseInvoice(Model model, HttpServletRequest request, Principal principal) {
+
+		return "paymentRelaseInvoice";
+	}
+	
+	@GetMapping("/queryInvoiceFinance")
+	public String queryInvoiceFinance(Model model, HttpServletRequest request, Principal principal) {
+
+		return "queryInvoiceFinance";
+	}
+	
+	@GetMapping("/queryInvoiceVendor")
+	public String queryInvoiceVendor(Model model, HttpServletRequest request, Principal principal) {
+
+		return "queryInvoiceVendor";
+	}
+	
+	@RequestMapping("/getDoc")
+	@CrossOrigin("*")
+	void getDoc(HttpServletResponse response, HttpServletRequest request, @RequestParam("name") String name,@RequestParam("path") String path) {
+
+		try {
+			String[] docNameExtensionArray = name.split("\\.");
+			String docNameExtension = docNameExtensionArray[docNameExtensionArray.length - 1];
+			System.out.println("docNameExtension.." + docNameExtension);
+			String uri = request.getScheme() + "://" + // "http" + "://
+					request.getServerName() + // "myhost"
+					":" + // ":"
+					request.getServerPort() + "/"; // "8080"
+
+			System.out.println("uri..." + uri);
+
+			System.out.println("uri..." + path);
+
+			System.out.println("uri..." + name);
+
+			File file = new File(path);
+			FileInputStream inputStream = new FileInputStream(file);
+			response.setContentType("application/" + docNameExtension);
+			
+
+			response.setContentLength((int) file.length());
+			response.setHeader("Content-Disposition", "inline;filename=\"" + name + "\"");
+			response.setHeader("Content-Security-Policy", "frame-ancestors " + uri + " ");
+			FileCopyUtils.copy(inputStream, response.getOutputStream());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
+
 }

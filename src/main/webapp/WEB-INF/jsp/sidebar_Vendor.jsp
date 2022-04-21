@@ -90,7 +90,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item"><a href="invoicesQueue" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("invoicesQueue")) {
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("invoiceQueue")) {
 				out.print("active");
 			}%>">
                             <i class="nav-icon fas fa-file-invoice"></i>
@@ -122,6 +122,15 @@
 			}%>">
                             <i class="nav-icon far fa-times-circle"></i>
                             <p>Draft Invoice</p>
+                        </a></li>
+                </ul>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item"><a href="queryInvoiceVendor" class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("queryInvoiceVendor")) {
+				out.print("active");
+			}%>">
+                            <i class="nav-icon far fa-times-circle"></i>
+                            <p>Query Invoice</p>
                         </a></li>
                 </ul>
                 <hr>

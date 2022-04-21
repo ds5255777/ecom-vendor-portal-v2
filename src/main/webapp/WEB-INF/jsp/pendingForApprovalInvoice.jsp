@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>${titleName}|Approve Invoice</title>
+    <title>${titleName}|Pending For Approval Invoice</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -110,11 +110,14 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <jsp:include page="navbar.jsp?pagename=Approve Invoice" />
+        <jsp:include page="navbar.jsp?pagename=Pending For Approval Invoice" />
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <jsp:include page="sidebar_Vendor.jsp?pagename=approvedInvoice" />
+         <jsp:include page="slidebar_Finance.jsp?pagename=pendingForApprovalInvoice" />
+        
+        
+       
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -127,6 +130,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- /.content-header -->
 
             <!-- Main content -->
@@ -137,7 +141,7 @@
                             <!-- general form elements -->
                             <div class="card card-primary ">
                                 <div class="card-header">
-                                    <h3 class="card-title" style="font-size: 15px;">Approved Invoice List</h3>
+                                    <h3 class="card-title" style="font-size: 15px;">Pending For Approval Invoice List</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body ">
@@ -145,14 +149,15 @@
                                         <thead>
                                             <tr>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">ECOM Invoice Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Receiving Date</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Vendor Invoice Number</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Vendor Code</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Vendor Name</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Receiving Date</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Total Amount</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -164,10 +169,8 @@
             </section>
         </div>
         <!-- ./wrapper -->
-
         <script src="plugins/jquery/jquery.min.js"></script>
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
             $.widget.bridge('uibutton', $.ui.button);
             $.widget.bridge('uitooltip', $.ui.tooltip);
@@ -189,7 +192,7 @@
         <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
         <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
         <script src="plugins/toastr/toastr.min.js"></script>
-
+        
         <script type="text/javascript">
             const Toast = Swal.mixin({
                 toast: true,
@@ -211,12 +214,11 @@
             getData();
 
             function getData() {
-                var jsArray = [];
                 $('.loader').show();
                 $.ajax({
                     type: "POST",
-                    data: JSON.stringify(jsArray),
-                    url: "<%=GlobalUrl.getAllApproveInvoice%>",
+                    data: "",
+                    url: "<%=GlobalUrl.viewAllUnProcessInvoiceForFinanceTeam%>",
                     dataType: "json",
                     contentType: "application/json",
                     async: false,
@@ -239,11 +241,15 @@
                                 if (!result[i].hasOwnProperty("invoiceReceivingDate")) {
                                     result[i].vehicleNumber = "";
                                 }
+                                if (!result[i].hasOwnProperty("invoiceStatus")) {
+                                    result[i].invoiceStatus = "";
+                                }
                                 if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
                                     result[i].invoiceStatus = "";
                                 }
-                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "','Approved Queue')\" >" + result[i].ecomInvoiceNumber + "</button>";
-                                tabledata.row.add([view, result[i].invoiceReceivingDate, result[i].invoiceNumber, result[i].invoiceDate, result[i].invoiceAmount]);
+                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "','Pending For Approval')\" >" + result[i].ecomInvoiceNumber + "</button>";
+
+                                tabledata.row.add([view, result[i].invoiceNumber, result[i].vendorCode, result[i].vendorName, result[i].invoiceReceivingDate,  result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceStatus]);
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -260,18 +266,19 @@
                 });
             }
 
-            function viewCheckList(id, type) {
-                location.href = "vendorDashBoadinfo?type=" + type + "&id=" + id
-            }
-
             function getInvoiceDataFormDataByInvoiceNumber(id, type) {
                 $('.loader').show();
-                var urlOftripsDetail = "invoiceView?id=" + id+"&type="+type;
-                window.open(urlOftripsDetail, "invoiceView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
+
+                var urlOftripsDetail = "invoiceView_Finance?id=" + id+"&type="+type;
+                window.open(urlOftripsDetail, "invoiceView_Finance", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
                 $('.loader').hide();
             }
 
+            function refereshList() {
+                getData();
+            }
         </script>
-</body>
+
+       </body>
 
 </html>

@@ -42,6 +42,9 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long>{
 	 @Query(value = "select  * from Po_Details WHERE  vendor_code=:vendorCode AND need_by_date BETWEEN (:startDate) AND (:endDate) ; ", nativeQuery = true)
 	  List<PoDetails> findByActualDepartureBetween(@Param("startDate") String startDate, @Param("endDate") String endDate, @Param("vendorCode") String vendorCode);
 
+		@Query(value = "select count(*) from po_details where  vendor_code=?", nativeQuery = true)
+		int getAllPoCount(String vendorCode);
+	 
 	 
 	
 }

@@ -391,11 +391,19 @@
 										 </div>
 										 </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div>
+                                    <div class="col-md-3">
                                     <div class="col-md-1"  id="raiseQueryDiv">
 								<button type="button" id="raiseQuery" value="raiseQuery"
 									onclick="raiseQueryModel()" class="btn btn-primary">Replay
 									</button>
+							</div></div></div>
+							 <div>
+                                    <div class="col-md-3">
+                                 <div class="form-group">
+                            
+                            <button type="button" class="btn btn-primary" id="closeModal" onclick="closeWin()">Close</button>
+                        </div>
 							</div></div>
                                     
                                 </div>
@@ -439,12 +447,12 @@
                 </div>
                     
                     
-                    <center>
+                    <%-- <center>
                         <div class="form-group">
                             <label style="visibility: hidden;">Select </label> <br>
                             <button type="button" class="btn btn-primary" id="closeModal" onclick="closeWin()">Close</button>
                         </div>
-                    </center>
+                    </center> --%>
                     <!-- /.row -->
                 </div>
                 <!-- /.container-fluid -->

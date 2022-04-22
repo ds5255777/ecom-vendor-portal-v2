@@ -165,7 +165,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" name="firstName" class="form-control" id="firstName">
+                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" name="firstName" class="form-control" id="firstName" pattern="[a-zA-Z]+" required="required">
 
                                                 </div>
 

@@ -451,7 +451,7 @@ tbody {
                 
             ],//#FF0000(red),00a65a(inactive)
             datasets: [{
-                data: [11, ${totalProcessPoCount},${totalUnprocessPOCount},1,${totalQueryCount}],
+                data: [${totalAllPoCount}, ${totalProcessPoCount},${totalUnprocessPOCount},1,${totalQueryCount}],
                 backgroundColor: ['#17a2b8', '#28a745', '#dc3545', '#007bff', '#fd7e14'],
             }]
         }

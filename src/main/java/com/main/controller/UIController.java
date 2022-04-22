@@ -439,6 +439,9 @@ public class UIController {
 			 String vendorCode = (String) request.getSession().getAttribute("userName");
 				
 				//po Details
+			 	int totalAllPoCount = podetailsRepo.getAllPoCount(vendorCode);
+				model.addAttribute("totalAllPoCount", totalAllPoCount);
+			 
 				int totalProcessPoCount = podetailsRepo.getAllProcessPoCount(vendorCode);
 				model.addAttribute("totalProcessPoCount", totalProcessPoCount);
 				System.out.println("totalProcessPoCount : "+totalProcessPoCount);
@@ -653,6 +656,14 @@ public class UIController {
 		return "draftInvoiceGenerate";
 	}
 
+	@GetMapping("/poInvoiceGenerate")
+	public String poInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
+
+		String invoiceNumber = request.getParameter("id");
+		model.addAttribute("invoiceNumber", invoiceNumber);
+		return "poInvoiceGenerate";
+	}
+	
 	@GetMapping("/invoiceView")
 	public String invoiceView(Model model, HttpServletRequest request, Principal principal) {
 
@@ -672,9 +683,26 @@ public class UIController {
 	@GetMapping("/PoView")
 	public String PoView(Model model, HttpServletRequest request, Principal principal) {
 
-		String poNumber = request.getParameter("id");
+		String id = request.getParameter("id");
+		String arr[]=id.split(",");
+		String poNumber="";
+		String viewPage="";
+		for(int i=0;i<arr.length;i++) {
+			if(arr.length==1) {
+				poNumber=arr[0];
+				break;
+			}else {
+				poNumber=arr[0];
+				viewPage=arr[1];
+				break;
+			}
+		}
+		
 		System.out.println("poNumber"+poNumber);
 		model.addAttribute("poNumber", poNumber);
+	
+		System.out.println("viewPage"+viewPage);
+		model.addAttribute("viewPage", viewPage);
 		return "PoView";
 	}
 	

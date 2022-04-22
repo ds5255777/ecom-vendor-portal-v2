@@ -435,7 +435,21 @@
                 }
             });
         }
+        
+        function getPoDataFormDataByPoNumber(id) {
+        	
+        	var viewPage=[id,"UnProcess"];
+        	
+            $('.loader').show();
+            var urlOftripsDetail = "PoView?id=" + viewPage;
+            window.open(urlOftripsDetail, "PoView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
+            $('.loader').hide();
+        }
         </script>
+        <%
+        String viewpage="UnProcess";
+        request.setAttribute("page",page);
+        %>
 </body>
 
 </html>

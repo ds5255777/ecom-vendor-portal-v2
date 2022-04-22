@@ -86,7 +86,7 @@
                                                 <label for="exampleInputserverName1" style="visibility: hidden;">Text</label>
                                                 <button type="button" style= "font-size: small;" onclick="getFilterData()" class="btn btn-primary">Search</button>
                                           
-                                            <button type="button" class="btn btn-default btn-sm " id="refreshDashboardButton" > <i class="fas fa-sync-alt"></i></button>
+                                            <button type="button" class="btn btn-primary" style= "font-size: small;" id="refreshDashboardButton" > <i class="fas fa-sync-alt"></i></button>
                                             </div>
                                          </div>
                                          

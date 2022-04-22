@@ -309,7 +309,14 @@
                         <div class="form-group">
                             <label style="visibility: hidden;">Select </label> <br>
                             <button type="button" class="btn btn-primary" id="closeModal" onclick="closeWin()">Close</button>
+                            
+                             <c:choose>
+                             <c:when test="${viewPage=='UnProcess'}">
+                             <input id="flipToInvoice" type="submit" class="btn btn-primary" onclick="invoiceProcessing()" value="Flip to Invoice " />
+                             </c:when>
+                            </c:choose>
                         </div>
+                         
                     </center>
                     <!-- /.row -->
                 </div>
@@ -482,6 +489,28 @@
                     })
                 }
             });
+        }
+        
+        function invoiceProcessing() {
+            var table = document.getElementById('tabledata');
+            
+           /*  var checkflag = [];
+            $("input:checkbox[name='option']:checked").each(function() {
+                checkflag.push($(this).val());
+            });
+ */
+           /*  let values = checkflag.toString();
+            if (values == "" || values == null) {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Please select atleast one trip'
+                })
+                return;
+            } */
+            var values="9";
+            $('.loader').show();
+            var urlOftripsDetail = "poInvoiceGenerate?id=" + values;
+            window.open(urlOftripsDetail, "poInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
         }
     </script>
 </body>

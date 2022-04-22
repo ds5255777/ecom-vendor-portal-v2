@@ -412,7 +412,8 @@
             $('#refreshDashboardButton').attr('disabled', 'disabled');
             getData();
             $('#refreshDashboardButton').removeAttr('disabled');
-           $()
+            $("#fromDate").val("");
+            $("#toDate").val("");
         })
         
         

@@ -147,27 +147,27 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Email</label> <input type="text" name="userName" class="form-control" id="userName">
+                                                    <label for="exampleInputserverName1">Email</label> <input type="text" name="userName" class="form-control" id="userName" maxlength="50" >
 
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Password</label> <input type="password" name="password" class="form-control" id="password">
+                                                    <label for="exampleInputserverName1">Password</label> <input type="password" name="password" maxlength="50" class="form-control" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter">
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">SMTP Host Name</label> <input type="text" name="serverName" class="form-control" id="serverName">
+                                                    <label for="exampleInputserverName1">SMTP Host Name</label> <input type="text" name="serverName" maxlength="50" class="form-control" id="serverName" pattern="[a-zA-Z]+">
 
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">SMTP Port</label> <input type="text" name="smtpPort" class="form-control" id="smtpPort">
+                                                    <label for="exampleInputserverName1">SMTP Port</label> <input type="text" name="smtpPort" maxlength="5" class="form-control" id="smtpPort" min=0 oninput="validity.valid||(value='');">
                                                 </div>
                                             </div>
                                         </div>

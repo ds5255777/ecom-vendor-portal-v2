@@ -226,7 +226,7 @@
                                                 <button type="button" id="searchBtn" name="searchBtn" onclick="getFilterData()" class="btn btn-primary">Search</button>
                                             </div>
                                             <div class="dropdown">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Export Details </button>
+                                                <button type="button" class="btn btn-primary dropdown-toggle"  style="font-size: 14px;" data-toggle="dropdown"> Export Details </button>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="#" id="exportLinkPdf">Download PDF</a>
                                                     <a class="dropdown-item" href="#" id="exportLink">Download Excel</a>

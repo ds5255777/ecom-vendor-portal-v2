@@ -78,7 +78,7 @@
 			}%>                            
                             ">
                          
-                         <i class="nav-icon fa fa-bell" aria-hidden="true" ></i>
+                         <i class="nav-icon fa fa-bell" ></i>
                     
                         <p>Notification</p>
                     </a></li>

@@ -124,7 +124,7 @@
                                       <a style="font-size: larger;"> Total No of Users : </a><b>${getAllUserCount}</b></p>
                                        
                                        <p id="allActive" data-toggle="tooltip" data-placement="bottom" title="All Active User">
-                                       Active User : <b>${totalActiveUser}</b></p>
+                                       Active Users : <b>${totalActiveUser}</b></p>
                                        
                                        <p id="allInactive" data-toggle="tooltip" data-placement="bottom" title="All In-Active Users">
                                         In-Active Users : <b>${totalInActiveUser}</b></p>
@@ -148,13 +148,13 @@
                                 <div class="inner">
                                     <%-- <h2>${getAllInvoiceCount}</h2> --%>
 
-                                    <p id="noofinvoice" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
+                                    <p id="noofinvoice" data-toggle="tooltip" data-placement="bottom" title="All Invoices Due, Pending And Rejected Today and Tommorow">
                                      <a style="font-size: larger;"> Total No of Invoices : </a><b>${getAllInvoiceCount}</b></p>
                                        
-                                       <p id="proinvoice" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
+                                       <p id="proinvoice" data-toggle="tooltip" data-placement="bottom" title="All Process Invoices  ">
                                        Process Invoices : <b>${countForAllProcessedInvoice}</b></p>
                                        
-                                       <p id="appinvoice" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
+                                       <p id="appinvoice" data-toggle="tooltip" data-placement="bottom" title="All Approved Invoices">
                                        Approved Invoices : <b>${countForAllApproveInvoice}</b></p>
                                 </div>
                                 <div class="icon">

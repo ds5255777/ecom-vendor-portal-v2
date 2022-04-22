@@ -39,8 +39,6 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
 	rel="stylesheet" />
-<link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-        <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 <script src="plugins/jquery/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 <script src="dist/js/notify.min.js"></script>
@@ -670,7 +668,7 @@ width: 100% !important;
 												<td colspan='1'><input type="text" value="${uname}"
 													class="form-control p-input" id="introducedByName"
 													name="introducedByName" placeholder="Reference Name"
-													onchange="removeValCssByID(this)" required></td>
+													onchange="removeValCssByID(this)" disabled="disabled" required></td>
 
 												<td><label for="emailId">Introduced By Email ID<span
 														class="required adHocRequired">*</span></label></td>
@@ -690,7 +688,7 @@ width: 100% !important;
                                                 <select class="js-example-basic-multiple select2" name="states[]" id="states" onchange="select()" multiple="multiple" >
                                                     <option name="option[]" value="Network">&emsp;Network</option>
                                                     <option name="option[]" value="Fixed Asset">&emsp;Fixed Asset</option>
-                                                    <option name="option[]" value="Other">&emsp;Other</option>
+                                                    
                                                  </select>
                                                     
 													<!-- <div class="checkbox checkbox-inline">
@@ -770,7 +768,7 @@ width: 100% !important;
 													class="form-control p-input" id="phoneNumber"
 													name="phoneNumber" placeholder="Phone Number"
 													maxlength="10"
-													onkeyup=" return validatephone(this.value); "
+													 oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
 													onchange="removeValCssByID(this)"><span
 													id="message"></span></td>
 											</tr>
@@ -780,13 +778,13 @@ width: 100% !important;
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="aadharNumber"
 													name="aadharNumber" placeholder="Aadhar Number"
-													onblur="AadharValidate();"></td>
+													onblur="AadharValidate();" maxlength="12" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required="required"></td>
 
 												<td><label for="panNumber">Pan Number<span
 														class="required adHocRequired">*</span></label></td>
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="panNumber"
-													name="panNumber" placeholder="Pan Number"oninput="this.value = this.value.toUpperCase()"
+													name="panNumber" placeholder="Pan Number" maxlength="10" oninput="this.value = this.value.toUpperCase()"
 													onchange="ValidatePAN()">
 													<span id="lblPANCard" class="error">Invalid PAN Number</span>
 													</td>
@@ -794,7 +792,7 @@ width: 100% !important;
 												<td><label for="tanNumber">TAN Number</label></td>
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="tanNumber"
-													name="tanNumber" placeholder="TAN Number"></td>
+													name="tanNumber" placeholder="TAN Number" maxlength="10" oninput="this.value = this.value.toUpperCase()"></td>
 											</tr>
 
 											<tr>
@@ -807,7 +805,7 @@ width: 100% !important;
 												<td><label for="compGstn">GSTN Number</label></td>
 												<td colspan='1'><input type="test"
 													class="form-control p-input gst" id="compGstn"
-													name="compGstn" placeholder="GSTN Number"></td>
+													name="compGstn" placeholder="GSTN Number" maxlength="15" oninput="this.value = this.value.toUpperCase()"></td>
 
 												<td><label for="natureOfTransactions">Nature of
 														transactions<span class="required adHocRequired">*</span>
@@ -918,7 +916,7 @@ width: 100% !important;
 													<td><label class="addressLable">City<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><input type="text"
-														class="form-control p-input" id="city" name="city"
+														class="form-control p-input" id="city" name="city" 
 														placeholder="city"></td>
 												</tr>
 												<tr class="">

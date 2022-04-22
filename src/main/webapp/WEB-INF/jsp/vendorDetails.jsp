@@ -33,10 +33,6 @@
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <!-- <link rel="stylesheet" type="text/css" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-        <link rel="stylesheet" type="text/css" href="plugins/datatables-buttons/css/buttons.bootstrap4.css">
-        <link rel="stylesheet" type="text/css" href="plugins/datatables-select/css/select.bootstrap4.css">
-        <link rel="stylesheet" type="text/css" href="plugins/datatables-fixedheader/css/fixedHeader.bootstrap4.css"> -->
     <link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
 
 
@@ -114,21 +110,7 @@
             color: red;
         }
     
-        /* changing select2 color  */
-       /*  .select2-container--default .select2-purple .select2-selection--multiple .select2-selection__choice,
-        .select2-purple .select2-container--default .select2-selection--multiple .select2-selection__choice {
-            background-color: #006fe6;
-            border-color: #006fe6;
-            color: #fff;
-        }
-
-        .select2-container--default .select2-purple .select2-results__option--highlighted[aria-selected],
-        .select2-container--default .select2-purple .select2-results__option--highlighted[aria-selected]:hover,
-        .select2-purple .select2-container--default .select2-results__option--highlighted[aria-selected],
-        .select2-purple .select2-container--default .select2-results__option--highlighted[aria-selected]:hover {
-            background-color: #006fe6;
-            color: #fff;
-        } */
+      
 
     </style>
 </head>
@@ -307,7 +289,7 @@ window.onload = function(){
 														class="required adHocRequired">*</span></label></td>
 												
 												<td style="width: auto">
-												<select class="js-example-basic-multiple select2"  name="states[]" style="color: red;" id="states" value="Network" onchange="select()" multiple="multiple" >
+												<select class="js-example-basic-multiple select2"  name="states[]"  id="states" value="Network" onchange="select()" multiple="multiple" >
 												<option    value="Network">&emsp;&emsp;Network</option>
 												<option  value="Fixed Asset">&emsp;&emsp;Fixed Asset</option>
 												<option   value="Other">&emsp;&emsp;Other</option>
@@ -2029,7 +2011,7 @@ window.onload = function(){
 
                         setTimeout(function(response) {
                             //location.href = "login";
-                        }, 2000);
+                        }, 1000000);
                     } else {
                         alert("failed");
                     }

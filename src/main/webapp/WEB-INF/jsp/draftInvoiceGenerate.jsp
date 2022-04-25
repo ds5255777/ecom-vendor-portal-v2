@@ -250,7 +250,7 @@
                                         <th style="padding: 5px 5px 5px 1.5rem;">FS</th>
                                         <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
                                         <th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">lumpsome Amount</th>
+                                        <th style="padding: 5px 5px 5px 1.5rem;">Lumpsome Amount</th>
                                         <th style="padding: 5px 5px 5px 1.5rem;">Line level
                                             Description</th>
                                         <th style="padding: 5px 5px 5px 1.5rem;">Action</th>
@@ -281,6 +281,7 @@
                                             <div class="col-sm-7">
                                                 <input type="file" id="InvoiceUpload" name="InvoiceUpload" class="form-control-sm" accept=".jpg, .jpeg, .pdf" onchange="handleFileSelect(event,'InvoiceFileText'), onValidateFile('InvoiceUpload')" class="form-control p-input">
                                                 <textarea id="InvoiceFileText" name="InvoiceFileText" rows="5" style="display: none;"></textarea>
+                                                <label><span class="text-danger" style="font-weight: 100">(* file size less then 5 MB)</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -290,6 +291,7 @@
                                             <div class="col-sm-7">
                                                 <input type="file" id="DocumentFileOne" name="DocumentFileOne" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx" onchange="handleFileSelect(event,'DocumentFileOneText'), onValidateFileOne('DocumentFileOne')" class="form-control p-input">
                                                 <textarea id="DocumentFileOneText" name="DocumentFileOneText" rows="5" style="display: none;"></textarea>
+                                                <label><span class="text-danger" style="font-weight: 100">(* file size less then 5 MB)</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -299,6 +301,7 @@
                                             <div class="col-sm-7">
                                                 <input type="file" id="DocumentFileTwo" name="DocumentFileTwo" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx"  onchange="handleFileSelect(event,'DocumentFileTwoText'), onValidateFileOne('DocumentFileTwo')" class="form-control p-input">
                                                 <textarea id="DocumentFileTwoText" name="DocumentFileTwoText" rows="5" style="display: none;"></textarea>
+                                                <label><span class="text-danger" style="font-weight: 100">(* file size less then 5 MB)</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -307,16 +310,41 @@
                         </div>
                         <!-- /.card-body -->
                     </div>
+                    <div class="card card-primary"  id="queryWindow" style="display: block;" style="margin-top: 1rem;">
+                        <div class="card-header" style="padding: 5px 5px 0px 5px;">
+                            <h4 class="card-title">Vendor Remarks</h4>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    <div class="card-body">
+                            <form id="queryForm" class="forms-sample">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+										    <label class="col-sm-3" >Remarks <span class="text-danger"></span></label>
+										    <div class="col-sm-9">
+										    <textarea class="form-control" id="remarks" name="remarks" rows="3" maxlength="250" placeholder="Remarks if Any, 250 Characters only"></textarea>
+										 </div>
+										 </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
                     <center>
                         <div class="form-group">
                             <label style="visibility: hidden;">Select </label>
                             <button type="button" onclick="sendToServer()" class="btn btn-info">Submit Invoice</button>
 
                             <label style="visibility: hidden;">Select</label>
-                            <button type="button" onclick="discardInvoice()" class="btn btn-info">Discard Invoice</button>
+                            <button type="button" onclick="discardInvoice()" class="btn btn-info">Cancel Invoice</button>
 
                             <label style="visibility: hidden;">Select</label>
-                            <button type="button" onclick="closeWin()" class="btn btn-info">Close</button>
+                            <button type="button" onclick="closeWin()" class="btn btn-info">Save as Draft</button>
                         </div>
                     </center>
                     <!-- /.row -->
@@ -412,6 +440,13 @@
             window.opener.refereshList();
             window.close()
         }
+        
+        $(function(){
+    	    $('[name="invoiceDate"]').prop('max', function(){
+    	        return new Date().toJSON().split('T')[0];
+    	    });
+    	});
+       
 
         function onValidateFile(id) {
             var fileInput3 = document.getElementById(id).value;
@@ -448,11 +483,11 @@
                 const fsize = gst.files.item(0).size;
                 const file = Math.round((fsize / 1024));
                 if (file > ${maxFileSize}) {
-                    swal.fire("", "Please select File size less than 5 MB....", "warning");
+                    swal.fire("", "File should less than 5 MB....", "warning");
                     $("#" + id).val("");
                 } else {
                     var ext = fileInput3.split(".")[1];
-                    if (ext == "pdf" || ext == "PDF" || ext == "doc" || ext == "DOC" || ext == "docx" || ext == "DOCX" || ext == "xls" || ext == "XLS" || ext == "xlsx" || ext == "XLSX") {} else {
+                    if (ext == "pdf" || ext == "PDF" || ext == "docx" || ext == "DOCX" || ext == "doc" || ext == "DOC" ||  ext == "xls" || ext == "XLS" || ext == "xlsx" || ext == "XLSX") {} else {
                         swal.fire("", "Invalid File Type, Select Only DOC, XLSX & PDF File....", "warning");
                         $("#" + id).val("");
                         return false;
@@ -507,7 +542,7 @@
         var totalFreight = 0;
         var lumpsomeamount = parseFloat(0);
 
-        function updateVentorTripStats() {
+       <%--  function updateVentorTripStats() {
             var obj = {
                 "tripID": allTripId,
                 "vendorTripStatus": "Approved",
@@ -522,7 +557,7 @@
                 success: function(response) {
 
                     if (response.msg == 'success') {
-                        swal.fire("", "Discard Your Invoice...", "warning", "OK").then(function() {
+                        swal.fire("", "Cancel Your Invoice...", "warning", "OK").then(function() {
                             window.close();
                         });
                     } else {
@@ -537,7 +572,7 @@
                     })
                 }
             });
-        }
+        } --%>
 
         function sendToServer() {
         	
@@ -545,7 +580,7 @@
             if (invoiceDa === "" || invoiceDa === null || invoiceDa === '') {
                 Toast.fire({
                     type: 'error',
-                    title: 'Please Select Date'
+                    title: 'Select Date'
                 });
                 document.getElementById("invoiceDate").focus();
                 return "";
@@ -555,7 +590,7 @@
             if (invoiceNu === "" || invoiceNu === null || invoiceNu === '') {
                 Toast.fire({
                     type: 'error',
-                    title: 'Please fill Invoice Number'
+                    title: 'Fill Invoice Number'
                 });
                 document.getElementById("invoiceNumber").focus();
                 return "";
@@ -568,21 +603,11 @@
                 return;
             }
 
-            var taxAmount = document.getElementById("taxAmount").value;
-            if (taxAmount === "" || taxAmount === null || taxAmount === '') {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please Select Tex Persent'
-                });
-                document.getElementById("taxAmount").focus();
-                return "";
-            }
-
             var invoiceDoc = document.getElementById("InvoiceUpload").value;
             if (invoiceDoc === "" || invoiceDoc === null || invoiceDoc === '') {
                 Toast.fire({
                     type: 'error',
-                    title: 'Please Upload Invoice Document'
+                    title: 'Upload Invoice Document'
                 });
                 document.getElementById("InvoiceUpload").focus();
                 return "";
@@ -592,7 +617,7 @@
             if (docOne === "" || docOne === null || docOne === '') {
                 Toast.fire({
                     type: 'error',
-                    title: 'Please Upload Summary Sheet'
+                    title: 'Upload Summary Sheet'
                 });
                 document.getElementById("docOne").focus();
                 return "";
@@ -602,7 +627,7 @@
             if (docTwo === "" || docTwo === null || docTwo === '') {
                 Toast.fire({
                     type: 'error',
-                    title: 'Please Upload FS Calculation Sheet'
+                    title: 'Upload FS Calculation Sheet'
                 });
                 document.getElementById("docTwo").focus();
                 return "";
@@ -611,7 +636,7 @@
             if(tripLineArray.length === 0){
             	Toast.fire({
                     type: 'error',
-                    title: 'Please Select Any Trips'
+                    title: 'Select More Then One Trips'
                 });
                 return "";
             }
@@ -619,9 +644,11 @@
 
 
             var stepOneObj = FormDataToJSON('stepOneForm');
+            var stepTwoObj = FormDataToJSON('queryForm');
 
             const finalObj = {
-                ...stepOneObj
+                ...stepOneObj,
+                ...stepTwoObj
             };
 
             if (document.getElementById("InvoiceUpload").files.length > 0) {
@@ -656,7 +683,7 @@
                 success: function(response) {
 
                     if (response.msg == 'success') {
-                        swal.fire("Thanks", "your Invoice Process Sucessfully", "success", "OK").then(function() {
+                        swal.fire("", "Invoice Process Sucessfully", "success", "OK").then(function() {
                             window.opener.refereshList();
                             window.close();
                         });
@@ -762,7 +789,7 @@
                                 result[i].lumpsomeamount = "0";
                             }
 
-                            textBox = "<input type=\"text\" class=\"form-control\" id=\"form-control\" placeholder=\"Fill Description\" oninput=\"updateTextData('" + i + "',this.value)\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
+                            textBox = "<input type=\"text\" class=\"form-control\" id=\"form-control\" placeholder=\"Fill Description\" maxlength=\"100\" oninput=\"updateTextData('" + i + "',this.value)\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
                             action = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteRow('" + result[i].tripID + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
                             $('#prTable').DataTable().row.add([i + 1, result[i].tripID, result[i].runType, result[i].route, result[i].standardKM, result[i].ratePerKm, result[i].currentFuelRate, result[i].fsBaseRate, result[i].fsDiff, result[i].basicFreight, result[i].fs, result[i].actualKM, result[i].totalFreight, result[i].lumpsomeamount, textBox, action]);
                             id = (result[i].id);
@@ -851,7 +878,7 @@
                             type: 'success',
                             title: 'Deleted Successfully..'
                         })
-                        	$("#taxAmount").val('');
+                        	/* $("#taxAmount").val(''); */
                         getSelectTripList();
                     } else {
                         Toast.fire({
@@ -868,16 +895,20 @@
 
         getSelectTripList();
         var bpname = $("#vendorCode").val();
+        
 
         function getSelectTripList() {
+        	
+        	$("#tripList ").empty();
+        	$('#tripList').append($('<option/>').attr("value", "").text("Select Trip Id"));
 
-            var obj = {
+           /*  var obj = {
                 "vendorCode": bpname
-            }
+            } */
 
             $.ajax({
                 type: "POST",
-                data: JSON.stringify(obj),
+                data: "",
                 url: "<%=GlobalUrl.getTripDetailByTripId%>",
                 dataType: "json",
                 contentType: "application/json",
@@ -886,10 +917,13 @@
 
                     if (data.msg == 'success') {
                         var result = data.data;
-                        $("#tripList ").empty();
+                        
+                        console.log(result,"--------");
+                        
                         if (result.length !== 0) {
                             for (var i = 0; i < result.length; i++) {
-                                $('#tripList').append($('<option/>').attr("value", result[i].tripID).text(result[i].tripID));
+                                $('#tripList').append($('<option/>').attr("value", result[i]).text(result[i]));
+                                console.log(result[i].tripID);
                             }
                         }
                     } else {
@@ -951,7 +985,6 @@
                                 type: 'warning',
                                 title: 'InvoiceNumber Already Exists..'
                             })
-
                             $("#invoiceNumber").val('');
 
                         } else if (data.msg == 'success') {
@@ -972,6 +1005,8 @@
         }
             return invoiceCheckStatus;
         }
+        
+        
 
     </script>
 </body>

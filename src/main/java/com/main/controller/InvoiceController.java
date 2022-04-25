@@ -49,8 +49,7 @@ public class InvoiceController {
 
 	@RequestMapping({ "/getAllInvoice" })
 	@CrossOrigin("*")
-	public String getAllInvoice(Principal principal, HttpServletRequest request,
-			@RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
+	public String getAllInvoice(Principal principal, HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
 
@@ -72,8 +71,7 @@ public class InvoiceController {
 
 	@RequestMapping({ "/getAllPendingInvoice" })
 	@CrossOrigin("*")
-	public String getAllPendingInvoice(Principal principal, HttpServletRequest request,
-			@RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
+	public String getAllPendingInvoice(Principal principal, HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
@@ -96,8 +94,7 @@ public class InvoiceController {
 
 	@RequestMapping({ "/getAllApproveInvoice" })
 	@CrossOrigin("*")
-	public String getAllApproveInvoice(Principal principal, HttpServletRequest request,
-			@RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
+	public String getAllApproveInvoice(Principal principal, HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
@@ -360,16 +357,15 @@ public class InvoiceController {
 
 	@RequestMapping({ "/getAllDraftInvoice" })
 	@CrossOrigin("*")
-	public String getAllDraftInvoice(Principal principal, HttpServletRequest request,
-			@RequestBody List<InvoiceGenerationEntity> invoiceList) {
+	public String getAllDraftInvoice(Principal principal, HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			invoiceList = invoiceGenerationEntityRepo.getDraftInvoice(vendorCode);
+			List<InvoiceGenerationEntity> draftInvoice = invoiceGenerationEntityRepo.getDraftInvoice(vendorCode);
 
-			data.setData(invoiceList);
+			data.setData(draftInvoice);
 			data.setMsg("success");
 
 		} catch (Exception e) {

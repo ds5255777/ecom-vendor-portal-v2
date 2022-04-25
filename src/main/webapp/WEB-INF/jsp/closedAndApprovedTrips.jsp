@@ -513,11 +513,10 @@
             getData();
 
             function getData() {
-                var jsArray = [];
                 $('.loader').show();
                 $.ajax({
                     type: "POST",
-                    data: JSON.stringify(jsArray),
+                    data: "",
                     url: "<%=GlobalUrl.getCloseAndApprovedTripsDetails%>",
                     dataType: "json",
                     contentType: "application/json",

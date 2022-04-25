@@ -79,6 +79,7 @@ logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String processID="";
 
 		try {
 
@@ -571,11 +572,12 @@ System.out.println("----------------------"+array);
 						System.out.println(" FinalOutput JSON in api ::: " + finalOut);
 					}
 
+					
 					JSONObject jsonObject = new JSONObject(finalOut);
 					if (null != jsonObject) {
 						String statuscode = jsonObject.optString("Status");
 						if ("201".equalsIgnoreCase(statuscode)) {
-							String processID = jsonObject.optString("ProcessID");
+							 processID = jsonObject.optString("ProcessID");
 
 							supDetails.setPid(processID);
 							System.out.println("   ------------" + processID);
@@ -596,9 +598,9 @@ logger.error("Ran into an error {}");
 			                   
 
 //API calling END
-			SupDetails supSaved = detailsRepo.save(supDetails);
+			detailsRepo.save(supDetails);
 
-			data.setData(supSaved);
+			data.setData(processID);
 
 			new Thread(new Runnable() {
 				@Override

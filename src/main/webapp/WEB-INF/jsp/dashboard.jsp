@@ -13,9 +13,9 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="build/fontawesome-icon/css/all.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="dist/css/ionicons.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
@@ -141,7 +141,8 @@
                                         Process Invoices</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fas fa-file-invoice-dollar" style="color: #1F8BFF; font-size: 50px;"></i>
+                                	<i class="fas fa-file-contract" style="color: #1F8BFF; font-size: 50px;"></i>
+                                    <!-- <i class="fas fa-file-invoice-dollar" style="color: #1F8BFF; font-size: 50px;"></i> -->
                                 </div>
                                 <a href="pendingInvoice" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
                                     info <i class="fas fa-arrow-circle-right"></i>
@@ -211,7 +212,8 @@
                                     <p id="perTicket" data-toggle="tooltip" data-placement="bottom" title="Complet Trip from vendor Side">Query Invoice</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="far fas fa-question" style="color: #17a2b8; font-size: 50px;"></i>
+                                	<i class="fas fa-question" style="color: #fd7e14; font-size: 50px;"></i>
+                                    <!-- <i class="far fas fa-question" style="color: #17a2b8; font-size: 50px;"></i> -->
                                 </div>
                                 <a href="queryInvoiceVendor" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
                                     info <i class="fas fa-arrow-circle-right"></i>
@@ -340,8 +342,8 @@
     <!-- Sparkline -->
     <script src="plugins/sparklines/sparkline.js"></script>
     <!-- JQVMap -->
-    <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script> -->
     <!-- jQuery Knob Chart -->
     <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
     <!-- daterangepicker -->
@@ -356,7 +358,7 @@
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="dist/js/pages/dashboard.js"></script>
+    <!-- <script src="dist/js/pages/dashboard.js"></script> -->
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
     <script src="plugins/datatables/jquery.dataTables.js"></script>
@@ -492,7 +494,7 @@
             ],
             datasets: [{
                 data: [${TotalCloseTripCount}, ${TotalInTransitTripCount}, ${totalTripCount}, ${pendingInvoice}, ${approveInvoice}, ${draftInvoice}],
-                backgroundColor: ['#17a2b8', '#00a65a', '#faa654', '#007bff', '#dc3545', '#6f42c1'],
+                backgroundColor: ['#17a2b8', '#00a65a', '#FAA654', '#007bff', '#dc3545', '#6f42c1'],
             }]
         }
         var unresolvedstsOptions = {

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -103,8 +104,7 @@ public class TripControllers {
 
 	@RequestMapping({ "/getCloseTripsDetails" })
 	@CrossOrigin("*")
-	public String getCloseTripsDetails(Principal principal, HttpServletRequest request,
-			@RequestBody List<TripDetails> tripList) {
+	public String getCloseTripsDetails(Principal principal, HttpServletRequest request) {
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -122,8 +122,7 @@ public class TripControllers {
 
 	@RequestMapping({ "/getAllTripsDetails" })
 	@CrossOrigin("*")
-	public String getAllTripsDetails(Principal principal, HttpServletRequest request,
-			@RequestBody List<TripDetails> tripList) {
+	public String getAllTripsDetails(Principal principal, HttpServletRequest request) {
 		String rolename = (String) request.getSession().getAttribute("role");
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -161,8 +160,7 @@ public class TripControllers {
 
 	@RequestMapping({ "/getCloseAndApprovedTripsDetails" })
 	@CrossOrigin("*")
-	public String getCloseAndApprovedTripsDetails(Principal principal, HttpServletRequest request,
-			@RequestBody List<TripDetails> tripList) {
+	public String getCloseAndApprovedTripsDetails(Principal principal, HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -180,8 +178,7 @@ public class TripControllers {
 
 	@RequestMapping({ "/getInTransitTripsDetails" })
 	@CrossOrigin("*")
-	public String getInTransitTripsDetails(Principal principal, HttpServletRequest request,
-			@RequestBody List<TripDetails> tripList) {
+	public String getInTransitTripsDetails(Principal principal, HttpServletRequest request) {
 		String vendorCode = principal.getName();
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -264,9 +261,7 @@ public class TripControllers {
 
 	@RequestMapping({ "/getPendingApprovelTripsDetails" })
 	@CrossOrigin("*")
-	public String getPendingApprovelTripsDetails(Principal principal, HttpServletRequest request,
-			@RequestBody List<TripDetails> tripList) {
-		// String vendorCode = request.getSession().getAttribute("userName").toString();
+	public String getPendingApprovelTripsDetails(Principal principal, HttpServletRequest request) {
 		String vendorCode = principal.getName();
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -419,15 +414,14 @@ public class TripControllers {
 	}
 
 	@RequestMapping({ "/getTripDetailByTripId" })
-	public String getTripDetailByTripId(Principal principal, @RequestBody TripDetails obj) {
+	public String getTripDetailByTripId(Principal principal,HttpSession session, HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String vendorCode = principal.getName();
 		try {
-
-			System.out.println("check user id >> " + obj.getTripID());
-			List<TripDetails> list = tripDetailsRepo.findAllTripIdStatsIsClosedAndApprove(vendorCode);
+					
+			List<String> list = tripDetailsRepo.getTripId(vendorCode);
 			data.setData(list);
 			data.setMsg("success");
 

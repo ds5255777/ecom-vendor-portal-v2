@@ -84,8 +84,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "update Trip_Details set vendor_trip_status='Draft-Invoicing', invoice_number=:invoiceNumber where trip_id=:tripID  ; ", nativeQuery = true)
 	void findTripDetailAgainTripID(String invoiceNumber, String tripID);
 
-    @Query(value = "select  * from Trip_Details WHERE vendor_trip_status = 'Approved' And vendor_code=?; ", nativeQuery = true)
-    List<TripDetails> findAllTripIdStatsIsClosedAndApprove(String vendorCode);
+    @Query(value = "select  trip_id from Trip_Details WHERE vendor_trip_status = 'Approved' And vendor_code=?; ", nativeQuery = true)
+    List<String> getTripId(String vendorCode);
 
     @Query(value = "select  * from Trip_Details where trip_id=:tripID ; ", nativeQuery = true)
     List<TripDetails> getTripIdbyTripDetail(@Param("tripID") String tripID);

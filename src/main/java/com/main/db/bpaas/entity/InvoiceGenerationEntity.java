@@ -44,7 +44,7 @@ public class InvoiceGenerationEntity {
 	@Column(name = "invoice_status")
 	private String invoiceStatus;// Processed, Approved, Rejected
 	@Column(name = "assign_to")
-    private String assignTo;// network Team, Vendor
+	private String assignTo;// network Team, Vendor
 
 	// form Two
 
@@ -246,6 +246,5 @@ public class InvoiceGenerationEntity {
 	public void setAssignTo(String assignTo) {
 		this.assignTo = assignTo;
 	}
-	
 
 }

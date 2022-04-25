@@ -62,7 +62,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                                 }%>
 
                                                 ">
-                                <i class="nav-icon fas fa-file-invoice"></i>
+                                <i class="nav-icon fas fa-file-contract"></i>
                                 <p>In-Process Invoice</p>
                             </a></li>
                     </ul>
@@ -74,7 +74,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                                 }%>
 
                                                 ">
-                                <i class="nav-icon fas fa-file-invoice"></i>
+                                <i class="nav-icon fa-solid fa-receipt"></i>
                                 <p>Pending For Approval Invoice</p>
                             </a></li>
                     </ul>
@@ -85,7 +85,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                                 }%>
 
                                                 ">
-                                <i class="nav-icon fas fa-file-invoice"></i>
+                                <i class="nav-icon fa fas fa fa-check"></i>
                                 <p>Approved Invoice</p>
                             </a></li>
                     </ul>
@@ -96,7 +96,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                                 }%>
 
                                                 ">
-                                <i class="nav-icon fas fa-file-invoice"></i>
+                                <i class="nav-icon fas fa-file-invoice-dollar"></i>
                                 <p>Payment Release Invoice</p>
                             </a></li>
                     </ul>
@@ -144,7 +144,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                                 }%>
 
                                                 ">
-                                <i class="nav-icon fas fa-file-invoice"></i>
+                                <i class="nav-icon fa-solid fa-receipt"></i>
                                 <p>Pending For Approval Invoice</p>
                             </a></li>
                     </ul>
@@ -155,11 +155,11 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                                 }%>
 
                                                 ">
-                                <i class="nav-icon fas fa-file-invoice"></i>
+                                <i class="nav-icon fa fas fa fa-check"></i>
                                 <p>Approved Invoice</p>
                             </a></li>
                     </ul>
-                    <ul class="nav nav-treeview">
+                    <%-- <ul class="nav nav-treeview">
                         <li class="nav-item"><a href="paymentRelaseInvoice" class="nav-link
                                                 <%if (request.getParameter("pagename").equalsIgnoreCase("paymentRelaseInvoice")) {
                                     out.print("active");
@@ -169,7 +169,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                                 <i class="nav-icon fas fa-file-invoice"></i>
                                 <p>Payment Release Invoice</p>
                             </a></li>
-                    </ul>
+                    </ul> --%>
                     
                     <hr>
                 </li>

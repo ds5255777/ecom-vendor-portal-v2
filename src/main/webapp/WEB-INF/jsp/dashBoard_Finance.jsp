@@ -15,10 +15,10 @@
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Font Awesome -->
-<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+<!-- <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> -->
 <!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="dist/css/ionicons.min.css">
+	<!-- href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
 <!-- Tempusdominus Bbootstrap 4 -->
 <link rel="stylesheet"
 	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
@@ -42,7 +42,6 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
-	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" /> -->
 <style>
 tbody {
 	font-size: 12.9px;
@@ -115,7 +114,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 										title="All Processed and Unprocessed Invoice">All Invoice</p>
 								</div>
 								<div class="icon">
-								<i class="fas fa-file-invoice" style="color: #6610f2; font-size: 75px;"></i>
+								<i class="fas fa-file-invoice" style="color: #6610f2; font-size: 50px;"></i>
 
 								</div>
 								<a href="allInvoices_Finance" class="small-box-footer"
@@ -136,7 +135,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 								<div class="icon">
 
 									<i class="fas fa-file-contract"
-										style="color: #1F8BFF; font-size: 75px;"></i>
+										style="color: #1F8BFF; font-size: 50px;"></i>
 								</div>
 								<a href="InProcessInvoiceFinance" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -156,7 +155,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 								</div>
 								<div class="icon">
 								<i class="fa-solid fa-receipt"
-										style="color: #1F8BFF; font-size: 75px;"></i>
+										style="color: #1F8BFF; font-size: 50px;"></i>
 								</div>
 								<a href="pendingForApprovalInvoice" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -178,7 +177,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 								<div class="icon">
 										
 									<i class="fa fas fa fa-check"
-										style="color: #28a745; font-size: 75px;"></i>
+										style="color: #28a745; font-size: 50px;"></i>
 								</div>
 								<a href="processInvoiceFinance" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -198,7 +197,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 								<div class="icon">
 
 									<i class="fas fa-file-invoice-dollar"
-										style="color: #1F8BFF; font-size: 75px;"></i>
+										style="color: #1F8BFF; font-size: 50px;"></i>
 								</div>
 								<a href="paymentRelaseInvoice" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -218,7 +217,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 								<div class="icon">
 
 									<i class="fas fa-question"
-										style="color: #fd7e14; font-size: 75px;"></i>
+										style="color: #fd7e14; font-size: 50px;"></i>
 								</div>
 								<a href="queryInvoiceFinance" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -494,7 +493,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 	<!-- AdminLTE App -->
 	<script src="dist/js/adminlte.js"></script>
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-	<script src="dist/js/pages/dashboard.js"></script>
+	<!-- <script src="dist/js/pages/dashboard.js"></script> -->
 	<!-- AdminLTE for demo purposes -->
 	<script src="dist/js/demo.js"></script>
 	<script src="plugins/datatables/jquery.dataTables.js"></script>
@@ -515,6 +514,9 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 
 	<!-- table Data -->
 	<script>
+	
+	var userType = '${role}';
+	
             var tabledata = $('#tabledata').DataTable({
                 "paging": false,
                 "lengthChange": false,
@@ -524,14 +526,15 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                 "aaSorting": []
             });
 
+            if(userType == "<%=GlobalConstants.ROLE_FINANCE%>"){            
             var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
             var unresolvedstsData = {
                 labels: [
                     'All Invoice',
-                    'Pending For Approval',
-                    'Payment Relase Invoice',
-                    'Approved Invoice',
                     'In-Review Invoice',
+                    'Pending For Approval',
+                    'Approved Invoice',
+                    'Payment Relase Invoice',
                     'Query'
                 ],
                 datasets: [{
@@ -548,6 +551,33 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                 data: unresolvedstsData,
                 options: unresolvedstsOptions
             })
+            }
+            
+            if(userType == "<%=GlobalConstants.ROLE_FINANCE_HEAD%>"){            
+                var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
+                var unresolvedstsData = {
+                    labels: [
+                        'All Invoice',
+                        'Pending For Approval',
+                        'Approved Invoice'
+                    ],
+                    datasets: [{
+                            data: [${allInvoice},  ${countForPendingForApprovalInvoice}, ${countForApprovedInvoice}],
+                            backgroundColor: ['#6610f2', '#28a745', '#1F8BFF'],
+                        }]
+                }
+                var unresolvedstsOptions = {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                }
+                var unresolvedstsOptionsChart = new Chart(unresolvedsts, {
+                    type: 'doughnut',
+                    data: unresolvedstsData,
+                    options: unresolvedstsOptions
+                })
+                }
+            
+            
 
 		 /* change Password */ 
             function changePassword(password) {

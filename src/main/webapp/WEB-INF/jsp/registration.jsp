@@ -1412,6 +1412,8 @@
         });
 
         function sendToServer() {
+        	
+        	 $('.loader').show();
             var addressDetailsArray = [];
             var table = document.getElementById('addBookGrid');
             var rowLength = table.rows.length;
@@ -1564,8 +1566,9 @@
                 contentType: "application/json",
                 success: function(response) {
                 	//return;
+                	 $('.loader').hide();
                     if (response.msg == 'success') {
-                        swal.fire("Thanks", "Vendor Onbording request Sucessfully Register", "success", "OK").then(function() {
+                        swal.fire("Vendor Onbording request Sucessfully Register", "Registration ID : " + response.data", "success", "OK").then(function() {
                             window.location = "login";
                         });
 

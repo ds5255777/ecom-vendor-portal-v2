@@ -13,8 +13,8 @@
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="build/fontawesome-icon/css/all.min.css">
+    <link rel="stylesheet" href="dist/css/ionicons.min.css">
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
@@ -110,7 +110,7 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <jsp:include page="navbar.jsp?pagename=In-Process Invoice" />
+        <jsp:include page="navbar.jsp?pagename=In-Review Invoice" />
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
@@ -141,7 +141,7 @@
                             <!-- general form elements -->
                             <div class="card card-primary ">
                                 <div class="card-header">
-                                    <h3 class="card-title" style="font-size: 15px;">In Process Invoice List</h3>
+                                    <h3 class="card-title" style="font-size: 15px;">In-Review Invoice List</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body ">

@@ -163,7 +163,6 @@
         
         <%
     	String rolename = (String) request.getSession().getAttribute("role");
-        
         %>
         <c:choose>  
 			    <c:when test='<%=rolename.equalsIgnoreCase("Admin")%>'>  
@@ -524,6 +523,9 @@
 
                                             <div class="card-body ">
                                                 <form role="form" id="showQueryDetails" name="showQueryDetails">
+                                                <div class="col-md-12">
+
+									<div class="table-responsive">
                                                     <table class="table table-bordered table-hover" id="tabledataQuery">
                                                         <thead>
                                                             <tr>
@@ -538,6 +540,8 @@
 
                                                         </tbody>
                                                     </table>
+                                                    </div>
+                                                    </div>
                                                 </form>
                                             </div>
 
@@ -600,6 +604,7 @@
         <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
         <script type="text/javascript">
+        
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -709,7 +714,7 @@
                 dateFormat: 'dd-mm-yy',
                 changeMonth: true,
                 changeYear: true,
-
+                maxDate: currentDate
             });
 
             $('#toDate').datepicker({
@@ -717,64 +722,13 @@
                 changeMonth: true,
                 changeYear: true,
                 maxDate: currentDate
-
-
             }); 
 
-            $.validator.setDefaults({
+           /*  $.validator.setDefaults({
                 submitHandler: function() {
                     getFilterData();
-
-                    //alert("insode add");
                 }
-            });
-
-            $('#addForm').validate({
-
-                rules: {
-                    toDate: {
-                        required: true
-                    },
-                    fromDate: {
-                        required: true
-
-                    }
-                },
-
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                }
-            });
-
-            function calculateTotalFreight() {
-
-                var fs = parseFloat("0");
-                var totalFreight = parseFloat("0");
-
-                if ($.isNumeric($("#currentFuelRate").val())) {
-                    totalFreight = parseFloat($("#currentFuelRate").val());
-                    console.log("Hiiii" + totalFreight);
-                }
-                var engMarks = document.getElementById('currentFuelRate').value;
-                var currentFuelRate = parseFloat($("#currentFuelRate").val());
-                var fsBaseRate = parseFloat($("#fsBaseRate").val());
-                var mileage = parseFloat($("#mileage").val());
-                var routeKms = parseFloat($("#routeKms").val());
-                /* if($.isNumeric( $("#currentFuelRate").val() )){
-            		totalFreight = totalFreight+parseFloat($("#currentFuelRate").val());
-				} */
-                fs = ((currentFuelRate - fsBaseRate / mileage) * routeKms);
-
-                console.log(parseFloat(fs));
-            }
+            }); */
 
             $("#refreshDashboardButton").click(function(e) {
                 e.preventDefault();
@@ -788,29 +742,26 @@
                 $('#toDate').val('');
             })
             
-            
             getData();
 
             function getData() {
 
-                var jsArray = [];
                 $('.loader').show();
 
                 $.ajax({
                     type: "POST",
-                    data: JSON.stringify(jsArray),
+                    data: "",
                     url: "<%=GlobalUrl.getAllTripsDetails%>",
                     dataType: "json",
                     contentType: "application/json",
                     async: false,
                     success: function(data) {
-
+//return;
                         $('.loader').hide();
                         if (data.msg == 'success') {
 
                             var result = data.data;
                             tabledata.clear();
-                            //console.log("result" + result);
 
                             for (var i = 0; i < result.length; i++) {
                             	
@@ -848,7 +799,6 @@
         							result[i].paymentStatus="";
         						}
 
-                                //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
                                 var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
@@ -867,44 +817,34 @@
                                 var paymentStatus = "";
                                 var runStatus = "";
                                 var vendorTripStatus = "";
-                                //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
                                 var tempString = [view, result[i].invoiceNumber, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub,  paymentStatus];
 
                                 if (result[i].paymentStatus == "Pending") {
                                     tempString[11] = statustemp_payment_Pending;
-
                                 } else if (result[i].paymentStatus == "Approved") {
                                     tempString[11] = statustemp_payment_success;
-
                                 } else if (result[i].paymentStatus == "NA") {
                                     tempString[11] = statustemp_payment_No;
-
                                 }
 
                                 if (result[i].vendorTripStatus == "Yet To Be Approved") {
                                     tempString[5] = statustemp_pending;
-
                                 } else if (result[i].vendorTripStatus == "Approved") {
                                     tempString[5] = statustemp_approved;
-
                                 } else if (result[i].vendorTripStatus == "Invoicing") {
                                     tempString[5] = statustemp_Invoicing;
-
                                 } else if (result[i].vendorTripStatus == "Query") {
                                     tempString[5] = statustemp_query;
-
                                 } else if (result[i].vendorTripStatus == "Draft-Invoicing") {
                                     tempString[5] = statustemp_Draft_Invoicing;
-
                                 }
 
                                 if (result[i].runStatus == "In-Transit") {
                                     tempString[4] = statustemp_runststus_Intransit;
-
                                 } else if (result[i].runStatus == "Closed") {
                                     tempString[4] = statustemp_runststus_Closed;
-
                                 }
+
                                 tabledata.row.add(tempString);
                             }
                             tabledata.draw();
@@ -921,22 +861,13 @@
                     }
                 });
             }
-
            
             function setTripStatus(tripId) {
-                globalTripId = "";
-                globalTripId = tripId;
-                console.log("tripid : " + globalTripId);
-            }
-
-            function setTripStatus(tripId) {
-                console.log("Trip od" + tripId);
+                console.log("Trip ID---" + tripId);
                 getQueryData(tripId)
                 var json = {
                     "tripID": tripId
                 }
-
-                var queryArray = [];
 
                 $.ajax({
                     type: "POST",
@@ -949,12 +880,10 @@
 
                         if (data.msg == 'success') {
                             var result = data.data;
-                            queryArray = data.data.queryEntity;
                             var myForm = "";
                             myForm = document.getElementById("tripForm");
                             setData(myForm, result);
                             $("#tripID").val(result.tripID);
-                            
                         } else {
                             Toast.fire({
                                 type: 'error',
@@ -963,7 +892,6 @@
                         }
                     },
                     error: function(jqXHR, textStatue, errorThrown) {
-                        //alert("failed, please try again");
                         Toast.fire({
                             type: 'error',
                             title: 'Failed.. Try Again..'
@@ -1025,11 +953,13 @@
                             tabledata.clear();
 
                             for (var i = 0; i < result.length; i++) {
-                            	
                             	if(!result[i].hasOwnProperty("tripID")){
      								result[i].tripID="";
      							}
-                                 if(!result[i].hasOwnProperty("route")){
+                                if(!result[i].hasOwnProperty("invoiceNumber")){
+          							result[i].invoiceNumber="";
+          						}
+								if(!result[i].hasOwnProperty("route")){
      								result[i].route="";
      							}
                                  if(!result[i].hasOwnProperty("runType")){
@@ -1053,9 +983,6 @@
                                   if(!result[i].hasOwnProperty("destHub")){
       								result[i].destHub="";
       							}
-                                  if(!result[i].hasOwnProperty("invoiceNumber")){
-            							result[i].invoiceNumber="";
-            						}
                                   if(!result[i].hasOwnProperty("paymentStatus")){
         							result[i].paymentStatus="";
         						}
@@ -1078,46 +1005,35 @@
                                 var paymentStatus = "";
                                 var runStatus = "";
                                 var vendorTripStatus = "";
-                                //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
-                                var tempString = [view, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub,result[i].invoiceNumber, paymentStatus];
+                                var tempString = [view, result[i].invoiceNumber, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub,  paymentStatus];
 
                                 if (result[i].paymentStatus == "Pending") {
-                                    tempString[10] = statustemp_payment_Pending;
-
+                                    tempString[11] = statustemp_payment_Pending;
                                 } else if (result[i].paymentStatus == "Approved") {
-                                    tempString[10] = statustemp_payment_success;
-
+                                    tempString[11] = statustemp_payment_success;
                                 } else if (result[i].paymentStatus == "NA") {
-                                    tempString[10] = statustemp_payment_No;
-
+                                    tempString[11] = statustemp_payment_No;
                                 }
 
                                 if (result[i].vendorTripStatus == "Yet To Be Approved") {
-                                    tempString[4] = statustemp_pending;
-
+                                    tempString[5] = statustemp_pending;
                                 } else if (result[i].vendorTripStatus == "Approved") {
-                                    tempString[4] = statustemp_approved;
-
+                                    tempString[5] = statustemp_approved;
                                 } else if (result[i].vendorTripStatus == "Invoicing") {
-                                    tempString[4] = statustemp_Invoicing;
-
+                                    tempString[5] = statustemp_Invoicing;
                                 } else if (result[i].vendorTripStatus == "Query") {
-                                    tempString[4] = statustemp_query;
-
+                                    tempString[5] = statustemp_query;
                                 } else if (result[i].vendorTripStatus == "Draft-Invoicing") {
-                                    tempString[4] = statustemp_Draft_Invoicing;
-
+                                    tempString[5] = statustemp_Draft_Invoicing;
                                 }
 
                                 if (result[i].runStatus == "In-Transit") {
-                                    tempString[3] = statustemp_runststus_Intransit;
-
+                                    tempString[4] = statustemp_runststus_Intransit;
                                 } else if (result[i].runStatus == "Closed") {
-                                    tempString[3] = statustemp_runststus_Closed;
-
+                                    tempString[4] = statustemp_runststus_Closed;
                                 }
+
                                 tabledata.row.add(tempString);
-                                //tabledata.row.add([ result[i].tripID,result[i].route,result[i].runType,result[i].paymentStatus,result[i].actualKM,result[i].mode,result[i].originHub ,result[i].destHub,result[i].runStatus,result[i].status,viewData]);  				        	
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -1149,7 +1065,6 @@
    						"referenceid": tripId,
    						"type": "Trip"
    				}
-   			 console.log(obj,"-----");
    				
    				$.ajax({
    					type : "POST",

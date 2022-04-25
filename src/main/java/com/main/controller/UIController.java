@@ -183,6 +183,7 @@ public class UIController {
 			int countForPaymentrelaseInvoice = invoiceGenerationEntityRepo.getCountForPaymentrelaseInvoice();
 			int queryCount = invoiceGenerationEntityRepo.getQueryzInvoice();
 			
+			model.addAttribute("role", rolename);
 			model.addAttribute("allInvoice", allInvoice);
 			model.addAttribute("inReviewInvoice", inReviewInvoice);
 			model.addAttribute("countForPendingForApprovalInvoice",countForPendingForApprovalInvoice);

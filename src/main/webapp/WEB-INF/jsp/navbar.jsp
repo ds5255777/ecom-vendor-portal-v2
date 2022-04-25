@@ -163,7 +163,10 @@ function GetSelectedTextValue() {
                 	if(!result[i].hasOwnProperty("tripID")){
 							result[i].tripID="";
 						}
-                     if(!result[i].hasOwnProperty("route")){
+                    if(!result[i].hasOwnProperty("invoiceNumber")){
+							result[i].invoiceNumber="";
+						}
+					if(!result[i].hasOwnProperty("route")){
 							result[i].route="";
 						}
                      if(!result[i].hasOwnProperty("runType")){
@@ -187,14 +190,12 @@ function GetSelectedTextValue() {
                       if(!result[i].hasOwnProperty("destHub")){
 							result[i].destHub="";
 						}
-                      if(!result[i].hasOwnProperty("invoiceNumber")){
-							result[i].invoiceNumber="";
-						}
                       if(!result[i].hasOwnProperty("paymentStatus")){
 						result[i].paymentStatus="";
 					}
-                	
-                	var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
+
+                    var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
+
                     var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
                     var statustemp_payment_Pending = '<span class=\"right badge badge-warning\">Pending</span>';
                     var statustemp_payment_No = '<span class=\"right badge badge-primary\">NA</span>';
@@ -211,8 +212,7 @@ function GetSelectedTextValue() {
                     var paymentStatus = "";
                     var runStatus = "";
                     var vendorTripStatus = "";
-
-                    var tempString = [view, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub,result[i].invoiceNumber, paymentStatus];
+                    var tempString = [view, result[i].invoiceNumber, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub,  paymentStatus];
 
                     if (result[i].paymentStatus == "Pending") {
                         tempString[11] = statustemp_payment_Pending;
@@ -223,23 +223,23 @@ function GetSelectedTextValue() {
                     }
 
                     if (result[i].vendorTripStatus == "Yet To Be Approved") {
-                        tempString[4] = statustemp_pending;
+                        tempString[5] = statustemp_pending;
                     } else if (result[i].vendorTripStatus == "Approved") {
-                        tempString[4] = statustemp_approved;
+                        tempString[5] = statustemp_approved;
                     } else if (result[i].vendorTripStatus == "Invoicing") {
-                        tempString[4] = statustemp_Invoicing;
+                        tempString[5] = statustemp_Invoicing;
                     } else if (result[i].vendorTripStatus == "Query") {
-                        tempString[4] = statustemp_query;
+                        tempString[5] = statustemp_query;
                     } else if (result[i].vendorTripStatus == "Draft-Invoicing") {
-                        tempString[4] = statustemp_Draft_Invoicing;
+                        tempString[5] = statustemp_Draft_Invoicing;
                     }
 
                     if (result[i].runStatus == "In-Transit") {
-                        tempString[3] = statustemp_runststus_Intransit;
+                        tempString[4] = statustemp_runststus_Intransit;
                     } else if (result[i].runStatus == "Closed") {
-                        tempString[3] = statustemp_runststus_Closed;
+                        tempString[4] = statustemp_runststus_Closed;
                     }
-                    
+
                     tabledata.row.add(tempString);
                 }
                 tabledata.draw();
@@ -254,7 +254,7 @@ function GetSelectedTextValue() {
     });
 }
 
-getSelectTripList();
+
 
 function getSelectTripList() {
 

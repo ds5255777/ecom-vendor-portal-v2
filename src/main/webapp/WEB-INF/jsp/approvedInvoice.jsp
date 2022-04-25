@@ -110,7 +110,7 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <jsp:include page="navbar.jsp?pagename=Approve Invoice" />
+        <jsp:include page="navbar.jsp?pagename=Approved Invoice" />
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
@@ -211,11 +211,10 @@
             getData();
 
             function getData() {
-                var jsArray = [];
                 $('.loader').show();
                 $.ajax({
                     type: "POST",
-                    data: JSON.stringify(jsArray),
+                    data: "",
                     url: "<%=GlobalUrl.getAllApproveInvoice%>",
                     dataType: "json",
                     contentType: "application/json",

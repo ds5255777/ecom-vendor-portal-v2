@@ -488,12 +488,11 @@
             getData();
 
             function getData() {
-                var jsArray = [];
                 $('.loader').show();
 
                 $.ajax({
                     type: "POST",
-                    data: JSON.stringify(jsArray),
+                    data: "",
                     url: "<%=GlobalUrl.getCloseTripsDetails%>",
                     dataType: "json",
                     contentType: "application/json",
@@ -532,9 +531,7 @@
       								result[i].actualArrival="";
       							}
                             	
-                                //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].siteQualityId + "','" + result[i].checkListId + "','"+result[i].url+"')\"><i class='fa fa-eye ' ></i></button>";
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
-                                //var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\""+result[i].tripID+"\" ><\div>";
 
                                 var statustemp_runType_Scheduled = '<span class=\"right badge badge-warning\">Scheduled</span>';
                                 var statustemp_runType_AdHoc = '<span class=\"right badge badge-success\">Ad-Hoc</span>';
@@ -546,8 +543,6 @@
                                 var runType = "";
                                 var mode = "";
 
-
-                                // tabledata.row.add([checkbox, view, result[i].route, result[i].runType, result[i].actualKM, result[i].standardKM, result[i].mode, result[i].actualDeparture, result[i].actualArrival, result[i].status]);
                                 var tempString = [view, result[i].route, runType, result[i].actualKM, result[i].standardKM, mode, result[i].actualDeparture, result[i].actualArrival];
 
                                 if (result[i].runType == "Scheduled") {
@@ -557,7 +552,6 @@
                                     tempString[2] = statustemp_runType_AdHoc;
 
                                 } 
-                                //Adhoc Run
 
                                 if (result[i].mode == "Surface Milk Run") {
                                     tempString[5] = statustemp_mode_MilkRun;
@@ -586,15 +580,8 @@
                 });
             }
 
-            /* function setTripStatus(tripId){
-				 console.log("try to oepn checklist");
-				 console.log("tripid : "+tripId);
-							 
-			 } */
-
             function setTripStatus(tripId) {
                 console.log("Trip od" + tripId);
-                //	 tripId =  $("#tripID").val();		
 
                 var json = {
                     "tripID": tripId
@@ -612,8 +599,6 @@
                         if (data.msg == 'success') {
                             var result = data.data;
 
-                            /* jsondata=JSON.parse(result) */
-                            ;
                             var myForm = "";
                             myForm = document.getElementById("tripForm");
                             setData(myForm, result);

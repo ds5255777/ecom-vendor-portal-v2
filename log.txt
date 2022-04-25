@@ -1,12 +1,250 @@
-2022-04-14 17:18:46.491  WARN 4816 --- [main] ory$DuplicateJsonObjectContextCustomizer : 
-
-Found multiple occurrences of org.json.JSONObject on the class path:
-
-	jar:file:/C:/Users/Dell/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
-	jar:file:/C:/Users/Dell/.m2/repository/org/json/json/20180813/json-20180813.jar!/org/json/JSONObject.class
-
-You may wish to exclude one of them to ensure predictable runtime behavior
-
-2022-04-14 17:18:46.565  INFO 4816 --- [main] c.b.EcomVendorPortelApplicationTests     : Starting EcomVendorPortelApplicationTests using Java 1.8.0_321 on DESKTOP-SCV23EK with PID 4816 (started by Dell in C:\Users\Dell\Desktop\Complete web  developement\ecom-vendor-portal-v2)
-2022-04-14 17:18:46.567  INFO 4816 --- [main] c.b.EcomVendorPortelApplicationTests     : The following profiles are active: dev
-2022-04-14 17:18:47.411  INFO 4816 --- [main] c.b.EcomVendorPortelApplicationTests     : Started EcomVendorPortelApplicationTests in 2.267 seconds (JVM running for 5.611)
+2022-04-25 09:12:41.423  WARN 9888 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12h59m26s904ms597µs500ns).
+2022-04-25 09:59:20.638  WARN 9888 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=41m39s130ms589µs500ns).
+2022-04-25 10:11:35.849  INFO 9888 --- [Thread-5] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2022-04-25 10:11:35.867  INFO 9888 --- [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'db'
+2022-04-25 10:11:35.869  INFO 9888 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-04-25 10:11:35.877  INFO 9888 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2022-04-25 10:11:36.095  INFO 9888 --- [restartedMain] com.main.ecom.MainApplication            : Starting MainApplication using Java 17 on DESKTOP-UIMVIFD with PID 9888 (C:\Users\Bpass\Downloads\21-04\ecom-vendor-portal-v2\target\classes started by Bpass in C:\Users\Bpass\Downloads\21-04\ecom-vendor-portal-v2)
+2022-04-25 10:11:36.096  INFO 9888 --- [restartedMain] com.main.ecom.MainApplication            : The following profiles are active: dev
+2022-04-25 10:11:36.678  INFO 9888 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-04-25 10:11:36.678  INFO 9888 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-25 10:11:36.750  INFO 9888 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 71 ms. Found 14 JPA repository interfaces.
+2022-04-25 10:11:36.956  INFO 9888 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-04-25 10:11:36.957  INFO 9888 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-04-25 10:11:36.961  INFO 9888 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 0 JDBC repository interfaces.
+2022-04-25 10:11:37.073  INFO 9888 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$33816afc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-04-25 10:11:37.076  INFO 9888 --- [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2022-04-25 10:11:37.169  INFO 9888 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8686 (http)
+2022-04-25 10:11:37.170  INFO 9888 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-04-25 10:11:37.171  INFO 9888 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2022-04-25 10:11:37.337  INFO 9888 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2022-04-25 10:11:37.343  INFO 9888 --- [restartedMain] o.a.c.c.C.[.[.[/EcomVendorPortal]        : Initializing Spring embedded WebApplicationContext
+2022-04-25 10:11:37.343  INFO 9888 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1240 ms
+2022-04-25 10:11:37.475  WARN 9888 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-25 10:11:37.565  INFO 9888 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: db]
+2022-04-25 10:11:37.672  INFO 9888 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2022-04-25 10:11:37.734  INFO 9888 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2022-04-25 10:11:37.735  INFO 9888 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-04-25 10:11:38.523  INFO 9888 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-25 10:11:38.524  INFO 9888 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'db'
+2022-04-25 10:11:38.899  INFO 9888 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-04-25 10:11:39.794  INFO 9888 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2022-04-25 10:11:39.809  INFO 9888 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@78b4f2be, org.springframework.security.web.context.SecurityContextPersistenceFilter@246d2eef, org.springframework.security.web.header.HeaderWriterFilter@5481717a, org.springframework.web.filter.CorsFilter@447d3fe, org.springframework.security.web.authentication.logout.LogoutFilter@462b62ff, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@61cf1aef, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@38fb0d6e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@672ea1aa, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7d4bf249, org.springframework.security.web.session.SessionManagementFilter@f5c7c4a, org.springframework.security.web.access.ExceptionTranslationFilter@21a7a5a1, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3bbba4ad]
+2022-04-25 10:11:39.947  INFO 9888 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2022-04-25 10:11:40.016  INFO 9888 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8686 (http) with context path '/EcomVendorPortal'
+2022-04-25 10:11:40.032  INFO 9888 --- [restartedMain] com.main.ecom.MainApplication            : Started MainApplication in 4.011 seconds (JVM running for 51006.938)
+2022-04-25 10:11:40.036  INFO 9888 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2022-04-25 10:11:53.223  INFO 9888 --- [Thread-11] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2022-04-25 10:11:53.237  INFO 9888 --- [Thread-11] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'db'
+2022-04-25 10:11:53.238  INFO 9888 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2022-04-25 10:11:53.244  INFO 9888 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2022-04-25 10:11:53.428  INFO 9888 --- [restartedMain] com.main.ecom.MainApplication            : Starting MainApplication using Java 17 on DESKTOP-UIMVIFD with PID 9888 (C:\Users\Bpass\Downloads\21-04\ecom-vendor-portal-v2\target\classes started by Bpass in C:\Users\Bpass\Downloads\21-04\ecom-vendor-portal-v2)
+2022-04-25 10:11:53.429  INFO 9888 --- [restartedMain] com.main.ecom.MainApplication            : The following profiles are active: dev
+2022-04-25 10:11:53.845  INFO 9888 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-04-25 10:11:53.846  INFO 9888 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-25 10:11:53.903  INFO 9888 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 57 ms. Found 14 JPA repository interfaces.
+2022-04-25 10:11:54.064  INFO 9888 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-04-25 10:11:54.064  INFO 9888 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-04-25 10:11:54.068  INFO 9888 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 0 JDBC repository interfaces.
+2022-04-25 10:11:54.157  INFO 9888 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$33816afc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-04-25 10:11:54.160  INFO 9888 --- [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2022-04-25 10:11:54.239  INFO 9888 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8686 (http)
+2022-04-25 10:11:54.240  INFO 9888 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-04-25 10:11:54.241  INFO 9888 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2022-04-25 10:11:54.380  INFO 9888 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2022-04-25 10:11:54.383  INFO 9888 --- [restartedMain] o.a.c.c.C.[.[.[/EcomVendorPortal]        : Initializing Spring embedded WebApplicationContext
+2022-04-25 10:11:54.384  INFO 9888 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 949 ms
+2022-04-25 10:11:54.509  WARN 9888 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-25 10:11:54.584  INFO 9888 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: db]
+2022-04-25 10:11:54.624  INFO 9888 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2022-04-25 10:11:54.684  INFO 9888 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2022-04-25 10:11:54.685  INFO 9888 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-04-25 10:11:55.283  INFO 9888 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-25 10:11:55.284  INFO 9888 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'db'
+2022-04-25 10:11:55.625  INFO 9888 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-04-25 10:11:56.391  INFO 9888 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2022-04-25 10:11:56.405  INFO 9888 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@732fac8a, org.springframework.security.web.context.SecurityContextPersistenceFilter@492fa53, org.springframework.security.web.header.HeaderWriterFilter@af30051, org.springframework.web.filter.CorsFilter@18b73c78, org.springframework.security.web.authentication.logout.LogoutFilter@2d697f15, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1bfc9217, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1a956215, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@876089e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@11aeecd9, org.springframework.security.web.session.SessionManagementFilter@1134f9ca, org.springframework.security.web.access.ExceptionTranslationFilter@23d7a9d5, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@551e5e86]
+2022-04-25 10:11:56.518  INFO 9888 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2022-04-25 10:11:56.581  INFO 9888 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8686 (http) with context path '/EcomVendorPortal'
+2022-04-25 10:11:56.594  INFO 9888 --- [restartedMain] com.main.ecom.MainApplication            : Started MainApplication in 3.217 seconds (JVM running for 51023.5)
+2022-04-25 10:11:56.597  INFO 9888 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2022-04-25 10:26:54.585  INFO 9888 --- [http-nio-8686-exec-1] o.a.c.c.C.[.[.[/EcomVendorPortal]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-04-25 10:26:54.587  INFO 9888 --- [http-nio-8686-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-04-25 10:26:54.595  INFO 9888 --- [http-nio-8686-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2022-04-25 10:27:01.345  WARN 9888 --- [http-nio-8686-exec-9] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 42883
+2022-04-25 10:27:01.347 ERROR 9888 --- [http-nio-8686-exec-9] o.h.engine.jdbc.spi.SqlExceptionHelper   : ERROR: operator does not exist: character varying = bytea
+  Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.
+  Position: 60
+2022-04-25 10:27:12.765  WARN 9888 --- [http-nio-8686-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 42883
+2022-04-25 10:27:12.766 ERROR 9888 --- [http-nio-8686-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : ERROR: operator does not exist: character varying = bytea
+  Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.
+  Position: 60
+2022-04-25 10:40:56.587  WARN 9888 --- [http-nio-8686-exec-7] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 42883
+2022-04-25 10:40:56.588 ERROR 9888 --- [http-nio-8686-exec-7] o.h.engine.jdbc.spi.SqlExceptionHelper   : ERROR: operator does not exist: character varying = bytea
+  Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.
+  Position: 60
+2022-04-25 10:41:04.569  WARN 9888 --- [http-nio-8686-exec-8] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 42883
+2022-04-25 10:41:04.570 ERROR 9888 --- [http-nio-8686-exec-8] o.h.engine.jdbc.spi.SqlExceptionHelper   : ERROR: operator does not exist: character varying = bytea
+  Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.
+  Position: 60
+2022-04-25 10:41:16.171  WARN 9888 --- [http-nio-8686-exec-5] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 42883
+2022-04-25 10:41:16.171 ERROR 9888 --- [http-nio-8686-exec-5] o.h.engine.jdbc.spi.SqlExceptionHelper   : ERROR: operator does not exist: character varying = bytea
+  Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.
+  Position: 60
+2022-04-25 10:49:33.191  INFO 11772 --- [restartedMain] com.main.ecom.MainApplication            : Starting MainApplication using Java 17 on DESKTOP-UIMVIFD with PID 11772 (C:\Users\Bpass\Downloads\21-04\ecom-vendor-portal-v2\target\classes started by Bpass in C:\Users\Bpass\Downloads\21-04\ecom-vendor-portal-v2)
+2022-04-25 10:49:33.198  INFO 11772 --- [restartedMain] com.main.ecom.MainApplication            : The following profiles are active: dev
+2022-04-25 10:49:33.299  INFO 11772 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\Bpass\.m2\repository\com\oracle\database\jdbc\ojdbc8\19.8.0.0\ojdbc8-19.8.0.0.jar referenced one or more files that do not exist: file:/C:/Users/Bpass/.m2/repository/com/oracle/database/jdbc/ojdbc8/19.8.0.0/oraclepki.jar
+2022-04-25 10:49:33.300  INFO 11772 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-04-25 10:49:33.301  INFO 11772 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-04-25 10:49:34.638  INFO 11772 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-04-25 10:49:34.639  INFO 11772 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-25 10:49:34.848  INFO 11772 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 192 ms. Found 14 JPA repository interfaces.
+2022-04-25 10:49:35.483  INFO 11772 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-04-25 10:49:35.484  INFO 11772 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-04-25 10:49:35.489  INFO 11772 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 0 JDBC repository interfaces.
+2022-04-25 10:49:36.087  INFO 11772 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$f5b2723c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-04-25 10:49:36.181  INFO 11772 --- [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2022-04-25 10:49:36.931  INFO 11772 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8686 (http)
+2022-04-25 10:49:36.948  INFO 11772 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-04-25 10:49:36.950  INFO 11772 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2022-04-25 10:49:37.359  INFO 11772 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2022-04-25 10:49:37.370  INFO 11772 --- [restartedMain] o.a.c.c.C.[.[.[/EcomVendorPortal]        : Initializing Spring embedded WebApplicationContext
+2022-04-25 10:49:37.371  INFO 11772 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4068 ms
+2022-04-25 10:49:38.019  WARN 11772 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-25 10:49:38.470  INFO 11772 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: db]
+2022-04-25 10:49:38.591  INFO 11772 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.30.Final
+2022-04-25 10:49:38.897  INFO 11772 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-04-25 10:49:39.240  INFO 11772 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-04-25 10:49:39.584  INFO 11772 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-04-25 10:49:39.622  INFO 11772 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-04-25 10:49:41.968  INFO 11772 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-25 10:49:41.989  INFO 11772 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'db'
+2022-04-25 10:49:43.489  INFO 11772 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-04-25 10:49:46.252  INFO 11772 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2022-04-25 10:49:46.332  INFO 11772 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@41796275, org.springframework.security.web.context.SecurityContextPersistenceFilter@3012aa9f, org.springframework.security.web.header.HeaderWriterFilter@485f1089, org.springframework.web.filter.CorsFilter@5ba93796, org.springframework.security.web.authentication.logout.LogoutFilter@4e44a31a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@45ce0f3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4aa13fa, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@316f2707, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3aefcde6, org.springframework.security.web.session.SessionManagementFilter@582c8119, org.springframework.security.web.access.ExceptionTranslationFilter@4ca7a1ea, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@15735614]
+2022-04-25 10:49:47.295  INFO 11772 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2022-04-25 10:49:47.679  INFO 11772 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8686 (http) with context path '/EcomVendorPortal'
+2022-04-25 10:49:47.710  INFO 11772 --- [restartedMain] com.main.ecom.MainApplication            : Started MainApplication in 15.227 seconds (JVM running for 20.955)
+2022-04-25 10:49:47.882  INFO 11772 --- [http-nio-8686-exec-1] o.a.c.c.C.[.[.[/EcomVendorPortal]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-04-25 10:49:47.883  INFO 11772 --- [http-nio-8686-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-04-25 10:49:47.886  INFO 11772 --- [http-nio-8686-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2022-04-25 12:10:02.996  WARN 11772 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=50s196ms583µs700ns).
+2022-04-25 12:14:51.495  INFO 11772 --- [Thread-5] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2022-04-25 12:14:51.535  INFO 11772 --- [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'db'
+2022-04-25 12:14:51.557  INFO 11772 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-04-25 12:14:51.575  INFO 11772 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2022-04-25 12:14:52.114  INFO 11772 --- [restartedMain] com.main.ecom.MainApplication            : Starting MainApplication using Java 17 on DESKTOP-UIMVIFD with PID 11772 (C:\Users\Bpass\Downloads\21-04\ecom-vendor-portal-v2\target\classes started by Bpass in C:\Users\Bpass\Downloads\21-04\ecom-vendor-portal-v2)
+2022-04-25 12:14:52.114  INFO 11772 --- [restartedMain] com.main.ecom.MainApplication            : The following profiles are active: dev
+2022-04-25 12:14:56.307  INFO 11828 --- [restartedMain] com.main.ecom.MainApplication            : Starting MainApplication using Java 17 on DESKTOP-UIMVIFD with PID 11828 (C:\Users\Bpass\Downloads\21-04\ecom-vendor-portal-v2\target\classes started by Bpass in C:\Users\Bpass\Downloads\21-04\ecom-vendor-portal-v2)
+2022-04-25 12:14:56.313  INFO 11828 --- [restartedMain] com.main.ecom.MainApplication            : The following profiles are active: dev
+2022-04-25 12:14:56.418  INFO 11828 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\Bpass\.m2\repository\com\oracle\database\jdbc\ojdbc8\19.8.0.0\ojdbc8-19.8.0.0.jar referenced one or more files that do not exist: file:/C:/Users/Bpass/.m2/repository/com/oracle/database/jdbc/ojdbc8/19.8.0.0/oraclepki.jar
+2022-04-25 12:14:56.419  INFO 11828 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-04-25 12:14:56.419  INFO 11828 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-04-25 12:14:57.887  INFO 11828 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-04-25 12:14:57.888  INFO 11828 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-25 12:14:58.228  INFO 11828 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 319 ms. Found 14 JPA repository interfaces.
+2022-04-25 12:14:59.143  INFO 11828 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-04-25 12:14:59.144  INFO 11828 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-04-25 12:14:59.154  INFO 11828 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7 ms. Found 0 JDBC repository interfaces.
+2022-04-25 12:14:59.875  INFO 11828 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$27a5a7d8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-04-25 12:15:00.029  INFO 11828 --- [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2022-04-25 12:15:01.376  INFO 11828 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8686 (http)
+2022-04-25 12:15:01.398  INFO 11828 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-04-25 12:15:01.398  INFO 11828 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2022-04-25 12:15:01.894  INFO 11828 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2022-04-25 12:15:01.913  INFO 11828 --- [restartedMain] o.a.c.c.C.[.[.[/EcomVendorPortal]        : Initializing Spring embedded WebApplicationContext
+2022-04-25 12:15:01.913  INFO 11828 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5493 ms
+2022-04-25 12:15:02.843  WARN 11828 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-25 12:15:03.329  INFO 11828 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: db]
+2022-04-25 12:15:03.490  INFO 11828 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.30.Final
+2022-04-25 12:15:03.858  INFO 11828 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-04-25 12:15:04.270  INFO 11828 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-04-25 12:15:04.653  INFO 11828 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-04-25 12:15:04.701  INFO 11828 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-04-25 12:15:07.340  INFO 11828 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-25 12:15:07.405  INFO 11828 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'db'
+2022-04-25 12:15:09.333  INFO 11828 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-04-25 12:15:12.232  INFO 11828 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2022-04-25 12:15:12.323  INFO 11828 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2cc311ea, org.springframework.security.web.context.SecurityContextPersistenceFilter@4c6f947a, org.springframework.security.web.header.HeaderWriterFilter@740dfcc2, org.springframework.web.filter.CorsFilter@59426a3e, org.springframework.security.web.authentication.logout.LogoutFilter@3297fa84, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@52cb880d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@269fc929, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@ff20b7b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@c03f6ae, org.springframework.security.web.session.SessionManagementFilter@3bbd1790, org.springframework.security.web.access.ExceptionTranslationFilter@43df0f39, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@121573ce]
+2022-04-25 12:15:13.495  INFO 11828 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2022-04-25 12:15:13.949  INFO 11828 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8686 (http) with context path '/EcomVendorPortal'
+2022-04-25 12:15:13.992  INFO 11828 --- [restartedMain] com.main.ecom.MainApplication            : Started MainApplication in 18.488 seconds (JVM running for 20.229)
+2022-04-25 12:15:17.700  INFO 11828 --- [http-nio-8686-exec-2] o.a.c.c.C.[.[.[/EcomVendorPortal]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-04-25 12:15:17.700  INFO 11828 --- [http-nio-8686-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-04-25 12:15:17.704  INFO 11828 --- [http-nio-8686-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2022-04-25 12:38:20.328  INFO 19164 --- [restartedMain] com.main.ecom.MainApplication            : Starting MainApplication using Java 17 on DESKTOP-UIMVIFD with PID 19164 (C:\Users\Bpass\Downloads\21-04\ecom-vendor-portal-v2\target\classes started by Bpass in C:\Users\Bpass\Downloads\21-04\ecom-vendor-portal-v2)
+2022-04-25 12:38:20.333  INFO 19164 --- [restartedMain] com.main.ecom.MainApplication            : The following profiles are active: dev
+2022-04-25 12:38:20.438  INFO 19164 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\Bpass\.m2\repository\com\oracle\database\jdbc\ojdbc8\19.8.0.0\ojdbc8-19.8.0.0.jar referenced one or more files that do not exist: file:/C:/Users/Bpass/.m2/repository/com/oracle/database/jdbc/ojdbc8/19.8.0.0/oraclepki.jar
+2022-04-25 12:38:20.438  INFO 19164 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-04-25 12:38:20.439  INFO 19164 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-04-25 12:38:21.654  INFO 19164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-04-25 12:38:21.655  INFO 19164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-25 12:38:21.815  INFO 19164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 146 ms. Found 14 JPA repository interfaces.
+2022-04-25 12:38:22.384  INFO 19164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-04-25 12:38:22.385  INFO 19164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-04-25 12:38:22.390  INFO 19164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 0 JDBC repository interfaces.
+2022-04-25 12:38:22.932  INFO 19164 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$a05b23f7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-04-25 12:38:23.005  INFO 19164 --- [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2022-04-25 12:38:23.698  INFO 19164 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8686 (http)
+2022-04-25 12:38:23.712  INFO 19164 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-04-25 12:38:23.712  INFO 19164 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2022-04-25 12:38:24.095  INFO 19164 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2022-04-25 12:38:24.106  INFO 19164 --- [restartedMain] o.a.c.c.C.[.[.[/EcomVendorPortal]        : Initializing Spring embedded WebApplicationContext
+2022-04-25 12:38:24.107  INFO 19164 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3667 ms
+2022-04-25 12:38:24.736  WARN 19164 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-25 12:38:25.111  INFO 19164 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: db]
+2022-04-25 12:38:25.203  INFO 19164 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.30.Final
+2022-04-25 12:38:25.444  INFO 19164 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-04-25 12:38:25.801  INFO 19164 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-04-25 12:38:26.101  INFO 19164 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-04-25 12:38:26.131  INFO 19164 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-04-25 12:38:27.949  INFO 19164 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-25 12:38:27.967  INFO 19164 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'db'
+2022-04-25 12:38:29.420  INFO 19164 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-04-25 12:38:31.979  INFO 19164 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2022-04-25 12:38:32.039  INFO 19164 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3274149d, org.springframework.security.web.context.SecurityContextPersistenceFilter@4771485b, org.springframework.security.web.header.HeaderWriterFilter@53cf0072, org.springframework.web.filter.CorsFilter@2ea65bc3, org.springframework.security.web.authentication.logout.LogoutFilter@2599ea8e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5a6bd005, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5543d99e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@13b9d73c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@39d89fd2, org.springframework.security.web.session.SessionManagementFilter@45b66499, org.springframework.security.web.access.ExceptionTranslationFilter@60541e3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4d3ab50e]
+2022-04-25 12:38:32.844  INFO 19164 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2022-04-25 12:38:33.154  INFO 19164 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8686 (http) with context path '/EcomVendorPortal'
+2022-04-25 12:38:33.180  INFO 19164 --- [restartedMain] com.main.ecom.MainApplication            : Started MainApplication in 13.515 seconds (JVM running for 15.177)
+2022-04-25 12:39:27.975  INFO 19164 --- [http-nio-8686-exec-1] o.a.c.c.C.[.[.[/EcomVendorPortal]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-04-25 12:39:27.976  INFO 19164 --- [http-nio-8686-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-04-25 12:39:27.982  INFO 19164 --- [http-nio-8686-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-04-25 13:24:07.338  WARN 19164 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m40s438ms523µs800ns).
+2022-04-25 13:37:58.147  INFO 19164 --- [Thread-5] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2022-04-25 13:37:58.167  INFO 19164 --- [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'db'
+2022-04-25 13:37:58.169  INFO 19164 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-04-25 13:37:58.178  INFO 19164 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2022-04-25 13:37:58.419  INFO 19164 --- [restartedMain] com.main.ecom.MainApplication            : Starting MainApplication using Java 17 on DESKTOP-UIMVIFD with PID 19164 (C:\Users\Bpass\Downloads\21-04\ecom-vendor-portal-v2\target\classes started by Bpass in C:\Users\Bpass\Downloads\21-04\ecom-vendor-portal-v2)
+2022-04-25 13:37:58.419  INFO 19164 --- [restartedMain] com.main.ecom.MainApplication            : The following profiles are active: dev
+2022-04-25 13:37:59.035  INFO 19164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-04-25 13:37:59.035  INFO 19164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-25 13:37:59.097  INFO 19164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 62 ms. Found 14 JPA repository interfaces.
+2022-04-25 13:37:59.290  INFO 19164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-04-25 13:37:59.291  INFO 19164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-04-25 13:37:59.296  INFO 19164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 0 JDBC repository interfaces.
+2022-04-25 13:37:59.547  INFO 19164 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$a05b23f7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-04-25 13:37:59.558  INFO 19164 --- [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2022-04-25 13:37:59.685  INFO 19164 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8686 (http)
+2022-04-25 13:37:59.686  INFO 19164 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-04-25 13:37:59.686  INFO 19164 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2022-04-25 13:37:59.880  INFO 19164 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2022-04-25 13:37:59.884  INFO 19164 --- [restartedMain] o.a.c.c.C.[.[.[/EcomVendorPortal]        : Initializing Spring embedded WebApplicationContext
+2022-04-25 13:37:59.884  INFO 19164 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1457 ms
+2022-04-25 13:38:00.063  WARN 19164 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-25 13:38:00.223  INFO 19164 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: db]
+2022-04-25 13:38:00.299  INFO 19164 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2022-04-25 13:38:00.373  INFO 19164 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2022-04-25 13:38:00.374  INFO 19164 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-04-25 13:38:01.481  INFO 19164 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-25 13:38:01.483  INFO 19164 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'db'
+2022-04-25 13:38:02.042  INFO 19164 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-04-25 13:38:03.217  INFO 19164 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2022-04-25 13:38:03.233  INFO 19164 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1fa6278b, org.springframework.security.web.context.SecurityContextPersistenceFilter@4071d3ef, org.springframework.security.web.header.HeaderWriterFilter@65b5ae42, org.springframework.web.filter.CorsFilter@641b7e2e, org.springframework.security.web.authentication.logout.LogoutFilter@52503d3a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@297bbc6c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@66152e3a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2e9a4b04, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@111d17ab, org.springframework.security.web.session.SessionManagementFilter@2732ad5a, org.springframework.security.web.access.ExceptionTranslationFilter@4c7d57ec, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6080dcf8]
+2022-04-25 13:38:03.374  INFO 19164 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2022-04-25 13:38:03.441  INFO 19164 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8686 (http) with context path '/EcomVendorPortal'
+2022-04-25 13:38:03.452  INFO 19164 --- [restartedMain] com.main.ecom.MainApplication            : Started MainApplication in 5.117 seconds (JVM running for 3585.453)
+2022-04-25 13:38:03.455  INFO 19164 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2022-04-25 13:39:08.049  INFO 19164 --- [http-nio-8686-exec-1] o.a.c.c.C.[.[.[/EcomVendorPortal]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-04-25 13:39:08.051  INFO 19164 --- [http-nio-8686-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-04-25 13:39:08.064  INFO 19164 --- [http-nio-8686-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2022-04-25 14:27:16.814  WARN 19164 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=26m46s37ms343µs1ns).

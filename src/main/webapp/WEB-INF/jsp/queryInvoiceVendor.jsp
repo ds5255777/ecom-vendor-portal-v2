@@ -266,10 +266,10 @@
                 });
             }
             
-            function getInvoiceDataFormDataByInvoiceNumber(id, type) {
+            function getInvoiceDataFormDataByInvoiceNumber(value, type) {
                 $('.loader').show();
 
-                var urlOftripsDetail = "invoiceView?id=" + id+"&type="+type;
+                var urlOftripsDetail = "invoiceView?id=" + value+"&type="+type;
                 window.open(urlOftripsDetail, "invoiceView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
                 $('.loader').hide();
             }

@@ -56,6 +56,11 @@
         .row {
             margin-bottom: 0.5rem !important;
         }
+       /*  #prTable  {
+		    display: block;
+		    overflow-x: auto;
+		    white-space: nowrap;
+		} */
 
     </style>
 </head>
@@ -114,12 +119,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Site Name <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
-                                                <select class="form-control-sm select2" style="width: 100%;" id="siteName" name="siteName">
-                                                    <option value="Site_1">Site 1</option>
-                                                    <option value="Site_2">Site 2</option>
-                                                    <option value="Site_3">Site 3</option>
-                                                </select>
+                                                <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> 
                                             </div>
                                         </div>
                                     </div>
@@ -128,7 +128,7 @@
                                             <label class="col-sm-5">Invoice Date <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
                                             <input type="hidden" id="id" name="id" disabled>
-                                                <input type="date" name="invoiceDate" id="invoiceDate" readonly class="form-control-sm" style="width: 100%;">
+                                                <input type="text" name="invoiceDate" id="invoiceDate" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -144,11 +144,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Currency <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency">
-                                                    <option value="INR">INR</option>
-                                                    <option value="USD">USD</option>
-                                                    <option value="KES">KES</option>
-                                                </select>
+                                            <input type="text" class="form-control-sm" name="invoiceCurrency" id="invoiceCurrency" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -156,7 +152,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Receiving Date</label>
                                             <div class="col-sm-7">
-                                                <input type="text" class="form-control-sm" name="invoiceReceivingDate" id="invoiceReceivingDate" readonly value="<%=(new java.util.Date()).toLocaleString()%>" style="width: 100%;">
+                                                <input type="text" class="form-control-sm" name="invoiceReceivingDate" id="invoiceReceivingDate" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +168,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Tax Amount<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount" onfocusout="calculateInvoice()" style="width: 100%;" on>
+                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="text" placeholder="Tax Amount"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -180,7 +176,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Amount <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="number" name="invoiceAmount" id="invoiceAmount" placeholder="Invoice Amount" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" name="invoiceAmount" id="invoiceAmount" placeholder="Invoice Amount" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -202,24 +198,36 @@
                         <!-- /.card-header -->
                         <form id="stepTwoForm" class="forms-sample">
                             <div class="card-body" style="overflow: auto;">
-                                <table id="prTable" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-                                             <th style="padding: 5px 5px 5px 1.5rem;">Route</th> 
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Current Fuel Rate</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">FS</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Line level Description</th>
-                                        </tr>
-                                    </thead>
-                                </table>
+
+								<div class="col-md-12">
+
+									<div class="table-responsive">
+										
+										<table id="prTable" class="table table-bordered">
+		                                    <thead>
+		                                        <tr>
+		                                            <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+		                                             <th style="padding: 5px 5px 5px 1.5rem;">Route</th> 
+		                                            <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
+		                                            <th style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
+		                                            <th style="padding: 5px 5px 5px 1.5rem;">Current Fuel Rate</th>
+		                                            <th style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
+		                                            <th style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
+		                                            <th style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
+		                                            <th style="padding: 5px 5px 5px 1.5rem;">FS</th>
+		                                            <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
+		                                            <th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
+		                                            <th style="padding: 5px 5px 5px 1.5rem;">Line level Description</th>
+		                                        </tr>
+		                                    </thead>
+		                                </table>
+									
+									</div>
+
+
+								</div>
+
+								
                             </div>
                         </form>
                         <!-- /.card-body -->
@@ -241,7 +249,7 @@
                                         <div class="form-group row">
 										    <label class="col-sm-3" >Remarks <span class="text-danger">*</span></label>
 										    <div class="col-sm-9">
-										    <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Remarks if Any"></textarea>
+										    <textarea class="form-control" id="comment" name="comment" rows="3" maxlength="250" placeholder="Remarks if Any"></textarea>
 										 </div>
 										 </div>
                                     </div>
@@ -282,23 +290,29 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form id="queryForm" class="forms-sample">
-                                <table class="table table-bordered table-hover"
-														id="tabledataQuery">
-														<thead>
-															<tr>
-																<th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
-																<th style="padding: 5px 5px 5px 1.5rem;">Raised By</th>
-																<th style="padding: 5px 5px 5px 1.5rem;">Raised On</th>
-																<th style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
-															</tr>
-														</thead>
-														<tbody>
+							<form id="queryForm" class="forms-sample">
+								<div class="col-md-12">
 
-														</tbody>
-													</table>
-                            </form>
-                        </div>
+									<div class="table-responsive">
+										<table
+											class="table table-bordered table-hover"
+											id="tabledataQuery">
+											<thead>
+												<tr>
+													<th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
+													<th style="padding: 5px 5px 5px 1.5rem;">Raised By</th>
+													<th style="padding: 5px 5px 5px 1.5rem;">Raised On</th>
+													<th style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
+												</tr>
+											</thead>
+											<tbody>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</form>
+						</div>
                     </div>
                 </div>
                 <!-- /.container-fluid -->
@@ -436,6 +450,7 @@
         var invoiceNumber = '${invoiceNumber}';
         var type = '${type}';
         var tripLineArray = [];
+        $("input[type=text]").prop('disabled', true);
         setInvoiceDetails();
         
         showHideButton();
@@ -616,7 +631,7 @@
 	                success: function(response) {
 
 	                    if (response.msg == 'success') {
-	                        swal.fire("", "your Remarks Sucessfully Save", "success", "OK").then(function() {
+	                        swal.fire("", "Remarks Sucessfully Submitted", "success", "OK").then(function() {
 	                        	window.opener.refereshList();
 	                            window.close(); 
 	                        });

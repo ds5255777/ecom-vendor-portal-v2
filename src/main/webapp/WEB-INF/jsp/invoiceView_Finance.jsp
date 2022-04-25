@@ -257,9 +257,9 @@
                                 
                                     <div class="col-md-6" >
                                         <div class="form-group row">
-										    <label class="col-sm-3" >Remarks <span class="text-danger">*</span></label>
+										    <label class="col-sm-3" >Remarks <span class="text-danger"></span></label>
 										    <div class="col-sm-9">
-										    <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Remarks if Any"></textarea>
+										    <textarea class="form-control" id="comment" name="comment" rows="3" maxlength="250" placeholder="Remarks if Any"></textarea>
 										 </div>
 										 </div>
                                     </div>
@@ -506,6 +506,7 @@
         		$("#viewAttachmentDiv").css("display","block");
         		$("#raiseQueryDiv").css("display","block");
         		$("#queryWindow").css("display","block");
+        		$("#remarkWindow").css("display","block");
         		}else{
         			$("#prosInvBtn").css("display","none");
             		$("#viewAttachmentDiv").css("display","block");
@@ -518,6 +519,7 @@
             		$("#viewAttachmentDiv").css("display","block");
             		$("#raiseQueryDiv").css("display","block");
             		$("#queryWindow").css("display","block");
+            		$("#remarkWindow").css("display","block");
         		}else{
             		$("#prosInvBtn").css("display","none");
             		$("#viewAttachmentDiv").css("display","block");
@@ -560,6 +562,7 @@
                         var result = data.data;
                         tripLineArray = data.data.invoiceLineItem;
                         var myForm = "";
+                        var myFormTwo="";
                         myForm = document.getElementById("stepOneForm");
                         setData(myForm, result);
                         $('#prTable').DataTable().clear();
@@ -686,7 +689,7 @@
                     if (response.msg == "success") {
                         Swal.fire({
                             type: 'success',
-                            title: 'Aprove Invoice Successfully..'
+                            title: 'Aproved Successfully..'
                         }).then(function() {
                         	window.opener.refereshList();
                             window.close(); 
@@ -736,7 +739,7 @@
                 success: function(response) {
 
                     if (response.msg == 'success') {
-                        swal.fire("", "your Remarks Sucessfully Save", "success", "OK").then(function() {
+                        swal.fire("", "Remarks Submitted Successfully ", "success", "OK").then(function() {
                         	window.opener.refereshList();
                             window.close(); 
                         });

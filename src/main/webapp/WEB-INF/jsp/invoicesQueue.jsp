@@ -224,11 +224,10 @@
             getData();
 
             function getData() {
-                var jsArray = [];
                 $('.loader').show();
                 $.ajax({
                     type: "POST",
-                    data: JSON.stringify(jsArray),
+                    data: "",
                     url: "<%=GlobalUrl.getAllInvoice%>",
                     dataType: "json",
                     contentType: "application/json",

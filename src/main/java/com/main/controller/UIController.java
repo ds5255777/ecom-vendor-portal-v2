@@ -40,6 +40,9 @@ public class UIController {
 
 	@Value("${maxFileSize}")
 	public String maxFileSize;
+	
+	@Value("${fileSize}")
+	public String fileSize;
 
 	@Autowired
 	ServiceManager serviceManager;
@@ -81,6 +84,7 @@ public class UIController {
 	public String registration(Model model) {
 
 		model.addAttribute("maxFileSize", maxFileSize);
+		model.addAttribute("fileSize", fileSize);
 
 		return "registration";
 	}
@@ -496,6 +500,7 @@ public class UIController {
 
 		String tripId = request.getParameter("id");
 		model.addAttribute("maxFileSize", maxFileSize);
+		model.addAttribute("fileSize", fileSize);
 		model.addAttribute("tripId", tripId);
 		model.addAttribute("userName", userName);
 
@@ -561,6 +566,7 @@ public class UIController {
 		String invoiceNumber = request.getParameter("id");
 
 		model.addAttribute("maxFileSize", maxFileSize);
+		model.addAttribute("fileSize", fileSize);
 		model.addAttribute("invoiceNumber", invoiceNumber);
 
 		System.out.println(invoiceNumber);

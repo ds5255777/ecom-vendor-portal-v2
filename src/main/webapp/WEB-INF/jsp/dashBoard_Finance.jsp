@@ -98,212 +98,206 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 			<!-- Main content -->
 			<section class="content">
 				<div class="container-fluid">
-				
-				
-				<c:if test="${role.equalsIgnoreCase(financeRole) }">
-					<!-- Small boxes (Stat box) -->
-					<div class="row">
-						<!-- ./col -->
-						<div class="col-lg-2 col-6">
-							<!-- small box -->
-							<div class="small-box bg-white">
-								<div class="inner">
-									<h2>${allInvoice}</h2>
 
-									<p id="iamwatch" data-toggle="tooltip" data-placement="bottom"
-										title="All Processed and Unprocessed Invoice">All Invoice</p>
-								</div>
-								<div class="icon">
-								<i class="fas fa-file-invoice" style="color: #6610f2; font-size: 50px;"></i>
 
+					<c:if test="${role.equalsIgnoreCase(financeRole) }">
+						<!-- Small boxes (Stat box) -->
+						<div class="row">
+							<!-- ./col -->
+							<div class="col-lg-2 col-6">
+								<!-- small box -->
+								<div class="small-box bg-white">
+									<div class="inner">
+										<h2>${allInvoice}</h2>
+
+										<p id="iamwatch" data-toggle="tooltip" data-placement="bottom">All
+											Invoice</p>
+									</div>
+									<div class="icon">
+										<i class="fas fa-file-invoice"
+											style="color: #6610f2; font-size: 50px;"></i>
+
+									</div>
+									<a href="allInvoices_Finance" class="small-box-footer"
+										style="background: #007bffe0; color: white !important;">More
+										info <i class="fas fa-arrow-circle-right"></i>
+									</a>
 								</div>
-								<a href="allInvoices_Finance" class="small-box-footer"
-									style="background: #007bffe0; color: white !important;">More
-									info <i class="fas fa-arrow-circle-right"></i>
-								</a>
 							</div>
-						</div>
-						<div class="col-lg-2 col-6">
-							<!-- small box -->
-							<div class="small-box bg-white">
-								<div class="inner">
-									<h2>${inReviewInvoice}</h2>
+							<div class="col-lg-2 col-6">
+								<!-- small box -->
+								<div class="small-box bg-white">
+									<div class="inner">
+										<h2>${inReviewInvoice}</h2>
 
-									<p id="UnTickets" data-toggle="tooltip" data-placement="bottom"
-										title="Unprocessed Invoice">In-Review Invoice</p>
-								</div>
-								<div class="icon">
+										<p id="UnTickets" data-toggle="tooltip"
+											data-placement="bottom">In-Review Invoice</p>
+									</div>
+									<div class="icon">
 
-									<i class="fas fa-file-contract"
-										style="color: #1F8BFF; font-size: 50px;"></i>
+										<i class="fas fa-file-contract"
+											style="color: #1F8BFF; font-size: 50px;"></i>
+									</div>
+									<a href="InProcessInvoiceFinance" class="small-box-footer"
+										style="background: #007bffe0; color: white !important;">More
+										info <i class="fas fa-arrow-circle-right"></i>
+									</a>
 								</div>
-								<a href="InProcessInvoiceFinance" class="small-box-footer"
-									style="background: #007bffe0; color: white !important;">More
-									info <i class="fas fa-arrow-circle-right"></i>
-								</a>
 							</div>
-						</div>
-						
-												<div class="col-lg-2 col-6">
-							<!-- small box -->
-							<div class="small-box bg-white">
-								<div class="inner">
-									<h2>${countForPendingForApprovalInvoice}</h2>
 
-									<p id="UnTickets" data-toggle="tooltip" data-placement="bottom"
-										title="Unprocessed Invoice">Pending For Approval</p>
+							<div class="col-lg-2 col-6">
+								<!-- small box -->
+								<div class="small-box bg-white">
+									<div class="inner">
+										<h2>${countForPendingForApprovalInvoice}</h2>
+
+										<p id="UnTickets" data-toggle="tooltip"
+											data-placement="bottom">Pending For Approval</p>
+									</div>
+									<div class="icon">
+										<i class="fa-solid fa-receipt"
+											style="color: #1F8BFF; font-size: 50px;"></i>
+									</div>
+									<a href="pendingForApprovalInvoice" class="small-box-footer"
+										style="background: #007bffe0; color: white !important;">More
+										info <i class="fas fa-arrow-circle-right"></i>
+									</a>
 								</div>
-								<div class="icon">
-								<i class="fa-solid fa-receipt"
-										style="color: #1F8BFF; font-size: 50px;"></i>
-								</div>
-								<a href="pendingForApprovalInvoice" class="small-box-footer"
-									style="background: #007bffe0; color: white !important;">More
-									info <i class="fas fa-arrow-circle-right"></i>
-								</a>
 							</div>
-						</div>
-						<!-- ./col -->
-						<div class="col-lg-2 col-6">
-							<!-- small box -->
-							<div class="small-box bg-white">
-								<div class="inner">
-									<h2>${countForApprovedInvoice }</h2>
+							<!-- ./col -->
+							<div class="col-lg-2 col-6">
+								<!-- small box -->
+								<div class="small-box bg-white">
+									<div class="inner">
+										<h2>${countForApprovedInvoice }</h2>
 
-									<p id="opeTickets" data-toggle="tooltip"
-										data-placement="bottom" title="Processed Invoice Only">Approved
-										Invoice</p>
+										<p id="opeTickets" data-toggle="tooltip"
+											data-placement="bottom">Approved Invoice</p>
+									</div>
+									<div class="icon">
+
+										<i class="fa fas fa fa-check"
+											style="color: #28a745; font-size: 50px;"></i>
+									</div>
+									<a href="processInvoiceFinance" class="small-box-footer"
+										style="background: #007bffe0; color: white !important;">More
+										info <i class="fas fa-arrow-circle-right"></i>
+									</a>
 								</div>
-								<div class="icon">
-										
-									<i class="fa fas fa fa-check"
-										style="color: #28a745; font-size: 50px;"></i>
-								</div>
-								<a href="processInvoiceFinance" class="small-box-footer"
-									style="background: #007bffe0; color: white !important;">More
-									info <i class="fas fa-arrow-circle-right"></i>
-								</a>
 							</div>
-						</div>
-						<div class="col-lg-2 col-6">
-							<!-- small box -->
-							<div class="small-box bg-white">
-								<div class="inner">
-									<h2>${countForPaymentrelaseInvoice}</h2>
+							<div class="col-lg-2 col-6">
+								<!-- small box -->
+								<div class="small-box bg-white">
+									<div class="inner">
+										<h2>${countForPaymentrelaseInvoice}</h2>
 
-									<p id="UnTickets" data-toggle="tooltip" data-placement="bottom"
-										title="Unprocessed Invoice">Payment Release</p>
-								</div>
-								<div class="icon">
+										<p id="UnTickets" data-toggle="tooltip"
+											data-placement="bottom">Payment Release</p>
+									</div>
+									<div class="icon">
 
-									<i class="fas fa-file-invoice-dollar"
-										style="color: #1F8BFF; font-size: 50px;"></i>
+										<i class="fas fa-file-invoice-dollar"
+											style="color: #1F8BFF; font-size: 50px;"></i>
+									</div>
+									<a href="paymentRelaseInvoice" class="small-box-footer"
+										style="background: #007bffe0; color: white !important;">More
+										info <i class="fas fa-arrow-circle-right"></i>
+									</a>
 								</div>
-								<a href="paymentRelaseInvoice" class="small-box-footer"
-									style="background: #007bffe0; color: white !important;">More
-									info <i class="fas fa-arrow-circle-right"></i>
-								</a>
 							</div>
-						</div>
-						<div class="col-lg-2 col-6">
-							<!-- small box -->
-							<div class="small-box bg-white">
-								<div class="inner">
-									<h2>${queryCount }</h2>
+							<div class="col-lg-2 col-6">
+								<!-- small box -->
+								<div class="small-box bg-white">
+									<div class="inner">
+										<h2>${queryCount }</h2>
 
-									<p id="perTicket" data-toggle="tooltip" data-placement="bottom"
-										title="Invoice Regarding Query For Vendor or Finance Team">Query</p>
-								</div>
-								<div class="icon">
+										<p id="perTicket" data-toggle="tooltip"
+											data-placement="bottom">Query</p>
+									</div>
+									<div class="icon">
 
-									<i class="fas fa-question"
-										style="color: #fd7e14; font-size: 50px;"></i>
+										<i class="fas fa-question"
+											style="color: #fd7e14; font-size: 50px;"></i>
+									</div>
+									<a href="queryInvoiceFinance" class="small-box-footer"
+										style="background: #007bffe0; color: white !important;">More
+										info <i class="fas fa-arrow-circle-right"></i>
+									</a>
 								</div>
-								<a href="queryInvoiceFinance" class="small-box-footer"
-									style="background: #007bffe0; color: white !important;">More
-									info <i class="fas fa-arrow-circle-right"></i>
-								</a>
 							</div>
+							<!-- ./col -->
 						</div>
-						<!-- ./col -->
-					</div>
 					</c:if>
 					<!-- /.row -->
-					
+
 					<c:if test="${role.equalsIgnoreCase(financeHeadRole) }">
-					
-					<div class="row">
-						<!-- ./col -->
-						<div class="col-lg-4 col-6">
-							<!-- small box -->
-							<div class="small-box bg-white">
-								<div class="inner">
-									<h2>${allInvoice}</h2>
 
-									<p id="iamwatch" data-toggle="tooltip" data-placement="bottom"
-										title="All Processed and Unprocessed Invoice">All Invoice</p>
-								</div>
-								<div class="icon">
-								<i class="fas fa-file-invoice" style="color: #6610f2; font-size: 75px;"></i>
+						<div class="row">
+							<!-- ./col -->
+							<div class="col-lg-4 col-6">
+								<!-- small box -->
+								<div class="small-box bg-white">
+									<div class="inner">
+										<h2>${allInvoice}</h2>
 
-									<!-- <i class="fas fa-file-invoice-dollar"
-										style="color: #1F8BFF; font-size: 75px;"></i> -->
+										<p id="iamwatch" data-toggle="tooltip" data-placement="bottom">All
+											Invoice</p>
+									</div>
+									<div class="icon">
+										<i class="fas fa-file-invoice"
+											style="color: #6610f2; font-size: 75px;"></i>
+									</div>
+									<a href="allInvoices_Finance" class="small-box-footer"
+										style="background: #007bffe0; color: white !important;">More
+										info <i class="fas fa-arrow-circle-right"></i>
+									</a>
 								</div>
-								<a href="allInvoices_Finance" class="small-box-footer"
-									style="background: #007bffe0; color: white !important;">More
-									info <i class="fas fa-arrow-circle-right"></i>
-								</a>
 							</div>
-				 		</div>
-						
-						<div class="col-lg-4 col-6">
-							<!-- small box -->
-							<div class="small-box bg-white">
-								<div class="inner">
-									<h2>${countForPendingForApprovalInvoice}</h2>
 
-									<p id="UnTickets" data-toggle="tooltip" data-placement="bottom"
-										title="Unprocessed Invoice">Pending For Approval</p>
+							<div class="col-lg-4 col-6">
+								<!-- small box -->
+								<div class="small-box bg-white">
+									<div class="inner">
+										<h2>${countForPendingForApprovalInvoice}</h2>
+
+										<p id="UnTickets" data-toggle="tooltip"
+											data-placement="bottom">Pending For Approval</p>
+									</div>
+									<div class="icon">
+										<i class="fa-solid fa-receipt"
+											style="color: #1F8BFF; font-size: 75px;"></i>
+									</div>
+									<a href="pendingForApprovalInvoice" class="small-box-footer"
+										style="background: #007bffe0; color: white !important;">More
+										info <i class="fas fa-arrow-circle-right"></i>
+									</a>
 								</div>
-								<div class="icon">
-									<i class="fa-solid fa-receipt"
-										style="color: #1F8BFF; font-size: 75px;"></i>
-								</div>
-								<a href="pendingForApprovalInvoice" class="small-box-footer"
-									style="background: #007bffe0; color: white !important;">More
-									info <i class="fas fa-arrow-circle-right"></i>
-								</a>
 							</div>
+
+							<div class="col-lg-4 col-6">
+								<!-- small box -->
+								<div class="small-box bg-white">
+									<div class="inner">
+										<h2>${countForApprovedInvoice }</h2>
+
+										<p id="opeTickets" data-toggle="tooltip"
+											data-placement="bottom">Approved Invoice</p>
+									</div>
+									<div class="icon">
+
+										<i class="fa fas fa fa-check"
+											style="color: #28a745; font-size: 75px;"></i>
+									</div>
+									<a href="processInvoiceFinance" class="small-box-footer"
+										style="background: #007bffe0; color: white !important;">More
+										info <i class="fas fa-arrow-circle-right"></i>
+									</a>
+								</div>
+							</div>
+							<!-- ./col -->
 						</div>
-						
-						<div class="col-lg-4 col-6">
-							<!-- small box -->
-							<div class="small-box bg-white">
-								<div class="inner">
-									<h2>${countForApprovedInvoice }</h2>
-
-									<p id="opeTickets" data-toggle="tooltip"
-										data-placement="bottom" title="Processed Invoice Only">Approved
-										Invoice</p>
-								</div>
-								<div class="icon">
-
-									<i class="fa fas fa fa-check"
-										style="color: #28a745; font-size: 75px;"></i>
-								</div>
-								<a href="processInvoiceFinance" class="small-box-footer"
-									style="background: #007bffe0; color: white !important;">More
-									info <i class="fas fa-arrow-circle-right"></i>
-								</a>
-							</div>
-						</div>
-						<!-- ./col -->
-					</div>
 					</c:if>
-					
-					
-					
-					
+
 					<!-- Main row -->
 
 					<!-- /.row (main row) -->
@@ -314,102 +308,102 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 			<!-- Main content -->
 			<section class="content">
 				<div class="container-fluid">
-				<c:if test="${role.equalsIgnoreCase(financeRole) }">
-					<div class="row">
-						<div class="col-md-8">
+					<c:if test="${role.equalsIgnoreCase(financeRole) }">
+						<div class="row">
+							<div class="col-md-8">
 
-							<div class="card card-primary  card-outline ">
-								<div class="card-header">
-									<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
-										data-placement="bottom" title="Top 50 Pending Trips">Top
-										50 In-Review Invoice</h3>
+								<div class="card card-primary  card-outline ">
+									<div class="card-header">
+										<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
+											data-placement="bottom">Top
+											50 In-Review Invoice</h3>
+									</div>
+									<!-- /.card-header -->
+									<div class="card-body table-responsive p-0"
+										style="height: 420px;">
+										<table class="table table-head-fixed" id="tabledata">
+											<thead>
+												<tr>
+													<th class="bg-primary">Invoice Number</th>
+													<th class="bg-primary">Invoice Date</th>
+													<th class="bg-primary">Vendor Code</th>
+													<th class="bg-primary">Vendor name</th>
+													<th class="bg-primary">Amount</th>
+													<th class="bg-primary">Tax</th>
+													<th class="bg-primary">Total Amount</th>
+												</tr>
+											</thead>
+											<tbody>
+												<!-- body -->
+											</tbody>
+										</table>
+									</div>
+									<!-- /.card-body -->
 								</div>
-								<!-- /.card-header -->
-								<div class="card-body table-responsive p-0"
-									style="height: 420px;">
-									<table class="table table-head-fixed" id="tabledata">
-										<thead>
-											<tr>
-												<th class="bg-primary">Invoice Number</th>
-												<th class="bg-primary">Invoice Date</th>
-												<th class="bg-primary">Vendor Code</th>
-												<th class="bg-primary">Vendor name</th>
-												<th class="bg-primary">Amount</th>
-												<th class="bg-primary">Tax</th>
-												<th class="bg-primary">Total Amount</th>
-											</tr>
-										</thead>
-										<tbody>
-											<!-- body -->
-										</tbody>
-									</table>
+							</div>
+							<div class="col-md-4">
+								<!-- DONUT CHART -->
+								<div class="card card-primary  card-outline ">
+									<div class="card-body">
+										<p>
+											<strong>Invoice Status</strong>
+										</p>
+										<canvas id="unresolvedsts"
+											style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
+									</div>
+									<!-- /.card-body -->
 								</div>
-								<!-- /.card-body -->
 							</div>
 						</div>
-						<div class="col-md-4">
-							<!-- DONUT CHART -->
-							<div class="card card-primary  card-outline ">
-								<div class="card-body">
-									<p>
-										<strong>Invoice Status</strong>
-									</p>
-									<canvas id="unresolvedsts"
-										style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
-								</div>
-								<!-- /.card-body -->
-							</div>
-						</div>
-					</div>
 					</c:if>
-					
-					<c:if test="${role.equalsIgnoreCase(financeHeadRole) }">
-					<div class="row">
-						<div class="col-md-8">
 
-							<div class="card card-primary  card-outline ">
-								<div class="card-header">
-									<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
-										data-placement="bottom" title="Top 50 Pending Trips">Top
-										50 Pending For Approval Invoice</h3>
+					<c:if test="${role.equalsIgnoreCase(financeHeadRole) }">
+						<div class="row">
+							<div class="col-md-8">
+
+								<div class="card card-primary  card-outline ">
+									<div class="card-header">
+										<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
+											data-placement="bottom">Top
+											50 Pending For Approval Invoice</h3>
+									</div>
+									<!-- /.card-header -->
+									<div class="card-body table-responsive p-0"
+										style="height: 420px;">
+										<table class="table table-head-fixed" id="tabledata">
+											<thead>
+												<tr>
+													<th class="bg-primary">Invoice Number</th>
+													<th class="bg-primary">Invoice Date</th>
+													<th class="bg-primary">Vendor Code</th>
+													<th class="bg-primary">Vendor name</th>
+													<th class="bg-primary">Amount</th>
+													<th class="bg-primary">Tax</th>
+													<th class="bg-primary">Total Amount</th>
+												</tr>
+											</thead>
+											<tbody>
+												<!-- body -->
+											</tbody>
+										</table>
+									</div>
+									<!-- /.card-body -->
 								</div>
-								<!-- /.card-header -->
-								<div class="card-body table-responsive p-0"
-									style="height: 420px;">
-									<table class="table table-head-fixed" id="tabledata">
-										<thead>
-											<tr>
-												<th class="bg-primary">Invoice Number</th>
-												<th class="bg-primary">Invoice Date</th>
-												<th class="bg-primary">Vendor Code</th>
-												<th class="bg-primary">Vendor name</th>
-												<th class="bg-primary">Amount</th>
-												<th class="bg-primary">Tax</th>
-												<th class="bg-primary">Total Amount</th>
-											</tr>
-										</thead>
-										<tbody>
-											<!-- body -->
-										</tbody>
-									</table>
+							</div>
+							<div class="col-md-4">
+								<!-- DONUT CHART -->
+								<div class="card card-primary  card-outline ">
+									<div class="card-body">
+										<p>
+											<strong>Invoice Status</strong>
+										</p>
+										<canvas id="unresolvedsts"
+											style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
+									</div>
+									<!-- /.card-body -->
 								</div>
-								<!-- /.card-body -->
 							</div>
 						</div>
-						<div class="col-md-4">
-							<!-- DONUT CHART -->
-							<div class="card card-primary  card-outline ">
-								<div class="card-body">
-									<p>
-										<strong>Invoice Status</strong>
-									</p>
-									<canvas id="unresolvedsts"
-										style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
-								</div>
-								<!-- /.card-body -->
-							</div>
-						</div>
-					</div>
 					</c:if>
 				</div>
 			</section>
@@ -500,18 +494,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 	<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 	<script src="dist/js/chart2.js"></script>
 	
-	<script type="text/javascript">
-            $(document).ready(function () {
-                var bootstrapTooltip = $.fn.tooltip.noConflict();
-                $.fn.bstooltip = bootstrapTooltip;
-                $('#opeTickets').bstooltip();
-                $('#UnTickets').bstooltip();
-                $('#iamwatch').bstooltip();
-                $('#perTicket').bstooltip();
-            })
-
-        </script>
-
 	<!-- table Data -->
 	<script>
 	

@@ -48,284 +48,279 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
-    <div class="wrapper">
+	<div class="wrapper">
 
-        <!-- Navbar -->
-        <jsp:include page="navbar.jsp?pagename=Dashboard" />
+		<!-- Navbar -->
+		<jsp:include page="navbar.jsp?pagename=Dashboard" />
 
+		<!-- Right navbar links -->
+		<jsp:include page="sidebar_Vendor.jsp?pagename=dashboard" />
 
+		<!-- /.navbar -->
 
-        <!-- Right navbar links -->
-        <jsp:include page="sidebar_Vendor.jsp?pagename=dashboard" />
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<div class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<!-- <h1 class="m-0 text-dark">Dashboard</h1> -->
+						</div>
+						<!-- /.col -->
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+							</ol>
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.container-fluid -->
+			</div>
+			<!-- /.content-header -->
 
-        <!-- /.navbar -->
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<!-- Small boxes (Stat box) -->
+					<div class="row">
+						<!-- ./col -->
+						<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${totalTripCount}</h2>
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <!-- <h1 class="m-0 text-dark">Dashboard</h1> -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li> -->
-                            </ol>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
+									<p id="oveTickets" data-toggle="tooltip"
+										data-placement="bottom" >Total No of
+										Trips</p>
+								</div>
+								<div class="icon">
+									<i class="fas fa-truck"
+										style="color: #FAA654; font-size: 50px;"></i>
+								</div>
+								<a href="allTrips" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
 
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <!-- Small boxes (Stat box) -->
-                    <div class="row">
-                        <!-- ./col -->
-                        <div class="col-lg-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                    <h2>${totalTripCount}</h2>
+						<!-- ./col -->
+						<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${TotalInTransitTripCount}</h2>
 
-                                    <p id="oveTickets" data-toggle="tooltip" data-placement="bottom" title="All Trips">Total No of
-                                        Trips</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-truck" style="color: #FAA654; font-size: 50px;"></i>
-                                </div>
-                                <a href="allTrips" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                    info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
+									<p id="opeTickets" data-toggle="tooltip"
+										data-placement="bottom">In-Transit Trip</p>
+								</div>
+								<div class="icon">
+									<i class="fas fa-map-marked-alt"
+										style="color: #00a65a; font-size: 50px;"></i>
+								</div>
+								<a href="inTransitTrips" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
 
-                        
+						<!-- ./col -->
+						<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${pendingInvoice}</h2>
 
+									<p id="invdue" data-toggle="tooltip" data-placement="bottom">
+										Process Invoices</p>
+								</div>
+								<div class="icon">
+									<i class="fas fa-file-contract"
+										style="color: #1F8BFF; font-size: 50px;"></i>
+								</div>
+								<a href="pendingInvoice" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
 
-                        <!-- ./col -->
-                        <div class="col-lg-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                    <h2>${TotalInTransitTripCount}</h2>
+						<!-- ./col -->
 
-                                    <p id="opeTickets" data-toggle="tooltip" data-placement="bottom" title="Running Trips">In-Transit
-                                        Trip</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-map-marked-alt" style="color: #00a65a; font-size: 50px;"></i>
-                                </div>
-                                <a href="inTransitTrips" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                    info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
+						<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${approveInvoice}</h2>
+									<p id="iamwatch" data-toggle="tooltip" data-placement="bottom">Approved
+										Invoice</p>
+								</div>
+								<div class="icon">
 
-                        <!-- ./col -->
-                        <div class="col-lg-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                    <h2>${pendingInvoice}</h2>
+									<i class="fas fa fa-check"
+										style="color: #28a745; font-size: 50px;"></i>
+								</div>
+								<a href="approvedInvoice" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
+						<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${draftInvoice}</h2>
+									<p id="UnTickets" data-toggle="tooltip" data-placement="bottom">Draft
+										Invoice</p>
+								</div>
+								<div class="icon">
+									<i class="fab fa-firstdraft"
+										style="color: #dc3545; font-size: 50px;"></i>
+								</div>
+								<a href="draftInvoice" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
 
-                                    <p id="invdue" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
-                                        Process Invoices</p>
-                                </div>
-                                <div class="icon">
-                                	<i class="fas fa-file-contract" style="color: #1F8BFF; font-size: 50px;"></i>
-                                    <!-- <i class="fas fa-file-invoice-dollar" style="color: #1F8BFF; font-size: 50px;"></i> -->
-                                </div>
-                                <a href="pendingInvoice" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                    info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
+						<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${TotalCloseTripCount}</h2>
 
-                        <!-- ./col -->
-                        <!-- <div class="col-lg-2 col-6">
-              
-              <div class="small-box bg-white">
-                <div class="inner">
-                  <h2>22</h2>
+									<p id="perTicket" data-toggle="tooltip" data-placement="bottom">Query
+										Invoice</p>
+								</div>
+								<div class="icon">
+									<i class="fas fa-question"
+										style="color: #fd7e14; font-size: 50px;"></i>
+									<!-- <i class="far fas fa-question" style="color: #17a2b8; font-size: 50px;"></i> -->
+								</div>
+								<a href="queryInvoiceVendor" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
 
-                  <p id="opeTickets" data-toggle="tooltip" data-placement="bottom" title="Open and Assigned to me" >Tickets On Hold</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div> -->
-                        <!-- ./col -->
-                        <!-- ./col -->
+						<!-- ./col -->
+					</div>
+					<!-- /.row -->
+					<!-- Main row -->
 
-                        <div class="col-lg-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                    <h2>${approveInvoice}</h2>
+					<!-- /.row (main row) -->
+				</div>
+				<!-- /.container-fluid -->
+			</section>
 
-                                    <p id="iamwatch" data-toggle="tooltip" data-placement="bottom" title="Approved Invoice">Approved Invoice</p>
-                                </div>
-                                <div class="icon">
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-8">
 
-                                    <i class="fas fa fa-check" style="color: #28a745; font-size: 50px;"></i>
-                                </div>
-                                <a href="approvedInvoice" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                    info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                    <h2>${draftInvoice}</h2>
+							<div class="card card-primary  card-outline ">
+								<div class="card-header">
+									<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
+										data-placement="bottom" >Top 15 Trips</h3>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body table-responsive p-0"
+									style="height: 420px;">
+									<table class="table table-head-fixed" id="tabledata">
+										<thead>
+											<tr>
+												<th class="bg-primary">Trip ID</th>
+												<th class="bg-primary">Route</th>
+												<th class="bg-primary">Run Type</th>
+												<th class="bg-primary">Trip Status</th>
+												<th class="bg-primary">Payment Status</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+						</div>
+						<div class="col-md-4">
+							<!-- DONUT CHART -->
+							<div class="card card-primary  card-outline ">
+								<div class="card-body">
+									<p>
+										<strong>Trip by Status</strong>
+									</p>
+									<canvas id="unresolvedsts"
+										style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
+								</div>
+								<!-- /.card-body -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- /.content -->
+		</div>
 
-                                    <p id="UnTickets" data-toggle="tooltip" data-placement="bottom" title="invoice Rejected some Reasons">Draft Invoice</p>
-                                </div>
-                                <div class="icon">
-                                <i class="fab fa-firstdraft" style="color: #dc3545; font-size: 50px;"></i>
-                                   <!--  <i class="fas fa-ban" style="color: #dc3545; font-size: 50px;"></i> -->
-                                </div>
-                                <a href="draftInvoice" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                    info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                    <h2>${TotalCloseTripCount}</h2>
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
 
-                                    <p id="perTicket" data-toggle="tooltip" data-placement="bottom" title="Complet Trip from vendor Side">Query Invoice</p>
-                                </div>
-                                <div class="icon">
-                                	<i class="fas fa-question" style="color: #fd7e14; font-size: 50px;"></i>
-                                    <!-- <i class="far fas fa-question" style="color: #17a2b8; font-size: 50px;"></i> -->
-                                </div>
-                                <a href="queryInvoiceVendor" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                    info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
+	<!-- Modal -->
 
+	<form role="form" id="changePassword1" autocomplete="off">
+		<div class="modal fade" id="changePassword" tabindex="-1"
+			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Change
+							Password</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="exampleInputEmail1">New Password</label> <input
+								type="hidden" id="passflag"> <input type="password"
+								class="form-control p-input" id="password" name="password"
+								placeholder="New Password"
+								pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+								title="Must contain at least one number and one uppercase and lowercase letter"
+								required>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Confirm Password </label> <input
+								type="password" class="form-control p-input"
+								id="passwordConfirm" name="passwordConfirm"
+								placeholder="Confirm Password">
+						</div>
+						<div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="changePasswordButton"
+							class="btn btn-primary"
+							onclick="changePassword(document.getElementById('passwordConfirm').value)"
+							disabled>Change Password</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
 
-                        <!-- ./col -->
-                    </div>
-                    <!-- /.row -->
-                    <!-- Main row -->
-
-                    <!-- /.row (main row) -->
-                </div>
-                <!-- /.container-fluid -->
-            </section>
-
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-8">
-
-                            <div class="card card-primary  card-outline ">
-                                <div class="card-header">
-                                    <h3 class="card-title" id="lastInvoice" data-toggle="tooltip" data-placement="bottom" title="Top 15 Trips">Top 15
-                                        Trips</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body table-responsive p-0" style="height: 420px;">
-                                    <table class="table table-head-fixed" id="tabledata">
-                                        <thead>
-                                            <tr>
-                                                <!-- <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip
-                                                    ID</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run
-                                                    Type</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip
-                                                    Status</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Payment
-                                                    Status</th> -->
-                                                     <th class="bg-primary" >Trip ID</th>
-                                                     <th class="bg-primary" >Route</th>
-                                                     <th class="bg-primary" >Run Type</th>
-                                                     <th class="bg-primary" >Trip Status</th>
-                                                     <th class="bg-primary" >Payment Status</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <!-- DONUT CHART -->
-                            <div class="card card-primary  card-outline ">
-                                <div class="card-body">
-                                    <p><strong>Trip by Status</strong></p>
-                                    <canvas id="unresolvedsts" style="min-height: 385px;  max-height: 377px; max-width: 100%;display: block;width: 401px;height: 459px;"></canvas>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- /.content -->
-        </div>
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-    </div>
-    <!-- ./wrapper -->
-    
-    <!-- Modal -->
-        
-        <form role="form" id="changePassword1" autocomplete="off">
-        <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">New Password</label>
-                            <input type="hidden" id="passflag">
-                            <input type="password" class="form-control p-input" id="password" name="password" placeholder="New Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Confirm Password </label>
-                            <input type="password" class="form-control p-input" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm Password" >
-                        </div>
-                        <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="changePasswordButton" class="btn btn-primary" onclick="changePassword(document.getElementById('passwordConfirm').value)" disabled>Change Password</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </form>
-
-    <!-- jQuery -->
+	<!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -403,25 +398,6 @@
 	            } 
        		 });
              
-           /*  $(function() {
-                $("#passwordConfirm").keyup(function() {
-                    var password = $("#password").val();
-                    if ($('#password').val() == $('#passwordConfirm').val()) {
-            		    $('#divCheckPasswordMatch').html('Passwords match.').css('color', 'green');
-            		    // Enable #x
-            		    //$('#changePasswordButton').attr('disabled', false);
-            		    
-            		  } else 
-            		    $('#divCheckPasswordMatch').html('Passwords do not match!').css('color', 'red');
-                 // Disable #x
-        		    $('#changePasswordButton').attr('disabled', true);
-                    return;
-                    
-                  //  $("#divCheckPasswordMatch").html(password == $(this).val() ? "Passwords match." : "Passwords do not match!");
-                });
-
-            });  */
-            
             $(function() {
                 $("#passwordConfirm").keyup(function() {
                     var password = $("#password").val();
@@ -452,23 +428,6 @@
     			timer : 3000
     		});
         </script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var bootstrapTooltip = $.fn.tooltip.noConflict();
-            $.fn.bstooltip = bootstrapTooltip;
-            $('#quickHelp').bstooltip();
-            $('#oveTickets').bstooltip();
-            $('#invdue').bstooltip();
-            $('#opeTickets').bstooltip();
-            $('#UnTickets').bstooltip();
-            $('#iamwatch').bstooltip();
-            $('#perTicket').bstooltip();
-        })
-
-    </script>
-
-
 
 
     <!-- table Data -->

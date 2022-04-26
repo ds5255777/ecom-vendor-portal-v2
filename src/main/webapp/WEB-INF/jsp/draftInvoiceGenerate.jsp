@@ -281,7 +281,7 @@
                                             <div class="col-sm-7">
                                                 <input type="file" id="InvoiceUpload" name="InvoiceUpload" class="form-control-sm" accept=".jpg, .jpeg, .pdf" onchange="handleFileSelect(event,'InvoiceFileText'), onValidateFile('InvoiceUpload')" class="form-control p-input">
                                                 <textarea id="InvoiceFileText" name="InvoiceFileText" rows="5" style="display: none;"></textarea>
-                                                <label><span class="text-danger" style="font-weight: 100">(* file size less then 5 MB)</span></label>
+                                                <label><span style="font-weight: 500; color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -291,7 +291,7 @@
                                             <div class="col-sm-7">
                                                 <input type="file" id="DocumentFileOne" name="DocumentFileOne" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx" onchange="handleFileSelect(event,'DocumentFileOneText'), onValidateFileOne('DocumentFileOne')" class="form-control p-input">
                                                 <textarea id="DocumentFileOneText" name="DocumentFileOneText" rows="5" style="display: none;"></textarea>
-                                                <label><span class="text-danger" style="font-weight: 100">(* file size less then 5 MB)</span></label>
+                                                <label><span style="font-weight: 500; color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -301,7 +301,7 @@
                                             <div class="col-sm-7">
                                                 <input type="file" id="DocumentFileTwo" name="DocumentFileTwo" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx"  onchange="handleFileSelect(event,'DocumentFileTwoText'), onValidateFileOne('DocumentFileTwo')" class="form-control p-input">
                                                 <textarea id="DocumentFileTwoText" name="DocumentFileTwoText" rows="5" style="display: none;"></textarea>
-                                                <label><span class="text-danger" style="font-weight: 100">(* file size less then 5 MB)</span></label>
+                                                <label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -338,10 +338,10 @@
                     <center>
                         <div class="form-group">
                             <label style="visibility: hidden;">Select </label>
-                            <button type="button" onclick="sendToServer()" class="btn btn-info">Submit Invoice</button>
+                            <button type="button" onclick="sendToServer()" class="btn btn-success">Submit Invoice</button>
 
                             <label style="visibility: hidden;">Select</label>
-                            <button type="button" onclick="discardInvoice()" class="btn btn-info">Cancel Invoice</button>
+                            <button type="button" onclick="discardInvoice()" class="btn btn-info" style="background-color: #323d84">Cancel Invoice</button>
 
                             <label style="visibility: hidden;">Select</label>
                             <button type="button" onclick="closeWin()" class="btn btn-info">Save as Draft</button>
@@ -458,12 +458,12 @@
                 const fsize = gst.files.item(0).size;
                 const file = Math.round((fsize / 1024));
                 if (file > ${maxFileSize}) {
-                    swal.fire("", "Please select File size less than 5 MB....", "warning");
+                    swal.fire("", "File should less than 5 MB.", "warning");
                     $("#" + id).val("");
                 } else {
                     var ext = fileInput3.split(".")[1];
                     if (ext == "pdf" || ext == "jpg" || ext == "JPEG" || ext == "JPG" || ext == "jpeg" || ext == "PDF") {} else {
-                        swal.fire("", "Invalid File Type, Select Only JPEG & PDF File....", "warning");
+                        swal.fire("", "Select Only JPEG & PDF File.", "warning");
                         $("#" + id).val("");
                         return false;
                     }
@@ -483,12 +483,12 @@
                 const fsize = gst.files.item(0).size;
                 const file = Math.round((fsize / 1024));
                 if (file > ${maxFileSize}) {
-                    swal.fire("", "File should less than 5 MB....", "warning");
+                    swal.fire("", "File should less than 5 MB.", "warning");
                     $("#" + id).val("");
                 } else {
                     var ext = fileInput3.split(".")[1];
                     if (ext == "pdf" || ext == "PDF" || ext == "docx" || ext == "DOCX" || ext == "doc" || ext == "DOC" ||  ext == "xls" || ext == "XLS" || ext == "xlsx" || ext == "XLSX") {} else {
-                        swal.fire("", "Invalid File Type, Select Only DOC, XLSX & PDF File....", "warning");
+                        swal.fire("", "Select Only DOC, XLSX & PDF File.", "warning");
                         $("#" + id).val("");
                         return false;
                     }
@@ -519,7 +519,7 @@
                     if (data.msg == 'success') {
                         Toast.fire({
                             type: 'success',
-                            title: 'Add Successfully..'
+                            title: 'Add Successfully.'
                         })
                         getTripDetails();
                         getSelectTripList();
@@ -541,38 +541,6 @@
         var tripLineArray = [];
         var totalFreight = 0;
         var lumpsomeamount = parseFloat(0);
-
-       <%--  function updateVentorTripStats() {
-            var obj = {
-                "tripID": allTripId,
-                "vendorTripStatus": "Approved",
-            }
-
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(obj),
-                url: "<%=GlobalUrl.updateVendorTripStatusByTrips%>",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(response) {
-
-                    if (response.msg == 'success') {
-                        swal.fire("", "Cancel Your Invoice...", "warning", "OK").then(function() {
-                            window.close();
-                        });
-                    } else {
-                        alert("failed");
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    })
-                }
-            });
-        } --%>
 
         function sendToServer() {
         	
@@ -683,7 +651,7 @@
                 success: function(response) {
 
                     if (response.msg == 'success') {
-                        swal.fire("", "Invoice Process Sucessfully", "success", "OK").then(function() {
+                        swal.fire("", "Invoice Processed Sucessfully", "success", "OK").then(function() {
                             window.opener.refereshList();
                             window.close();
                         });
@@ -832,7 +800,7 @@
                 success: function(data) {
 
                     if (data.msg == 'success') {
-                        swal.fire("", "Deleted Successfully..", "success", "OK").then(function() {
+                        swal.fire("", "Deleted Successfully.", "success", "OK").then(function() {
                             window.opener.refereshList();
                             window.close();
                         });
@@ -876,7 +844,7 @@
                     if (data.msg == 'success') {
                         Toast.fire({
                             type: 'success',
-                            title: 'Deleted Successfully..'
+                            title: 'Deleted Successfully.'
                         })
                         	/* $("#taxAmount").val(''); */
                         getSelectTripList();
@@ -983,7 +951,7 @@
 
                             Toast.fire({
                                 type: 'warning',
-                                title: 'InvoiceNumber Already Exists..'
+                                title: 'Invoice Number Already Exists.'
                             })
                             $("#invoiceNumber").val('');
 
@@ -1006,8 +974,6 @@
             return invoiceCheckStatus;
         }
         
-        
-
     </script>
 </body>
 

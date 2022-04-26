@@ -210,11 +210,13 @@ public class FinanceController {
 
 			if ("Invoice".equalsIgnoreCase(entity.getType())) {
 				entity.setType("Invoice");
-				if (GlobalConstants.ROLE_VENDOR.equalsIgnoreCase(rolename) || GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(rolename)) {
-					queryRepo.updateInvoiceStatus("Query", "Finance", getid);
+				if (GlobalConstants.ROLE_VENDOR.equalsIgnoreCase(rolename) ) {
+					queryRepo.updateInvoiceStatus("In-Review", "Finance", getid);
 				} else if (GlobalConstants.ROLE_FINANCE.equalsIgnoreCase(rolename)) {
 					queryRepo.updateInvoiceStatus("Query", "Vendor", getid);
-				} 
+				} else if ( GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(rolename)) {
+					queryRepo.updateInvoiceStatus("Query", "Finance", getid);
+				}
 
 			} else {
 				entity.setType("Trip");

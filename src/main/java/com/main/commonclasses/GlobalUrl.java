@@ -81,5 +81,7 @@ public static String invoiceController="invoiceController";
 	public static String getMasterById=masterController+"/getMasterById";
 	public static String saveUpdateMasterDetails=masterController+"/saveUpdateMasterDetails";
 	public static String deleteMaster=masterController+"/deleteMaster";
-	//End					 
+	//End	
+	
+	
 }

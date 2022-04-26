@@ -70,6 +70,7 @@ public class AjaxController {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String processID="";
 
 		try {
 
@@ -563,7 +564,7 @@ public class AjaxController {
 					if (null != jsonObject) {
 						String statuscode = jsonObject.optString("Status");
 						if ("201".equalsIgnoreCase(statuscode)) {
-							String processID = jsonObject.optString("ProcessID");
+							processID = jsonObject.optString("ProcessID");
 
 							supDetails.setPid(processID);
 							System.out.println("   ------------" + processID);
@@ -582,7 +583,7 @@ public class AjaxController {
 //API calling END
 			SupDetails supSaved = detailsRepo.save(supDetails);
 
-			data.setData(supSaved);
+			data.setData(processID);
 
 			new Thread(new Runnable() {
 				@Override

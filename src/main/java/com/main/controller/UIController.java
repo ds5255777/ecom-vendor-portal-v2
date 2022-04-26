@@ -20,7 +20,15 @@ import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.RolesEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.entity.User;
+import com.main.db.bpaas.repo.BusinessClassificationRepo;
+import com.main.db.bpaas.repo.BusinessPartnerRepo;
+import com.main.db.bpaas.repo.BusinessPartnerTypeRepo;
+import com.main.db.bpaas.repo.CountryRepo;
+import com.main.db.bpaas.repo.CurrencyRepo;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
+import com.main.db.bpaas.repo.NatureOfTransactionRepo;
+import com.main.db.bpaas.repo.PaymentTermRepo;
+import com.main.db.bpaas.repo.TDSSectionCodeRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
 import com.main.service.TripService;
 import com.main.service.UserService;
@@ -50,6 +58,30 @@ public class UIController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	private CurrencyRepo currencyRepo;
+	
+	@Autowired
+	private BusinessPartnerTypeRepo businessPartnerTypeRepo;
+	
+	@Autowired
+	BusinessPartnerRepo businessPartnerRepo;
+	
+	@Autowired
+	BusinessClassificationRepo businessClassificationRepo;
+	
+	@Autowired
+	PaymentTermRepo paymentTermRepo;
+	
+	@Autowired
+	NatureOfTransactionRepo natureOfTransactionRepo;
+	
+	@Autowired
+	CountryRepo countryRepo;
+	
+	@Autowired
+	TDSSectionCodeRepo tDSSectionCodeRepo;
 
 	@GetMapping({ "/login" })
 	public String login(Model model, String error, String logout) {
@@ -68,7 +100,26 @@ public class UIController {
 
 	@GetMapping("/registration")
 	public String registration(Model model) {
-
+		
+		List<String> currency= currencyRepo.getCurrencyType();
+		List<String> business = businessPartnerTypeRepo.getBusinessPartnerType();
+		List<String> partner = businessPartnerRepo.getBusinessPartner();
+		List<String> classification = businessClassificationRepo.getBusinessClassification();
+		List<String> payment = paymentTermRepo.getPaymentTerms();	
+		List<String> nature = natureOfTransactionRepo.getNatureOfTransaction();
+		List<String> country = countryRepo.getCountry();
+		List<String> tdsCode = tDSSectionCodeRepo.getTDSSectionCode();
+		
+		
+		model.addAttribute("currency", currency);
+		model.addAttribute("business", business);
+		model.addAttribute("partner", partner);
+		model.addAttribute("classification", classification);
+		model.addAttribute("payment", payment);
+		model.addAttribute("nature", nature);
+		model.addAttribute("country", country);
+		model.addAttribute("tdsCode", tdsCode);
+		
 		model.addAttribute("maxFileSize", maxFileSize);
 
 		return "registration";

@@ -511,7 +511,7 @@ tbody {
 																			id="updateBtnBtn" name="updateBtnBtn" class="btn btn-primary" style="margin-right: 10px;">Approve</button> -->
 																	<button type="button" class="btn btn-primary"
 																		data-toggle="modal" data-target="#myModal"
-																		onclick="setTripStatus()" style="margin-right: 10px;">Approve</button>
+																		 style="margin-right: 10px;">Approve</button>
 																	<button id="openCoaDetails" type="button"
 																		class="btn btn-success" style="margin-right: 10px;"
 																		onclick="saveQuery()">Query</button>
@@ -755,11 +755,12 @@ tbody {
                         $('.loader').hide();
                         $("#myModal").modal('hide');
                         if (response.msg == "success") {
-                            Swal.fire({
-                                type: 'success',
-                                title: 'Aprove Trips Successfully..'
-                            })
-                            getData();
+                        	
+                        	swal.fire("", "Trip Approved Successfully..", "success", "OK").then(function() {
+                        		 $("#tripValue").modal('hide');
+                            });
+                            
+                        	getData();
                         } else {
                             Toast.fire({
                                 type: 'error',
@@ -871,7 +872,7 @@ tbody {
                         if (response.msg == 'success') {
                         	
                         	
-                            swal.fire("", "your Query Sucessfully Submitted", "success", "OK").then(function() {
+                            swal.fire("", "Query Submitted Sucessfully", "success", "OK").then(function() {
                                 window.location = "pendingApproval";
                             });
 
@@ -950,3 +951,4 @@ function updateTripDataByVendor(tripID){
 </body>
 
 </html>
+

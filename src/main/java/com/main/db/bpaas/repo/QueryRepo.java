@@ -18,7 +18,7 @@ public interface QueryRepo extends JpaRepository<QueryEntity, Integer> {
 	@Query(value = "update trip_details set vendor_trip_status=:status, assign_to=:assign where id=:id ; ", nativeQuery = true)
 	void updateStatusByUserid(@Param("status") String status,@Param("assign") String assign, @Param("id") Integer id);
 
-	@Query(value = "SELECT * FROM query_details where reference_id=?;", nativeQuery = true)
+	@Query(value = "SELECT * FROM query_details where reference_id=? ORDER BY id DESC;", nativeQuery = true)
 	List<QueryEntity> findCommentsByRefID(String reference_id);
 	
 	@Transactional
@@ -26,7 +26,7 @@ public interface QueryRepo extends JpaRepository<QueryEntity, Integer> {
 	@Query(value = "update invoice_generation set invoice_status=:status, assign_to=:assign where id=:id ; ", nativeQuery = true)
 	void updateInvoiceStatus(@Param("status") String status,@Param("assign") String assign, @Param("id") Integer id);
 
-	@Query(value = "SELECT * FROM query_details where reference_id=?;", nativeQuery = true)
+	@Query(value = "SELECT * FROM query_details where reference_id=? ORDER BY id DESC ;", nativeQuery = true)
 	List<QueryEntity> findByReferenceId(String invoiceNumber);
 
 	List<QueryEntity> findByReferenceidAndTypeOrderByIdDesc(String referenceid, String type);

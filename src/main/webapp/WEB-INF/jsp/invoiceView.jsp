@@ -271,7 +271,7 @@
 								id="viewAttachmentDiv">
 								<button type="button" id="viewAttachment"
 									onclick="displayAttachmentForPoDetails()" value="viewAttachment"
-									class="btn btn-primary btn-lg">View Attachment</button>
+									class="btn btn-primary btn-lg">View Attachments</button>
 							</div>
 							<div class="col-md-1" style="    margin-left: -102px;">
 								<button type="button" onclick="closeWin()"

@@ -73,17 +73,17 @@
             });
         }
 
-        function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
+      /*   function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
             try {
                 if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
-
+ */
                    /* $("#" + controlName).notify(
                         tooltipMessage, {
                             autoHideDelay: 3500,
                             position: tooltipPlacement
                         }
                     );*/
-                    $('#manPara').css('display', '');
+                 /*    $('#manPara').css('display', '');
                     addValCss(controlName);
                     $("#" + controlName).focus();
                 } else {
@@ -92,7 +92,7 @@
             } catch (err) {
 
             }
-        }
+        } */
 
        /*  $(document).ready(function() {
             $('#smartwizard').smartWizard({
@@ -161,7 +161,7 @@
                 return checkMand(stepNumber);
 
             });
-        });
+    
         
         
 
@@ -633,15 +633,13 @@ width: 100% !important;
 											<tr class="">
 
 								
-												<td><label for="name">Introduced By Name<span
-														class="required adHocRequired">*</span></label></td>
+												<td><label for="name">Introduced By Name</label></td>
 												<td colspan='1'><input type="text" value="${uname}"
 													class="form-control p-input" id="introducedByName"
 													name="introducedByName" placeholder="Reference Name"
 													onchange="removeValCssByID(this)" readonly="readonly" required></td>
 
-												<td><label for="emailId">Introduced By Email ID<span
-														class="required adHocRequired">*</span></label></td>
+												<td><label for="emailId">Introduced By Email ID</label></td>
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="introducedByEmailID"
 													name="introducedByEmailID" placeholder="abc@ecomexpress.in"
@@ -1758,11 +1756,11 @@ width: 100% !important;
         $("#addITRGridButt").click(function() {
             var abc = document.getElementById('fyYear').value;
             var abc1 = document.getElementById('acknowledgementNumber').value;
-            var abc2 = document.getElementById('ITRAFile').value;
-           // alert(abc2)
-          //C:\fakepath\
-        	   
-            abc2.replace("C:\fakepath", "");
+            let abc2 = document.getElementById('ITRAFile').value;
+        
+          let cc=abc2.substr(12);
+          
+          
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
                 swal.fire("Alert", "Select Financial Year Number. !", "warning");
@@ -1776,10 +1774,11 @@ width: 100% !important;
 
                     document.getElementById('acknowledgementNumber').value + '</td><td>' +
 
-                    abc2 + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+                    cc + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
                 document.getElementById('fyYear').value = "";
                 document.getElementById('acknowledgementNumber').value = "";
+                document.getElementById('ITRAFile').value="";
             }
         });
 
@@ -1853,6 +1852,7 @@ width: 100% !important;
                     return regex.test(inputvalues);
                 }
             });
+            
             $("#introducedByEmailID").change(function() {
                 var inputvalues = $(this).val();
                 var regex = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@ecomexpress.in$/;
@@ -2199,18 +2199,18 @@ width: 100% !important;
 
          
          
-         
+        /*  
          function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
              try {
                  if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
-
+ */
                     /* $("#" + controlName).notify(
                          tooltipMessage, {
                              autoHideDelay: 3500,
                              position: tooltipPlacement
                          }
                      );*/
-                     $('#manPara').css('display', '');
+                 /*     $('#manPara').css('display', '');
                      addValCss(controlName);
                      $("#" + controlName).focus();
                  } else {
@@ -2220,7 +2220,7 @@ width: 100% !important;
 
              }
          }
-
+ */
        
         
          var matchFlag=0;

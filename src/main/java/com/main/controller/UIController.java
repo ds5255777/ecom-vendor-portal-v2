@@ -151,6 +151,9 @@ public class UIController {
 			model.addAttribute("getAllInvoiceCount", getAllInvoiceCount);
 			model.addAttribute("countForAllProcessedInvoice", countForAllProcessedInvoice);
 			model.addAttribute("countForAllApproveInvoice", countForAllApproveInvoice);
+			
+			String uname = principal.getName();
+			model.addAttribute("uname", uname);
 
 			return "dashBoard_AdminRole";
 

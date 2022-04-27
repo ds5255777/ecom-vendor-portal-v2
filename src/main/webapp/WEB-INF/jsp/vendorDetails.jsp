@@ -1807,6 +1807,11 @@ window.onload = function(){
         $("#addITRGridButt").click(function() {
             var abc = document.getElementById('fyYear').value;
             var abc1 = document.getElementById('acknowledgementNumber').value;
+            var abc2 = document.getElementById('ITRAFile').value;
+            // alert(abc2)
+           //C:\fakepath\
+         	   
+             let txt=abc2.substr(12);
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
                 swal.fire("Alert", "Select Financial Year Number. !", "warning");
@@ -1818,7 +1823,9 @@ window.onload = function(){
                 $("#addITRGrid").append('<tr class=""><td>' +
                     document.getElementById('fyYear').value + '</td><td>' +
 
-                    document.getElementById('acknowledgementNumber').value + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+                    document.getElementById('acknowledgementNumber').value + '</td><td>' +
+
+                    txt + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
                 document.getElementById('fyYear').value = "";
                 document.getElementById('acknowledgementNumber').value = "";

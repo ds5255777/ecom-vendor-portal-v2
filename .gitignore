@@ -13,7 +13,7 @@ target/**
 .settings
 .springBeans
 .sts4-cache
-.txt
+log.txt
 .gz
 
 ### IntelliJ IDEA ###

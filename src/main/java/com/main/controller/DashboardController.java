@@ -130,7 +130,7 @@ public class DashboardController {
         String Query = jsonObject.getString("Query").toString();
         System.out.println("Query is :::" + Query);
         if ("No".equalsIgnoreCase(Query)) {
-            tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox, LumpSomeAmount, "Yet To Be Approved", Double.parseDouble(basicFreight), Double.parseDouble(totalFreight));
+            tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox, LumpSomeAmount, "Yet To Be Approved", Double.parseDouble(basicFreight), Double.parseDouble(totalFreight),Double.parseDouble(fs));
         } else {
             String standardKM = jsonObject.getString("standardKM").toString();
             String milage = jsonObject.getString("milage").toString();

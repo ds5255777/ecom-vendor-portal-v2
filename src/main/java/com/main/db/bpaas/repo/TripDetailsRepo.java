@@ -187,7 +187,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
             @Param("LumpSomeAmount") String LumpSomeAmount,
             @Param("vendor_tripStatus") String vendor_tripStatus,
             @Param("basicFreight") double basicFreight,
-            @Param("totalFreight") double totalFreight);//fs
+            @Param("totalFreight") double totalFreight,
+            @Param("fs") double fs);//fs
 
     @Query(value = "select * from  Trip_Details where 1=1 and run_status=:runStatus and vendor_code=:vendorCode", nativeQuery = true)
     List<TripDetails> getTripsByFiltersVendorRunStatus(@Param("runStatus") String runStatus, @Param("vendorCode") String vendorCode);

@@ -780,7 +780,9 @@
 						
 							if("data" in response){
 							
-								var result = response.data;												
+								var result = response.data;
+								
+								console.log(result,"------");
 								
 								$('#multipleAttachment').append($('<option/>').attr("value", '').text("Select"));
 								

@@ -454,6 +454,14 @@
                                                                         <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="closingReading" name="closingReading" >
                                                                     </div>
                                                                 </div>
+
+                                                                <div class="col-sm-3">
+                                                                    <!-- text input -->
+                                                                    <div class="form-group">
+
+                                                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="vendorCode" name="vendorCode" hidden>
+                                                                    </div>
+                                                                </div>
                                                             </div>
 
 
@@ -489,9 +497,11 @@
 
                                             <div class="row" style="padding: 15px;">
 
-                                                <button id="saveCoaDetails" type="button" class="btn btn-success" style="margin-right:10px;" onclick="updateTripDataByNetworkTeam()">Submit to Vendor</button>
-                                                <!--                                                <button id="openCoaDetails" type="button" class="btn btn-success" style="margin-right:10px;" onclick="saveQuery()">Query</button>-->
-                                                <button type="button" class="btn btn-secondary" id="closeModal" data-dismiss="modal">Close</button>
+                                                <button id="saveCoaDetails" type="button" class="btn btn-success" style="margin-right:10px;" onclick="updateTripDataByNetworkTeam('No')">Submit to Vendor</button>
+
+                                                <button type="button" class="btn btn-secondary" id="closeModal" data-dismiss="modal">Close</button>&nbsp;&nbsp;&nbsp;
+                                                <button type="button" class="btn btn-warning" id="recalculate" onclick="refreshValues()">Refresh</button>
+
                                             </div>
 
 
@@ -779,7 +789,8 @@
 
 
 
-                                                    function updateTripDataByNetworkTeam() {
+                                                    function updateTripDataByNetworkTeam(query) {
+
 
 
                                                         //Validations
@@ -942,6 +953,9 @@
                                                         var basicFreight = document.getElementById("basicFreight").value;
                                                         var comments_by_User = document.getElementById("comment").value;
                                                         console.log("comments_by_User " + comments_by_User);
+
+                                                        var standardKM = document.getElementById("standardKM").value;
+
                                                         var obj = {
                                                             "tripID": document.getElementById("tripID").value,
                                                             "processedBy": 'NetworkTeam',
@@ -951,8 +965,15 @@
                                                             "fs": fs,
                                                             "totalFreight": totalFreight,
                                                             "basicFreight": basicFreight,
-                                                            "commentsby": comments_by_User
-
+                                                            "commentsby": comments_by_User,
+                                                            "standardKM": standardKM,
+                                                            "milage": milage,
+                                                            "ratePerKm": ratePerKm,
+                                                            "routeKms": routeKms,
+                                                            "fsBaseRate": fsBaseRate,
+                                                            "currentFuelRate": currentFuelRate,
+                                                            "fsDiff": fsDiff,
+                                                            "Query": query
                                                         }
 
                                                         //  calcualteFormulae();
@@ -986,10 +1007,10 @@
 
                                                         });
 
-
-                                                        $('#tripValue').modal('hide');
-                                                        location.reload();
-
+                                                        if ('No' == query) {
+                                                            $('#tripValue').modal('hide');
+                                                            location.reload();
+                                                        }
 
                                                     }
 
@@ -1017,6 +1038,64 @@
 
                                                         var totalFreight = parseFloat(basicFreight) + parseFloat(fs);
                                                         document.getElementById("totalFreight").value = totalFreight.toFixed(2);
+
+                                                    }
+
+                                                    function refreshValues() {
+                                                        console.log("*****Inside refresh values option*******");
+
+                                                        var route = document.getElementById("route").value;//route
+                                                        var vendorCode = document.getElementById("vendorCode").value;
+                                                        console.log("route us ::" + route);
+                                                        console.log("vendorCode ::" + vendorCode);
+
+                                                        var obj = {
+
+                                                            "route": route,
+                                                            "vendorCode": vendorCode
+                                                        }
+
+
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            data: JSON.stringify(obj),
+                                                            url: "<%=GlobalUrl.refreshValues%>",
+                                                            dataType: "json",
+                                                            contentType: "application/json",
+                                                            async: false,
+                                                            success: function (data) {
+                                                                console.log("data.msg" + data.msg);
+                                                                console.log("data.data " + data.data);
+                                                                console.log("Actual data.data " + JSON.stringify(data.data));
+                                                                if (data.msg == 'success') {
+                                                                    var resData = data.data;
+                                                                    console.log("" + resData.currentFuelRate);
+                                                                    document.getElementById("currentFuelRate").value = resData.currentFuelRate.toFixed(2);
+                                                                    document.getElementById("ratePerKm").value = resData.rate.toFixed(2);
+                                                                    document.getElementById("mileage").value = resData.stdMileagePerKm.toFixed(2);
+                                                                    document.getElementById("standardKM").value = resData.fixedKm;
+                                                                    // document.getElementById("resData.currentFuelRate").value = resData.fsDiff.toFixed(2);
+                                                                    document.getElementById("fsDiff").value = resData.fsDiff;
+                                                                    document.getElementById("fsBaseRate").value = resData.baseRate.toFixed(2);
+
+                                                                    //actualKM
+
+                                                                    if ("0" == document.getElementById("actualKM")) {
+                                                                        document.getElementById("routeKms").value = resData.fixedKm;
+                                                                    } else if (parseFloat(document.getElementById("actualKM").value) < parseFloat(document.getElementById("standardKM").value)) {
+                                                                        document.getElementById("routeKms").value = document.getElementById("standardKM").value;
+                                                                    } else {
+                                                                        document.getElementById("routeKms").value = document.getElementById("actualKM").value;
+                                                                    }
+
+                                                                    calcualteFormulae();
+                                                                    updateTripDataByNetworkTeam('Yes');
+
+                                                                }
+                                                            }
+
+
+                                                        });
 
                                                     }
 

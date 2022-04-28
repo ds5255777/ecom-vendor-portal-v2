@@ -22,9 +22,11 @@ import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.JdbcConnection;
+import com.main.db.bpaas.entity.AgreementMaster;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
+import com.main.db.bpaas.repo.AgreementMasterRepo;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.QueryRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
@@ -55,6 +57,9 @@ public class DashboardController {
 
 	@Autowired
 	InvoiceServiceImpl invoiceServiceImpl;
+	
+	@Autowired
+	private AgreementMasterRepo agreementMasterRepo;
 
 	@RequestMapping({ "getDashboardDetails" })
 	@CrossOrigin("*")
@@ -78,71 +83,120 @@ public class DashboardController {
 	}
 
 	@RequestMapping("/updateDetailsforNetwork")
-	@CrossOrigin("*")
-	public String updateDetailsforNetwork(Model model, Principal principal, @RequestBody String agrn) {
+    @CrossOrigin("*")
+    public String updateDetailsforNetwork(Model model, Principal principal, @RequestBody String agrn) {
 
-		System.out.println("************************Data is ::" + agrn);
+        System.out.println("************************Data is ::" + agrn);
 
-		JSONObject jsonObject = new JSONObject(agrn);
-		String processedon = jsonObject.get("processedOn").toString();
-		String processedBy = jsonObject.getString("processedBy").toString();
-		String tripid = jsonObject.get("tripID").toString();
-		String AssigenedTo = jsonObject.get("AssigenedTo").toString();
-		String LumpSomeCheckBox = "";
-		String LumpSomeAmount = jsonObject.getString("LumpSomeAmount").toString();
+        JSONObject jsonObject = new JSONObject(agrn);
+        String processedon = jsonObject.get("processedOn").toString();
+        String processedBy = jsonObject.getString("processedBy").toString();
+        String tripid = jsonObject.get("tripID").toString();
+        String AssigenedTo = jsonObject.get("AssigenedTo").toString();
+        String LumpSomeCheckBox = "";
+        String LumpSomeAmount = jsonObject.getString("LumpSomeAmount").toString();
 
-		String fs = jsonObject.getString("fs").toString();
-		String totalFreight = jsonObject.getString("totalFreight").toString();
-		String basicFreight = jsonObject.getString("basicFreight").toString();
-		String commentsByUSer = jsonObject.getString("commentsby").toString();
+//fs
+//totalFreight
+//basicFreight
+        String fs = jsonObject.getString("fs").toString();
+        String totalFreight = jsonObject.getString("totalFreight").toString();
+        String basicFreight = jsonObject.getString("basicFreight").toString();
+        String commentsByUSer = jsonObject.getString("commentsby").toString();
 
-		System.out.println("fs " + fs + "\ntotalFreight " + totalFreight + "\nbasicFreight " + basicFreight + ""
-				+ "\ncommentsByUSer " + commentsByUSer);
+///
+        System.out.println("fs " + fs
+                + "\ntotalFreight " + totalFreight
+                + "\nbasicFreight " + basicFreight + ""
+                + "\ncommentsByUSer " + commentsByUSer);
 
-		if ("".equalsIgnoreCase(LumpSomeAmount)) {
-			LumpSomeCheckBox = "false";
-		} else {
-			LumpSomeCheckBox = "true";
-		}
+        if ("".equalsIgnoreCase(LumpSomeAmount)) {
+            LumpSomeCheckBox = "false";
+        } else {
+            LumpSomeCheckBox = "true";
+        }
 
-		if ("".equalsIgnoreCase(LumpSomeAmount)) {
-			LumpSomeAmount = "0";
-		}
+        if ("".equalsIgnoreCase(LumpSomeAmount)) {
+            LumpSomeAmount = "0";
+        }
 
-		System.out.println("processedon" + processedon);
-		System.out.println("tripid" + tripid);
-		System.out.println("processedBy" + processedBy);
-		System.out.println("AssigenedTo" + AssigenedTo);
-		System.out.println("LumpSomeCheckBox" + LumpSomeCheckBox);
-		System.out.println("LumpSomeAmount" + LumpSomeAmount);
+        System.out.println("processedon" + processedon);
+        System.out.println("tripid" + tripid);
+        System.out.println("processedBy" + processedBy);
+        System.out.println("AssigenedTo" + AssigenedTo);
+        System.out.println("LumpSomeCheckBox" + LumpSomeCheckBox);
+        System.out.println("LumpSomeAmount" + LumpSomeAmount);
 
-		tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox,
-				LumpSomeAmount, "Yet To Be Approved");
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		DataContainer data = new DataContainer();
-		data.setMsg("success");
+        String Query = jsonObject.getString("Query").toString();
+        System.out.println("Query is :::" + Query);
+        if ("No".equalsIgnoreCase(Query)) {
+            tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox, LumpSomeAmount, "Yet To Be Approved", Double.parseDouble(basicFreight), Double.parseDouble(totalFreight),Double.parseDouble(fs));
+        } else {
+            String standardKM = jsonObject.getString("standardKM").toString();
+            String milage = jsonObject.getString("milage").toString();
+            String ratePerKm = jsonObject.getString("ratePerKm").toString();
+            String routeKms = jsonObject.getString("routeKms").toString();
+            String fsBaseRate = jsonObject.getString("fsBaseRate").toString();
+            String currentFuelRate = jsonObject.getString("currentFuelRate").toString();
+            String fsDiff = jsonObject.getString("fsDiff").toString();
 
-		QueryEntity comm = new QueryEntity();
-		comm.setRaisedBy(processedBy);
-		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			Date date = new Date();
-			System.out.println(formatter.format(date));
-			comm.setRaisedOn(date);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+            System.out.println("standardKM " + standardKM);
+            System.out.println("milage " + milage);
+            System.out.println("ratePerKm " + ratePerKm);
+            System.out.println("routeKms " + routeKms);
+            System.out.println("fsBaseRate " + fsBaseRate);
+            System.out.println("currentFuelRate " + currentFuelRate);
+            System.out.println("fsDiff " + standardKM);
+
+            try {
+                tripDetailsRepo.updateDetailsByNetworkInQuery(tripid, processedBy, processedon,
+                        LumpSomeCheckBox, LumpSomeAmount,
+                        Double.parseDouble(standardKM),
+                        Double.parseDouble(milage),
+                        Double.parseDouble(ratePerKm),
+                        Double.parseDouble(routeKms),
+                        Double.parseDouble(fsBaseRate),
+                        Double.parseDouble(currentFuelRate), Double.parseDouble(fsDiff), Double.parseDouble(basicFreight), Double.parseDouble(totalFreight));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            System.out.println("***************************Query runned*******************");
+        }
+
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        DataContainer data = new DataContainer();
+        data.setMsg("success");
+        //  System.out.println("Value of S si :"+s);
+
+        QueryEntity comm = new QueryEntity();
+        comm.setRaisedBy(processedBy);
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date date = new Date();
+            System.out.println(formatter.format(date));
+            comm.setRaisedOn(date);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
 //Find ID on the basic of tripid
-		TripDetails obj = tripDetailsRepo.findByTripID(tripid);
-		int id = (int) obj.getId();
+        TripDetails obj = tripDetailsRepo.findByTripID(tripid);
+        int id = (int) obj.getId();
 
-		comm.setReferenceid(tripid);
-		comm.setComment(commentsByUSer);
-		queryRepo.save(comm);
-		return gson.toJson(data).toString();
+        comm.setReferenceid(tripid);
+        if ("Yes".equalsIgnoreCase(Query)) {
+            comm.setComment("Values Repopulated from MDM");
+        } else {
+            comm.setComment(commentsByUSer);
+        }
 
-	}
+        comm.setForeignKey(id);
+
+        queryRepo.save(comm);
+
+        return gson.toJson(data).toString();
+
+    }
 
 	@RequestMapping({ "getFinanceDashBoardDetails" })
 	@CrossOrigin("*")
@@ -168,5 +222,33 @@ public class DashboardController {
 
 		return gson.toJson(data).toString();
 	}
+	
+
+	//RefreshVaues for Scheduled trips in case of updation in Agreenment Master
+    @RequestMapping({"refreshValues"})
+    public String refreshValues(Principal principal, @RequestBody String reqObj) {
+        DataContainer data = new DataContainer();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        System.out.println("**********Inside refresh values********************");
+        try {
+            JSONObject jsonObject = new JSONObject(reqObj);
+            String vendorCode = (String) jsonObject.get("vendorCode");//
+            String route = (String) jsonObject.get("route");
+
+            System.out.println("Vendor code ::" + vendorCode);
+            System.out.println("route ::" + route);
+
+            AgreementMaster masterData = agreementMasterRepo.getAllTripsByVendorCode(vendorCode, route);
+            System.out.println("masterData ::" + masterData.getVendorName());
+            data.setData(masterData);
+            data.setMsg("success");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            data.setMsg("error");
+        }
+
+        return gson.toJson(data).toString();
+    }
 
 }

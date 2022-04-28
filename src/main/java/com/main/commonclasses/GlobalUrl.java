@@ -66,6 +66,7 @@ public class GlobalUrl {
     public static String getTripsById = tripControllers + "/getTripsById";
     public static String updateDetailsforNetwork = dashboardController + "/updateDetailsforNetwork";
     public static String getFinanceDashBoardDetails = dashboardController + "/getFinanceDashBoardDetails";
+    public static String refreshValues = dashboardController + "/refreshValues";
 
     public static String masterController="masterController";	
 	public static String saveTripMaster=masterController+"/saveTripMaster";

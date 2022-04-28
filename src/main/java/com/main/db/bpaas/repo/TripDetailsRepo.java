@@ -146,12 +146,38 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     List<TripDetails> findTripsByID(@Param("tripID") String tripID);
 
 //getQueryTripsForNetwork
-    @Query(value = "select * from Trip_Details where run_type='Adhoc' and vendor_trip_status= ?", nativeQuery = true)
+    @Query(value = "select * from Trip_Details where vendor_trip_status= ?", nativeQuery = true)
     List<TripDetails> getQueryTripsForNetwork(String vendor_trip_status);
 
     @Transactional
     @Modifying
-    @Query(value = "update Trip_Details set vendor_trip_status=:vendor_tripStatus,assign_to=:assignto ,processed_By=:processed_By,processed_On=:processed_On,lumpSome_CheckBox=:LumpSomeCheckBox,lumpSome_Amount=:LumpSomeAmount where trip_id=:tripID ;", nativeQuery = true)
+    @Query(value = "update Trip_Details set "
+            + "processed_By=:processed_By,processed_On=:processed_On,"
+            + "lumpSome_CheckBox=:LumpSomeCheckBox,lumpSome_Amount=:LumpSomeAmount,"
+            + "current_fuel_rate=:currentFuelRate,fs_base_rate=:fsBaseRate,"
+            + "mileage=:milage,rate_per_km=:ratePerKm,"
+            + "route_kms=:routeKms,"
+            + "standard_km=:standardKM,"
+            + "fs_diff=:fs_diff,basic_freight=:basicFreight,total_freight=:totalFreight,fs=:fs where trip_id=:tripID ;", nativeQuery = true)
+    public void updateDetailsByNetworkInQuery(
+            @Param("tripID") String tripID,
+            @Param("processed_By") String processed_By,
+            @Param("processed_On") String processed_On,
+            @Param("LumpSomeCheckBox") String LumpSomeCheckBox,
+            @Param("LumpSomeAmount") String LumpSomeAmount,
+            @Param("standardKM") double standardKM,
+            @Param("milage") double milage,
+            @Param("ratePerKm") double ratePerKm,
+            @Param("routeKms") double routeKms,
+            @Param("fsBaseRate") double fsBaseRate,
+            @Param("currentFuelRate") double currentFuelRate,
+            @Param("fs_diff") double fs_diff,
+            @Param("basicFreight") double basicFreight,
+            @Param("totalFreight") double totalFreight);
+    
+    @Transactional
+    @Modifying
+    @Query(value = "update Trip_Details set vendor_trip_status=:vendor_tripStatus,assign_to=:assignto ,processed_By=:processed_By,processed_On=:processed_On,lumpSome_CheckBox=:LumpSomeCheckBox,lumpSome_Amount=:LumpSomeAmount,basic_freight=:basicFreight,total_freight=:totalFreight,fs=:fs where trip_id=:tripID ;", nativeQuery = true)
     public void updateDetailsByNetwork(
             @Param("assignto") String assignto,
             @Param("tripID") String tripID,
@@ -159,7 +185,10 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
             @Param("processed_On") String processed_On,
             @Param("LumpSomeCheckBox") String LumpSomeCheckBox,
             @Param("LumpSomeAmount") String LumpSomeAmount,
-            @Param("vendor_tripStatus") String vendor_tripStatus);
+            @Param("vendor_tripStatus") String vendor_tripStatus,
+            @Param("basicFreight") double basicFreight,
+            @Param("totalFreight") double totalFreight,
+            @Param("fs") double fs);//fs
 
     @Query(value = "select * from  Trip_Details where 1=1 and run_status=:runStatus and vendor_code=:vendorCode", nativeQuery = true)
     List<TripDetails> getTripsByFiltersVendorRunStatus(@Param("runStatus") String runStatus, @Param("vendorCode") String vendorCode);

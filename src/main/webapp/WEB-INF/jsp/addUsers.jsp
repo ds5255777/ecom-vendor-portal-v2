@@ -154,27 +154,27 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">User Name</label> <input type="text" name="username" class="form-control" id="username">
+                                                    <label for="exampleInputserverName1">User Name</label> <input type="text" name="username" class="form-control" id="username" maxlength="70" pattern="[a-zA-Z][a-zA-Z0-9]+">
 
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Password</label> <input type="password" name="password" class="form-control" id="password">
+                                                    <label for="exampleInputserverName1">Password</label> <input type="password" name="password" class="form-control" id="password" maxlength="70" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter">
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" name="firstName" class="form-control" id="firstName">
+                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" name="firstName" class="form-control" id="firstName" maxlength="70" pattern="[a-zA-Z]+">
 
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" name="lastName" class="form-control" id="lastName">
+                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" name="lastName" class="form-control" id="lastName" maxlength="70" pattern="[a-zA-Z]+">
                                                 </div>
 
                                             </div>
@@ -188,6 +188,7 @@
                                                             <option value="1">Admin</option>
                                                             <option value="3">Audit</option>
                                                             <option value="5">Finance</option>
+                                                            <option value="6">Finance Head</option>
                                                        
                                                     </select>
                                                 </div>
@@ -197,14 +198,14 @@
                                             
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" class="form-control" id="emailId">
+                                                    <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" class="form-control" maxlength="70" id="emailId">
 
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Contact No.</label> <input type="text" name="contactNo" class="form-control" id="contactNo" maxlength="10">
+                                                    <label for="exampleInputserverName1">Contact No.</label> <input type="text" name="contactNo" maxlength="10" class="form-control" id="contactNo" pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$" title="Enter Valid mobile number ex.9811111111">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -281,23 +282,23 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">User Name</label> <input type="text" name="username" class="form-control" readonly="readonly" id="usernameEdit">
+                                                    <label for="exampleInputserverName1">User Name</label> <input type="text" name="username" class="form-control" readonly="readonly" id="usernameEdit" >
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Password</label> <input type="password" name="password" class="form-control" id="passwordEdit">
+                                                    <label for="exampleInputserverName1">Password</label> <input type="password"maxlength="70" name="password" class="form-control" id="passwordEdit" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" name="firstName" class="form-control" id="firstNameEdit">
+                                                    <label for="exampleInputserverName1">First Name</label> <input type="text"maxlength="70" name="firstName" class="form-control" id="firstNameEdit" pattern="[a-zA-Z]+">
 
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" name="lastName" class="form-control" id="lastNameEdit">
+                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" maxlength="70"name="lastName" class="form-control" id="lastNameEdit" pattern="[a-zA-Z]+">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -307,6 +308,7 @@
                                                             <option value="1">Admin</option>
                                                             <option value="3">Audit</option>
                                                             <option value="5">Finance</option>
+                                                            <option value="6">Finance Head</option>
                                                        
                                                     </select>
                                                 </div>
@@ -314,13 +316,13 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" class="form-control" id="emailIdEdit">
+                                                    <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" maxlength="70"class="form-control" id="emailIdEdit">
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Contact No</label> <input type="text" name="contactNo" maxlength="10" class="form-control" id="contactNoEdit">
+                                                    <label for="exampleInputserverName1">Contact No</label> <input type="text" name="contactNo" maxlength="10"  class="form-control" id="contactNoEdit" pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$" title="Enter Valid mobile number ex.9811111111">
                                                 </div>
                                             </div>
                                             

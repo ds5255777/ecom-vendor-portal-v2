@@ -33,10 +33,6 @@
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <!-- <link rel="stylesheet" type="text/css" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-        <link rel="stylesheet" type="text/css" href="plugins/datatables-buttons/css/buttons.bootstrap4.css">
-        <link rel="stylesheet" type="text/css" href="plugins/datatables-select/css/select.bootstrap4.css">
-        <link rel="stylesheet" type="text/css" href="plugins/datatables-fixedheader/css/fixedHeader.bootstrap4.css"> -->
     <link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
 
 
@@ -92,6 +88,7 @@
         
         .select2{
 				width: 100% !important;
+				
 			}
 			
 			
@@ -113,22 +110,10 @@
      .required {
             color: red;
         }
-    
-        /* changing select2 color  */
-       /*  .select2-container--default .select2-purple .select2-selection--multiple .select2-selection__choice,
-        .select2-purple .select2-container--default .select2-selection--multiple .select2-selection__choice {
-            background-color: #006fe6;
-            border-color: #006fe6;
-            color: #fff;
-        }
-
-        .select2-container--default .select2-purple .select2-results__option--highlighted[aria-selected],
-        .select2-container--default .select2-purple .select2-results__option--highlighted[aria-selected]:hover,
-        .select2-purple .select2-container--default .select2-results__option--highlighted[aria-selected],
-        .select2-purple .select2-container--default .select2-results__option--highlighted[aria-selected]:hover {
-            background-color: #006fe6;
-            color: #fff;
-        } */
+    .select2-container--default .select2-selection--multiple .select2-selection__choice{
+    color:black;
+    }
+      
 
     </style>
 </head>
@@ -307,10 +292,10 @@ window.onload = function(){
 														class="required adHocRequired">*</span></label></td>
 												
 												<td style="width: auto">
-												<select class="js-example-basic-multiple select2"  name="states[]" style="color: red;" id="states" value="Network" onchange="select()" multiple="multiple" >
+												<select class="js-example-basic-multiple select2"  name="states[]"  id="states" value="Network" onchange="select()" multiple="multiple" >
 												<option    value="Network">&emsp;&emsp;Network</option>
 												<option  value="Fixed Asset">&emsp;&emsp;Fixed Asset</option>
-												<option   value="Other">&emsp;&emsp;Other</option>
+												
 												</select>
 													
 												</td>
@@ -397,7 +382,7 @@ window.onload = function(){
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="aadharNumber"
 													name="aadharNumber" placeholder="Aadhar Number"
-													onblur="AadharValidate();"></td>
+													onblur="AadharValidate();" maxlength="16"></td>
 
 												<td><label for="panNumber">Pan Number<span
 														class="required adHocRequired">*</span></label></td>
@@ -420,19 +405,28 @@ window.onload = function(){
 													class="form-control p-input" id="adharLinkStatus"
 													name="adharLinkStatus" placeholder="Aadhar Link Status"></td>
 
-												<td><label for="compGstn">GSTN Number</label></td>
+												<td><label for="compGstn">GSTN Number<span
+														class="required adHocRequired">*</span></label></td>
 												<td colspan='1'><input type="test"
 													class="form-control p-input gst" id="compGstn"
-													name="compGstn" placeholder="GSTN Number"></td>
+													name="compGstn" placeholder="GSTN Number"  maxlength="15" oninput="this.value = this.value.toUpperCase()"></td>
 
 												<td><label for="natureOfTransactions">Nature of
 														transactions<span class="required adHocRequired">*</span>
 												</label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="natureOfTransactions"
-													name="natureOfTransactions"
-													placeholder="Nature of transactions"
-													onchange="removeValCssByID(this)"></td>
+												<td><select colspan='1' class="form-control p-input"
+                                                                     id="natureOfTransactions" name="natureOfTransactions"
+                                                                     placeholder="Nature of transactions"
+                                                                     onchange="removeValCssByID(this)">
+                                                                          <option id="select" value="">Select</option>
+                                                                           
+                                                                          <option id="fixedAssets" value="FIXED ASSETS">FIXED
+                                                                                ASSETS</option>
+                                                                          <option id="networkCreditors" value="NETWORK CREDITORS">NETWORK
+                                                                                CREDITORS</option>
+                                                                
+
+                                                                </select></td>
 											</tr>
 
 											<tr>
@@ -532,11 +526,11 @@ window.onload = function(){
 													</select> <!-- <input type="text"
 														class="form-control p-input" id="state" name="state"
 														placeholder="State"> --></td>
-													<td><label class="addressLable">City<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="city" name="city"
-														placeholder="city"></td>
+													 <td><label class="addressLable">District<span
+                                                                                class="required adHocRequired">*</span></label></td>
+                                                                     <td colspan='2'><input type="text"
+                                                                          class="form-control p-input" id="city" name="city"
+                                                                          placeholder="District" maxlength="50"></td>
 												</tr>
 												<tr class="">
 
@@ -553,7 +547,7 @@ window.onload = function(){
 													</label></td>
 													<td colspan='2'><textarea class="form-control"
 															id="addDetails" name="addDetails"
-															placeholder="Complete Address" rows="3"></textarea></td>
+															placeholder="Complete Address" rows="3" maxlength="200"></textarea></td>
 													<td style="width: 150px;"></td>
 													<td colspan='3'><button type="Button"
 															class="btn btn-primary" id="addBookGridButt"
@@ -573,7 +567,7 @@ window.onload = function(){
 														<tr style="background: #1991eb; color: white;">
 															<th>Country</th>
 															<th>State</th>
-															<th>City</th>
+															<th>District</th>
 															<th>Postal Code/ ZIP Code</th>
 															<th>Address Details</th>
 															<th>Remove</th>
@@ -627,7 +621,7 @@ window.onload = function(){
 												<tr class="">
 
 
-													<td><label for="emailId">Email<span
+													<td><label for="emailId">Email Id<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><input type="text"
 														class="form-control p-input" id="conEmail" name="conEmail"
@@ -655,7 +649,7 @@ window.onload = function(){
 															<th>First Name</th>
 															<th>Last Name</th>
 															<th>Phone Number</th>
-															<th>Email</th>
+															<th>Email Id</th>
 															<th>Remove</th>
 														</tr>
 													</thead>
@@ -689,16 +683,11 @@ window.onload = function(){
 												<tr class="">
 													<td><label for="bankName">Bank Name<span
 															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="email"
+													<td colspan='2'><input type="text"
 														class="form-control p-input" id="bankName" name="bankName"
 														placeholder="Bank Name"></td>
 
-													<td><label for="ifscCode">RTGS/ IFSC Code<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="ifscCode" name="ifscCode"
-														placeholder="RTGS/ IFSC Code"></td>
-
+													
 
 													<td><label for="accoutNumber">Account Number<span
 															class="required adHocRequired">*</span></label></td>
@@ -706,9 +695,24 @@ window.onload = function(){
 														class="form-control p-input" id="accoutNumber"
 														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 														name="accoutNumber" placeholder="Account Number"></td>
+														
+														<td><label for="Confirmed accoutNumber">Confirmed Account Number<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="confirmedAccoutNumber"
+														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+														name="confirmedAccoutNumber"  placeholder="Confirmed Account Number"maxlength="16"></td>
+														
 
 												</tr>
 												<tr class="">
+												<td><label for="ifscCode">RTGS/ IFSC Code<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="ifscCode" name="ifscCode"
+														placeholder="RTGS/ IFSC Code" maxlength="11"></td>
+												
+												
 													<td><label for="accoutCurrency">Currency<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><select id="accoutCurrency"
@@ -723,6 +727,7 @@ window.onload = function(){
 															name="addBankGridButt" class="btn btn-primary">Add
 															Account Details</button>
 													</td>
+													 <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
 												</tr>
 
 											</tbody>
@@ -771,29 +776,39 @@ window.onload = function(){
 															Currency<span class="required adHocRequired">*</span>
 													</label></td>
 													<td colspan='2'><select id="invoiceCurrency"
-														name="invoiceCurrency" class="form-control p-input">
+														name="invoiceCurrency" class="form-control p-input" readonly>
 															<option value="INR">INR</option>
-															<option value="USD">USD</option>
-															<option value="KES">KES</option>
+															
 													</select></td>
 
 													<td><label for="paymentCurrency">Payment
 															Currency<span class="required adHocRequired">*</span>
 													</label></td>
 													<td colspan='2'><select id="paymentCurrency"
-														name="paymentCurrency" class="form-control p-input">
+														name="paymentCurrency" class="form-control p-input" readonly>
 															<option value="INR">INR</option>
-															<option value="USD">USD</option>
-															<option value="KES">KES</option>
+															
 													</select></td>
 
 													<td><label for="creditTerms">Payment / Credit
 															Terms<span class="required adHocRequired">*</span>
 													</label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="creditTerms"
-														name="creditTerms" onchange="removeValCssByID(this)"
-														placeholder="Payment / Credit Terms"></td>
+													<td><select id="creditTerms" name="creditTerms"
+                                                                          class="form-control p-input" colspan='2'
+                                                                          placeholder="Payment / Credit Terms"
+                                                                          onchange="removeValCssByID(this)">
+                                                                                <option id="select" value="">Select</option>
+                                                                                <option id="immediatePayments" value="Immediate Payments">Immediate
+                                                                                      Payments</option>
+                                                                                <option id="nET15Days" value="NET 15 Days">NET
+                                                                                      15 Days</option>
+                                                                                <option id="nET30Days" value="NET 30 Days">NET
+                                                                                      30 Days</option>
+                                                                                <option id="nET45Days" value="NET 45 Days">NET
+                                                                                      45 Days</option>
+                                                                                <option id="nET60Days" value="NET 60 Days">NET
+                                                                                      60 Days</option>
+                                                                     </select></td>
 												</tr>
 												<tr class="">
 													<td><label for="paymentMethod">Payment Method<span
@@ -848,22 +863,46 @@ window.onload = function(){
 												</thead>
 												<tbody>
 													<tr class="">
-														<td><label class="addressLable" for="tdsApplication">TDS
-																Applicable<span
-															class="required adHocRequired">*</span></label></td>
-														<td colspan='2'><select id="tdsApplication"
-															name="tdsApplication" onchange="changetextbox();"
-															class="form-control p-input ">
-																<option value="Yes">Yes</option>
-																<!-- <option value="No">No</option> -->
-														</select></td>
+													
+															<td><label class="addressLable" for="tdsApplication">TDS
+                                                                                      Applicable</label></td>
+                                                                           <td colspan='2'><input type="text"
+                                                                                id="tdsApplication" value="Yes" name="tdsApplication"
+                                                                                disabled class="form-control p-input "> </input></td>
 
 														<td><label class="addressLable" for="tdsSection">TDS
 																Section<span
 															class="required adHocRequired">*</span></label></td>
-														<td colspan='2'><input type="text"
-															class="form-control p-input" id="tdsSection"
-															name="tdsSection" placeholder="TDS Section" onchange="removeValCssByID(this)"></td>
+														<td><select id="tdsSection" name="tdsSection"
+                                                                                class="form-control p-input" colspan='2'
+                                                                                placeholder="TDS Section">
+                                                                                      <option id="select" value="">Select</option>
+                                                                                      <option id="sec194(A)" value="Sec. 194(A)">Sec.
+                                                                                           194(A)</option>
+                                                                                      <option id="sec194(C)" value="Sec. 194(C)">Sec.
+                                                                                           194(C)</option>
+                                                                                      <option id="sec194(C)" value="SEC. 194(H)">SEC.
+                                                                                           194(H)</option>
+                                                                                      <option id="sec194(I)" value="Sec. 194(I)">Sec.
+                                                                                           194(I)</option>
+                                                                                      <option id="sec194(J)" value="Sec. 194(J)">Sec.
+                                                                                           194(J)</option>
+                                                                                      <option id="sec194(Q)" value="SEC. 194(Q)">SEC.
+                                                                                           194(Q)</option>
+                                                                                      <option id="sec194I(A)" value="SEC. 194I(A)">SEC.
+                                                                                           194I(A)</option>
+                                                                                      <option id="sec194I(B)" value="SEC. 194I(B)">SEC.
+                                                                                           194I(B)</option>
+                                                                                      <option id="sec194(LB)" value="SEC. 194(LB)">SEC.
+                                                                                           194(LB)</option>
+                                                                                      <option id="sec194(LC)" value="SEC. 194(LC)">SEC.
+                                                                                           194(LC)</option>
+                                                                                      <option id="sec194(LD)" value="SEC. 194(LD)">SEC.
+                                                                                           194(LD)</option>
+                                                                                      <option id="sec195" value="Sec. 195">Sec. 195</option>
+
+
+                                                                          </select></td>
 
 														<td><label for="tdsRate">TDS Exemption Rate
 																(If Any)<span
@@ -912,11 +951,20 @@ window.onload = function(){
 														<td style="width: 150px;"></td>
 														<td><label for="tdsApplication">Acknowledgement
 																Number</label></td>
-
+														
 														<td colspan='2'><input type="text"
 															id="acknowledgementNumber" name="acknowledgementNumber"
 															class="form-control p-input "></td>
-														<td style="width: 150px;"></td>
+														
+															 <td><label>ITR Acknowledgment of 3 years<span
+                                                                                      class="required">*</span></label></td>
+                                                                          <td><input type="file" id="ITRAFile" name="ITRAFile"
+                                                                                onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
+                                                                                class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+                                                                                <textarea id="ITRAFileText" rows="5"
+                                                                                      style="display: none;"></textarea></td>
+															
+														
 														<td colspan='2'>
 															<button type="Button" id="addITRGridButt"
 																name="addITRGridButt" class="btn btn-primary">Add
@@ -935,6 +983,7 @@ window.onload = function(){
 															<tr style="background: #1991eb; color: white;">
 																<th>Financial Year</th>
 																<th>Acknowledgement Number</th>
+																 <th>ITR Acknowledgment of 3 years</th>
 																<th>Action</th>
 
 															</tr>
@@ -1386,7 +1435,7 @@ window.onload = function(){
                 if (!regex.test(inputvalues)) {
                     $("#compEmail").val("");
 
-                    swal.fire("Alert", "Invalid Email Id....", "warning");
+                    swal.fire("Alert", "Invalid Email Id", "warning");
                     return regex.test(inputvalues);
                 }
             });
@@ -1462,10 +1511,11 @@ window.onload = function(){
                             	   
                             	    if(str[i] == 'Network' && str[i+1] == 'Fixed Asset' && str[i+2] == 'Other'){
                             	    		$('#states').val(["Network","Fixed Asset","Other"]).change() 
+                            	    		
                             				break;
                             	    
                             	   	}else if(str[i] == 'Network' && str[i+1] == 'Fixed Asset' ){
-                               		   		$('#states').val(["Network","Fixed Asset"]).change()
+                               		   		$('#states').val(["Network","Fixed Asset"]).change().css( "color", "blue" );
                                		  	 	break;
                                	   	}else if(str[i] == 'Fixed Asset' && str[i+1] == 'Other'){
                                   		  	 $('#states').val(["Fixed Asset","Other"]).change()
@@ -1669,6 +1719,9 @@ window.onload = function(){
             var abc = document.getElementById('bankName').value;
             var abc2 = document.getElementById('ifscCode').value;
             var abc3 = document.getElementById('accoutNumber').value;
+            var abc4 = document.getElementById('confirmedAccoutNumber').value;
+            table = document.getElementById('addBankGrid');
+            rowLength = table.rows.length
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
                 swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
@@ -1716,7 +1769,7 @@ window.onload = function(){
             } else if (abc3 == null || abc3 == "") {
                 swal.fire("Alert", "Fill Mandatory Field ! Account Number", "warning");
                 return false;
-            } else {
+            } else if(rowLength<2) {
                 $("#addBankGrid").append('<tr class=""><td>' +
                     document.getElementById('bankName').value + '</td><td>' +
                     document.getElementById('ifscCode').value + '</td><td>' +
@@ -1726,7 +1779,20 @@ window.onload = function(){
                 document.getElementById('bankName').value = "";
                 document.getElementById('ifscCode').value = "";
                 document.getElementById('accoutNumber').value = "";
-            }
+                document.getElementById('confirmedAccoutNumber').value = "";
+                $('#divCheckPasswordMatch').removeAttr( 'style' );
+    		    $('#divCheckPasswordMatch').empty();
+                
+            }else{
+           	 swal.fire("Alert", "only add one bank details", "warning");
+        	 document.getElementById('bankName').value = "";
+             document.getElementById('ifscCode').value = "";
+             document.getElementById('accoutNumber').value = "";
+             document.getElementById('confirmedAccoutNumber').value = "";
+             $('#divCheckPasswordMatch').removeAttr( 'style' );
+ 		    $('#divCheckPasswordMatch').empty();
+             return false;
+        }
         });
 
         $body = $("body");
@@ -1743,6 +1809,11 @@ window.onload = function(){
         $("#addITRGridButt").click(function() {
             var abc = document.getElementById('fyYear').value;
             var abc1 = document.getElementById('acknowledgementNumber').value;
+            var abc2 = document.getElementById('ITRAFile').value;
+            // alert(abc2)
+           //C:\fakepath\
+         	   
+             let txt=abc2.substr(12);
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
                 swal.fire("Alert", "Select Financial Year Number. !", "warning");
@@ -1754,7 +1825,9 @@ window.onload = function(){
                 $("#addITRGrid").append('<tr class=""><td>' +
                     document.getElementById('fyYear').value + '</td><td>' +
 
-                    document.getElementById('acknowledgementNumber').value + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+                    document.getElementById('acknowledgementNumber').value + '</td><td>' +
+
+                    txt + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
                 document.getElementById('fyYear').value = "";
                 document.getElementById('acknowledgementNumber').value = "";
@@ -1861,7 +1934,7 @@ window.onload = function(){
             if(accountDetailsArray.length==0 && partnerType!="Ad-Hoc"){
             
             
-            	swal.fire("Alert", "please add accountDetails....", "warning")
+            	swal.fire("Alert", "please add accountDetails", "warning")
                 return regex.test(inputvalues);
             }
             
@@ -2029,7 +2102,7 @@ window.onload = function(){
 
                         setTimeout(function(response) {
                             //location.href = "login";
-                        }, 2000);
+                        }, 1000000);
                     } else {
                         alert("failed");
                     }
@@ -2070,23 +2143,7 @@ window.onload = function(){
         } 
 
         
-        function AadharValidate() {
-            var aadhar = document.getElementById("aadharNumber").value;
-            var adharcardTwelveDigit = /^\d{12}$/;
-            var adharSixteenDigit = /^\d{16}$/;
-            if (aadhar != '') {
-                if (aadhar.match(adharcardTwelveDigit)) {
-                    return true;
-                } else if (aadhar.match(adharSixteenDigit)) {
-                    return true;
-                } else {
-                    alert("Enter valid Aadhar Number");
-                    $("#aadharNumber").val('');
-                    $("#aadharNumber").focus();
-                    //return false;
-                }
-            }
-        }
+   
         
         function removeValCssByID(controlName) {
             $('#' + controlName.id).css({
@@ -2119,7 +2176,230 @@ window.onload = function(){
             }
         }
 
-     
+        $("#panNumber").change(function() {
+            var inputvalues = $(this).val();
+            var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+            if (!regex.test(inputvalues)) {
+                $("#panNumber").val("");
+                swal.fire("","Invalid PAN Number", "warning");
+                return regex.test(inputvalues);
+            }
+        });
+        $("#tanNumber").change(function() {
+            var inputvalues = $(this).val();
+            var regex = /[A-Za-z]{4}[0-9]{5}[A-Za-z]{1}/;
+            if (!regex.test(inputvalues)) {
+                $("#tanNumber").val("");
+                swal.fire("","Invalid TAN Number", "warning");
+                return regex.test(inputvalues);
+            }
+        });
+        $("#phoneNumber").change(function() {
+            var inputvalues = $(this).val();
+            var regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+            if (!regex.test(inputvalues)) {
+                $("#phoneNumber").val("");
+                swal.fire("","Invalid Phone Number", "warning");
+                return regex.test(inputvalues);
+            }
+        });
+        
+        $("#conPhone").change(function() {
+            var inputvalues = $(this).val();
+            var regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+            if (!regex.test(inputvalues)) {
+                $("#conPhone").val("");
+                swal.fire("","Invalid Phone Number", "warning");
+                return regex.test(inputvalues);
+            }
+        });
+        
+        $("#suppName").keypress(function(event){
+        	var inputValue = event.which;
+            //alert(inputValue);
+           if( !(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0) && !(inputValue >= 37 && inputValue <= 47) ) { 
+                event.preventDefault(); 
+            } 
+           //event.preventDefault();
+        }); 
+
+       
+       $("#city").keypress(function(event){
+         	var inputValue = event.which;
+             //alert(inputValue);
+             if(inputValue==8){
+                 
+             }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+                 event.preventDefault(); 
+             }
+         });
+        
+       
+       $(document).ready(function() {
+           $("#ifscCode").change(function() {
+               var inputvalues = $(this).val();
+               var regex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
+               if (!regex.test(inputvalues)) {
+                   $("#ifscCode").val("");
+
+                   swal.fire("Alert", "Invalid IFSC Code", "warning");
+                   return regex.test(inputvalues);
+               }
+           });
+       });
+      
+       
+       $("#conFname").keypress(function(event){
+          	var inputValue = event.which;
+              //alert(inputValue);
+              if(inputValue==8){
+                  
+              }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+                  event.preventDefault(); 
+              }
+          });
+         
+       
+       $(function() {
+           $('#conLname').on('keypress', function(e) {
+               if (e.which == 32){
+                   console.log('Space Detected');
+                   return false;
+               }
+           });
+   });
+       
+       
+       $("#conLname").keypress(function(event){
+       	var inputValue = event.which;
+           //alert(inputValue);
+           if(inputValue==8){
+               
+           }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+               event.preventDefault(); 
+           }
+       });
+      
+ 
+        $("#bankName").keypress(function(event){
+        	var inputValue = event.which;
+            //alert(inputValue);
+            if(inputValue==8){
+                
+            }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+                event.preventDefault(); 
+            }
+        });
+        var matchFlag=0;
+        $(function() {
+            $("#confirmedAccoutNumber").keyup(function() {
+                var password = $("#accoutNumber").val();
+                var passwordConfirm = $("#confirmedAccoutNumber").val();
+                var passflag = $("#passflag").val();
+                
+                if(password!="" && passwordConfirm!=""){
+                 if ($('#accoutNumber').val() == $('#confirmedAccoutNumber').val() && passflag!="1" ) {
+        		    $('#divCheckPasswordMatch').html('Account number match.').css('color', 'green');
+        		    // Enable #x	
+        		    $("#addBankGridButt").prop("disabled", false)
+        		    
+        		  } 
+                 else {
+                	 
+        		    $('#divCheckPasswordMatch').html('Account number do not match!').css('color', 'red');
+        		    matchFlag=1;
+        		    
+             // Disable #x
+    		    $('#addBankGridButt').attr('disabled', true);
+             
+                return;
+                	 
+        		  }
+                }
+                 
+            });
+        }); 
+        
+        $(function() {
+            $("#accoutNumber").keyup(function() {
+                var password = $("#accoutNumber").val();
+                var passwordConfirm = $("#confirmedAccoutNumber").val();
+                var passflag = $("#passflag").val();
+                
+                if(password!="" || passwordConfirm!=""){
+                 if ($('#accoutNumber').val() == $('#confirmedAccoutNumber').val() && passflag!="1" ) {
+        		    $('#divCheckPasswordMatch').html('Account number match.').css('color', 'green');
+        		    // Enable #x	
+        		    $("#addBankGridButt").prop("disabled", false)
+        		    
+        		  } 
+                 else {
+                	 if(matchFlag==1){
+        		    $('#divCheckPasswordMatch').html('Account number does not match!').css('color', 'red');
+             // Disable #x
+    		    $('#addBankGridButt').attr('disabled', true);
+           
+                return;
+                	 }
+        		  }
+                }
+            });
+        }); 
+        $(document).ready(function() {
+            $("#accoutNumber").change(function() {
+            	var accoutNumber = document.getElementById("accoutNumber").value;
+                var a = /^\d{1}$/;
+                var b = /^\d{2}$/;
+                var c  = /^\d{3}$/;
+                if (accoutNumber != '') {
+                    if (accoutNumber.match(a) || accoutNumber.match(b) || accoutNumber.match(c)) {
+                   	 swal.fire(""," Invalid Account Number", "warning");
+                        $("#accoutNumber").val('');
+                        $("#confirmedAccoutNumber").val('');
+                        $("#accoutNumber").focus();
+                    }else {
+                    	
+                        return true;
+                    }
+                }
+            });
+        });
+        
+        
+        $(document).ready(function() {
+            $("#compGstn").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+                if (!regex.test(inputvalues)) {
+                    $("#compGstn").val("");
+
+                    swal.fire("Alert", "Invalid GSTIN Number", "warning");
+                    return regex.test(inputvalues);
+                }
+            });
+        });
+       
+        $(document).ready(function() {
+            $("#aadharNumber").change(function() {
+            	var aadhar = document.getElementById("aadharNumber").value;
+                var adharcardTwelveDigit = /^\d{12}$/;
+                var adharSixteenDigit = /^\d{16}$/;
+                if (aadhar != '') {
+                    if (aadhar.match(adharcardTwelveDigit)) {
+                        return true;
+                    } else if (aadhar.match(adharSixteenDigit)) {
+                        return true;
+                    } else {
+                    	swal.fire(""," Invalid Aadhar Number", "warning");
+                        $("#aadharNumber").val('');
+                        $("#aadharNumber").focus();
+                        //return false;
+                    }
+                }
+            });
+        });
+
+        
         
     </script>
 </body>

@@ -15,10 +15,10 @@
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Font Awesome -->
-<!-- <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> -->
+<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> 
 <!-- Ionicons -->
-<link rel="stylesheet" href="dist/css/ionicons.min.css">
-	<!-- href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
+<link rel="stylesheet" 
+	 href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Tempusdominus Bbootstrap 4 -->
 <link rel="stylesheet"
 	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
@@ -38,7 +38,6 @@
 <!-- summernote -->
 <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
 <!-- Google Font: Source Sans Pro -->
-<link rel="stylesheet" href="dist/fontawesome-icon/css/all.min.css">
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
@@ -155,7 +154,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 											data-placement="bottom">Pending For Approval</p>
 									</div>
 									<div class="icon">
-										<i class="fa-solid fa-receipt"
+										<i class="fas fa-receipt"
 											style="color: #1F8BFF; font-size: 50px;"></i>
 									</div>
 									<a href="pendingForApprovalInvoice" class="small-box-footer"
@@ -264,7 +263,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 											data-placement="bottom">Pending For Approval</p>
 									</div>
 									<div class="icon">
-										<i class="fa-solid fa-receipt"
+										<i class="fas fa-receipt"
 											style="color: #1F8BFF; font-size: 75px;"></i>
 									</div>
 									<a href="pendingForApprovalInvoice" class="small-box-footer"

@@ -74,7 +74,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                                 }%>
 
                                                 ">
-                                <i class="nav-icon fa-solid fa-receipt"></i>
+                                <i class="nav-icon fas fa-receipt"></i>
                                 <p>Pending For Approval Invoice</p>
                             </a></li>
                     </ul>
@@ -144,7 +144,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                                 }%>
 
                                                 ">
-                                <i class="nav-icon fa-solid fa-receipt"></i>
+                                <i class="nav-icon fas fa-receipt"></i>
                                 <p>Pending For Approval Invoice</p>
                             </a></li>
                     </ul>

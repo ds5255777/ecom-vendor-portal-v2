@@ -40,6 +40,9 @@ public class UIController {
 
 	@Value("${maxFileSize}")
 	public String maxFileSize;
+	
+	@Value("${fileSize}")
+	public String fileSize;
 
 	@Autowired
 	ServiceManager serviceManager;
@@ -379,6 +382,8 @@ public class UIController {
 				
 				String uname = principal.getName();
 				model.addAttribute("uname", uname);
+				model.addAttribute("maxFileSize", maxFileSize);
+				model.addAttribute("fileSize", fileSize);
 				
 				return "vendorRegistrastion";
 				

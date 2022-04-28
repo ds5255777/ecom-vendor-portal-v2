@@ -1394,15 +1394,17 @@ width: 100% !important;
 																onchange=" removeValCssByID(this),  handleFileSelect(event,'GSTFileText'), onValidateFile('GSTFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="GSTFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea><label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label> </td>
 															<td><label>Proprietorship declaration<span
 																	class="required">*</span></label></td>
 															<td><input type="file" id="PDFile" name="PDFile"
 																onchange=" removeValCssByID(this),  handleFileSelect(event,'PDFileText'), onValidateFile('PDFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="PDFileText" rows="5"
-																	style="display: none;"></textarea></td>
-
+																	style="display: none;"></textarea>
+																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
+																	</td>
+																
 														</tr>
 
 														<tr>
@@ -1411,7 +1413,9 @@ width: 100% !important;
 																onchange="handleFileSelect(event,'PANFileText'), onValidateFile('PANFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="PANFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea>
+																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
+																	</td>
 
 															<td><label>Cancelled Cheque/ Passbook/ Bank
 																	Statement<span class="required">*</span>
@@ -1420,7 +1424,9 @@ width: 100% !important;
 																onchange="handleFileSelect(event,'CCFileText'), onValidateFile('CCFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="CCFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea>
+																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
+																	</td>
 														</tr>
 														<tr>
 															<td><label>Aadhar Card</label></td>
@@ -1428,14 +1434,18 @@ width: 100% !important;
 																onchange="handleFileSelect(event,'ACFileText'), onValidateFile('ACFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="ACFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea>
+																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
+																	</td>
 															<td><label>Aadhar and PAN Card linking
 																	declaration</label></td>
 															<td><input type="file" id="APLFile" name="APLFile"
 																onchange="handleFileSelect(event,'APLFileText'), onValidateFile('APLFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="APLFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea>
+																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
+																	</td>
 														</tr>
 														<tr>
 															<td><label>ITR Filling Declaration<span
@@ -1444,14 +1454,18 @@ width: 100% !important;
 																onchange="handleFileSelect(event,'ITRFileText'), onValidateFile('ITRFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="ITRFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea>
+																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
+																	</td>
 															<td><label>Filled Updated VRF Form<span
 																	class="required">*</span></label></td>
 															<td><input type="file" id="FUVFFile" name="FUVFFile"
 																onchange="handleFileSelect(event,'FUVFFileText'), onValidateFile('FUVFFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="FUVFFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea>
+																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
+																	</td>
 														</tr>
 														<tr>
 															<td><label>MSME Certificate<span
@@ -1461,14 +1475,18 @@ width: 100% !important;
 																onchange="handleFileSelect(event,'MSMECFileText'), onValidateFile('MSMECFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="MSMECFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea>
+																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
+																	</td>
 															<td><label>Approval Mail<span
 																	class="required">*</span></label></td>
 															<td><input type="file" id="AMFile" name="AMFile"
 																onchange="handleFileSelect(event,'AMFileText'), onValidateFile('AMFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="AMFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea>
+																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
+																	</td>
 														</tr>
 
 														<tr>
@@ -1478,7 +1496,9 @@ width: 100% !important;
 																onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="ITRAFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea>
+																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
+																	</td>
 															<td><label>Name mismatch affidavit or
 																	declaration would be required if name mentioned in all
 																	document is not same including spelling error<span
@@ -1488,7 +1508,9 @@ width: 100% !important;
 																onchange="handleFileSelect(event,'NMISFileText'), onValidateFile('NMISFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="NMISFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea>
+																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
+																	</td>
 														</tr>
 													</tbody>
 												</table>

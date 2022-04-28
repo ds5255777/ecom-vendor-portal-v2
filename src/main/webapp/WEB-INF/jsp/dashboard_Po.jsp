@@ -124,7 +124,8 @@ tbody {
 								</div>
 								<div class="icon">
 
-									<i class="fas fa fa-check" style="color: #28a745; font-size: 70px;"></i>
+									<i class="fas fa fa-check"
+										style="color: #28a745; font-size: 70px;"></i>
 								</div>
 								<a href="processPO" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -138,7 +139,7 @@ tbody {
 							<div class="small-box bg-white">
 								<div class="inner">
 									<h2>${totalInvoiceCount}</h2>
-									
+
 									<%-- <%Object totalProcessPoCount=request.getAttribute("totalProcessPoCount"); %>
 									<h2><%=totalProcessPoCount %></h2> --%>
 
@@ -163,15 +164,16 @@ tbody {
 								<div class="inner">
 									<h2>${totalQueryCount}</h2>
 
-									<p id="allInactive" data-toggle="tooltip" data-placement="bottom"
-										title="Query">Query</p>
+									<p id="allInactive" data-toggle="tooltip"
+										data-placement="bottom" title="Query">Query</p>
 								</div>
 								<div class="icon">
-								
 
-									
-									
-									<i class="fas fa-question"style="color: #fd7e14; font-size: 70px;"></i>
+
+
+
+									<i class="fas fa-question"
+										style="color: #fd7e14; font-size: 70px;"></i>
 								</div>
 								<a href="QueryPo" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -199,7 +201,8 @@ tbody {
 							<div class="card card-primary  card-outline ">
 								<div class="card-header">
 									<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
-										data-placement="bottom" title="Top 15 Users">Top 50 Unprocessed PO</h3>
+										data-placement="bottom" title="Top 15 Users">Top 50
+										Unprocessed PO</h3>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body table-responsive p-0"
@@ -213,7 +216,7 @@ tbody {
 												<th class="bg-primary">Quantity</th>
 												<th class="bg-primary">Need By Date</th>
 												<th class="bg-primary">Amount</th>
-												
+
 											</tr>
 										</thead>
 									</table>
@@ -494,7 +497,7 @@ tbody {
                          var poLineDetails = result[0].poLineDetails;
                     
                          for (var i = 0; i < result.length; i++) {
-                         	for(var k = 0; k< poLineDetails.length; k++){
+                         	
                          	if(!result[i].hasOwnProperty("id")){
   								result[i].id="";
   							}
@@ -504,26 +507,26 @@ tbody {
                               if(!result[i].hasOwnProperty("type")){
   								result[i].type="";
   							}
-                               if(!result[i].poLineDetails[k].hasOwnProperty("uom")){
-  								result[i].poLineDetails[k].uom="";
+                               if(!result[i].hasOwnProperty("uom")){
+  								result[i].uom="";
   							}
-                              if(!result[i].poLineDetails[k].hasOwnProperty("quantity")){
-  								result[i].poLineDetails[k].quantity="";
+                              if(!result[i].hasOwnProperty("quantity")){
+  								result[i].quantity="";
   							}
-                              if(!result[i].poLineDetails[k].hasOwnProperty("needByDate")){
-   								result[i].poLineDetails[k].needByDate="";
+                              if(!result[i].hasOwnProperty("needByDate")){
+   								result[i].needByDate="";
    							} 
-                              if(!result[i].poLineDetails[k].hasOwnProperty("amount")){
-   								result[i].poLineDetails[k].ammount="";
+                              if(!result[i].hasOwnProperty("amount")){
+   								result[i].ammount="";
    							}
                               if(!result[i].hasOwnProperty("status")){
-  								result[i].poLineDetails[i].status="";
+  								result[i].status="";
   							}
                               
  				
-                             tabledata.row.add([result[i].poNo ,result[i].type,result[i].poLineDetails[k].uom,result[i].poLineDetails[k].quantity,result[i].poLineDetails[k].needByDate,result[i].poLineDetails[k].amount ]);  				        	
+                             tabledata.row.add([result[i].poNo ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].amount ]);  				        	
                          }
-                         }
+                         
                          tabledata.draw();
                          $("tbody").show();
                      } else {

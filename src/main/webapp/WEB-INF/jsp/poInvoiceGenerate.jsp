@@ -69,7 +69,7 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
                 <h6 class="float-sm-right" style="color: white;">
-                    <b>Invoice Number : </b> <input type="text" name="ecomInvoiceNumber" id="ecomInvoiceNumber" readonly value="${invoiceNumber }" style="background: #007BFF; color: white; border: 0px;">
+                    <b>Invoice Number : </b> <input type="text" name="ecomInvoiceNumber" id="ecomInvoiceNumber" readonly value="" style="background: #007BFF; color: white; border: 0px;">
                 </h6>
             </ul>
         </nav>
@@ -91,61 +91,51 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form id="stepOneForm" class="forms-sample">
+                             <form id="stepOneForm" class="forms-sample">
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Partner Name <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="vendorName" id="vendorName" readonly value="${vendorName }" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Partner Code <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Business Partner Code" name="vendorCode" readonly value="${userName }" id="vendorCode" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Site Name <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
-                                                <select class="form-control-sm select2" style="width: 100%;" id="siteName" name="siteName">
-                                                    <option value="Site_1">Site 1</option>
-                                                    <option value="Site_2">Site 2</option>
-                                                    <option value="Site_3">Site 3</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Date <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input type="date" name="invoiceDate" id="invoiceDate" class="form-control-sm" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
+                                   
+                                   
+                                      <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Number <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Number" name="invoiceNumber" id="invoiceNumber" style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Invoice Number" name="invoiceNumber" id="invoiceNumber" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Invoice Type <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="invoiceType" id="invoiceType"  readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Po Number<span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" name="poNumber" id="poNumber" value="${invoiceNumber }" readonly class="form-control-sm" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                     <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Invoice Date <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" name="invoiceDate" id="invoiceDate"   class="form-control-sm" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                 
+                                    
+                                   
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Currency <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency">
+                                                <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency"disabled="disabled">
                                                     <option value="INR">INR</option>
                                                     <option value="USD">USD</option>
                                                     <option value="KES">KES</option>
@@ -153,113 +143,140 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Receiving Date</label>
+                                            <label class="col-sm-5">Supplier Site <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="text" class="form-control-sm" name="invoiceReceivingDate" id="invoiceReceivingDate" readonly value="<%=(new java.util.Date()).toLocaleString()%>" style="width: 100%;">
+                                                <!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
+                                                <input class="form-control-sm" type="text" placeholder="Supplier Site" name="supplierSite" id="supplierSite" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Taxable Amount</label>
+                                            <label class="col-sm-5">Operating Unit</label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="taxableAmount" id="taxableAmount" type="text" placeholder="Taxable Amount" style="width: 100%;" readonly>
+                                                <input type="text" class="form-control-sm" name="operatingUnit" id="operatingUnit"  placeholder="Operating Uni"readonly  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Tax Amount<span class="text-danger"> *</span></label>
+                                            <label class="col-sm-5">Trading partner</label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount" onfocusout="calculateInvoice()" style="width: 100%;" on>
+                                                <input class="form-control-sm" name="tradingPartner" id="tradingPartner" type="text" placeholder="Trading partner" style="width: 100%;" readonly>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Amount <span class="text-danger"></span></label>
+                                            <label class="col-sm-5">Supplier Number<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="number" name="invoiceAmount" id="invoiceAmount" placeholder="Invoice Amount" readonly style="width: 100%;">
+                                                <input class="form-control-sm" name="supplierNumber" id="supplierNumber" readonly="readonly"  placeholder="Supplier Number" style="width: 100%;" on>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <input type="text" id="id" name="id" hidden>
-                                    <input type="text" id="ecomInvoiceNumber" name="ecomInvoiceNumber" hidden value="${invoiceNumber }">
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">GL Date <span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm"  name="glDate" id="glDate" placeholder="GL Date" readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Payment Currency<span class="text-danger"> *</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="paymentCurrency" id="paymentCurrency" type="number" readonly="readonly" placeholder="Payment Currency" onfocusout="calculateInvoice()" style="width: 100%;" on>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Match Option <span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm"  name="matchOption" id="matchOption" placeholder="Match Option" readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                     <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Terms Date<span class="text-danger"> *</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="termsDate" id="termsDate" readonly="readonly" placeholder="Terms Date"  style="width: 100%;" on>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Terms <span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm"  name="terms" id="terms" placeholder="Terms" readonly style="width: 100%;" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Payment Method<span class="text-danger"> *</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="paymentMethod" id="paymentMethod"  placeholder="Payment Method"  style="width: 100%;" readonly="readonly">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Pay Group <span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="number" name="payGroup" id="payGroup" placeholder="Pay Group " readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Remit To bank account name<span class="text-danger"> *</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Remit To bank account name" style="width: 100%;" readonly="readonly">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Remit To bank account number <span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="number" name="invoiceAmount" id="invoiceAmount" placeholder=" Remit To bank account number" readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Supplier Invoice number (DFF)<span class="text-danger"> *</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Supplier Invoice number"  style="width: 100%;" readonly="readonly">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Supplier invoice date (DFF) <span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="number" name="invoiceAmount" id="invoiceAmount" placeholder=" Supplier invoice date" readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
 
                                 </div>
                             </form>
                         </div>
                     </div>
                     <!-- /.card -->
-                    <div class="card card-primary">
-                        <div class="card-header" style="padding: 5px 5px 0px 5px;">
-                            <h4 class="card-title">Line Item's</h4>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- /.card-header -->
-                        <div class="card-body" style="overflow: auto;">
-                            <form id="stepTwoForm" class="forms-sample">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 control-label">Trip Id</label>
-                                            <div class="col-sm-8">
-                                                <select id="tripList" name="tripList" class="form-control-sm select2" style="width: 100% !important;">
-                                                    <option>Select Trip ID</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <button type="button" class="btn btn-primary" style="margin-right:
-                                                    5px;height: 30px;padding: 2px 10px 2px 10px;" id="docBtn" name="docBtn" onclick="AddDocCheck()">Add</button>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <!-- /.card-header -->
-
-                        <div class="card-body" style="overflow: auto;">
-                            <table id="prTable" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Number</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Trip ID</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Current Fuel
-                                            Rate</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">FS</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">lumpsome Amount</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Line level
-                                            Description</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Action</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
+                                       <!-- /.card -->
 
                     <div class="card card-primary">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
@@ -315,7 +332,7 @@
                             <button type="button" onclick="discardInvoice()" class="btn btn-info">Discard Invoice</button>
 
                             <label style="visibility: hidden;">Select</label>
-                            <button type="button" onclick="closeWin()" class="btn btn-info">Close</button>
+                            <button type="button" onclick="window.close()" class="btn btn-info">Close</button>
                         </div>
                     </center>
                     <!-- /.row -->
@@ -384,468 +401,11 @@
     <script src="plugins/select2/js/select2.full.min.js"></script>
 
     <script>
-        function disableF5(e) {
-            if ((e.which || e.keyCode) == 116) e.preventDefault();
-        };
-        $(document).on("keydown", disableF5);
-
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
-
-        var prTable = $("#prTable").DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "info": true,
-            "autoWidth": false,
-            "aaSorting": [],
-            "scrollX": true,
-            "pageLength": 15,
-        });
-
-        function closeWin() {
-            window.opener.refereshList();
-            window.close()
-        }
-
-        function onValidateFile(id) {
-            var fileInput3 = document.getElementById(id).value;
-            var gst = document.getElementById(id);
-            var allowedExtensions = /(\.jpg|\.jpeg|\.pdf)$/i;
-
-            if (typeof(gst.files) != "undefined") {
-
-                const fsize = gst.files.item(0).size;
-                const file = Math.round((fsize / 1024));
-                if (file > ${maxFileSize}) {
-                    swal.fire("Alert", "Please select File size less than 5 MB....", "warning");
-                    $("#" + id).val("");
-                } else {
-                    var ext = fileInput3.split(".")[1];
-                    if (ext == "pdf" || ext == "jpg" || ext == "JPEG" || ext == "JPG" || ext == "jpeg" || ext == "PDF") {} else {
-                        swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File....", "warning");
-                        $("#" + id).val("");
-                        return false;
-                    }
-                }
-            } else {
-                alert("This browser does not support HTML5.");
-            }
-        }
-
-        function AddDocCheck() {
-            var invoiceNumber = $("#ecomInvoiceNumber").val();
-            var tripID = document.getElementById("tripList").value;
-
-            var json = {
-                "tripID": tripID,
-                "invoiceNumber": invoiceNumber
-            }
-
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(json),
-                url: "<%=GlobalUrl.findByTripDetailUsingTripID%>",
-                dataType: "json",
-                contentType: "application/json",
-                async: false,
-                success: function(data) {
-
-                    if (data.msg == 'success') {
-                        Toast.fire({
-                            type: 'success',
-                            title: 'Add Successfully..'
-                        })
-                        getTripDetails();
-                        getSelectTripList();
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed.. Try Again..'
-                        })
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-            });
-        }
-
-        var allTripId = ${listofTrips};
-        var tripLineArray = [];
-        var totalFreight = 0;
-        var lumpsomeamount = parseFloat(0);
-
-        function updateVentorTripStats() {
-            var obj = {
-                "tripID": allTripId,
-                "vendorTripStatus": "Approved",
-            }
-
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(obj),
-                url: "<%=GlobalUrl.updateVendorTripStatusByTrips%>",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(response) {
-
-                    if (response.msg == 'success') {
-                        swal.fire("", "Discard Your Invoice...", "warning", "OK").then(function() {
-                            window.close();
-                        });
-                    } else {
-                        alert("failed");
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    })
-                }
-            });
-        }
-
-        function sendToServer() {
-
-            var invoiceDa = document.getElementById("invoiceDate").value;
-            if (invoiceDa === "" || invoiceDa === null || invoiceDa === '') {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please Select Date'
-                });
-                document.getElementById("invoiceDate").focus();
-                return "";
-            }
-
-            var invoiceNu = document.getElementById("invoiceNumber").value;
-            if (invoiceNu === "" || invoiceNu === null || invoiceNu === '') {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please fill Invoice Number'
-                });
-                document.getElementById("invoiceNumber").focus();
-                return "";
-            }
-
-            var taxAmount = document.getElementById("taxAmount").value;
-            if (taxAmount === "" || taxAmount === null || taxAmount === '') {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please Select Date'
-                });
-                document.getElementById("taxAmount").focus();
-                return "";
-            }
-
-            var invoiceDoc = document.getElementById("InvoiceUpload").value;
-            if (invoiceDoc === "" || invoiceDoc === null || invoiceDoc === '') {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please Upload Document'
-                });
-                document.getElementById("InvoiceUpload").focus();
-                return "";
-            }
-
-
-            var stepOneObj = FormDataToJSON('stepOneForm');
-
-            const finalObj = {
-                ...stepOneObj
-            };
-
-            if (document.getElementById("InvoiceUpload").files.length > 0) {
-                finalObj.invoiceFileName = document.getElementById("InvoiceUpload").files.item(0).name;
-                finalObj.invoiceFileText = $("#InvoiceFileText").val();
-            }
-            if (document.getElementById("DocumentFileOne").files.length > 0) {
-                finalObj.documentFileOneName = document.getElementById("DocumentFileOne").files.item(0).name;
-                finalObj.documentFileOneText = $("#DocumentFileOneText").val();
-            }
-            if (document.getElementById("DocumentFileTwo").files.length > 0) {
-                finalObj.documentFileTwoName = document.getElementById("DocumentFileTwo").files.item(0).name;
-                finalObj.documentFileTwoText = $("#DocumentFileTwoText").val();
-            }
-
-            // after
-            tripLineArray.forEach((item) => {
-                item.id = null;
-            });
-
-            finalObj.invoiceLineItem = tripLineArray;
-
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(finalObj),
-                url: "<%=GlobalUrl.saveInvoice%>",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(response) {
-
-                    if (response.msg == 'success') {
-                        swal.fire("Thanks", "your Invoice Process Sucessfully", "success", "OK").then(function() {
-                            window.opener.refereshList();
-                            window.close();
-                        });
-                        setTimeout(function(response) {}, 2000);
-                    } else {
-                        alert("failed");
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    })
-                }
-            });
-        }
-
-        function handleFileSelect(evt, id) {
-            var f = evt.target.files[0]; // FileList object
-            var reader = new FileReader();
-            // Closure to capture the file information.
-            reader.onload = (function(theFile) {
-                return function(e) {
-                    var binaryData = e.target.result;
-                    //Converting Binary Data to base 64
-                    var base64String = window.btoa(binaryData);
-                    //showing file converted to base64
-                    $("#" + id).val(base64String);
-                };
-            })(f);
-            reader.readAsBinaryString(f);
-        }
-        getTripDetails();
-
-        function updateTextData(index, textValue) {
-            tripLineArray[index].lineLevelDescription = textValue.trim();
-        }
-
-        function getTripDetails() {
-            var invoiceNumber = $("#ecomInvoiceNumber").val();
-
-            var obj = {
-                "invoiceNumber": invoiceNumber
-            }
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(obj),
-                url: "<%=GlobalUrl.getDraftLineTripDetails%>",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(response) {
-
-                    if (response.msg == 'success') {
-                        var result = response.data;
-                        var action = "";
-                        var textBox = "";
-                        var temp = [];
-                        var temp1 = [];
-                        tripLineArray = result;
-
-                        $('#prTable').DataTable().clear();
-                        for (var i = 0; i < result.length; i++) {
-
-                            if (!result[i].hasOwnProperty("tripID")) {
-                                result[i].tripID = "";
-                            }
-                            if (!result[i].hasOwnProperty("runType")) {
-                                result[i].runType = "";
-                            }
-                            if (!result[i].hasOwnProperty("standardKM")) {
-                                result[i].standardKM = "";
-                            }
-                            if (!result[i].hasOwnProperty("ratePerKm")) {
-                                result[i].ratePerKm = "";
-                            }
-                            if (!result[i].hasOwnProperty("currentFuelRate")) {
-                                result[i].currentFuelRate = "";
-                            }
-                            if (!result[i].hasOwnProperty("fsBaseRate")) {
-                                result[i].fsBaseRate = "";
-                            }
-                            if (!result[i].hasOwnProperty("fsDiff")) {
-                                result[i].fsDiff = "";
-                            }
-                            if (!result[i].hasOwnProperty("basicFreight")) {
-                                result[i].basicFreight = "";
-                            }
-                            if (!result[i].hasOwnProperty("fs")) {
-                                result[i].fs = "";
-                            }
-                            if (!result[i].hasOwnProperty("actualKM")) {
-                                result[i].actualKM = "";
-                            }
-                            if (!result[i].hasOwnProperty("totalFreight")) {
-                                result[i].totalFreight = "0";
-                            }
-                            if (!result[i].hasOwnProperty("lumpsomeamount")) {
-                                result[i].lumpsomeamount = "0";
-                            }
-
-                            textBox = "<input type=\"text\" class=\"form-control\" id=\"form-control\" placeholder=\"Fill Description\" oninput=\"updateTextData('" + i + "',this.value)\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
-                            action = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteRow('" + result[i].tripID + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-                            $('#prTable').DataTable().row.add([i + 1, result[i].tripID, result[i].runType, result[i].standardKM, result[i].ratePerKm, result[i].currentFuelRate, result[i].fsBaseRate, result[i].fsDiff, result[i].basicFreight, result[i].fs, result[i].actualKM, result[i].totalFreight, result[i].lumpsomeamount, textBox, action]);
-                            id = (result[i].id);
-                            temp.push(parseFloat(result[i].totalFreight));
-                            temp1.push(parseFloat(result[i].lumpsomeamount));
-                        }
-                        var sum = 0;
-                        for (let i = 0; i < temp.length; i++) {
-                            sum += temp[i];
-                        }
-                        var sum1 = 0;
-                        for (let i = 0; i < temp1.length; i++) {
-                            sum1 += temp1[i];
-                        }
-
-                        $("#taxableAmount").val((sum + sum1).toFixed(2));
-                        $('#prTable').DataTable().draw();
-                        $("tbody").show();
-                    } else {
-                        alert("failed");
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    })
-                }
-            });
-        }
-
-        function discardInvoice() {
-            var invoiceNumber = $("#ecomInvoiceNumber").val();
-            var obj = {
-                "ecomInvoiceNumber": invoiceNumber
-            }
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(obj),
-                url: "<%=GlobalUrl.discardDraftInvoice%>",
-                dataType: "json",
-                contentType: "application/json",
-                async: false,
-                success: function(data) {
-
-                    if (data.msg == 'success') {
-                        swal.fire("", "Deleted Successfully..", "success", "OK").then(function() {
-                            window.opener.refereshList();
-                            window.close();
-                        });
-                        setTimeout(function(response) {}, 2000);
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed.. Try Again..'
-                        })
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-            });
-        }
-
-        function deleteRow(tripID) {
-            prTable
-                .row($(tripID).parents('tr'))
-                .remove()
-                .draw();
-            deleteThisTrip(tripID);
-            getTripDetails();
-        }
-
-        function deleteThisTrip(tripID) {
-            var json = {
-                "tripID": tripID
-            }
-            console.log(json);
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(json),
-                url: "<%=GlobalUrl.deleteLineItem%>",
-                dataType: "json",
-                contentType: "application/json",
-                async: false,
-                success: function(data) {
-
-                    if (data.msg == 'success') {
-                        Toast.fire({
-                            type: 'success',
-                            title: 'Deleted Successfully..'
-                        })
-                        getSelectTripList();
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed.. Try Again..'
-                        })
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-            });
-        }
-
-        getSelectTripList();
-        var bpname = ${userName};
-
-        function getSelectTripList() {
-
-            var obj = {
-                "vendorCode": bpname
-            }
-
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(obj),
-                url: "<%=GlobalUrl.getTripDetailByTripId%>",
-                dataType: "json",
-                contentType: "application/json",
-                async: false,
-                success: function(data) {
-
-                    if (data.msg == 'success') {
-                        var result = data.data;
-                        $("#tripList ").empty();
-                        if (result.length !== 0) {
-                            for (var i = 0; i < result.length; i++) {
-                                $('#tripList').append($('<option/>').attr("value", result[i].tripID).text(result[i].tripID));
-                            }
-                        }
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed.. Try Again..'
-                        })
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-            });
-        }
-
-        function calculateInvoice() {
-            var taxAmount = $("#taxAmount").val();
-            var taxableAmount = $("#taxableAmount").val();
-            var invoiceAmount = parseFloat(taxAmount) + parseFloat(taxableAmount);
-            $("#invoiceAmount").val((invoiceAmount).toFixed(2));
-        }
-
+       
+    var d = new Date();
+    $( "#invoiceDate" ).val(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
+    
+      
     </script>
 </body>
 

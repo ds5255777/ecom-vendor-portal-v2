@@ -61,6 +61,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse text-sm">
+<jsp:include page="loader.jsp" />
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;"" >
@@ -146,7 +147,7 @@
                                                         <div class="form-group">
                                                             <label style="margin-bottom: 1px;">UOM</label>
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" autocomplete="off" style="height: 30px;" id="uOM" name="uOM" disabled>
+                                                                <input type="text" class="form-control" autocomplete="off" style="height: 30px;" id="uom" name="uom" disabled>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -161,13 +162,7 @@
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Price</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="price" name="price" disabled>
-                                                        </div>
-                                                    </div>
+                                                    
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
@@ -190,9 +185,9 @@
                                                         </div>
                                                     </div>
 
-                                                </div>
+                                              
 
-                                                                                               <div class="row">
+                                                                                              
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
@@ -200,16 +195,10 @@
                                                             <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="deliverTo" name="deliverTo" disabled>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Description</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="description" name="description" disabled>
-                                                        </div>
-                                                    </div>
-                                                                          
+                                                    
+                                                </div>                            
 
-                                </div>
+                               
                             </form>
                         </div>
                     </div>
@@ -227,11 +216,60 @@
                         
                      <div class="card-body">
                             <form id="stepTwoForm" class="forms-sample">
-                                <div class="row">
-                                   
-                                   
-                                   
+                            
+                            
+                          							  <div class="row">
+                                  
+                                                     <div class="col-sm-3">
+                                                        <!-- text input -->
+                                                        <div class="form-group">
+                                                            <label style="margin-bottom: 1px;">Org</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="org2" name="org2" disabled>
+                                                        </div>
+                                                    </div>
+                                                   <div class="col-sm-3">
+                                                         <div class="form-group">
+                                                            <label style="margin-bottom: 1px;">UOM</label>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" autocomplete="off" style="height: 30px;" id="uom2" name="uom2" disabled>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                       <div class="col-sm-3">
+                                                        <!-- text input -->
+                                                        <div class="form-group">
+                                                            <label style="margin-bottom: 1px;">Ship To</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="shipTo2" name="shipTo2" autocomplete="off" disabled>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-sm-3">
+                                                        <!-- text input -->
+                                                        <div class="form-group">
+                                                            <label style="margin-bottom: 1px;">Quantity</label>
+                                                            <input type="text" class="form-control" autocomplete="off" style="height: 30px;" placeholder="Enter" id="quantity2" name="quantity2" disabled>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    </div>
+                                                    
+                                                    	<div class="row">
+                            							 <div class="col-sm-3">
+                                                        <!-- text input -->
+                                                        <div class="form-group">
+                                                            <label style="margin-bottom: 1px;">Need By Date</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="needByDate2" name="needByDate" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <!-- text input -->
+                                                        <div class="form-group">
+                                                            <label style="margin-bottom: 1px;">Charge Account</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="chargeAccount2" name="chargeAccount" disabled>
+                                                        </div>
+                                                    </div>
+                            
+                                					
+                                					 <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
                                                             <label style="margin-bottom: 1px;">Amount</label>
@@ -245,6 +283,8 @@
                                                             <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="matchApprovalLevel" name="matchApprovalLevel" disabled>
                                                         </div>
                                                     </div>
+                                                    </div>
+                                                    <div class="row">
                                                     <div class="col-sm-3">
                                                         <!-- text input -->
                                                         <div class="form-group">
@@ -260,13 +300,55 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                   
-                                   
-                                    				    
+                                				    
                                  </div>
                              </form>
                           </div>
                           </div>
+                    
+                    
+                     <div class="card card-primary">
+                    <div class="card-header" style="padding: 5px 5px 0px 5px;">
+                            <h4 class="card-title">Po Distribution</h4>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    
+                    
+                     <div class="card-body">
+                            <form id="stepThreeForm" class="forms-sample">
+                            
+                            
+                          							  <div class="row">
+                                  
+                                                     <div class="col-sm-3">
+                                                        <!-- text input -->
+                                                        <div class="form-group">
+                                                            <label style="margin-bottom: 1px;">Item Type</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="itemType" name="itemType" disabled>
+                                                        </div>
+                                                    </div>
+                                                     <div class="col-sm-3">
+                                                        <!-- text input -->
+                                                        <div class="form-group">
+                                                            <label style="margin-bottom: 1px;">Deliver To</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="deliverTo3" name="deliverTo3" disabled>
+                                                        </div>
+                                                    </div>
+                                                     <div class="col-sm-3">
+                                                        <!-- text input -->
+                                                        <div class="form-group">
+                                                            <label style="margin-bottom: 1px;">Charge Account</label>
+                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="chargeAccount3" name="chargeAccount3" disabled>
+                                                        </div>
+                                                    </div>
+                                 		 </div>
+                                  </form>
+                           </div>
+                    
                     
                     <!-- /.card -->
                     <div class="card card-primary">
@@ -424,14 +506,24 @@
                         var myForm = "";
                         myForm = document.getElementById("stepOneForm");
                         setData(myForm, result[0]);
-                       
-                     
-                        $('#lineType').val(tripLineArray[0].lineType)
-                         $('#account').val(result[0].account)
-                          $('#gldate').val(tripLineArray[0].gldate)
-                           $('#amount').val(tripLineArray[0].amount);
-                       
+                    
+                        myForm = document.getElementById("stepTwoForm");
+                        setData(myForm, result[0]);
                         
+                        $('#org2').val(result[0].org)
+                         $('#uom2').val(result[0].uom)
+                          $('#shipTo2').val(result[0].shipTo)
+                           $('#quantity2').val(result[0].quantity);
+                        
+                        $('#needByDate2').val(result[0].needByDate)
+                        $('#chargeAccount2').val(result[0].chargeAccount)
+                     
+                        myForm = document.getElementById("stepThreeForm");
+                        setData(myForm, result[0]);
+                        $('#deliverTo3').val(result[0].deliverTo)
+                        $('#chargeAccount3').val(result[0].chargeAccount)
+                        
+                  
                       
                         $('#prTable').DataTable().clear();
                          for (var i = 0; i < tripLineArray.length; i++) {
@@ -492,6 +584,7 @@
         }
         
         function invoiceProcessing() {
+        	
             var table = document.getElementById('tabledata');
             
            /*  var checkflag = [];
@@ -507,7 +600,13 @@
                 })
                 return;
             } */
-            var values="9";
+           
+            var checkflag = [];
+            checkflag.push(poNo);
+            
+        	
+            let values=checkflag.toString();
+            
             $('.loader').show();
             var urlOftripsDetail = "poInvoiceGenerate?id=" + values;
             window.open(urlOftripsDetail, "poInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');

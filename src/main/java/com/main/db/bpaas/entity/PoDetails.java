@@ -47,12 +47,9 @@ public class PoDetails {
 	@Column(name = "need_By_Date")
 	private String needByDate;
 	
-	//line
-	
-	
-	//end line
-	
-	
+	@Column(name = "Supplier_Site")
+	private String supplierSite;
+
 	@Column(name = "Invoice_Match_option")
 	private String invoiceMatchoption;
 	
@@ -75,6 +72,19 @@ public class PoDetails {
 	
 	@Column(name = "vendor_code")
 	private String vendorCode;
+	
+	@Column(name = "Item_Type")
+	private String itemType;
+	
+	@Column(name = "Charge_Account")
+	private String chargeAccount;
+	
+	@Column(name = "UOM")
+	private String uom;
+	@Column(name = "Quantity")
+	private Double quantity;
+	@Column(name = "Amount")
+	private Double amount;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn
@@ -207,6 +217,42 @@ public class PoDetails {
 	}
 	public void setNeedByDate(String needByDate) {
 		this.needByDate = needByDate;
+	}
+	public String getSupplierSite() {
+		return supplierSite;
+	}
+	public void setSupplierSite(String supplierSite) {
+		this.supplierSite = supplierSite;
+	}
+	public String getItemType() {
+		return itemType;
+	}
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
+	}
+	public String getChargeAccount() {
+		return chargeAccount;
+	}
+	public void setChargeAccount(String chargeAccount) {
+		this.chargeAccount = chargeAccount;
+	}
+	public String getUom() {
+		return uom;
+	}
+	public void setUom(String uom) {
+		this.uom = uom;
+	}
+	public Double getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Double quantity) {
+		this.quantity = quantity;
+	}
+	public Double getAmount() {
+		return amount;
+	}
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 	
 	

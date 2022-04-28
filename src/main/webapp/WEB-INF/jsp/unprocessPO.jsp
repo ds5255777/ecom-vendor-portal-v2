@@ -332,7 +332,7 @@
                         var poLineDetails = result[0].poLineDetails;
                    
                         for (var i = 0; i < result.length; i++) {
-                        	for(var k = 0; k< poLineDetails.length; k++){
+                        	
                         	if(!result[i].hasOwnProperty("id")){
  								result[i].id="";
  							}
@@ -342,16 +342,16 @@
                              if(!result[i].hasOwnProperty("type")){
  								result[i].type="";
  							}
-                              if(!result[i].poLineDetails[k].hasOwnProperty("uom")){
- 								result[i].poLineDetails[k].uom="";
+                              if(!result[i].hasOwnProperty("uom")){
+ 								result[i].uom="";
  							}
-                             if(!result[i].poLineDetails[k].hasOwnProperty("quantity")){
- 								result[i].poLineDetails[k].quantity="";
+                             if(!result[i].hasOwnProperty("quantity")){
+ 								result[i].quantity="";
  							}
-                             if(!result[i].poLineDetails[k].hasOwnProperty("needByDate")){
-  								result[i].poLineDetails[k].needByDate="";
+                             if(!result[i].hasOwnProperty("needByDate")){
+  								result[i].needByDate="";
   							} 
-                             if(!result[i].poLineDetails[k].hasOwnProperty("amount")){
+                             if(!result[i].hasOwnProperty("amount")){
   								result[i].poLineDetails[k].ammount="";
   							}
                              if(!result[i].hasOwnProperty("status")){
@@ -368,9 +368,9 @@
                               } else if(result[i].status == "Unprocess"){
                             	  postatus = unprocess_status;
                               } 
-                            tabledata.row.add([view ,result[i].type,result[i].poLineDetails[k].uom,result[i].poLineDetails[k].quantity,result[i].poLineDetails[k].needByDate,result[i].poLineDetails[k].amount,postatus ]);  				        	
+                            tabledata.row.add([view ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].amount,postatus ]);  				        	
                         }
-                        }
+                      
                         tabledata.draw();
                         $("tbody").show();
                     } else {

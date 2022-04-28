@@ -98,14 +98,7 @@
                                 <div class="row">
                                    
                                    
-                                      <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Number <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Number" name="invoiceNumber" id="invoiceNumber" readonly style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Type <span class="text-danger">*</span></label>

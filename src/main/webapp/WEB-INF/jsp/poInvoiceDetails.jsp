@@ -145,6 +145,7 @@
                                         <thead>
                                             <tr>
                                             <th style="padding: 5px 5px 5px 1.5rem;">Invoice Number</th>
+                                            <th style="padding: 5px 5px 5px 1.5rem;">Po Number</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Operating Unit</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Invoice Type</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Supplier Site</th>
@@ -244,9 +245,12 @@
                                 if (!result[i].hasOwnProperty("invoiceAmount")) {
                                     result[i].invoiceAmount = "";
                                 }
+                                if (!result[i].hasOwnProperty("poNumber")) {
+                                    result[i].poNumber = "";
+                                }
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "')\" >" + result[i].invoiceNumber + "</button>";
 
-                                tabledata.row.add([view, result[i].operatingUnit, result[i].invoiceType, result[i].supplierSite, result[i].invoiceDate,result[i].invoiceAmount]);
+                                tabledata.row.add([view,result[i].poNumber, result[i].operatingUnit, result[i].invoiceType, result[i].supplierSite, result[i].invoiceDate,result[i].invoiceAmount]);
                             }
                             tabledata.draw();
                             $("tbody").show();

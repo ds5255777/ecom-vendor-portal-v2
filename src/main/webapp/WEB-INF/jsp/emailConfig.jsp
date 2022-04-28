@@ -154,20 +154,20 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Password</label> <input type="password" name="password" maxlength="50" class="form-control" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter">
+                                                    <label for="exampleInputserverName1">Password</label> <input type="password" name="password" maxlength="50" class="form-control" id="password" >
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">SMTP Host Name</label> <input type="text" name="serverName" maxlength="50" class="form-control" id="serverName" pattern="[a-zA-Z]+">
+                                                    <label for="exampleInputserverName1">SMTP Host Name</label> <input type="text" name="serverName" maxlength="50" class="form-control" id="serverName" >
 
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">SMTP Port</label> <input type="text" name="smtpPort" maxlength="5" class="form-control" id="smtpPort" min=0 oninput="validity.valid||(value='');">
+                                                    <label for="exampleInputserverName1">SMTP Port</label> <input type="text" name="smtpPort" maxlength="5" class="form-control" id="smtpPort" >
                                                 </div>
                                             </div>
                                         </div>

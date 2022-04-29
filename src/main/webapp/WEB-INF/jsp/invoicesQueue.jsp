@@ -13,8 +13,8 @@
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="dist/fontawesome-icon/css/all.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="dist/css/ionicons.min.css">
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
@@ -155,7 +155,34 @@
                                     <h3 class="card-title" style="font-size: 15px;">All Invoice List</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body ">
+                                <div class="card-body" style="padding-top: 10px;">
+                                
+                                <form role="form" id="addForm" autocomplete="off">
+                                        <div class="row">
+
+                                            <div class="col-md-2">
+                                                <input type="hidden" name="fromDate" placeholder="Actual Departure Starting Date" required class="form-control" id="fromDate" style="height: 34px;">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="hidden" name="toDate" placeholder="Actual Departure End Date" required class="form-control" id="toDate" style="height: 34px;">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <!-- <label for="exampleInputserverName1" style="visibility: hidden;">Text</label> -->
+                                                <!-- <button type="button" id="searchBtn" name="searchBtn" onclick="getFilterData()" class="btn btn-primary">Search</button> -->
+                                            </div>
+                                            <!-- <div class="col-md-1"></div> -->
+                                            <div class="col-md-2" >
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-primary dropdown-toggle"  style="font-size: 14px; float: right; margin-bottom : 10px;" data-toggle="dropdown"> Export Details </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#" id="exportLinkPdf">Download PDF</a>
+                                                    <a class="dropdown-item" href="#" id="exportLink">Download Excel</a>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
@@ -202,6 +229,18 @@
         <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
         <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
         <script src="plugins/toastr/toastr.min.js"></script>
+        
+        <script src="plugins/datatables/jquery.dataTables.js"></script>
+        <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+        <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+        <script src="plugins/jszip/jszip.min.js"></script>
+        <script src="plugins/pdfmake/pdfmake.min.js"></script>
+        <script src="plugins/pdfmake/vfs_fonts.js"></script>
+        <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+        <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+        <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
         <script type="text/javascript">
             const Toast = Swal.mixin({
@@ -218,7 +257,84 @@
                 "info": true,
                 "autoWidth": false,
                 "aaSorting": [],
-                "pageLength": 20
+                "scrollX": true,
+                "pageLength": 15,
+                dom: 'Bfrtip',
+                //buttons: ['excel','pdf','print'],
+                buttons: [
+
+                    {
+                        extend: 'excelHtml5',
+
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5],
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5],
+                        },
+                        customize: function(doc) {
+
+                            var tblBody = doc.content[1].table.body;
+                            for (var i = 0; i < tblBody[0].length; i++) {
+                                //	 console.log(tblBody[0]);
+                                //	 console.log(tblBody[0][i]);
+                                tblBody[0][i].fillColor = '#FFFFFF';
+                                tblBody[0][i].color = 'black';
+                            }
+
+                            var objLayout = {};
+                            objLayout['hLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            objLayout['vLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            objLayout['hLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            objLayout['vLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            objLayout['paddingLeft'] = function(i) {
+                                return 4;
+                            };
+                            objLayout['paddingRight'] = function(i) {
+                                return 4;
+                            };
+                            doc.content[1].layout = objLayout;
+                            var obj = {};
+                            obj['hLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            obj['hLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            //   doc.content[1].margin = [ 150, 0, 150, 0 ];
+
+                        }
+                    }
+                ],
+                initComplete: function() {
+                    var $buttons = $('.dt-buttons').hide();
+                    $('#exportLink').on('click', function() {
+                        var btnClass = "excel" ?
+                            '.buttons-' + "excel" :
+                            null;
+                        if (btnClass) $buttons.find(btnClass).click();
+                    })
+
+                    $('#exportLinkPdf').on('click', function() {
+                        var btnClass = "pdf" ?
+                            '.buttons-' + "pdf" :
+                            null;
+                        if (btnClass) $buttons.find(btnClass).click();
+                    })
+                }
             });
 
             getData();

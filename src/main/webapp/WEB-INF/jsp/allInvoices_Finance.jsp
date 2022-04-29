@@ -13,7 +13,7 @@
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="dist/fontawesome-icon/css/all.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="dist/css/ionicons.min.css">
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
@@ -159,6 +159,16 @@
                                                 <button type="button" onclick="getFilterData()" class="btn btn-primary">Search</button>
                                             </div>
                                             
+                                            <div class="col-md-2" >
+	                                            <div class="dropdown">
+	                                                <button type="button" class="btn btn-primary dropdown-toggle"  style="font-size: 14px; float: right; margin-bottom : 10px;" data-toggle="dropdown"> Export Details </button>
+	                                                <div class="dropdown-menu">
+	                                                    <a class="dropdown-item" href="#" id="exportLinkPdf">Download PDF</a>
+	                                                    <a class="dropdown-item" href="#" id="exportLink">Download Excel</a>
+	                                                </div>
+	                                            </div>
+                                            </div>
+                                            
                                         </div>
                                     </form>
                                     <table class="table table-bordered table-hover" id="tabledata">
@@ -209,6 +219,18 @@
         <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
         <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
         <script src="plugins/toastr/toastr.min.js"></script>
+        
+         <script src="plugins/datatables/jquery.dataTables.js"></script>
+        <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+        <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+        <script src="plugins/jszip/jszip.min.js"></script>
+        <script src="plugins/pdfmake/pdfmake.min.js"></script>
+        <script src="plugins/pdfmake/vfs_fonts.js"></script>
+        <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+        <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+        <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
         <script type="text/javascript">
             const Toast = Swal.mixin({
@@ -225,8 +247,86 @@
                 "info": true,
                 "autoWidth": false,
                 "aaSorting": [],
-                "pageLength": 20
+                "scrollX": true,
+                "pageLength": 15,
+                dom: 'Bfrtip',
+                //buttons: ['excel','pdf','print'],
+                buttons: [
+
+                    {
+                        extend: 'excelHtml5',
+
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5,6 ,7],
+                        },
+                        customize: function(doc) {
+
+                            var tblBody = doc.content[1].table.body;
+                            for (var i = 0; i < tblBody[0].length; i++) {
+                                //	 console.log(tblBody[0]);
+                                //	 console.log(tblBody[0][i]);
+                                tblBody[0][i].fillColor = '#FFFFFF';
+                                tblBody[0][i].color = 'black';
+                            }
+
+                            var objLayout = {};
+                            objLayout['hLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            objLayout['vLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            objLayout['hLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            objLayout['vLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            objLayout['paddingLeft'] = function(i) {
+                                return 4;
+                            };
+                            objLayout['paddingRight'] = function(i) {
+                                return 4;
+                            };
+                            doc.content[1].layout = objLayout;
+                            var obj = {};
+                            obj['hLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            obj['hLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            //   doc.content[1].margin = [ 150, 0, 150, 0 ];
+
+                        }
+                    }
+                ],
+                initComplete: function() {
+                    var $buttons = $('.dt-buttons').hide();
+                    $('#exportLink').on('click', function() {
+                        var btnClass = "excel" ?
+                            '.buttons-' + "excel" :
+                            null;
+                        if (btnClass) $buttons.find(btnClass).click();
+                    })
+
+                    $('#exportLinkPdf').on('click', function() {
+                        var btnClass = "pdf" ?
+                            '.buttons-' + "pdf" :
+                            null;
+                        if (btnClass) $buttons.find(btnClass).click();
+                    })
+                }
             });
+
             
             $("#refreshDashboardButton").click(function(e) {
                 e.preventDefault();

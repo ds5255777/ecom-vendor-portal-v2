@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.RolesEntity;
 import com.main.db.bpaas.entity.TripDetails;
@@ -95,7 +96,7 @@ public class UIController {
 		String rolename = (String) request.getSession().getAttribute("role");
 		User us = userService.findByUsername(principal.getName());
 
-		if (rolename.equalsIgnoreCase("Network")) {
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 
 			List<TripDetails> totalTripCount = tripDetailsRepo.findAll();
 			model.addAttribute("totalTripCount", totalTripCount.size());
@@ -119,10 +120,11 @@ public class UIController {
 			// Changes made for limit and 50 trips only
 			List<TripDetails> findAllTripsLimitFifty = tripService.findAllTripsLimitFifty();
 			model.addAttribute("yetTobeApprovedAllDetails", findAllTripsLimitFifty);
+			model.addAttribute("userStatus", us.getStatus());
 			// changes end
 			return "dashBoard_NetworkRole";
 
-		} else if (rolename.equalsIgnoreCase("Admin")) {
+		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
 
 			// Manish added dashBoard_AdminRole
 			int getAllUserCount = userRepository.getCountForAllUsers();
@@ -161,7 +163,7 @@ public class UIController {
 
 			return "dashBoard_AdminRole";
 
-		} else if (rolename.equalsIgnoreCase("Vendor")) {
+		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 
 			String vendorCode = principal.getName();
 			int totalTripCount = tripDetailsRepo.getTripCount(vendorCode);
@@ -182,7 +184,7 @@ public class UIController {
 			model.addAttribute("userStatus", us.getStatus());
 
 			return "dashboard";
-		} else if (rolename.equalsIgnoreCase("Finance") || rolename.equalsIgnoreCase("Finance Head")) {
+		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE) || rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
 			long allInvoice = invoiceGenerationEntityRepo.getCountForAllInvoice();
 			long inReviewInvoice = invoiceGenerationEntityRepo.getCountForInReviewInvoice();
 			int countForPendingForApprovalInvoice = invoiceGenerationEntityRepo.getCountForPendingForApprovalInvoice();

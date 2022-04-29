@@ -28,7 +28,15 @@ public class GlobalConstants {
 	public static final String VENDOR_TRIP_STATUS_APPROVED = "Approved";
 	public static final String VENDOR_TRIP_STATUS_INVOICING = "Invoicing";
 	public static final String VENDOR_TRIP_STATUS_DRAFT_INVOICING = "Draft-Invoicing";
+	
+	public static final String NETWORK_TRIP_STATUS_YET_TO_APPROVED_NETWORK="Yet To Be Approved By Network Team";	
 
 	public static final String PAYMENT_STATUS = "";
+	
+	public static final String INVOICE_STATUS_IN_REVIEW="In-Review";
+	public static final String INVOICE_STATUS_PENDING_APPROVAL="Pending For Approval";
+	public static final String INVOICE_STATUS_APPROVED="Approved";
+	public static final String INVOICE_STATUS_PAYMENT_RELASE="Payment Relase";
+	public static final String INVOICE_STATUS_QUERY="Query";
 
 }

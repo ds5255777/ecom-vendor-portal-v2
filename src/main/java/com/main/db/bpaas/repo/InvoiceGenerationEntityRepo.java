@@ -122,4 +122,11 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 
 		@Query(value = "select * from invoice_generation where  vendor_code=? and invoice_status=? ", nativeQuery = true)
 		List<InvoiceGenerationEntity> getInvoiceFiltersByVendorcode(String vendorCode, String invoiceStatus);
+
+		/*
+		 * List<InvoiceGenerationEntity> findByInvoiceStatusIn(String
+		 * invoiceStatusInReview, String invoiceStatusPendingApproval, String
+		 * invoiceStatusApproved, String invoiceStatusPaymentRelase, String
+		 * invoiceStatusQuery);
+		 */
 }

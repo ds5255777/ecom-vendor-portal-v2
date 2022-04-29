@@ -207,7 +207,7 @@ function GetSelectedTextValue() {
                     var statustemp_approved = '<span class=\"right badge badge-success\">Approved</span>';
                     var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
                     var statustemp_Draft_Invoicing = '<span class=\"right badge badge-danger\">Draft-Invoicing</span>';
-                    var statustemp_query = '<span class=\"right badge badge-warning\"  style=\"background-color: violet;\">Query</span>';
+                    var statustemp_query = '<span class=\"right badge badge-warning\"  style=\"background-color: #fd7e14;\">Query</span>';
 
                     var paymentStatus = "";
                     var runStatus = "";

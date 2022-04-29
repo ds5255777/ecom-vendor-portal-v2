@@ -15,7 +15,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="dist/css/ionicons.min.css">
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
@@ -206,8 +206,7 @@
                             <!-- general form elements -->
                             <div class="card card-primary ">
                                 <div class="card-header">
-                                    <!--  <h3 class="card-title" style="font-size: 15px;">Trips
-                                            List</h3> -->
+                                   
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body ">
@@ -224,14 +223,20 @@
                                                 <label for="exampleInputserverName1" style="visibility: hidden;">Text</label>
                                                 <button type="button" id="searchBtn" name="searchBtn" onclick="getFilterData()" class="btn btn-primary">Search</button>
                                             </div>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn btn-primary dropdown-toggle"  style="font-size: 14px;" data-toggle="dropdown"> Export Details </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#" id="exportLinkPdf">Download PDF</a>
-                                                    <a class="dropdown-item" href="#" id="exportLink">Download Excel</a>
-                                                </div>
-                                            </div>
-                                        </div>
+											<div class="col-md-2">
+												<div class="dropdown">
+													<button type="button"
+														class="btn btn-primary dropdown-toggle"
+														style="font-size: 14px; float: right; margin-bottom: 10px;"
+														data-toggle="dropdown">Export Details</button>
+													<div class="dropdown-menu">
+														<a class="dropdown-item" href="#" id="exportLinkPdf">Download
+															PDF</a> <a class="dropdown-item" href="#" id="exportLink">Download
+															Excel</a>
+													</div>
+												</div>
+											</div>
+										</div>
                                     </form>
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>

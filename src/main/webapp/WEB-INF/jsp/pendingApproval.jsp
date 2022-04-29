@@ -15,8 +15,7 @@
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link rel="stylesheet" href="dist/css/ionicons.min.css">
 <link rel="stylesheet"
 	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 <link rel="stylesheet"
@@ -642,7 +641,8 @@ tbody {
                 "searching": true,
                 "info": true,
                 "autoWidth": false,
-                "aaSorting": []
+                "aaSorting": [],
+                "pageLength": 20
             });
             
             var tabledataQuery = $('#tabledataQuery').DataTable({

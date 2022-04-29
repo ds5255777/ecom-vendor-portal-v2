@@ -105,6 +105,16 @@ public static String invoiceController="invoiceController";
 	 public static String getPoQueryData=poController+"/getPoQueryData";
 	 
 	 
+	 public static String PoInvoiceContoller="PoInvoiceContoller";
+	 public static String getAllDraftInvoicePO=PoInvoiceContoller+"/getAllDraftInvoicePO";
+	 public static String deleteDraftPoInvoice=PoInvoiceContoller+"/deleteDraftPoInvoice";
+	 public static String savePoInvoice=PoInvoiceContoller+"/savePoInvoice";
+	 
+	 
+	 
+	 
+	 
+	 
 	 
 	 
 	 

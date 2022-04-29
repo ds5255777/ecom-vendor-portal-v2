@@ -62,6 +62,7 @@
                                 <p>Processed PO</p>
                             </a></li>
                     </ul>
+                    
                     <hr>
                 </li>
 
@@ -78,6 +79,15 @@
                                 }%> ">
                                 <i class="nav-icon fas fa-file-invoice"></i>
                                 <p>All Invoice</p>
+                            </a></li>
+                    </ul>
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item"><a href="draftPO" class="nav-link
+                                                <%if (request.getParameter("pagename").equalsIgnoreCase("Draft PO")) {
+                                    out.print("active");
+                                }%>">
+                                <i class="nav-icon fab fa-firstdraft"></i>
+                                <p>Draft invoice</p>
                             </a></li>
                     </ul>
                     <hr>

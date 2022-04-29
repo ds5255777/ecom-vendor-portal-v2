@@ -430,9 +430,9 @@
                             <label style="visibility: hidden;">Select </label>
                             <button type="button" onclick="sendToServer()" class="btn btn-info">Submit Invoice</button>
 
-                            <label style="visibility: hidden;">Select</label>
+                            <!-- <label style="visibility: hidden;">Select</label>
                             <button type="button" onclick="discardInvoice()" class="btn btn-info">Discard Invoice</button>
-
+ -->
                             <label style="visibility: hidden;">Select</label>
                             <button type="button" onclick="window.close()" class="btn btn-info">Close</button>
                         </div>
@@ -616,153 +616,6 @@
     }
     
       
-    function sendToServer() {
-    	
-    	//invoiceDate
-		var invoiceDa = document.getElementById("invoiceDate").value;
-		if (invoiceDa === "" || invoiceDa === null || invoiceDa === '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Please Select Date'
-            });
-            document.getElementById("invoiceDate").focus();
-            return "";
-        }
-    	
-    	var invoiceNu = document.getElementById("invoiceNumber").value;
-		if (invoiceNu === "" || invoiceNu === null || invoiceNu === '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Please fill Invoice Number'
-            });
-            document.getElementById("invoiceNumber").focus();
-            return "";
-        }
-		
-		//invoiceDate
-		/* var invoiceAm = document.getElementById("invoiceAmount").value;
-		if (invoiceAm === "" || invoiceAm === null || invoiceAm === '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Please fill Invoice Amount'
-            });
-            document.getElementById("invoiceAmount").focus();
-            return "";
-        }
-		
-		//vehicleNumber
-		var vehicleNu = document.getElementById("vehicleNumber").value;
-		if (vehicleNu === "" || vehicleNu === null || vehicleNu === '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Please fill vehicle Number'
-            });
-            document.getElementById("vehicleNumber").focus();
-            return "";
-        }
-
-		//vehicleNumber
-		var invoiceDoc = document.getElementById("InvoiceUpload").value;
-		if (invoiceDoc === "" || invoiceDoc === null || invoiceDoc === '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Please Upload Document'
-            });
-            document.getElementById("InvoiceUpload").focus();
-            return "";
-        }
-		//vehicleNumber
-		/* var docOne = document.getElementById("DocumentFileOne").value;
-		if (docOne === "" || docOne === null || docOne === '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Please Upload Document'
-            });
-            document.getElementById("DocumentFileOne").focus();
-            return "";
-        }
-		//vehicleNumber
-		var docTwo = document.getElementById("DocumentFileTwo").value;
-		if (docTwo === "" || docTwo === null || docTwo === '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Please Upload Document'
-            });
-            document.getElementById("DocumentFileTwo").focus();
-            return "";
-        } */
-
-         var stepOneObj = FormDataToJSON('stepOneForm');
-        var stepThreeObj = FormDataToJSON('stepThreeForm');
-
-        const finalObj = {
-            ...stepOneObj,
-            ...stepThreeObj
-        };
-
-     /*    if (document.getElementById("InvoiceUpload").files.length > 0) {
-            finalObj.invoiceFileName = document.getElementById("InvoiceUpload").files.item(0).name;
-            finalObj.invoiceFileText = $("#InvoiceFileText").val();
-        }
-        if (document.getElementById("DocumentFileOne").files.length > 0) {
-            finalObj.documentFileOneName = document.getElementById("DocumentFileOne").files.item(0).name;
-            finalObj.documentFileOneText = $("#DocumentFileOneText").val();
-        }
-        if (document.getElementById("DocumentFileTwo").files.length > 0) {
-            finalObj.documentFileTwoName = document.getElementById("DocumentFileTwo").files.item(0).name;
-            finalObj.documentFileTwoText = $("#DocumentFileTwoText").val();
-        } */
-
-        
-     // after
-       /*  tripLineArray.forEach((item) => {
-        	console.log(tripLineArray);
-        	console.log(item);
-        	item.id=null;
-        });
-     
-     console.log(tripLineArray);
-        
-        finalObj.invoiceLineItem=tripLineArray */;
-        
-        console.log(finalObj);
-//return;
-        
-        $.ajax({
-            type: "POST",
-            data: JSON.stringify(finalObj),
-            url: "<%=GlobalUrl.savePoInvoice%>",
-            dataType: "json",
-            contentType: "application/json",
-            success: function(response) {
-
-            	 if (response.msg == 'success') {
-                     swal.fire("Thanks", "your Invoice Process Sucessfully", "success", "OK").then(function() {
-                    	 window.opener.refereshList();
-                         window.close();
-                         //window.location="closedAndApprovedTrips";
-                     });
-                     
-                     
-                     setTimeout(function(response) {
-
-                     }, 2000);
-                 } else {
-                    alert("failed");
-                }
-            },
-            error: function(jqXHR, textStatue, errorThrown) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                })
-            }
-        });
-    }
-
-    
-    
     </script>
 </body>
 

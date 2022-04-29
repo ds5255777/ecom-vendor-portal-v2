@@ -86,6 +86,10 @@ public class PoDetails {
 	@Column(name = "Amount")
 	private Double amount;
 	
+    @Column(name="invoice_number")
+    private String invoiceNumber;
+
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn
 	private List<PoLineDetails> poLineDetails;
@@ -253,6 +257,12 @@ public class PoDetails {
 	}
 	public void setAmount(Double amount) {
 		this.amount = amount;
+	}
+	public String getInvoiceNumber() {
+		return invoiceNumber;
+	}
+	public void setInvoiceNumber(String invoiceNumber) {
+		this.invoiceNumber = invoiceNumber;
 	}
 	
 	

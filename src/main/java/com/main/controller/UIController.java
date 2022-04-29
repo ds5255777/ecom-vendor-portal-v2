@@ -54,17 +54,12 @@ public class UIController {
 	@Autowired
 	UserRepository userRepository;
 	
-	@Autowired
-	PoDetailsRepo PoDetailsRepo;
 	
-	@Autowired 
-	PoDetailsRepo podetailsRepo;
 	
 	@Autowired
 	SupDetailsRepo supDetailsRepo;
 	
-	@Autowired
-	PoInvoiceRepo poinvoiceRepo;
+	
 
 	@GetMapping({ "/login" })
 	public String login(Model model, String error, String logout) {
@@ -394,108 +389,7 @@ public class UIController {
    		return "";
    	}
 	//End
-	 @GetMapping("/allPO")
-	   	public String allPo(Model model, Principal principal, HttpServletRequest request) {
-	   		
-			 String rolename = (String) request.getSession().getAttribute("role");
-
-				if (rolename.equalsIgnoreCase("Vendor")) {
-					
-					return "allPO";
-					
-				}
-	   		return "";
-	   	}
-	 @GetMapping("/processPO")
-	   	public String processPO(Model model, Principal principal, HttpServletRequest request) {
-	   		
-			 String rolename = (String) request.getSession().getAttribute("role");
-
-				if (rolename.equalsIgnoreCase("Vendor")) {
-					
-					return "processPO";
-					
-				}
-	   		return "";
-	   	}
-	
-	 @GetMapping("/unprocessPO")
-	   	public String unprocessPO(Model model, Principal principal, HttpServletRequest request) {
-	   		
-			 String rolename = (String) request.getSession().getAttribute("role");
-
-				if (rolename.equalsIgnoreCase("Vendor")) {
-					
-					return "unprocessPO";
-					
-				}
-	   		return "";
-	   	}
-	 
-	 @GetMapping("/dashboard_Po")
-	   	public String dashboard_Po(Model model, Principal principal, HttpServletRequest request) {
-	   		
-			 String rolename = (String) request.getSession().getAttribute("role");
-			 String vendorCode = (String) request.getSession().getAttribute("userName");
-				
-				//po Details
-			 	int totalAllPoCount = podetailsRepo.getAllPoCount(vendorCode);
-				model.addAttribute("totalAllPoCount", totalAllPoCount);
-			 
-				int totalProcessPoCount = podetailsRepo.getAllProcessPoCount(vendorCode);
-				model.addAttribute("totalProcessPoCount", totalProcessPoCount);
-				System.out.println("totalProcessPoCount : "+totalProcessPoCount);
-				int totalUnprocessPOCount= podetailsRepo.getAllUnProcessPoCount(vendorCode);
-				model.addAttribute("totalUnprocessPOCount", totalUnprocessPOCount);
-				//Query
-				int totalQueryCount= podetailsRepo.getAllQueryCount(vendorCode);
-				model.addAttribute("totalQueryCount", totalQueryCount);
-				
-				//Query
-				int totalInvoiceCount= poinvoiceRepo.getAllInvoiceCount(vendorCode);
-				model.addAttribute("totalInvoiceCount", totalInvoiceCount);
-				
-				System.out.println("end of dashboard_Po");
-			 
-			 
-				if (rolename.equalsIgnoreCase("Vendor")) {
-					
-					return "dashboard_Po";
-					
-				}
-	   		return "";
-	   	}
-	 
-	 
-	 
-	 @GetMapping("/poInvoiceDetails")
-	   	public String poInvoiceDetails(Model model, Principal principal, HttpServletRequest request) {
-	   		
-			 String rolename = (String) request.getSession().getAttribute("role");
-			
-				if (rolename.equalsIgnoreCase("Vendor")) {
-					
-					return "poInvoiceDetails";
-					
-				}
-	   		return "";
-	   	}
-	 
-	 @GetMapping("/QueryPo")
-	   	public String QueryPo(Model model, Principal principal, HttpServletRequest request) {
-	   		
-			 String rolename = (String) request.getSession().getAttribute("role");
-			
-				if (rolename.equalsIgnoreCase("Vendor")) {
-					
-					return "QueryPo";
-					
-				}
-	   		return "";
-	   	}
-	 
-	 
-	
+		
 	 
 //    @GetMapping("/tripsInvoiceGenerate")
 //    public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
@@ -656,13 +550,7 @@ public class UIController {
 		return "draftInvoiceGenerate";
 	}
 
-	@GetMapping("/poInvoiceGenerate")
-	public String poInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 
-		String invoiceNumber = request.getParameter("id");
-		model.addAttribute("invoiceNumber", invoiceNumber);
-		return "poInvoiceGenerate";
-	}
 	
 	@GetMapping("/invoiceView")
 	public String invoiceView(Model model, HttpServletRequest request, Principal principal) {
@@ -672,41 +560,7 @@ public class UIController {
 		return "invoiceView";
 	}
 	
-	@GetMapping("/invoiceViewPo")
-	public String invoiceViewPo(Model model, HttpServletRequest request, Principal principal) {
-
-		String invoiceNumber = request.getParameter("id");
-		System.out.println("invoiceNo"+invoiceNumber);
-		model.addAttribute("invoiceNo", invoiceNumber);
-		return "invoiceViewPo";
-	}
-	@GetMapping("/PoView")
-	public String PoView(Model model, HttpServletRequest request, Principal principal) {
-
-		String id = request.getParameter("id");
-		String arr[]=id.split(",");
-		String poNumber="";
-		String viewPage="";
-		for(int i=0;i<arr.length;i++) {
-			if(arr.length==1) {
-				poNumber=arr[0];
-				break;
-			}else {
-				poNumber=arr[0];
-				viewPage=arr[1];
-				break;
-			}
-		}
 		
-		System.out.println("poNumber"+poNumber);
-		model.addAttribute("poNumber", poNumber);
-	
-		System.out.println("viewPage"+viewPage);
-		model.addAttribute("viewPage", viewPage);
-		return "PoView";
-	}
-	
-	
 	@GetMapping("/draftInvoiceGenerate")
 	public String draftInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 

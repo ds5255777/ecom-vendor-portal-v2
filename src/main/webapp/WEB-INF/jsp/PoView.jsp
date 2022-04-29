@@ -601,14 +601,14 @@
                 return;
             } */
            
-            var checkflag = [];
-            checkflag.push(poNo);
+           // var checkflag = [];
+           // checkflag.push(poNo);
             
         	
-            let values=checkflag.toString();
+           // let values=checkflag.toString();
             
             $('.loader').show();
-            var urlOftripsDetail = "poInvoiceGenerate?id=" + values;
+            var urlOftripsDetail = "poInvoiceGenerate?id=" + poNo;
             window.open(urlOftripsDetail, "poInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
         }
     </script>

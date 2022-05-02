@@ -118,9 +118,9 @@ public class SupDetails {
 	 * @JoinColumn private List<TripDetails> tripDetails;
 	 */
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn
-	private List<OnboardQuery> onboardQuery;
+//	@OneToMany(cascade = CascadeType.ALL)
+//	@JoinColumn
+//	private List<OnboardQuery> onboardQuery;
 
 	@Transient
 	String gstFileText;
@@ -638,12 +638,12 @@ public class SupDetails {
 		this.nmisFileName = nmisFileName;
 	}
 
-	public List<OnboardQuery> getOnboardQuery() {
-		return onboardQuery;
-	}
-
-	public void setOnboardQuery(List<OnboardQuery> onboardQuery) {
-		this.onboardQuery = onboardQuery;
-	}
+//	public List<OnboardQuery> getOnboardQuery() {
+//		return onboardQuery;
+//	}
+//
+//	public void setOnboardQuery(List<OnboardQuery> onboardQuery) {
+//		this.onboardQuery = onboardQuery;
+//	}
 
 }

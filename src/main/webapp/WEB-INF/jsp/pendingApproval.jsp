@@ -15,8 +15,7 @@
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link rel="stylesheet" href="dist/css/ionicons.min.css">
 <link rel="stylesheet"
 	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 <link rel="stylesheet"
@@ -120,38 +119,25 @@ tbody {
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
 	<jsp:include page="loader.jsp" />
 	<div class="wrapper">
-
 		<!-- Navbar -->
 		<jsp:include page="navbar.jsp?pagename=Pending For Approvel Trips" />
 		<!-- /.navbar -->
-
 		<!-- Main Sidebar Container -->
 		<jsp:include page="sidebar_Vendor.jsp?pagename=pendingApproval" />
-
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<div class="content-header" style="padding: 0px;">
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6"></div>
-						<div class="col-sm-6">
-							<!-- <ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li>
-						</ol> -->
-						</div>
-
+						<div class="col-sm-6"></div>
 					</div>
 				</div>
 			</div>
-
 			<!-- /.content-header -->
-
-
 			<!-- Main content -->
 			<section class="content mt-2">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12" style="font-size: 14px;">
 							<!-- general form elements -->
@@ -178,51 +164,20 @@ tbody {
 											</tr>
 										</thead>
 										<tbody>
-
 										</tbody>
 									</table>
 								</div>
 								<!-- /.card-body -->
 							</div>
-
-
 						</div>
 					</div>
 				</div>
 			</section>
-
-			<!-- Modal -->
-			<div class="modal fade" id="myModal" role="dialog">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h3 class="modal-title">Confirmation</h3>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						<div class="modal-body">
-							<p>Are You Sure to Confirm This Trip....</p>
-						</div>
-						<div class="modal-footer">
-
-							<button type="button" onclick="updateTripData()"
-								id="updateBtnBtn" name="updateBtnBtn" class="btn btn-primary">Approve</button>
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
 			<!-- Control Sidebar -->
-			<!-- <aside class="control-sidebar control-sidebar-dark">
-			Control sidebar content goes here
-		</aside>
-		/.control-sidebar -->
+			<!-- /.control-slidebar -->
 		</div>
 		<!-- ./wrapper -->
-
 		<!-- model Start -->
-
 		<!-- Modal -->
 		<div class="modal fade" id="tripValue" role="dialog">
 			<div class="modal-dialog " style="max-width: 1200px;">
@@ -240,8 +195,6 @@ tbody {
 												<h3 class="card-title" style="font-size: 15px;">Trip
 													Details</h3>
 											</div>
-
-
 											<!-- /.card-header -->
 											<div class="card-body">
 												<form role="form" id="tripForm">
@@ -252,11 +205,10 @@ tbody {
 																<label style="margin-bottom: 1px;">Trip ID</label> <input
 																	type="text" class="form-control" style="height: 30px;"
 																	placeholder="Enter" id="tripID" name="tripID"
-																	autocomplete="off" disabled>
-																	<input
-																	type="hidden" class="form-control" style="height: 30px;"
-																	placeholder="Enter" id="id" name="id"
-																	autocomplete="off" disabled>
+																	autocomplete="off" disabled> <input
+																	type="hidden" class="form-control"
+																	style="height: 30px;" placeholder="Enter" id="id"
+																	name="id" autocomplete="off" disabled>
 															</div>
 														</div>
 														<div class="col-sm-3">
@@ -552,18 +504,13 @@ tbody {
 														<div class="col-sm-6">
 
 															<div class="form-group">
-																<!-- <input type="checkbox" id="lumpsum" name="lumpsum" class="messageCheckbox" value="" onclick="lumpsomePropertyChange()">
-                                                                        <label for="lumsum"> If Lump Some amount is applicable</label><br> 
-                                                                        <div class="form-group">
-                                                                            <label style="margin-bottom: 1px;">Amount</label>
-                                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="AmountLumpSum" name="AmountLumpSum" disabled>
-                                                                        </div> -->
+
 																<div class="row" style="padding: 15px;">
-																<!-- <button id="saveCoaDetails" type="button"
-																		class="btn btn-success" style="margin-right: 10px;"
-																		onclick="updateTripData()">Approve</button> -->
-																		<button type="button" onclick="checkIt()"
-																			id="updateBtnBtn" name="updateBtnBtn" class="btn btn-primary" style="margin-right: 10px;">Approve</button>
+																	<!-- <button type="button" onclick="checkIt()"
+																			id="updateBtnBtn" name="updateBtnBtn" class="btn btn-primary" style="margin-right: 10px;">Approve</button> -->
+																	<button type="button" class="btn btn-primary"
+																		data-toggle="modal" data-target="#myModal"
+																		 style="margin-right: 10px;">Approve</button>
 																	<button id="openCoaDetails" type="button"
 																		class="btn btn-success" style="margin-right: 10px;"
 																		onclick="saveQuery()">Query</button>
@@ -584,47 +531,6 @@ tbody {
 										<!-- /.card -->
 									</table>
 
-									<!-- <form role="form" id="queryDetails" name="queryDetails">
-                                        <textarea class="form-control" id="comment" name="comment" maxlength="250" placeholder="If any Query Regardin in This Trip Comment..." rows="3"></textarea>
-                                        <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="tripID" name="tripID" autocomplete="off" disabled>
-                                    </form> -->
-
-
-									<!-- </div> -->
-									<%-- <div class="col-md-5">
-                                    <a href="${pageContext.request.contextPath}/getDoc" target="_blank">Click Here to open doc in new window</a>
-                                    <!-- <iframe id="pdfLink" style="height:100%; width:100%"> -->
-
-                                    <!-- Comment History window -->
-                                    <div class="card card-primary ">
-                                        <div class="card-header" style="padding: 4px 0px 4px 4px;">
-                                            <h3 class="card-title" style="font-size: 15px;">Ad-Hoc Trips Query</h3>
-                                        </div>
-                                        <!-- /.card-header -->
-                                        <div class="card-body ">
-                                            <form role="form" id="showQueryDetails" name="showQueryDetails">
-                                                <table class="table table-bordered table-hover" id="tabledata">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
-                                                            <th style="padding: 5px 5px 5px 1.5rem;">Date</th>
-                                                            <th style="padding: 5px 5px 5px 1.5rem;">Comment</th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
-                                            </form>
-                                        </div>
-                                        <!-- /.card-body -->
-                                    </div>
-
-                                    <!-- Comment History window -->
-
-
-                                </div> --%>
 									<div class="col-md-12">
 										<div class="card card-primary ">
 											<div class="card-header" style="padding: 4px 0px 4px 4px;">
@@ -635,31 +541,33 @@ tbody {
 											<div class="card-body ">
 												<form role="form" id="showQueryDetails"
 													name="showQueryDetails">
-													<table class="table table-bordered table-hover"
-														id="tabledataQuery">
-														<thead>
-															<tr>
-																<th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
-																<th style="padding: 5px 5px 5px 1.5rem;">Raised By</th>
-																<th style="padding: 5px 5px 5px 1.5rem;">Raised On</th>
-																<th style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
+													<div class="col-md-12">
 
-															</tr>
-														</thead>
-														<tbody>
+														<div class="table-responsive">
+															<table class="table table-bordered table-hover"
+																id="tabledataQuery">
+																<thead>
+																	<tr>
+																		<th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
+																		<th style="padding: 5px 5px 5px 1.5rem;">Raised
+																			By</th>
+																		<th style="padding: 5px 5px 5px 1.5rem;">Raised
+																			On</th>
+																		<th style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
 
-														</tbody>
-													</table>
+																	</tr>
+																</thead>
+																<tbody>
+
+																</tbody>
+															</table>
+														</div>
+													</div>
 												</form>
 											</div>
 
 										</div>
 									</div>
-									<!-- <div class="row" style="padding: 15px;">
-                                        <button id="openCoaDetails" type="button" class="btn btn-success" style="margin-right:10px;" onclick="saveQuery()">Query</button>
-                                        <button id="saveCoaDetails" type="button" class="btn btn-success" style="margin-right:10px;" onclick="updateTripData()">Approve</button>
-                                        <button type="button" class="btn btn-secondary" id="closeModal" data-dismiss="modal">Close</button>
-                                    </div> -->
 								</div>
 							</div>
 						</div>
@@ -670,17 +578,34 @@ tbody {
 			</div>
 		</div>
 		<!-- model Start -->
-<p id="demo"></p>
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Confirmation</h3>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Are You Sure to Confirm This Trip....</p>
+					</div>
+					<div class="modal-footer">
 
-
-		<script src="plugins/jquery/jquery.min.js"></script>
+						<button type="button" onclick="updateTripData()" id="updateBtnBtn"
+							name="updateBtnBtn" class="btn btn-primary">Approve</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="plugins/jquery/jquery.min.js"></script>
 		<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 		<script>
-            $.widget.bridge('uibutton', $.ui.button);
-            $.widget.bridge('uitooltip', $.ui.tooltip);
-
-        </script>
+			$.widget.bridge('uibutton', $.ui.button);
+			$.widget.bridge('uitooltip', $.ui.tooltip);
+		</script>
 		<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="js/commonFunctions.js"></script>
 
@@ -716,7 +641,8 @@ tbody {
                 "searching": true,
                 "info": true,
                 "autoWidth": false,
-                "aaSorting": []
+                "aaSorting": [],
+                "pageLength": 20
             });
             
             var tabledataQuery = $('#tabledataQuery').DataTable({
@@ -729,35 +655,17 @@ tbody {
             });
             
             
-               /*  console.log(document.getElementById("mode").value);
-                //alert(document.getElementById("mode").value);
-                if (document.getElementById("mode").value === "Line Haul") {
-                    document.getElementById("openingReading").disabled = 'true';
-                    document.getElementById("closingReading").disabled = 'true';
-                    //    document.getElementById("tdsRate").val()="";
-                    //            	    document.getElementById("tdsSection").value()="";
-                    $("#tdsSection").val("");
-                    $("#tdsRate").val("");
-
-                } else {
-                    document.getElementById("openingReading").disabled = '';
-                    document.getElementById("closingReading").disabled = '';
-                } */
-            
-
             var globalTripId = "";
 
             getData();
 
             function getData() {
 
-                var jsArray = [];
-
                 $('.loader').show();
 
                 $.ajax({
                     type: "POST",
-                    data: JSON.stringify(jsArray),
+                    data: "",
                     url: "<%=GlobalUrl.getPendingApprovelTripsDetails%>",
                     dataType: "json",
                     contentType: "application/json",
@@ -797,11 +705,9 @@ tbody {
       								result[i].destHub="";
       							}
                                 var approve = "<button type=\"button\" class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#myModal\" onclick=\"setTripStatus('" + result[i].tripID + "')\" ><i class=\"nav-icon fas fa-pencil-square-o\"> </i> </button>";
-                                //var view = "<button type=\"button\" class=\" btn-xs\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >"+result[i].tripID+"</button>";
+                               
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getTripDataFormDataByTripId('" + result[i].tripID + "')\" >" + result[i].tripID + "</a>";
 
-                                //var	edit="<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"   data-original-title=\"Click To Approve\" style=\"width: 43px;\"  onclick=\"tripsInvoiceDisplay("+result[i].invoiceNumber+")\"><i class=\"nav-icon fas fa-pencil-square-o\"> </i> </button>"; 
-                                //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].siteQualityId + "','" + result[i].checkListId + "','"+result[i].url+"')\"><i class='fa fa-eye ' ></i></button>";
                                 tabledata.row.add([view, result[i].route, result[i].runType, result[i].mode, result[i].standardKM, result[i].actualKM, 
                                 	result[i].originHub, result[i].destHub, approve]);
                             }
@@ -825,7 +731,7 @@ tbody {
                 globalTripId = "";
                 globalTripId = tripId;
             }
-//****************************
+      
             function updateTripData() {
 
                 if (globalTripId == "") {
@@ -837,8 +743,6 @@ tbody {
                     "vendorTripStatus": "Approved"
                 }
 				
-                //console.log("vendorTripStatus   ",globalTripId);
-				//alert("HIII ");
                 $('.loader').show();
 
                 $.ajax({
@@ -851,11 +755,12 @@ tbody {
                         $('.loader').hide();
                         $("#myModal").modal('hide');
                         if (response.msg == "success") {
-                            Swal.fire({
-                                type: 'success',
-                                title: 'Aprove Trips Successfully..'
-                            })
-                            getData();
+                        	
+                        	swal.fire("", "Trip Approved Successfully..", "success", "OK").then(function() {
+                        		 $("#tripValue").modal('hide');
+                            });
+                            
+                        	getData();
                         } else {
                             Toast.fire({
                                 type: 'error',
@@ -878,6 +783,7 @@ tbody {
                 console.log("Trip Id : " + tripId);
                 //	 tripId =  $("#tripID").val();		
 
+                globalTripId=tripId;
                 var json = {
                     "tripID": tripId
                 }
@@ -897,41 +803,10 @@ tbody {
                             var result = data.data;
 							
                             queryArray = data.data.queryEntity;
-                            /* jsondata=JSON.parse(result) */
-                            ;
                             var myForm = "";
-                            //var myForm1 = "";
-                            //var myForm2="";
                             myForm = document.getElementById("tripForm");
-                            //myForm1 = document.getElementById("showQueryDetails");
-                           // myForm2 = document.getElementById("tripDetails");
                             setData(myForm, result);
-                            //setData(myForm1, result);
-                           // setData(myForm, result);
                             $("#tripID").val(result.tripID);
-                            
-                           // $('#tabledataQuery').DataTable().clear();
-                            tabledataQuery.clear();
-                           
-                            for (var i = 0; i < queryArray.length; i++) {
-                                console.log(queryArray[i].raisedOn);
-                          	 /* $('#tabledataQuery').DataTable() */
-                                if(!result[i].hasOwnProperty("raisedBy")){
-         							result[i].raisedBy="";
-         						}
-                                if(!result[i].hasOwnProperty("raisedOn")){
-         							result[i].raisedOn="";
-         						}
-                                if(!result[i].hasOwnProperty("comment")){
-         							result[i].comment="";
-         						}
-                          	 tabledataQuery.row.add([ i+1, queryArray[i].raisedBy, queryArray[i].raisedOn, queryArray[i].comment ]);                         
-                           console.log(queryArray[i].raisedBy);
-                           }
-                            
-                            
-                           //$('#queryArray').DataTable().draw();
-                           tabledataQuery.draw();
                            $("tbody").show(); 
 
 
@@ -981,6 +856,7 @@ tbody {
                 "raisedAgainQuery": $("#tripID").val(),
                 "raisedBy": $("#vendorName").val(),
                 "id": $("#id").val(),
+                "type":"Trip"
                 
                 }
                 console.log(json);
@@ -988,7 +864,7 @@ tbody {
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify(json),
-                    url: "<%=GlobalUrl.saveTripQuery%>",
+                    url: "<%=GlobalUrl.saveQuery%>",
                     dataType: "json",
                     contentType: "application/json",
 
@@ -996,7 +872,7 @@ tbody {
                         if (response.msg == 'success') {
                         	
                         	
-                            swal.fire("Thanks", "your Query Sucessfully Submitted", "success", "OK").then(function() {
+                            swal.fire("", "Query Submitted Sucessfully", "success", "OK").then(function() {
                                 window.location = "pendingApproval";
                             });
 
@@ -1017,7 +893,7 @@ tbody {
                 });
             }
             
-     function checkIt(){
+     /* function checkIt(){
     	 
          if (confirm("Are you sure Approve This trip!")) {
         	 var tripID = document.getElementById("tripID").value;
@@ -1025,13 +901,10 @@ tbody {
          } else {
              return;
          }
-         }
-     //**************************
+         } */
             
 function updateTripDataByVendor(tripID){
 	
-	//var tripID = document.getElementById("tripID").value;
-
 	if (tripID == "") {
         return;
     }
@@ -1078,3 +951,4 @@ function updateTripDataByVendor(tripID){
 </body>
 
 </html>
+

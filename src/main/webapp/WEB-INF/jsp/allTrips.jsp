@@ -15,7 +15,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="dist/css/ionicons.min.css">
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
@@ -39,6 +39,7 @@
             },
             "Closed": {
                 "Yet To Be Approved": ["NA"],
+                "Query": ["NA"],
                 "Approved": ["Pending"],
                 "Draft-Invoicing": ["Pending"],
                 "Invoicing": ["Pending", "Approved"],
@@ -162,7 +163,6 @@
         
         <%
     	String rolename = (String) request.getSession().getAttribute("role");
-        
         %>
         <c:choose>  
 			    <c:when test='<%=rolename.equalsIgnoreCase("Admin")%>'>  
@@ -206,8 +206,7 @@
                             <!-- general form elements -->
                             <div class="card card-primary ">
                                 <div class="card-header">
-                                    <!--  <h3 class="card-title" style="font-size: 15px;">Trips
-                                            List</h3> -->
+                                   
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body ">
@@ -215,28 +214,35 @@
                                         <div class="row">
 
                                             <div class="col-md-2">
-                                                <input type="text" name="fromDate" placeholder="Select Starting Date" required class="form-control" id="fromDate" style="height: 34px;">
+                                                <input type="text" name="fromDate" placeholder="Actual Departure Starting Date" required class="form-control" id="fromDate" style="height: 34px;">
                                             </div>
                                             <div class="col-md-2">
-                                                <input type="text" name="toDate" placeholder="Select End Date" required class="form-control" id="toDate" style="height: 34px;">
+                                                <input type="text" name="toDate" placeholder="Actual Departure End Date" required class="form-control" id="toDate" style="height: 34px;">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="exampleInputserverName1" style="visibility: hidden;">Text</label>
-                                                <button type="button" onclick="getFilterData()" class="btn btn-primary">Search</button>
+                                                <button type="button" id="searchBtn" name="searchBtn" onclick="getFilterData()" class="btn btn-primary">Search</button>
                                             </div>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Export Details </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#" id="exportLinkPdf">Download PDF</a>
-                                                    <a class="dropdown-item" href="#" id="exportLink">Download Excel</a>
-                                                </div>
-                                            </div>
-                                        </div>
+											<div class="col-md-2">
+												<div class="dropdown">
+													<button type="button"
+														class="btn btn-primary dropdown-toggle"
+														style="font-size: 14px; float: right; margin-bottom: 10px;"
+														data-toggle="dropdown">Export Details</button>
+													<div class="dropdown-menu">
+														<a class="dropdown-item" href="#" id="exportLinkPdf">Download
+															PDF</a> <a class="dropdown-item" href="#" id="exportLink">Download
+															Excel</a>
+													</div>
+												</div>
+											</div>
+										</div>
                                     </form>
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Number</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Route</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Run Status</th>
@@ -522,6 +528,9 @@
 
                                             <div class="card-body ">
                                                 <form role="form" id="showQueryDetails" name="showQueryDetails">
+                                                <div class="col-md-12">
+
+									<div class="table-responsive">
                                                     <table class="table table-bordered table-hover" id="tabledataQuery">
                                                         <thead>
                                                             <tr>
@@ -536,6 +545,8 @@
 
                                                         </tbody>
                                                     </table>
+                                                    </div>
+                                                    </div>
                                                 </form>
                                             </div>
 
@@ -598,6 +609,7 @@
         <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
         <script type="text/javascript">
+        
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -605,10 +617,12 @@
                 timer: 3000
             });
 
+		var currentDate='${currentDate}';
+            
             var tabledata = $('#tabledata').DataTable({
                 "paging": true,
                 "lengthChange": false,
-                "searching": false,
+                "searching": true,
                 "info": true,
                 "autoWidth": false,
                 "aaSorting": [],
@@ -701,74 +715,25 @@
                 "aaSorting": []
             });
 
-            $('#fromDate').datepicker({
-                dateFormat: 'yy-mm-dd',
+             $('#fromDate').datepicker({
+                dateFormat: 'dd-mm-yy',
                 changeMonth: true,
                 changeYear: true,
-
+                maxDate: currentDate
             });
 
             $('#toDate').datepicker({
-                dateFormat: 'yy-mm-dd',
+                dateFormat: 'dd-mm-yy',
                 changeMonth: true,
                 changeYear: true,
+                maxDate: currentDate
+            }); 
 
-            });
-
-            $.validator.setDefaults({
+           /*  $.validator.setDefaults({
                 submitHandler: function() {
                     getFilterData();
-
-                    //alert("insode add");
                 }
-            });
-
-            $('#addForm').validate({
-
-                rules: {
-                    toDate: {
-                        required: true
-                    },
-                    fromDate: {
-                        required: true
-
-                    }
-                },
-
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                }
-            });
-
-            function calculateTotalFreight() {
-
-                var fs = parseFloat("0");
-                var totalFreight = parseFloat("0");
-
-                if ($.isNumeric($("#currentFuelRate").val())) {
-                    totalFreight = parseFloat($("#currentFuelRate").val());
-                    console.log("Hiiii" + totalFreight);
-                }
-                var engMarks = document.getElementById('currentFuelRate').value;
-                var currentFuelRate = parseFloat($("#currentFuelRate").val());
-                var fsBaseRate = parseFloat($("#fsBaseRate").val());
-                var mileage = parseFloat($("#mileage").val());
-                var routeKms = parseFloat($("#routeKms").val());
-                /* if($.isNumeric( $("#currentFuelRate").val() )){
-            		totalFreight = totalFreight+parseFloat($("#currentFuelRate").val());
-				} */
-                fs = ((currentFuelRate - fsBaseRate / mileage) * routeKms);
-
-                console.log(parseFloat(fs));
-            }
+            }); */
 
             $("#refreshDashboardButton").click(function(e) {
                 e.preventDefault();
@@ -778,37 +743,40 @@
                 $('#selectTripStatus').val('');
                 $('#selectStatus').val('');
                 $('#selectPaymentStatus').val('');
+                $('#fromDate').val('');
+                $('#toDate').val('');
             })
-
+            
             getData();
 
             function getData() {
 
-                var jsArray = [];
                 $('.loader').show();
 
                 $.ajax({
                     type: "POST",
-                    data: JSON.stringify(jsArray),
+                    data: "",
                     url: "<%=GlobalUrl.getAllTripsDetails%>",
                     dataType: "json",
                     contentType: "application/json",
                     async: false,
                     success: function(data) {
-
+//return;
                         $('.loader').hide();
                         if (data.msg == 'success') {
 
                             var result = data.data;
                             tabledata.clear();
-                            //console.log("result" + result);
 
                             for (var i = 0; i < result.length; i++) {
                             	
                             	if(!result[i].hasOwnProperty("tripID")){
      								result[i].tripID="";
      							}
-                                 if(!result[i].hasOwnProperty("route")){
+                                if(!result[i].hasOwnProperty("invoiceNumber")){
+          							result[i].invoiceNumber="";
+          						}
+								if(!result[i].hasOwnProperty("route")){
      								result[i].route="";
      							}
                                  if(!result[i].hasOwnProperty("runType")){
@@ -836,7 +804,6 @@
         							result[i].paymentStatus="";
         						}
 
-                                //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
                                 var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
@@ -855,46 +822,35 @@
                                 var paymentStatus = "";
                                 var runStatus = "";
                                 var vendorTripStatus = "";
-                                //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
-                                var tempString = [view, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
+                                var tempString = [view, result[i].invoiceNumber, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub,  paymentStatus];
 
                                 if (result[i].paymentStatus == "Pending") {
-                                    tempString[10] = statustemp_payment_Pending;
-
+                                    tempString[11] = statustemp_payment_Pending;
                                 } else if (result[i].paymentStatus == "Approved") {
-                                    tempString[10] = statustemp_payment_success;
-
+                                    tempString[11] = statustemp_payment_success;
                                 } else if (result[i].paymentStatus == "NA") {
-                                    tempString[10] = statustemp_payment_No;
-
+                                    tempString[11] = statustemp_payment_No;
                                 }
 
                                 if (result[i].vendorTripStatus == "Yet To Be Approved") {
-                                    tempString[4] = statustemp_pending;
-
+                                    tempString[5] = statustemp_pending;
                                 } else if (result[i].vendorTripStatus == "Approved") {
-                                    tempString[4] = statustemp_approved;
-
+                                    tempString[5] = statustemp_approved;
                                 } else if (result[i].vendorTripStatus == "Invoicing") {
-                                    tempString[4] = statustemp_Invoicing;
-
+                                    tempString[5] = statustemp_Invoicing;
                                 } else if (result[i].vendorTripStatus == "Query") {
-                                    tempString[4] = statustemp_query;
-
+                                    tempString[5] = statustemp_query;
                                 } else if (result[i].vendorTripStatus == "Draft-Invoicing") {
-                                    tempString[4] = statustemp_Draft_Invoicing;
-
+                                    tempString[5] = statustemp_Draft_Invoicing;
                                 }
 
                                 if (result[i].runStatus == "In-Transit") {
-                                    tempString[3] = statustemp_runststus_Intransit;
-
+                                    tempString[4] = statustemp_runststus_Intransit;
                                 } else if (result[i].runStatus == "Closed") {
-                                    tempString[3] = statustemp_runststus_Closed;
-
+                                    tempString[4] = statustemp_runststus_Closed;
                                 }
+
                                 tabledata.row.add(tempString);
-                                //tabledata.row.add([ result[i].tripID,result[i].route,result[i].runType,result[i].paymentStatus,result[i].actualKM,result[i].mode,result[i].originHub ,result[i].destHub,result[i].runStatus,result[i].status,viewData]);  				        	
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -910,29 +866,13 @@
                     }
                 });
             }
-
-            /* function viewCheckList(id){
-				console.log("id >> "+id );
-				location.href = "tripDetailsView?type="+tripID 
-				var urlOftripsDetail="tripDetailsView?type="+id;
-			    window.open(urlOftripsDetail, "TripsDetails", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
-
-		  	} */
+           
             function setTripStatus(tripId) {
-                globalTripId = "";
-                globalTripId = tripId;
-                console.log("tripid : " + globalTripId);
-            }
-
-            function setTripStatus(tripId) {
-                console.log("Trip od" + tripId);
-                //	 tripId =  $("#tripID").val();		
-
+                console.log("Trip ID---" + tripId);
+                getQueryData(tripId)
                 var json = {
                     "tripID": tripId
                 }
-
-                var queryArray = [];
 
                 $.ajax({
                     type: "POST",
@@ -945,34 +885,10 @@
 
                         if (data.msg == 'success') {
                             var result = data.data;
-                            /* jsondata=JSON.parse(result) */
-                            queryArray = data.data.queryEntity;
                             var myForm = "";
                             myForm = document.getElementById("tripForm");
                             setData(myForm, result);
                             $("#tripID").val(result.tripID);
-                            tabledataQuery.clear();
-
-                            for (var i = 0; i < queryArray.length; i++) {
-                                console.log(queryArray[i].raisedOn);
-                                /* $('#tabledataQuery').DataTable() */
-                                if(!result[i].hasOwnProperty("raisedBy")){
-      								result[i].raisedBy="";
-      							}
-                                if(!result[i].hasOwnProperty("raisedOn")){
-      								result[i].raisedOn="";
-      							}
-                                if(!result[i].hasOwnProperty("comment")){
-      								result[i].comment="";
-      							}
-                                tabledataQuery.row.add([i + 1, queryArray[i].raisedBy, queryArray[i].raisedOn, queryArray[i].comment]);
-                                console.log(queryArray[i].raisedBy);
-                            }
-
-
-                            //$('#queryArray').DataTable().draw();
-                            tabledataQuery.draw();
-                            $("tbody").show();
                         } else {
                             Toast.fire({
                                 type: 'error',
@@ -981,7 +897,6 @@
                         }
                     },
                     error: function(jqXHR, textStatue, errorThrown) {
-                        //alert("failed, please try again");
                         Toast.fire({
                             type: 'error',
                             title: 'Failed.. Try Again..'
@@ -990,138 +905,18 @@
                 });
             }
 
-            function searchTripData() {
-                var jsArray = [];
-                $('.loader').show();
-                console.log("Status" + status);
-                $.ajax({
-                    type: "POST",
-                    url: "<%=GlobalUrl.status%>?status=" + status,
-                    dataType: "json",
-                    contentType: "application/json",
-                    success: function(data) {
-                        $('.loader').hide();
-                        if (data.msg == "success") {
-                            var result = data.data;
-                            tabledata.clear();
-                            for (var i = 0; i < result.length; i++) {
-                            	
-                            	if(!result[i].hasOwnProperty("tripID")){
-     								result[i].tripID="";
-     							}
-                                 if(!result[i].hasOwnProperty("route")){
-     								result[i].route="";
-     							}
-                                 if(!result[i].hasOwnProperty("runType")){
-     								result[i].runType="";
-     							}
-                                 if(!result[i].hasOwnProperty("vendorTripStatus")){
-     								result[i].vendorTripStatus="";
-     							}
-                                 if(!result[i].hasOwnProperty("actualDeparture")){
-      								result[i].actualDeparture="";
-      							}
-                                 if(!result[i].hasOwnProperty("actualKM")){
-      								result[i].actualKM="";
-      							}
-                                 if(!result[i].hasOwnProperty("standardKM")){
-     								result[i].standardKM="";
-     							}
-                                  if(!result[i].hasOwnProperty("originHub")){
-      								result[i].originHub="";
-      							}
-                                  if(!result[i].hasOwnProperty("destHub")){
-      								result[i].destHub="";
-      							}
-                                  if(!result[i].hasOwnProperty("paymentStatus")){
-        							result[i].paymentStatus="";
-        						}
-
-                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
-
-                                var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
-                                var statustemp_payment_Pending = '<span class=\"right badge badge-warning\">Pending</span>';
-                                var statustemp_payment_No = '<span class=\"right badge badge-primary\">NA</span>';
-
-                                var statustemp_runststus_Intransit = '<span class=\"right badge badge-warning\">In-Transit</span>';
-                                var statustemp_runststus_Closed = '<span class=\"right badge badge-success\">Closed</span>';
-
-                                var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
-                                var statustemp_approved = '<span class=\"right badge badge-success\">Approved</span>';
-                                var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
-                                var statustemp_Draft_Invoicing = '<span class=\"right badge badge-danger\">Draft-Invoicing</span>';
-                                var statustemp_query = '<span class=\"right badge badge-warning\"  style=\"background-color: violet;\">Query</span>';
-
-                                var paymentStatus = "";
-                                var runStatus = "";
-                                var vendorTripStatus = "";
-                                //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
-                                var tempString = [view, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
-
-                                if (result[i].paymentStatus == "Pending") {
-                                    tempString[10] = statustemp_payment_Pending;
-
-                                } else if (result[i].paymentStatus == "Approved") {
-                                    tempString[10] = statustemp_payment_success;
-
-                                } else if (result[i].paymentStatus == "NA") {
-                                    tempString[10] = statustemp_payment_No;
-
-                                }
-
-                                if (result[i].vendorTripStatus == "Yet To Be Approved") {
-                                    tempString[4] = statustemp_pending;
-
-                                } else if (result[i].vendorTripStatus == "Approved") {
-                                    tempString[4] = statustemp_approved;
-
-                                } else if (result[i].vendorTripStatus == "Invoicing") {
-                                    tempString[4] = statustemp_Invoicing;
-
-                                } else if (result[i].vendorTripStatus == "Query") {
-                                    tempString[4] = statustemp_query;
-
-                                } else if (result[i].vendorTripStatus == "Draft-Invoicing") {
-                                    tempString[4] = statustemp_Draft_Invoicing;
-
-                                }
-
-                                if (result[i].runStatus == "In-Transit") {
-                                    tempString[3] = statustemp_runststus_Intransit;
-
-                                } else if (result[i].runStatus == "Closed") {
-                                    tempString[3] = statustemp_runststus_Closed;
-
-                                }
-                                tabledata.row.add(tempString);
-                                //tabledata.row.add([ result[i].tripID,result[i].route,result[i].runType,result[i].paymentStatus,result[i].actualKM,result[i].mode,result[i].originHub ,result[i].destHub,result[i].runStatus,result[i].status,viewData]);  				        	
-                            }
-                            tabledata.draw();
-                            $("tbody").show();
-
-                        } else {
-                            alert("failed");
-                        }
-                    },
-                    error: function(jqXHR, textStatue, errorThrown) {
-                        alert("failed, please try again");
-                    }
-                });
-            }
-
             function getFilterData() {
-
 
                 var fromDate = $("#fromDate").val();
                 var toDate = $("#toDate").val();
                 var vendorCode = $("#vendorCode").val();
                 
                 console.log(vendorCode,"vendorCode");
-
+                console.log(fromDate,"fromDate");
+                console.log(toDate,"toDate");
 
 
                 if (fromDate == "" || fromDate == null) {
-                    //alert("plaese select from date"+fromDate);
                     Toast.fire({
                         type: 'error',
                         title: 'Please Select Start Date..'
@@ -1131,7 +926,6 @@
                 }
 
                 if (toDate == "" || toDate == null) {
-                    //alert("plaese select from date"+fromDate);
                     Toast.fire({
                         type: 'error',
                         title: 'Please Select End Date..'
@@ -1141,16 +935,12 @@
                 }
                 $('.loader').show();
 
-                //const d = new Date();
-
-                //let text = fromDate.toString();
-                //let text2 = toDate.toString();
 
                 $.ajax({
                     type: "GET",
                     data: {
-                        "actualDeparture": fromDate.concat(" ","00:00:00"),
-                        "actualArrival": toDate.concat(" ","23:59:59"),
+                        "actualDeparture": fromDate.concat(" ","00:00"),
+                        "actualArrival": toDate.concat(" ","23:59"),
                         "vendorCode": vendorCode
                     },
                     url: "<%=GlobalUrl.filterTripDetails%>",
@@ -1158,6 +948,7 @@
                     contentType: "application/json",
 
                     success: function(data) {
+                    	console.log(data);
                         $('.loader').hide();
                         if (data.msg == 'success') {
                             //alert("Hiii");
@@ -1167,11 +958,13 @@
                             tabledata.clear();
 
                             for (var i = 0; i < result.length; i++) {
-                            	
                             	if(!result[i].hasOwnProperty("tripID")){
      								result[i].tripID="";
      							}
-                                 if(!result[i].hasOwnProperty("route")){
+                                if(!result[i].hasOwnProperty("invoiceNumber")){
+          							result[i].invoiceNumber="";
+          						}
+								if(!result[i].hasOwnProperty("route")){
      								result[i].route="";
      							}
                                  if(!result[i].hasOwnProperty("runType")){
@@ -1217,46 +1010,35 @@
                                 var paymentStatus = "";
                                 var runStatus = "";
                                 var vendorTripStatus = "";
-                                //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
-                                var tempString = [view, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
+                                var tempString = [view, result[i].invoiceNumber, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub,  paymentStatus];
 
                                 if (result[i].paymentStatus == "Pending") {
-                                    tempString[10] = statustemp_payment_Pending;
-
+                                    tempString[11] = statustemp_payment_Pending;
                                 } else if (result[i].paymentStatus == "Approved") {
-                                    tempString[10] = statustemp_payment_success;
-
+                                    tempString[11] = statustemp_payment_success;
                                 } else if (result[i].paymentStatus == "NA") {
-                                    tempString[10] = statustemp_payment_No;
-
+                                    tempString[11] = statustemp_payment_No;
                                 }
 
                                 if (result[i].vendorTripStatus == "Yet To Be Approved") {
-                                    tempString[4] = statustemp_pending;
-
+                                    tempString[5] = statustemp_pending;
                                 } else if (result[i].vendorTripStatus == "Approved") {
-                                    tempString[4] = statustemp_approved;
-
+                                    tempString[5] = statustemp_approved;
                                 } else if (result[i].vendorTripStatus == "Invoicing") {
-                                    tempString[4] = statustemp_Invoicing;
-
+                                    tempString[5] = statustemp_Invoicing;
                                 } else if (result[i].vendorTripStatus == "Query") {
-                                    tempString[4] = statustemp_query;
-
+                                    tempString[5] = statustemp_query;
                                 } else if (result[i].vendorTripStatus == "Draft-Invoicing") {
-                                    tempString[4] = statustemp_Draft_Invoicing;
-
+                                    tempString[5] = statustemp_Draft_Invoicing;
                                 }
 
                                 if (result[i].runStatus == "In-Transit") {
-                                    tempString[3] = statustemp_runststus_Intransit;
-
+                                    tempString[4] = statustemp_runststus_Intransit;
                                 } else if (result[i].runStatus == "Closed") {
-                                    tempString[3] = statustemp_runststus_Closed;
-
+                                    tempString[4] = statustemp_runststus_Closed;
                                 }
+
                                 tabledata.row.add(tempString);
-                                //tabledata.row.add([ result[i].tripID,result[i].route,result[i].runType,result[i].paymentStatus,result[i].actualKM,result[i].mode,result[i].originHub ,result[i].destHub,result[i].runStatus,result[i].status,viewData]);  				        	
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -1280,7 +1062,54 @@
                 });
 
             }
+            //getQueryData();
+   		 
+   		 function getQueryData(tripId){
+   			 
+   			 var obj ={
+   						"referenceid": tripId,
+   						"type": "Trip"
+   				}
+   				
+   				$.ajax({
+   					type : "POST",
+   					url : "<%=GlobalUrl.getQueryByTypeAndForeignKey%>",
+   					data :JSON.stringify(obj),
+   					dataType : "json",
+   					contentType : "application/json",
+   					success : function(response) {
+   						if (response.msg == "success") {
+   						
+   							if("data" in response){
+   							
+   								var result = response.data;												
+   								
+   							     	tabledataQuery.clear();
+   							     	var count=0;
+   				                        for (var i = 0; i < result.length; i++) {
+   				                        	count++;
+   				                        	tabledataQuery.row.add([count,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
+   				                        }
+   				                        tabledataQuery.draw();
+   				                        $("tbody").show();
+   								}
+   						} else {
+   							Toast.fire({
+   								type : 'error',
+   								title : 'Failed ..'
+   							})
+   						}
+   					},
+   					error : function(jqXHR, textStatue, errorThrown) {
+   						
+   						Toast.fire({
+   							type : 'error',
+   							title : 'Failed Added try again..'
+   						})
 
+   					}
+   				}); 
+   		 }
         </script>
 </body>
 

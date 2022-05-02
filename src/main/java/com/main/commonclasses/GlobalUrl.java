@@ -6,15 +6,13 @@ public class GlobalUrl {
 
     public static String saveUpdateUserDetails = userController + "/saveUpdateUserDetails";
     public static String getUserById = userController + "/getUserById";
-    public static String getActiveUsersData = userController + "/getActiveUsersData";
+	public static String getActiveUsersData = userController + "/getActiveUsersData";
     public static String setStatusOfUserById = userController + "/setStatusOfUserById";
     public static String checkForExistingUserName = userController + "/checkForExistingUserName";
     public static String getUserByRole = userController + "/getUserByRole";
     public static String changePassword = userController + "/changePassword";
-	  //vendor details
     public static String getActiveVendorData = userController + "/getActiveVendorData";
     public static String getVendorById = userController + "/getVendorById";
-    //end																				   
 
     public static String emailConfigurationController = "emailConfigurationController";
 
@@ -43,12 +41,8 @@ public class GlobalUrl {
     public static String getDraftLineTripDetails = tripControllers + "/getDraftLineTripDetails";
     public static String getTripDetailByTripId = tripControllers + "/getTripDetailByTripId";
     public static String findByTripDetailUsingTripID = tripControllers + "/findByTripDetailUsingTripID";
-    //
-    
-    //public static String dateFilter=tripControllers+"/searchTripDetailsFromDate";
-   
 
-public static String invoiceController="invoiceController";
+    public static String invoiceController="invoiceController";
 	
 	public static String getAllInvoice=invoiceController+"/getAllInvoice";
 	public static String getAllPendingInvoice=invoiceController+"/getAllPendingInvoice";
@@ -62,26 +56,38 @@ public static String invoiceController="invoiceController";
 	public static String deleteDraftInvoice = invoiceController + "/deleteDraftInvoice";
 	public static String deleteLineItem = invoiceController + "/deleteLineItem";
 	public static String discardDraftInvoice = invoiceController + "/discardDraftInvoice";
+	public static String checkForExistingInvoiceNumber = invoiceController + "/checkForExistingInvoiceNumber";
+	public static String getAllQueryInvoiceVendor = invoiceController + "/getAllQueryInvoiceVendor";
 	
     public static String dashboardController = "dashboardController";
 
     public static String getDashboardDetails = dashboardController + "/getDashboardDetails";
-
-//Added by Saurabh
     public static String getDashboardDetailsForNetwork = dashboardController + "/getDashboardDetailsForNetwork";
     public static String getTripsById = tripControllers + "/getTripsById";
     public static String updateDetailsforNetwork = dashboardController + "/updateDetailsforNetwork";
+    public static String getFinanceDashBoardDetails = dashboardController + "/getFinanceDashBoardDetails";
+    public static String refreshValues = dashboardController + "/refreshValues";
 
-//END
-    
-    //Added by Manish
     public static String masterController="masterController";	
 	public static String saveTripMaster=masterController+"/saveTripMaster";
 	public static String getActiveMasterData=masterController+"/getActiveMasterData";
 	public static String getMasterById=masterController+"/getMasterById";
 	public static String saveUpdateMasterDetails=masterController+"/saveUpdateMasterDetails";
 	public static String deleteMaster=masterController+"/deleteMaster";
-	//End	
 	
-	
+	public static String financeController="financeController";
+	public static String viewAllInvoiceForFinanceTeam=financeController+"/viewAllInvoiceForFinanceTeam";
+	public static String getDocumentByInvoiceNumber=financeController+"/getDocumentByInvoiceNumber";
+	public static String viewAllProcessInvoiceForFinanceTeam=financeController+"/viewAllProcessInvoiceForFinanceTeam";
+	public static String viewAllUnProcessInvoiceForFinanceTeam=financeController+"/viewAllUnProcessInvoiceForFinanceTeam";
+	public static String viewAllQueryInvoiceForFinanceTeam=financeController+"/viewAllQueryInvoiceForFinanceTeam";
+	public static String saveQuery=financeController+"/saveQuery";
+	public static String getDocumentByTypeAndForeignKey=financeController+"/getDocumentByTypeAndForeignKey";
+	public static String getQueryByTypeAndForeignKey=financeController+"/getQueryByTypeAndForeignKey";
+	public static String getAllInReviewInvoice=financeController+"/getAllInReviewInvoice";
+	public static String getPaymentReleaseInvoice=financeController+"/getPaymentReleaseInvoice";
+	public static String approveInvoiceFinanceSide=financeController+"/approveInvoiceFinanceSide";
+	public static String filterInvoiceDetails=financeController+"/filterInvoiceDetails";
+	public static String getFilterInvoiceByVendorCode=financeController+"/getFilterInvoiceByVendorCode";
+	public static String viewInvoiceForFinanceTeam=financeController+"/viewInvoiceForFinanceTeam";
 }

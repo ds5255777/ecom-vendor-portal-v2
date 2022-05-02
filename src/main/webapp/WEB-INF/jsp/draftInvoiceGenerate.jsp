@@ -136,7 +136,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Number <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Number" name="invoiceNumber" id="invoiceNumber" style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Invoice Number" oninput="this.value = this.value.replace(/[^0-9-_A-Za-z]/g, '').replace(/(\..*)\./g, '$1');this.value = this.value.toUpperCase();" name="invoiceNumber" id="invoiceNumber" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -147,8 +147,8 @@
                                             <div class="col-sm-7">
                                                 <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency">
                                                     <option value="INR">INR</option>
-                                                    <option value="USD">USD</option>
-                                                    <option value="KES">KES</option>
+                                                    <!-- <option value="USD">USD</option>
+                                                    <option value="KES">KES</option> -->
                                                 </select>
                                             </div>
                                         </div>
@@ -171,9 +171,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Tax Amount<span class="text-danger"> *</span></label>
+                                            <label class="col-sm-5">Tax (%)<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount" onfocusout="calculateInvoice()" style="width: 100%;" on>
+                                                <input class="form-control-sm" readonly name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount" value="18" oninput="calculateInvoice()" style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -239,6 +239,7 @@
                                         <th style="padding: 5px 5px 5px 1.5rem;">Number</th>
                                         <th style="padding: 5px 5px 5px 1.5rem;">Trip ID</th>
                                         <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+                                        <th style="padding: 5px 5px 5px 1.5rem;">Route</th>
                                         <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
                                         <th style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
                                         <th style="padding: 5px 5px 5px 1.5rem;">Current Fuel
@@ -249,7 +250,7 @@
                                         <th style="padding: 5px 5px 5px 1.5rem;">FS</th>
                                         <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
                                         <th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">lumpsome Amount</th>
+                                        <th style="padding: 5px 5px 5px 1.5rem;">Lumpsome Amount</th>
                                         <th style="padding: 5px 5px 5px 1.5rem;">Line level
                                             Description</th>
                                         <th style="padding: 5px 5px 5px 1.5rem;">Action</th>
@@ -280,24 +281,27 @@
                                             <div class="col-sm-7">
                                                 <input type="file" id="InvoiceUpload" name="InvoiceUpload" class="form-control-sm" accept=".jpg, .jpeg, .pdf" onchange="handleFileSelect(event,'InvoiceFileText'), onValidateFile('InvoiceUpload')" class="form-control p-input">
                                                 <textarea id="InvoiceFileText" name="InvoiceFileText" rows="5" style="display: none;"></textarea>
+                                                <label><span style="font-weight: 500; color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Document1<span class="text-danger"> </span></label>
+                                            <label class="col-sm-5 control-label">Summary Sheet<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="file" id="DocumentFileOne" name="DocumentFileOne" class="form-control-sm" accept=".jpg, .jpeg, .pdf" onchange="handleFileSelect(event,'DocumentFileOneText'), onValidateFile('DocumentFileOne')" class="form-control p-input">
+                                                <input type="file" id="DocumentFileOne" name="DocumentFileOne" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx" onchange="handleFileSelect(event,'DocumentFileOneText'), onValidateFileOne('DocumentFileOne')" class="form-control p-input">
                                                 <textarea id="DocumentFileOneText" name="DocumentFileOneText" rows="5" style="display: none;"></textarea>
+                                                <label><span style="font-weight: 500; color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Document2<span class="text-danger"> </span></label>
+                                            <label class="col-sm-5 control-label">FS Calculation Sheet<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="file" id="DocumentFileTwo" name="DocumentFileTwo" class="form-control-sm" accept=".jpg, .jpeg, .pdf" onchange="handleFileSelect(event,'DocumentFileTwoText'), onValidateFile('DocumentFileTwo')" class="form-control p-input">
+                                                <input type="file" id="DocumentFileTwo" name="DocumentFileTwo" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx"  onchange="handleFileSelect(event,'DocumentFileTwoText'), onValidateFileOne('DocumentFileTwo')" class="form-control p-input">
                                                 <textarea id="DocumentFileTwoText" name="DocumentFileTwoText" rows="5" style="display: none;"></textarea>
+                                                <label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -306,16 +310,41 @@
                         </div>
                         <!-- /.card-body -->
                     </div>
+                    <div class="card card-primary"  id="queryWindow" style="display: block;" style="margin-top: 1rem;">
+                        <div class="card-header" style="padding: 5px 5px 0px 5px;">
+                            <h4 class="card-title">Vendor Remarks</h4>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    <div class="card-body">
+                            <form id="queryForm" class="forms-sample">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+										    <label class="col-sm-3" >Remarks <span class="text-danger"></span></label>
+										    <div class="col-sm-9">
+										    <textarea class="form-control" id="remarks" name="remarks" rows="3" maxlength="250" placeholder="Remarks if Any, 250 Characters only"></textarea>
+										 </div>
+										 </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
                     <center>
                         <div class="form-group">
                             <label style="visibility: hidden;">Select </label>
-                            <button type="button" onclick="sendToServer()" class="btn btn-info">Submit Invoice</button>
+                            <button type="button" onclick="sendToServer()" class="btn btn-success">Submit Invoice</button>
 
                             <label style="visibility: hidden;">Select</label>
-                            <button type="button" onclick="discardInvoice()" class="btn btn-info">Discard Invoice</button>
+                            <button type="button" onclick="discardInvoice()" class="btn btn-info" style="background-color: #323d84">Cancel Invoice</button>
 
                             <label style="visibility: hidden;">Select</label>
-                            <button type="button" onclick="closeWin()" class="btn btn-info">Close</button>
+                            <button type="button" onclick="closeWin()" class="btn btn-info">Save as Draft</button>
                         </div>
                     </center>
                     <!-- /.row -->
@@ -411,6 +440,13 @@
             window.opener.refereshList();
             window.close()
         }
+        
+        $(function(){
+    	    $('[name="invoiceDate"]').prop('max', function(){
+    	        return new Date().toJSON().split('T')[0];
+    	    });
+    	});
+       
 
         function onValidateFile(id) {
             var fileInput3 = document.getElementById(id).value;
@@ -422,12 +458,37 @@
                 const fsize = gst.files.item(0).size;
                 const file = Math.round((fsize / 1024));
                 if (file > ${maxFileSize}) {
-                    swal.fire("Alert", "Please select File size less than 5 MB....", "warning");
+                    swal.fire("", "File should less than 5 MB.", "warning");
                     $("#" + id).val("");
                 } else {
                     var ext = fileInput3.split(".")[1];
                     if (ext == "pdf" || ext == "jpg" || ext == "JPEG" || ext == "JPG" || ext == "jpeg" || ext == "PDF") {} else {
-                        swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File....", "warning");
+                        swal.fire("", "Select Only JPEG & PDF File.", "warning");
+                        $("#" + id).val("");
+                        return false;
+                    }
+                }
+            } else {
+                alert("This browser does not support HTML5.");
+            }
+        }
+        
+        function onValidateFileOne(id) {
+            var fileInput3 = document.getElementById(id).value;
+            var gst = document.getElementById(id);
+            var allowedExtensions = /(\.pdf|\.doc|\.docx|\.xls|\.xlsx)$/i;
+
+            if (typeof(gst.files) != "undefined") {
+
+                const fsize = gst.files.item(0).size;
+                const file = Math.round((fsize / 1024));
+                if (file > ${maxFileSize}) {
+                    swal.fire("", "File should less than 5 MB.", "warning");
+                    $("#" + id).val("");
+                } else {
+                    var ext = fileInput3.split(".")[1];
+                    if (ext == "pdf" || ext == "PDF" || ext == "docx" || ext == "DOCX" || ext == "doc" || ext == "DOC" ||  ext == "xls" || ext == "XLS" || ext == "xlsx" || ext == "XLSX") {} else {
+                        swal.fire("", "Select Only DOC, XLSX & PDF File.", "warning");
                         $("#" + id).val("");
                         return false;
                     }
@@ -458,7 +519,7 @@
                     if (data.msg == 'success') {
                         Toast.fire({
                             type: 'success',
-                            title: 'Add Successfully..'
+                            title: 'Add Successfully.'
                         })
                         getTripDetails();
                         getSelectTripList();
@@ -481,45 +542,13 @@
         var totalFreight = 0;
         var lumpsomeamount = parseFloat(0);
 
-        function updateVentorTripStats() {
-            var obj = {
-                "tripID": allTripId,
-                "vendorTripStatus": "Approved",
-            }
-
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(obj),
-                url: "<%=GlobalUrl.updateVendorTripStatusByTrips%>",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(response) {
-
-                    if (response.msg == 'success') {
-                        swal.fire("", "Discard Your Invoice...", "warning", "OK").then(function() {
-                            window.close();
-                        });
-                    } else {
-                        alert("failed");
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    })
-                }
-            });
-        }
-
         function sendToServer() {
-
+        	
             var invoiceDa = document.getElementById("invoiceDate").value;
             if (invoiceDa === "" || invoiceDa === null || invoiceDa === '') {
                 Toast.fire({
                     type: 'error',
-                    title: 'Please Select Date'
+                    title: 'Select Date'
                 });
                 document.getElementById("invoiceDate").focus();
                 return "";
@@ -529,37 +558,65 @@
             if (invoiceNu === "" || invoiceNu === null || invoiceNu === '') {
                 Toast.fire({
                     type: 'error',
-                    title: 'Please fill Invoice Number'
+                    title: 'Fill Invoice Number'
                 });
                 document.getElementById("invoiceNumber").focus();
                 return "";
             }
+            
+            var invoiceCheckStatus = checkForExistingInvoiceNumber();
 
-            var taxAmount = document.getElementById("taxAmount").value;
-            if (taxAmount === "" || taxAmount === null || taxAmount === '') {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please Select Date'
-                });
-                document.getElementById("taxAmount").focus();
-                return "";
+            if (invoiceCheckStatus == "false") {
+
+                return;
             }
 
             var invoiceDoc = document.getElementById("InvoiceUpload").value;
             if (invoiceDoc === "" || invoiceDoc === null || invoiceDoc === '') {
                 Toast.fire({
                     type: 'error',
-                    title: 'Please Upload Document'
+                    title: 'Upload Invoice Document'
                 });
                 document.getElementById("InvoiceUpload").focus();
                 return "";
             }
+            
+            var docOne = document.getElementById("DocumentFileOne").value;
+            if (docOne === "" || docOne === null || docOne === '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Upload Summary Sheet'
+                });
+                document.getElementById("docOne").focus();
+                return "";
+            }
+            
+            var docTwo = document.getElementById("DocumentFileTwo").value;
+            if (docTwo === "" || docTwo === null || docTwo === '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Upload FS Calculation Sheet'
+                });
+                document.getElementById("docTwo").focus();
+                return "";
+            }
+            console.log(tripLineArray.length);
+            if(tripLineArray.length === 0){
+            	Toast.fire({
+                    type: 'error',
+                    title: 'Select More Then One Trips'
+                });
+                return "";
+            }
+            
 
 
             var stepOneObj = FormDataToJSON('stepOneForm');
+            var stepTwoObj = FormDataToJSON('queryForm');
 
             const finalObj = {
-                ...stepOneObj
+                ...stepOneObj,
+                ...stepTwoObj
             };
 
             if (document.getElementById("InvoiceUpload").files.length > 0) {
@@ -575,6 +632,9 @@
                 finalObj.documentFileTwoText = $("#DocumentFileTwoText").val();
             }
 
+            
+            	
+             
             // after
             tripLineArray.forEach((item) => {
                 item.id = null;
@@ -591,7 +651,7 @@
                 success: function(response) {
 
                     if (response.msg == 'success') {
-                        swal.fire("Thanks", "your Invoice Process Sucessfully", "success", "OK").then(function() {
+                        swal.fire("", "Invoice Processed Sucessfully", "success", "OK").then(function() {
                             window.opener.refereshList();
                             window.close();
                         });
@@ -649,8 +709,9 @@
                         var result = response.data;
                         var action = "";
                         var textBox = "";
-                        var temp = [];
-                        var temp1 = [];
+                        var taxableAmount = 0;
+                        /* var temp = [];
+                        var temp1 = []; */
                         tripLineArray = result;
 
                         $('#prTable').DataTable().clear();
@@ -661,6 +722,9 @@
                             }
                             if (!result[i].hasOwnProperty("runType")) {
                                 result[i].runType = "";
+                            }
+                            if (!result[i].hasOwnProperty("route")) {
+                                result[i].route = "";
                             }
                             if (!result[i].hasOwnProperty("standardKM")) {
                                 result[i].standardKM = "";
@@ -693,25 +757,20 @@
                                 result[i].lumpsomeamount = "0";
                             }
 
-                            textBox = "<input type=\"text\" class=\"form-control\" id=\"form-control\" placeholder=\"Fill Description\" oninput=\"updateTextData('" + i + "',this.value)\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
+                            textBox = "<input type=\"text\" class=\"form-control\" id=\"form-control\" placeholder=\"Fill Description\" maxlength=\"100\" oninput=\"updateTextData('" + i + "',this.value)\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
                             action = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteRow('" + result[i].tripID + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-                            $('#prTable').DataTable().row.add([i + 1, result[i].tripID, result[i].runType, result[i].standardKM, result[i].ratePerKm, result[i].currentFuelRate, result[i].fsBaseRate, result[i].fsDiff, result[i].basicFreight, result[i].fs, result[i].actualKM, result[i].totalFreight, result[i].lumpsomeamount, textBox, action]);
+                            $('#prTable').DataTable().row.add([i + 1, result[i].tripID, result[i].runType, result[i].route, result[i].standardKM, result[i].ratePerKm, result[i].currentFuelRate, result[i].fsBaseRate, result[i].fsDiff, result[i].basicFreight, result[i].fs, result[i].actualKM, result[i].totalFreight, result[i].lumpsomeamount, textBox, action]);
                             id = (result[i].id);
-                            temp.push(parseFloat(result[i].totalFreight));
-                            temp1.push(parseFloat(result[i].lumpsomeamount));
+                            taxableAmount += parseFloat(result[i].totalFreight)+ parseFloat(result[i].lumpsomeamount);
                         }
-                        var sum = 0;
-                        for (let i = 0; i < temp.length; i++) {
-                            sum += temp[i];
-                        }
-                        var sum1 = 0;
-                        for (let i = 0; i < temp1.length; i++) {
-                            sum1 += temp1[i];
-                        }
+                       
+                      
 
-                        $("#taxableAmount").val((sum + sum1).toFixed(2));
+                        $("#taxableAmount").val(parseFloat(taxableAmount).toFixed(2));
                         $('#prTable').DataTable().draw();
                         $("tbody").show();
+                        calculateInvoice();
+                        
                     } else {
                         alert("failed");
                     }
@@ -741,7 +800,7 @@
                 success: function(data) {
 
                     if (data.msg == 'success') {
-                        swal.fire("", "Deleted Successfully..", "success", "OK").then(function() {
+                        swal.fire("", "Deleted Successfully.", "success", "OK").then(function() {
                             window.opener.refereshList();
                             window.close();
                         });
@@ -785,8 +844,9 @@
                     if (data.msg == 'success') {
                         Toast.fire({
                             type: 'success',
-                            title: 'Deleted Successfully..'
+                            title: 'Deleted Successfully.'
                         })
+                        	/* $("#taxAmount").val(''); */
                         getSelectTripList();
                     } else {
                         Toast.fire({
@@ -802,17 +862,21 @@
         }
 
         getSelectTripList();
-        var bpname = ${userName};
+        var bpname = $("#vendorCode").val();
+        
 
         function getSelectTripList() {
+        	
+        	$("#tripList ").empty();
+        	$('#tripList').append($('<option/>').attr("value", "").text("Select Trip Id"));
 
-            var obj = {
+           /*  var obj = {
                 "vendorCode": bpname
-            }
+            } */
 
             $.ajax({
                 type: "POST",
-                data: JSON.stringify(obj),
+                data: "",
                 url: "<%=GlobalUrl.getTripDetailByTripId%>",
                 dataType: "json",
                 contentType: "application/json",
@@ -821,10 +885,13 @@
 
                     if (data.msg == 'success') {
                         var result = data.data;
-                        $("#tripList ").empty();
+                        
+                        console.log(result,"--------");
+                        
                         if (result.length !== 0) {
                             for (var i = 0; i < result.length; i++) {
-                                $('#tripList').append($('<option/>').attr("value", result[i].tripID).text(result[i].tripID));
+                                $('#tripList').append($('<option/>').attr("value", result[i]).text(result[i]));
+                                console.log(result[i].tripID);
                             }
                         }
                     } else {
@@ -843,10 +910,70 @@
         function calculateInvoice() {
             var taxAmount = $("#taxAmount").val();
             var taxableAmount = $("#taxableAmount").val();
-            var invoiceAmount = parseFloat(taxAmount) + parseFloat(taxableAmount);
-            $("#invoiceAmount").val((invoiceAmount).toFixed(2));
+            var taxAmount= parseFloat(taxableAmount) *  (parseFloat(taxAmount) /100);
+            var finalInvoiceAmount = parseFloat(taxableAmount) +  parseFloat(taxAmount) ;
+            $("#invoiceAmount").val(parseFloat(finalInvoiceAmount).toFixed(2));
         }
+        
+        $("#invoiceNumber").focusout(function() {
 
+            checkForExistingInvoiceNumber();
+
+        });
+        
+        function checkForExistingInvoiceNumber(){
+        	var invoiceCheckStatus = "false";
+        	
+        	//alert("hiii");
+        	var bpname = $("#vendorCode").val();
+
+
+            if ($("#invoiceNumber").val() != "") {
+
+                var json = {
+                    "invoiceNumber": $("#invoiceNumber").val(),
+                    "vendorCode": bpname
+
+                }
+                
+                console.log(json);
+                $.ajax({
+                    type: "POST",
+                    data: JSON.stringify(json),
+                    url: "<%=GlobalUrl.checkForExistingInvoiceNumber%>",
+                    dataType: "json",
+                    contentType: "application/json",
+                    async: false,
+                    success: function(data) {
+
+                    	console.log(data.msg);
+                        if (data.msg == 'exist') {
+
+                            Toast.fire({
+                                type: 'warning',
+                                title: 'Invoice Number Already Exists.'
+                            })
+                            $("#invoiceNumber").val('');
+
+                        } else if (data.msg == 'success') {
+                        	invoiceCheckStatus = "true";
+                        } else {
+                            Toast.fire({
+                                type: 'error',
+                                title: 'Failed.. Try Again..'
+                            })
+                        }
+
+                    },
+                    error: function(jqXHR, textStatue, errorThrown) {
+                        alert("failed, please try again");
+                    }
+
+                });
+        }
+            return invoiceCheckStatus;
+        }
+        
     </script>
 </body>
 

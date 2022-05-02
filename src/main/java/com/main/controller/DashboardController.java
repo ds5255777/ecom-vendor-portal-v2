@@ -1,16 +1,17 @@
 package com.main.controller;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,44 +20,46 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
+import com.main.commonclasses.GlobalConstants;
 import com.main.db.JdbcConnection;
 import com.main.db.bpaas.entity.AgreementMaster;
+import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
+import com.main.db.bpaas.repo.AgreementMasterRepo;
+import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.QueryRepo;
-
 import com.main.db.bpaas.repo.TripDetailsRepo;
-
+import com.main.service.InvoiceServiceImpl;
 import com.main.serviceManager.ServiceManager;
-import java.security.Principal;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @RequestMapping("/dashboardController")
 @RestController
 public class DashboardController {
 
-    @Value("${dataLimit}")
-    public String dataLimit;
+	@Value("${dataLimit}")
+	public String dataLimit;
 
-    @Autowired
-    ServiceManager serviceManager;
+	@Autowired
+	ServiceManager serviceManager;
 
-    @Autowired
-    JdbcConnection dbconnection;
+	@Autowired
+	JdbcConnection dbconnection;
 
-    @Autowired
-    TripDetailsRepo tripDetailsRepo;
+	@Autowired
+	TripDetailsRepo tripDetailsRepo;
 
-    @Autowired
-    QueryRepo queryRepo;
+	@Autowired
+	QueryRepo queryRepo;
+	
+	@Autowired
+	private InvoiceGenerationEntityRepo invoiceGenerationEntityRepo;
+
+	@Autowired
+	InvoiceServiceImpl invoiceServiceImpl;
+	
+	@Autowired
+	private AgreementMasterRepo agreementMasterRepo;
 
 	@RequestMapping({ "getDashboardDetails" })
 	@CrossOrigin("*")
@@ -68,18 +71,18 @@ public class DashboardController {
 		try {
 			List<TripDetails> topTripRecods = tripDetailsRepo.getTopTripRecods(vendorCode, Integer.parseInt(dataLimit));
 
-            data.setData(topTripRecods);
-            data.setMsg("success");
+			data.setData(topTripRecods);
+			data.setMsg("success");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            data.setMsg("error");
-        }
+		} catch (Exception e) {
+			e.printStackTrace();
+			data.setMsg("error");
+		}
 
-        return gson.toJson(data).toString();
-    }
+		return gson.toJson(data).toString();
+	}
 
-    @RequestMapping("/updateDetailsforNetwork")
+	@RequestMapping("/updateDetailsforNetwork")
     @CrossOrigin("*")
     public String updateDetailsforNetwork(Model model, Principal principal, @RequestBody String agrn) {
 
@@ -124,7 +127,42 @@ public class DashboardController {
         System.out.println("LumpSomeCheckBox" + LumpSomeCheckBox);
         System.out.println("LumpSomeAmount" + LumpSomeAmount);
 
-        tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox, LumpSomeAmount, "Yet To Be Approved");
+        String Query = jsonObject.getString("Query").toString();
+        System.out.println("Query is :::" + Query);
+        if ("No".equalsIgnoreCase(Query)) {
+            tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon, LumpSomeCheckBox, LumpSomeAmount, "Yet To Be Approved", Double.parseDouble(basicFreight), Double.parseDouble(totalFreight),Double.parseDouble(fs));
+        } else {
+            String standardKM = jsonObject.getString("standardKM").toString();
+            String milage = jsonObject.getString("milage").toString();
+            String ratePerKm = jsonObject.getString("ratePerKm").toString();
+            String routeKms = jsonObject.getString("routeKms").toString();
+            String fsBaseRate = jsonObject.getString("fsBaseRate").toString();
+            String currentFuelRate = jsonObject.getString("currentFuelRate").toString();
+            String fsDiff = jsonObject.getString("fsDiff").toString();
+
+            System.out.println("standardKM " + standardKM);
+            System.out.println("milage " + milage);
+            System.out.println("ratePerKm " + ratePerKm);
+            System.out.println("routeKms " + routeKms);
+            System.out.println("fsBaseRate " + fsBaseRate);
+            System.out.println("currentFuelRate " + currentFuelRate);
+            System.out.println("fsDiff " + standardKM);
+
+            try {
+                tripDetailsRepo.updateDetailsByNetworkInQuery(tripid, processedBy, processedon,
+                        LumpSomeCheckBox, LumpSomeAmount,
+                        Double.parseDouble(standardKM),
+                        Double.parseDouble(milage),
+                        Double.parseDouble(ratePerKm),
+                        Double.parseDouble(routeKms),
+                        Double.parseDouble(fsBaseRate),
+                        Double.parseDouble(currentFuelRate), Double.parseDouble(fsDiff), Double.parseDouble(basicFreight), Double.parseDouble(totalFreight));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            System.out.println("***************************Query runned*******************");
+        }
+
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         DataContainer data = new DataContainer();
         data.setMsg("success");
@@ -143,15 +181,74 @@ public class DashboardController {
 
 //Find ID on the basic of tripid
         TripDetails obj = tripDetailsRepo.findByTripID(tripid);
-        int id = (int)obj.getId();
+        int id = (int) obj.getId();
 
         comm.setReferenceid(tripid);
-        comm.setComment(commentsByUSer);
-comm.setTripqueryfk(id);
+        if ("Yes".equalsIgnoreCase(Query)) {
+            comm.setComment("Values Repopulated from MDM");
+        } else {
+            comm.setComment(commentsByUSer);
+        }
+
+        comm.setForeignKey(id);
 
         queryRepo.save(comm);
 
         return gson.toJson(data).toString();
 
     }
+
+	@RequestMapping({ "getFinanceDashBoardDetails" })
+	@CrossOrigin("*")
+	public String getFinanceDashBoardDetails(HttpSession session, HttpServletRequest request) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String rolename = (String) request.getSession().getAttribute("role");
+
+		try {
+			if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(rolename)) {
+				List<InvoiceGenerationEntity> allInvoice = invoiceServiceImpl.getTopFiftyInvoice();
+				data.setData(allInvoice);
+			} else {
+				List<InvoiceGenerationEntity> allInvoice = invoiceGenerationEntityRepo.topFiftyInProcessedInvoice();
+				data.setData(allInvoice);
+			}
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			data.setMsg("error");
+		}
+
+		return gson.toJson(data).toString();
+	}
+	
+
+	//RefreshVaues for Scheduled trips in case of updation in Agreenment Master
+    @RequestMapping({"refreshValues"})
+    public String refreshValues(Principal principal, @RequestBody String reqObj) {
+        DataContainer data = new DataContainer();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        System.out.println("**********Inside refresh values********************");
+        try {
+            JSONObject jsonObject = new JSONObject(reqObj);
+            String vendorCode = (String) jsonObject.get("vendorCode");//
+            String route = (String) jsonObject.get("route");
+
+            System.out.println("Vendor code ::" + vendorCode);
+            System.out.println("route ::" + route);
+
+            AgreementMaster masterData = agreementMasterRepo.getAllTripsByVendorCode(vendorCode, route);
+            System.out.println("masterData ::" + masterData.getVendorName());
+            data.setData(masterData);
+            data.setMsg("success");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            data.setMsg("error");
+        }
+
+        return gson.toJson(data).toString();
+    }
+
 }

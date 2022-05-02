@@ -15,7 +15,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="dist/css/ionicons.min.css">
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
@@ -210,11 +210,10 @@
             getData();
 
             function getData() {
-                var jsArray = [];
                 $('.loader').show();
                 $.ajax({
                     type: "POST",
-                    data: JSON.stringify(jsArray),
+                    data: "",
                     url: "<%=GlobalUrl.getAllDraftInvoice%>",
                     dataType: "json",
                     contentType: "application/json",
@@ -258,6 +257,7 @@
                 $('.loader').show();
                 var urlOftripsDetail = "draftInvoiceGenerate?id=" + invoiceNumber;
                 window.open(urlOftripsDetail, "draftInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
+                $('.loader').hide();
             }
 
             function deleteInvoice(invoiceID, ecomInvoiceNumber) {

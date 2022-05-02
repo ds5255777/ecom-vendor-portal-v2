@@ -33,6 +33,11 @@ import com.main.email.CommEmailFunction;
 import com.main.email.WelcomeEmail;
 import com.main.service.SecurityService;
 import com.main.service.UserService;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @RequestMapping("/ajaxController")
 @RestController
@@ -64,9 +69,13 @@ public class AjaxController {
 
 	@Value("${host}")
 	public String host;
+static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private static Logger logger = LoggerFactory.getLogger(AjaxController.class);
 
 	@RequestMapping("/SaveRegistration")
 	public String SaveRegistration(@RequestBody SupDetails supDetails) {
+
+logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -519,7 +528,10 @@ public class AjaxController {
 					JSONArray arrayforVend = new JSONArray();
 
 					arrayforVend.put(venDetals);
-
+System.out.println("Fin Json "+venDetals.toString());
+System.out.println("Vendor Site Details "+ arrayforVend.toString());
+System.out.println("Header "+ json.toString());
+System.out.println("----------------------"+array);
 					json.put("Documents", array);
 					json.put("VendorSiteDetails", arrayforVend);
 
@@ -560,11 +572,12 @@ public class AjaxController {
 						System.out.println(" FinalOutput JSON in api ::: " + finalOut);
 					}
 
+					
 					JSONObject jsonObject = new JSONObject(finalOut);
 					if (null != jsonObject) {
 						String statuscode = jsonObject.optString("Status");
 						if ("201".equalsIgnoreCase(statuscode)) {
-							processID = jsonObject.optString("ProcessID");
+							 processID = jsonObject.optString("ProcessID");
 
 							supDetails.setPid(processID);
 							System.out.println("   ------------" + processID);
@@ -574,14 +587,18 @@ public class AjaxController {
 					}
 
 					conn.disconnect();
-
+logger.error("Ran into an error {}");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
+			}               
+			
+			
+			
+			                   
 
 //API calling END
-			SupDetails supSaved = detailsRepo.save(supDetails);
+			detailsRepo.save(supDetails);
 
 			data.setData(processID);
 

@@ -15,7 +15,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="dist/css/ionicons.min.css">
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
@@ -475,25 +475,23 @@
             var tabledata = $('#tabledata').DataTable({
             "paging": true,
             "lengthChange": false,
-            "searching": false,
+            "searching": true,
             "info": true,
             "autoWidth": false,
             "aaSorting": [],
             "scrollX": true,
-            "pageLength": 15,
+            "pageLength": 20
             });
 
             getData();
 
             function getData() {
 
-                var jsArray = [];
-
                 $('.loader').show();
 
                 $.ajax({
                     type: "POST",
-                    data: JSON.stringify(jsArray),
+                    data: "",
                     url: "<%=GlobalUrl.getInTransitTripsDetails%>",
                     dataType: "json",
                     contentType: "application/json",
@@ -539,7 +537,6 @@
        								result[i].vendorTripStatus="";
        							}
 
-                                //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].siteQualityId + "','" + result[i].checkListId + "','"+result[i].url+"')\"><i class='fa fa-eye ' ></i></button>";
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
                                 var statustemp_runType_Scheduled = '<span class=\"right badge badge-warning\">Scheduled</span>';
@@ -612,14 +609,8 @@
                 });
             }
 
-            /* function setTripStatus(tripId) {
-                globalTripId = "";
-                globalTripId = tripId;
-                console.log("tripid : "+globalTripId);
-            } */
             function setTripStatus(tripId) {
                 console.log("Trip od" + tripId);
-                //	 tripId =  $("#tripID").val();		
 
                 var json = {
                     "tripID": tripId
@@ -637,8 +628,6 @@
                         if (data.msg == 'success') {
                             var result = data.data;
 
-                            /* jsondata=JSON.parse(result) */
-                            ;
                             var myForm = "";
                             myForm = document.getElementById("tripForm");
                             setData(myForm, result);

@@ -14,7 +14,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="dist/css/ionicons.min.css">
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
@@ -210,11 +210,10 @@
             getData();
 
             function getData() {
-                var jsArray = [];
                 $('.loader').show();
                 $.ajax({
                     type: "POST",
-                    data: JSON.stringify(jsArray),
+                    data: "",
                     url: "<%=GlobalUrl.getAllPendingInvoice%>",
                     dataType: "json",
                     contentType: "application/json",
@@ -240,7 +239,7 @@
                                 if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
                                     result[i].invoiceStatus = "";
                                 }
-                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "')\" >" + result[i].ecomInvoiceNumber + "</button>";
+                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "','Pending Queue')\" >" + result[i].ecomInvoiceNumber + "</button>";
 
                                 tabledata.row.add([view, result[i].invoiceReceivingDate, result[i].invoiceNumber, result[i].invoiceDate, result[i].invoiceAmount]);
                             }
@@ -259,9 +258,9 @@
                 });
             }
 
-            function getInvoiceDataFormDataByInvoiceNumber(id) {
+            function getInvoiceDataFormDataByInvoiceNumber(id, type) {
                 $('.loader').show();
-                var urlOftripsDetail = "invoiceView?id=" + id;
+                var urlOftripsDetail = "invoiceView?id=" + id+"&type="+type;
                 window.open(urlOftripsDetail, "invoiceView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
                 $('.loader').hide();
             }

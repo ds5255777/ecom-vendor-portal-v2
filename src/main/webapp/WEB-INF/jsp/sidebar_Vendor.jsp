@@ -64,7 +64,7 @@
 					out.print("active");
 				}%>                            
 	                            ">
-	                            <i class="nav-icon fas fa-truck"></i>
+	                            <i class="nav-icon fas fa-map-marked-alt"></i>
 	                            <p>In-Transit Trips</p>
 	                        </a></li>
 	                </ul>
@@ -90,7 +90,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item"><a href="invoicesQueue" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("invoicesQueue")) {
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("invoiceQueue")) {
 				out.print("active");
 			}%>">
                             <i class="nav-icon fas fa-file-invoice"></i>
@@ -102,7 +102,7 @@
                             <%if (request.getParameter("pagename").equalsIgnoreCase("pendingInvoice")) {
 				out.print("active");
 			}%>">
-                            <i class="nav-icon far fa-file-alt"></i>
+                            <i class="nav-icon fas fa-file-contract"></i>
                             <p>Invoice Process</p>
                         </a></li>
                 </ul>
@@ -111,7 +111,7 @@
                             <%if (request.getParameter("pagename").equalsIgnoreCase("approvedInvoice")) {
 				out.print("active");
 			}%>">
-                            <i class="nav-icon fas fa-thumbs-up"></i>
+                            <i class="nav-icon fas fa fa-check"></i>
                             <p>Invoice Approved</p>
                         </a></li>
                 </ul>
@@ -120,8 +120,17 @@
                             <%if (request.getParameter("pagename").equalsIgnoreCase("draftInvoice")) {
 				out.print("active");
 			}%>">
-                            <i class="nav-icon far fa-times-circle"></i>
+                            <i class="nav-icon fab fa-firstdraft"></i>
                             <p>Draft Invoice</p>
+                        </a></li>
+                </ul>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item"><a href="queryInvoiceVendor" class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("queryInvoiceVendor")) {
+				out.print("active");
+			}%>">
+                            <i class="nav-icon fas fa-question"></i>
+                            <p>Query Invoice</p>
                         </a></li>
                 </ul>
                 <hr>

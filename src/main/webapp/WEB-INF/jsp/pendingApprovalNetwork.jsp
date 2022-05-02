@@ -948,7 +948,8 @@
                                                             "fs": fs,
                                                             "totalFreight": totalFreight,
                                                             "basicFreight": basicFreight,
-                                                            "commentsby": comments_by_User
+                                                            "commentsby": comments_by_User,
+                                                            "Query": "No"
 
                                                         }
 

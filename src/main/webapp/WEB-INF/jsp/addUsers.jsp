@@ -106,6 +106,8 @@
         <jsp:include page="sidebar_Admin.jsp?pagename=addUsers" />
 
         <!-- Content Wrapper. Contains page content -->
+       
+			<input type="hidden" id =uname  value=${uname} />
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header" style="padding: 0px;">
@@ -143,7 +145,7 @@
                             <!-- general form elements -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Add User Applicable Only for Admin or Audit</h3>
+                                    <h3 class="card-title">Add User, Applicable Only for Admin or Audit or Finance</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
@@ -152,27 +154,27 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">User Name</label> <input type="text" name="username" class="form-control" id="username">
+                                                    <label for="exampleInputserverName1">User Name</label> <input type="text" name="username" class="form-control" id="username" maxlength="70" pattern="[a-zA-Z][a-zA-Z0-9]+">
 
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Password</label> <input type="password" name="password" class="form-control" id="password">
+                                                    <label for="exampleInputserverName1">Password</label> <input type="password" name="password" class="form-control" id="password" maxlength="70" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter">
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" name="firstName" class="form-control" id="firstName">
+                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" name="firstName" class="form-control" id="firstName" maxlength="70" pattern="[a-zA-Z]+">
 
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" name="lastName" class="form-control" id="lastName">
+                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" name="lastName" class="form-control" id="lastName" maxlength="70" pattern="[a-zA-Z]+">
                                                 </div>
 
                                             </div>
@@ -185,6 +187,8 @@
                                                        
                                                             <option value="1">Admin</option>
                                                             <option value="3">Audit</option>
+                                                            <option value="5">Finance</option>
+                                                            <option value="6">Finance Head</option>
                                                        
                                                     </select>
                                                 </div>
@@ -194,14 +198,14 @@
                                             
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" class="form-control" id="emailId">
+                                                    <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" class="form-control" maxlength="70" id="emailId">
 
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Contact No.</label> <input type="text" name="contactNo" class="form-control" id="contactNo" maxlength="10">
+                                                    <label for="exampleInputserverName1">Contact No.</label> <input type="text" name="contactNo" maxlength="10" class="form-control" id="contactNo" pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$" title="Enter Valid mobile number ex.9811111111">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -278,23 +282,23 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">User Name</label> <input type="text" name="username" class="form-control" readonly="readonly" id="usernameEdit">
+                                                    <label for="exampleInputserverName1">User Name</label> <input type="text" name="username" class="form-control" readonly="readonly" id="usernameEdit" >
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Password</label> <input type="password" name="password" class="form-control" id="passwordEdit">
+                                                    <label for="exampleInputserverName1">Password</label> <input type="password"maxlength="70" name="password" class="form-control" id="passwordEdit" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" name="firstName" class="form-control" id="firstNameEdit">
+                                                    <label for="exampleInputserverName1">First Name</label> <input type="text"maxlength="70" name="firstName" class="form-control" id="firstNameEdit" pattern="[a-zA-Z]+">
 
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" name="lastName" class="form-control" id="lastNameEdit">
+                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" maxlength="70"name="lastName" class="form-control" id="lastNameEdit" pattern="[a-zA-Z]+">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -303,6 +307,8 @@
                                                        
                                                             <option value="1">Admin</option>
                                                             <option value="3">Audit</option>
+                                                            <option value="5">Finance</option>
+                                                            <option value="6">Finance Head</option>
                                                        
                                                     </select>
                                                 </div>
@@ -310,13 +316,13 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" class="form-control" id="emailIdEdit">
+                                                    <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" maxlength="70"class="form-control" id="emailIdEdit">
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Contact No</label> <input type="text" name="contactNo" class="form-control" id="contactNoEdit">
+                                                    <label for="exampleInputserverName1">Contact No</label> <input type="text" name="contactNo" maxlength="10"  class="form-control" id="contactNoEdit" pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$" title="Enter Valid mobile number ex.9811111111">
                                                 </div>
                                             </div>
                                             
@@ -792,8 +798,11 @@
                         tabledata.clear();
 
                         for (var i = 0; i < result.length; i++) {
+                        	
+                        
 
-                            var inactive = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"inactiveActiveDeleteData(" + result[i].id + ")\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
+                            var inactive = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"inactiveActiveDeleteData('" + result[i].id + "' ,'" +result[i].username+ "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
+                        
                             var edit = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"   data-original-title=\"Click To Edit\" style=\"width: 43px;\"  onclick=\"editData(" + result[i].id + ")\"><i class=\"nav-icon fas fa-pencil-square-o\"> </i> </button>";
                             lastName = "";
                             if (result[i].hasOwnProperty("lastName")) {
@@ -829,8 +838,22 @@
         }
 
 
-        function inactiveActiveDeleteData(userid) {
-
+        function inactiveActiveDeleteData(userid , name) {
+        	var uname = $("#uname").val();
+        	 if (uname === name) {
+        		 swal.fire("Alert", "Can not delete current user ! ", "warning");
+                 return false;
+        		 
+        	 } 
+        	 let text="Are You sure to delete "+name;
+        	 if (confirm(text) != true) {
+        		 
+        		    
+        		    return false;
+        		  } 
+        	 
+        	 
+        	
             var json = {
                 "id": userid,
                 "status": "0"
@@ -846,6 +869,7 @@
 
                     if (data.msg == 'success') {
 
+                    	
                         Toast.fire({
                             type: 'success',
                             title: 'Deleted Successfully..'

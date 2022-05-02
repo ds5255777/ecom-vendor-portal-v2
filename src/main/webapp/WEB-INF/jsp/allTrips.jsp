@@ -172,9 +172,6 @@
 			       <jsp:include page="sidebar_Vendor.jsp?pagename=allTrips" /> 
 			    </c:otherwise>  
   		</c:choose>
-  
-  
-        
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -183,12 +180,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-6"></div>
                         <div class="col-sm-6">
-                            <!-- <ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li>
-						</ol> -->
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -817,7 +809,7 @@
                                 var statustemp_approved = '<span class=\"right badge badge-success\">Approved</span>';
                                 var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
                                 var statustemp_Draft_Invoicing = '<span class=\"right badge badge-danger\">Draft-Invoicing</span>';
-                                var statustemp_query = '<span class=\"right badge badge-warning\"  style=\"background-color: violet;\">Query</span>';
+                                var statustemp_query = '<span class=\"right badge badge-warning\"  style=\"background-color: #fd7e14;\">Query</span>';
 
                                 var paymentStatus = "";
                                 var runStatus = "";
@@ -1005,7 +997,7 @@
                                 var statustemp_approved = '<span class=\"right badge badge-success\">Approved</span>';
                                 var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
                                 var statustemp_Draft_Invoicing = '<span class=\"right badge badge-danger\">Draft-Invoicing</span>';
-                                var statustemp_query = '<span class=\"right badge badge-warning\"  style=\"background-color: violet;\">Query</span>';
+                                var statustemp_query = '<span class=\"right badge badge-warning\"  style=\"background-color: #fd7e14;\">Query</span>';
 
                                 var paymentStatus = "";
                                 var runStatus = "";

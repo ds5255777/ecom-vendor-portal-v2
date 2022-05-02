@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
+import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.Document;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.QueryEntity;
@@ -55,10 +56,16 @@ public class InvoiceController {
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String vendorCode = principal.getName();
+		String rolename = (String) request.getSession().getAttribute("role");
 		try {
-			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllInvoice(vendorCode);
-
-			data.setData(pandingInvoice);
+			if(rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+				List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllInvoice(vendorCode);
+				data.setData(pandingInvoice);
+			}else {
+				List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.findAll();
+				data.setData(pandingInvoice);
+			}
+			
 			data.setMsg("success");
 
 		} catch (Exception e) {

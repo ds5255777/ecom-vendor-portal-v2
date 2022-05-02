@@ -863,18 +863,19 @@ label {
 														<c:forEach items="${business}" var="bus">
 
 															<option value="${bus}">${bus}</option>
-														</c:forEach></select></td>
+														</c:forEach>
+												</select></td>
 
 
 												<td><label for="partnerType">Business Partner</label></td>
 												<td><select id="partnerType" name="partnerType"
 													class="form-control p-input"
 													onchange="showHideRequiredClass();" disabled="disabled">
-													<c:forEach items="${partner}" var="par">
+														<c:forEach items="${partner}" var="par">
 
 															<option value="${par}">${par}</option>
 														</c:forEach>
-														
+
 												</select></td>
 												<input type="hidden" id="roleId" />
 
@@ -945,12 +946,12 @@ label {
 													name="businessClassification" class="form-control p-input"
 													colspan='1' placeholder="Business Classification"
 													onchange="removeValCssByID(this)">
-														<option  value="">Select</option>
-													<c:forEach items="${classification}" var="classi">
+														<option value="">Select</option>
+														<c:forEach items="${classification}" var="classi">
 
 															<option value="${classi}">${classi}</option>
 														</c:forEach>
-														
+
 												</select></td>
 											</tr>
 
@@ -1001,12 +1002,12 @@ label {
 													id="natureOfTransactions" name="natureOfTransactions"
 													placeholder="Nature of transactions"
 													onchange="removeValCssByID(this)">
-														<option  value="">Select</option>
-													<c:forEach items="${nature}" var="nat">
+														<option value="">Select</option>
+														<c:forEach items="${nature}" var="nat">
 
 															<option value="${nat}">${nat}</option>
 														</c:forEach>
-									
+
 												</select></td>
 											</tr>
 
@@ -1052,11 +1053,11 @@ label {
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><select id="addCountry"
 														name="addCountry" class="form-control p-input">
-														<c:forEach items="${country}" var="count">
+															<c:forEach items="${country}" var="count">
 
-															<option value="${count}">${count}</option>
-														</c:forEach>
-															
+																<option value="${count}">${count}</option>
+															</c:forEach>
+
 													</select></td>
 
 													<td><label class="addressLable">State<span
@@ -1388,12 +1389,12 @@ label {
 														class="form-control p-input" colspan='2'
 														placeholder="Payment / Credit Terms"
 														onchange="removeValCssByID(this)">
-														<option  value="">Select</option>
+															<option value="">Select</option>
 															<c:forEach items="${payment}" var="pay">
 
-															<option value="${pay}">${pay}</option>
-														</c:forEach>
-															
+																<option value="${pay}">${pay}</option>
+															</c:forEach>
+
 													</select></td>
 												</tr>
 												<tr class="">
@@ -1457,13 +1458,13 @@ label {
 														<td><select id="tdsSection" name="tdsSection"
 															class="form-control p-input" colspan='2'
 															placeholder="TDS Section">
-															<option  value="">Select</option>
-																	<c:forEach items="${tdsCode}" var="tds">
+																<option value="">Select</option>
+																<c:forEach items="${tdsCode}" var="tds">
 
-																<option value="${tds}">${tds}</option>
-															</c:forEach>
-																
-															
+																	<option value="${tds}">${tds}</option>
+																</c:forEach>
+
+
 
 														</select></td>
 
@@ -1505,10 +1506,12 @@ label {
 																Year</label></td>
 														<td colspan='2'><select id="fyYear"
 															class="form-control p-input ">
-																<option value="2018-19">2018-19</option>
-																<option value="2019-20">2019-20</option>
-																<option value="2020-21">2020-21</option>
-																<option value="2021-22">2021-22</option>
+																<option value="">Select</option>
+
+																<c:forEach items="${financialYear}" var="fin">
+
+																	<option value="${fin}">${fin}</option>
+																</c:forEach>
 
 														</select></td>
 														<td style="width: 150px;"></td>
@@ -1525,7 +1528,9 @@ label {
 															onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
 															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 															<textarea id="ITRAFileText" rows="5"
-																style="display: none;"></textarea></td>
+																style="display: none;"></textarea> <label><span
+																style="font-weight: 500; color: #fd7e14;">* File
+																	size Max ${fileSize} MB</span></label></td>
 
 														<td colspan='2'>
 															<button type="Button" id="addITRGridButt"
@@ -1593,14 +1598,19 @@ label {
 																onchange=" removeValCssByID(this),  handleFileSelect(event,'GSTFileText'), onValidateFile('GSTFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="GSTFileText" rows="5"
-																	style="display: none;"></textarea></td>
-															<td><label>Proprietorship declaration<span
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
+
+															<td><label>Proprietorship Declaration<span
 																	class="required">*</span></label></td>
 															<td><input type="file" id="PDFile" name="PDFile"
 																onchange=" removeValCssByID(this),  handleFileSelect(event,'PDFileText'), onValidateFile('PDFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="PDFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
 
 														</tr>
 
@@ -1610,7 +1620,9 @@ label {
 																onchange="handleFileSelect(event,'PANFileText'), onValidateFile('PANFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="PANFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
 
 															<td><label>Cancelled Cheque/ Passbook/ Bank
 																	Statement<span class="required">*</span>
@@ -1619,7 +1631,9 @@ label {
 																onchange="handleFileSelect(event,'CCFileText'), onValidateFile('CCFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="CCFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 														<tr>
 															<td><label>Aadhar Card</label></td>
@@ -1627,14 +1641,18 @@ label {
 																onchange="handleFileSelect(event,'ACFileText'), onValidateFile('ACFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="ACFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
 															<td><label>Aadhar and PAN Card linking
 																	declaration</label></td>
 															<td><input type="file" id="APLFile" name="APLFile"
 																onchange="handleFileSelect(event,'APLFileText'), onValidateFile('APLFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="APLFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 														<tr>
 															<td><label>ITR Filling Declaration<span
@@ -1643,14 +1661,18 @@ label {
 																onchange="handleFileSelect(event,'ITRFileText'), onValidateFile('ITRFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="ITRFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
 															<td><label>Filled Updated VRF Form<span
 																	class="required">*</span></label></td>
 															<td><input type="file" id="FUVFFile" name="FUVFFile"
 																onchange="handleFileSelect(event,'FUVFFileText'), onValidateFile('FUVFFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="FUVFFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 														<tr>
 															<td><label>MSME Certificate<span
@@ -1660,14 +1682,18 @@ label {
 																onchange="handleFileSelect(event,'MSMECFileText'), onValidateFile('MSMECFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="MSMECFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
 															<td><label>Approval Mail<span
 																	class="required">*</span></label></td>
 															<td><input type="file" id="AMFile" name="AMFile"
 																onchange="handleFileSelect(event,'AMFileText'), onValidateFile('AMFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="AMFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 
 														<tr>
@@ -1688,7 +1714,9 @@ label {
 																onchange="handleFileSelect(event,'NMISFileText'), onValidateFile('NMISFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="NMISFileText" rows="5"
-																	style="display: none;"></textarea></td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 													</tbody>
 												</table>

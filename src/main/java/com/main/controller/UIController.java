@@ -25,6 +25,7 @@ import com.main.db.bpaas.repo.BusinessPartnerRepo;
 import com.main.db.bpaas.repo.BusinessPartnerTypeRepo;
 import com.main.db.bpaas.repo.CountryRepo;
 import com.main.db.bpaas.repo.CurrencyRepo;
+import com.main.db.bpaas.repo.FinancialYearRepo;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.NatureOfTransactionRepo;
 import com.main.db.bpaas.repo.PaymentTermRepo;
@@ -40,6 +41,9 @@ public class UIController {
 
 	@Value("${maxFileSize}")
 	public String maxFileSize;
+	
+	@Value("${fileSize}")
+	public String fileSize;
 
 	@Autowired
 	ServiceManager serviceManager;
@@ -83,6 +87,9 @@ public class UIController {
 	@Autowired
 	TDSSectionCodeRepo tDSSectionCodeRepo;
 
+	@Autowired
+	FinancialYearRepo financialYearRepo;
+	
 	@GetMapping({ "/login" })
 	public String login(Model model, String error, String logout) {
 		model.addAttribute("userForm", new User());
@@ -109,6 +116,7 @@ public class UIController {
 		List<String> nature = natureOfTransactionRepo.getNatureOfTransaction();
 		List<String> country = countryRepo.getCountry();
 		List<String> tdsCode = tDSSectionCodeRepo.getTDSSectionCode();
+		List<String> financialYear = financialYearRepo.getFinancialYear();
 		
 		
 		model.addAttribute("currency", currency);
@@ -118,7 +126,10 @@ public class UIController {
 		model.addAttribute("payment", payment);
 		model.addAttribute("nature", nature);
 		model.addAttribute("country", country);
-		model.addAttribute("tdsCode", tdsCode);
+		model.addAttribute("tdsCode", tdsCode); 
+		model.addAttribute("financialYear", financialYear); 
+		
+		model.addAttribute("fileSize", fileSize);
 		
 		model.addAttribute("maxFileSize", maxFileSize);
 

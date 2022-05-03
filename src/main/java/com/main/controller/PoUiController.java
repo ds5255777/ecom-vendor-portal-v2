@@ -208,6 +208,7 @@ public class PoUiController {
 
 			String PoNumber = request.getParameter("id");
 			model.addAttribute("PoNumber", PoNumber);
+			model.addAttribute("invoiceNumber", PoNumber);
 			return "draftPoInvoiceGenerate";
 		}
 		

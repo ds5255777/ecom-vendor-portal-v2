@@ -165,7 +165,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Trading partner</label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="tradingPartner" id="tradingPartner" type="text" placeholder="Trading partner" style="width: 100%;" readonly>
+                                                <input class="form-control-sm" name="tradingPartner" id="tradingPartner" type="text" placeholder="Trading partner" style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -173,7 +173,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Supplier Number<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="supplierNumber" id="supplierNumber" readonly="readonly"  placeholder="Supplier Number" style="width: 100%;" on>
+                                                <input class="form-control-sm" name="supplierNumber" id="supplierNumber"   placeholder="Supplier Number" style="width: 100%;" on>
                                             </div>
                                         </div>
                                     </div>
@@ -190,7 +190,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Payment Currency<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="paymentCurrency" id="paymentCurrency" type="number" readonly="readonly" placeholder="Payment Currency" onfocusout="calculateInvoice()" style="width: 100%;" on>
+                                                <input class="form-control-sm" name="paymentCurrency" id="paymentCurrency" type="number"  placeholder="Payment Currency" onfocusout="calculateInvoice()" style="width: 100%;" on>
                                             </div>
                                         </div>
                                     </div>
@@ -198,7 +198,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Match Option <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm"  name="invoiceMatchoption" id="invoiceMatchoption" placeholder="Match Option" readonly style="width: 100%;">
+                                                <input class="form-control-sm"  name="invoiceMatchoption" id="invoiceMatchoption" placeholder="Match Option"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -207,7 +207,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Terms Date<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="termsDate" id="termsDate" readonly="readonly" placeholder="Terms Date"  style="width: 100%;" on>
+                                                <input class="form-control-sm" name="termsDate" id="termsDate"  placeholder="Terms Date"  style="width: 100%;" on>
                                             </div>
                                         </div>
                                     </div>
@@ -215,7 +215,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Terms <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm"  name="terms" id="terms" placeholder="Terms" readonly style="width: 100%;" >
+                                                <input class="form-control-sm"  name="terms" id="terms" placeholder="Terms"  style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -224,7 +224,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Payment Method<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="paymentMethod" id="paymentMethod"  placeholder="Payment Method"  style="width: 100%;" readonly="readonly">
+                                                <input class="form-control-sm" name="paymentMethod" id="paymentMethod"  placeholder="Payment Method"  style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -232,7 +232,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Pay Group <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="number" name="payGroup" id="payGroup" placeholder="Pay Group " readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="number" name="payGroup" id="payGroup" placeholder="Pay Group "  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -240,7 +240,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Remit To bank account name<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="remitTobankaccountname" id="remitTobankaccountname" type="number" placeholder="Remit To bank account name" style="width: 100%;" readonly="readonly">
+                                                <input class="form-control-sm" name="remitTobankaccountname" id="remitTobankaccountname" type="number" placeholder="Remit To bank account name" style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -278,7 +278,7 @@
                     <!-- /.card -->
                                        <!-- /.card -->
 
-                    <div class="card card-primary">
+<!--                     <div class="card card-primary">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">Document Upload</h4>
                             <div class="card-tools">
@@ -287,7 +287,7 @@
                                 </button>
                             </div>
                         </div>
-                        <!-- /.card-header -->
+                        /.card-header
                         <div class="card-body" style="overflow: auto;">
                             <form id="stepFourForm" class="forms-sample">
                                 <div class="row">
@@ -321,8 +321,8 @@
                                 </div>
                             </form>
                         </div>
-                        <!-- /.card-body -->
-                    </div>
+                        /.card-body
+                    </div> -->
                     
                      <div class="card card-primary">
                     <div class="card-header" style="padding: 5px 5px 0px 5px;">
@@ -506,7 +506,7 @@
        
   
     
-    var  poNo='${PoNumber}';
+    var  invoiceNumber='${invoiceNumber}';
    // alert("poNo"+poNo)
    
    getPoDetails();
@@ -514,13 +514,13 @@
     function getPoDetails() {
 
         var obj = {
-            "poNo": poNo
+            "invoiceNumber": invoiceNumber
         }
 		
         $.ajax({
             type: "POST",
             data: JSON.stringify(obj),
-            url: "<%=GlobalUrl.getAllPODetailsByPoNo%>",
+            url: "<%=GlobalUrl.getAllDraftPODetailsByInvoiceNo%>",
             dataType: "json",
             contentType: "application/json",
             async: false,
@@ -551,7 +551,7 @@
                     $('#chargeAccount3').val(result[0].chargeAccount)
                     
               
-                 $('#poNumber').val('${PoNumber}'); 
+                // $('#poNumber').val('${PoNumber}'); 
                     var d = new Date();
                     $( "#invoiceDate" ).val(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
                     
@@ -616,6 +616,141 @@
     }
     
       
+  function sendToServer() {
+    	
+    	//invoiceDate
+		var invoiceDa = document.getElementById("invoiceDate").value;
+		if (invoiceDa === "" || invoiceDa === null || invoiceDa === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Please Select Date'
+            });
+            document.getElementById("invoiceDate").focus();
+            return "";
+        }
+    	
+    	var invoiceNu = document.getElementById("invoiceNumber").value;
+		if (invoiceNu === "" || invoiceNu === null || invoiceNu === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Please fill Invoice Number'
+            });
+            document.getElementById("invoiceNumber").focus();
+            return "";
+        }
+		
+		//invoiceDate
+		/* var invoiceAm = document.getElementById("invoiceAmount").value;
+		if (invoiceAm === "" || invoiceAm === null || invoiceAm === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Please fill Invoice Amount'
+            });
+            document.getElementById("invoiceAmount").focus();
+            return "";
+        }
+		
+		//vehicleNumber
+		var vehicleNu = document.getElementById("vehicleNumber").value;
+		if (vehicleNu === "" || vehicleNu === null || vehicleNu === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Please fill vehicle Number'
+            });
+            document.getElementById("vehicleNumber").focus();
+            return "";
+        }
+
+		//vehicleNumber
+		var invoiceDoc = document.getElementById("InvoiceUpload").value;
+		if (invoiceDoc === "" || invoiceDoc === null || invoiceDoc === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Please Upload Document'
+            });
+            document.getElementById("InvoiceUpload").focus();
+            return "";
+        }
+		//vehicleNumber
+		/* var docOne = document.getElementById("DocumentFileOne").value;
+		if (docOne === "" || docOne === null || docOne === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Please Upload Document'
+            });
+            document.getElementById("DocumentFileOne").focus();
+            return "";
+        }
+		//vehicleNumber
+		var docTwo = document.getElementById("DocumentFileTwo").value;
+		if (docTwo === "" || docTwo === null || docTwo === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Please Upload Document'
+            });
+            document.getElementById("DocumentFileTwo").focus();
+            return "";
+        } */
+
+         var stepOneObj = FormDataToJSON('stepOneForm');
+        var stepThreeObj = FormDataToJSON('stepThreeForm');
+
+        const finalObj = {
+            ...stepOneObj,
+            ...stepThreeObj
+        };
+	console.log();
+    
+
+        
+     // after
+       /*  tripLineArray.forEach((item) => {
+        	console.log(tripLineArray);
+        	console.log(item);
+        	item.id=null;
+        });
+     
+     console.log(tripLineArray);
+        
+        finalObj.invoiceLineItem=tripLineArray */;
+        
+        console.log(finalObj);
+//return;
+        
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(finalObj),
+            url: "<%=GlobalUrl.savePoInvoice%>",
+            dataType: "json",
+            contentType: "application/json",
+            success: function(response) {
+
+            	 if (response.msg == 'success') {
+                     swal.fire("Thanks", "your Invoice Process Sucessfully", "success", "OK").then(function() {
+                    	 //window.opener.refereshList();
+                         window.close();
+                         //window.location="closedAndApprovedTrips";
+                     });
+                     
+                     
+                     setTimeout(function(response) {
+
+                     }, 2000);
+                 } else {
+                    alert("failed");
+                }
+            },
+            error: function(jqXHR, textStatue, errorThrown) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                })
+            }
+        });
+    }
+
+    
     </script>
 </body>
 

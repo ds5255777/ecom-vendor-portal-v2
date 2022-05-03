@@ -109,8 +109,11 @@ public static String invoiceController="invoiceController";
 	 public static String getAllDraftInvoicePO=PoInvoiceContoller+"/getAllDraftInvoicePO";
 	 public static String deleteDraftPoInvoice=PoInvoiceContoller+"/deleteDraftPoInvoice";
 	 public static String savePoInvoice=PoInvoiceContoller+"/savePoInvoice";
+	 public static String saveDraftInvoice=PoInvoiceContoller+"/saveDraftInvoice";
 	 
 	 
+	 
+	 public static String getAllDraftPODetailsByInvoiceNo=PoInvoiceContoller+"/getAllDraftPODetailsByInvoiceNo"; 
 	 
 	 
 	 

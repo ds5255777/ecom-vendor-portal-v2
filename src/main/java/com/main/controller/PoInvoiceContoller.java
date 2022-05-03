@@ -103,21 +103,19 @@ public class PoInvoiceContoller {
 				//invoiceDetails.setId(ecomInvoiceNumber);
 				System.out.println(ecomInvoiceNumber);
 				
-				//tripDetailsRepo.updateVendorTripStatusAgainsInvoiceNumber(ecomInvoiceNumber);
-				
+								
 				poDetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(ecomInvoiceNumber);
 				
+
+				invoiceDetails.setStatus("In-Review");
+				invoiceDetails.setVendorCode(vendorCode);
+				
+				
 				poInvoiceRepo.save(invoiceDetails);
-			//}
-			
-			
-			
+		
 			data.setMsg("success");
 			System.out.println("end of draft success");
-			
-			
-			
-			
+	
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -129,6 +127,69 @@ public class PoInvoiceContoller {
 		return gson.toJson(data).toString();
 	}
 	
+	
+	@RequestMapping({ "/getAllDraftPODetailsByInvoiceNo" })
+	@CrossOrigin("*")
+	public String getAllDraftPODetailsByInvoiceNo(HttpServletRequest request ,@RequestBody PoInvoiceDetails invoiceDetails ) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			String vendorCode = (String) request.getSession().getAttribute("userName");
+			String invoiceNo=invoiceDetails.getInvoiceNumber();
+			System.out.println("vendorCode in getAllUnProcessPo : "+vendorCode + "invoiceNo : "+invoiceNo);
+			List<PoInvoiceDetails> details = poInvoiceRepo.getAllDraftPODetailsByInvoiceNo(vendorCode,invoiceNo);
+			
+			data.setData(details);
+			data.setMsg("success");
+			System.out.println("end of allPoDetails");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+
+	}
+	
+	@RequestMapping({ "/saveDraftInvoice" })
+	@CrossOrigin("*")
+	public String saveDraftInvoice(HttpServletRequest request ,@RequestBody PoInvoiceDetails invoiceDetails ) {
+
+		DataContainer data = new DataContainer();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			String vendorCode = (String) request.getSession().getAttribute("userName");
+		
+			String ecomInvoiceNumber = invoiceDetails.getInvoiceNumber();
+
+			invoiceDetails.setStatus("Draft-Invoicing");
+			invoiceDetails.setVendorCode(vendorCode);
+			System.out.println("save draft invoice , ecomInvoiceNumber : "+ecomInvoiceNumber);
+				
+			
+			
+				poInvoiceRepo.save(invoiceDetails);
+		
+			data.setMsg("success");
+			System.out.println("end of draft success");
+	
+
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+	
+
 	
 	
 

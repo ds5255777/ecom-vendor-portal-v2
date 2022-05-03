@@ -94,8 +94,7 @@
                              <form id="stepOneForm" class="forms-sample">
                                 <div class="row">
                                    
-                                   
-                                      <div class="col-md-3">
+                                    <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Number <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
@@ -103,6 +102,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                   
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Type <span class="text-danger">*</span></label>
@@ -137,8 +137,7 @@
                                             <div class="col-sm-7">
                                                 <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency"disabled="disabled">
                                                     <option value="INR">INR</option>
-                                                    <option value="USD">USD</option>
-                                                    <option value="KES">KES</option>
+                                                   
                                                 </select>
                                             </div>
                                         </div>
@@ -155,7 +154,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Operating Unit</label>
+                                            <label class="col-sm-5">Operating Unit<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
                                                 <input type="text" class="form-control-sm" name="operatingUnit" id="operatingUnit"  placeholder="Operating Uni"readonly  style="width: 100%;">
                                             </div>
@@ -163,9 +162,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Trading partner</label>
+                                            <label class="col-sm-5">Trading partner<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="tradingPartner" id="tradingPartner" type="text" placeholder="Trading partner" style="width: 100%;" readonly>
+                                                <input class="form-control-sm" name="tradingPartner" id="tradingPartner" type="text" placeholder="Trading partner" style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -173,13 +172,13 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Supplier Number<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="supplierNumber" id="supplierNumber" readonly="readonly"  placeholder="Supplier Number" style="width: 100%;" on>
+                                                <input class="form-control-sm" name="supplierNumber" id="supplierNumber" placeholder="Supplier Number" style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">GL Date <span class="text-danger"></span></label>
+                                            <label class="col-sm-5">GL Date <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="date" name="glDate" id="glDate" placeholder="GL Date"  style="width: 100%;">
                                             </div>
@@ -190,13 +189,13 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Payment Currency<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="paymentCurrency" id="paymentCurrency" type="number" readonly="readonly" placeholder="Payment Currency" onfocusout="calculateInvoice()" style="width: 100%;" on>
+                                                <input class="form-control-sm" name="paymentCurrency" id="paymentCurrency"   placeholder="Payment Currency"  style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Match Option <span class="text-danger"></span></label>
+                                            <label class="col-sm-5">Match Option <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm"  name="invoiceMatchoption" id="invoiceMatchoption" placeholder="Match Option" readonly style="width: 100%;">
                                             </div>
@@ -207,32 +206,32 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Terms Date<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="termsDate" id="termsDate" readonly="readonly" placeholder="Terms Date"  style="width: 100%;" on>
+                                                <input class="form-control-sm" type="date" name="termsDate" id="termsDate" placeholder="Terms Date"  style="width: 100%;" on>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Terms <span class="text-danger"></span></label>
+                                            <label class="col-sm-5">Terms <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm"  name="terms" id="terms" placeholder="Terms" readonly style="width: 100%;" >
+                                                <input class="form-control-sm"  name="terms" id="terms" placeholder="Terms"  style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
                                     
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Payment Method<span class="text-danger"> *</span></label>
+                                            <label class="col-sm-5">Payment Method</label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="paymentMethod" id="paymentMethod"  placeholder="Payment Method"  style="width: 100%;" readonly="readonly">
+                                                <input class="form-control-sm" name="paymentMethod" id="paymentMethod"  placeholder="Payment Method"  style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Pay Group <span class="text-danger"></span></label>
+                                            <label class="col-sm-5">Pay Group </label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="number" name="payGroup" id="payGroup" placeholder="Pay Group " readonly style="width: 100%;">
+                                                <input class="form-control-sm"  name="payGroup" id="payGroup" placeholder="Pay Group "  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -240,13 +239,13 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Remit To bank account name<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="remitTobankaccountname" id="remitTobankaccountname" type="number" placeholder="Remit To bank account name" style="width: 100%;" readonly="readonly">
+                                                <input class="form-control-sm" name="remitTobankaccountname" id="remitTobankaccountname"  placeholder="Remit To bank account name" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Remit To bank account number <span class="text-danger"></span></label>
+                                            <label class="col-sm-5">Remit To bank account number <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm"  name="remitToBankAccountNumber" id="remitToBankAccountNumber"  placeholder=" Remit To bank account number"  style="width: 100%;" maxlength="20">
                                             </div>
@@ -255,7 +254,7 @@
                                     
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Supplier Invoice number (DFF)<span class="text-danger"> *</span></label>
+                                            <label class="col-sm-5">Supplier Invoice number (DFF)</label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" name="supplierInvoiceNumber" id="supplierInvoiceNumber"  placeholder="Supplier Invoice number"  style="width: 100%;" >
                                             </div>
@@ -263,7 +262,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Supplier invoice date (DFF) <span class="text-danger"></span></label>
+                                            <label class="col-sm-5">Supplier invoice date (DFF) </label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="date" name="supplierInvoiceDate" id="supplierInvoiceDate" placeholder=" Supplier invoice date"  style="width: 100%;">
                                             </div>
@@ -278,7 +277,7 @@
                     <!-- /.card -->
                                        <!-- /.card -->
 
-                    <div class="card card-primary">
+                  <!--   <div class="card card-primary">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">Document Upload</h4>
                             <div class="card-tools">
@@ -286,9 +285,9 @@
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- /.card-header -->
-                        <div class="card-body" style="overflow: auto;">
+                    <!--     <div class="card-body" style="overflow: auto;">
                             <form id="stepFourForm" class="forms-sample">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -321,8 +320,8 @@
                                 </div>
                             </form>
                         </div>
-                        <!-- /.card-body -->
-                    </div>
+                        /.card-body
+                    </div> -->
                     
                      <div class="card card-primary">
                     <div class="card-header" style="padding: 5px 5px 0px 5px;">
@@ -342,7 +341,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Line type <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="lineType" name="lineType" id="lineType" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="lineType" name="lineType" id="lineType"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -350,7 +349,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Account<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="account" id="account" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="account" id="account"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -358,7 +357,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">GL Date<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="GL Date" name="gldate" id="gldate" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="date" placeholder="GL Date" name="gldate" id="gldate"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -366,7 +365,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Amount <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="amount" id="amount" readonly  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="amount" id="amount"   style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -387,35 +386,108 @@
                                 </button>
                             </div>
                         </div>
-                        <!-- /.card-header -->
-                        <form id="stepThreeForm" class="forms-sample">
-                            <div class="card-body" style="overflow: auto;">
-                                <table id="prTable" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <!-- <th style="padding: 5px 5px 5px 1.5rem;">Number</th> -->
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Line type</th>
-                                            
-                                            <th style="padding: 5px 5px 5px 1.5rem;">PO Number</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">PO Line</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Receipt Number</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Description</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">UOM</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Receipt Line</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Quantity Invoiced</th>
-                                            
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Unit Price</th>
-                                            
-                                            <th style="padding: 5px 5px 5px 1.5rem;">GL Date</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Amount</th>
+                        
+                        
+                      <div class="card-body">
+                            <form id="stepTwoForm" class="forms-sample">
+                                <div class="row">
+                                   
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Line type <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="lineType" name="lineType1" id="lineType1"  style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">PO Number<span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="poNumber" name="poNumber1" id="poNumber1" disabled="disabled" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">GL Date<span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="date" placeholder="GL Date" name="gldate1" id="gldate1"  style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Amount <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="amount1" id="amount1"   style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">PO Line <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="PO Line" name="poLine1" id="poLine1"   style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Receipt Number <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="Receipt Number" name="amount1" id="receiptNumber1"   style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Receipt Line <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="Receipt Line" name="receiptLine1" id="receiptLine1"   style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Quantity Invoiced <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="Quantity Invoicede" name="quantityInvoiced1" id="quantityInvoiced1"   style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                       <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">UOM <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="UOM" name="uom1" id="uom1"   style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                       <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Unit Price <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="Unit Price" name="unitPrice1" id="unitPrice1"   style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                      <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Description <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="Description" name="description1" id="description1"   style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                 </div>
+                             </form>
+                          </div>
+                          </div>
+                        
+                       
 
-                   
-                                            
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </form>
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
@@ -431,7 +503,7 @@
                             <button type="button" onclick="sendToServer()" class="btn btn-info">Submit Invoice</button>
 
                             <label style="visibility: hidden;">Select</label>
-                            <button type="button" onclick="discardInvoice()" class="btn btn-info">Discard Invoice</button>
+                            <button type="button" onclick="Discardinvoice();" class="btn btn-info">Discard Invoice</button>
 
                             <label style="visibility: hidden;">Select</label>
                             <button type="button" onclick="window.close()" class="btn btn-info">Close</button>
@@ -545,61 +617,25 @@
                     $('#needByDate2').val(result[0].needByDate)
                     $('#chargeAccount2').val(result[0].chargeAccount)
                  
-                    myForm = document.getElementById("stepThreeForm");
-                    setData(myForm, result[0]);
+                   // myForm = document.getElementById("stepThreeForm");
+                   // setData(myForm, result[0]);
                     $('#deliverTo3').val(result[0].deliverTo)
                     $('#chargeAccount3').val(result[0].chargeAccount)
                     
               
                  $('#poNumber').val('${PoNumber}'); 
+                    $('#poNumber1').val('${PoNumber}'); 
+                    
+                    $('#uom1').val( tripLineArray[0].uom);
+                    $('#description1').val( tripLineArray[0].description);
+                    
                     var d = new Date();
                     $( "#invoiceDate" ).val(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
                     
-                    $('#invoiceCurrency').val("INR");  
+                    $('#invoiceCurrency').val(result[0].currency);  
                     
-                    $('#prTable').DataTable().clear();
-                     for (var i = 0; i < tripLineArray.length; i++) {
-                        if (!tripLineArray[i].hasOwnProperty("lineNumber")) {
-                            tripLineArray[i].lineNumber = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("itemType")) {
-                            tripLineArray[i].itemType = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("item")) {
-                            tripLineArray[i].item = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("category")) {
-                            tripLineArray[i].category = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("description")) {
-                            tripLineArray[i].description = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("uom")) {
-                            tripLineArray[i].uom = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("quantity")) {
-                            tripLineArray[i].quantity = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("price")) {
-                            tripLineArray[i].price = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("needByDate")) {
-                            tripLineArray[i].needByDate = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("amount")) {
-                            tripLineArray[i].amount = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("chargeAccount")) {
-                            tripLineArray[i].chargeAccount = "";
-                        }
-                        
-                        $('#prTable').DataTable().row.add([tripLineArray[i].lineNumber, tripLineArray[i].itemType, tripLineArray[i].item, tripLineArray[i].category, tripLineArray[i].description, tripLineArray[i].uom, tripLineArray[i].quantity, tripLineArray[i].price, tripLineArray[i].needByDate, tripLineArray[i].amount, tripLineArray[i].chargeAccount]);
-                    }
-                   // $("#invoiceNumber").val(result.invoiceNumber);
-                   // $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);
-                    $('#prTable').DataTable().draw();
-                    $("tbody").show();
-                } else {
+                       
+                }else {
                     Toast.fire({
                         type: 'error',
                         title: 'Failed.. Try Again..'
@@ -614,6 +650,80 @@
             }
         });
     }
+    
+    
+    
+    setDraftInvoice();
+    
+    function setDraftInvoice() {
+    	
+
+
+         var stepOneObj = FormDataToJSON('stepOneForm');
+       // var stepThreeObj = FormDataToJSON('stepThreeForm');
+
+        const finalObj = {
+            ...stepOneObj,
+           
+        };
+	
+
+        
+        console.log(finalObj);
+//return;
+        
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(finalObj),
+            url: "<%=GlobalUrl.saveDraftInvoice%>",
+            dataType: "json",
+            contentType: "application/json",
+            success: function(response) {
+
+            	
+
+            	 if (response.msg == 'success') {
+                     
+                    
+                     
+                     
+                     setTimeout(function(response) {
+
+                     }, 2000);
+                 } else {
+                    alert("failed");
+                }
+            },
+            error: function(jqXHR, textStatue, errorThrown) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                })
+            }
+        });
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
       
     function sendToServer() {
@@ -691,39 +801,43 @@
             document.getElementById("DocumentFileTwo").focus();
             return "";
         } */
+        var itrDetailsArray = [];
+        
+        var obj ={
+        	"uom" : $("#uom1").val() ,
+        	"amount" :  $("#amount1").val() ,
+        	
+        	"lineType" : $("#lineType1").val()   ,
+        	"poline" : $("#poLine1").val()   ,
+        	"receiptNumber" :  $("#receiptNumber1").val()  ,
+        	"receiptline" :  $("#receiptLine1").val()  ,
+        	"quantityInvoiced" :  $("#quantityInvoiced1").val() ,
+        	"unitPrice" :  $("#unitPrice1").val() ,
+        	"gldate" : $("#glDate1").val() ,
+        	"description" :  $("#description1").val() 
+        	 
+        	
+     
+        	
+        }
+        
+        
+        
+        itrDetailsArray.push(obj);
 
          var stepOneObj = FormDataToJSON('stepOneForm');
-        var stepThreeObj = FormDataToJSON('stepThreeForm');
+       // var stepThreeObj = FormDataToJSON('stepThreeForm');
 
         const finalObj = {
             ...stepOneObj,
-            ...stepThreeObj
+            
         };
-
-     /*    if (document.getElementById("InvoiceUpload").files.length > 0) {
-            finalObj.invoiceFileName = document.getElementById("InvoiceUpload").files.item(0).name;
-            finalObj.invoiceFileText = $("#InvoiceFileText").val();
-        }
-        if (document.getElementById("DocumentFileOne").files.length > 0) {
-            finalObj.documentFileOneName = document.getElementById("DocumentFileOne").files.item(0).name;
-            finalObj.documentFileOneText = $("#DocumentFileOneText").val();
-        }
-        if (document.getElementById("DocumentFileTwo").files.length > 0) {
-            finalObj.documentFileTwoName = document.getElementById("DocumentFileTwo").files.item(0).name;
-            finalObj.documentFileTwoText = $("#DocumentFileTwoText").val();
-        } */
-
         
-     // after
-       /*  tripLineArray.forEach((item) => {
-        	console.log(tripLineArray);
-        	console.log(item);
-        	item.id=null;
-        });
-     
-     console.log(tripLineArray);
+        finalObj.poInvoiceLine=itrDetailsArray;
+        finalObj.poInvoiceLine.poNumber =poNo;
         
-        finalObj.invoiceLineItem=tripLineArray */;
+	console.log();
+    
         
         console.log(finalObj);
 //return;
@@ -738,7 +852,7 @@
 
             	 if (response.msg == 'success') {
                      swal.fire("Thanks", "your Invoice Process Sucessfully", "success", "OK").then(function() {
-                    	 window.opener.refereshList();
+                    	 //window.opener.refereshList();
                          window.close();
                          //window.location="closedAndApprovedTrips";
                      });
@@ -760,7 +874,62 @@
             }
         });
     }
+		
+    		function Discardinvoice(){
 
+	         var stepOneObj = FormDataToJSON('stepOneForm');
+	      //  var stepThreeObj = FormDataToJSON('stepThreeForm');
+
+	        const finalObj = {
+	            ...stepOneObj,
+	           
+	        };
+		
+
+	        
+	        console.log(finalObj);
+	//return;
+	        
+	        $.ajax({
+	            type: "POST",
+	            data: JSON.stringify(finalObj),
+	            url: "<%=GlobalUrl.saveDraftInvoice%>",
+	            dataType: "json",
+	            contentType: "application/json",
+	            success: function(response) {
+
+	            	
+
+	            	 if (response.msg == 'success') {
+	                     
+	            		 swal.fire("Thanks", "Your Invoice Discard Sucessfully", "success", "OK").then(function() {
+	                    	 //window.opener.refereshList();
+	                    	  
+	            			
+	            	      
+	                    	 
+	                    	 
+	                         window.close();
+	            		 });
+	                     
+	                     setTimeout(function(response) {
+
+	                     }, 2000);
+	                 } else {
+	                    alert("failed");
+	                }
+	            },
+	            error: function(jqXHR, textStatue, errorThrown) {
+	                Swal.fire({
+	                    icon: 'error',
+	                    title: 'Oops...',
+	                    text: 'Something went wrong!',
+	                })
+	            }
+	        });
+
+	        	
+}
     
     
     </script>

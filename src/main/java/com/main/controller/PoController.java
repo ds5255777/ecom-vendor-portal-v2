@@ -151,7 +151,7 @@ public class PoController {
 		try {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
 			System.out.println("vendorCode in getAllUnProcessPo : "+vendorCode);
-			List<PoInvoiceDetails> details = poInvoiceRepo.findByVendorCode(vendorCode);
+			List<PoInvoiceDetails> details = poInvoiceRepo.getAllInvoiceDetails(vendorCode);
 			
 			data.setData(details);
 			data.setMsg("success");
@@ -174,8 +174,8 @@ public class PoController {
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			
-			List<PoInvoiceDetails> poInvoiceDetails = poInvoiceRepo.findByInvoiceNumber(details.getInvoiceNumber());
+			String vendorCode = (String) request.getSession().getAttribute("userName");
+			List<PoInvoiceDetails> poInvoiceDetails = poInvoiceRepo.findByInvoiceNumber(vendorCode ,details.getInvoiceNumber());
 			
 			data.setData(poInvoiceDetails);
 			data.setMsg("success");

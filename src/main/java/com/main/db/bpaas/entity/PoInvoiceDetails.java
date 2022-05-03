@@ -38,7 +38,7 @@ public class PoInvoiceDetails {
 	@Column(name = "Supplier_Site")
 	private String supplierSite;
 	@Column(name = "Invoice_Date")
-	private Date invoiceDate;
+	private String invoiceDate;
 
 	
 	@Column(name = "Invoice_Num")
@@ -48,7 +48,7 @@ public class PoInvoiceDetails {
 
 	
 	@Column(name = "Invoice_Amount")
-	private Double invoiceAmount;
+	private String invoiceAmount;
 	@Column(name = "GL_Date")
 	private Date glDate;
 	
@@ -70,7 +70,7 @@ public class PoInvoiceDetails {
 	@Column(name = "RemitTobank_accountName")
 	private String remitToBankAccountName;
 	@Column(name = "RemitTobank_accountNumber")
-	private Double remitToBankAccountNumber;
+	private String remitToBankAccountNumber;
 	
 	@Column(name = "Supplier_invoice_date")
 	private Date supplierInvoiceDate;
@@ -85,6 +85,11 @@ public class PoInvoiceDetails {
 	private String poNumber;
 	
 	
+	@Column(name = "status")
+	private String status;
+	
+
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn
 	private List<PoInvoiceLine> poInvoiceLine;
@@ -137,13 +142,7 @@ public class PoInvoiceDetails {
 		this.supplierSite = supplierSite;
 	}
 
-	public Date getInvoiceDate() {
-		return invoiceDate;
-	}
-
-	public void setInvoiceDate(Date invoiceDate) {
-		this.invoiceDate = invoiceDate;
-	}
+	
 
 	
 
@@ -163,13 +162,7 @@ public class PoInvoiceDetails {
 		this.invoiceCurrency = invoiceCurrency;
 	}
 
-	public Double getInvoiceAmount() {
-		return invoiceAmount;
-	}
 
-	public void setInvoiceAmount(Double invoiceAmount) {
-		this.invoiceAmount = invoiceAmount;
-	}
 
 	public Date getGlDate() {
 		return glDate;
@@ -235,13 +228,7 @@ public class PoInvoiceDetails {
 		this.remitToBankAccountName = remitToBankAccountName;
 	}
 
-	public Double getRemitToBankAccountNumber() {
-		return remitToBankAccountNumber;
-	}
 
-	public void setRemitToBankAccountNumber(Double remitToBankAccountNumber) {
-		this.remitToBankAccountNumber = remitToBankAccountNumber;
-	}
 
 	public Date getSupplierInvoiceDate() {
 		return supplierInvoiceDate;
@@ -284,7 +271,37 @@ public class PoInvoiceDetails {
 	}
 
 
-	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getInvoiceDate() {
+		return invoiceDate;
+	}
+
+	public void setInvoiceDate(String invoiceDate) {
+		this.invoiceDate = invoiceDate;
+	}
+
+	public String getInvoiceAmount() {
+		return invoiceAmount;
+	}
+
+	public void setInvoiceAmount(String invoiceAmount) {
+		this.invoiceAmount = invoiceAmount;
+	}
+
+	public String getRemitToBankAccountNumber() {
+		return remitToBankAccountNumber;
+	}
+
+	public void setRemitToBankAccountNumber(String remitToBankAccountNumber) {
+		this.remitToBankAccountNumber = remitToBankAccountNumber;
+	}
 	
 	
 	

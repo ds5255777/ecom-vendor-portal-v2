@@ -607,9 +607,10 @@
         	
            // let values=checkflag.toString();
             
-            $('.loader').show();
+            $('.loader').hide();
             var urlOftripsDetail = "poInvoiceGenerate?id=" + poNo;
             window.open(urlOftripsDetail, "poInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
+       window.close();
         }
     </script>
 </body>

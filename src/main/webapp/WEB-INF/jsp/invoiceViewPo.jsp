@@ -566,10 +566,10 @@
                         setData(myForm, result[0]);
                        
                      
-                        $('#lineType').val(tripLineArray[0].lineType)
-                         $('#account').val(result[0].account)
-                          $('#gldate').val(tripLineArray[0].gldate)
-                           $('#amount').val(tripLineArray[0].amount);
+                      //  $('#lineType').val(tripLineArray[0].lineType)
+                       //  $('#account').val(result[0].account)
+                       //   $('#gldate').val(tripLineArray[0].gldate)
+                       //    $('#amount').val(tripLineArray[0].amount);
                        
                         
                       

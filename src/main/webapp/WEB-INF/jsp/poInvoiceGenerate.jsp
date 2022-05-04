@@ -124,7 +124,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Date <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="text" name="invoiceDate" id="invoiceDate"  disabled="disabled" class="form-control-sm" style="width: 100%;">
+                                                <input type="text" name="invoiceDate" id="invoiceDate"  readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -135,10 +135,20 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Currency <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency"disabled="disabled">
-                                                    <option value="INR">INR</option>
+                                                <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency" readonly>
+                                                    <option value="INR" readonly>INR</option>
                                                    
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">invoice Amount <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
+                                                <input class="form-control-sm" type="text" placeholder="invoice Amount" name="invoiceAmount" id="invoiceAmount"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +182,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Supplier Number<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="supplierNumber" id="supplierNumber" placeholder="Supplier Number" style="width: 100%;" >
+                                                <input class="form-control-sm" name="supplierNum" id="supplierNum" placeholder="Supplier Number" style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -189,8 +199,13 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Payment Currency<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="paymentCurrency" id="paymentCurrency"   placeholder="Payment Currency"  style="width: 100%;" >
+                                                
+                                                 <select class="form-control-sm select2" style="width: 100%;" id="paymentCurrency" name="paymentCurrency" readonly>
+                                                    <option value="INR" readonly>INR</option>
+                                                   
+                                                </select>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -237,9 +252,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Remit To bank account name<span class="text-danger"> *</span></label>
+                                            <label class="col-sm-5">Remit To Bank Account Name<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="remitTobankaccountname" id="remitTobankaccountname"  placeholder="Remit To bank account name" style="width: 100%;">
+                                                <input class="form-control-sm" name="remitToBankAccountName" id="remitToBankAccountName"  placeholder="Remit To bank account name" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -334,7 +349,7 @@
                         </div>
                         
                      <div class="card-body">
-                            <form id="stepTwoForm" class="forms-sample">
+                            <form id="stepThreeForm" class="forms-sample">
                                 <div class="row">
                                    
                                     <div class="col-md-3">
@@ -460,7 +475,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">UOM <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="UOM" name="uom1" id="uom1"   style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="UOM" name="uom1" id="uom1"   style="width: 100%;" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -476,7 +491,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Description <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Description" name="description1" id="description1"   style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Description" name="description1" id="description1"   style="width: 100%;" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -491,7 +506,7 @@
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
-                    <!-- Query Form -->
+                   
                     
                     
                     
@@ -503,7 +518,7 @@
                             <button type="button" onclick="sendToServer()" class="btn btn-info">Submit Invoice</button>
 
                             <label style="visibility: hidden;">Select</label>
-                            <button type="button" onclick="Discardinvoice();" class="btn btn-info">Discard Invoice</button>
+                            <button type="button" onclick="savedraftinvoice();" class="btn btn-info">Discard Invoice</button>
 
                             <label style="visibility: hidden;">Select</label>
                             <button type="button" onclick="window.close()" class="btn btn-info">Close</button>
@@ -633,6 +648,7 @@
                     $( "#invoiceDate" ).val(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
                     
                     $('#invoiceCurrency').val(result[0].currency);  
+                    $('#paymentCurrency').val(result[0].currency); 
                     
                        
                 }else {
@@ -653,20 +669,46 @@
     
     
     
-    setDraftInvoice();
+  //  setDraftInvoice();
     
     function setDraftInvoice() {
     	
 
+	    var itrDetailsArray = [];
+        
+        var obj ={
+        	"uom" : $("#uom1").val() ,
+        	"amount" :  $("#amount1").val() ,
+        	
+        	"lineType" : $("#lineType1").val()   ,
+        	"poline" : $("#poLine1").val()   ,
+        	"receiptNumber" :  $("#receiptNumber1").val()  ,
+        	"receiptline" :  $("#receiptLine1").val()  ,
+        	"quantityInvoiced" :  $("#quantityInvoiced1").val() ,
+        	"unitPrice" :  $("#unitPrice1").val() ,
+        	"gldate" : $("#glDate1").val() ,
+        	"description" :  $("#description1").val() 
+   
+        	
+        }
+      
+        var matchOption=$("#invoiceMatchoption").val() ;
+       
+        
+        itrDetailsArray.push(obj);
 
          var stepOneObj = FormDataToJSON('stepOneForm');
-       // var stepThreeObj = FormDataToJSON('stepThreeForm');
+        var stepThreeObj = FormDataToJSON('stepThreeForm');
 
         const finalObj = {
             ...stepOneObj,
-           
+            ...stepThreeObj
+            
         };
-	
+        
+        finalObj.poInvoiceLine=itrDetailsArray;
+        finalObj.poInvoiceLine.poNumber =poNo;
+        finalObj.matchOption=matchOption;
 
         
         console.log(finalObj);
@@ -704,25 +746,6 @@
         });
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
       
@@ -815,26 +838,30 @@
         	"unitPrice" :  $("#unitPrice1").val() ,
         	"gldate" : $("#glDate1").val() ,
         	"description" :  $("#description1").val() 
-        	 
         	
-     
+       
         	
         }
         
+      
         
+        var matchOption=$("#invoiceMatchoption").val() ;
+       
         
         itrDetailsArray.push(obj);
 
          var stepOneObj = FormDataToJSON('stepOneForm');
-       // var stepThreeObj = FormDataToJSON('stepThreeForm');
+        var stepThreeObj = FormDataToJSON('stepThreeForm');
 
         const finalObj = {
             ...stepOneObj,
+            ...stepThreeObj
             
         };
         
         finalObj.poInvoiceLine=itrDetailsArray;
         finalObj.poInvoiceLine.poNumber =poNo;
+        finalObj.matchOption=matchOption;
         
 	console.log();
     
@@ -874,17 +901,44 @@
             }
         });
     }
-		
+  			  Discardinvoice();
     		function Discardinvoice(){
 
-	         var stepOneObj = FormDataToJSON('stepOneForm');
-	      //  var stepThreeObj = FormDataToJSON('stepThreeForm');
+    		    var itrDetailsArray = [];
+    	        
+    	        var obj ={
+    	        	"uom" : $("#uom1").val() ,
+    	        	"amount" :  $("#amount1").val() ,
+    	        	
+    	        	"lineType" : $("#lineType1").val()   ,
+    	        	"poline" : $("#poLine1").val()   ,
+    	        	"receiptNumber" :  $("#receiptNumber1").val()  ,
+    	        	"receiptline" :  $("#receiptLine1").val()  ,
+    	        	"quantityInvoiced" :  $("#quantityInvoiced1").val() ,
+    	        	"unitPrice" :  $("#unitPrice1").val() ,
+    	        	"gldate" : $("#glDate1").val() ,
+    	        	"description" :  $("#description1").val() 
+    	   
+    	        	
+    	        }
+    	      
+    	        var matchOption=$("#invoiceMatchoption").val() ;
+    	       
+    	        
+    	        itrDetailsArray.push(obj);
 
-	        const finalObj = {
-	            ...stepOneObj,
-	           
-	        };
-		
+    	         var stepOneObj = FormDataToJSON('stepOneForm');
+    	        var stepThreeObj = FormDataToJSON('stepThreeForm');
+
+    	        const finalObj = {
+    	            ...stepOneObj,
+    	            ...stepThreeObj
+    	            
+    	        };
+    	        
+    	        finalObj.poInvoiceLine=itrDetailsArray;
+    	        finalObj.poInvoiceLine.poNumber =poNo;
+    	        finalObj.matchOption=matchOption;
 
 	        
 	        console.log(finalObj);
@@ -902,15 +956,11 @@
 
 	            	 if (response.msg == 'success') {
 	                     
-	            		 swal.fire("Thanks", "Your Invoice Discard Sucessfully", "success", "OK").then(function() {
-	                    	 //window.opener.refereshList();
-	                    	  
-	            			
-	            	      
-	                    	 
-	                    	 
-	                         window.close();
-	            		 });
+	            		/*  swal.fire("Thanks", "Your Invoice Discard Sucessfully", "success", "OK").then(function() {
+	            			 window.close();
+	                    	 window.opener.refereshList();
+	                    	
+	            		 }); */
 	                     
 	                     setTimeout(function(response) {
 
@@ -931,7 +981,15 @@
 	        	
 }
     
-    
+    		function savedraftinvoice(){
+    			Discardinvoice();
+    		 swal.fire("Thanks", "your Invoice Process Sucessfully", "success", "OK").then(function() {
+            	 //window.opener.refereshList();
+                 window.close();
+                 //window.location="closedAndApprovedTrips";
+             });
+    		}
+    		
     </script>
 </body>
 

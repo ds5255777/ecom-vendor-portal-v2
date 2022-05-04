@@ -845,6 +845,7 @@
             var invoiceAmount = parseFloat(taxAmount) + parseFloat(taxableAmount);
             $("#invoiceAmount").val((invoiceAmount).toFixed(2));
         }
+        window.opener.refereshList();
 
     </script>
 </body>

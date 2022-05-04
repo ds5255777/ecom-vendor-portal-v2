@@ -612,6 +612,11 @@
             window.open(urlOftripsDetail, "poInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
        window.close();
         }
+        
+        function refereshList(){
+        	 window.opener.refereshList();
+          }
+          
     </script>
 </body>
 

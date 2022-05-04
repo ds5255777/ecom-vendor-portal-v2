@@ -38,10 +38,15 @@ public class PoInvoiceContoller {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			Long id = obj.getId();
+			//Long id = obj.getId();
+			
+			//Long id = 2L;
 			String ecomInvoiceNumber = obj.getInvoiceNumber();
+			Long id = poInvoiceRepo.getId(ecomInvoiceNumber);
 			System.out.println("ecomInvoiceNumber"+ecomInvoiceNumber);
-			//poInvoiceRepo.deleteById(id);
+			
+			poInvoiceRepo.deleteById(id);
+//			poInvoiceRepo.deleteByInvoiceNumber(ecomInvoiceNumber);
 			poDetailsRepo.updatePoStatusagainsInvoiceNumber(ecomInvoiceNumber);
 
 			data.setMsg("success");
@@ -106,10 +111,17 @@ public class PoInvoiceContoller {
 								
 				poDetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(ecomInvoiceNumber);
 				
-
+				
 				invoiceDetails.setStatus("In-Review");
 				invoiceDetails.setVendorCode(vendorCode);
 				
+				Long id = poInvoiceRepo.getId(ecomInvoiceNumber);
+				System.out.println("ecomInvoiceNumber"+ecomInvoiceNumber);
+				if(id!=null ) {
+				poInvoiceRepo.deleteById(id);
+					
+				}
+				//poInvoiceRepo.deleteByInvoiceNumber(ecomInvoiceNumber);
 				
 				poInvoiceRepo.save(invoiceDetails);
 		
@@ -170,10 +182,16 @@ public class PoInvoiceContoller {
 			invoiceDetails.setStatus("Draft-Invoicing");
 			invoiceDetails.setVendorCode(vendorCode);
 			System.out.println("save draft invoice , ecomInvoiceNumber : "+ecomInvoiceNumber);
+			
+			
+			Long id = poInvoiceRepo.getId(ecomInvoiceNumber);
+			System.out.println("ecomInvoiceNumber"+ecomInvoiceNumber);
+			if(id!=null ) {
+			poInvoiceRepo.deleteById(id);
 				
+			}
 			
-			
-				poInvoiceRepo.save(invoiceDetails);
+			poInvoiceRepo.save(invoiceDetails);
 		
 			data.setMsg("success");
 			System.out.println("end of draft success");

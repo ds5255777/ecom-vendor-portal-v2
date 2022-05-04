@@ -117,7 +117,7 @@ public class SupDetails {
 	 * 
 	 * @JoinColumn private List<TripDetails> tripDetails;
 	 */
-
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn
 	private List<OnboardQuery> onboardQuery;

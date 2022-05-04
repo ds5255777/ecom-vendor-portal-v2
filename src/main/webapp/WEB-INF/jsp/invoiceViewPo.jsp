@@ -120,7 +120,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Date <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="date" name="invoiceDate" id="invoiceDate" readonly class="form-control-sm" style="width: 100%;">
+                                                <input type="text" name="invoiceDate" id="invoiceDate" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -169,7 +169,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Supplier Number<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="supplierNumber" id="supplierNumber" readonly="readonly"  placeholder="Supplier Number" style="width: 100%;" on>
+                                                <input class="form-control-sm" name="supplierNum" id="supplierNum" readonly="readonly"  placeholder="Supplier Number" style="width: 100%;" on>
                                             </div>
                                         </div>
                                     </div>
@@ -182,12 +182,17 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="col-md-3">
+                                       <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Payment Currency<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="paymentCurrency" id="paymentCurrency" type="number" readonly="readonly" placeholder="Payment Currency" onfocusout="calculateInvoice()" style="width: 100%;" on>
+                                                
+                                                 <select class="form-control-sm select2" style="width: 100%;" id="paymentCurrency" name="paymentCurrency" disabled="disabled">
+                                                    <option value="INR" readonly>INR</option>
+                                                   
+                                                </select>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -228,40 +233,40 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Pay Group <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="number" name="payGroup" id="payGroup" placeholder="Pay Group " readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" name="payGroup" id="payGroup" placeholder="Pay Group " readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Remit To bank account name<span class="text-danger"> *</span></label>
+                                            <label class="col-sm-5">Remit To Bank Account Name<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Remit To bank account name" style="width: 100%;" readonly="readonly">
+                                                <input class="form-control-sm" name="remitToBankAccountName" id="remitToBankAccountName"  placeholder="Remit To bank account name" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Remit To bank account number <span class="text-danger"></span></label>
+                                            <label class="col-sm-5">Remit To bank account number <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="number" name="invoiceAmount" id="invoiceAmount" placeholder=" Remit To bank account number" readonly style="width: 100%;">
+                                                <input class="form-control-sm"  name="remitToBankAccountNumber" id="remitToBankAccountNumber"  placeholder=" Remit To bank account number"  style="width: 100%;" maxlength="20">
                                             </div>
                                         </div>
                                     </div>
                                     
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Supplier Invoice number (DFF)<span class="text-danger"> *</span></label>
+                                            <label class="col-sm-5">Supplier Invoice number (DFF)</label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Supplier Invoice number"  style="width: 100%;" readonly="readonly">
+                                                <input class="form-control-sm" name="supplierInvoiceNumber" id="supplierInvoiceNumber"  placeholder="Supplier Invoice number"  style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Supplier invoice date (DFF) <span class="text-danger"></span></label>
+                                            <label class="col-sm-5">Supplier invoice date (DFF) </label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="number" name="invoiceAmount" id="invoiceAmount" placeholder=" Supplier invoice date" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" name="supplierInvoiceDate" id="supplierInvoiceDate" placeholder=" Supplier invoice date"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -564,6 +569,10 @@
                         var myForm = "";
                         myForm = document.getElementById("stepOneForm");
                         setData(myForm, result[0]);
+                        
+                        myForm = document.getElementById("stepTwoForm");
+                        setData(myForm, result[0]);
+                        
                        
                      
                       //  $('#lineType').val(tripLineArray[0].lineType)

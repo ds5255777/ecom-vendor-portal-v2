@@ -75,6 +75,10 @@ public class PoInvoiceDetails {
 	@Column(name = "Supplier_invoice_date")
 	private Date supplierInvoiceDate;
 	
+	@Column(name = "Supplier_Invoice_number")
+	private String supplierInvoiceNumber;
+	
+	
 	@Column(name = "Vendor_code")
 	private String vendorCode;
 	
@@ -87,6 +91,14 @@ public class PoInvoiceDetails {
 	
 	@Column(name = "status")
 	private String status;
+	
+	@Column(name = "Line_type")
+	private String lineType;
+	
+	@Column(name = "Ammount")
+	private String ammount;
+	
+	
 	
 
 
@@ -301,6 +313,34 @@ public class PoInvoiceDetails {
 
 	public void setRemitToBankAccountNumber(String remitToBankAccountNumber) {
 		this.remitToBankAccountNumber = remitToBankAccountNumber;
+	}
+
+
+
+
+
+	public String getLineType() {
+		return lineType;
+	}
+
+	public void setLineType(String lineType) {
+		this.lineType = lineType;
+	}
+
+	public String getSupplierInvoiceNumber() {
+		return supplierInvoiceNumber;
+	}
+
+	public void setSupplierInvoiceNumber(String supplierInvoiceNumber) {
+		this.supplierInvoiceNumber = supplierInvoiceNumber;
+	}
+
+	public String getAmmount() {
+		return ammount;
+	}
+
+	public void setAmmount(String ammount) {
+		this.ammount = ammount;
 	}
 	
 	

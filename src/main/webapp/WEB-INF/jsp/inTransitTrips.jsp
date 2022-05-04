@@ -124,12 +124,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-6"></div>
                         <div class="col-sm-6">
-                            <!-- <ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li>
-						</ol> -->
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -145,26 +140,21 @@
                         <div class="col-md-12" style="font-size: 14px;">
                             <!-- general form elements -->
                             <div class="card card-primary ">
-                                 <div class="card-header" style="padding: 4px 0px 4px 4px;">
-                                    <h3 class="card-title" style="font-size: 15px;">In-Transit Trips List</h3>
-                                </div>
                                 <!-- /.card-header -->
                                 <div class="card-body ">
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Route</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-                                                <!-- <th style="padding: 5px 5px 5px 1.5rem;">Trip Status</th>
-												<th style="padding: 5px 5px 5px 1.5rem;">Payment Status</th>-->
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Mode</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Actual Departure (ATD)</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Actual Arrival (ATA)</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Origin Hub</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Destination Hub</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Vendor Status</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Mode</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual Departure (ATD)</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual Arrival (ATA)</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Origin Hub</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Destination Hub</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Status</th>
 
                                             </tr>
                                         </thead>
@@ -480,7 +470,7 @@
             "autoWidth": false,
             "aaSorting": [],
             "scrollX": true,
-            "pageLength": 20
+            "pageLength": 15
             });
 
             getData();

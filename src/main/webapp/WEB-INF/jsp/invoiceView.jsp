@@ -198,26 +198,23 @@
                         <!-- /.card-header -->
                         <form id="stepTwoForm" class="forms-sample">
                             <div class="card-body" style="overflow: auto;">
-
 								<div class="col-md-12">
-
 									<div class="table-responsive">
-										
 										<table id="prTable" class="table table-bordered">
 		                                    <thead>
 		                                        <tr>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-		                                             <th style="padding: 5px 5px 5px 1.5rem;">Route</th> 
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Current Fuel Rate</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">FS</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Line level Description</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th> 
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Current Fuel Rate</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Line level Description</th>
 		                                        </tr>
 		                                    </thead>
 		                                </table>

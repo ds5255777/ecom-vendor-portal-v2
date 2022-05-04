@@ -120,11 +120,10 @@
         <div class="content-wrapper">
             <div class="content-header" style="padding: 0px;">
                 <div class="container-fluid">
-                    <div class="row mb-2">
+                     <div class="row mb-2">
                         <div class="col-sm-6"></div>
-                        <div class="col-sm-6">
-                        </div>
-                    </div>
+                        <div class="col-sm-6"> </div>
+                    </div> 
                 </div>
             </div>
 
@@ -137,24 +136,21 @@
                         <div class="col-md-12" style="font-size: 14px;">
                             <!-- general form elements -->
                             <div class="card card-primary ">
-                                <div class="card-header" style="padding: 4px 0px 4px 4px;">
-                                    <h3 class="card-title" style="font-size: 15px;">Closed And Approved Trips</h3>
-                                </div>
                                 <!-- /.card-header -->
                                 <div class="card-body ">
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
-                                                <th style="padding: 5px 5px 5px 1rem;"><button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1rem;"><button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
                                                     </button></th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Route</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Mode</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Actual Departure (ATD)</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Actual Arrival (ATA)</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Mode</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual Departure (ATD)</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual Arrival (ATA)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -162,7 +158,7 @@
                                     </table>
                                 </div>
                                 <div class="modal-footer">
-                                    <input id="flipToInvoice" type="submit" class="submit-input" onclick="invoiceProcessing()" value="Flip to Invoice " />
+                                    <input id="flipToInvoice" type="button" class="submit-input bg-primary" onclick="invoiceProcessing()" value="Flip to Invoice " />
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -183,7 +179,6 @@
                             <div class="row">
                                 <div class="col-md-12 propTableContainer" style="overflow-y: auto; height: 620px;">
                                     <input type="hidden" id="headerDetailsId" class="form-control">
-                                    <!-- <table class="table " id="property-desc"> -->
                                     <div class="card card-primary">
                                         <div class="card-header" style="padding: 4px 0px 4px 4px;">
                                             <h3 class="card-title" style="font-size: 15px;">Trip Details</h3>
@@ -450,7 +445,7 @@
                 "autoWidth": false,
                 "aaSorting": [],
                 "scrollX": true,
-                //"pageLength": 15,
+                "pageLength": 15
             });
 
             $(function() {

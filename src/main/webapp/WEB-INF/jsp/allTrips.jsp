@@ -76,77 +76,77 @@
 
     </script>
     <style>
-        custom-file-input {
-            height: 25px;
-            font-size: 14px;
-        }
+         custom-file-input {
+                height: 25px;
+                font-size: 14px;
+            }
 
-        .custom-file {
-            height: 25px;
-            font-size: 14px;
-            padding-bottom: 35px;
-            font-size: 14px;
-        }
+            .custom-file {
+                height: 25px;
+                font-size: 14px;
+                padding-bottom: 35px;
+                font-size: 14px;
+            }
 
-        .custom-file-label::after {
-            height: auto !important;
-        }
+            .custom-file-label::after {
+                height: auto !important;
+            }
 
-        .custom-file-label {
-            padding-bottom: 23px;
-            height: 25px;
-            font-size: 14px;
-        }
+            .custom-file-label {
+                padding-bottom: 23px;
+                height: 25px;
+                font-size: 14px;
+            }
 
-        .tableheading {
-            font-size: 15px;
-            font-weight: bold;
-        }
+            .tableheading {
+                font-size: 15px;
+                font-weight: bold;
+            }
 
-        label {
-            font-weight: 500;
-            margin-bottom: 1px;
-        }
+            label {
+                font-weight: 500;
+                margin-bottom: 1px;
+            }
 
-        .form-control {
-            height: 25px;
-            font-size: 14px;
-        }
+            .form-control {
+                height: 25px;
+                font-size: 14px;
+            }
 
-        tbody {
-            font-size: 12.9px;
-        }
+            tbody {
+                font-size: 12.9px;
+            }
 
-        .table td,
-        .table th {
-            vertical-align: top;
-            border-top: 1px solid #dee2e6;
-            padding: 5px 5px 0px 1.5rem;
-        }
+            .table td,
+            .table th {
+                vertical-align: top;
+                border-top: 1px solid #dee2e6;
+                padding: 5px 5px 0px 1.5rem;
+            }
 
-        .observedScoreheading {
-            width: 60px !important;
-        }
+            .observedScoreheading {
+                width: 60px !important;
+            }
 
-        .serialNoheading {
-            width: 60px !important;
-        }
+            .serialNoheading {
+                width: 60px !important;
+            }
 
-        .documentheading {
-            width: 500px;
-        }
+            .documentheading {
+                width: 500px;
+            }
 
-        .attachmentheading {
-            width: 500px;
-        }
+            .attachmentheading {
+                width: 500px;
+            }
 
-        .helpheading {
-            width: 60px !important;
-        }
+            .helpheading {
+                width: 60px !important;
+            }
 
-        .tooltip.show p {
-            text-align: left;
-        }
+            .tooltip.show p {
+                text-align: left;
+            }
 
     </style>
 </head>
@@ -193,33 +193,39 @@
                 <div class="container-fluid">
 
                     <div class="row">
-                        <!-- <div class="col-md-12"> -->
                         <div class="col-md-12" style="font-size: 14px;">
                             <!-- general form elements -->
                             <div class="card card-primary ">
-                                <div class="card-header">
+                                <!-- <div class="card-header">
                                    
-                                </div>
+                                </div> -->
                                 <!-- /.card-header -->
                                 <div class="card-body ">
                                     <form role="form" id="addForm" autocomplete="off">
-                                        <div class="row">
-
-                                            <div class="col-md-2">
-                                                <input type="text" name="fromDate" placeholder="Actual Departure Starting Date" required class="form-control" id="fromDate" style="height: 34px;">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <input type="text" name="toDate" placeholder="Actual Departure End Date" required class="form-control" id="toDate" style="height: 34px;">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="exampleInputserverName1" style="visibility: hidden;">Text</label>
-                                                <button type="button" id="searchBtn" name="searchBtn" onclick="getFilterData()" class="btn btn-primary">Search</button>
-                                            </div>
-											<div class="col-md-2">
+										<div class="row">
+											<div class="col-md-1">
+												<input type="text" name="fromDate"
+													placeholder="Act Dept Starting Date" class="form-control"
+													id="fromDate" >
+											</div>
+											<div class="col-md-1">
+												<input type="text" name="toDate"
+													placeholder="Act Dept End Date" class="form-control"
+													id="toDate" >
+											</div>
+											<div class="col-md-1">
+												<label for="exampleInputserverName1"
+													style="visibility: hidden;">Text</label>
+												<button type="button" onclick="getFilterData()"
+													style="imargin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
+													class="btn btn-primary">Search</button>
+											</div>
+											
+											<div class="col-md-1">
 												<div class="dropdown">
 													<button type="button"
 														class="btn btn-primary dropdown-toggle"
-														style="font-size: 14px; float: right; margin-bottom: 10px;"
+														style="font-size: 14px; float: right; margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
 														data-toggle="dropdown">Export Details</button>
 													<div class="dropdown-menu">
 														<a class="dropdown-item" href="#" id="exportLinkPdf">Download
@@ -228,23 +234,35 @@
 													</div>
 												</div>
 											</div>
+											<div class="col-md-6"></div>
+											<div class="col-md-2">
+												<div class="form-group row">
+													<label class="col-md-4">Search
+														: </label>
+													<div class="col-md-8">
+														<input type="text" name="searchData" placeholder="Search"
+															class="form-control" id="searchData"
+															>
+													</div>
+												</div>
+											</div>
 										</div>
-                                    </form>
-                                    <table class="table table-bordered table-hover" id="tabledata">
+									</form>
+                                    <table class="table table-head-fixed table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Route</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Run Status</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Vendor Status</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Actual Departure</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Origin Hub</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Destination Hub</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Payment Status</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Number</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Status</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Status</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Act Dept</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Act KM</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Stnd KM</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Ori Hub</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Dest Hub</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Pay Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -612,6 +630,7 @@
 		var currentDate='${currentDate}';
             
             var tabledata = $('#tabledata').DataTable({
+            	
                 "paging": true,
                 "lengthChange": false,
                 "searching": true,
@@ -697,6 +716,13 @@
                     })
                 }
             });
+            
+            $('#searchData').on( 'keyup', function () {
+            	tabledata.search( this.value ).draw();
+            } );
+            
+            $('#tabledata_filter').css("display","none");
+         
 
             var tabledataQuery = $('#tabledataQuery').DataTable({
                 "paging": false,

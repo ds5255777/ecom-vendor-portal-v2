@@ -136,19 +136,16 @@
                         <div class="col-md-12" style="font-size: 14px;">
                             <!-- general form elements -->
                             <div class="card card-primary ">
-                                <div class="card-header">
-                                    <h3 class="card-title" style="font-size: 15px;">Process Invoice List</h3>
-                                </div>
                                 <!-- /.card-header -->
                                 <div class="card-body ">
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">ECOM Invoice Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Receiving Date</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Vendor Invoice Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">ECOM Invoice Number</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Receiving Date</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Invoice Number</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -204,7 +201,7 @@
                 "info": true,
                 "autoWidth": false,
                 "aaSorting": [],
-                "pageLength": 20
+                "pageLength": 15
             });
 
             getData();

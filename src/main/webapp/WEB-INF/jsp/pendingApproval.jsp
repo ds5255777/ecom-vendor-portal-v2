@@ -14,34 +14,22 @@
 
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-	<link rel="stylesheet" href="dist/css/ionicons.min.css">
-<link rel="stylesheet"
-	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-<link rel="stylesheet"
-	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-<link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-<link rel="stylesheet" href="dist/css/adminlte.min.css">
-<link rel="stylesheet"
-	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-<link rel="stylesheet"
-	href="plugins/daterangepicker/daterangepicker.css">
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="plugins/jquery-ui/jquery-ui.min.css">
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
-<link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-<link rel="stylesheet"
-	href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-<link rel="stylesheet"
-	href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-<link rel="stylesheet"
-	href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-<link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+ <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="dist/css/ionicons.min.css">
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 <style>
 custom-file-input {
 	height: 25px;
@@ -142,25 +130,21 @@ tbody {
 						<div class="col-md-12" style="font-size: 14px;">
 							<!-- general form elements -->
 							<div class="card card-primary ">
-								<div class="card-header" style="padding: 4px 0px 4px 4px;">
-									<h3 class="card-title" style="font-size: 15px;">Pending
-										Approval Trips List</h3>
-								</div>
 								<!-- /.card-header -->
 								<div class="card-body ">
 									<table class="table table-bordered table-hover" id="tabledata">
 										<thead>
 											<tr>
-												<th style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
-												<th style="padding: 5px 5px 5px 1.5rem;">Route</th>
-												<th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-												<th style="padding: 5px 5px 5px 1.5rem;">Mode</th>
-												<th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-												<th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-												<th style="padding: 5px 5px 5px 1.5rem;">Origin Hub</th>
-												<th style="padding: 5px 5px 5px 1.5rem;">Destination
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Mode</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Origin Hub</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Destination
 													Hub</th>
-												<th style="padding: 5px 5px 5px 1.5rem;">Approve</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Approve</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -534,26 +518,23 @@ tbody {
 									<div class="col-md-12">
 										<div class="card card-primary ">
 											<div class="card-header" style="padding: 4px 0px 4px 4px;">
-												<h3 class="card-title" style="font-size: 15px;">Trips
+												<h3 class="card-title" style="font-size: 15px;">Trip
 													Query</h3>
 											</div>
 
 											<div class="card-body ">
-												<form role="form" id="showQueryDetails"
-													name="showQueryDetails">
+												<form role="form" id="showQueryDetails" name="showQueryDetails">
 													<div class="col-md-12">
-
 														<div class="table-responsive">
-															<table class="table table-bordered table-hover"
-																id="tabledataQuery">
+															<table class="table table-bordered table-hover" id="tabledataQuery">
 																<thead>
 																	<tr>
-																		<th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
-																		<th style="padding: 5px 5px 5px 1.5rem;">Raised
+																		<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">S.No</th>
+																		<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Raised
 																			By</th>
-																		<th style="padding: 5px 5px 5px 1.5rem;">Raised
+																		<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Raised
 																			On</th>
-																		<th style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
+																		<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
 
 																	</tr>
 																</thead>
@@ -587,7 +568,7 @@ tbody {
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-						<p>Are You Sure to Confirm This Trip....</p>
+						<p>Sure went to Approve Trip.</p>
 					</div>
 					<div class="modal-footer">
 
@@ -642,16 +623,17 @@ tbody {
                 "info": true,
                 "autoWidth": false,
                 "aaSorting": [],
-                "pageLength": 20
+                "pageLength": 15
             });
             
             var tabledataQuery = $('#tabledataQuery').DataTable({
-                "paging": false,
+                "paging": true,
                 "lengthChange": false,
                 "searching": false,
-                "info": false,
+                "info": true,
                 "autoWidth": false,
-                "aaSorting": []
+                "aaSorting": [],
+                "pageLength": 15
             });
             
             
@@ -756,7 +738,7 @@ tbody {
                         $("#myModal").modal('hide');
                         if (response.msg == "success") {
                         	
-                        	swal.fire("", "Trip Approved Successfully..", "success", "OK").then(function() {
+                        	swal.fire("", "Trip Approved Successfully.", "success", "OK").then(function() {
                         		 $("#tripValue").modal('hide');
                             });
                             
@@ -843,14 +825,6 @@ tbody {
                     return "";
                 }
 				
-				//console.log("Save Query obj : ",obj);
-                /* var queryDetails = FormDataToJSON('tripForm');
-
-                const finalObj = {
-                    ...queryDetails
-                    
-                }; */
-                
                 var json={
                 "comment": $("#comment").val(),
                 "raisedAgainQuery": $("#tripID").val(),
@@ -872,7 +846,7 @@ tbody {
                         if (response.msg == 'success') {
                         	
                         	
-                            swal.fire("", "Query Submitted Sucessfully", "success", "OK").then(function() {
+                            swal.fire("", "Query Submitted Sucessfully.", "success", "OK").then(function() {
                                 window.location = "pendingApproval";
                             });
 
@@ -892,16 +866,6 @@ tbody {
                     }
                 });
             }
-            
-     /* function checkIt(){
-    	 
-         if (confirm("Are you sure Approve This trip!")) {
-        	 var tripID = document.getElementById("tripID").value;
-        	 updateTripDataByVendor(tripID);
-         } else {
-             return;
-         }
-         } */
             
 function updateTripDataByVendor(tripID){
 	
@@ -928,7 +892,7 @@ function updateTripDataByVendor(tripID){
             $('.loader').hide();
             $("#tripValue").modal('hide');
             if (response.msg == "success") {
-            	swal.fire("Thanks", "your Trip Sucessfully Approved", "success", "OK")
+            	swal.fire("", "Trip Approved Sucessfully.", "success", "OK")
                 getData();
             } else {
                 Toast.fire({

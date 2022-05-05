@@ -39,11 +39,10 @@ import com.main.db.bpaas.repo.NatureOfTransactionRepo;
 import com.main.db.bpaas.repo.PaymentTermRepo;
 import com.main.db.bpaas.repo.TDSSectionCodeRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
-import com.main.service.InvoiceServiceImpl;
+import com.main.db.bpaas.repo.UserRepository;
 import com.main.service.TripService;
 import com.main.service.UserService;
 import com.main.serviceManager.ServiceManager;
-import com.main.db.bpaas.repo.UserRepository;
 
 @Controller
 public class UIController {
@@ -53,6 +52,9 @@ public class UIController {
 	
 	@Value("${fileSize}")
 	public String fileSize;
+	
+	@Value("${dataLimit}")
+	public String dataLimit;
 
 	@Autowired
 	ServiceManager serviceManager;
@@ -151,6 +153,8 @@ public class UIController {
 
 		String rolename = (String) request.getSession().getAttribute("role");
 		User us = userService.findByUsername(principal.getName());
+		
+		model.addAttribute("dataLimit", dataLimit);
 
 		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 
@@ -321,6 +325,7 @@ public class UIController {
 		
 		String currentDate=new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 		model.addAttribute("currentDate", currentDate);
+		model.addAttribute("dataLimit", dataLimit);
 		
 		System.out.println("Role is ::" + rolename);
 		if (rolename.equalsIgnoreCase("Network")) {

@@ -196,9 +196,6 @@
                         <div class="col-md-12" style="font-size: 14px;">
                             <!-- general form elements -->
                             <div class="card card-primary ">
-                                <!-- <div class="card-header">
-                                   
-                                </div> -->
                                 <!-- /.card-header -->
                                 <div class="card-body ">
                                     <form role="form" id="addForm" autocomplete="off">
@@ -214,8 +211,7 @@
 													id="toDate" >
 											</div>
 											<div class="col-md-1">
-												<label for="exampleInputserverName1"
-													style="visibility: hidden;">Text</label>
+												
 												<button type="button" onclick="getFilterData()"
 													style="imargin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
 													class="btn btn-primary">Search</button>
@@ -628,7 +624,8 @@
             });
 
 		var currentDate='${currentDate}';
-            
+		var dataLimit='${dataLimit}';
+		
             var tabledata = $('#tabledata').DataTable({
             	
                 "paging": true,
@@ -638,7 +635,7 @@
                 "autoWidth": false,
                 "aaSorting": [],
                 "scrollX": true,
-                "pageLength": 15,
+                "pageLength": dataLimit,
                 dom: 'Bfrtip',
                 //buttons: ['excel','pdf','print'],
                 buttons: [
@@ -765,7 +762,7 @@
                 $('#toDate').val('');
             })
             
-            getData();
+           getData();
 
             function getData() {
 

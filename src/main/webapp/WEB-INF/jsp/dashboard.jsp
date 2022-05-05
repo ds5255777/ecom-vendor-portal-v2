@@ -229,7 +229,7 @@
 							<div class="card card-primary  card-outline ">
 								<div class="card-header">
 									<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
-										data-placement="bottom" >Top 15 Trips</h3>
+										data-placement="bottom" >Top 50 Trips</h3>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body table-responsive p-0"
@@ -337,7 +337,6 @@
     <!-- Sparkline -->
     <script src="plugins/sparklines/sparkline.js"></script>
     <!-- JQVMap -->
-    <!-- <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
     <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script> -->
     <!-- jQuery Knob Chart -->
     <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
@@ -353,7 +352,6 @@
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <!-- <script src="dist/js/pages/dashboard.js"></script> -->
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
     <script src="plugins/datatables/jquery.dataTables.js"></script>
@@ -365,6 +363,7 @@
 	<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
 	<script src="plugins/jquery-validation/additional-methods.min.js"></script>
 		<script>
+		
             $(document).ready(function () {
                 //console.log(${userStatus});
                 if (${userStatus} === 3) {
@@ -372,6 +371,7 @@
                 }
             });
             
+            var dataLimit='${dataLimit}';
             
             $('#changePassword1').validate({
                 rules: {
@@ -438,7 +438,8 @@
             "searching": false,
             "info": false,
             "autoWidth": false,
-            "aaSorting": []
+            "aaSorting": [],
+            "pageLength": dataLimit
         });
 
         var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')

@@ -1514,14 +1514,14 @@ label {
 																</c:forEach>
 
 														</select></td>
-														<td style="width: 150px;"></td>
+														<td></td>
 														<td><label for="tdsApplication">Acknowledgement
 																Number</label></td>
 
 														<td colspan='2'><input type="text"
 															id="acknowledgementNumber" name="acknowledgementNumber"
 															class="form-control p-input "></td>
-														<td style="width: 150px;"></td>
+														<td></td>
 														<td><label>ITR Acknowledgment of 3 years<span
 																class="required">*</span></label></td>
 														<td><input type="file" id="ITRAFile" name="ITRAFile"

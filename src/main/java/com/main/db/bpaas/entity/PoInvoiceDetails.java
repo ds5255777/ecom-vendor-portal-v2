@@ -95,8 +95,8 @@ public class PoInvoiceDetails {
 	@Column(name = "Line_type")
 	private String lineType;
 	
-	@Column(name = "Ammount")
-	private String ammount;
+	@Column(name = "Amount")
+	private String amount;
 	
 	
 	
@@ -335,13 +335,15 @@ public class PoInvoiceDetails {
 		this.supplierInvoiceNumber = supplierInvoiceNumber;
 	}
 
-	public String getAmmount() {
-		return ammount;
+	public String getAmount() {
+		return amount;
 	}
 
-	public void setAmmount(String ammount) {
-		this.ammount = ammount;
+	public void setAmount(String amount) {
+		this.amount = amount;
 	}
+
+
 	
 	
 	

@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
+       <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <style>
         .table td,
         .table th {
@@ -137,8 +138,7 @@
                                             <div class="col-sm-7">
                                                 <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency"disabled="disabled">
                                                     <option value="INR">INR</option>
-                                                    <option value="USD">USD</option>
-                                                    <option value="KES">KES</option>
+                                                   
                                                 </select>
                                             </div>
                                         </div>
@@ -173,7 +173,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Supplier Number<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="supplierNumber" id="supplierNumber"   placeholder="Supplier Number" style="width: 100%;" on>
+                                                <input class="form-control-sm" name="supplierNum" id="supplierNum"   placeholder="Supplier Number" style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -181,7 +181,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">GL Date <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="date" name="glDate" id="glDate" placeholder="GL Date"  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" name="glDate" id="glDate" placeholder="GL Date"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -190,7 +190,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Payment Currency<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="paymentCurrency" id="paymentCurrency" type="number"  placeholder="Payment Currency" onfocusout="calculateInvoice()" style="width: 100%;" on>
+                                                <input class="form-control-sm" name="paymentCurrency" id="paymentCurrency"   placeholder="Payment Currency" onfocusout="calculateInvoice()" style="width: 100%;" on>
                                             </div>
                                         </div>
                                     </div>
@@ -198,7 +198,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Match Option <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm"  name="invoiceMatchoption" id="invoiceMatchoption" placeholder="Match Option"  style="width: 100%;">
+                                                <input class="form-control-sm"  name="matchOption" id="matchOption" placeholder="Match Option"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -232,7 +232,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Pay Group <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="number" name="payGroup" id="payGroup" placeholder="Pay Group "  style="width: 100%;">
+                                                <input class="form-control-sm"  name="payGroup" id="payGroup" placeholder="Pay Group "  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -240,7 +240,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Remit To bank account name<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="remitTobankaccountname" id="remitTobankaccountname" type="number" placeholder="Remit To bank account name" style="width: 100%;" >
+                                                <input class="form-control-sm" name="remitToBankAccountName" id="remitToBankAccountName"  placeholder="Remit To bank account name" style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -265,7 +265,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Supplier invoice date (DFF) <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="date" name="supplierInvoiceDate" id="supplierInvoiceDate" placeholder=" Supplier invoice date"  style="width: 100%;">
+                                                <input class="form-control-sm"  name="supplierInvoiceDate" id="supplierInvoiceDate" placeholder=" Supplier invoice date"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -358,7 +358,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">GL Date<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="GL Date" name="gldate" id="gldate" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="GL Date" name="glDate1" id="glDate1" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -389,7 +389,7 @@
                         </div>
                         <!-- /.card-header -->
                   <div class="card-body">
-                            <form id="stepTwoForm" class="forms-sample">
+                            <form id="stepThreeForm" class="forms-sample">
                                 <div class="row">
                                    
                                     <div class="col-md-3">
@@ -412,7 +412,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">GL Date<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="date" placeholder="GL Date" name="gldate1" id="gldate1"  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="GL Date" name="gldate1" id="gldate1"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -480,6 +480,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <button type="Button" class="btn btn-primary" id="addBookGridButt" name="addBookGridButt">Add Item</button>
+                                    
                                     
                                  </div>
                              </form>
@@ -497,7 +499,34 @@
                     <!-- Query Form -->
                     
                     
-                    
+                                        
+                         <form class="forms-sample">
+                                        <div class="card-body">
+                                            <div class="table-responsive" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+                                                <table class="table center-aligned-table" id="addBookGrid" name="addBookGrid">
+                                                    <thead>
+                                                        <tr style="background: #1991eb; color: white;">
+                                                            <th>Line Type</th>
+                                                            <th>PO Number</th>
+                                                            <th>GL Date</th>
+                                                            <th>Amount</th>
+                                                            <th>PO Line </th>
+                                                            <th>Receipt Number</th>
+                                                             <th>Receipt Line </th>
+                                                            <th>Quantity Invoiced </th>
+                                                            <th>UOM</th>
+                                                             <th>Unit Price</th>
+                                                             <th>Description </th>
+                                                            <th>Remove </th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
                     
                     
                     <center>
@@ -611,30 +640,67 @@
                     myForm = document.getElementById("stepOneForm");
                     setData(myForm, result[0]);
                     
+                    debugger;
+                    var date= result[0].glDate;
+                    
+                    $('#glDate').val(date.split(" ")[0]);
+                    
+  					 var termsDate= result[0].termsDate;
+                    
+                    $('#termsDate').val(termsDate.split(" ")[0]);
+                    
+					var supplierInvoiceDate= result[0].supplierInvoiceDate;
+                    
+                    $('#supplierInvoiceDate').val(supplierInvoiceDate.split(" ")[0]);
+                    
+                  /*   $('#glDate').datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        changeMonth: true,
+                        changeYear: true,
+
+                    }); */
+                    
                     myForm = document.getElementById("stepTwoForm");
                     setData(myForm, result[0]);
                     
-                 /*    $('#org2').val(result[0].org)
-                     $('#uom2').val(result[0].uom)
-                      $('#shipTo2').val(result[0].shipTo)
-                       $('#quantity2').val(result[0].quantity); */
+                 //  var date =result[0].glDate;
+                   
+                   
+                   
+                  // $('#gldate').val( new Date(date));
+                   
+                
+                   
                     
-                  /*   $('#needByDate2').val(result[0].needByDate)
-                    $('#chargeAccount2').val(result[0].chargeAccount)
-                 
-                   // myForm = document.getElementById("stepThreeForm");
-                   // setData(myForm, result[0]);
-                    $('#deliverTo3').val(result[0].deliverTo)
-                    $('#chargeAccount3').val(result[0].chargeAccount)
+                    if(tripLineArray!='' || tripLineArray!=null){
+                    	$('#uom1').val( tripLineArray[0].uom);
+                    	$('#description1').val( tripLineArray[0].description);
+                    	$('#lineType1').val( tripLineArray[0].lineType);
+                    	$('#gldate1').val( tripLineArray[0].gldate);
+                    	$('#amount1').val( tripLineArray[0].amount);
+                    	$('#poLine1').val( tripLineArray[0].poline);
+                    	$('#receiptLine1').val( tripLineArray[0].receiptline);
+                    	$('#receiptNumber1').val( tripLineArray[0].receiptNumber);
+                    	$('#quantityInvoiced1').val( tripLineArray[0].quantityInvoiced);
+                    	$('#unitPrice1').val( tripLineArray[0].unitPrice);
+                    	
+                    }
                     
-              
-                // $('#poNumber').val('${PoNumber}'); 
-					$('#poNumber1').val( result[0].poNumber);  */
+                    
+                   
+                    
+                    
+                    // gldate=document.getElementById("glDate").value;
+                   // document.getElementById("glDate1").value=gldate;
+
+                    var pono =document.getElementById('poNumber').value
+                    document.getElementById('poNumber1').value=pono;
                     
 					for (var i = 0; i < result[0].length; i++) {
                         if (!result[0].hasOwnProperty("tripLineArray")) {
                         	 $('#uom1').val( tripLineArray[0].uom);
                              $('#description1').val( tripLineArray[0].description);
+                             
                         }
 					}
 					
@@ -643,51 +709,8 @@
                     var d = new Date();
                     $( "#invoiceDate" ).val(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
                     
-                    $('#invoiceCurrency').val(result[0].currency);  
                     
-                    /* $('#prTable').DataTable().clear();
-                     for (var i = 0; i < tripLineArray.length; i++) {
-                        if (!tripLineArray[i].hasOwnProperty("lineNumber")) {
-                            tripLineArray[i].lineNumber = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("itemType")) {
-                            tripLineArray[i].itemType = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("item")) {
-                            tripLineArray[i].item = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("category")) {
-                            tripLineArray[i].category = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("description")) {
-                            tripLineArray[i].description = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("uom")) {
-                            tripLineArray[i].uom = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("quantity")) {
-                            tripLineArray[i].quantity = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("price")) {
-                            tripLineArray[i].price = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("needByDate")) {
-                            tripLineArray[i].needByDate = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("amount")) {
-                            tripLineArray[i].amount = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("chargeAccount")) {
-                            tripLineArray[i].chargeAccount = "";
-                        }
-                        
-                        $('#prTable').DataTable().row.add([tripLineArray[i].lineNumber, tripLineArray[i].itemType, tripLineArray[i].item, tripLineArray[i].category, tripLineArray[i].description, tripLineArray[i].uom, tripLineArray[i].quantity, tripLineArray[i].price, tripLineArray[i].needByDate, tripLineArray[i].amount, tripLineArray[i].chargeAccount]);
-                    }
-                   // $("#invoiceNumber").val(result.invoiceNumber);
-                   // $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);
-                    $('#prTable').DataTable().draw();
-                    $("tbody").show();
-                */ } else {
+                   } else {
                     Toast.fire({
                         type: 'error',
                         title: 'Failed.. Try Again..'
@@ -837,6 +860,77 @@
             }
         });
     }
+
+  $("#addBookGridButt").click(function() {
+      var abc = document.getElementById('lineType1').value;
+      var abc2 = document.getElementById('poNumber1').value;
+      var abc3 = document.getElementById('gldate1').value;
+      var abc4 = document.getElementById('amount1').value;
+      var abc5 = document.getElementById('poLine1').value;
+      var abc6 = document.getElementById('receiptNumber1').value;
+      var abc7 = document.getElementById('receiptLine1').value;
+      var abc8 = document.getElementById('quantityInvoiced1').value;
+      var abc9 = document.getElementById('uom1').value;
+      var abc10 = document.getElementById('unitPrice1').value;
+      var abc11 = document.getElementById('description1').value;
+      console.log("abc =>" + abc);
+      if (abc == null || abc == "") {
+          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+          return false;
+      } else if (abc6 == null || abc6 == "") {
+          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+          return false;
+      } else if (abc3 == null || abc3 == "") {
+          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+          return false;
+      }  else if (abc4 == null || abc4 == "") {
+          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+          return false;
+      } else if (abc5 == null || abc5 == "") {
+          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+          return false;
+      }  else if (abc7 == null || abc7 == "") {
+          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+          return false;
+      } else if (abc8 == null || abc8 == "") {
+          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+          return false;
+      }else if (abc10 == null || abc10 == "") {
+          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+          return false;
+      }
+      else {
+
+          $("#addBookGrid").append(' <tr class=""><td>' +
+          		abc + '</td><td>' +
+          		abc2+ '</td><td>' +
+          		abc3 + '</td><td>' +
+          		abc4 + '</td><td>' +
+          		abc5 + '</td><td>' +
+          		abc6+ '</td><td>' +
+          		abc7 + '</td><td>' +
+          		abc8 + '</td><td>' +
+          		abc9+ '</td><td>' +
+          		abc10 + '</td><td>' +
+          		 abc11 + '</td>' +
+               '<td><a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+
+           document.getElementById('lineType1').value="";
+           var pono =document.getElementById('poNumber').value
+           document.getElementById('poNumber1').value=pono;
+         document.getElementById('gldate1').value="";
+           document.getElementById('amount1').value="";
+           document.getElementById('poLine1').value="";
+           document.getElementById('receiptNumber1').value="";
+         document.getElementById('receiptLine1').value="";
+           document.getElementById('quantityInvoiced1').value="";
+           document.getElementById('uom1').value="";
+           document.getElementById('unitPrice1').value="";
+           document.getElementById('description1').value="";
+      }
+
+  });
+
 
     
     </script>

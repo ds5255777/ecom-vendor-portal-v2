@@ -60,7 +60,7 @@
     </style>
 </head>
 
-<body class="hold-transition sidebar-mini sidebar-collapse text-sm">
+<body class="hold-transition sidebar-mini sidebar-collapse text-sm" onunload="javascript:refreshParent()">
 <jsp:include page="loader.jsp" />
     <div class="wrapper">
         <!-- Navbar -->
@@ -587,35 +587,18 @@
         	
             var table = document.getElementById('tabledata');
             
-           /*  var checkflag = [];
-            $("input:checkbox[name='option']:checked").each(function() {
-                checkflag.push($(this).val());
-            });
- */
-           /*  let values = checkflag.toString();
-            if (values == "" || values == null) {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please select atleast one trip'
-                })
-                return;
-            } */
-           
-           // var checkflag = [];
-           // checkflag.push(poNo);
-            
-        	
-           // let values=checkflag.toString();
+          
             
             $('.loader').hide();
             var urlOftripsDetail = "poInvoiceGenerate?id=" + poNo;
             window.open(urlOftripsDetail, "poInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
-       window.close();
+      		 window.close();
         }
         
-        function refereshList(){
-        	 window.opener.refereshList();
-          }
+        function refreshParent() 
+        {
+            window.opener.location.reload(true);
+        }
           
     </script>
 </body>

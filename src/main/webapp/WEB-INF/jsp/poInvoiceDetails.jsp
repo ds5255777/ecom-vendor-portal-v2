@@ -151,6 +151,7 @@
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Supplier Site</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -247,10 +248,19 @@
                                 }
                                 if (!result[i].hasOwnProperty("poNumber")) {
                                     result[i].poNumber = "";
+                                } if (!result[i].hasOwnProperty("status")) {
+                                    result[i].status = "";
                                 }
+                                var  DraftInvoicing_status='<span class=\"right badge badge-danger\">Draft-Invoicing</span>';
+                                var inReview_status = '<span class=\"right badge badge-primary\">In-Review</span>';
+                          		 	 if(result[i].status == "Draft-Invoicing"){
+                                	  postatus = DraftInvoicing_status;
+                                  }  else if(result[i].status == "In-Review"){
+                                	  postatus = inReview_status;
+                                  } 
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "')\" >" + result[i].invoiceNumber + "</button>";
 
-                                tabledata.row.add([view,result[i].poNumber, result[i].operatingUnit, result[i].invoiceType, result[i].supplierSite, result[i].invoiceDate,result[i].invoiceAmount]);
+                                tabledata.row.add([view,result[i].poNumber, result[i].operatingUnit, result[i].invoiceType, result[i].supplierSite, result[i].invoiceDate,result[i].invoiceAmount,postatus]);
                             }
                             tabledata.draw();
                             $("tbody").show();

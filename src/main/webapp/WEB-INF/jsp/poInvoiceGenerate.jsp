@@ -60,7 +60,7 @@
     </style>
 </head>
 
-<body class="hold-transition sidebar-mini sidebar-collapse text-sm">
+<body class="hold-transition sidebar-mini sidebar-collapse text-sm" onunload="javascript:refreshParent()">
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;"" >
@@ -364,7 +364,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Account<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="account" id="account"  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Account" name="account" id="account"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -435,7 +435,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Amount <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="amount1" id="amount1"   style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Amount" name="amount1" id="amount1"   style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -496,6 +496,8 @@
                                         </div>
                                     </div>
                                     
+                                    <button type="Button" class="btn btn-primary" id="addBookGridButt" name="addBookGridButt">Add Item</button>
+                                    
                                  </div>
                              </form>
                           </div>
@@ -508,7 +510,33 @@
                     <!-- /.card -->
                    
                     
-                    
+                         <form class="forms-sample">
+                                        <div class="card-body">
+                                            <div class="table-responsive" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+                                                <table class="table center-aligned-table" id="addBookGrid" name="addBookGrid">
+                                                    <thead>
+                                                        <tr style="background: #1991eb; color: white;">
+                                                            <th>Line Type</th>
+                                                            <th>PO Number</th>
+                                                            <th>GL Date</th>
+                                                            <th>Amount</th>
+                                                            <th>PO Line </th>
+                                                            <th>Receipt Number</th>
+                                                             <th>Receipt Line </th>
+                                                            <th>Quantity Invoiced </th>
+                                                            <th>UOM</th>
+                                                             <th>Unit Price</th>
+                                                             <th>Description </th>
+                                                            <th>Remove </th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
                     
                     
                     
@@ -676,26 +704,32 @@
 
 	    var itrDetailsArray = [];
         
-        var obj ={
-        	"uom" : $("#uom1").val() ,
-        	"amount" :  $("#amount1").val() ,
-        	
-        	"lineType" : $("#lineType1").val()   ,
-        	"poline" : $("#poLine1").val()   ,
-        	"receiptNumber" :  $("#receiptNumber1").val()  ,
-        	"receiptline" :  $("#receiptLine1").val()  ,
-        	"quantityInvoiced" :  $("#quantityInvoiced1").val() ,
-        	"unitPrice" :  $("#unitPrice1").val() ,
-        	"gldate" : $("#glDate1").val() ,
-        	"description" :  $("#description1").val() 
-   
-        	
+        var table = document.getElementById('addBookGrid');
+        var rowLength = table.rows.length;
+
+        for (var i = 1; i < rowLength; i += 1) {
+            var row = table.rows[i];
+            var objs = {
+            		 "uom": row.cells[8].innerHTML,
+                     "amount": row.cells[3].innerHTML,
+                     "poNumber": row.cells[1].innerHTML,
+                     "lineType": row.cells[0].innerHTML,
+                     "poline": row.cells[4].innerHTML,
+                     "receiptNumber": row.cells[5].innerHTML,
+                     "receiptline": row.cells[6].innerHTML,
+                     "quantityInvoiced": row.cells[7].innerHTML,
+                     "unitPrice": row.cells[9].innerHTML,
+                     "gldate": row.cells[2].innerHTML,
+                     "description": row.cells[10].innerHTML
+            };
+            itrDetailsArray.push(objs);
         }
+
       
         var matchOption=$("#invoiceMatchoption").val() ;
        
         
-        itrDetailsArray.push(obj);
+       // itrDetailsArray.push(obj);
 
          var stepOneObj = FormDataToJSON('stepOneForm');
         var stepThreeObj = FormDataToJSON('stepThreeForm');
@@ -705,6 +739,7 @@
             ...stepThreeObj
             
         };
+       
         
         finalObj.poInvoiceLine=itrDetailsArray;
         finalObj.poInvoiceLine.poNumber =poNo;
@@ -826,29 +861,37 @@
         } */
         var itrDetailsArray = [];
         
-        var obj ={
-        	"uom" : $("#uom1").val() ,
-        	"amount" :  $("#amount1").val() ,
-        	
-        	"lineType" : $("#lineType1").val()   ,
-        	"poline" : $("#poLine1").val()   ,
-        	"receiptNumber" :  $("#receiptNumber1").val()  ,
-        	"receiptline" :  $("#receiptLine1").val()  ,
-        	"quantityInvoiced" :  $("#quantityInvoiced1").val() ,
-        	"unitPrice" :  $("#unitPrice1").val() ,
-        	"gldate" : $("#glDate1").val() ,
-        	"description" :  $("#description1").val() 
-        	
-       
-        	
+        var table = document.getElementById('addBookGrid');
+        var rowLength = table.rows.length;
+
+        for (var i = 1; i < rowLength; i += 1) {
+            var row = table.rows[i];
+            var objs = {
+                "uom": row.cells[8].innerHTML,
+                "amount": row.cells[3].innerHTML,
+                "poNumber": row.cells[1].innerHTML,
+                "lineType": row.cells[0].innerHTML,
+                "poline": row.cells[4].innerHTML,
+                "receiptNumber": row.cells[5].innerHTML,
+                "receiptline": row.cells[6].innerHTML,
+                "quantityInvoiced": row.cells[7].innerHTML,
+                "unitPrice": row.cells[9].innerHTML,
+                "gldate": row.cells[2].innerHTML,
+                "description": row.cells[10].innerHTML
+            };
+            itrDetailsArray.push(objs);
         }
+
+        
+        
+        
         
       
         
         var matchOption=$("#invoiceMatchoption").val() ;
        
         
-        itrDetailsArray.push(obj);
+        //itrDetailsArray.push(obj);
 
          var stepOneObj = FormDataToJSON('stepOneForm');
         var stepThreeObj = FormDataToJSON('stepThreeForm');
@@ -878,10 +921,10 @@
             success: function(response) {
 
             	 if (response.msg == 'success') {
-                     swal.fire("Thanks", "your Invoice Process Sucessfully", "success", "OK").then(function() {
-                    	 //window.opener.refereshList();
+                     swal.fire("Thanks", "Invoice Process Sucessfully", "Success", "OK").then(function() {
+                    	
                          window.close();
-                         //window.location="closedAndApprovedTrips";
+                       
                      });
                      
                      
@@ -906,26 +949,32 @@
 
     		    var itrDetailsArray = [];
     	        
-    	        var obj ={
-    	        	"uom" : $("#uom1").val() ,
-    	        	"amount" :  $("#amount1").val() ,
-    	        	
-    	        	"lineType" : $("#lineType1").val()   ,
-    	        	"poline" : $("#poLine1").val()   ,
-    	        	"receiptNumber" :  $("#receiptNumber1").val()  ,
-    	        	"receiptline" :  $("#receiptLine1").val()  ,
-    	        	"quantityInvoiced" :  $("#quantityInvoiced1").val() ,
-    	        	"unitPrice" :  $("#unitPrice1").val() ,
-    	        	"gldate" : $("#glDate1").val() ,
-    	        	"description" :  $("#description1").val() 
-    	   
-    	        	
+    	        var table = document.getElementById('addBookGrid');
+    	        var rowLength = table.rows.length;
+
+    	        for (var i = 1; i < rowLength; i += 1) {
+    	            var row = table.rows[i];
+    	            var objs = {
+    	            		 "uom": row.cells[8].innerHTML,
+    	                     "amount": row.cells[3].innerHTML,
+    	                     "poNumber": row.cells[1].innerHTML,
+    	                     "lineType": row.cells[0].innerHTML,
+    	                     "poline": row.cells[4].innerHTML,
+    	                     "receiptNumber": row.cells[5].innerHTML,
+    	                     "receiptline": row.cells[6].innerHTML,
+    	                     "quantityInvoiced": row.cells[7].innerHTML,
+    	                     "unitPrice": row.cells[9].innerHTML,
+    	                     "gldate": row.cells[2].innerHTML,
+    	                     "description": row.cells[10].innerHTML
+    	            };
+    	            itrDetailsArray.push(objs);
     	        }
+
     	      
     	        var matchOption=$("#invoiceMatchoption").val() ;
     	       
     	        
-    	        itrDetailsArray.push(obj);
+    	       // itrDetailsArray.push(obj);
 
     	         var stepOneObj = FormDataToJSON('stepOneForm');
     	        var stepThreeObj = FormDataToJSON('stepThreeForm');
@@ -956,11 +1005,8 @@
 
 	            	 if (response.msg == 'success') {
 	                     
-	            		/*  swal.fire("Thanks", "Your Invoice Discard Sucessfully", "success", "OK").then(function() {
-	            			 window.close();
-	                    	 window.opener.refereshList();
-	                    	
-	            		 }); */
+	            		
+	            		 
 	                     
 	                     setTimeout(function(response) {
 
@@ -983,13 +1029,91 @@
     
     		function savedraftinvoice(){
     			Discardinvoice();
-    		 swal.fire("Thanks", "your Invoice Process Sucessfully", "success", "OK").then(function() {
-            	 //window.opener.refereshList();
+    		 swal.fire("", "Save To Draft ", "success", "OK").then(function() {
+            	
                  window.close();
-                 //window.location="closedAndApprovedTrips";
+                 
              });
     		}
     		
+    		 function refreshParent() 
+    	        {
+    	            window.opener.location.reload(true);
+    	        }
+    	
+    		  $("#addBookGridButt").click(function() {
+    	            var abc = document.getElementById('lineType1').value;
+    	            var abc2 = document.getElementById('poNumber1').value;
+    	            var abc3 = document.getElementById('gldate1').value;
+    	            var abc4 = document.getElementById('amount1').value;
+    	            var abc5 = document.getElementById('poLine1').value;
+    	            var abc6 = document.getElementById('receiptNumber1').value;
+    	            var abc7 = document.getElementById('receiptLine1').value;
+    	            var abc8 = document.getElementById('quantityInvoiced1').value;
+    	            var abc9 = document.getElementById('uom1').value;
+    	            var abc10 = document.getElementById('unitPrice1').value;
+    	            var abc11 = document.getElementById('description1').value;
+    	            console.log("abc =>" + abc);
+    	            if (abc == null || abc == "") {
+    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+    	                return false;
+    	            } else if (abc6 == null || abc6 == "") {
+    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+    	                return false;
+    	            } else if (abc3 == null || abc3 == "") {
+    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+    	                return false;
+    	            }  else if (abc4 == null || abc4 == "") {
+    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+    	                return false;
+    	            } else if (abc5 == null || abc5 == "") {
+    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+    	                return false;
+    	            }  else if (abc7 == null || abc7 == "") {
+    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+    	                return false;
+    	            } else if (abc8 == null || abc8 == "") {
+    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+    	                return false;
+    	            }else if (abc10 == null || abc10 == "") {
+    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
+    	                return false;
+    	            }
+    	            else {
+
+    	                $("#addBookGrid").append(' <tr class=""><td>' +
+    	                		abc + '</td><td>' +
+    	                		abc2+ '</td><td>' +
+    	                		abc3 + '</td><td>' +
+    	                		abc4 + '</td><td>' +
+    	                		abc5 + '</td><td>' +
+    	                		abc6+ '</td><td>' +
+    	                		abc7 + '</td><td>' +
+    	                		abc8 + '</td><td>' +
+    	                		abc9+ '</td><td>' +
+    	                		abc10 + '</td><td>' +
+    	                		 abc11 + '</td>' +
+    	                     '<td><a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+
+    	                 document.getElementById('lineType1').value="";
+        	             //document.getElementById('poNumber1').value="";
+        	             $('#poNumber1').val('${PoNumber}'); 
+        	           document.getElementById('gldate1').value="";
+        	             document.getElementById('amount1').value="";
+        	             document.getElementById('poLine1').value="";
+        	             document.getElementById('receiptNumber1').value="";
+        	           document.getElementById('receiptLine1').value="";
+        	             document.getElementById('quantityInvoiced1').value="";
+        	             document.getElementById('uom1').value="";
+        	             document.getElementById('unitPrice1').value="";
+        	             document.getElementById('description1').value="";
+    	            }
+
+    	        });
+
+    		 
+    		 
+    		  
     </script>
 </body>
 

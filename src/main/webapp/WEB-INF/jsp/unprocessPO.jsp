@@ -150,7 +150,7 @@
     </style>
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse" >
     <jsp:include page="loader.jsp" />
     <div class="wrapper">
 
@@ -453,10 +453,10 @@
            
         }
         
-        function refereshList(){
-     	   getData();
-         }
-        
+        function refreshParent() 
+        {
+            window.opener.location.reload(true);
+        }
         </script>
         <%
         String viewpage="UnProcess";

@@ -146,8 +146,8 @@
                                         <thead>
                                             <tr>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Invoice Number</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">PO Number</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Supplier Name</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Supplier Number</th>
                                                 <th style="padding: 5px 5px 5px 1.5rem;">Action</th>
                                             </tr>
                                         </thead>
@@ -229,15 +229,15 @@
                                 if (!result[i].hasOwnProperty("invoiceNumber")) {
                                     result[i].invoiceNumber = "";
                                 }
-                                if (!result[i].hasOwnProperty("vendorName")) {
-                                    result[i].vendorName = "";
+                                if (!result[i].hasOwnProperty("poNo")) {
+                                    result[i].poNo = "";
                                 }
                                 if (!result[i].hasOwnProperty("vendorCode")) {
                                     result[i].vendorCode = "";
                                 }
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "')\" >" + result[i].invoiceNumber + "</button>";
                                 var action = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteInvoice('" + result[i].id + "','" + result[i].invoiceNumber + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-                                tabledata.row.add([view, result[i].vendorName, result[i].vendorCode, action]);
+                                tabledata.row.add([view, result[i].poNo, result[i].vendorCode, action]);
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -299,7 +299,7 @@
 
             function refereshList() {
                 getData();
-                $('.loader').hide();
+               // $('.loader').hide();
             }
         </script>
 </body>

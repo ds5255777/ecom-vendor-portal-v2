@@ -402,8 +402,37 @@
                             </div>
                         </div>
                         
+                       				  	 							
                         
-                      <div class="card-body">
+                        <div class="card-body" style="overflow: auto;">
+                            <table id="prTable" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                    <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;"> S.No</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;"> Receipent Line</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Description</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Line Type</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">PO Line</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">GL Date</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Remaning Quantity</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Quantity Invoiced</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Unit Price</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">UOM</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Tax %</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Base Amount</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Tax Amount</th>
+                                       
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Total Amount</th>
+                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        
+                        
+                        
+                     <!--  <div class="card-body">
                             <form id="stepTwoForm" class="forms-sample">
                                 <div class="row">
                                    
@@ -505,39 +534,10 @@
                         
                        
 
-                        <!-- /.card-body -->
+                        /.card-body
                     </div>
-                    <!-- /.card -->
+ -->                    <!-- /.card -->
                    
-                    
-                         <form class="forms-sample">
-                                        <div class="card-body">
-                                            <div class="table-responsive" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-                                                <table class="table center-aligned-table" id="addBookGrid" name="addBookGrid">
-                                                    <thead>
-                                                        <tr style="background: #1991eb; color: white;">
-                                                            <th>Line Type</th>
-                                                            <th>PO Number</th>
-                                                            <th>GL Date</th>
-                                                            <th>Amount</th>
-                                                            <th>PO Line </th>
-                                                            <th>Receipt Number</th>
-                                                             <th>Receipt Line </th>
-                                                            <th>Quantity Invoiced </th>
-                                                            <th>UOM</th>
-                                                             <th>Unit Price</th>
-                                                             <th>Description </th>
-                                                            <th>Remove </th>
-                                                            
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </form>
-                    
                     
                     
                     <center>
@@ -619,7 +619,7 @@
 
     <script>
        
-  
+  var tripLineArray=[];
     
     var  poNo='${PoNumber}';
    // alert("poNo"+poNo)
@@ -627,7 +627,7 @@
    getPoDetails();
     
     function getPoDetails() {
-
+    	tripLineArray=[];
         var obj = {
             "poNo": poNo
         }
@@ -644,13 +644,13 @@
                 if (data.msg == 'success') {
                     var result = data.data;
                    //var tripLineArray = data.data.poInvoiceLine;
-                   var tripLineArray=result[0].poLineDetails;
+                    tripLineArray=result[0].poLineDetails;
                     var myForm = "";
                     myForm = document.getElementById("stepOneForm");
                     setData(myForm, result[0]);
                 
-                    myForm = document.getElementById("stepTwoForm");
-                    setData(myForm, result[0]);
+                  /*   myForm = document.getElementById("stepTwoForm");
+                    setData(myForm, result[0]); */
                     
                     $('#org2').val(result[0].org)
                      $('#uom2').val(result[0].uom)
@@ -678,7 +678,79 @@
                     $('#invoiceCurrency').val(result[0].currency);  
                     $('#paymentCurrency').val(result[0].currency); 
                     
+                 //   Quantity	Remaning Quantity 	Quantity Invoiced	Unit Price	UOM	Tax Percentage	Base Amount	Tax Amount	Total Amount
+                    
+                    $('#prTable').DataTable().clear();
+                    for (var i = 0; i < tripLineArray.length; i++) {
+
+/*                         if (!tripLineArray[i].hasOwnProperty("tripID")) {
+                        	tripLineArray[i].tripID = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("runType")) {
+                        	tripLineArray[i].runType = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("standardKM")) {
+                        	tripLineArray[i].standardKM = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("ratePerKm")) {
+                        	tripLineArray[i].ratePerKm = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("currentFuelRate")) {
+                        	tripLineArray[i].currentFuelRate = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("fsBaseRate")) {
+                        	tripLineArray[i].fsBaseRate = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("fsDiff")) {
+                        	tripLineArray[i].fsDiff = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("basicFreight")) {
+                        	tripLineArray[i].basicFreight = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("fs")) {
+                        	tripLineArray[i].fs = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("actualKM")) {
+                        	tripLineArray[i].actualKM = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("totalFreight")) {
+                        	tripLineArray[i].totalFreight = "0";
+                        }
+                        if (!result[i].hasOwnProperty("lumpsomeamount")) {
+                            result[i].lumpsomeamount = "0";
+                        } */  
+                        var totalamot;
+                        var receipentLine= "<input type=\"text\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('receipentLine','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+                        var description= "<input type=\"text\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('description','"+i+"',this.value)\" value=\"" + tripLineArray[i].description + "\" class=\"form-control-sm \" \"> ";
+                        var lineType= "<input type=\"text\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('lineType','"+i+"',this.value)\"  class=\"form-control-sm \" \"> ";
+                        var poline= "<input type=\"text\" style=\"width: 100px; height: 28px;\" class=\"form-control-sm \" \"> ";
+                        var glDate= "<input type=\"text\" style=\"width: 100px; height: 28px;\" class=\"form-control-sm \" \"> ";
+                        var remaningQuantity= "<input type=\"text\" style=\"width: 100%; height: 28px;\" class=\"form-control-sm \" \"> ";
+                        var quantity= "<input type=\"text\" style=\"width: 100px; height: 28px;\" value=\"" + tripLineArray[i].quantity + "\" class=\"form-control-sm \" \"> ";
+                        var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatebaseaAmt('"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+                        var unitPrice= "<input type=\"text\" style=\"width: 100%; height: 28x;\" value=\"" + tripLineArray[i].price + "\" oninput=\"updatePOLineItem('receipentLine','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+                        var uom= "<input type=\"text\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
+                        var taxAmount= "<input type=\"text\" style=\"width: 100%; height: 28px;\"  id=\"tax_"+i+"\" class=\"form-control-sm \" \"> ";
+                        var baseAmount= "<input type=\"text\" style=\"width: 100%; height: 28px;\"   id=\"baseAmt_"+i+"\"   class=\"form-control-sm \" > ";
+                        var taxPercentage= "    <select  class=\"form-control-sm \" style=\"width: 100%; height: 28px;\" id=\"taxAmount\"  onchange=\"updatetotalAmount(this.value,'"+i+"')\" > <option value=\"0\" \">0%</option><option value=\"5\"  \">5%</option><option value=\"8\"  \">8%</option><option value=\"18\" \">18%</option><option value=\"28\" \">28%</option> </select > ";
+                        var totalAmount= "<input type=\"text\"  class=\"form-control-sm \" style=\"width: 100%; height: 28px;\" id=\"totamt_"+i+"\" > ";
+                        
+                        
+                       // action = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteRow('" + result[i].tripID + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
+						$('#prTable').DataTable().row.add([i + 1,receipentLine,description,lineType,poline,glDate,quantity,remaningQuantity,quantityInvoiced,unitPrice,uom,taxPercentage,baseAmount,taxAmount,totalAmount]);
+                        
+						
+						
+                        //Receipent Line	Description	Line Type	PO Line	GL Date
+                       // Quantity	Remaning Quantity 	Quantity Invoiced	Unit Price	UOM	Tax Percentage	Base Amount	Tax Amount	Total Amount
+                    }
+                    $('#prTable').DataTable().draw();
+                    $("tbody").show();
                        
+                    
+                    
+                    
+                    
                 }else {
                     Toast.fire({
                         type: 'error',
@@ -699,31 +771,19 @@
     
   //  setDraftInvoice();
     
+  function updatePOLineItem(key,index,value){
+	  tripLineArray[index][key]=value;
+	  console.log(tripLineArray);
+  }
+  
     function setDraftInvoice() {
     	
 
-	    var itrDetailsArray = [];
+	   
         
-        var table = document.getElementById('addBookGrid');
-        var rowLength = table.rows.length;
-
-        for (var i = 1; i < rowLength; i += 1) {
-            var row = table.rows[i];
-            var objs = {
-            		 "uom": row.cells[8].innerHTML,
-                     "amount": row.cells[3].innerHTML,
-                     "poNumber": row.cells[1].innerHTML,
-                     "lineType": row.cells[0].innerHTML,
-                     "poline": row.cells[4].innerHTML,
-                     "receiptNumber": row.cells[5].innerHTML,
-                     "receiptline": row.cells[6].innerHTML,
-                     "quantityInvoiced": row.cells[7].innerHTML,
-                     "unitPrice": row.cells[9].innerHTML,
-                     "gldate": row.cells[2].innerHTML,
-                     "description": row.cells[10].innerHTML
-            };
-            itrDetailsArray.push(objs);
-        }
+       
+            //itrDetailsArray.push(objs);
+        
 
       
         var matchOption=$("#invoiceMatchoption").val() ;
@@ -741,8 +801,8 @@
         };
        
         
-        finalObj.poInvoiceLine=itrDetailsArray;
-        finalObj.poInvoiceLine.poNumber =poNo;
+        
+       // finalObj.poInvoiceLine.poNumber =poNo;
         finalObj.matchOption=matchOption;
 
         
@@ -781,9 +841,42 @@
         });
     }
 
+    function updatetotalAmount(value,index){
+ 	   
+    	if(value==""){
+    		return;
+    	}
+    	var baseamt =parseFloat(tripLineArray[index].price);
+    	var taxamt=baseamt*(parseFloat(value)/100);
+    	taxamt=parseFloat(taxamt).toFixed(2);
+    	$("#tax_"+index).val(taxamt);
+    	var totalAmount=(parseFloat(baseamt)+parseFloat(taxamt)).toFixed(2);
+    	
+    	$("#totamt_"+index).val(totalAmount);
+    	
+    	
+    }
     
-    
+   function updatebaseaAmt(index,quntity){
+	   var allquantity =parseFloat(tripLineArray[index].quantity)
+	   if(allquantity>=parseFloat(quntity)){
+					
+		  
+   	
+			  
+				   var unitprice =parseFloat(tripLineArray[index].price);
+				   
+				var baseamt=(parseFloat(unitprice)*parseFloat(quntity)).toFixed(2);
+				 $("#baseAmt_"+index).val(baseamt);
+   			
       
+			   }else{
+				  // alert("kjhlkjh");
+				   $("#quantityInvoiced_"+index).val("");
+				   $("#baseAmt_"+index).val("");
+				   
+			   }
+   }
     function sendToServer() {
     	
     	//invoiceDate
@@ -859,29 +952,8 @@
             document.getElementById("DocumentFileTwo").focus();
             return "";
         } */
-        var itrDetailsArray = [];
-        
-        var table = document.getElementById('addBookGrid');
-        var rowLength = table.rows.length;
-
-        for (var i = 1; i < rowLength; i += 1) {
-            var row = table.rows[i];
-            var objs = {
-                "uom": row.cells[8].innerHTML,
-                "amount": row.cells[3].innerHTML,
-                "poNumber": row.cells[1].innerHTML,
-                "lineType": row.cells[0].innerHTML,
-                "poline": row.cells[4].innerHTML,
-                "receiptNumber": row.cells[5].innerHTML,
-                "receiptline": row.cells[6].innerHTML,
-                "quantityInvoiced": row.cells[7].innerHTML,
-                "unitPrice": row.cells[9].innerHTML,
-                "gldate": row.cells[2].innerHTML,
-                "description": row.cells[10].innerHTML
-            };
-            itrDetailsArray.push(objs);
-        }
-
+       
+       
         
         
         
@@ -902,8 +974,8 @@
             
         };
         
-        finalObj.poInvoiceLine=itrDetailsArray;
-        finalObj.poInvoiceLine.poNumber =poNo;
+       
+        //finalObj.poInvoiceLine.poNumber =poNo;
         finalObj.matchOption=matchOption;
         
 	console.log();
@@ -947,29 +1019,7 @@
   			  Discardinvoice();
     		function Discardinvoice(){
 
-    		    var itrDetailsArray = [];
-    	        
-    	        var table = document.getElementById('addBookGrid');
-    	        var rowLength = table.rows.length;
-
-    	        for (var i = 1; i < rowLength; i += 1) {
-    	            var row = table.rows[i];
-    	            var objs = {
-    	            		 "uom": row.cells[8].innerHTML,
-    	                     "amount": row.cells[3].innerHTML,
-    	                     "poNumber": row.cells[1].innerHTML,
-    	                     "lineType": row.cells[0].innerHTML,
-    	                     "poline": row.cells[4].innerHTML,
-    	                     "receiptNumber": row.cells[5].innerHTML,
-    	                     "receiptline": row.cells[6].innerHTML,
-    	                     "quantityInvoiced": row.cells[7].innerHTML,
-    	                     "unitPrice": row.cells[9].innerHTML,
-    	                     "gldate": row.cells[2].innerHTML,
-    	                     "description": row.cells[10].innerHTML
-    	            };
-    	            itrDetailsArray.push(objs);
-    	        }
-
+    		    
     	      
     	        var matchOption=$("#invoiceMatchoption").val() ;
     	       
@@ -985,8 +1035,8 @@
     	            
     	        };
     	        
-    	        finalObj.poInvoiceLine=itrDetailsArray;
-    	        finalObj.poInvoiceLine.poNumber =poNo;
+    	       
+    	       // finalObj.poInvoiceLine.poNumber =poNo;
     	        finalObj.matchOption=matchOption;
 
 	        

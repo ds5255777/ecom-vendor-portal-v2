@@ -31,50 +31,7 @@
     <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 
-    <!-- <script>
-        var statusObject = {
-            "In-Transit": {
-                "Yet To Be Approved": ["NA"],
-                "Query": ["NA"],
-            },
-            "Closed": {
-                "Yet To Be Approved": ["NA"],
-                "Approved": ["Pending"],
-                "Draft-Invoicing": ["Pending"],
-                "Invoicing": ["Pending", "Approved"],
-            }
-        }
-        window.onload = function() {
-            var tripStatus = document.getElementById("selectTripStatus");
-            var status = document.getElementById("selectStatus");
-            var paymentStatus = document.getElementById("selectPaymentStatus");
-            for (var x in statusObject) {
-                tripStatus.options[tripStatus.options.length] = new Option(x, x);
-            }
-            tripStatus.onchange = function() {
-                //empty Chapters- and Topics- dropdowns
-                paymentStatus.length = 1;
-                status.length = 1;
-                //display correct values
-                for (var y in statusObject[this.value]) {
-                    status.options[status.options.length] = new Option(y, y);
-                }
-                GetSelectedTextValue();
-            }
-            status.onchange = function() {
-                //empty Chapters dropdown
-                paymentStatus.length = 1;
-                //display correct values
-                var z = statusObject[tripStatus.value][this.value];
-                for (var i = 0; i < z.length; i++) {
-                    paymentStatus.options[paymentStatus.options.length] = new Option(z[i], z[i]);
-                }
-                GetSelectedTextValue();
-            }
-        }
-
-    </script>
- -->    <style>
+   <style>
         custom-file-input {
             height: 25px;
             font-size: 14px;
@@ -172,10 +129,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-6"></div>
                         <div class="col-sm-6">
-                            <!-- <ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li>
-						</ol> -->
+                            
                         </div>
 
                     </div>
@@ -194,10 +148,10 @@
                         <div class="col-md-12" style="font-size: 14px;">
                             <!-- general form elements -->
                             <div class="card card-primary ">
-                                <div class="card-header">
+                               <!--  <div class="card-header">
                                      <h3 class="card-title" style="font-size: 15px;">PO
                                             Details</h3>
-                                </div>
+                                </div> -->
                                 <!-- /.card-header -->
                                 <div class="card-body ">
                                     <form role="form" id="addForm" autocomplete="off">
@@ -208,15 +162,15 @@
                                         </div>
                                     </form>
                                     <table class="table table-bordered table-hover" id="tabledata">
-                                        <thead>
-                                            <tr>
-												 <th style="padding: 5px 5px 5px 1.5rem;">PO Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Type</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">UOM</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Need By Date</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Amount</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Status</th>
+                                        <thead >
+                                            <tr >
+												 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">PO Number</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Type</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">UOM</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Need By Date</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Amount</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Status</th>
                                                
                                             </tr>
                                         </thead>

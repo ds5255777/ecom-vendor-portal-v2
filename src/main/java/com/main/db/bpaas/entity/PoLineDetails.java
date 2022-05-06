@@ -40,6 +40,16 @@ public class PoLineDetails {
 	private Double amount;
 	@Column(name = "Charge_Account")
 	private String chargeAccount;
+	@Column(name = "Remaning_Quatity")
+	private String remaningQuatity;
+	
+	
+	public String getRemaningQuatity() {
+		return remaningQuatity;
+	}
+	public void setRemaningQuatity(String remaningQuatity) {
+		this.remaningQuatity = remaningQuatity;
+	}
 	public Long getId() {
 		return id;
 	}

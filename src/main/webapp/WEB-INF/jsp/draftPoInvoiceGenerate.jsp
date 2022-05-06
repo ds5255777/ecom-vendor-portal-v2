@@ -640,7 +640,9 @@
                     myForm = document.getElementById("stepOneForm");
                     setData(myForm, result[0]);
                     
-                    debugger;
+                   
+                    
+                    
                     var date= result[0].glDate;
                     
                     $('#glDate').val(date.split(" ")[0]);
@@ -669,7 +671,30 @@
                    
                   // $('#gldate').val( new Date(date));
                    
-                
+                for (var i = 0; i < result[0].tripLineArray.length; i++) {
+                    $("#addBookGrid").append(' <tr class=""><td>' +
+               			 result[0].tripLineArray[i].lineType + '</td><td>' +
+               			 result[0].tripLineArray[i].poNumber + '</td><td>' +
+               			 result[0].tripLineArray[i].gldate + '</td><td>' +
+               			 result[0].tripLineArray[i].amount + '</td><td>' +
+               			 
+               			result[0].tripLineArray[i].receiptNumber + '</td><td>' +
+               			result[0].tripLineArray[i].receiptline + '</td><td>' +
+               			result[0].tripLineArray[i].quantityInvoiced + '</td><td>' +
+               			result[0].tripLineArray[i].uom + '</td><td>' +
+               			result[0].tripLineArray[i].unitPrice + '</td><td>' +
+               			
+               			
+               			 result[0].tripLineArray[i].description + 
+               			 
+               			 
+               			 '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+
+               	 
+               				
+                }
+                  
+                  
                    
                     
                     if(tripLineArray!='' || tripLineArray!=null){
@@ -685,6 +710,8 @@
                     	$('#unitPrice1').val( tripLineArray[0].unitPrice);
                     	
                     }
+                    
+                    
                     
                     
                    

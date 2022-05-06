@@ -66,7 +66,7 @@
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;"" >
 			<!-- Left navbar links -->
-			<h5 style=" color: white;">PO-Process</h5>
+			<h5 style=" color: white;">&nbsp;  PO Details</h5>
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
@@ -93,116 +93,120 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form id="stepOneForm" class="forms-sample">
-                                					<div class="row">
+                             <form id="stepOneForm" class="forms-sample">
+                                <div class="row">
                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">PO Number <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="PO Number" name="poNo" id="poNo" readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
                                    
-                                     				 <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">PO Number</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="poNo" name="poNo" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Supplier Site</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="supplierSite" name="supplierSite" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Ship To</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="shipTo" name="shipTo" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Bill To</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="billTo" name="billTo" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Supplier Site <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" readonly placeholder="Supplier Site " name="supplierSite" id="supplierSite"   style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Ship To<span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" placeholder="Ship To" name="shipTo" id="shipTo"  readonly class="form-control-sm" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                     <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Bill To <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" placeholder="Bill To" name="billTo" id="billTo"  readonly class="form-control-sm" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                 
+                                    
+                                   
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Buyer <span class="text-danger">*</span></label>
+                                           <div class="col-sm-7">
+                                                <input type="text" placeholder="Buyer" name="buyer" id="buyer"  readonly class="form-control-sm" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Currency <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                          <input class="form-control-sm" type="text" placeholder="Currency" readonly name="currency" id="currency"  style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">UOM <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                          <input class="form-control-sm" type="text" placeholder="UOM" name="uom" id="uom" readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Quantity<span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control-sm" name="quantity" id="quantity"  placeholder="Quantity"readonly  style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Need By Date<span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="needByDate" id="needByDate" type="text" placeholder="Need By Date" readonly style="width: 100%;" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Charge Account<span class="text-danger"> *</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="chargeAccount" id="chargeAccount" placeholder="Charge Account" readonly style="width: 100%;" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Org <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" name="org" id="org" placeholder="org" readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Deliver To<span class="text-danger"> *</span></label>
+                                          <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" name="deliverTo" id="deliverTo" readonly placeholder="Deliver To"  style="width: 100%;">
+                                            </div>
+                                            
+                                        </div>
+                                                                       
 
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Buyer</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="buyer" name="buyer" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Currency</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="currency" name="currency" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                                                                       <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">UOM</label>
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" autocomplete="off" style="height: 30px;" id="uom" name="uom" disabled>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Quantity</label>
-                                                            <input type="text" class="form-control" autocomplete="off" style="height: 30px;" placeholder="Enter" id="quantity" name="quantity" disabled>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="row">
-                                                    
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Need By Date</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="needByDate" name="needByDate" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Charge Account</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="chargeAccount" name="chargeAccount" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Org</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="org" name="org" disabled>
-                                                        </div>
-                                                    </div>
-
-                                              
-
-                                                                                              
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Deliver To</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="deliverTo" name="deliverTo" disabled>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>                            
-
-                               
+                                </div>
+                                </div>
                             </form>
                         </div>
                     </div>
-                    
                     
                     <div class="card card-primary">
                     <div class="card-header" style="padding: 5px 5px 0px 5px;">
@@ -218,91 +222,100 @@
                             <form id="stepTwoForm" class="forms-sample">
                             
                             
-                          							  <div class="row">
-                                  
-                                                     <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Org</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="org2" name="org2" disabled>
-                                                        </div>
-                                                    </div>
-                                                   <div class="col-sm-3">
-                                                         <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">UOM</label>
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" autocomplete="off" style="height: 30px;" id="uom2" name="uom2" disabled>
-                                                            </div>
-                                                        </div>
-                                                        </div>
-                                                       <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Ship To</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="shipTo2" name="shipTo2" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Quantity</label>
-                                                            <input type="text" class="form-control" autocomplete="off" style="height: 30px;" placeholder="Enter" id="quantity2" name="quantity2" disabled>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    </div>
-                                                    
-                                                    	<div class="row">
-                            							 <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Need By Date</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="needByDate2" name="needByDate" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Charge Account</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="chargeAccount2" name="chargeAccount" disabled>
-                                                        </div>
-                                                    </div>
-                            
-                                					
-                                					 <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Amount</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="amount" name="amount" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Match Approval Level</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="matchApprovalLevel" name="matchApprovalLevel" disabled>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                    <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Invoice Match option</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="invoiceMatchoption" name="invoiceMatchoption" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Accrue at Receipt flag</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="accrueatReceiptflag" name="accrueatReceiptflag" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                				    
-                                 </div>
-                             </form>
+                          		   <div class="row">
+                                   
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Org <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="Org" name="org2" id="org2" readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">UOM <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="UOM" name="uom2" id="uom2"  readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Ship To<span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" placeholder="Ship To" name="shipTo2" id="shipTo2"  readonly class="form-control-sm" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                     <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Quantity <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" placeholder="Quantity" name="quantity2" id="quantity2"  readonly class="form-control-sm" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                 
+                                    
+                                   
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Need By Date <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" placeholder="Need By Date" name="needByDate2" id="needByDate2"  readonly class="form-control-sm" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Charge Account <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                      <input class="form-control-sm" type="text" placeholder="Charge Account" readonly="readonly" name="chargeAccount2" id="chargeAccount2"  style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Amount <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                     <input class="form-control-sm" type="text" placeholder="Amount" name="amount" id="amount" readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Match Approval Level<span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control-sm" name="matchApprovalLevel" id="matchApprovalLevel"  placeholder="Match Approval Level" readonly  style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Invoice Match option<span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="invoiceMatchoption" id="invoiceMatchoption" type="text" readonly placeholder="Invoice Match option" style="width: 100%;" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Accrue at Receipt flag<span class="text-danger"> *</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="accrueatReceiptflag" id="accrueatReceiptflag" readonly placeholder="Accrue at Receipt flag" style="width: 100%;" >
+                                            </div>
+                                        </div>
+                                    </div>
+                             
+                                </div>					
+                          			
+                          							
+                          		 </form>
                           </div>
                           </div>
                     
@@ -322,34 +335,41 @@
                             <form id="stepThreeForm" class="forms-sample">
                             
                             
-                          							  <div class="row">
-                                  
-                                                     <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Item Type</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="itemType" name="itemType" disabled>
-                                                        </div>
-                                                    </div>
-                                                     <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Deliver To</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="deliverTo3" name="deliverTo3" disabled>
-                                                        </div>
-                                                    </div>
-                                                     <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Charge Account</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="chargeAccount3" name="chargeAccount3" disabled>
-                                                        </div>
-                                                    </div>
-                                 		 </div>
-                                  </form>
+                          							        
+                          		   <div class="row">
+                                   
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Item Type <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="Item Type " name="itemType" id="itemType" readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Deliver To<span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" placeholder="Deliver To" name="deliverTo3" id="deliverTo3" readonly  style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Charge Account<span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" name="poNumber" id="chargeAccount3"  readonly class="form-control-sm" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                               
+                                 
+                                </div>
+                            </form>
                            </div>
                     
-                    
+                    </div>
                     <!-- /.card -->
                     <div class="card card-primary">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
@@ -375,6 +395,7 @@
                                             <th style="padding: 5px 5px 5px 1.5rem;">Description</th>
                                             <th style="padding: 5px 5px 5px 1.5rem;">UOM</th>
                                             <th style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
+                                            <th style="padding: 5px 5px 5px 1.5rem;">Remaning Quatity</th>
                                             <th style="padding: 5px 5px 5px 1.5rem;">Price</th>
                                             <th style="padding: 5px 5px 5px 1.5rem;">Need By Date</th>
                                             <th style="padding: 5px 5px 5px 1.5rem;">Amount</th>
@@ -559,9 +580,11 @@
                             }
                             if (!tripLineArray[i].hasOwnProperty("chargeAccount")) {
                                 tripLineArray[i].chargeAccount = "";
+                            } if (!tripLineArray[i].hasOwnProperty("remaningQuatity")) {
+                                tripLineArray[i].remaningQuatity = "";
                             }
                             
-                            $('#prTable').DataTable().row.add([tripLineArray[i].lineNumber, tripLineArray[i].itemType, tripLineArray[i].item, tripLineArray[i].category, tripLineArray[i].description, tripLineArray[i].uom, tripLineArray[i].quantity, tripLineArray[i].price, tripLineArray[i].needByDate, tripLineArray[i].amount, tripLineArray[i].chargeAccount]);
+                            $('#prTable').DataTable().row.add([tripLineArray[i].lineNumber, tripLineArray[i].itemType, tripLineArray[i].item, tripLineArray[i].category, tripLineArray[i].description, tripLineArray[i].uom, tripLineArray[i].quantity,tripLineArray[i].remaningQuatity ,tripLineArray[i].price, tripLineArray[i].needByDate, tripLineArray[i].amount, tripLineArray[i].chargeAccount]);
                         }
                        // $("#invoiceNumber").val(result.invoiceNumber);
                        // $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);
@@ -592,7 +615,7 @@
             $('.loader').hide();
             var urlOftripsDetail = "poInvoiceGenerate?id=" + poNo;
             window.open(urlOftripsDetail, "poInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
-      		 window.close();
+      		// window.close();
         }
         
         function refreshParent() 

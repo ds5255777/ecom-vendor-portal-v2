@@ -191,23 +191,20 @@
                         <div class="col-md-12" style="font-size: 14px;">
                             <!-- general form elements -->
                             <div class="card card-primary ">
-                                <div class="card-header">
-                                     <h3 class="card-title" style="font-size: 15px;">PO
-                                            Details</h3>
-                                </div>
+                                
                                 <!-- /.card-header -->
                                 <div class="card-body ">
                                   
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
-												 <th style="padding: 5px 5px 5px 1.5rem;">PO Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Type</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">UOM</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Need By Date</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Amount</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Status</th>
+												 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">PO Number</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Type</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">UOM</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Need By Date</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Amount</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Status</th>
                                                
                                             </tr>
                                         </thead>

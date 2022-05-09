@@ -388,148 +388,43 @@
                             </div>
                         </div>
                         <!-- /.card-header -->
-                  <div class="card-body">
-                            <form id="stepThreeForm" class="forms-sample">
-                                <div class="row">
-                                   
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Line type <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="lineType" name="lineType1" id="lineType1"  style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                     <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">PO Number<span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="poNumber" name="poNumber1" id="poNumber1" disabled="disabled" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                     <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">GL Date<span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="GL Date" name="gldate1" id="gldate1"  style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                     <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Amount <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="amount1" id="amount1"   style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">PO Line <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="PO Line" name="poLine1" id="poLine1"   style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Receipt Number <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Receipt Number" name="amount1" id="receiptNumber1"   style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Receipt Line <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Receipt Line" name="receiptLine1" id="receiptLine1"   style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Quantity Invoiced <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Quantity Invoicede" name="quantityInvoiced1" id="quantityInvoiced1"   style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                       <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">UOM <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="UOM" name="uom1" id="uom1"   style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                       <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Unit Price <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Unit Price" name="unitPrice1" id="unitPrice1"   style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                      <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Description <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Description" name="description1" id="description1"   style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="Button" class="btn btn-primary" id="addBookGridButt" name="addBookGridButt">Add Item</button>
-                                    
-                                    
-                                 </div>
-                             </form>
-                          </div>
-                          </div>
-                        
-                       
-
-                        <!-- /.card-body -->
-                    </div>
-
+                  
                         <!-- /.card-body -->
                    
                     <!-- /.card -->
                     <!-- Query Form -->
                     
                     
+                           
+                        <div class="card-body" style="overflow: auto;">
+                            <table id="prTable" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                    <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;"> S.No</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;"> Receipent Line</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Description</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Line Type</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">PO Line</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">GL Date</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Remaning Quantity</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Quantity Invoiced</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Unit Price</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">UOM</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Tax %</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Base Amount</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Tax Amount</th>
+                                       
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Total Amount</th>
+                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    
+                    
                                         
-                         <form class="forms-sample">
-                                        <div class="card-body">
-                                            <div class="table-responsive" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-                                                <table class="table center-aligned-table" id="addBookGrid" name="addBookGrid">
-                                                    <thead>
-                                                        <tr style="background: #1991eb; color: white;">
-                                                            <th>Line Type</th>
-                                                            <th>PO Number</th>
-                                                            <th>GL Date</th>
-                                                            <th>Amount</th>
-                                                            <th>PO Line </th>
-                                                            <th>Receipt Number</th>
-                                                             <th>Receipt Line </th>
-                                                            <th>Quantity Invoiced </th>
-                                                            <th>UOM</th>
-                                                             <th>Unit Price</th>
-                                                             <th>Description </th>
-                                                            <th>Remove </th>
-                                                            
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </form>
-                    
-                    
-                    <center>
+                       <center>
                         <div class="form-group">
                             <label style="visibility: hidden;">Select </label>
                             <button type="button" onclick="sendToServer()" class="btn btn-info">Submit Invoice</button>
@@ -671,46 +566,96 @@
                    
                   // $('#gldate').val( new Date(date));
                    
-                for (var i = 0; i < result[0].tripLineArray.length; i++) {
-                    $("#addBookGrid").append(' <tr class=""><td>' +
-               			 result[0].tripLineArray[i].lineType + '</td><td>' +
-               			 result[0].tripLineArray[i].poNumber + '</td><td>' +
-               			 result[0].tripLineArray[i].gldate + '</td><td>' +
-               			 result[0].tripLineArray[i].amount + '</td><td>' +
-               			 
-               			result[0].tripLineArray[i].receiptNumber + '</td><td>' +
-               			result[0].tripLineArray[i].receiptline + '</td><td>' +
-               			result[0].tripLineArray[i].quantityInvoiced + '</td><td>' +
-               			result[0].tripLineArray[i].uom + '</td><td>' +
-               			result[0].tripLineArray[i].unitPrice + '</td><td>' +
-               			
-               			
-               			 result[0].tripLineArray[i].description + 
-               			 
-               			 
-               			 '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+                                 
+                  
+                    $('#prTable').DataTable().clear();
+                    for (var i = 0; i < tripLineArray.length; i++) {
+                    	 id=tripLineArray[i].id;
+                    	// var remaningQuat;
+                    	 if(tripLineArray[i].remaningQuatity!=null){
+                    		 remaningQuat= tripLineArray[i].remaningQuatity;
+                    		 tripLineArray[i].quantity=tripLineArray[i].remaningQuatity;
+                    	 }else{
+                    		 remaningQuat=tripLineArray[i].quantity;
+                    	 }
+                    	 
 
-               	 
-               				
-                }
-                  
-                  
-                   
-                    
-                    if(tripLineArray!='' || tripLineArray!=null){
-                    	$('#uom1').val( tripLineArray[0].uom);
-                    	$('#description1').val( tripLineArray[0].description);
-                    	$('#lineType1').val( tripLineArray[0].lineType);
-                    	$('#gldate1').val( tripLineArray[0].gldate);
-                    	$('#amount1').val( tripLineArray[0].amount);
-                    	$('#poLine1').val( tripLineArray[0].poline);
-                    	$('#receiptLine1').val( tripLineArray[0].receiptline);
-                    	$('#receiptNumber1').val( tripLineArray[0].receiptNumber);
-                    	$('#quantityInvoiced1').val( tripLineArray[0].quantityInvoiced);
-                    	$('#unitPrice1').val( tripLineArray[0].unitPrice);
-                    	
+/*                         if (!tripLineArray[i].hasOwnProperty("tripID")) {
+                        	tripLineArray[i].tripID = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("runType")) {
+                        	tripLineArray[i].runType = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("standardKM")) {
+                        	tripLineArray[i].standardKM = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("ratePerKm")) {
+                        	tripLineArray[i].ratePerKm = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("currentFuelRate")) {
+                        	tripLineArray[i].currentFuelRate = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("fsBaseRate")) {
+                        	tripLineArray[i].fsBaseRate = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("fsDiff")) {
+                        	tripLineArray[i].fsDiff = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("basicFreight")) {
+                        	tripLineArray[i].basicFreight = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("fs")) {
+                        	tripLineArray[i].fs = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("actualKM")) {
+                        	tripLineArray[i].actualKM = "";
+                        }
+                        if (!tripLineArray[i].hasOwnProperty("totalFreight")) {
+                        	tripLineArray[i].totalFreight = "0";
+                        }
+                        if (!result[i].hasOwnProperty("lumpsomeamount")) {
+                            result[i].lumpsomeamount = "0";
+                        } */  
+                        var totalamot;
+                        var receipentLine= "<input type=\"text\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('receipentLine','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+                        var description= "<input type=\"text\" readonly style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('description','"+i+"',this.value)\" value=\"" + tripLineArray[i].description + "\" class=\"form-control-sm \" \"> ";
+                        var lineType= "<input type=\"text\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('lineType','"+i+"',this.value)\"  class=\"form-control-sm \" \"> ";
+                        var poline= "<input type=\"text\" style=\"width: 70px; height: 28px;\" class=\"form-control-sm \" \"> ";
+                        var glDate= "<input type=\"date\" style=\"width: 100px; height: 28px;\" class=\"form-control-sm \" \"> ";
+                        var remaningQuantity= "<input type=\"text\" readonly id=\"remaningQuantity_"+i+"\" style=\"width: 100%; height: 28px;\" class=\"form-control-sm \" \"> ";
+                        var quantity= "<input type=\"text\" readonly style=\"width: 100px; height: 28px;\" value=\"" + remaningQuat + "\" class=\"form-control-sm \" \"> ";
+                        var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+                        var unitPrice= "<input type=\"text\"readonly style=\"width: 100px; height: 28x;\" value=\"" + tripLineArray[i].price + "\" oninput=\"updatePOLineItem('receipentLine','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+                        var uom= "<input type=\"text\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
+                        var taxAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"  id=\"tax_"+i+"\" class=\"form-control-sm \" \"> ";
+                        var baseAmount= "<input type=\"text\" style=\"width: 110px; height: 28px;\"   id=\"baseAmt_"+i+"\"   class=\"form-control-sm \" > ";
+                        var taxPercentage= "    <select  class=\"form-control-sm \" style=\"width: 67px; height: 28px;\" id=\"taxper_"+i+"\"  onchange=\"updatetotalAmount(this.value,'"+i+"')\" > <option value=\"0\" \">0%</option><option value=\"5\"  \">5%</option><option value=\"8\"  \">8%</option><option value=\"18\" \">18%</option><option value=\"28\" \">28%</option> </select > ";
+                        var totalAmount= "<input type=\"text\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"totamt_"+i+"\" > ";
+                        
+                        
+                       // action = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteRow('" + result[i].tripID + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
+						$('#prTable').DataTable().row.add([i + 1,receipentLine,description,lineType,poline,glDate,quantity,remaningQuantity,quantityInvoiced,unitPrice,uom,taxPercentage,baseAmount,taxAmount,totalAmount]);
+                        
+						
+						
+
+						
+						
+                        //Receipent Line	Description	Line Type	PO Line	GL Date
+                       // Quantity	Remaning Quantity 	Quantity Invoiced	Unit Price	UOM	Tax Percentage	Base Amount	Tax Amount	Total Amount
                     }
+                    $('#prTable').DataTable().draw();
+                    $("tbody").show();
+                       
                     
+                    
+                    
+                    
+               
+        
+        
+		         
+
                     
                     
                     
@@ -888,75 +833,7 @@
         });
     }
 
-  $("#addBookGridButt").click(function() {
-      var abc = document.getElementById('lineType1').value;
-      var abc2 = document.getElementById('poNumber1').value;
-      var abc3 = document.getElementById('gldate1').value;
-      var abc4 = document.getElementById('amount1').value;
-      var abc5 = document.getElementById('poLine1').value;
-      var abc6 = document.getElementById('receiptNumber1').value;
-      var abc7 = document.getElementById('receiptLine1').value;
-      var abc8 = document.getElementById('quantityInvoiced1').value;
-      var abc9 = document.getElementById('uom1').value;
-      var abc10 = document.getElementById('unitPrice1').value;
-      var abc11 = document.getElementById('description1').value;
-      console.log("abc =>" + abc);
-      if (abc == null || abc == "") {
-          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-          return false;
-      } else if (abc6 == null || abc6 == "") {
-          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-          return false;
-      } else if (abc3 == null || abc3 == "") {
-          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-          return false;
-      }  else if (abc4 == null || abc4 == "") {
-          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-          return false;
-      } else if (abc5 == null || abc5 == "") {
-          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-          return false;
-      }  else if (abc7 == null || abc7 == "") {
-          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-          return false;
-      } else if (abc8 == null || abc8 == "") {
-          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-          return false;
-      }else if (abc10 == null || abc10 == "") {
-          swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-          return false;
-      }
-      else {
 
-          $("#addBookGrid").append(' <tr class=""><td>' +
-          		abc + '</td><td>' +
-          		abc2+ '</td><td>' +
-          		abc3 + '</td><td>' +
-          		abc4 + '</td><td>' +
-          		abc5 + '</td><td>' +
-          		abc6+ '</td><td>' +
-          		abc7 + '</td><td>' +
-          		abc8 + '</td><td>' +
-          		abc9+ '</td><td>' +
-          		abc10 + '</td><td>' +
-          		 abc11 + '</td>' +
-               '<td><a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
-
-           document.getElementById('lineType1').value="";
-           var pono =document.getElementById('poNumber').value
-           document.getElementById('poNumber1').value=pono;
-         document.getElementById('gldate1').value="";
-           document.getElementById('amount1').value="";
-           document.getElementById('poLine1').value="";
-           document.getElementById('receiptNumber1').value="";
-         document.getElementById('receiptLine1').value="";
-           document.getElementById('quantityInvoiced1').value="";
-           document.getElementById('uom1').value="";
-           document.getElementById('unitPrice1').value="";
-           document.getElementById('description1').value="";
-      }
-
-  });
 
 
     

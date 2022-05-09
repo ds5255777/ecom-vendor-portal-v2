@@ -96,6 +96,8 @@ public static String invoiceController="invoiceController";
 	 public static String getSelectPoDetails=poController+"/getSelectPoDetails";
 	 public static String getAllPODetailsByPoNo=poController+"/getAllPODetailsByPoNo";
 	 public static String filterPoDetails=poController+"/filterPoDetails";
+	 public static String updateRemaningQuantity=poController+"/updateRemaningQuantity";
+	 
 	 
 	 
 	 

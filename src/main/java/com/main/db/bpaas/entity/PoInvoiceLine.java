@@ -53,6 +53,10 @@ public class PoInvoiceLine {
 	
 	@Column(name = "GL_Date")
 	private Date gldate;
+	
+	@Column(name = "remaning_quatity")
+	private String remaningQuatity;
+	
 
 	public Long getId() {
 		return id;
@@ -148,6 +152,14 @@ public class PoInvoiceLine {
 
 	public void setGldate(Date gldate) {
 		this.gldate = gldate;
+	}
+
+	public String getRemaningQuatity() {
+		return remaningQuatity;
+	}
+
+	public void setRemaningQuatity(String remaningQuatity) {
+		this.remaningQuatity = remaningQuatity;
 	}
 	
 	

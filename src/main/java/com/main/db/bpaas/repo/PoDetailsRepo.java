@@ -64,6 +64,13 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long>{
 		void updateVendorPoStatusAgainsInvoiceNumber(@Param("invoiceNumber") String invoiceNumber);
 		
 		 
+		 @Transactional
+		 @Modifying
+		@Query(value = "update PoLine_Details set remaning_quatity=:remaningQuatity where  id=:id" , nativeQuery = true)
+		void updateRemaningQuatity(@Param("remaningQuatity") String remaningQuatity,  @Param("id") Long id);
+		
+		 
+		 
 		
 	 
 	

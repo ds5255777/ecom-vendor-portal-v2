@@ -346,8 +346,8 @@
                             <div class="card-body" style="overflow: auto;">
                                 <table id="prTable" class="table table-bordered table-striped">
                                     <thead>
-                                        <tr>
-                                            <!-- <th style="padding: 5px 5px 5px 1.5rem;">Number</th> -->
+                                        <!-- <tr>
+                                            <th style="padding: 5px 5px 5px 1.5rem;">Number</th>
                                             <th style="padding: 5px 5px 5px 1.5rem;">Line type</th>
                                             <th style="padding: 5px 5px 5px 1.5rem;">Amount</th>
                                             <th style="padding: 5px 5px 5px 1.5rem;">PO Number</th>
@@ -359,7 +359,28 @@
                                             <th style="padding: 5px 5px 5px 1.5rem;">Unit Price</th>
                                             <th style="padding: 5px 5px 5px 1.5rem;">Description</th>
                                             <th style="padding: 5px 5px 5px 1.5rem;">GL Date</th>
-                                        </tr>
+                                        </tr> -->
+                                        
+                                         <tr>
+                                    <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;"> S.No</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;"> Receipent Line</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Description</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Line Type</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">PO Line</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">GL Date</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Remaning Quantity</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Quantity Invoiced</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Unit Price</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">UOM</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Tax %</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Base Amount</th>
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Tax Amount</th>
+                                       
+                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Total Amount</th>
+                                        
+                                    </tr>
+                                        
                                     </thead>
                                 </table>
                             </div>

@@ -625,7 +625,10 @@
    // alert("poNo"+poNo)
    
    getPoDetails();
-    
+   var id; 
+   var lineNumber;
+   var remaningQuat;
+   
     function getPoDetails() {
     	tripLineArray=[];
         var obj = {
@@ -651,6 +654,9 @@
                 
                   /*   myForm = document.getElementById("stepTwoForm");
                     setData(myForm, result[0]); */
+                    
+                   
+                     lineNumber= tripLineArray.lineNumber;
                     
                     $('#org2').val(result[0].org)
                      $('#uom2').val(result[0].uom)
@@ -678,10 +684,20 @@
                     $('#invoiceCurrency').val(result[0].currency);  
                     $('#paymentCurrency').val(result[0].currency); 
                     
+                    
                  //   Quantity	Remaning Quantity 	Quantity Invoiced	Unit Price	UOM	Tax Percentage	Base Amount	Tax Amount	Total Amount
                     
                     $('#prTable').DataTable().clear();
                     for (var i = 0; i < tripLineArray.length; i++) {
+                    	 id=tripLineArray[i].id;
+                    	// var remaningQuat;
+                    	 if(tripLineArray[i].remaningQuatity!=null){
+                    		 remaningQuat= tripLineArray[i].remaningQuatity;
+                    		 tripLineArray[i].quantity=tripLineArray[i].remaningQuatity;
+                    	 }else{
+                    		 remaningQuat=tripLineArray[i].quantity;
+                    	 }
+                    	 
 
 /*                         if (!tripLineArray[i].hasOwnProperty("tripID")) {
                         	tripLineArray[i].tripID = "";
@@ -720,25 +736,33 @@
                             result[i].lumpsomeamount = "0";
                         } */  
                         var totalamot;
-                        var receipentLine= "<input type=\"text\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('receipentLine','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
-                        var description= "<input type=\"text\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('description','"+i+"',this.value)\" value=\"" + tripLineArray[i].description + "\" class=\"form-control-sm \" \"> ";
-                        var lineType= "<input type=\"text\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('lineType','"+i+"',this.value)\"  class=\"form-control-sm \" \"> ";
-                        var poline= "<input type=\"text\" style=\"width: 100px; height: 28px;\" class=\"form-control-sm \" \"> ";
-                        var glDate= "<input type=\"text\" style=\"width: 100px; height: 28px;\" class=\"form-control-sm \" \"> ";
-                        var remaningQuantity= "<input type=\"text\" style=\"width: 100%; height: 28px;\" class=\"form-control-sm \" \"> ";
-                        var quantity= "<input type=\"text\" style=\"width: 100px; height: 28px;\" value=\"" + tripLineArray[i].quantity + "\" class=\"form-control-sm \" \"> ";
-                        var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatebaseaAmt('"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
-                        var unitPrice= "<input type=\"text\" style=\"width: 100%; height: 28x;\" value=\"" + tripLineArray[i].price + "\" oninput=\"updatePOLineItem('receipentLine','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
-                        var uom= "<input type=\"text\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
-                        var taxAmount= "<input type=\"text\" style=\"width: 100%; height: 28px;\"  id=\"tax_"+i+"\" class=\"form-control-sm \" \"> ";
-                        var baseAmount= "<input type=\"text\" style=\"width: 100%; height: 28px;\"   id=\"baseAmt_"+i+"\"   class=\"form-control-sm \" > ";
-                        var taxPercentage= "    <select  class=\"form-control-sm \" style=\"width: 100%; height: 28px;\" id=\"taxAmount\"  onchange=\"updatetotalAmount(this.value,'"+i+"')\" > <option value=\"0\" \">0%</option><option value=\"5\"  \">5%</option><option value=\"8\"  \">8%</option><option value=\"18\" \">18%</option><option value=\"28\" \">28%</option> </select > ";
-                        var totalAmount= "<input type=\"text\"  class=\"form-control-sm \" style=\"width: 100%; height: 28px;\" id=\"totamt_"+i+"\" > ";
+                        var receipentLine= "<input type=\"text\" id=\"receipentLine_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('receipentLine','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+                        var description= "<input type=\"text\" id=\"description_"+i+"\" readonly style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('description','"+i+"',this.value)\" value=\"" + tripLineArray[i].description + "\" class=\"form-control-sm \" \"> ";
+                        var lineType= "<input type=\"text\" id=\"lineType_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('lineType','"+i+"',this.value)\"  class=\"form-control-sm \" \"> ";
+                        var poline= "<input type=\"text\" id=\"poline_"+i+"\" style=\"width: 70px; height: 28px;\" class=\"form-control-sm \" \"> ";
+                        var glDate= "<input type=\"date\" id=\"glDate_"+i+"\" style=\"width: 100px; height: 28px;\" class=\"form-control-sm \" \"> ";
+                        var remaningQuantity= "<input type=\"text\" readonly id=\"remaningQuantity_"+i+"\" style=\"width: 100%; height: 28px;\" class=\"form-control-sm \" \"> ";
+                        var quantity= "<input type=\"text\" readonly style=\"width: 100px; height: 28px;\" value=\"" + remaningQuat + "\" class=\"form-control-sm \" \"> ";
+                        var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+                        var unitPrice= "<input type=\"text\" id=\"unitPrice_"+i+"\" readonly style=\"width: 100px; height: 28x;\" value=\"" + tripLineArray[i].price + "\" oninput=\"updatePOLineItem('receipentLine','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+                        var uom= "<input type=\"text\" id=\"uom_"+i+"\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
+                        var taxAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"  id=\"tax_"+i+"\" class=\"form-control-sm \" \"> ";
+                        var baseAmount= "<input type=\"text\" style=\"width: 110px; height: 28px;\"   id=\"baseAmt_"+i+"\"   class=\"form-control-sm \" > ";
+                        var taxPercentage= "    <select  class=\"form-control-sm \" style=\"width: 67px; height: 28px;\" id=\"taxper_"+i+"\"  onchange=\"updatetotalAmount(this.value,'"+i+"')\" > <option value=\"0\" \">0%</option><option value=\"5\"  \">5%</option><option value=\"8\"  \">8%</option><option value=\"18\" \">18%</option><option value=\"28\" \">28%</option> </select > ";
+                        var totalAmount= "<input type=\"text\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"totamt_"+i+"\" > ";
                         
                         
                        // action = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteRow('" + result[i].tripID + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
 						$('#prTable').DataTable().row.add([i + 1,receipentLine,description,lineType,poline,glDate,quantity,remaningQuantity,quantityInvoiced,unitPrice,uom,taxPercentage,baseAmount,taxAmount,totalAmount]);
                         
+						alert($("#unitPrice_"+i).val())
+						
+						/* var invoicelineitem={
+								"receipentLine" : $("#receipentLine_"+i).val(),
+								"description"   :   $("#description_"+i).val()
+						} 
+						 */
+
 						
 						
                         //Receipent Line	Description	Line Type	PO Line	GL Date
@@ -765,6 +789,12 @@
                 })
             }
         });
+        
+        
+		         
+        
+        
+        
     }
     
     
@@ -775,6 +805,76 @@
 	  tripLineArray[index][key]=value;
 	  console.log(tripLineArray);
   }
+  
+  function updatetotalAmount(value,index){
+	   
+  	if(value==""){
+  		
+  		return;
+  	}
+  	var baseamt = $("#baseAmt_"+index).val();
+  	//var baseamt =parseFloat(tripLineArray[index].price);
+  	var taxamt=baseamt*(parseFloat(value)/100);
+  	taxamt=parseFloat(taxamt).toFixed(2);
+  	$("#tax_"+index).val(taxamt);
+  	var totalAmount=(parseFloat(baseamt)+parseFloat(taxamt)).toFixed(2);
+  	
+  	$("#totamt_"+index).val(totalAmount);
+  	
+  	
+  }
+ 
+  var remaningQuatity=[];
+  var remanId=[];
+ function updatebaseaAmt(reId, index,quntity){
+	   var allquantity =parseFloat(tripLineArray[index].quantity)
+	   
+	   //var allquantity = remaningQuat;
+		  var  remaningQuantity="";
+		 
+			 
+		  		 if(allquantity>=parseFloat(quntity)){
+						
+					   var unitprice =parseFloat(tripLineArray[index].price);
+					   
+					var baseamt=(parseFloat(unitprice)*parseFloat(quntity)).toFixed(2);
+					 $("#baseAmt_"+index).val(baseamt);
+	 			
+					 
+					 var taxper = $("#taxper_"+index).val();
+					 
+					  remaningQuantity= allquantity-quntity;
+					  $("#remaningQuantity_"+index).val(remaningQuantity);
+					  
+					  
+					 
+					  // remanId=reId;
+					  // remaningQuatity=remaningQuantity;
+						  
+					   remanId.push(reId);
+					   remaningQuatity.push(remaningQuantity);			        
+				              
+					
+	    
+				   }else{
+					  // alert("kjhlkjh");
+					   $("#quantityInvoiced_"+index).val("");
+					   $("#baseAmt_"+index).val("");
+					   $("#remaningQuantity_"+index).val(remaningQuantity);
+					  
+					   
+				   }	if(allquantity!=""){
+						 updatetotalAmount(taxper,index);
+					 }else{
+						 //parseFloat( $("#tax_"+index).val(""));
+						// parseFloat($("#totamt_"+index).val(""));
+					 }
+	 }
+	  
+  
+  
+  
+  
   
     function setDraftInvoice() {
     	
@@ -841,42 +941,7 @@
         });
     }
 
-    function updatetotalAmount(value,index){
- 	   
-    	if(value==""){
-    		return;
-    	}
-    	var baseamt =parseFloat(tripLineArray[index].price);
-    	var taxamt=baseamt*(parseFloat(value)/100);
-    	taxamt=parseFloat(taxamt).toFixed(2);
-    	$("#tax_"+index).val(taxamt);
-    	var totalAmount=(parseFloat(baseamt)+parseFloat(taxamt)).toFixed(2);
-    	
-    	$("#totamt_"+index).val(totalAmount);
-    	
-    	
-    }
-    
-   function updatebaseaAmt(index,quntity){
-	   var allquantity =parseFloat(tripLineArray[index].quantity)
-	   if(allquantity>=parseFloat(quntity)){
-					
-		  
-   	
-			  
-				   var unitprice =parseFloat(tripLineArray[index].price);
-				   
-				var baseamt=(parseFloat(unitprice)*parseFloat(quntity)).toFixed(2);
-				 $("#baseAmt_"+index).val(baseamt);
-   			
-      
-			   }else{
-				  // alert("kjhlkjh");
-				   $("#quantityInvoiced_"+index).val("");
-				   $("#baseAmt_"+index).val("");
-				   
-			   }
-   }
+   
     function sendToServer() {
     	
     	//invoiceDate
@@ -983,6 +1048,58 @@
         
         console.log(finalObj);
 //return;
+
+       for(var i=0;i<remaningQuatity.length;i++){
+		var invoicelineobj={
+			//"receipentLine"	
+				
+		}
+
+      }
+
+       for(var i=0;i<remaningQuatity.length;i++){
+       
+		 var obj = {
+		            "remaningQuatity" : remaningQuatity[i],
+		            
+		  			"id"  : remanId[i]
+		        }
+		  
+	  
+	  $.ajax({
+           type: "POST",
+           data: JSON.stringify(obj),
+           url: "<%=GlobalUrl.updateRemaningQuantity%>",
+           dataType: "json",
+           contentType: "application/json",
+           async: false,
+           success: function(data) {
+
+             /*   if (data.msg == 'success') {
+               	
+              
+              }else {
+                       Toast.fire({
+                           type: 'error',
+                           title: 'Failed.. Try Again..'
+                       })
+                   }
+               },
+               error: function(jqXHR, textStatue, errorThrown) {
+                   Toast.fire({
+                       type: 'error',
+                       title: 'Failed.. Try Again..'
+                   })
+               }*/
+           }
+	  });
+   
+	 
+    }
+
+
+
+
         
         $.ajax({
             type: "POST",
@@ -994,7 +1111,7 @@
 
             	 if (response.msg == 'success') {
                      swal.fire("Thanks", "Invoice Process Sucessfully", "Success", "OK").then(function() {
-                    	
+                    	 successflag=1;
                          window.close();
                        
                      });

@@ -24,6 +24,7 @@ import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoInvoiceDetails;
+import com.main.db.bpaas.entity.PoLineDetails;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.repo.PoDetailsRepo;
@@ -304,6 +305,35 @@ public class PoController {
 		}
 		return gson.toJson(data).toString();
 	}
+	@RequestMapping({ "/updateRemaningQuantity" })
+	@CrossOrigin("*")
+	public String updateRemaningQuantity(HttpServletRequest request ,@RequestBody PoLineDetails  details) {
+
+		DataContainer data = new DataContainer();
 		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			
+			
+			
+			//System.out.println("getRemaningQuatity"+details.getRemaningQuatity());
+			System.out.println("getRemaningQuatity"+details.getRemaningQuatity()+"id"+details.getId());
+			
+			podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(),details.getId());
+			
+			
+			System.out.println("end of getPoQueryData success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+	
+	
 	
 }

@@ -310,7 +310,7 @@
                         </div>
                         <!-- /.card-body -->
                     </div>
-                    <div class="card card-primary"  id="queryWindow" style="display: block;" style="margin-top: 1rem;">
+                    <!-- <div class="card card-primary"  id="queryWindow" style="display: block;" style="margin-top: 1rem;">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">Vendor Remarks</h4>
                             <div class="card-tools">
@@ -333,7 +333,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div> -->
                     </div>
                     <center>
                         <div class="form-group">
@@ -800,7 +800,7 @@
                 success: function(data) {
 
                     if (data.msg == 'success') {
-                        swal.fire("", "Deleted Successfully.", "success", "OK").then(function() {
+                        swal.fire("", "Invoice Cancel.", "success", "OK").then(function() {
                             window.opener.refereshList();
                             window.close();
                         });

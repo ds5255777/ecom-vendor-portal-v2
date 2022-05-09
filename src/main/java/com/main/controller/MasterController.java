@@ -1,7 +1,5 @@
 package com.main.controller;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,28 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
-import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.AgreementMaster;
-import com.main.db.bpaas.entity.User;
-import com.main.db.bpaas.repo.AgreementMasterRepo;
-import com.main.service.UserService;
 import com.main.serviceManager.ServiceManager;
-
 
 @RequestMapping("/masterController")
 @RestController
 public class MasterController {
 
-	
-	
 	@Autowired
-	ServiceManager serviceManager;
-	
-	@Autowired AgreementMasterRepo agreementMasterRepo;
+	private ServiceManager serviceManager;
 
-	@Autowired
-	UserService userService;
-	
 	@RequestMapping({ "/saveTripMaster" })
 	@CrossOrigin("*")
 	public String saveTripMaster(HttpServletRequest request, @RequestBody AgreementMaster master) {
@@ -45,8 +31,8 @@ public class MasterController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			AgreementMaster save = agreementMasterRepo.save(master);
-			
+			AgreementMaster save = serviceManager.agreementMasterRepo.save(master);
+
 			data.setData(save);
 			data.setMsg("success");
 
@@ -59,7 +45,6 @@ public class MasterController {
 
 		return gson.toJson(data).toString();
 	}
-	
 
 	@RequestMapping({ "/getActiveMasterData" })
 	@CrossOrigin("*")
@@ -68,18 +53,11 @@ public class MasterController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<AgreementMaster> allAgreementMasters =agreementMasterRepo.findAll();
-			/*
-			 * List<String> userStatusList = new ArrayList<>();
-			 * userStatusList.add(GlobalConstants.ACTIVE_STATUS);
-			 * userStatusList.add(GlobalConstants.CHANGE_PASSWORD_STATUS);
-			 */
-
-		//	List<AgreementMaster> masterList = agreementMasterRepo.findMasterDetails();
+			List<AgreementMaster> allAgreementMasters = serviceManager.agreementMasterRepo.findAll();
 
 			data.setData(allAgreementMasters);
 			data.setMsg("success");
-			System.out.println("end of getActiveMasterData"+allAgreementMasters);
+			System.out.println("end of getActiveMasterData" + allAgreementMasters);
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -91,10 +69,6 @@ public class MasterController {
 		return gson.toJson(data).toString();
 	}
 
-	
-	
-	
-	
 	@RequestMapping({ "/getMasterById" })
 	@CrossOrigin("*")
 	public String getUserById(HttpServletRequest request, @RequestBody AgreementMaster master) {
@@ -102,12 +76,8 @@ public class MasterController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-					System.out.println("hii master");
-//					String  userName = (String) request.getSession().getAttribute("userName");
-//					Integer  userId = (Integer) request.getSession().getAttribute("userId");
-
-			//User userop = serviceManager.userRepository.findById(user.getId()).get();
-			AgreementMaster agreementMaster= agreementMasterRepo.findById(master.getId()).get();
+			System.out.println("hii master");
+			AgreementMaster agreementMaster = serviceManager.agreementMasterRepo.findById(master.getId()).get();
 
 			data.setData(agreementMaster);
 			data.setMsg("success");
@@ -122,8 +92,6 @@ public class MasterController {
 		return gson.toJson(data).toString();
 	}
 
-	
-	
 	@RequestMapping({ "/saveUpdateMasterDetails" })
 	@CrossOrigin("*")
 	public String saveUpdateMasterDetails(HttpServletRequest request, @RequestBody AgreementMaster master) {
@@ -131,10 +99,9 @@ public class MasterController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-				System.out.println("in mster update");
-				AgreementMaster agreementMaster= agreementMasterRepo.save(master);
-				data.setMsg("success");
-
+			System.out.println("in mster update");
+			AgreementMaster agreementMaster = serviceManager.agreementMasterRepo.save(master);
+			data.setMsg("success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -154,8 +121,7 @@ public class MasterController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			
-			agreementMasterRepo.deleteById(master.getId());
+			serviceManager.agreementMasterRepo.deleteById(master.getId());
 
 			data.setMsg("success");
 
@@ -169,6 +135,4 @@ public class MasterController {
 		return gson.toJson(data).toString();
 	}
 
-	
-	
 }

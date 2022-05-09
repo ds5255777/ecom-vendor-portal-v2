@@ -7,24 +7,19 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.commonclasses.GlobalConstants;
-import com.main.db.bpaas.entity.SupDetails;										   
+import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
-import com.main.db.bpaas.repo.SupDetailsRepo;
-import com.main.db.bpaas.repo.UserRepository;											 
-import com.main.service.UserService;
 import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/userController")
@@ -32,16 +27,7 @@ import com.main.serviceManager.ServiceManager;
 public class UserController {
 
 	@Autowired
-	ServiceManager serviceManager;
-
-	@Autowired
-	UserService userService;
-	@Autowired
-	SupDetailsRepo supDetailsRepo;
-		   
-
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private ServiceManager serviceManager;
 
 	@RequestMapping({ "/saveUpdateUserDetails" })
 	@CrossOrigin("*")
@@ -55,7 +41,7 @@ public class UserController {
 //					Integer  userId = (Integer) request.getSession().getAttribute("userId");
 
 			if (null == user.getId()) {
-				user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+				user.setPassword(serviceManager.bCryptPasswordEncoder.encode(user.getPassword()));
 				User userAfterSave = serviceManager.userRepository.save(user);
 
 			} else {
@@ -66,7 +52,7 @@ public class UserController {
 
 					if (!user.getPassword().equalsIgnoreCase("")) {
 
-						password = bCryptPasswordEncoder.encode(user.getPassword());
+						password = serviceManager.bCryptPasswordEncoder.encode(user.getPassword());
 
 //									user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 					}
@@ -104,7 +90,7 @@ public class UserController {
 			List<String> userStatusList = new ArrayList<>();
 			userStatusList.add(GlobalConstants.ACTIVE_STATUS);
 			userStatusList.add(GlobalConstants.CHANGE_PASSWORD_STATUS);
-			userStatusList.add(GlobalConstants.INACTIVE_STATUS);										   
+			userStatusList.add(GlobalConstants.INACTIVE_STATUS);
 
 			List<User> userList = serviceManager.userRepository.findByStatusIn(userStatusList);
 
@@ -233,16 +219,16 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-	public String changePassword(Principal principal,@RequestParam(name  = "password") String password) {
+	public String changePassword(Principal principal, @RequestParam(name = "password") String password) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		System.out.println("Password is : "+password);
+		System.out.println("Password is : " + password);
 		try {
-			User us = userService.findByUsername(principal.getName());
+			User us = serviceManager.userService.findByUsername(principal.getName());
 			us.setPassword(password);
 			us.setStatus("1");
-			userService.save(us);
+			serviceManager.userService.save(us);
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -253,7 +239,7 @@ public class UserController {
 
 		return gson.toJson(data).toString();
 	}
-	
+
 	@RequestMapping({ "/getActiveVendorData" })
 	@CrossOrigin("*")
 	public String getActiveVendorData(HttpServletRequest request) {
@@ -261,8 +247,8 @@ public class UserController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-		
-			List<SupDetails> vendorList = supDetailsRepo.getAllInActiveVendor();
+
+			List<SupDetails> vendorList = serviceManager.supDetailsRepo.getAllInActiveVendor();
 			data.setData(vendorList);
 			data.setMsg("success");
 			System.out.println("end  to getActiveVendorData ");
@@ -277,16 +263,15 @@ public class UserController {
 		return gson.toJson(data).toString();
 	}
 
-
 	@RequestMapping({ "/getVendorById" })
 	@CrossOrigin("*")
-	public String getVendorById(HttpServletRequest request ,@RequestBody SupDetails details) {
+	public String getVendorById(HttpServletRequest request, @RequestBody SupDetails details) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-		
-			List<SupDetails> supDetails = supDetailsRepo.findByVendorCode(details.getBpCode());
+
+			List<SupDetails> supDetails = serviceManager.supDetailsRepo.findByVendorCode(details.getBpCode());
 
 			data.setData(supDetails);
 			data.setMsg("success");

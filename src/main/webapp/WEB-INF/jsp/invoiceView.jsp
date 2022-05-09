@@ -203,6 +203,7 @@
 										<table id="prTable" class="table table-bordered">
 		                                    <thead>
 		                                        <tr>
+		                                         <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
 		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
 		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th> 
 		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
@@ -492,6 +493,9 @@
                         setData(myForm, result);
                         $('#prTable').DataTable().clear();
                         for (var i = 0; i < tripLineArray.length; i++) {
+                            if (!tripLineArray[i].hasOwnProperty("tripID")) {
+                                tripLineArray[i].tripID = "";
+                            }
                             if (!tripLineArray[i].hasOwnProperty("runType")) {
                                 tripLineArray[i].runType = "";
                             }
@@ -531,7 +535,7 @@
                             if (!tripLineArray[i].hasOwnProperty("lineLevelDescription")) {
                                 tripLineArray[i].lineLevelDescription = "";
                             }
-                            $('#prTable').DataTable().row.add([tripLineArray[i].runType, tripLineArray[i].route, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate, tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription]);
+                            $('#prTable').DataTable().row.add([tripLineArray[i].tripID,tripLineArray[i].runType, tripLineArray[i].route, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate, tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription]);
                         }
                         $("#invoiceNumber").val(result.invoiceNumber);
                         $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);

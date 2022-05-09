@@ -156,12 +156,13 @@
                                 <div class="card-body" style="padding-top: 10px;">
                                 
                                 <form role="form" id="addForm" autocomplete="off">
-                                       <div class="row">
-                                       		<div class="col-md-2">
+										<div class="row">
+											
+											<div class="col-md-2">
 												<div class="dropdown">
 													<button type="button"
 														class="btn btn-primary dropdown-toggle"
-														style="font-size: 14px;  
+														style="  margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
 														data-toggle="dropdown">Export Details</button>
 													<div class="dropdown-menu">
 														<a class="dropdown-item" href="#" id="exportLinkPdf">Download
@@ -170,36 +171,18 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-md-2">
-												<input type="hidden" name="fromDate"
-													placeholder="Select Starting Date" class="form-control"
-													id="fromDate" style="height: 34px;">
-											</div>
-											<div class="col-md-2">
-												<input type="hidden" name="toDate"
-													placeholder="Select End Date" class="form-control"
-													id="toDate" style="height: 34px;">
-											</div>
-											<div class="col-md-2">
-												<label for="exampleInputserverName1"
-													style="visibility: hidden;">Text</label>
-												<button type="button" onclick="getFilterData()" style="visibility: hidden;"
-													class="btn btn-primary">Search</button>
-											</div>
-											<div class="col-md-2"></div>
+											<div class="col-md-8"></div>
 											<div class="col-md-2">
 												<div class="form-group row">
-													<label class="col-md-4" style="margin-top: 7px;">Search
-														: </label>
+													<label class="col-md-4">Search : </label>
 													<div class="col-md-8">
-														<input type="text" name="searchData" placeholder="search"
-															class="form-control" id="searchData"
-															style="height: 34px;">
+														<input type="text" name="searchData" placeholder="Search"
+															class="form-control" id="searchData">
 													</div>
 												</div>
 											</div>
 										</div>
-                                    </form>
+									</form>
                                 
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
@@ -268,6 +251,9 @@
                 timer: 3000
             });
 
+            var dataLimit='${dataLimit}';
+    		dataLimit=parseInt(dataLimit);
+    		
             var tabledata = $('#tabledata').DataTable({
                 "paging": true,
                 "lengthChange": false,
@@ -276,7 +262,7 @@
                 "autoWidth": false,
                 "aaSorting": [],
                 "scrollX": true,
-                "pageLength": 15,
+                "pageLength": dataLimit,
                 dom: 'Bfrtip',
                 //buttons: ['excel','pdf','print'],
                 buttons: [

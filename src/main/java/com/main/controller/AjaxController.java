@@ -7,15 +7,18 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
-import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,38 +28,17 @@ import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.AccountDetails;
 import com.main.db.bpaas.entity.AddressDetails;
-import com.main.db.bpaas.entity.ItrDetails;
 import com.main.db.bpaas.entity.SupDetails;
-import com.main.db.bpaas.repo.SupDetailsRepo;
-import com.main.db.bpaas.repo.TripDetailsRepo;
 import com.main.email.CommEmailFunction;
 import com.main.email.WelcomeEmail;
-import com.main.service.SecurityService;
-import com.main.service.UserService;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/ajaxController")
 @RestController
 public class AjaxController {
 
 	@Autowired
-	private UserService userService;
-
-	@Autowired
-	private SupDetailsRepo detailsRepo;
-
-	@Autowired
-	private SecurityService securityService;
-
-	@Autowired
-	private TripDetailsRepo tripDetailsRepo;
-
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private ServiceManager serviceManager;
 
 	@Value("${smtpPort}")
 	public String smtpPort;
@@ -69,21 +51,25 @@ public class AjaxController {
 
 	@Value("${host}")
 	public String host;
-static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-    private static Logger logger = LoggerFactory.getLogger(AjaxController.class);
+	
+	@Value("${filepaths}")
+	public String filepaths;
+	
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(AjaxController.class);
 
-	@RequestMapping("/SaveRegistration")
+	@PostMapping("/SaveRegistration")
 	public String SaveRegistration(@RequestBody SupDetails supDetails) {
 
-logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		String processID="";
+		String processID = "";
 
 		try {
 
-			String filePath = "C:/1.BPAAS/VendorPortal/" + supDetails.getCompEmail();
+			String filePath = filepaths + supDetails.getCompEmail();
 			String fullFilePathWithName = "";
 
 //			
@@ -470,7 +456,6 @@ logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()
 				json.put("business_classification", supDetails.getBusinessClassification());
 				json.put("certificate_no", "");
 				json.put("certifing_agency", "");
-		
 
 				// json.put("VendorSiteDetails", "");
 				// Documents
@@ -528,10 +513,10 @@ logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()
 					JSONArray arrayforVend = new JSONArray();
 
 					arrayforVend.put(venDetals);
-System.out.println("Fin Json "+venDetals.toString());
-System.out.println("Vendor Site Details "+ arrayforVend.toString());
-System.out.println("Header "+ json.toString());
-System.out.println("----------------------"+array);
+					System.out.println("Fin Json " + venDetals.toString());
+					System.out.println("Vendor Site Details " + arrayforVend.toString());
+					System.out.println("Header " + json.toString());
+					System.out.println("----------------------" + array);
 					json.put("Documents", array);
 					json.put("VendorSiteDetails", arrayforVend);
 
@@ -572,12 +557,11 @@ System.out.println("----------------------"+array);
 						System.out.println(" FinalOutput JSON in api ::: " + finalOut);
 					}
 
-					
 					JSONObject jsonObject = new JSONObject(finalOut);
 					if (null != jsonObject) {
 						String statuscode = jsonObject.optString("Status");
 						if ("201".equalsIgnoreCase(statuscode)) {
-							 processID = jsonObject.optString("ProcessID");
+							processID = jsonObject.optString("ProcessID");
 
 							supDetails.setPid(processID);
 							System.out.println("   ------------" + processID);
@@ -587,18 +571,14 @@ System.out.println("----------------------"+array);
 					}
 
 					conn.disconnect();
-logger.error("Ran into an error {}");
+					logger.error("Ran into an error {}");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-			}               
-			
-			
-			
-			                   
+			}
 
 //API calling END
-			detailsRepo.save(supDetails);
+			serviceManager.detailsRepo.save(supDetails);
 
 			data.setData(processID);
 

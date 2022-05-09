@@ -172,6 +172,9 @@ function GetSelectedTextValue() {
                      if(!result[i].hasOwnProperty("runType")){
 							result[i].runType="";
 						}
+                     if(!result[i].hasOwnProperty("runStatus")){
+							result[i].runStatus="";
+						}
                      if(!result[i].hasOwnProperty("vendorTripStatus")){
 							result[i].vendorTripStatus="";
 						}
@@ -195,52 +198,9 @@ function GetSelectedTextValue() {
 					}
 
                     var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
-
-                    var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
-                    var statustemp_payment_Pending = '<span class=\"right badge badge-warning\">Pending</span>';
-                    var statustemp_payment_No = '<span class=\"right badge badge-primary\">NA</span>';
-
-                    var statustemp_runststus_Intransit = '<span class=\"right badge badge-warning\">In-Transit</span>';
-                    var statustemp_runststus_Closed = '<span class=\"right badge badge-success\">Closed</span>';
-
-                    var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
-                    var statustemp_approved = '<span class=\"right badge badge-success\">Approved</span>';
-                    var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
-                    var statustemp_Draft_Invoicing = '<span class=\"right badge badge-danger\">Draft-Invoicing</span>';
-                    var statustemp_query = '<span class=\"right badge badge-warning\"  style=\"background-color: #fd7e14;\">Query</span>';
-
-                    var paymentStatus = "";
-                    var runStatus = "";
-                    var vendorTripStatus = "";
-                    var tempString = [view, result[i].invoiceNumber, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub,  paymentStatus];
-
-                    if (result[i].paymentStatus == "Pending") {
-                        tempString[11] = statustemp_payment_Pending;
-                    } else if (result[i].paymentStatus == "Approved") {
-                        tempString[11] = statustemp_payment_success;
-                    } else if (result[i].paymentStatus == "NA") {
-                        tempString[11] = statustemp_payment_No;
-                    }
-
-                    if (result[i].vendorTripStatus == "Yet To Be Approved") {
-                        tempString[5] = statustemp_pending;
-                    } else if (result[i].vendorTripStatus == "Approved") {
-                        tempString[5] = statustemp_approved;
-                    } else if (result[i].vendorTripStatus == "Invoicing") {
-                        tempString[5] = statustemp_Invoicing;
-                    } else if (result[i].vendorTripStatus == "Query") {
-                        tempString[5] = statustemp_query;
-                    } else if (result[i].vendorTripStatus == "Draft-Invoicing") {
-                        tempString[5] = statustemp_Draft_Invoicing;
-                    }
-
-                    if (result[i].runStatus == "In-Transit") {
-                        tempString[4] = statustemp_runststus_Intransit;
-                    } else if (result[i].runStatus == "Closed") {
-                        tempString[4] = statustemp_runststus_Closed;
-                    }
-
-                    tabledata.row.add(tempString);
+                   
+                    tabledata.row.add([view, result[i].invoiceNumber, result[i].route, result[i].runType, result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub,  result[i].paymentStatus]);
+               
                 }
                 tabledata.draw();
                 $("tbody").show();

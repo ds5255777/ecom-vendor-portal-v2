@@ -142,6 +142,35 @@
                             <div class="card card-primary ">
                                 <!-- /.card-header -->
                                 <div class="card-body ">
+                                <form role="form" id="addForm" autocomplete="off">
+										<div class="row">
+											
+											<div class="col-md-2">
+												<div class="dropdown">
+													<button type="button"
+														class="btn btn-primary dropdown-toggle"
+														style="  margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
+														data-toggle="dropdown">Export Details</button>
+													<div class="dropdown-menu">
+														<a class="dropdown-item" href="#" id="exportLinkPdf">Download
+															PDF</a> <a class="dropdown-item" href="#" id="exportLink">Download
+															Excel</a>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-8"></div>
+											<div class="col-md-2">
+												<div class="form-group row">
+													<label class="col-md-4">Search : </label>
+													<div class="col-md-8">
+														<input type="text" name="searchData" placeholder="Search"
+															class="form-control" id="searchData">
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+                                
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
@@ -175,254 +204,378 @@
         </div>
         <!-- ./wrapper -->
 
-        <!-- Modal -->
-        <div class="modal fade" id="tripValue" role="dialog">
-            <div class="modal-dialog " style="max-width: 1200px;">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-body" style="overflow-y: auto;">
-                        <div class="container-fluid panel2" id="headerLineItemForm">
-                            <div class="row">
-                                <div class="col-md-12 propTableContainer" style="overflow-y: auto; height: 620px;">
-                                    <input type="hidden" id="headerDetailsId" class="form-control">
-                                    <!-- <table class="table " id="property-desc"> -->
-                                    <div class="card card-primary">
-                                        <div class="card-header" style="padding: 4px 0px 4px 4px;">
-                                            <h3 class="card-title" style="font-size: 15px;">Trip Details</h3>
-                                        </div>
+       <!-- Model Start -->
+		<div class="modal fade" id="tripValue" role="dialog">
+			<div class="modal-dialog " style="max-width: 1400px;">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-body" style="overflow-y: auto;">
+						<div class="container-fluid panel2" id="headerLineItemForm">
+							<div class="row">
+								<div class="col-md-12 propTableContainer"
+									style="overflow-y: auto; height: 620px;">
+									<input type="hidden" id="headerDetailsId" class="form-control">
+									<div class="card card-primary">
+										<div class="card-header" style="padding: 4px 0px 4px 4px;">
+											<h3 class="card-title" style="font-size: 15px;">Trip
+												Details</h3>
+												<button type="button" class="btn" id="closeModal" style="float: right;"
+												data-dismiss="modal"><i class="nav-icon far fa-window-close" style="font-size: 20px; color: white;"></i></button>
+										</div>
+										<!-- /.card-header -->
+										<div class="card-body" style="padding-bottom: inherit;">
+											<form role="form" id="tripForm">
+												<div class="row">
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5">Trip Id</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control" id="tripID"
+																	name="tripID" autocomplete="off" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5">Route</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control" id="route"
+																	name="route" autocomplete="off" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5">Run Type</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control" id="runType"
+																	name="runType" autocomplete="off" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5">Mode</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control" id="mode"
+																	name="mode" autocomplete="off" disabled>
+															</div>
+														</div>
+													</div>
 
 
-                                        <!-- /.card-header -->
-                                        <div class="card-body">
-                                            <form role="form" id="tripForm">
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Trip ID</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="tripID" name="tripID" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Route</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="route" name="route" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Run Type</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="runType" name="runType" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Mode</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="mode" name="mode" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
 
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Vehicle Number</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="vehicleNumber" name="vehicleNumber" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Vendor Name</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="vendorName" name="vendorName" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Actual Vehicle Type</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="actualVechicleType" name="actualVechicleType" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Standard Payload Capacity</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="standardPayloadCapacity" name="standardPayloadCapacity" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="Vehicle Number">Vehicle
+																No.</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	id="vehicleNumber" name="vehicleNumber" 
+																	autocomplete="off" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<!-- text input -->
+														<div class="form-group row">
+															<label class="col-sm-5" title="Vendor Name">Vendor
+																Name</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control" id="vendorName"
+																	name="vendorName" autocomplete="off" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<!-- text input -->
+														<div class="form-group row">
+															<label class="col-sm-5" title="Actual Vehicle Type">Vehicle
+																Type</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	id="actualVechicleType" name="actualVechicleType"
+																	autocomplete="off" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<!-- text input -->
+														<div class="form-group row">
+															<label class="col-sm-5" title="Standard Payload Capacity">Payload
+																Cap.</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	id="standardPayloadCapacity"
+																	name="standardPayloadCapacity" autocomplete="off"
+																	disabled>
+															</div>
+														</div>
+													</div>
 
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Standard Shipment Capacity</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="standardShipmentCapacity" name="standardShipmentCapacity" autocomplete="off" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Run Status</label>
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" style="height: 30px;" id="runStatus" name="runStatus" autocomplete="off" disabled>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Origin Hub</label>
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" autocomplete="off" style="height: 30px;" id="originHub" name="originHub" disabled>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Origin Region</label>
-                                                            <input type="text" class="form-control" autocomplete="off" style="height: 30px;" placeholder="Enter" id="originRegion" name="originRegion" disabled>
-                                                        </div>
-                                                    </div>
+													<div class="col-md-3">
+														<!-- text input -->
+														<div class="form-group row">
+															<label class="col-sm-5"
+																title="Standard Shipment Capacity">Shipment Cap.</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	id="standardShipmentCapacity"
+																	name="standardShipmentCapacity" autocomplete="off"
+																	disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="Run Status">Run
+																Status</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control" id="runStatus"
+																	name="runStatus" autocomplete="off" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="Origin Hub">Origin
+																Hub</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	autocomplete="off" id="originHub" name="originHub"
+																	disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="Origin Region">Origin
+																Region</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	autocomplete="off" id="originRegion"
+																	name="originRegion" disabled>
+															</div>
+														</div>
+													</div>
 
-                                                </div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="Destination Hub">Dest
+																Hub</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	autocomplete="off" id="destHub" name="destHub" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="Actual Departure (ATD)">ATD</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	autocomplete="off" id="actualDeparture"
+																	name="actualDeparture" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="Actual Arrival (ATA)">ATA</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	autocomplete="off" id="actualArrival"
+																	name="actualArrival" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="Actual KM">Actual
+																KM</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	autocomplete="off" id="actualKM" name="actualKM"
+																	disabled>
+															</div>
+														</div>
+													</div>
 
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Dest Hub</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="destHub" name="destHub" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Actual Departure (ATD)</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualDeparture" name="actualDeparture" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Actual Arrival (ATA)</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualArrival" name="actualArrival" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Actual KM</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="actualKM" name="actualKM" disabled>
-                                                        </div>
-                                                    </div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="Standard KM">Standard
+																KM</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	autocomplete="off" id="standardKM" name="standardKM"
+																	disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="Mileage">Mileage</label>
+															<div class="col-sm-7">
+																<input type="text"
+																	class="form-control numberWithDecimalcheck"
+																	autocomplete="off" id="mileage" name="mileage" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="Rate per KM">Rate
+																per KM</label>
+															<div class="col-sm-7">
+																<input type="text"
+																	class="form-control numberWithDecimalcheck"
+																	autocomplete="off" id="ratePerKm" name="ratePerKm"
+																	disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="Billable KM">Billable
+																KM</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control" id="routeKms"
+																	name="routeKms" disabled>
+															</div>
+														</div>
+													</div>
 
-                                                </div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="FS Base Rate">FS
+																Base Rate</label>
+															<div class="col-sm-7">
+																<input type="text"
+																	class="form-control numberWithDecimalcheck"
+																	autocomplete="off" id="fsBaseRate" name="fsBaseRate"
+																	disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="Current Fuel Rate">Current
+																Fuel Rate</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	id="currentFuelRate" name="currentFuelRate" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="FS Difference">FS
+																Diff</label>
+															<div class="col-sm-7">
+																<input type="text"
+																	class="form-control numberWithDecimalcheck"
+																	autocomplete="off" id="fsDiff" name="fsDiff" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5" title="Basic Freight">Basic
+																Freight</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	id="basicFreight" name="basicFreight" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<!-- text input -->
+														<div class="form-group row">
+															<label class="col-sm-5" title="FS">FS</label>
+															<div class="col-sm-7">
+																<input type="text"
+																	class="form-control numberWithDecimalcheck"
+																	autocomplete="off" id="fs" name="fs" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5"
+																title="Total Freight (Total Trip Cost)">Total
+																Freight</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	id="totalFreight" name="totalFreight" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5"
+																title="Lump Sum Amount (Total Trip Cost)">Total
+																Amount</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	id="lumpsomeamount" name="lumpsomeamount" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="form-group row">
 
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Standard KM</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" autocomplete="off" id="standardKM" name="standardKM" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Mileage</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="mileage" name="mileage" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Rate per km</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="ratePerKm" name="ratePerKm" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Bilable KM</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="routeKms" name="routeKms" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
+															<input type="hidden" class="form-control" id="vendorCode"
+																name="vendorCode" value=${userName } readonly>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+										<!-- /.card-body -->
+									</div>
+									<!-- /.card -->
+									<div class=" card-primary">
+										<div class="card card-primary ">
+											<div class="card-header" style="padding: 4px 0px 4px 4px;">
+												<h3 class="card-title" style="font-size: 15px;">Trips
+													Query</h3>
+											</div>
 
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">FS Base Rate</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fsBaseRate" name="fsBaseRate" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Current Fuel Rate</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="currentFuelRate" name="currentFuelRate" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">FS Diff</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fsDiff" name="fsDiff" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Basic Freight</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="basicFreight" name="basicFreight" disabled>
-                                                        </div>
-                                                    </div>
+											<div class="card-body " style="padding: inherit;">
+												<form role="form" id="showQueryDetails"
+													name="showQueryDetails" style="padding-top: 10px;">
+													<div class="col-md-12">
 
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">FS</label>
-                                                            <input type="text" class="form-control numberWithDecimalcheck" style="height: 30px;" placeholder="Enter" autocomplete="off" id="fs" name="fs" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label style="margin-bottom: 1px;">Total Freight (Total Trip Cost)</label>
-                                                            <input type="text" class="form-control" style="height: 30px;" placeholder="Enter" id="totalFreight" name="totalFreight" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <!-- /.card-body -->
-                                    </div>
-                                    <!-- /.card -->
-                                    <div class="container">
-                                        <div class="col-md-12 text-center" style="padding-top: 0px;">
-                                            <button type="button" class="btn btn-primary" id="closeModal" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+														<div class="table-responsive">
+															<table class="table table-bordered table-hover"
+																id="tabledataQuery">
+																<thead>
+																	<tr>
+																		<th class="bg-primary">S.No</th>
+																		<th class="bg-primary">Raised By</th>
+																		<th class="bg-primary">Raised On</th>
+																		<th class="bg-primary">Remarks</th>
+																	</tr>
+																</thead>
+																<tbody>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
-                </div>
+				</div>
 
-            </div>
-        </div>
-        <!-- model End -->
+			</div>
+		</div>
+		<!-- model Start -->
 
         <script src="plugins/jquery/jquery.min.js"></script>
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -449,6 +602,18 @@
         <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
         <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
         <script src="plugins/toastr/toastr.min.js"></script>
+        
+        <script src="plugins/datatables/jquery.dataTables.js"></script>
+		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+		<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+		<script src="plugins/jszip/jszip.min.js"></script>
+		<script src="plugins/pdfmake/pdfmake.min.js"></script>
+		<script src="plugins/pdfmake/vfs_fonts.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
         <script type="text/javascript">
             const Toast = Swal.mixin({
@@ -457,17 +622,111 @@
                 showConfirmButton: false,
                 timer: 3000
             });
+            
+            var dataLimit='${dataLimit}';
+    		dataLimit=parseInt(dataLimit);
 
-            var tabledata = $('#tabledata').DataTable({
-            	"paging": true,
+    		var tabledata = $('#tabledata').DataTable({
+                "paging": true,
                 "lengthChange": false,
                 "searching": true,
                 "info": true,
                 "autoWidth": false,
                 "aaSorting": [],
                 "scrollX": true,
-                "pageLength": 15
+                "pageLength": dataLimit,
+                dom: 'Bfrtip',
+                //buttons: ['excel','pdf','print'],
+                buttons: [
+
+                    {
+                        extend: 'excelHtml5',
+
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        },
+                        customize: function(doc) {
+
+                            var tblBody = doc.content[1].table.body;
+                            for (var i = 0; i < tblBody[0].length; i++) {
+                                //	 console.log(tblBody[0]);
+                                //	 console.log(tblBody[0][i]);
+                                tblBody[0][i].fillColor = '#FFFFFF';
+                                tblBody[0][i].color = 'black';
+                            }
+
+                            var objLayout = {};
+                            objLayout['hLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            objLayout['vLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            objLayout['hLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            objLayout['vLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            objLayout['paddingLeft'] = function(i) {
+                                return 4;
+                            };
+                            objLayout['paddingRight'] = function(i) {
+                                return 4;
+                            };
+                            doc.content[1].layout = objLayout;
+                            var obj = {};
+                            obj['hLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            obj['hLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            //   doc.content[1].margin = [ 150, 0, 150, 0 ];
+
+                        }
+                    }
+                ],
+                initComplete: function() {
+                    var $buttons = $('.dt-buttons').hide();
+                    $('#exportLink').on('click', function() {
+                        var btnClass = "excel" ?
+                            '.buttons-' + "excel" :
+                            null;
+                        if (btnClass) $buttons.find(btnClass).click();
+                    })
+
+                    $('#exportLinkPdf').on('click', function() {
+                        var btnClass = "pdf" ?
+                            '.buttons-' + "pdf" :
+                            null;
+                        if (btnClass) $buttons.find(btnClass).click();
+                    })
+                }
             });
+            
+            var tabledataQuery = $('#tabledataQuery').DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "info": false,
+                "autoWidth": false,
+                "aaSorting": []
+            });
+            
+            $('#searchData').on( 'keyup', function () {
+            	tabledata.search( this.value ).draw();
+            } );
+            
+            $('#tabledata_filter').css("display","none");
 
             getData();
 
@@ -517,37 +776,7 @@
                             	
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
-                                var statustemp_runType_Scheduled = '<span class=\"right badge badge-warning\">Scheduled</span>';
-                                var statustemp_runType_AdHoc = '<span class=\"right badge badge-success\">Ad-Hoc</span>';
-
-                                var statustemp_mode_MilkRun = '<span class=\"right badge badge-warning\">Milk Run</span>';
-                                var statustemp_mode_LineHaul = '<span class=\"right badge badge-success\">Line Haul</span>';
-                                var statustemp_mode_AdHocRun = '<span class=\"right badge badge-primary\">Ad-Hoc Run</span>';
-
-                                var runType = "";
-                                var mode = "";
-
-                                var tempString = [view, result[i].route, runType, result[i].actualKM, result[i].standardKM, mode, result[i].actualDeparture, result[i].actualArrival];
-
-                                if (result[i].runType == "Scheduled") {
-                                    tempString[2] = statustemp_runType_Scheduled;
-
-                                } else if (result[i].runType == "Adhoc") {
-                                    tempString[2] = statustemp_runType_AdHoc;
-
-                                } 
-
-                                if (result[i].mode == "Surface Milk Run") {
-                                    tempString[5] = statustemp_mode_MilkRun;
-
-                                } else if (result[i].mode == "Linehaul Run") {
-                                    tempString[5] = statustemp_mode_LineHaul;
-
-                                } else if (result[i].mode == "Adhoc Run") {
-                                    tempString[5] = statustemp_mode_AdHocRun;
-                                }
-
-                                tabledata.row.add(tempString);
+                                tabledata.row.add([view, result[i].route, result[i].runType, result[i].actualKM, result[i].standardKM, result[i].mode, result[i].actualDeparture, result[i].actualArrival]);
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -565,7 +794,11 @@
             }
 
             function setTripStatus(tripId) {
-                console.log("Trip od" + tripId);
+                
+                getQueryData(tripId)
+                var json = {
+                    "tripID": tripId
+                }
 
                 var json = {
                     "tripID": tripId
@@ -607,6 +840,53 @@
 
                 });
             }
+            
+            function getQueryData(tripId){
+      			 
+      			 var obj ={
+      						"referenceid": tripId,
+      						"type": "Trip"
+      				}
+      				
+      				$.ajax({
+      					type : "POST",
+      					url : "<%=GlobalUrl.getQueryByTypeAndForeignKey%>",
+      					data :JSON.stringify(obj),
+      					dataType : "json",
+      					contentType : "application/json",
+      					success : function(response) {
+      						if (response.msg == "success") {
+      						
+      							if("data" in response){
+      							
+      								var result = response.data;												
+      								
+      							     	tabledataQuery.clear();
+      							     	var count=0;
+      				                        for (var i = 0; i < result.length; i++) {
+      				                        	count++;
+      				                        	tabledataQuery.row.add([count,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
+      				                        }
+      				                        tabledataQuery.draw();
+      				                        $("tbody").show();
+      								}
+      						} else {
+      							Toast.fire({
+      								type : 'error',
+      								title : 'Failed ..'
+      							})
+      						}
+      					},
+      					error : function(jqXHR, textStatue, errorThrown) {
+      						
+      						Toast.fire({
+      							type : 'error',
+      							title : 'Failed Added try again..'
+      						})
+
+      					}
+      				}); 
+      		 }
 
         </script>
 </body>

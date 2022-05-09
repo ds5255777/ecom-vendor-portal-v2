@@ -336,8 +336,6 @@
     <script src="plugins/chart.js/Chart.min.js"></script>
     <!-- Sparkline -->
     <script src="plugins/sparklines/sparkline.js"></script>
-    <!-- JQVMap -->
-    <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script> -->
     <!-- jQuery Knob Chart -->
     <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
     <!-- daterangepicker -->
@@ -433,7 +431,7 @@
     <!-- table Data -->
     <script>
         var tabledata = $('#tabledata').DataTable({
-            "paging": false,
+            "paging": true,
             "lengthChange": false,
             "searching": false,
             "info": false,

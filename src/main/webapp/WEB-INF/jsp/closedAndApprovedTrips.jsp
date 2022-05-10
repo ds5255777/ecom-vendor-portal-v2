@@ -453,8 +453,7 @@
 													</div>
 													<div class="col-md-3">
 														<div class="form-group row">
-															<label class="col-sm-5" title="Current Fuel Rate">Current
-																Fuel Rate</label>
+															<label class="col-sm-5" title="Current Fuel Rate">Fuel Rate</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"
 																	id="currentFuelRate" name="currentFuelRate" disabled>

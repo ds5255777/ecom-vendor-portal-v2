@@ -54,52 +54,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                                 <p>All Invoice</p>
                             </a></li>
                     </ul>
-                        
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item"><a href="InProcessInvoiceFinance" class="nav-link
-                                                <%if (request.getParameter("pagename").equalsIgnoreCase("InprocessInvoiceFinance")) {
-                                    out.print("active");
-                                }%>
-
-                                                ">
-                                <i class="nav-icon fas fa-file-contract"></i>
-                                <p>In-Review Invoice</p>
-                            </a></li>
-                    </ul>
-                    
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item"><a href="pendingForApprovalInvoice" class="nav-link
-                                                <%if (request.getParameter("pagename").equalsIgnoreCase("pendingForApprovalInvoice")) {
-                                    out.print("active");
-                                }%>
-
-                                                ">
-                                <i class="nav-icon fas fa-receipt"></i>
-                                <p>Pending For Approval Invoice</p>
-                            </a></li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item"><a href="processInvoiceFinance" class="nav-link
-                                                <%if (request.getParameter("pagename").equalsIgnoreCase("processInvoiceFinance")) {
-                                    out.print("active");
-                                }%>
-
-                                                ">
-                                <i class="nav-icon fa fas fa fa-check"></i>
-                                <p>Approved Invoice</p>
-                            </a></li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item"><a href="paymentRelaseInvoice" class="nav-link
-                                                <%if (request.getParameter("pagename").equalsIgnoreCase("paymentRelaseInvoice")) {
-                                    out.print("active");
-                                }%>
-
-                                                ">
-                                <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                                <p>Payment Release Invoice</p>
-                            </a></li>
-                    </ul>
                     
                     <hr>
                 </li>

@@ -26,6 +26,9 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 	@Query(value = "select * from invoice_generation where invoice_status IN ('In-Review','Pending For Approval', 'Approved','Payment Relase', 'Query') and vendor_code=? ", nativeQuery = true)
 	List<InvoiceGenerationEntity> getAllInvoice(String vendorCode);
 	
+	@Query(value = "select * from invoice_generation where invoice_status IN ('In-Review','Pending For Approval', 'Approved','Payment Relase', 'Query') ", nativeQuery = true)
+	List<InvoiceGenerationEntity> getAllNetworkInvoice();
+	
 	 @Query(value = "select * from invoice_generation WHERE invoice_status='Draft-Invoicing' and vendor_code=?", nativeQuery = true)
 	    List<InvoiceGenerationEntity> getDraftInvoice(String vendorCode);
 

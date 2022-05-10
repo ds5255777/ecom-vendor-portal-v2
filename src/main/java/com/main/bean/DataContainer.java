@@ -8,10 +8,7 @@ public class DataContainer {
 	private String msg;
 	private Object forward;
 	private Object backward;
-	
-//	private Object RequestID;
-	
-	
+
 	public Object getData() {
 		return data;
 	}
@@ -60,23 +57,4 @@ public class DataContainer {
 		this.backward = backward;
 	}
 
-	
-	/*public Object getRequestID() {
-		return RequestID;
-	}
-
-	public void setRequestID(Object requestID) {
-		RequestID = requestID;
-	}*/
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

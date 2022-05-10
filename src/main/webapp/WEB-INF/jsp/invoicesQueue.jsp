@@ -151,47 +151,48 @@
                         <div class="col-md-12" style="font-size: 14px;">
                             <!-- general form elements -->
                             <div class="card card-primary ">
-                                <div class="card-header">
-                                    <h3 class="card-title" style="font-size: 15px;">All Invoice List</h3>
-                                </div>
+                                
                                 <!-- /.card-header -->
                                 <div class="card-body" style="padding-top: 10px;">
                                 
                                 <form role="form" id="addForm" autocomplete="off">
-                                        <div class="row">
-
-                                            <div class="col-md-2">
-                                                <input type="hidden" name="fromDate" placeholder="Actual Departure Starting Date" required class="form-control" id="fromDate" style="height: 34px;">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <input type="hidden" name="toDate" placeholder="Actual Departure End Date" required class="form-control" id="toDate" style="height: 34px;">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <!-- <label for="exampleInputserverName1" style="visibility: hidden;">Text</label> -->
-                                                <!-- <button type="button" id="searchBtn" name="searchBtn" onclick="getFilterData()" class="btn btn-primary">Search</button> -->
-                                            </div>
-                                            <!-- <div class="col-md-1"></div> -->
-                                            <div class="col-md-2" >
-                                            <div class="dropdown">
-                                                <button type="button" class="btn btn-primary dropdown-toggle"  style="font-size: 14px; float: right; margin-bottom : 10px;" data-toggle="dropdown"> Export Details </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#" id="exportLinkPdf">Download PDF</a>
-                                                    <a class="dropdown-item" href="#" id="exportLink">Download Excel</a>
-                                                </div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                    </form>
+										<div class="row">
+											
+											<div class="col-md-2">
+												<div class="dropdown">
+													<button type="button"
+														class="btn btn-primary dropdown-toggle"
+														style="  margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
+														data-toggle="dropdown">Export Details</button>
+													<div class="dropdown-menu">
+														<a class="dropdown-item" href="#" id="exportLinkPdf">Download
+															PDF</a> <a class="dropdown-item" href="#" id="exportLink">Download
+															Excel</a>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-8"></div>
+											<div class="col-md-2">
+												<div class="form-group row">
+													<label class="col-md-4">Search : </label>
+													<div class="col-md-8">
+														<input type="text" name="searchData" placeholder="Search"
+															class="form-control" id="searchData">
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
                                 
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">ECOM Invoice Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Receiving Date</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Vendor Invoice Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Status</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">ECOM Invoice Number</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Receiving Date</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Invoice Number</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -250,6 +251,9 @@
                 timer: 3000
             });
 
+            var dataLimit='${dataLimit}';
+    		dataLimit=parseInt(dataLimit);
+    		
             var tabledata = $('#tabledata').DataTable({
                 "paging": true,
                 "lengthChange": false,
@@ -258,7 +262,7 @@
                 "autoWidth": false,
                 "aaSorting": [],
                 "scrollX": true,
-                "pageLength": 15,
+                "pageLength": dataLimit,
                 dom: 'Bfrtip',
                 //buttons: ['excel','pdf','print'],
                 buttons: [
@@ -336,6 +340,13 @@
                     })
                 }
             });
+            
+            $('#searchData').on( 'keyup', function () {
+            	tabledata.search( this.value ).draw();
+            } );
+            
+            $('#tabledata_filter').css("display","none");
+         
 
             getData();
 

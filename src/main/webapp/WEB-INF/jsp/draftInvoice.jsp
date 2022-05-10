@@ -137,18 +137,43 @@
                         <div class="col-md-12" style="font-size: 14px;">
                             <!-- general form elements -->
                             <div class="card card-primary ">
-                                <div class="card-header">
-                                    <h3 class="card-title" style="font-size: 15px;">Draft Invoice List</h3>
-                                </div>
                                 <!-- /.card-header -->
                                 <div class="card-body ">
+                                <form role="form" id="addForm" autocomplete="off">
+										<div class="row">
+											
+											<div class="col-md-2">
+												<div class="dropdown">
+													<button type="button"
+														class="btn btn-primary dropdown-toggle"
+														style="  margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
+														data-toggle="dropdown">Export Details</button>
+													<div class="dropdown-menu">
+														<a class="dropdown-item" href="#" id="exportLinkPdf">Download
+															PDF</a> <a class="dropdown-item" href="#" id="exportLink">Download
+															Excel</a>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-8"></div>
+											<div class="col-md-2">
+												<div class="form-group row">
+													<label class="col-md-4">Search : </label>
+													<div class="col-md-8">
+														<input type="text" name="searchData" placeholder="Search"
+															class="form-control" id="searchData">
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Supplier Name</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Supplier Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Action</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Number</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Supplier Name</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Supplier Number</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -188,6 +213,18 @@
         <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
         <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
         <script src="plugins/toastr/toastr.min.js"></script>
+        
+		<script src="plugins/datatables/jquery.dataTables.js"></script>
+		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+		<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+		<script src="plugins/jszip/jszip.min.js"></script>
+		<script src="plugins/pdfmake/pdfmake.min.js"></script>
+		<script src="plugins/pdfmake/vfs_fonts.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
         <script type="text/javascript">
             const Toast = Swal.mixin({
@@ -196,16 +233,102 @@
                 showConfirmButton: false,
                 timer: 3000
             });
+            
+            var dataLimit='${dataLimit}';
+    		dataLimit=parseInt(dataLimit);
 
-            var tabledata = $('#tabledata').DataTable({
-                "paging": false,
+    		var tabledata = $('#tabledata').DataTable({
+                "paging": true,
                 "lengthChange": false,
                 "searching": true,
                 "info": true,
                 "autoWidth": false,
                 "aaSorting": [],
-                "pageLength": 25
+                "scrollX": true,
+                "pageLength": dataLimit,
+                dom: 'Bfrtip',
+                //buttons: ['excel','pdf','print'],
+                buttons: [
+
+                    {
+                        extend: 'excelHtml5',
+
+                        exportOptions: {
+                            columns: [ 0, 1, 2, ],
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, ],
+                        },
+                        customize: function(doc) {
+
+                            var tblBody = doc.content[1].table.body;
+                            for (var i = 0; i < tblBody[0].length; i++) {
+                                //	 console.log(tblBody[0]);
+                                //	 console.log(tblBody[0][i]);
+                                tblBody[0][i].fillColor = '#FFFFFF';
+                                tblBody[0][i].color = 'black';
+                            }
+
+                            var objLayout = {};
+                            objLayout['hLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            objLayout['vLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            objLayout['hLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            objLayout['vLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            objLayout['paddingLeft'] = function(i) {
+                                return 4;
+                            };
+                            objLayout['paddingRight'] = function(i) {
+                                return 4;
+                            };
+                            doc.content[1].layout = objLayout;
+                            var obj = {};
+                            obj['hLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            obj['hLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            //   doc.content[1].margin = [ 150, 0, 150, 0 ];
+
+                        }
+                    }
+                ],
+                initComplete: function() {
+                    var $buttons = $('.dt-buttons').hide();
+                    $('#exportLink').on('click', function() {
+                        var btnClass = "excel" ?
+                            '.buttons-' + "excel" :
+                            null;
+                        if (btnClass) $buttons.find(btnClass).click();
+                    })
+
+                    $('#exportLinkPdf').on('click', function() {
+                        var btnClass = "pdf" ?
+                            '.buttons-' + "pdf" :
+                            null;
+                        if (btnClass) $buttons.find(btnClass).click();
+                    })
+                }
             });
+            
+            $('#searchData').on( 'keyup', function () {
+            	tabledata.search( this.value ).draw();
+            } );
+            
+            $('#tabledata_filter').css("display","none");
 
             getData();
 

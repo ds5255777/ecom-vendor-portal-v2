@@ -3,6 +3,7 @@ package com.main.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,20 +40,22 @@ import com.main.db.bpaas.repo.NatureOfTransactionRepo;
 import com.main.db.bpaas.repo.PaymentTermRepo;
 import com.main.db.bpaas.repo.TDSSectionCodeRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
-import com.main.service.InvoiceServiceImpl;
+import com.main.db.bpaas.repo.UserRepository;
 import com.main.service.TripService;
 import com.main.service.UserService;
 import com.main.serviceManager.ServiceManager;
-import com.main.db.bpaas.repo.UserRepository;
 
 @Controller
 public class UIController {
 
 	@Value("${maxFileSize}")
 	public String maxFileSize;
-	
+
 	@Value("${fileSize}")
 	public String fileSize;
+
+	@Value("${dataLimit}")
+	public String dataLimit;
 
 	@Autowired
 	ServiceManager serviceManager;
@@ -71,34 +74,34 @@ public class UIController {
 
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	private CurrencyRepo currencyRepo;
-	
+
 	@Autowired
 	private BusinessPartnerTypeRepo businessPartnerTypeRepo;
-	
+
 	@Autowired
 	BusinessPartnerRepo businessPartnerRepo;
-	
+
 	@Autowired
 	BusinessClassificationRepo businessClassificationRepo;
-	
+
 	@Autowired
 	PaymentTermRepo paymentTermRepo;
-	
+
 	@Autowired
 	NatureOfTransactionRepo natureOfTransactionRepo;
-	
+
 	@Autowired
 	CountryRepo countryRepo;
-	
+
 	@Autowired
 	TDSSectionCodeRepo tDSSectionCodeRepo;
 
 	@Autowired
 	FinancialYearRepo financialYearRepo;
-	
+
 	@GetMapping({ "/login" })
 	public String login(Model model, String error, String logout) {
 		model.addAttribute("userForm", new User());
@@ -116,18 +119,17 @@ public class UIController {
 
 	@GetMapping("/registration")
 	public String registration(Model model) {
-		
-		List<String> currency= currencyRepo.getCurrencyType();
+
+		List<String> currency = currencyRepo.getCurrencyType();
 		List<String> business = businessPartnerTypeRepo.getBusinessPartnerType();
 		List<String> partner = businessPartnerRepo.getBusinessPartner();
 		List<String> classification = businessClassificationRepo.getBusinessClassification();
-		List<String> payment = paymentTermRepo.getPaymentTerms();	
+		List<String> payment = paymentTermRepo.getPaymentTerms();
 		List<String> nature = natureOfTransactionRepo.getNatureOfTransaction();
 		List<String> country = countryRepo.getCountry();
 		List<String> tdsCode = tDSSectionCodeRepo.getTDSSectionCode();
 		List<String> financialYear = financialYearRepo.getFinancialYear();
-		
-		
+
 		model.addAttribute("currency", currency);
 		model.addAttribute("business", business);
 		model.addAttribute("partner", partner);
@@ -135,11 +137,11 @@ public class UIController {
 		model.addAttribute("payment", payment);
 		model.addAttribute("nature", nature);
 		model.addAttribute("country", country);
-		model.addAttribute("tdsCode", tdsCode); 
-		model.addAttribute("financialYear", financialYear); 
-		
+		model.addAttribute("tdsCode", tdsCode);
+		model.addAttribute("financialYear", financialYear);
+
 		model.addAttribute("fileSize", fileSize);
-		
+
 		model.addAttribute("maxFileSize", maxFileSize);
 		model.addAttribute("fileSize", fileSize);
 
@@ -151,6 +153,8 @@ public class UIController {
 
 		String rolename = (String) request.getSession().getAttribute("role");
 		User us = userService.findByUsername(principal.getName());
+
+		model.addAttribute("dataLimit", dataLimit);
 
 		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 
@@ -213,7 +217,7 @@ public class UIController {
 			model.addAttribute("getAllInvoiceCount", getAllInvoiceCount);
 			model.addAttribute("countForAllProcessedInvoice", countForAllProcessedInvoice);
 			model.addAttribute("countForAllApproveInvoice", countForAllApproveInvoice);
-			
+
 			String uname = principal.getName();
 			model.addAttribute("uname", uname);
 
@@ -240,21 +244,22 @@ public class UIController {
 			model.addAttribute("userStatus", us.getStatus());
 
 			return "dashboard";
-		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE) || rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
+		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
+				|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
 			long allInvoice = invoiceGenerationEntityRepo.getCountForAllInvoice();
 			long inReviewInvoice = invoiceGenerationEntityRepo.getCountForInReviewInvoice();
 			int countForPendingForApprovalInvoice = invoiceGenerationEntityRepo.getCountForPendingForApprovalInvoice();
 			int countForApprovedInvoice = invoiceGenerationEntityRepo.getCountForApprovedInvoice();
 			int countForPaymentrelaseInvoice = invoiceGenerationEntityRepo.getCountForPaymentrelaseInvoice();
 			int queryCount = invoiceGenerationEntityRepo.getQueryzInvoice();
-			
+
 			model.addAttribute("role", rolename);
 			model.addAttribute("allInvoice", allInvoice);
 			model.addAttribute("inReviewInvoice", inReviewInvoice);
-			model.addAttribute("countForPendingForApprovalInvoice",countForPendingForApprovalInvoice);
-			model.addAttribute("countForApprovedInvoice",countForApprovedInvoice);
-			model.addAttribute("countForPaymentrelaseInvoice",countForPaymentrelaseInvoice);
-			model.addAttribute("queryCount",queryCount);
+			model.addAttribute("countForPendingForApprovalInvoice", countForPendingForApprovalInvoice);
+			model.addAttribute("countForApprovedInvoice", countForApprovedInvoice);
+			model.addAttribute("countForPaymentrelaseInvoice", countForPaymentrelaseInvoice);
+			model.addAttribute("queryCount", queryCount);
 			return "dashBoard_Finance";
 		} else if (rolename.equalsIgnoreCase("Audit")) {
 			return "";
@@ -265,16 +270,16 @@ public class UIController {
 	}
 
 	@GetMapping({ "/addUsers" })
-	public String addUsers(Model model,Principal principal ,String error, String logout, HttpServletRequest request) {
+	public String addUsers(Model model, Principal principal, String error, String logout, HttpServletRequest request) {
 
 		String rolename = (String) request.getSession().getAttribute("role");
 
 		if (rolename.equalsIgnoreCase("Admin")) {
-		
-		List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive("1");
-		model.addAttribute("rolesList", roleList);
-		String uname = principal.getName();
-		model.addAttribute("uname", uname);
+
+			List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive("1");
+			model.addAttribute("rolesList", roleList);
+			String uname = principal.getName();
+			model.addAttribute("uname", uname);
 
 //		      serviceManager.insertAddUpdateInMaster(request, action, actionType, null, null, null);
 			return "addUsers";
@@ -318,10 +323,11 @@ public class UIController {
 	@GetMapping("/allTrips")
 	public String allTrips(Model model, Principal principal, HttpServletRequest request) {
 		String rolename = (String) request.getSession().getAttribute("role");
-		
-		String currentDate=new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 		model.addAttribute("currentDate", currentDate);
-		
+		model.addAttribute("dataLimit", dataLimit);
+
 		System.out.println("Role is ::" + rolename);
 		if (rolename.equalsIgnoreCase("Network")) {
 			System.out.println("All trips in network");
@@ -350,49 +356,49 @@ public class UIController {
 
 	@GetMapping("/closedTrips")
 	public String closedTrips(Model model, Principal principal) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "closedTrips";
 	}
 
 	@GetMapping("/closedAndApprovedTrips")
 	public String closedAndApprovedTrips(Model model, Principal principal) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "closedAndApprovedTrips";
 	}
 
 	@GetMapping("/inTransitTrips")
 	public String inTransitTrips(Model model, Principal principal) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "inTransitTrips";
 	}
 
 	@GetMapping("/pendingApproval")
 	public String pendingApproval(Model model, Principal principal, HttpServletRequest request) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "pendingApproval";
 	}
 
 	@GetMapping("/invoicesQueue")
 	public String invoicesQueue(Model model, Principal principal) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "invoicesQueue";
 	}
 
 	@GetMapping("/draftInvoice")
 	public String draftInvoice(Model model, Principal principal) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "draftInvoice";
 	}
 
 	@GetMapping("/approvedInvoice")
 	public String approvedInvoice(Model model, Principal principal) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "approvedInvoice";
 	}
 
 	@GetMapping("/pendingInvoice")
 	public String pendingInvoice(Model model, Principal principal) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "pendingInvoice";
 	}
 
@@ -430,37 +436,28 @@ public class UIController {
 
 			return "notification";
 		}
-   		return "";
-   	}
-     
-	 @GetMapping("/vendorRegistrastion")
-   	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
-   		
-		 String rolename = (String) request.getSession().getAttribute("role");
+		return "";
+	}
 
-			if (rolename.equalsIgnoreCase("Admin")) {
-				
-				String uname = principal.getName();
-				model.addAttribute("uname", uname);
-				model.addAttribute("maxFileSize", maxFileSize);
-				model.addAttribute("fileSize", fileSize);
-				
-				return "vendorRegistrastion";
-				
-			}
-   		return "";
-   	}
-	//End
+	@GetMapping("/vendorRegistrastion")
+	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
 
-//    @GetMapping("/tripsInvoiceGenerate")
-//    public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
-//
-//        String tripId = request.getParameter("id");
-//        model.addAttribute("tripId", tripId);
-//
-//        return "tripsInvoiceGenerate";
-//    }
-//Added by Saurabh for Network Module Part
+		String rolename = (String) request.getSession().getAttribute("role");
+
+		if (rolename.equalsIgnoreCase("Admin")) {
+
+			String uname = principal.getName();
+			model.addAttribute("uname", uname);
+			model.addAttribute("maxFileSize", maxFileSize);
+			model.addAttribute("fileSize", fileSize);
+
+			return "vendorRegistrastion";
+
+		}
+		return "";
+	}
+	// End
+
 	@GetMapping("/dashbaordNetwork")
 	public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {
 
@@ -656,7 +653,7 @@ public class UIController {
 //allInvoices_Finance
 	@GetMapping("/allInvoices_Finance")
 	public String allInvoicesFinance(Model model, HttpServletRequest request, Principal principal) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "allInvoices_Finance";
 	}
 
@@ -671,44 +668,47 @@ public class UIController {
 
 	@GetMapping("/processInvoiceFinance")
 	public String processInvoiceFinance(Model model, HttpServletRequest request, Principal principal) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "processInvoiceFinance";
 	}
 
 	@GetMapping("/InProcessInvoiceFinance")
 	public String InProcessInvoiceFinance(Model model, HttpServletRequest request, Principal principal) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "InProcessInvoiceFinance";
 	}
-	
+
 	@GetMapping("/pendingForApprovalInvoice")
 	public String pendingForApprovalInvoice(Model model, HttpServletRequest request, Principal principal) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "pendingForApprovalInvoice";
 	}
-	
+
 	@GetMapping("/paymentRelaseInvoice")
 	public String paymentRelaseInvoice(Model model, HttpServletRequest request, Principal principal) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "paymentRelaseInvoice";
 	}
-	
+
 	@GetMapping("/queryInvoiceFinance")
 	public String queryInvoiceFinance(Model model, HttpServletRequest request, Principal principal) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "queryInvoiceFinance";
 	}
-	
+
 	@GetMapping("/queryInvoiceVendor")
 	public String queryInvoiceVendor(Model model, HttpServletRequest request, Principal principal) {
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "queryInvoiceVendor";
 	}
-	
+
 	@RequestMapping("/getDoc")
 	@CrossOrigin("*")
-	void getDoc(HttpServletResponse response, HttpServletRequest request, @RequestParam("name") String name,@RequestParam("path") String path) {
+	void getDoc(HttpServletResponse response, HttpServletRequest request, @RequestParam("name") String name,
+			@RequestParam("path") String path) {
 
+		File file = null;
+		FileInputStream inputStream = null;
 		try {
 			String[] docNameExtensionArray = name.split("\\.");
 			String docNameExtension = docNameExtensionArray[docNameExtensionArray.length - 1];
@@ -724,10 +724,9 @@ public class UIController {
 
 			System.out.println("uri..." + name);
 
-			File file = new File(path);
-			FileInputStream inputStream = new FileInputStream(file);
+			file = new File(path);
+			inputStream = new FileInputStream(file);
 			response.setContentType("application/" + docNameExtension);
-			
 
 			response.setContentLength((int) file.length());
 			response.setHeader("Content-Disposition", "inline;filename=\"" + name + "\"");
@@ -737,6 +736,12 @@ public class UIController {
 		} catch (Exception e) {
 			e.printStackTrace();
 
+		} finally {
+			try {
+				inputStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

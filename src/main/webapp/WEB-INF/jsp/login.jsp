@@ -6,7 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html  lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -22,15 +22,14 @@
     <link rel="stylesheet" href="dist/css/ionicons.min.css">
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
 </head>
 
 <body>
 
     <div class="splitLeft left">
         <!--<div class="centered">-->
-        <img src="dist/img/vendorPortal.jpg" alt="Vendor Portal Logo" class="center brand-image" style="width: 80%;">
+        <img src="dist/img/vendorPortal.jpg" alt="Vendor Portal Logo" class="center brand-image" style="width: 70%;">
         <center>
             <h2 style="color: white;">Vendor Portal</h2>
             <br>

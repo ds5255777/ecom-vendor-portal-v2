@@ -15,6 +15,9 @@ public class InvoiceLineItem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name = "trip_id")
+	private String tripID;
+
 	@Column(name = "run_type")
 	private String runType;
 
@@ -57,6 +60,14 @@ public class InvoiceLineItem {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getTripID() {
+		return tripID;
+	}
+
+	public void setTripID(String tripID) {
+		this.tripID = tripID;
 	}
 
 	public String getRunType() {

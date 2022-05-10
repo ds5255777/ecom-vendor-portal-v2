@@ -22,12 +22,8 @@ import com.main.bean.DataContainer;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.Document;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
-import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
-import com.main.db.bpaas.repo.DocumentRepo;
-import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
-import com.main.db.bpaas.repo.QueryRepo;
-import com.main.db.bpaas.repo.TripDetailsRepo;
+import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/invoiceController")
 @RestController
@@ -37,16 +33,7 @@ public class InvoiceController {
 	private String filepath;
 
 	@Autowired
-	private InvoiceGenerationEntityRepo invoiceGenerationEntityRepo;
-
-	@Autowired
-	private TripDetailsRepo tripDetailsRepo;
-	
-	@Autowired
-	private QueryRepo queryRepo;
-
-	@Autowired
-	private DocumentRepo documentRepo;
+	private ServiceManager serviceManager;
 
 	@RequestMapping({ "/getAllInvoice" })
 	@CrossOrigin("*")
@@ -58,14 +45,15 @@ public class InvoiceController {
 		String vendorCode = principal.getName();
 		String rolename = (String) request.getSession().getAttribute("role");
 		try {
-			if(rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
-				List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllInvoice(vendorCode);
+			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
+						.getAllInvoice(vendorCode);
 				data.setData(pandingInvoice);
-			}else {
-				List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.findAll();
+			} else {
+				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo.findAll();
 				data.setData(pandingInvoice);
 			}
-			
+
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -85,7 +73,7 @@ public class InvoiceController {
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo
+			List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
 					.getAllProcessedInvoice(vendorCode);
 
 			data.setData(pandingInvoice);
@@ -107,7 +95,8 @@ public class InvoiceController {
 		String vendorCode = principal.getName();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllApproveInvoice(vendorCode);
+			List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
+					.getAllApproveInvoice(vendorCode);
 
 			data.setData(pandingInvoice);
 			data.setMsg("success");
@@ -119,7 +108,7 @@ public class InvoiceController {
 
 		return gson.toJson(data).toString();
 	}
-	
+
 	@RequestMapping({ "/getAllQueryInvoiceVendor" })
 	@CrossOrigin("*")
 	public String getAllQueryInvoiceVendor(Principal principal, HttpServletRequest request) {
@@ -128,7 +117,8 @@ public class InvoiceController {
 		String vendorCode = principal.getName();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> queryInvoice = invoiceGenerationEntityRepo.getAllQueryInvoiceVendor(vendorCode);
+			List<InvoiceGenerationEntity> queryInvoice = serviceManager.invoiceGenerationEntityRepo
+					.getAllQueryInvoiceVendor(vendorCode);
 
 			data.setData(queryInvoice);
 			data.setMsg("success");
@@ -151,7 +141,8 @@ public class InvoiceController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String vendorCode = principal.getName();
 		try {
-			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllRejectInvoice(vendorCode);
+			List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
+					.getAllRejectInvoice(vendorCode);
 
 			data.setData(pandingInvoice);
 			data.setMsg("success");
@@ -173,7 +164,8 @@ public class InvoiceController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String vendorCode = principal.getName();
 		try {
-			List<InvoiceGenerationEntity> pandingInvoice = invoiceGenerationEntityRepo.getAllRejectInvoice(vendorCode);
+			List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
+					.getAllRejectInvoice(vendorCode);
 
 			data.setData(pandingInvoice);
 			data.setMsg("success");
@@ -206,7 +198,7 @@ public class InvoiceController {
 
 			for (String str : split) {
 				System.out.println(str);
-				TripDetails findByTripID = tripDetailsRepo.findByTripID(str);
+				TripDetails findByTripID = serviceManager.tripDetailsRepo.findByTripID(str);
 				listofTrips.add(findByTripID);
 				System.out.println("Trip Details :" + findByTripID);
 			}
@@ -252,7 +244,7 @@ public class InvoiceController {
 				doc.setStatus("1");
 				doc.setType("Invoice");
 				doc.setForeignKey(obj.getEcomInvoiceNumber());
-				documentRepo.save(doc);
+				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
 					String b64 = obj.getInvoiceFileText();
@@ -277,7 +269,7 @@ public class InvoiceController {
 				doc.setStatus("1");
 				doc.setType("Invoice");
 				doc.setForeignKey(obj.getEcomInvoiceNumber());
-				documentRepo.save(doc);
+				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
 					String b64 = obj.getDocumentFileOneText();
@@ -294,7 +286,7 @@ public class InvoiceController {
 
 			if (null != obj.getDocumentFileTwoName()) {
 
-				fullFilePathWithName = filePath + "/" +"FS Calculation Sheet-"+ obj.getDocumentFileTwoName();
+				fullFilePathWithName = filePath + "/" + "FS Calculation Sheet-" + obj.getDocumentFileTwoName();
 
 				Document doc = new Document();
 				doc.setDocName(obj.getDocumentFileTwoName());
@@ -302,7 +294,7 @@ public class InvoiceController {
 				doc.setStatus("1");
 				doc.setType("Invoice");
 				doc.setForeignKey(obj.getEcomInvoiceNumber());
-				documentRepo.save(doc);
+				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
 					String b64 = obj.getDocumentFileTwoText();
@@ -316,7 +308,7 @@ public class InvoiceController {
 			}
 			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
 
-			Long idByinvocienumber = invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
+			Long idByinvocienumber = serviceManager.invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
 			System.out.println(idByinvocienumber);
 
 			if (null != idByinvocienumber) {
@@ -324,8 +316,8 @@ public class InvoiceController {
 				obj.setId(idByinvocienumber);
 				obj.setAssignTo("Finance");
 				System.out.println(ecomInvoiceNumber);
-				tripDetailsRepo.updateVendorTripStatusAgainsInvoiceNumber(ecomInvoiceNumber);
-				obj = invoiceGenerationEntityRepo.save(obj);
+				serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsInvoiceNumber(ecomInvoiceNumber);
+				obj = serviceManager.invoiceGenerationEntityRepo.save(obj);
 			}
 
 			data.setData(obj);
@@ -346,11 +338,11 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 		System.out.println("trip id : " + inviceObj.getInvoiceNumber());
-		//System.out.println("trip id : " + inviceObj.getEcomInvoiceNumber());
+		// System.out.println("trip id : " + inviceObj.getEcomInvoiceNumber());
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			inviceObj = invoiceGenerationEntityRepo.findByInvoiceNumber(inviceObj.getInvoiceNumber());
+			inviceObj = serviceManager.invoiceGenerationEntityRepo.findByInvoiceNumber(inviceObj.getInvoiceNumber());
 			data.setData(inviceObj);
 			data.setMsg("success");
 
@@ -370,7 +362,8 @@ public class InvoiceController {
 		String vendorCode = principal.getName();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> draftInvoice = invoiceGenerationEntityRepo.getDraftInvoice(vendorCode);
+			List<InvoiceGenerationEntity> draftInvoice = serviceManager.invoiceGenerationEntityRepo
+					.getDraftInvoice(vendorCode);
 
 			data.setData(draftInvoice);
 			data.setMsg("success");
@@ -394,8 +387,8 @@ public class InvoiceController {
 
 			Long id = obj.getId();
 			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
-			invoiceGenerationEntityRepo.deleteById(id);
-			tripDetailsRepo.updatetripStatusagainsInvoiceNumber(ecomInvoiceNumber);
+			serviceManager.invoiceGenerationEntityRepo.deleteById(id);
+			serviceManager.tripDetailsRepo.updatetripStatusagainsInvoiceNumber(ecomInvoiceNumber);
 
 			data.setMsg("success");
 
@@ -418,7 +411,7 @@ public class InvoiceController {
 
 			String tripID = obj.getTripID();
 
-			tripDetailsRepo.updateVendorTripStatus(tripID);
+			serviceManager.tripDetailsRepo.updateVendorTripStatus(tripID);
 
 			data.setMsg("success");
 
@@ -443,9 +436,9 @@ public class InvoiceController {
 
 			System.out.println(invoiceNumber);
 
-			tripDetailsRepo.discardDraftInvoice(invoiceNumber);
+			serviceManager.tripDetailsRepo.discardDraftInvoice(invoiceNumber);
 
-			tripDetailsRepo.updateVendorTripStatusAgainsInvoice(invoiceNumber);
+			serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsInvoice(invoiceNumber);
 
 			data.setMsg("success");
 
@@ -466,8 +459,8 @@ public class InvoiceController {
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			String invoiceNumber = invoiceGenerationEntityRepo.checkForExistingInvoiceNumber(obj.getVendorCode(),
-					obj.getInvoiceNumber());
+			String invoiceNumber = serviceManager.invoiceGenerationEntityRepo
+					.checkForExistingInvoiceNumber(obj.getVendorCode(), obj.getInvoiceNumber());
 
 			System.out.println(invoiceNumber);
 

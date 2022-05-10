@@ -63,7 +63,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 
                                                 ">
                                 <i class="nav-icon fas fa-file-contract"></i>
-                                <p>In-Process Invoice</p>
+                                <p>In-Review Invoice</p>
                             </a></li>
                     </ul>
                     

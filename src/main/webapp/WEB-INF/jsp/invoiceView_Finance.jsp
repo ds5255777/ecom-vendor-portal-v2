@@ -116,7 +116,7 @@
                                             <label class="col-sm-5">Site Name <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
                                                 <!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
-                                                <select class="form-control-sm select2" style="width: 100%;" id="siteName" name="siteName">
+                                                <select class="form-control-sm select2" disabled style="width: 100%;" id="siteName" name="siteName">
                                                     <option value="Site_1">Site 1</option>
                                                     <option value="Site_2">Site 2</option>
                                                     <option value="Site_3">Site 3</option>
@@ -129,7 +129,7 @@
                                             <label class="col-sm-5">Invoice Date <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
                                             <input type="hidden" id="id" name="id" disabled>
-                                                <input type="date" name="invoiceDate" id="invoiceDate" readonly class="form-control-sm" style="width: 100%;">
+                                                <input type="text" name="invoiceDate" id="invoiceDate" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -145,7 +145,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Currency <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency">
+                                                <select class="form-control-sm select2" disabled style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency">
                                                     <option value="INR">INR</option>
                                                     <option value="USD">USD</option>
                                                     <option value="KES">KES</option>
@@ -173,7 +173,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Tax Amount<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount"  style="width: 100%;" readonly>
+                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="text" placeholder="Tax Amount"  style="width: 100%;" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -181,7 +181,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Amount <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="number" name="invoiceAmount" id="invoiceAmount" placeholder="Invoice Amount" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" name="invoiceAmount" id="invoiceAmount" placeholder="Invoice Amount" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -206,6 +206,7 @@
                                 <table id="prTable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
+                                        <th style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
                                             <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
                                              <th style="padding: 5px 5px 5px 1.5rem;">Route</th> 
                                             <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
@@ -491,6 +492,8 @@
             "autoWidth": false,
             "aaSorting": []
         });
+        
+        $("input[type=text]").prop('disabled', true);
 
         var invoiceNumber = '${invoiceNumber}';
         var type = '${type}';
@@ -570,6 +573,9 @@
                             if (!tripLineArray[i].hasOwnProperty("runType")) {
                                 tripLineArray[i].runType = "";
                             }
+                            if (!tripLineArray[i].hasOwnProperty("tripID")) {
+                                tripLineArray[i].tripID = "";
+                            }
                             if (!tripLineArray[i].hasOwnProperty("route")) {
                                 tripLineArray[i].route = "";
                             }
@@ -606,7 +612,7 @@
                             if (!tripLineArray[i].hasOwnProperty("lineLevelDescription")) {
                                 tripLineArray[i].lineLevelDescription = "";
                             }
-                            $('#prTable').DataTable().row.add([tripLineArray[i].runType, tripLineArray[i].route, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate, tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription]);
+                            $('#prTable').DataTable().row.add([tripLineArray[i].tripID, tripLineArray[i].runType, tripLineArray[i].route, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate, tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription]);
                         }
                         $("#invoiceNumber").val(result.invoiceNumber);
                         $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);

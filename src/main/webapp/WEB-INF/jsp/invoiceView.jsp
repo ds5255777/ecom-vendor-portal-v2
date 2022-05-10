@@ -198,26 +198,24 @@
                         <!-- /.card-header -->
                         <form id="stepTwoForm" class="forms-sample">
                             <div class="card-body" style="overflow: auto;">
-
 								<div class="col-md-12">
-
 									<div class="table-responsive">
-										
 										<table id="prTable" class="table table-bordered">
 		                                    <thead>
 		                                        <tr>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-		                                             <th style="padding: 5px 5px 5px 1.5rem;">Route</th> 
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Current Fuel Rate</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">FS</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-		                                            <th style="padding: 5px 5px 5px 1.5rem;">Line level Description</th>
+		                                         <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th> 
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Current Fuel Rate</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
+		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Line level Description</th>
 		                                        </tr>
 		                                    </thead>
 		                                </table>
@@ -495,6 +493,9 @@
                         setData(myForm, result);
                         $('#prTable').DataTable().clear();
                         for (var i = 0; i < tripLineArray.length; i++) {
+                            if (!tripLineArray[i].hasOwnProperty("tripID")) {
+                                tripLineArray[i].tripID = "";
+                            }
                             if (!tripLineArray[i].hasOwnProperty("runType")) {
                                 tripLineArray[i].runType = "";
                             }
@@ -534,7 +535,7 @@
                             if (!tripLineArray[i].hasOwnProperty("lineLevelDescription")) {
                                 tripLineArray[i].lineLevelDescription = "";
                             }
-                            $('#prTable').DataTable().row.add([tripLineArray[i].runType, tripLineArray[i].route, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate, tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription]);
+                            $('#prTable').DataTable().row.add([tripLineArray[i].tripID,tripLineArray[i].runType, tripLineArray[i].route, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate, tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription]);
                         }
                         $("#invoiceNumber").val(result.invoiceNumber);
                         $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);

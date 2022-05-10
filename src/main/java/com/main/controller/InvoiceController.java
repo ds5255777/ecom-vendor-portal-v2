@@ -50,7 +50,7 @@ public class InvoiceController {
 						.getAllInvoice(vendorCode);
 				data.setData(pandingInvoice);
 			} else {
-				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo.findAll();
+				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo.getAllNetworkInvoice();
 				data.setData(pandingInvoice);
 			}
 

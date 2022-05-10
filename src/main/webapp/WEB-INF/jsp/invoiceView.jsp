@@ -200,22 +200,22 @@
                             <div class="card-body" style="overflow: auto;">
 								<div class="col-md-12">
 									<div class="table-responsive">
-										<table id="prTable" class="table table-bordered">
+										<table id="prTable" class="table table-bordered responsive">
 		                                    <thead>
 		                                        <tr>
-		                                         <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
-		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th> 
-		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
-		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Current Fuel Rate</th>
-		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
-		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
-		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
-		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS</th>
-		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-		                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Line level Description</th>
+		                                         <th class="bg-primary" >Trip Id</th>
+		                                            <th class="bg-primary" >Run Type</th>
+		                                            <th class="bg-primary" >Route</th> 
+		                                            <th class="bg-primary" >Standard KM</th>
+		                                            <th class="bg-primary" >Rate per km</th>
+		                                            <th class="bg-primary" >Current Fuel Rate</th>
+		                                            <th class="bg-primary" >FS Base Rate</th>
+		                                            <th class="bg-primary" >FS Diff</th>
+		                                            <th class="bg-primary" >Basic Freight</th>
+		                                            <th class="bg-primary" >FS</th>
+		                                            <th class="bg-primary" >Actual KM</th>
+		                                            <th class="bg-primary" >Total Freight</th>
+		                                            <th class="bg-primary" >Line level Description</th>
 		                                        </tr>
 		                                    </thead>
 		                                </table>
@@ -297,10 +297,10 @@
 											id="tabledataQuery">
 											<thead>
 												<tr>
-													<th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
-													<th style="padding: 5px 5px 5px 1.5rem;">Raised By</th>
-													<th style="padding: 5px 5px 5px 1.5rem;">Raised On</th>
-													<th style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
+													<th class="bg-primary"  >S.No</th>
+													<th class="bg-primary"  >Raised By</th>
+													<th class="bg-primary" >Raised On</th>
+													<th class="bg-primary" >Remarks</th>
 												</tr>
 											</thead>
 											<tbody>

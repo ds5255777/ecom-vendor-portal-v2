@@ -207,7 +207,7 @@
 									<i class="fas fa-file-invoice-dollar"
 										style="color: #1F8BFF; font-size: 50px;"></i>
 								</div>
-								<a href="pendingInvoice" class="small-box-footer"
+								<a href="invoicesQueue" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
 									info <i class="fas fa-arrow-circle-right"></i>
 								</a>

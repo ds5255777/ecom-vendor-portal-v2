@@ -379,8 +379,11 @@ public class UIController {
 	}
 
 	@GetMapping("/invoicesQueue")
-	public String invoicesQueue(Model model, Principal principal) {
+	public String invoicesQueue(Model model, Principal principal, HttpServletRequest request) {
+		
+		String rolename = (String) request.getSession().getAttribute("role");
 		model.addAttribute("dataLimit", dataLimit);
+		model.addAttribute("rolename", rolename);
 		return "invoicesQueue";
 	}
 

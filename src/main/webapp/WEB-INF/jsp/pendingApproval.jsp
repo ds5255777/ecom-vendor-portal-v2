@@ -510,7 +510,7 @@ tbody {
 															<label class="col-sm-5"
 																title="Opening Reading">Opening Reading</label>
 															<div class="col-sm-7">
-																<input type="text" class="form-control"
+																<input type="text" class="form-control" placeholder="Trip Strating reading"
 																	id="openingReading" name="openingReading">
 															</div>
 														</div>
@@ -520,7 +520,7 @@ tbody {
 															<label class="col-sm-5"
 																title="Closing Reading">Closing Reading</label>
 															<div class="col-sm-7">
-																<input type="text" class="form-control"
+																<input type="text" class="form-control" placeholder="Trip Closing reading"
 																	id="closingReading" name="closingReading">
 															</div>
 														</div>
@@ -533,7 +533,7 @@ tbody {
 																placeholder="Remarks if any" rows="3"></textarea>
 														</div>
 														</div>
-														<div class="col-md-1"></div>
+														<div class="col-md-1"><input type="hidden" id="id" name="id" disabled></div>
 														<div class="col-md-3">
 
 															<div class="form-group row">
@@ -868,52 +868,6 @@ tbody {
                 globalTripId = tripId;
             }
       
-            function updateTripData() {
-
-                if (globalTripId == "") {
-                    return;
-                }
-
-                var obj = {
-                    "tripID": globalTripId,
-                    "vendorTripStatus": "Approved"
-                }
-				
-                $('.loader').show();
-
-                $.ajax({
-                    type: "POST",
-                    url: "<%=GlobalUrl.updateVendorTripStatusByTripId%>",
-                    data: JSON.stringify(obj),
-                    dataType: "json",
-                    contentType: "application/json",
-                    success: function(response) {
-                        $('.loader').hide();
-                        $("#myModal").modal('hide');
-                        if (response.msg == "success") {
-                        	
-                        	swal.fire("", "Trip Approved Successfully.", "success", "OK").then(function() {
-                        		 $("#tripValue").modal('hide');
-                            });
-                            
-                        	getData();
-                        } else {
-                            Toast.fire({
-                                type: 'error',
-                                title: 'Failed Added..'
-                            })
-                        }
-                    },
-                    error: function(jqXHR, textStatue, errorThrown) {
-                        $('.loader').hide();
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed Added..'
-                        })
-                    }
-                });
-            }
-
             //get Trip All Details
             function getTripDataFormDataByTripId(tripId) {
                 console.log("Trip Id : " + tripId);
@@ -999,6 +953,7 @@ tbody {
                     contentType: "application/json",
 
                     success: function(response) {
+                    	
                         if (response.msg == 'success') {
                         	
                         	
@@ -1023,14 +978,14 @@ tbody {
                 });
             }
             
-function updateTripDataByVendor(tripID){
+function updateTripData(){
 	
-	if (tripID == "") {
+	if (globalTripId == "") {
         return;
     }
 
     var obj = {
-        "tripID": tripID,
+        "tripID": globalTripId,
         "vendorTripStatus": "Approved",
         "openingReading":$("#openingReading").val(),
         "closingReading":$("#closingReading").val(),
@@ -1046,9 +1001,11 @@ function updateTripDataByVendor(tripID){
         contentType: "application/json",
         success: function(response) {
             $('.loader').hide();
-            $("#tripValue").modal('hide');
+            $("#myModal").modal('hide');
+           /*  $("#tripValue").modal('hide'); */
             if (response.msg == "success") {
             	swal.fire("", "Trip Approved Sucessfully.", "success", "OK")
+            	$("#tripValue").modal('hide');
                 getData();
             } else {
                 Toast.fire({

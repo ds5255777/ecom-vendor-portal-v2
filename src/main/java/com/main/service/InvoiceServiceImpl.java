@@ -16,7 +16,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	@Override
 	public InvoiceGenerationEntity getInvoiceById(Long id) {
-		InvoiceGenerationEntity invoice = this.invoiceGenerationEntityRepo.findById(id).orElseThrow();
+		InvoiceGenerationEntity invoice = this.invoiceGenerationEntityRepo.findById(id).orElseThrow(null);
 		return invoice;
 	}
 

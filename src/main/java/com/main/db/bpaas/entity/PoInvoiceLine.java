@@ -57,6 +57,18 @@ public class PoInvoiceLine {
 	@Column(name = "remaning_quatity")
 	private String remaningQuatity;
 	
+	
+	@Column(name = "base_Amount")
+	private String baseAmount;
+	@Column(name = "Quntity")
+	private String quntity;
+	@Column(name = "tax_Amount")
+	private String taxAmount;
+	@Column(name = "taxper")
+	private String taxper;
+	@Column(name = "total_Amount")
+	private String totalAmount;
+	
 
 	public Long getId() {
 		return id;
@@ -160,6 +172,48 @@ public class PoInvoiceLine {
 
 	public void setRemaningQuatity(String remaningQuatity) {
 		this.remaningQuatity = remaningQuatity;
+	}
+
+	public String getBaseAmount() {
+		return baseAmount;
+	}
+
+	public void setBaseAmount(String baseAmount) {
+		this.baseAmount = baseAmount;
+	}
+
+	
+
+	public String getQuntity() {
+		return quntity;
+	}
+
+	public void setQuntity(String quntity) {
+		this.quntity = quntity;
+	}
+
+	public String getTaxAmount() {
+		return taxAmount;
+	}
+
+	public void setTaxAmount(String taxAmount) {
+		this.taxAmount = taxAmount;
+	}
+
+	public String getTaxper() {
+		return taxper;
+	}
+
+	public void setTaxper(String taxper) {
+		this.taxper = taxper;
+	}
+
+	public String getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(String totalAmount) {
+		this.totalAmount = totalAmount;
 	}
 	
 	

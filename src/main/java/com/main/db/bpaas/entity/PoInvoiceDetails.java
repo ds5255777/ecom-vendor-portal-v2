@@ -98,6 +98,9 @@ public class PoInvoiceDetails {
 	@Column(name = "Amount")
 	private String amount;
 	
+	@Column(name = "gross_Total_Amt")
+	private String grossTotalAmt;
+	
 	
 	
 
@@ -341,6 +344,14 @@ public class PoInvoiceDetails {
 
 	public void setAmount(String amount) {
 		this.amount = amount;
+	}
+
+	public String getGrossTotalAmt() {
+		return grossTotalAmt;
+	}
+
+	public void setGrossTotalAmt(String grossTotalAmt) {
+		this.grossTotalAmt = grossTotalAmt;
 	}
 
 

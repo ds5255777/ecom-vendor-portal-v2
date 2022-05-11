@@ -16,6 +16,7 @@ import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoInvoiceDetails;
+import com.main.db.bpaas.entity.PoInvoiceLine;
 import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.PoInvoiceRepo;
 
@@ -108,9 +109,13 @@ public class PoInvoiceContoller {
 				//invoiceDetails.setId(ecomInvoiceNumber);
 				System.out.println(ecomInvoiceNumber);
 				
-								
+				List<PoInvoiceLine> poInvoiceLine =invoiceDetails.getPoInvoiceLine();
+				//poInvoiceLine.remaningQuatity;
+				
+				 {				
 				poDetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(ecomInvoiceNumber);
 				
+				}
 				
 				invoiceDetails.setStatus("In-Review");
 				invoiceDetails.setVendorCode(vendorCode);

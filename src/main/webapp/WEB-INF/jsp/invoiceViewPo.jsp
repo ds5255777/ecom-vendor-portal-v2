@@ -371,7 +371,7 @@
                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Remaning Quantity</th>
                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Quantity Invoiced</th>
-                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Unit Price</th>
+                                       
                                         <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">UOM</th>
                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Tax %</th>
                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Base Amount</th>
@@ -639,10 +639,13 @@
                                 tripLineArray[i].gldate = "";
                             }
                             
-                            $('#prTable').DataTable().row.add([tripLineArray[i].lineType, tripLineArray[i].amount, tripLineArray[i].poNumber, tripLineArray[i].poline, tripLineArray[i].receiptNumber, tripLineArray[i].receiptline, tripLineArray[i].quantityInvoiced, tripLineArray[i].uom, tripLineArray[i].unitPrice, tripLineArray[i].description, tripLineArray[i].gldate]);
-                        }
-                       // $("#invoiceNumber").val(result.invoiceNumber);
-                       // $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);
+                            $('#prTable').DataTable().row.add([i + 1,tripLineArray[i].receiptline,tripLineArray[i].description,tripLineArray[i].lineType,tripLineArray[i].poline,tripLineArray[i].gldate,tripLineArray[i].quntity,tripLineArray[i].remaningQuatity,tripLineArray[i].quantityInvoiced,tripLineArray[i].uom,tripLineArray[i].taxper,tripLineArray[i].baseAmount,tripLineArray[i].taxAmount,tripLineArray[i].totalAmount]);
+                         }
+                         var  grossamt= "<input type=\"text\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";
+                         prTable.row.add(["","","","","","","","","","","","Total","","",grossamt,""]);
+                      
+                         
+                    
                         $('#prTable').DataTable().draw();
                         $("tbody").show();
                     } else {

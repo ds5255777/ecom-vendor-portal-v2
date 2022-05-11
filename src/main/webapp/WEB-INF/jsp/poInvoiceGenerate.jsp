@@ -399,6 +399,7 @@
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
                                     <i class="fas fa-minus"></i>
                                 </button>
+                                <input type="hidden" id="grossamt"> 
                             </div>
                         </div>
                         
@@ -620,9 +621,25 @@
     <script>
        
   var tripLineArray=[];
+  var price1=[];
+  
     
     var  poNo='${PoNumber}';
+    var  grosstotalamt=0;
    // alert("poNo"+poNo)
+   
+//   var prTable = $('#prTable').DataTable();
+  // var prTable1 = $('#prTable').DataTable();
+   
+   var prTable = $('#prTable').DataTable({
+		"paging" : false,
+		"lengthChange" : false,
+		"searching" : false,
+		"info" : false,
+		"autoWidth" : false,
+		"aaSorting" : [],
+		"scrollX" : false
+	});
    
    getPoDetails();
    var id; 
@@ -687,9 +704,12 @@
                     
                  //   Quantity	Remaning Quantity 	Quantity Invoiced	Unit Price	UOM	Tax Percentage	Base Amount	Tax Amount	Total Amount
                     
-                    $('#prTable').DataTable().clear();
+                   // $('#prTable').DataTable().clear();
+                  //var grossamt=$('#grossamt').val();
+                 prTable.clear();
                     for (var i = 0; i < tripLineArray.length; i++) {
                     	 id=tripLineArray[i].id;
+                    	 price1[i]=tripLineArray[i].price;
                     	// var remaningQuat;
                     	 if(tripLineArray[i].remaningQuatity!=null){
                     		 remaningQuat= tripLineArray[i].remaningQuatity;
@@ -736,39 +756,30 @@
                             result[i].lumpsomeamount = "0";
                         } */  
                         var totalamot;
-                        var receipentLine= "<input type=\"text\" id=\"receipentLine_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('receipentLine','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+                        var receipentLine= "<input type=\"text\" id=\"receipentLine_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('receiptline','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
                         var description= "<input type=\"text\" id=\"description_"+i+"\" readonly style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('description','"+i+"',this.value)\" value=\"" + tripLineArray[i].description + "\" class=\"form-control-sm \" \"> ";
                         var lineType= "<input type=\"text\" id=\"lineType_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('lineType','"+i+"',this.value)\"  class=\"form-control-sm \" \"> ";
-                        var poline= "<input type=\"text\" id=\"poline_"+i+"\" style=\"width: 70px; height: 28px;\" class=\"form-control-sm \" \"> ";
-                        var glDate= "<input type=\"date\" id=\"glDate_"+i+"\" style=\"width: 100px; height: 28px;\" class=\"form-control-sm \" \"> ";
+                        var poline= "<input type=\"text\" id=\"poline_"+i+"\" oninput=\"updatePOLineItem('poline','"+i+"',this.value)\" style=\"width: 70px; height: 28px;\" class=\"form-control-sm \" \"> ";
+                        var glDate= "<input type=\"date\" id=\"glDate_"+i+"\" oninput=\"updatePOLineItem('gldate','"+i+"',this.value)\" style=\"width: 100px; height: 28px;\" class=\"form-control-sm \" \"> ";
                         var remaningQuantity= "<input type=\"text\" readonly id=\"remaningQuantity_"+i+"\" style=\"width: 100%; height: 28px;\" class=\"form-control-sm \" \"> ";
                         var quantity= "<input type=\"text\" readonly style=\"width: 100px; height: 28px;\" value=\"" + remaningQuat + "\" class=\"form-control-sm \" \"> ";
                         var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
-                        var unitPrice= "<input type=\"text\" id=\"unitPrice_"+i+"\" readonly style=\"width: 100px; height: 28x;\" value=\"" + tripLineArray[i].price + "\" oninput=\"updatePOLineItem('receipentLine','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+                        var unitPrice= "<input type=\"text\" id=\"unitPrice_"+i+"\" readonly style=\"width: 100px; height: 28x;\" value=\"" + tripLineArray[i].price + "\"  class=\"form-control-sm \" \"> ";
                         var uom= "<input type=\"text\" id=\"uom_"+i+"\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
                         var taxAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"  id=\"tax_"+i+"\" class=\"form-control-sm \" \"> ";
-                        var baseAmount= "<input type=\"text\" style=\"width: 110px; height: 28px;\"   id=\"baseAmt_"+i+"\"   class=\"form-control-sm \" > ";
+                        var baseAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"   id=\"baseAmt_"+i+"\"   class=\"form-control-sm \" > ";
                         var taxPercentage= "    <select  class=\"form-control-sm \" style=\"width: 67px; height: 28px;\" id=\"taxper_"+i+"\"  onchange=\"updatetotalAmount(this.value,'"+i+"')\" > <option value=\"0\" \">0%</option><option value=\"5\"  \">5%</option><option value=\"8\"  \">8%</option><option value=\"18\" \">18%</option><option value=\"28\" \">28%</option> </select > ";
                         var totalAmount= "<input type=\"text\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"totamt_"+i+"\" > ";
-                        
-                        
-                       // action = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteRow('" + result[i].tripID + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-						$('#prTable').DataTable().row.add([i + 1,receipentLine,description,lineType,poline,glDate,quantity,remaningQuantity,quantityInvoiced,unitPrice,uom,taxPercentage,baseAmount,taxAmount,totalAmount]);
-                        
-						alert($("#unitPrice_"+i).val())
-						
-						/* var invoicelineitem={
-								"receipentLine" : $("#receipentLine_"+i).val(),
-								"description"   :   $("#description_"+i).val()
-						} 
-						 */
-
-						
-						
-                        //Receipent Line	Description	Line Type	PO Line	GL Date
-                       // Quantity	Remaning Quantity 	Quantity Invoiced	Unit Price	UOM	Tax Percentage	Base Amount	Tax Amount	Total Amount
-                    }
-                    $('#prTable').DataTable().draw();
+                       
+						prTable.row.add([i + 1,receipentLine,description,lineType,poline,glDate,quantity,remaningQuantity,quantityInvoiced,unitPrice,uom,taxPercentage,baseAmount,taxAmount,totalAmount]);
+				  }
+                    
+                  var  grossamt= "<input type=\"text\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";
+                    prTable.row.add(["","","","","","","","","","","","Total","","",grossamt,""]);
+                 
+                   
+                    prTable.draw();
+                   
                     $("tbody").show();
                        
                     
@@ -806,69 +817,120 @@
 	  console.log(tripLineArray);
   }
   
+  
   function updatetotalAmount(value,index){
-	   
-  	if(value==""){
+	  var quntity =$("#quantityInvoiced_"+index).val();
+  	if(value=="" || quntity==""){
   		
   		return;
   	}
-  	var baseamt = $("#baseAmt_"+index).val();
-  	//var baseamt =parseFloat(tripLineArray[index].price);
-  	var taxamt=baseamt*(parseFloat(value)/100);
-  	taxamt=parseFloat(taxamt).toFixed(2);
-  	$("#tax_"+index).val(taxamt);
-  	var totalAmount=(parseFloat(baseamt)+parseFloat(taxamt)).toFixed(2);
+  	
+  	
+  	if(quntity==""){
+  		
+  	}
+  	quntity =parseFloat($("#quantityInvoiced_"+index).val());
+  	
+    var unitprice =parseFloat($("#unitPrice_"+index).val());
+  	var baseAmount=(parseFloat(unitprice)*parseFloat(quntity)).toFixed(2);
+	 $("#baseAmt_"+index).val(baseAmount);
+	 
+	 baseAmount=parseFloat(baseAmount); 
+	 tripLineArray[index].baseAmount=baseAmount;
+	 
+  	var taxAmount=baseAmount*(parseFloat(value)/100);
+  	taxAmount=parseFloat(taxAmount).toFixed(2);
+  	$("#tax_"+index).val(taxAmount);
+  	 
+  	var totalAmount=(parseFloat(baseAmount)+parseFloat(taxAmount)).toFixed(2);
   	
   	$("#totamt_"+index).val(totalAmount);
   	
   	
+  	
+  //	grosstotalamt=(parseFloat(grosstotalamt)+parseFloat(totalAmount)).toFixed(2);
+  	
+  	
+  	
+  	 tripLineArray[index].totalAmount=totalAmount;
+  	 tripLineArray[index].taxAmount=taxAmount;
+  	 tripLineArray[index].taxper=value;
+  	 
+  	calculateGrossAmt();
+	  
+  	 
   }
  
+  
+  function calculateGrossAmt(){
+	  grosstotalamt=0;
+	  	 for(var k=0; k<tripLineArray.length; k++){
+	  		 
+	  		 if(tripLineArray[k].hasOwnProperty("totalAmount")){
+	  			grosstotalamt += parseFloat(tripLineArray[k].totalAmount);
+	  		 }
+	  	 }
+	  	 
+	  	 
+	  	 
+	  	$("#grossAmt").val(parseFloat(grosstotalamt).toFixed(2));
+	  	 tripLineArray.grossTotalAmt=grosstotalamt;
+		  
+  }
+  
+  function setTripArrayDataBlankForIndex(index){
+	  
+	  $("#quantityInvoiced_"+index).val("");
+	   $("#baseAmt_"+index).val("");
+	   $("#remaningQuantity_"+index).val("");
+	   $("#tax_"+index).val("");
+	   $("#totamt_"+index).val("");
+	  
+	  tripLineArray[index].totalAmount=0;
+	  	 tripLineArray[index].taxAmount=0;
+	  	 tripLineArray[index].taxper=0;
+	  	tripLineArray[index].baseAmount=0;
+	  	tripLineArray[index].quantityInvoiced=""; 
+	  	
+	  	calculateGrossAmt();
+  }
+  
   var remaningQuatity=[];
   var remanId=[];
  function updatebaseaAmt(reId, index,quntity){
-	   var allquantity =parseFloat(tripLineArray[index].quantity)
-	   
-	   //var allquantity = remaningQuat;
-		  var  remaningQuantity="";
+	 
+	 
+	 if(quntity==""){
 		 
-			 
-		  		 if(allquantity>=parseFloat(quntity)){
-						
-					   var unitprice =parseFloat(tripLineArray[index].price);
-					   
-					var baseamt=(parseFloat(unitprice)*parseFloat(quntity)).toFixed(2);
-					 $("#baseAmt_"+index).val(baseamt);
-	 			
-					 
-					 var taxper = $("#taxper_"+index).val();
-					 
-					  remaningQuantity= allquantity-quntity;
+		 setTripArrayDataBlankForIndex(index);
+		 return; 
+	 }
+	   var allquantity =parseFloat(tripLineArray[index].quantity)
+	   //var allquantity = remaningQuat;
+		 quntity=parseFloat(quntity);
+		  		 if(quntity<=allquantity){
+		  			 
+		  			tripLineArray[index].quantityInvoiced=quntity; 
+		  			 var  remaningQuantity= allquantity-quntity;
 					  $("#remaningQuantity_"+index).val(remaningQuantity);
-					  
-					  
-					 
-					  // remanId=reId;
+					 var taxper = $("#taxper_"+index).val();
+					 tripLineArray[index].remaningQuatity=remaningQuantity;
+						tripLineArray[index].lineitemId=reId; 
+					 updatetotalAmount(taxper,index);
+					 //  remanId=reId;
 					  // remaningQuatity=remaningQuantity;
-						  
-					   remanId.push(reId);
-					   remaningQuatity.push(remaningQuantity);			        
-				              
 					
+					 //  remanId.push(reId);
+					 //  remaningQuatity.push(remaningQuantity);			        
+					  // tripLineArray[index].remaningQuantity=remaningQuantity;   
+					  
+					  // tripLineArray[index].taxper=taxper;
 	    
 				   }else{
 					  // alert("kjhlkjh");
-					   $("#quantityInvoiced_"+index).val("");
-					   $("#baseAmt_"+index).val("");
-					   $("#remaningQuantity_"+index).val(remaningQuantity);
-					  
-					   
-				   }	if(allquantity!=""){
-						 updatetotalAmount(taxper,index);
-					 }else{
-						 //parseFloat( $("#tax_"+index).val(""));
-						// parseFloat($("#totamt_"+index).val(""));
-					 }
+					  alert("Quantity is greater");
+					  setTripArrayDataBlankForIndex(index);
+                   }	
 	 }
 	  
   
@@ -899,9 +961,15 @@
             ...stepThreeObj
             
         };
+        for(var i=0;i<tripLineArray.length;i++){
+            delete tripLineArray[i].id
+            delete tripLineArray[i].amount
+           // delete tripLineArray[i].price
+           };
+            finalObj.poInvoiceLine=tripLineArray;
        
-        
-        
+       /*  var PoInvoiceLine=tripLineArray;
+        finalObj.push(PoInvoiceLine); */
        // finalObj.poInvoiceLine.poNumber =poNo;
         finalObj.matchOption=matchOption;
 
@@ -943,6 +1011,10 @@
 
    
     function sendToServer() {
+    	
+    	
+    	
+    	console.log("..."+tripLineArray);
     	
     	//invoiceDate
 		var invoiceDa = document.getElementById("invoiceDate").value;
@@ -1039,7 +1111,16 @@
             
         };
         
-       
+        var obj={};
+        obj.poInvoiceLine=tripLineArray;
+        
+       for(var i=0;i<tripLineArray.length;i++){
+        delete tripLineArray[i].id
+        delete tripLineArray[i].amount
+        delete tripLineArray[i].price
+       };
+        finalObj.poInvoiceLine=tripLineArray;
+         
         //finalObj.poInvoiceLine.poNumber =poNo;
         finalObj.matchOption=matchOption;
         
@@ -1049,22 +1130,22 @@
         console.log(finalObj);
 //return;
 
-       for(var i=0;i<remaningQuatity.length;i++){
+      /*  for(var i=0;i<remaningQuatity.length;i++){
 		var invoicelineobj={
 			//"receipentLine"	
 				
 		}
 
-      }
+      } */
 
-       for(var i=0;i<remaningQuatity.length;i++){
+     /*   for(var i=0;i<remaningQuatity.length;i++){
        
 		 var obj = {
 		            "remaningQuatity" : remaningQuatity[i],
 		            
 		  			"id"  : remanId[i]
 		        }
-		  
+		   */
 	  
 	  $.ajax({
            type: "POST",
@@ -1095,7 +1176,7 @@
 	  });
    
 	 
-    }
+    
 
 
 
@@ -1110,7 +1191,7 @@
             success: function(response) {
 
             	 if (response.msg == 'success') {
-                     swal.fire("Thanks", "Invoice Process Sucessfully", "Success", "OK").then(function() {
+                     swal.fire("Thanks", "Invoice Process Sucessfully", "success", "OK").then(function() {
                     	 successflag=1;
                          window.close();
                        
@@ -1152,7 +1233,13 @@
     	            
     	        };
     	        
-    	       
+    	        for(var i=0;i<tripLineArray.length;i++){
+    	            delete tripLineArray[i].id
+    	            delete tripLineArray[i].amount
+    	            delete tripLineArray[i].price
+    	           };
+    	            finalObj.poInvoiceLine=tripLineArray;
+    	        
     	       // finalObj.poInvoiceLine.poNumber =poNo;
     	        finalObj.matchOption=matchOption;
 

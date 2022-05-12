@@ -207,12 +207,11 @@ public class PoUiController {
 		public String poInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 
 			String userName = principal.getName();
-			//String userNameIs = userName.substring(0, 4).toUpperCase();
+			
 			String userNameIs ="00000000";
 			String invoiceNumber = "";
 
-			//invoiceNumber = "ECOM-" + userNameIs.concat(new SimpleDateFormat("yyyyHHmmssSSS").format(new Date()));
-			 
+				 
 			invoiceNumber = "ECOM-" + userNameIs +i;
 			i++;
 

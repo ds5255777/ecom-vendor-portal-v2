@@ -75,7 +75,7 @@
                                             </div>
                                           <div class="col-md-4">
                                             <div class="form-group">
-                                                <input type="text" name="toDate" placeholder="Select End NeedByDate" required class="form-control" id="toDate" style="height: 34px;width: 190px;">
+                                                <input type="text" name="toDate" placeholder="Select Ending NeedByDate" required class="form-control" id="toDate" style="height: 34px;width: 190px;">
                                            
                                             </div>
                                             

@@ -31,50 +31,7 @@
     <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 
-    <!-- <script>
-        var statusObject = {
-            "In-Transit": {
-                "Yet To Be Approved": ["NA"],
-                "Query": ["NA"],
-            },
-            "Closed": {
-                "Yet To Be Approved": ["NA"],
-                "Approved": ["Pending"],
-                "Draft-Invoicing": ["Pending"],
-                "Invoicing": ["Pending", "Approved"],
-            }
-        }
-        window.onload = function() {
-            var tripStatus = document.getElementById("selectTripStatus");
-            var status = document.getElementById("selectStatus");
-            var paymentStatus = document.getElementById("selectPaymentStatus");
-            for (var x in statusObject) {
-                tripStatus.options[tripStatus.options.length] = new Option(x, x);
-            }
-            tripStatus.onchange = function() {
-                //empty Chapters- and Topics- dropdowns
-                paymentStatus.length = 1;
-                status.length = 1;
-                //display correct values
-                for (var y in statusObject[this.value]) {
-                    status.options[status.options.length] = new Option(y, y);
-                }
-                GetSelectedTextValue();
-            }
-            status.onchange = function() {
-                //empty Chapters dropdown
-                paymentStatus.length = 1;
-                //display correct values
-                var z = statusObject[tripStatus.value][this.value];
-                for (var i = 0; i < z.length; i++) {
-                    paymentStatus.options[paymentStatus.options.length] = new Option(z[i], z[i]);
-                }
-                GetSelectedTextValue();
-            }
-        }
-
-    </script>
- -->    <style>
+   <style>
         custom-file-input {
             height: 25px;
             font-size: 14px;
@@ -605,10 +562,29 @@
                         
                         if(result.length!=0 ){
                         	
-                        var poLineDetails = result[0].poLineDetails;
+                        	  var poLineDetails = result[0].poLineDetails;
+                        	
+                        	  /*
+                        	 for(var k = 0; k< poLineDetails.length; k++){
+                        	 if( poLineDetails[k] !== undefined ){
+                        		 poLineDetails[k]
+                        		
+           					}else{
+           						document.getElementById("glDate").type="date"; 
+                               	
+                               	 
+                               }	
+                        	
+                        	 } */
+                        	
+                       
+                        
+                        
+                        
                      
                         for (var i = 0; i < result.length; i++) {
-                        	for(var k = 0; k< poLineDetails.length; k++){
+                        	
+                        	
                         	if(!result[i].hasOwnProperty("id")){
  								result[i].id="";
  							}
@@ -618,35 +594,38 @@
                              if(!result[i].hasOwnProperty("type")){
  								result[i].type="";
  							}
-                              if(!result[i].poLineDetails[k].hasOwnProperty("uom")){
- 								result[i].poLineDetails[k].uom="";
+                              if(!result[i].hasOwnProperty("uom")){
+ 								result[i].uom="";
  							}
-                             if(!result[i].poLineDetails[k].hasOwnProperty("quantity")){
- 								result[i].poLineDetails[k].quantity="";
+                             if(!result[i].hasOwnProperty("quantity")){
+ 								result[i].quantity="";
  							}
                              if(!result[i].hasOwnProperty("needByDate")){
   								result[i].needByDate="";
   							} 
-                             if(!result[i].poLineDetails[k].hasOwnProperty("amount")){
-  								result[i].poLineDetails[k].ammount="";
+                             if(!result[i].hasOwnProperty("amount")){
+  								result[i].ammount="";
   							}
                              if(!result[i].hasOwnProperty("status")){
- 								result[i].poLineDetails[i].status="";
+ 								result[i].status="";
  							}
                              
 							 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getPoDataFormDataByPoNumber('" +  result[i].poNo + "')\" >" + result[i].poNo + "</button>";
                             var unprocess_status = '<span class=\"right badge badge-warning\">UnProcess</span>';
                             var process_status = '<span class=\"right badge badge-success\">Process</span>';
+                            var inReview_status = '<span class=\"right badge badge-primary\">In-Review</span>';
                              var postatus="";                       
                          if (result[i].status == "Process") {
                         	 postatus = process_status;
 
                               } else if(result[i].status == "Unprocess"){
                             	  postatus = unprocess_status;
+                              }  else if(result[i].status == "In-Review"){
+                            	  postatus = inReview_status;
                               } 
-                            tabledata.row.add([view ,result[i].type,result[i].poLineDetails[k].uom,result[i].poLineDetails[k].quantity,result[i].needByDate,result[i].poLineDetails[k].amount,postatus ]);  				        	
+                            tabledata.row.add([view ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].amount,postatus ]);  				        	
                         }
-                        }
+                        
                         tabledata.draw();
                         $("tbody").show();
                         }else{
@@ -655,7 +634,7 @@
                             tabledata.draw();
                         	 Toast.fire({
                         		 type: 'error',
-                                 title: 'No.. Data Found !..'
+                                 title: 'Data Not Found !'
                              })
                         }
                     } else {

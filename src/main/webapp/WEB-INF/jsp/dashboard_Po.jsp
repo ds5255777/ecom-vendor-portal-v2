@@ -157,6 +157,32 @@ tbody {
 							</div>
 						</div>
 
+
+							
+						<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${totalQueryCount}</h2>
+
+									<p id="allInactive" data-toggle="tooltip"
+										data-placement="bottom" title="Query">Query</p>
+								</div>
+								<div class="icon">
+
+
+
+
+									<i class="fas fa-question"
+										style="color: #fd7e14; font-size: 70px;"></i>
+								</div>
+								<a href="QueryPo" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
+							
 						<div class="col-lg-2 col-6">
 							<!-- small box -->
 							<div class="small-box bg-white">
@@ -205,29 +231,6 @@ tbody {
 							</div>
 						</div>
 
-						<div class="col-lg-2 col-6">
-							<!-- small box -->
-							<div class="small-box bg-white">
-								<div class="inner">
-									<h2>${totalQueryCount}</h2>
-
-									<p id="allInactive" data-toggle="tooltip"
-										data-placement="bottom" title="Query">Query</p>
-								</div>
-								<div class="icon">
-
-
-
-
-									<i class="fas fa-question"
-										style="color: #fd7e14; font-size: 70px;"></i>
-								</div>
-								<a href="QueryPo" class="small-box-footer"
-									style="background: #007bffe0; color: white !important;">More
-									info <i class="fas fa-arrow-circle-right"></i>
-								</a>
-							</div>
-						</div>
 
 						<!-- ./col -->
 					</div>

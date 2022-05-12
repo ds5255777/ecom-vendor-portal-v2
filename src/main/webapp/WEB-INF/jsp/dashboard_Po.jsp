@@ -93,7 +93,30 @@ tbody {
 					<div class="row">
 						<!-- ./col -->
 
-						<div class="col-lg-3 col-6">
+
+							<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${allPOcount}</h2>
+
+									<p id="iamwatch" data-toggle="tooltip" data-placement="bottom"
+										title="Unprocessed PO">All PO</p>
+								</div>
+								<div class="icon">
+
+									<i class="nav-icon fas fa-list" style="color: #28a745; font-size: 70px;"></i>
+								</div>
+								<a href="allPO" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
+								
+								
+								
+						<div class="col-lg-2 col-6">
 							<!-- small box -->
 							<div class="small-box bg-white">
 								<div class="inner">
@@ -113,7 +136,7 @@ tbody {
 							</div>
 						</div>
 
-						<div class="col-lg-3 col-6">
+						<div class="col-lg-2 col-6">
 							<!-- small box -->
 							<div class="small-box bg-white">
 								<div class="inner">
@@ -134,7 +157,7 @@ tbody {
 							</div>
 						</div>
 
-						<div class="col-lg-3 col-6">
+						<div class="col-lg-2 col-6">
 							<!-- small box -->
 							<div class="small-box bg-white">
 								<div class="inner">
@@ -144,7 +167,7 @@ tbody {
 									<h2><%=totalProcessPoCount %></h2> --%>
 
 									<p id="invdue" data-toggle="tooltip" data-placement="bottom"
-										title="Invoice">Invoice</p>
+										title="Invoice">All Invoice</p>
 								</div>
 								<div class="icon">
 
@@ -157,8 +180,32 @@ tbody {
 								</a>
 							</div>
 						</div>
+						
+												<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${totalDraftInvoiceCount}</h2>
 
-						<div class="col-lg-3 col-6">
+									<%-- <%Object totalProcessPoCount=request.getAttribute("totalProcessPoCount"); %>
+									<h2><%=totalProcessPoCount %></h2> --%>
+
+									<p id="invdue" data-toggle="tooltip" data-placement="bottom"
+										title="Invoice">Draft Invoice</p>
+								</div>
+								<div class="icon">
+
+									<i class="nav-icon fab fa-firstdraft"
+										style="color: #dc3545; font-size: 75px;"></i>
+								</div>
+								<a href="draftPO" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
+
+						<div class="col-lg-2 col-6">
 							<!-- small box -->
 							<div class="small-box bg-white">
 								<div class="inner">

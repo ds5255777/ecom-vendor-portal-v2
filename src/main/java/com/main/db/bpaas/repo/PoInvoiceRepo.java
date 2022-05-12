@@ -18,10 +18,10 @@ public interface PoInvoiceRepo extends JpaRepository<PoInvoiceDetails, Long> {
 	@Query(value = "select count(*) from poinvoice_details where vendor_code=?", nativeQuery = true)
 	int getAllInvoiceCount(String vendorCode);
 
-	@Query(value = "select * from poinvoice_details where status='In-Review'  and vendor_code=:vendorCode", nativeQuery = true)
+	@Query(value = "select * from poinvoice_details where status='In-Review' or status='Query'  and vendor_code=:vendorCode", nativeQuery = true)
 	List<PoInvoiceDetails> getAllInvoiceDetails( @Param("vendorCode") String vendorCode);
 
-	@Query(value = "select * from poinvoice_details where status='In-Review' and vendor_code=:vendorCode and invoice_num=:invoiceNumber", nativeQuery = true)
+	@Query(value = "select * from poinvoice_details where  vendor_code=:vendorCode and invoice_num=:invoiceNumber", nativeQuery = true)
 	List<PoInvoiceDetails> findByInvoiceNumber(@Param("vendorCode") String vendorCode , @Param("invoiceNumber")  String invoiceNumber);
 
 	@Query(value = "select * from poinvoice_details where vendor_code=? and Invoice_Num=?", nativeQuery = true)
@@ -35,9 +35,15 @@ public interface PoInvoiceRepo extends JpaRepository<PoInvoiceDetails, Long> {
 	@Query(value = "select id from poinvoice_details where invoice_num=?", nativeQuery = true)
 	Long getId(String ecomInvoiceNumber);
 
+	@Query(value = "select count(*) from po_details where vendor_code=?", nativeQuery = true)
+	int getAllPOcount(String vendorCode);
 	
+	@Query(value = "select count(*) from po_details where status='Draft-Invoicing' and  vendor_code=?", nativeQuery = true)
+	int getTotalDraftInvoiceCount(String vendorCode);
+	
+	 @Query(value = "select * from poinvoice_details where status ='Query' And assign_to ='Vendor'  and vendor_code=? ", nativeQuery = true)
+	List<PoInvoiceDetails> getAllQueryInvoiceVendorPo(String vendorCode);
 
 	
-
 
 }

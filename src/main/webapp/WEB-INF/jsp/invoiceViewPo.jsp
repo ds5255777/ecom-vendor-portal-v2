@@ -368,7 +368,7 @@
                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Line Type</th>
                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">PO Line</th>
                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">GL Date</th>
-                                        <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
+                                        <!-- <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Quantity</th> -->
                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Remaning Quantity</th>
                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Quantity Invoiced</th>
                                        
@@ -538,7 +538,7 @@
     <script src="plugins/select2/js/select2.full.min.js"></script>
 
     <script>
-        var prTable = $("#prTable").DataTable({
+        var prTable1 = $("#prTable").DataTable({
             "paging": false,
             "lengthChange": false,
             "searching": false,
@@ -565,13 +565,15 @@
             window.close()
         }
         var invoiceNumber = '${invoiceNo}';
+        var status='${status}';
         var tripLineArray = [];
         setInvoiceDetails();
 
         function setInvoiceDetails() {
 
             var obj = {
-                "invoiceNumber": invoiceNumber
+                "invoiceNumber": invoiceNumber,
+                "status"  : status
             }
 			//alert("invoiceNumber"+invoiceNumber);
             $.ajax({
@@ -587,6 +589,7 @@
                         var result = data.data;
                        //var tripLineArray = data.data.poInvoiceLine;
                        var tripLineArray=result[0].poInvoiceLine;
+                       var grossamt1=result[0].grossTotalAmt;
                         var myForm = "";
                         myForm = document.getElementById("stepOneForm");
                         setData(myForm, result[0]);
@@ -639,14 +642,16 @@
                                 tripLineArray[i].gldate = "";
                             }
                             
-                            $('#prTable').DataTable().row.add([i + 1,tripLineArray[i].receiptline,tripLineArray[i].description,tripLineArray[i].lineType,tripLineArray[i].poline,tripLineArray[i].gldate,tripLineArray[i].quntity,tripLineArray[i].remaningQuatity,tripLineArray[i].quantityInvoiced,tripLineArray[i].uom,tripLineArray[i].taxper,tripLineArray[i].baseAmount,tripLineArray[i].taxAmount,tripLineArray[i].totalAmount]);
+                            $('#prTable').DataTable().row.add([i + 1,tripLineArray[i].receiptline,tripLineArray[i].description,tripLineArray[i].lineType,tripLineArray[i].poline,tripLineArray[i].gldate,tripLineArray[i].remaningQuatity,tripLineArray[i].quantityInvoiced,tripLineArray[i].uom,tripLineArray[i].taxper,tripLineArray[i].baseAmount,tripLineArray[i].taxAmount,tripLineArray[i].totalAmount]);
                          }
-                         var  grossamt= "<input type=\"text\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";
-                         prTable.row.add(["","","","","","","","","","","","Total","","",grossamt,""]);
+                         var  grossamt= "<input type=\"text\" value=\"" + result[0].grossTotalAmt + "\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";
+                         prTable1.row.add(["","","","","","","","","","","","Gross Total",grossamt,""]);
                       
                          
                     
                         $('#prTable').DataTable().draw();
+                        $("tbody").show();
+                        $('#prTable1').DataTable().draw();
                         $("tbody").show();
                     } else {
                         Toast.fire({

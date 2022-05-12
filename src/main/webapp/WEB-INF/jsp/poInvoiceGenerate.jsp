@@ -98,7 +98,9 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Number <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Number" name="invoiceNumber" id="invoiceNumber" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="hidden" placeholder="Invoice Number" name="invoiceNumber" id="invoiceNumber" readonly maxlength="70" style="width: 100%;">
+                                            <input class="form-control-sm" type="text" placeholder="Invoice Number" name="poInvoiceNumber" id="poInvoiceNumber" maxlength="70" style="width: 100%;">
+                                  
                                             </div>
                                         </div>
                                     </div>
@@ -710,6 +712,7 @@
                     for (var i = 0; i < tripLineArray.length; i++) {
                     	 id=tripLineArray[i].id;
                     	 price1[i]=tripLineArray[i].price;
+                    	 tripLineArray[i].unitPrice=tripLineArray[i].price;;
                     	// var remaningQuat;
                     	 if(tripLineArray[i].remaningQuatity!=null){
                     		 remaningQuat= tripLineArray[i].remaningQuatity;
@@ -770,12 +773,13 @@
                         var baseAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"   id=\"baseAmt_"+i+"\"   class=\"form-control-sm \" > ";
                         var taxPercentage= "    <select  class=\"form-control-sm \" style=\"width: 67px; height: 28px;\" id=\"taxper_"+i+"\"  onchange=\"updatetotalAmount(this.value,'"+i+"')\" > <option value=\"0\" \">0%</option><option value=\"5\"  \">5%</option><option value=\"8\"  \">8%</option><option value=\"18\" \">18%</option><option value=\"28\" \">28%</option> </select > ";
                         var totalAmount= "<input type=\"text\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"totamt_"+i+"\" > ";
-                       
-						prTable.row.add([i + 1,receipentLine,description,lineType,poline,glDate,quantity,remaningQuantity,quantityInvoiced,unitPrice,uom,taxPercentage,baseAmount,taxAmount,totalAmount]);
+                        var inactive = "<button type=\"button\"  class=\" btndeleterow\" style=\"color: #fff;background-color: #007bff; border-color: #007bff;box-shadow: none;\" data-placement=\"bottom\" onclick=\"inactiveActiveDeleteData(" + i + ")\"  data-original-title=\"Click To Delete\" > <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
+                        
+						prTable.row.add([i + 1,receipentLine,description,lineType,poline,glDate,quantity,remaningQuantity,quantityInvoiced,unitPrice,uom,taxPercentage,baseAmount,taxAmount,totalAmount,inactive]);
 				  }
                     
                   var  grossamt= "<input type=\"text\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";
-                    prTable.row.add(["","","","","","","","","","","","Total","","",grossamt,""]);
+                    prTable.row.add(["","","","","","","","","","","","","","Gross Total",grossamt,""]);
                  
                    
                     prTable.draw();
@@ -852,6 +856,7 @@
   	
   	
   	
+  	 tripLineArray[index].unitPrice=unitprice;
   	 tripLineArray[index].totalAmount=totalAmount;
   	 tripLineArray[index].taxAmount=taxAmount;
   	 tripLineArray[index].taxper=value;
@@ -895,8 +900,9 @@
 	  	calculateGrossAmt();
   }
   
-  var remaningQuatity=[];
-  var remanId=[];
+  var remaningQuatity1=[];
+  var remanId1=[];
+  var indx="";
  function updatebaseaAmt(reId, index,quntity){
 	 
 	 
@@ -916,16 +922,26 @@
 					 var taxper = $("#taxper_"+index).val();
 					 tripLineArray[index].remaningQuatity=remaningQuantity;
 						tripLineArray[index].lineitemId=reId; 
-					 updatetotalAmount(taxper,index);
-					 //  remanId=reId;
-					  // remaningQuatity=remaningQuantity;
 					
-					 //  remanId.push(reId);
-					 //  remaningQuatity.push(remaningQuantity);			        
-					  // tripLineArray[index].remaningQuantity=remaningQuantity;   
+					  // remanId[index].reId=reId;
+					  // remaningQuatity[index].remaningQuatity=remaningQuantity;
+					 
+					    
+						if(indx==index){
 					  
-					  // tripLineArray[index].taxper=taxper;
-	    
+					   remanId1.splice(index);
+					   remanId1.push(reId);
+					   remaningQuatity1.splice(index);
+					   remaningQuatity1.push(remaningQuantity);			        
+					  
+						}else{
+							remaningQuatity1.push(remaningQuantity);	
+							  remanId1.push(reId);
+						}
+						indx=index;
+						
+						 updatetotalAmount(taxper,index);
+						
 				   }else{
 					  // alert("kjhlkjh");
 					  alert("Quantity is greater");
@@ -1111,8 +1127,8 @@
             
         };
         
-        var obj={};
-        obj.poInvoiceLine=tripLineArray;
+       // var obj={};
+       // obj.poInvoiceLine=tripLineArray;
         
        for(var i=0;i<tripLineArray.length;i++){
         delete tripLineArray[i].id
@@ -1138,15 +1154,15 @@
 
       } */
 
-     /*   for(var i=0;i<remaningQuatity.length;i++){
+        for(var i=0;i<remaningQuatity1.length;i++){
        
 		 var obj = {
-		            "remaningQuatity" : remaningQuatity[i],
+		            "remaningQuatity" : remaningQuatity1[i],
 		            
-		  			"id"  : remanId[i]
+		  			"id"  : remanId1[i]
 		        }
-		   */
-	  
+		   
+        
 	  $.ajax({
            type: "POST",
            data: JSON.stringify(obj),
@@ -1175,12 +1191,12 @@
            }
 	  });
    
-	 
+    }
     
 
 
-
-
+        
+        finalObj.grossTotalAmt=tripLineArray.grossTotalAmt
         
         $.ajax({
             type: "POST",
@@ -1236,7 +1252,7 @@
     	        for(var i=0;i<tripLineArray.length;i++){
     	            delete tripLineArray[i].id
     	            delete tripLineArray[i].amount
-    	            delete tripLineArray[i].price
+    	            //delete tripLineArray[i].price
     	           };
     	            finalObj.poInvoiceLine=tripLineArray;
     	        
@@ -1365,7 +1381,16 @@
 
     	        });
 
-    		 
+
+
+    		  $(document).ready(function(){
+    			  $('.btndeleterow').click(function(){
+    			  $(this).closest('tr').remove();
+    			  });
+    			  });
+    		  function inactiveActiveDeleteData(i){
+    			  tripLineArray.splice(i);
+    		  }
     		 
     		  
     </script>

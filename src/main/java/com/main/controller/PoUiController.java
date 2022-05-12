@@ -19,6 +19,7 @@ import com.main.db.bpaas.repo.PoInvoiceRepo;
 @Controller
 public class PoUiController {
 	
+	Integer i=1;
 	
 	@Autowired 
 	PoDetailsRepo podetailsRepo;
@@ -48,6 +49,12 @@ public class PoUiController {
 				//Query
 				int totalInvoiceCount= poinvoiceRepo.getAllInvoiceCount(vendorCode);
 				model.addAttribute("totalInvoiceCount", totalInvoiceCount);
+				
+				int allPOcount= poinvoiceRepo.getAllPOcount(vendorCode);
+				model.addAttribute("allPOcount", allPOcount);
+				
+				int totalDraftInvoiceCount= poinvoiceRepo.getTotalDraftInvoiceCount(vendorCode);
+				model.addAttribute("totalDraftInvoiceCount", totalDraftInvoiceCount);
 				
 				System.out.println("end of dashboard_Po");
 			 
@@ -126,10 +133,48 @@ public class PoUiController {
 	 
 	 @GetMapping("/invoiceViewPo")
 		public String invoiceViewPo(Model model, HttpServletRequest request, Principal principal) {
-
-			String invoiceNumber = request.getParameter("id");
+		 	
+			String obj= request.getParameter("ob");
+			String invoiceNumber="";
+			String status="";
+			String[] arrSplit = obj.split(",");
+		    for (int i=0; i < arrSplit.length; i++)
+		    {
+		      if(i==0) {
+		    	  invoiceNumber= arrSplit[i];
+		      }
+		      if(i==1) {
+		    	  status=arrSplit[i];
+		      }
+		    }
+		
 			System.out.println("invoiceNo"+invoiceNumber);
 			model.addAttribute("invoiceNo", invoiceNumber);
+			System.out.println("status"+status);
+			model.addAttribute("status", status);
+			return "invoiceViewPo";
+		}
+	 @GetMapping("/invoiceQueryPo")
+		public String invoiceQueryPo(Model model, HttpServletRequest request, Principal principal) {
+		 	
+			String obj= request.getParameter("ob");
+			String invoiceNumber="";
+			String status="";
+			String[] arrSplit = obj.split(",");
+		    for (int i=0; i < arrSplit.length; i++)
+		    {
+		      if(i==0) {
+		    	  invoiceNumber= arrSplit[i];
+		      }
+		      if(i==1) {
+		    	  status=arrSplit[i];
+		      }
+		    }
+		
+			System.out.println("invoiceNo"+invoiceNumber);
+			model.addAttribute("invoiceNo", invoiceNumber);
+			System.out.println("status"+status);
+			model.addAttribute("status", status);
 			return "invoiceViewPo";
 		}
 		@GetMapping("/PoView")
@@ -162,11 +207,16 @@ public class PoUiController {
 		public String poInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 
 			String userName = principal.getName();
-			String userNameIs = userName.substring(0, 4).toUpperCase();
+			//String userNameIs = userName.substring(0, 4).toUpperCase();
+			String userNameIs ="00000000";
 			String invoiceNumber = "";
 
-			invoiceNumber = "ECOM-" + userNameIs.concat(new SimpleDateFormat("yyyyHHmmssSSS").format(new Date()));
+			//invoiceNumber = "ECOM-" + userNameIs.concat(new SimpleDateFormat("yyyyHHmmssSSS").format(new Date()));
+			 
+			invoiceNumber = "ECOM-" + userNameIs +i;
+			i++;
 
+			
 			model.addAttribute("invoiceNumber", invoiceNumber);
 			request.getSession().setAttribute("invoiceNumber", invoiceNumber);
 

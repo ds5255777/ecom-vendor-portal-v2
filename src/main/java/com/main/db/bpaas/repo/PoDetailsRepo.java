@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 
 import com.main.db.bpaas.entity.PoDetails;
+import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.entity.TripDetails;
 
 
@@ -70,7 +71,8 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long>{
 		void updateRemaningQuatity(@Param("remaningQuatity") String remaningQuatity,  @Param("id") Long id);
 		
 		 
-		 
+		
+ 
 		
 	 
 	

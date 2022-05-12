@@ -140,21 +140,47 @@
                         <div class="col-md-12" style="font-size: 14px;">
                             <!-- general form elements -->
                             <div class="card card-primary ">
-                                <div class="card-header">
-                                    <h3 class="card-title" style="font-size: 15px;">Query Invoice List</h3>
-                                </div>
+                                
                                 <!-- /.card-header -->
                                 <div class="card-body ">
+                                <form role="form" id="addForm" autocomplete="off">
+										<div class="row">
+											
+											<div class="col-md-2">
+												<div class="dropdown">
+													<button type="button"
+														class="btn btn-primary dropdown-toggle"
+														style="  margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
+														data-toggle="dropdown">Export Details</button>
+													<div class="dropdown-menu">
+														<a class="dropdown-item" href="#" id="exportLinkPdf">Download
+															PDF</a> <a class="dropdown-item" href="#" id="exportLink">Download
+															Excel</a>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-8"></div>
+											<div class="col-md-2">
+												<div class="form-group row">
+													<label class="col-md-4">Search : </label>
+													<div class="col-md-8">
+														<input type="text" name="searchData" placeholder="Search"
+															class="form-control" id="searchData">
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">ECOM Invoice Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Vendor Invoice Number</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Vendor Code</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Vendor Name</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Receiving Date</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
-                                                <th style="padding: 5px 5px 5px 1.5rem;">Total Amount</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">ECOM Invoice Number</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Invoice Number</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Code</th>
+                                               <!--  <th style="padding: 5px 5px 5px 1.5rem;">Vendor Name</th>
+                                               <th style="padding: 5px 5px 5px 1.5rem;">Invoice Receiving Date</th>  -->
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -208,8 +234,92 @@
                 "info": true,
                 "autoWidth": false,
                 "aaSorting": [],
-                "pageLength": 20
+                "scrollX": true,
+                "pageLength": 10,
+                dom: 'Bfrtip',
+                //buttons: ['excel','pdf','print'],
+                buttons: [
+
+                    {
+                        extend: 'excelHtml5',
+
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4],
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4],
+                        },
+                        customize: function(doc) {
+
+                            var tblBody = doc.content[1].table.body;
+                            for (var i = 0; i < tblBody[0].length; i++) {
+                                //	 console.log(tblBody[0]);
+                                //	 console.log(tblBody[0][i]);
+                                tblBody[0][i].fillColor = '#FFFFFF';
+                                tblBody[0][i].color = 'black';
+                            }
+
+                            var objLayout = {};
+                            objLayout['hLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            objLayout['vLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            objLayout['hLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            objLayout['vLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            objLayout['paddingLeft'] = function(i) {
+                                return 4;
+                            };
+                            objLayout['paddingRight'] = function(i) {
+                                return 4;
+                            };
+                            doc.content[1].layout = objLayout;
+                            var obj = {};
+                            obj['hLineWidth'] = function(i) {
+                                return .5;
+                            };
+                            obj['hLineColor'] = function(i) {
+                                return '#aaa';
+                            };
+                            //   doc.content[1].margin = [ 150, 0, 150, 0 ];
+
+                        }
+                    }
+                ],
+                initComplete: function() {
+                    var $buttons = $('.dt-buttons').hide();
+                    $('#exportLink').on('click', function() {
+                        var btnClass = "excel" ?
+                            '.buttons-' + "excel" :
+                            null;
+                        if (btnClass) $buttons.find(btnClass).click();
+                    })
+
+                    $('#exportLinkPdf').on('click', function() {
+                        var btnClass = "pdf" ?
+                            '.buttons-' + "pdf" :
+                            null;
+                        if (btnClass) $buttons.find(btnClass).click();
+                    })
+                }
             });
+            
+            $('#searchData').on( 'keyup', function () {
+            	tabledata.search( this.value ).draw();
+            } );
+            
+            $('#tabledata_filter').css("display","none");
+
 
             getData();
 
@@ -229,8 +339,8 @@
                             var result = data.data;
                             tabledata.clear();
                             for (var i = 0; i < result.length; i++) {
-                                if (!result[i].hasOwnProperty("invoiceNumber")) {
-                                    result[i].invoiceNumber = "";
+                                if (!result[i].hasOwnProperty("poInvoiceNumber")) {
+                                    result[i].poInvoiceNumber = "";
                                 }
                                 if (!result[i].hasOwnProperty("invoiceDate")) {
                                     result[i].invoiceDate = "";
@@ -238,18 +348,23 @@
                                 if (!result[i].hasOwnProperty("invoiceAmount")) {
                                     result[i].invoiceAmount = "";
                                 }
-                                if (!result[i].hasOwnProperty("invoiceReceivingDate")) {
-                                    result[i].vehicleNumber = "";
+                                if (!result[i].hasOwnProperty("invoiceDate")) {
+                                    result[i].invoiceDate = "";
                                 }
-                                if (!result[i].hasOwnProperty("invoiceStatus")) {
-                                    result[i].invoiceStatus = "";
+                                if (!result[i].hasOwnProperty("status")) {
+                                    result[i].status = "";
                                 }
-                                if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
-                                    result[i].invoiceStatus = "";
+                                if (!result[i].hasOwnProperty("invoiceNumber")) {
+                                    result[i].invoiceNumber = "";
                                 }
-                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "','Query Queue')\" >" + result[i].ecomInvoiceNumber + "</button>";
+                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "','Query Queue')\" >" + result[i].invoiceNumber + "</button>";
+                                var statustemp_query = '<span class=\"right badge badge-warning\"  style=\"background-color: violet;\">Query</span>';
 
-                                tabledata.row.add([view, result[i].invoiceNumber, result[i].vendorCode, result[i].vendorName, result[i].invoiceReceivingDate,  result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceStatus]);
+                                if(result[i].status=="Query"){
+                                	status=statustemp_query;
+                                }
+                                
+                                tabledata.row.add([view, result[i].poInvoiceNumber, result[i].vendorCode,  result[i].invoiceDate, statustemp_query]);
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -268,20 +383,18 @@
             
             function getInvoiceDataFormDataByInvoiceNumber(id, type) {
                 $('.loader').show();
-
-                var urlOftripsDetail = "invoiceView?id=" + id+"&type="+type;
-                window.open(urlOftripsDetail, "invoiceView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
+				
+				var status="Query";
+				var ob =[];
+				ob.push(id);
+				ob.push(status);
+			
+                var urlOftripsDetail = "invoiceQueryPo?ob=" + ob;
+                window.open(urlOftripsDetail, "invoiceQueryPo", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
                 $('.loader').hide();
             }
 
-            /* function getInvoiceDataFormDataByInvoiceNumber(id, type) {
-                $('.loader').show();
-
-                var urlOftripsDetail = "invoiceView_Finance?id=" + id+"&type="+type;
-                window.open(urlOftripsDetail, "invoiceView_Finance", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
-                $('.loader').hide();
-            } */
-            
+         
             function refereshList() {
                 getData();
             }

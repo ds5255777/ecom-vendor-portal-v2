@@ -41,6 +41,8 @@ public class PoInvoiceDetails {
 	private String invoiceDate;
 
 	
+	@Column(name = "poinvoice_Number")
+	private String poInvoiceNumber;
 	@Column(name = "Invoice_Num")
 	private String invoiceNumber;
 	@Column(name = "Invoice_Currency")
@@ -100,6 +102,9 @@ public class PoInvoiceDetails {
 	
 	@Column(name = "gross_Total_Amt")
 	private String grossTotalAmt;
+	
+	@Column(name = "assign_to")
+	private String assignTo;
 	
 	
 	
@@ -352,6 +357,22 @@ public class PoInvoiceDetails {
 
 	public void setGrossTotalAmt(String grossTotalAmt) {
 		this.grossTotalAmt = grossTotalAmt;
+	}
+
+	public String getPoInvoiceNumber() {
+		return poInvoiceNumber;
+	}
+
+	public void setPoInvoiceNumber(String poInvoiceNumber) {
+		this.poInvoiceNumber = poInvoiceNumber;
+	}
+
+	public String getAssignTo() {
+		return assignTo;
+	}
+
+	public void setAssignTo(String assignTo) {
+		this.assignTo = assignTo;
 	}
 
 

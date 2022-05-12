@@ -20,9 +20,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
+import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
-import com.main.db.bpaas.repo.InvoiceLineItemRepo;
+import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
 
 @RequestMapping("/invoiceController")
@@ -31,6 +32,8 @@ public class InvoiceController {
 
 //	@Autowired
 //	private InvoiceDetailsRepo invoiceDetailsRepo;
+	@Autowired
+	PoInvoiceRepo poinvoiceRepo;
 
 	@Autowired
 	private InvoiceGenerationEntityRepo invoiceGenerationEntityRepo;
@@ -419,7 +422,7 @@ public class InvoiceController {
 		String vendorCode = principal.getName();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> queryInvoice = invoiceGenerationEntityRepo.getAllQueryInvoiceVendorPo(vendorCode);
+			List<PoInvoiceDetails> queryInvoice = poinvoiceRepo.getAllQueryInvoiceVendorPo(vendorCode);
 
 			data.setData(queryInvoice);
 			data.setMsg("success");

@@ -44,6 +44,8 @@ public interface PoInvoiceRepo extends JpaRepository<PoInvoiceDetails, Long> {
 	 @Query(value = "select * from poinvoice_details where status ='Query' And assign_to ='Vendor'  and vendor_code=? ", nativeQuery = true)
 	List<PoInvoiceDetails> getAllQueryInvoiceVendorPo(String vendorCode);
 
+	 @Query(value = "select count(*) from poinvoice_details where  vendor_code=?", nativeQuery = true)
+		int getAllInvoiceCountForInvoiceNo(String vendorCode);
 	
 
 }

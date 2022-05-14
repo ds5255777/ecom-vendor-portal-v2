@@ -96,10 +96,10 @@
                                    
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Number <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Supplier Invoice number (DFF) <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="hidden" placeholder="Invoice Number" name="invoiceNumber" id="invoiceNumber" readonly maxlength="70" style="width: 100%;">
-                                            <input class="form-control-sm" type="text" placeholder="Invoice Number" name="poInvoiceNumber" id="poInvoiceNumber" maxlength="70" style="width: 100%;">
+                                            <input class="form-control-sm" type="text" placeholder="Invoice Number" name="vendorInvoiceNumber" id="vendorInvoiceNumber" maxlength="70" style="width: 100%;">
                                   
                                             </div>
                                         </div>
@@ -109,7 +109,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Type <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="invoiceType" id="invoiceType"   style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="invoiceType" id="invoiceType" maxlength="70"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Po Number<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="text" name="poNumber" id="poNumber"  readonly class="form-control-sm" style="width: 100%;">
+                                                <input type="text" name="poNumber" id="poNumber"  readonly class="form-control-sm"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -137,7 +137,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Currency <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency" readonly>
+                                                <select class="form-control-sm select2" style="width: 100%;"  id="invoiceCurrency" name="invoiceCurrency" readonly >
                                                     <option value="INR" readonly>INR</option>
                                                    
                                                 </select>
@@ -150,7 +150,7 @@
                                             <label class="col-sm-5">invoice Amount <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
                                                 <!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
-                                                <input class="form-control-sm" type="text" placeholder="invoice Amount" name="invoiceAmount" id="invoiceAmount"  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="invoice Amount" maxlength="70" name="invoiceAmount" id="invoiceAmount"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -176,7 +176,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Trading partner<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="tradingPartner" id="tradingPartner" type="text" placeholder="Trading partner" style="width: 100%;" >
+                                                <input class="form-control-sm" name="tradingPartner" id="tradingPartner" maxlength="70" type="text" placeholder="Trading partner" style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -184,7 +184,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Supplier Number<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="supplierNum" id="supplierNum" placeholder="Supplier Number" style="width: 100%;" >
+                                                <input class="form-control-sm" name="supplierNum" id="supplierNum" maxlength="70" placeholder="Supplier Number" style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -223,7 +223,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Terms Date<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="date" name="termsDate" id="termsDate" placeholder="Terms Date"  style="width: 100%;" on>
+                                                <input class="form-control-sm" type="date" name="termsDate"  id="termsDate" placeholder="Terms Date"  style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -231,7 +231,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Terms <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm"  name="terms" id="terms" placeholder="Terms"  style="width: 100%;" >
+                                                <input class="form-control-sm"  name="terms" id="terms" placeholder="Terms" maxlength="70"  style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -240,7 +240,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Payment Method</label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="paymentMethod" id="paymentMethod"  placeholder="Payment Method"  style="width: 100%;" >
+                                                <input class="form-control-sm" name="paymentMethod" id="paymentMethod" maxlength="70"  placeholder="Payment Method"  style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -248,7 +248,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Pay Group </label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm"  name="payGroup" id="payGroup" placeholder="Pay Group "  style="width: 100%;">
+                                                <input class="form-control-sm"  name="payGroup" id="payGroup" maxlength="70" placeholder="Pay Group "  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -256,7 +256,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Remit To Bank Account Name<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="remitToBankAccountName" id="remitToBankAccountName"  placeholder="Remit To bank account name" style="width: 100%;">
+                                                <input class="form-control-sm" name="remitToBankAccountName" id="remitToBankAccountName" onkeypress="return event.charCode >= 65 && event.charCode <= 122" placeholder="Remit To bank account name" maxlength="70" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -264,19 +264,12 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Remit To bank account number <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm"  name="remitToBankAccountNumber" id="remitToBankAccountNumber"  placeholder=" Remit To bank account number"  style="width: 100%;" maxlength="20">
+                                                <input class="form-control-sm" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="remitToBankAccountNumber" id="remitToBankAccountNumber"  placeholder=" Remit To bank account number"  style="width: 100%;" maxlength="20">
                                             </div>
                                         </div>
                                     </div>
                                     
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Supplier Invoice number (DFF)</label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" name="supplierInvoiceNumber" id="supplierInvoiceNumber"  placeholder="Supplier Invoice number"  style="width: 100%;" >
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Supplier invoice date (DFF) </label>
@@ -358,7 +351,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Line type <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="lineType" name="lineType" id="lineType"  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="lineType"  maxlength="70" name="lineType" id="lineType"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -366,7 +359,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Account<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Account" name="account" id="account"  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Account" maxlength="70" name="account" id="account"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -382,7 +375,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Amount <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="amount" id="amount"   style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="amount" id="amount" maxlength="70"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -405,6 +398,33 @@
                             </div>
                         </div>
                         
+                       		
+                       		      <div class="card-body" style="overflow: auto;">
+                            <form id="stepTwoForm" class="forms-sample">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Line Item</label>
+                                            <div class="col-sm-8">
+                                                <select id="tripList" name="tripList" class="form-control-sm select2" style="width: 100% !important;">
+                                                    <option>Select Line Item</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-primary" style="margin-right:
+                                                    5px;height: 30px;padding: 2px 10px 2px 10px;" id="docBtn" name="docBtn" onclick="addPOLineitem()">Add</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                       		
+                       		
                        				  	 							
                         
                         <div class="card-body" style="overflow: auto;">
@@ -412,7 +432,8 @@
                                 <thead>
                                     <tr>
                                     <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;"> S.No</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;"> Receipent Line</th>
+                                    <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;"> Line Number</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;"> Receipt Line</th>
                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Description</th>
                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Line Type</th>
                                         <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">PO Line</th>
@@ -435,111 +456,7 @@
                         
                         
                         
-                     <!--  <div class="card-body">
-                            <form id="stepTwoForm" class="forms-sample">
-                                <div class="row">
-                                   
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Line type <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="lineType" name="lineType1" id="lineType1"  style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                     <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">PO Number<span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="poNumber" name="poNumber1" id="poNumber1" disabled="disabled" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                     <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">GL Date<span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="date" placeholder="GL Date" name="gldate1" id="gldate1"  style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                     <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Amount <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Amount" name="amount1" id="amount1"   style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">PO Line <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="PO Line" name="poLine1" id="poLine1"   style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Receipt Number <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Receipt Number" name="amount1" id="receiptNumber1"   style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Receipt Line <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Receipt Line" name="receiptLine1" id="receiptLine1"   style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Quantity Invoiced <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Quantity Invoicede" name="quantityInvoiced1" id="quantityInvoiced1"   style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                       <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">UOM <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="UOM" name="uom1" id="uom1"   style="width: 100%;" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                       <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Unit Price <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Unit Price" name="unitPrice1" id="unitPrice1"   style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                      <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Description <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Description" name="description1" id="description1"   style="width: 100%;" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <button type="Button" class="btn btn-primary" id="addBookGridButt" name="addBookGridButt">Add Item</button>
-                                    
-                                 </div>
-                             </form>
-                          </div>
-                          </div>
-                        
-                       
-
-                        /.card-body
-                    </div>
- -->                    <!-- /.card -->
+            
                    
                     
                     
@@ -619,6 +536,8 @@
     <script src="plugins/jquery-validation/additional-methods.min.js"></script>
     <!-- Select2 -->
     <script src="plugins/select2/js/select2.full.min.js"></script>
+    
+    
 
     <script>
        
@@ -642,6 +561,8 @@
 		"aaSorting" : [],
 		"scrollX" : false
 	});
+   
+   var lineNumberArray=[];
    
    getPoDetails();
    var id; 
@@ -667,6 +588,9 @@
                     var result = data.data;
                    //var tripLineArray = data.data.poInvoiceLine;
                     tripLineArray=result[0].poLineDetails;
+                    for(var i=0;i<tripLineArray.length;i++){
+                   // $('#tripList').append($('<option/>').attr("value",tripLineArray[i].lineNumber).text(tripLineArray[i].lineNumber));
+                    }
                     var myForm = "";
                     myForm = document.getElementById("stepOneForm");
                     setData(myForm, result[0]);
@@ -704,91 +628,8 @@
                     $('#paymentCurrency').val(result[0].currency); 
                     
                     
-                 //   Quantity	Remaning Quantity 	Quantity Invoiced	Unit Price	UOM	Tax Percentage	Base Amount	Tax Amount	Total Amount
-                    
-                   // $('#prTable').DataTable().clear();
-                  //var grossamt=$('#grossamt').val();
-                 prTable.clear();
-                    for (var i = 0; i < tripLineArray.length; i++) {
-                    	 id=tripLineArray[i].id;
-                    	 price1[i]=tripLineArray[i].price;
-                    	 tripLineArray[i].unitPrice=tripLineArray[i].price;;
-                    	// var remaningQuat;
-                    	 if(tripLineArray[i].remaningQuatity!=null){
-                    		 remaningQuat= tripLineArray[i].remaningQuatity;
-                    		 tripLineArray[i].quantity=tripLineArray[i].remaningQuatity;
-                    	 }else{
-                    		 remaningQuat=tripLineArray[i].quantity;
-                    	 }
-                    	 
-
-/*                         if (!tripLineArray[i].hasOwnProperty("tripID")) {
-                        	tripLineArray[i].tripID = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("runType")) {
-                        	tripLineArray[i].runType = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("standardKM")) {
-                        	tripLineArray[i].standardKM = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("ratePerKm")) {
-                        	tripLineArray[i].ratePerKm = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("currentFuelRate")) {
-                        	tripLineArray[i].currentFuelRate = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("fsBaseRate")) {
-                        	tripLineArray[i].fsBaseRate = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("fsDiff")) {
-                        	tripLineArray[i].fsDiff = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("basicFreight")) {
-                        	tripLineArray[i].basicFreight = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("fs")) {
-                        	tripLineArray[i].fs = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("actualKM")) {
-                        	tripLineArray[i].actualKM = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("totalFreight")) {
-                        	tripLineArray[i].totalFreight = "0";
-                        }
-                        if (!result[i].hasOwnProperty("lumpsomeamount")) {
-                            result[i].lumpsomeamount = "0";
-                        } */  
-                        var totalamot;
-                        var receipentLine= "<input type=\"text\" id=\"receipentLine_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('receiptline','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
-                        var description= "<input type=\"text\" id=\"description_"+i+"\" readonly style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('description','"+i+"',this.value)\" value=\"" + tripLineArray[i].description + "\" class=\"form-control-sm \" \"> ";
-                        var lineType= "<input type=\"text\" id=\"lineType_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('lineType','"+i+"',this.value)\"  class=\"form-control-sm \" \"> ";
-                        var poline= "<input type=\"text\" id=\"poline_"+i+"\" oninput=\"updatePOLineItem('poline','"+i+"',this.value)\" style=\"width: 70px; height: 28px;\" class=\"form-control-sm \" \"> ";
-                        var glDate= "<input type=\"date\" id=\"glDate_"+i+"\" oninput=\"updatePOLineItem('gldate','"+i+"',this.value)\" style=\"width: 100px; height: 28px;\" class=\"form-control-sm \" \"> ";
-                        var remaningQuantity= "<input type=\"text\" readonly id=\"remaningQuantity_"+i+"\" style=\"width: 100%; height: 28px;\" class=\"form-control-sm \" \"> ";
-                        var quantity= "<input type=\"text\" readonly style=\"width: 100px; height: 28px;\" value=\"" + remaningQuat + "\" class=\"form-control-sm \" \"> ";
-                        var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
-                        var unitPrice= "<input type=\"text\" id=\"unitPrice_"+i+"\" readonly style=\"width: 100px; height: 28x;\" value=\"" + tripLineArray[i].price + "\"  class=\"form-control-sm \" \"> ";
-                        var uom= "<input type=\"text\" id=\"uom_"+i+"\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
-                        var taxAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"  id=\"tax_"+i+"\" class=\"form-control-sm \" \"> ";
-                        var baseAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"   id=\"baseAmt_"+i+"\"   class=\"form-control-sm \" > ";
-                        var taxPercentage= "    <select  class=\"form-control-sm \" style=\"width: 67px; height: 28px;\" id=\"taxper_"+i+"\"  onchange=\"updatetotalAmount(this.value,'"+i+"')\" > <option value=\"0\" \">0%</option><option value=\"5\"  \">5%</option><option value=\"8\"  \">8%</option><option value=\"18\" \">18%</option><option value=\"28\" \">28%</option> </select > ";
-                        var totalAmount= "<input type=\"text\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"totamt_"+i+"\" > ";
-                        var inactive = "<button type=\"button\"  class=\" btndeleterow\" style=\"color: #fff;background-color: #007bff; border-color: #007bff;box-shadow: none;\" data-placement=\"bottom\" onclick=\"inactiveActiveDeleteData(" + i + ")\"  data-original-title=\"Click To Delete\" > <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-                        
-						prTable.row.add([i + 1,receipentLine,description,lineType,poline,glDate,quantity,remaningQuantity,quantityInvoiced,unitPrice,uom,taxPercentage,baseAmount,taxAmount,totalAmount,inactive]);
-				  }
-                    
-                  var  grossamt= "<input type=\"text\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";
-                    prTable.row.add(["","","","","","","","","","","","","","Gross Total",grossamt,""]);
-                 
-                   
-                    prTable.draw();
-                   
-                    $("tbody").show();
-                       
-                    
-                    
-                    
+                    showDatatbleData(tripLineArray);
+               
                     
                 }else {
                     Toast.fire({
@@ -814,6 +655,72 @@
     
     
     
+    
+    function addPOLineitem() {
+		  var lineitemNo= $('#tripList').val();
+		  
+		  if(lineitemNo==""){
+			  
+			  alert("Kindly select one line number");
+			  return;
+		  }
+		
+	        var obj = {
+	            "lineNumber": lineitemNo
+	        }
+			
+	        $.ajax({
+	            type: "POST",
+	            data: JSON.stringify(obj),
+	            url: "<%=GlobalUrl.getAllPODetailsByLineNumber%>",
+	            dataType: "json",
+	            contentType: "application/json",
+	            async: false,
+	            success: function(data) {
+
+	                if (data.msg == 'success') {
+	                    var result = data.data;
+	                   
+	                    tripLineArray.push(result);
+	               
+	                    showDatatbleData(tripLineArray);
+	            
+	                }else {
+	                    Toast.fire({
+	                        type: 'error',
+	                        title: 'Failed.. Try Again..'
+	                    })
+	                }
+	            },
+	            error: function(jqXHR, textStatue, errorThrown) {
+	                Toast.fire({
+	                    type: 'error',
+	                    title: 'Failed.. Try Again..'
+	                })
+	            }
+	        });
+	       
+	           
+	       
+	                $('#tripList option:selected').remove();
+	                
+	                for( var i = 0; i < lineNumberArray.length; i++){ 
+	                    
+	                    if ( lineNumberArray[i] === lineitemNo) { 
+	                
+	                    	lineNumberArray.splice(i); 
+	                    }
+	                
+	                }
+	              // delete  lineNumberArray.[lineitemNo]
+			
+		  
+	}
+
+    
+    
+    
+    
   //  setDraftInvoice();
     
   function updatePOLineItem(key,index,value){
@@ -821,6 +728,58 @@
 	  console.log(tripLineArray);
   }
   
+  function showDatatbleData(tripLineArray){
+	  
+	  
+	  prTable.clear();
+      for (var i = 0; i < tripLineArray.length; i++) {
+      	 id=tripLineArray[i].id;
+      	 price1[i]=tripLineArray[i].price;
+      	 tripLineArray[i].unitPrice=tripLineArray[i].price;;
+      	// var remaningQuat;
+      	 if(tripLineArray[i].remaningQuatity!=null){
+      		 remaningQuat= tripLineArray[i].remaningQuatity;
+      		 tripLineArray[i].quantity=tripLineArray[i].remaningQuatity;
+      	 }else{
+      		 remaningQuat=tripLineArray[i].quantity;
+      	 }
+      	 
+
+
+          var totalamot;
+          var lineNumber= "<input type=\"text\" id=\"lineNumber_"+i+"\" style=\"width: 100%; height: 28px;\" value=\"" + tripLineArray[i].lineNumber + "\"  class=\"form-control-sm \" \"> ";
+
+          var receipentLine= "<input type=\"text\" id=\"receipentLine_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('receiptline','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+          var description= "<input type=\"text\" id=\"description_"+i+"\" readonly style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('description','"+i+"',this.value)\" value=\"" + tripLineArray[i].description + "\" class=\"form-control-sm \" \"> ";
+          var lineType= "<input type=\"text\" id=\"lineType_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('lineType','"+i+"',this.value)\"  class=\"form-control-sm \" \"> ";
+          var poline= "<input type=\"text\" id=\"poline_"+i+"\" oninput=\"updatePOLineItem('poline','"+i+"',this.value)\" style=\"width: 70px; height: 28px;\" class=\"form-control-sm \" \"> ";
+          var glDate= "<input type=\"date\" id=\"glDate_"+i+"\" oninput=\"updatePOLineItem('gldate','"+i+"',this.value)\" style=\"width: 100px; height: 28px;\" class=\"form-control-sm \" \"> ";
+          var remaningQuantity= "<input type=\"text\" readonly id=\"remaningQuantity_"+i+"\" style=\"width: 100%; height: 28px;\" class=\"form-control-sm \" \"> ";
+          var quantity= "<input type=\"text\" readonly style=\"width: 100px; height: 28px;\" value=\"" + remaningQuat + "\" class=\"form-control-sm \" \"> ";
+          var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+          var unitPrice= "<input type=\"text\" id=\"unitPrice_"+i+"\" readonly style=\"width: 100px; height: 28x;\" value=\"" + tripLineArray[i].price + "\"  class=\"form-control-sm \" \"> ";
+          var uom= "<input type=\"text\" id=\"uom_"+i+"\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
+          var taxAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"  id=\"tax_"+i+"\" class=\"form-control-sm \" \"> ";
+          var baseAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"   id=\"baseAmt_"+i+"\"   class=\"form-control-sm \" > ";
+          var taxPercentage= "    <select  class=\"form-control-sm \" style=\"width: 67px; height: 28px;\" id=\"taxper_"+i+"\"  onchange=\"updatetotalAmount(this.value,'"+i+"')\" > <option value=\"0\" \">0%</option><option value=\"5\"  \">5%</option><option value=\"8\"  \">8%</option><option value=\"18\" \">18%</option><option value=\"28\" \">28%</option> </select > ";
+          var totalAmount= "<input type=\"text\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"totamt_"+i+"\" > ";
+          var inactive = "<button type=\"button\"  class=\" btndeleterow\" style=\"color: #fff;background-color: #007bff; border-color: #007bff;box-shadow: none;\" data-placement=\"bottom\" onclick=\"inactiveActiveDeleteData(" + i + ")\"  data-original-title=\"Click To Delete\" > <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
+         // var addLineItem = "<button type=\"button\"  class=\" btndeleterow\" style=\"color: #fff;background-color: #007bff; border-color: #007bff;box-shadow: none;\" data-placement=\"bottom\" onclick=\"AddLineitem(" + i + ")\"  data-original-title=\"Click To Delete\" > <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
+          
+			prTable.row.add([i + 1,lineNumber,receipentLine,description,lineType,poline,glDate,quantity,remaningQuantity,quantityInvoiced,unitPrice,uom,taxPercentage,baseAmount,taxAmount,totalAmount,inactive]);
+	  }
+      
+    var  grossamt= "<input type=\"text\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";
+      prTable.row.add(["","","","","","","","","","","","","", "","Gross Total",grossamt,""]);
+   
+     
+      prTable.draw();
+     
+      $("tbody").show();
+         
+      
+      
+  }
   
   function updatetotalAmount(value,index){
 	  var quntity =$("#quantityInvoiced_"+index).val();
@@ -1033,85 +992,91 @@
     	console.log("..."+tripLineArray);
     	
     	//invoiceDate
-		var invoiceDa = document.getElementById("invoiceDate").value;
+		var invoiceDa = document.getElementById("invoiceType").value;
 		if (invoiceDa === "" || invoiceDa === null || invoiceDa === '') {
             Toast.fire({
                 type: 'error',
-                title: 'Please Select Date'
+                title: 'Please Fill Invoice Type'
             });
-            document.getElementById("invoiceDate").focus();
+            document.getElementById("invoiceType").focus();
             return "";
         }
     	
-    	var invoiceNu = document.getElementById("invoiceNumber").value;
+    	var invoiceNu = document.getElementById("invoiceAmount").value;
 		if (invoiceNu === "" || invoiceNu === null || invoiceNu === '') {
             Toast.fire({
                 type: 'error',
-                title: 'Please fill Invoice Number'
-            });
-            document.getElementById("invoiceNumber").focus();
-            return "";
-        }
-		
-		//invoiceDate
-		/* var invoiceAm = document.getElementById("invoiceAmount").value;
-		if (invoiceAm === "" || invoiceAm === null || invoiceAm === '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Please fill Invoice Amount'
+                title: 'Please Fill Invoice Amount'
             });
             document.getElementById("invoiceAmount").focus();
             return "";
         }
+		var invoiceNu1 = document.getElementById("tradingPartner").value;
+		if (invoiceNu1 === "" || invoiceNu1 === null || invoiceNu1 === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Please Fill Trading Partner'
+            });
+            document.getElementById("tradingPartner").focus();
+            return "";
+        }
+		var invoiceNu2 = document.getElementById("supplierNum").value;
+		if (invoiceNu2 === "" || invoiceNu2 === null || invoiceNu2 === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Please Fill Supplier Number'
+            });
+            document.getElementById("supplierNum").focus();
+            return "";
+        }
+		var invoiceNu2 = document.getElementById("glDate").value;
+		if (invoiceNu2 === "" || invoiceNu2 === null || invoiceNu2 === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Please Fill GL Date '
+            });
+            document.getElementById("glDate").focus();
+            return "";
+        }
+		var invoiceNu3 = document.getElementById("termsDate").value;
+		if (invoiceNu3 === "" || invoiceNu3 === null || invoiceNu3 === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Please Fill Terms Date '
+            });
+            document.getElementById("termsDate").focus();
+            return "";
+        }
+		var invoiceNu4 = document.getElementById("terms").value;
+		if (invoiceNu4 === "" || invoiceNu4 === null || invoiceNu4 === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Please Fill Terms'
+            });
+            document.getElementById("terms").focus();
+            return "";
+        }
+		var invoiceNu5 = document.getElementById("remitToBankAccountName").value;
+		if (invoiceNu5 === "" || invoiceNu5 === null || invoiceNu5 === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Please Fill Remit To Bank Account Name'
+            });
+            document.getElementById("remitToBankAccountName").focus();
+            return "";
+        }
+		var invoiceNu6 = document.getElementById("remitToBankAccountNumber").value;
+		if (invoiceNu6 === "" || invoiceNu6 === null || invoiceNu6 === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Please Fill Remit To bank Account Number'
+            });
+            document.getElementById("remitToBankAccountNumber").focus();
+            return "";
+        }
 		
-		//vehicleNumber
-		var vehicleNu = document.getElementById("vehicleNumber").value;
-		if (vehicleNu === "" || vehicleNu === null || vehicleNu === '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Please fill vehicle Number'
-            });
-            document.getElementById("vehicleNumber").focus();
-            return "";
-        }
-
-		//vehicleNumber
-		var invoiceDoc = document.getElementById("InvoiceUpload").value;
-		if (invoiceDoc === "" || invoiceDoc === null || invoiceDoc === '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Please Upload Document'
-            });
-            document.getElementById("InvoiceUpload").focus();
-            return "";
-        }
-		//vehicleNumber
-		/* var docOne = document.getElementById("DocumentFileOne").value;
-		if (docOne === "" || docOne === null || docOne === '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Please Upload Document'
-            });
-            document.getElementById("DocumentFileOne").focus();
-            return "";
-        }
-		//vehicleNumber
-		var docTwo = document.getElementById("DocumentFileTwo").value;
-		if (docTwo === "" || docTwo === null || docTwo === '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Please Upload Document'
-            });
-            document.getElementById("DocumentFileTwo").focus();
-            return "";
-        } */
-       
-       
-        
-        
-        
-        
-      
+		
+		
         
         var matchOption=$("#invoiceMatchoption").val() ;
        
@@ -1136,6 +1101,30 @@
         delete tripLineArray[i].price
        };
         finalObj.poInvoiceLine=tripLineArray;
+        
+        
+        for(var i=0;i<tripLineArray.length;i++){
+        	var receiptline=tripLineArray[i].receiptline;
+        	
+        	
+        	
+    		if (receiptline === "" || receiptline === null || receiptline === '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Please Fill Receipt line'
+                });
+                document.getElementById("invoiceAmount").focus();
+                return "";
+            }
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        }
+        
          
         //finalObj.poInvoiceLine.poNumber =poNo;
         finalObj.matchOption=matchOption;
@@ -1145,49 +1134,37 @@
         
         console.log(finalObj);
 //return;
+		var count=0;
+        for(var i=0;i<remaningQuatity1.length;i++){
+        	count=count+remaningQuatity1[i];
 
-      /*  for(var i=0;i<remaningQuatity.length;i++){
-		var invoicelineobj={
-			//"receipentLine"	
-				
-		}
-
-      } */
-
+      } flag=0;
+        if(count==0){
+        	flag=1;
+        }
+		
+      var invoiceno= document.getElementById("invoiceNumber").value;
         for(var i=0;i<remaningQuatity1.length;i++){
        
 		 var obj = {
 		            "remaningQuatity" : remaningQuatity1[i],
 		            
-		  			"id"  : remanId1[i]
+		  			"id"  : remanId1[i],
+		  			"invoiceno" : invoiceno,
+		  			"flag" : flag
 		        }
 		   
         
 	  $.ajax({
            type: "POST",
            data: JSON.stringify(obj),
-           url: "<%=GlobalUrl.updateRemaningQuantity%>",
+         <%--   url: "<%=GlobalUrl.updateRemaningQuantity%>" , --%> 
            dataType: "json",
            contentType: "application/json",
            async: false,
            success: function(data) {
 
-             /*   if (data.msg == 'success') {
-               	
-              
-              }else {
-                       Toast.fire({
-                           type: 'error',
-                           title: 'Failed.. Try Again..'
-                       })
-                   }
-               },
-               error: function(jqXHR, textStatue, errorThrown) {
-                   Toast.fire({
-                       type: 'error',
-                       title: 'Failed.. Try Again..'
-                   })
-               }*/
+            
            }
 	  });
    
@@ -1201,7 +1178,7 @@
         $.ajax({
             type: "POST",
             data: JSON.stringify(finalObj),
-            url: "<%=GlobalUrl.savePoInvoice%>",
+            <%-- url: "<%=GlobalUrl.savePoInvoice%>" , --%> 
             dataType: "json",
             contentType: "application/json",
             success: function(response) {
@@ -1311,87 +1288,56 @@
     	            window.opener.location.reload(true);
     	        }
     	
-    		  $("#addBookGridButt").click(function() {
-    	            var abc = document.getElementById('lineType1').value;
-    	            var abc2 = document.getElementById('poNumber1').value;
-    	            var abc3 = document.getElementById('gldate1').value;
-    	            var abc4 = document.getElementById('amount1').value;
-    	            var abc5 = document.getElementById('poLine1').value;
-    	            var abc6 = document.getElementById('receiptNumber1').value;
-    	            var abc7 = document.getElementById('receiptLine1').value;
-    	            var abc8 = document.getElementById('quantityInvoiced1').value;
-    	            var abc9 = document.getElementById('uom1').value;
-    	            var abc10 = document.getElementById('unitPrice1').value;
-    	            var abc11 = document.getElementById('description1').value;
-    	            console.log("abc =>" + abc);
-    	            if (abc == null || abc == "") {
-    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-    	                return false;
-    	            } else if (abc6 == null || abc6 == "") {
-    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-    	                return false;
-    	            } else if (abc3 == null || abc3 == "") {
-    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-    	                return false;
-    	            }  else if (abc4 == null || abc4 == "") {
-    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-    	                return false;
-    	            } else if (abc5 == null || abc5 == "") {
-    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-    	                return false;
-    	            }  else if (abc7 == null || abc7 == "") {
-    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-    	                return false;
-    	            } else if (abc8 == null || abc8 == "") {
-    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-    	                return false;
-    	            }else if (abc10 == null || abc10 == "") {
-    	                swal.fire("Alert", "Fill Mandatory Field ! ", "warning");
-    	                return false;
-    	            }
-    	            else {
-
-    	                $("#addBookGrid").append(' <tr class=""><td>' +
-    	                		abc + '</td><td>' +
-    	                		abc2+ '</td><td>' +
-    	                		abc3 + '</td><td>' +
-    	                		abc4 + '</td><td>' +
-    	                		abc5 + '</td><td>' +
-    	                		abc6+ '</td><td>' +
-    	                		abc7 + '</td><td>' +
-    	                		abc8 + '</td><td>' +
-    	                		abc9+ '</td><td>' +
-    	                		abc10 + '</td><td>' +
-    	                		 abc11 + '</td>' +
-    	                     '<td><a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
-
-    	                 document.getElementById('lineType1').value="";
-        	             //document.getElementById('poNumber1').value="";
-        	             $('#poNumber1').val('${PoNumber}'); 
-        	           document.getElementById('gldate1').value="";
-        	             document.getElementById('amount1').value="";
-        	             document.getElementById('poLine1').value="";
-        	             document.getElementById('receiptNumber1').value="";
-        	           document.getElementById('receiptLine1').value="";
-        	             document.getElementById('quantityInvoiced1').value="";
-        	             document.getElementById('uom1').value="";
-        	             document.getElementById('unitPrice1').value="";
-        	             document.getElementById('description1').value="";
-    	            }
-
-    	        });
-
-
+    		 
 
     		  $(document).ready(function(){
     			  $('.btndeleterow').click(function(){
     			  $(this).closest('tr').remove();
     			  });
     			  });
-    		  function inactiveActiveDeleteData(i){
-    			  tripLineArray.splice(i);
-    		  }
+    		  
+    		   var poLineArray=[];
+    		  function inactiveActiveDeleteData(indexc){
+    			  
+    			//  var checkCondition=confirm("Are you sure you want to delete??");
+    			      			  
+    			 // if(checkCondition){
+    				 // console.log("checkCondition.."+checkCondition);
+    				  lineNumberArray.push(tripLineArray[indexc].lineNumber);
+        			  
+        			  for(var i=0; i<lineNumberArray.length; i++){
+        				  
+        			  $('#tripList').empty();
+        			  $('#tripList').append($('<option/>').attr("value","").text("Select Line Number"));
+        			  for(var k=0; k<lineNumberArray.length; k++){
+        				  
+        			  $('#tripList').append($('<option value="' + k + '" />').attr("value",lineNumberArray[k]).text(lineNumberArray[k]));
+        			  
+        			  }
+        			 // $option = $('<option value="' + val + '">' + options[val] + '</option>');
+        			  }  
+        			  tripLineArray.splice(indexc,1);
+        			  showDatatbleData(tripLineArray);
+        			  var taxper = $("#taxper_"+indexc).val();
+        			 // updatetotalAmount(taxper,indexc);
+    				  
+    			 // }
+            }
     		 
+    		  
+    		  
+
+    	        const Toast = Swal.mixin({
+    	            toast: true,
+    	            position: 'top-end',
+    	            showConfirmButton: false,
+    	            timer: 3000
+    	        }); 
+    		
+    		  
+    		  
+    		  
+    		  
     		  
     </script>
 </body>

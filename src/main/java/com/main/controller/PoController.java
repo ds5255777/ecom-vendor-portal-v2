@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
+import com.main.bean.PoAndLineItem;
 import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.entity.PoLineDetails;
@@ -29,6 +30,7 @@ import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.PoInvoiceRepo;
+import com.main.db.bpaas.repo.PoLineItemRepo;
 import com.main.db.bpaas.repo.QueryRepo;
 
 
@@ -45,6 +47,9 @@ public class PoController {
 	
 	@Autowired
 	QueryRepo  queryRepo;
+	
+	@Autowired
+	PoLineItemRepo poLineItemRepo;
 	
 	@RequestMapping({ "/getAllPODetails" })
 	@CrossOrigin("*")
@@ -218,6 +223,33 @@ public class PoController {
 		return gson.toJson(data).toString();
 	}
 	
+	@RequestMapping({ "/getAllPODetailsByLineNumber" })
+	@CrossOrigin("*")
+	public String getAllPODetailsByLineNumber(HttpServletRequest request ,@RequestBody PoLineDetails details ) {
+
+		DataContainer data = new DataContainer();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			String vendorCode = (String) request.getSession().getAttribute("userName");
+			
+			List<PoLineDetails> poInvoiceDetails = poLineItemRepo.getDataByLineNumber(details.getLineNumber());
+			
+			data.setData(poInvoiceDetails.get(0));
+			data.setMsg("success");
+			System.out.println("end of allPoDetails success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+	
+	
 	@RequestMapping({ "/savePoInvoiceQuery" })
 	@CrossOrigin("*")
 	public String savePoInvoiceQuery(HttpServletRequest request ,@RequestBody  QueryEntity details) {
@@ -307,7 +339,7 @@ public class PoController {
 	}
 	@RequestMapping({ "/updateRemaningQuantity" })
 	@CrossOrigin("*")
-	public String updateRemaningQuantity(HttpServletRequest request ,@RequestBody PoLineDetails  details) {
+	public String updateRemaningQuantity(HttpServletRequest request ,@RequestBody PoAndLineItem  details) {
 
 		DataContainer data = new DataContainer();
 		
@@ -317,10 +349,16 @@ public class PoController {
 			
 			
 			//System.out.println("getRemaningQuatity"+details.getRemaningQuatity());
-			System.out.println("getRemaningQuatity"+details.getRemaningQuatity()+"id"+details.getId());
+			System.out.println("getRemaningQuatity"+details.getRemaningQuatity()+"id"+details.getInvoiceno());
 			
 			podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(),details.getId());
 			
+			Integer flag= details.getFlag();
+			if(flag==1) {
+			podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(details.getInvoiceno());
+			}else {
+				podetailsRepo.updateVendorPoStatusUnprocess(details.getInvoiceno());
+			}
 			
 			System.out.println("end of getPoQueryData success");
 

@@ -45,6 +45,9 @@ public class PoInvoiceDetails {
 	private String poInvoiceNumber;
 	@Column(name = "Invoice_Num")
 	private String invoiceNumber;
+	
+	@Column(name = "vendor_Invoice_Number")
+	private String vendorInvoiceNumber;
 	@Column(name = "Invoice_Currency")
 	private String invoiceCurrency;
 
@@ -373,6 +376,14 @@ public class PoInvoiceDetails {
 
 	public void setAssignTo(String assignTo) {
 		this.assignTo = assignTo;
+	}
+
+	public String getVendorInvoiceNumber() {
+		return vendorInvoiceNumber;
+	}
+
+	public void setVendorInvoiceNumber(String vendorInvoiceNumber) {
+		this.vendorInvoiceNumber = vendorInvoiceNumber;
 	}
 
 

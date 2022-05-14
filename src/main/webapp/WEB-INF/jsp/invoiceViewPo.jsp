@@ -97,7 +97,15 @@
                             <form id="stepOneForm" class="forms-sample">
                                 <div class="row">
                                    
-                                   
+                                   <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Supplier Invoice number (DFF) <span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                 <input class="form-control-sm" type="text" placeholder="Invoice Number" name="vendorInvoiceNumber" id="vendorInvoiceNumber" maxlength="70" style="width: 100%;">
+                                  
+                                            </div>
+                                        </div>
+                                    </div>
                                     
                                     <div class="col-md-3">
                                         <div class="form-group row">
@@ -133,8 +141,7 @@
                                             <div class="col-sm-7">
                                                 <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency"disabled="disabled">
                                                     <option value="INR">INR</option>
-                                                    <option value="USD">USD</option>
-                                                    <option value="KES">KES</option>
+                                                   
                                                 </select>
                                             </div>
                                         </div>
@@ -254,14 +261,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Supplier Invoice number (DFF)</label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" name="supplierInvoiceNumber" id="supplierInvoiceNumber"  placeholder="Supplier Invoice number"  style="width: 100%;" >
-                                            </div>
-                                        </div>
-                                    </div>
+                                  
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Supplier invoice date (DFF) </label>
@@ -312,7 +312,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">GL Date<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="GL Date" name="gldate" id="gldate" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="GL Date" name="gldate1" id="gldate1" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -346,20 +346,7 @@
                             <div class="card-body" style="overflow: auto;">
                                 <table id="prTable" class="table table-bordered table-striped">
                                     <thead>
-                                        <!-- <tr>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Number</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Line type</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Amount</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">PO Number</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">PO Line</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Receipt Number</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Receipt Line</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Quantity Invoiced</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">UOM</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Unit Price</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Description</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">GL Date</th>
-                                        </tr> -->
+                                      
                                         
                                          <tr>
                                     <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;"> S.No</th>
@@ -602,7 +589,7 @@
                       //  $('#lineType').val(tripLineArray[0].lineType)
                        //  $('#account').val(result[0].account)
                        //   $('#gldate').val(tripLineArray[0].gldate)
-                       //    $('#amount').val(tripLineArray[0].amount);
+                           $('#gldate1').val(result[0].glDate);
                        
                         
                       

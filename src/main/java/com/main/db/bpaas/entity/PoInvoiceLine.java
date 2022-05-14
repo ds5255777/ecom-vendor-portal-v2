@@ -68,6 +68,8 @@ public class PoInvoiceLine {
 	private String taxper;
 	@Column(name = "total_Amount")
 	private String totalAmount;
+	@Column(name = "Line_Number")
+	private String lineNumber;
 	
 
 	public Long getId() {
@@ -214,6 +216,14 @@ public class PoInvoiceLine {
 
 	public void setTotalAmount(String totalAmount) {
 		this.totalAmount = totalAmount;
+	}
+
+	public String getLineNumber() {
+		return lineNumber;
+	}
+
+	public void setLineNumber(String lineNumber) {
+		this.lineNumber = lineNumber;
 	}
 	
 	

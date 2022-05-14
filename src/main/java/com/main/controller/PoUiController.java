@@ -210,10 +210,12 @@ public class PoUiController {
 			
 			String userNameIs ="00000000";
 			String invoiceNumber = "";
+			 String vendorCode = (String) request.getSession().getAttribute("userName");
 
-				 
-			invoiceNumber = "ECOM-" + userNameIs +i;
-			i++;
+			int totalInvoiceCount= poinvoiceRepo.getAllInvoiceCountForInvoiceNo(vendorCode);
+			//model.addAttribute("totalInvoiceCount", totalInvoiceCount);
+			invoiceNumber = "ECOM-" + userNameIs +(totalInvoiceCount+1);
+			
 
 			
 			model.addAttribute("invoiceNumber", invoiceNumber);

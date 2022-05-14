@@ -1,6 +1,7 @@
 package com.main.db.bpaas.entity;
 
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -45,7 +46,7 @@ public class PoDetails {
 	private String billTo;
 	
 	@Column(name = "need_By_Date")
-	private String needByDate;
+	private Date needByDate;
 	
 	@Column(name = "Supplier_Site")
 	private String supplierSite;
@@ -88,6 +89,18 @@ public class PoDetails {
 	
     @Column(name="invoice_number")
     private String invoiceNumber;
+    
+    
+    @Column(name="name")
+    private String name;
+    @Column(name="short_code")
+    private String shortCode;
+    @Column(name="organization_id")
+    private String organizationId;
+    @Column(name="type_lookup_code")
+    private String typeLookupCode;
+    
+   
 
 	
 	@OneToMany(cascade = CascadeType.ALL)
@@ -216,12 +229,7 @@ public class PoDetails {
 	public void setPoLineDetails(List<PoLineDetails> poLineDetails) {
 		this.poLineDetails = poLineDetails;
 	}
-	public String getNeedByDate() {
-		return needByDate;
-	}
-	public void setNeedByDate(String needByDate) {
-		this.needByDate = needByDate;
-	}
+	
 	public String getSupplierSite() {
 		return supplierSite;
 	}
@@ -263,6 +271,36 @@ public class PoDetails {
 	}
 	public void setInvoiceNumber(String invoiceNumber) {
 		this.invoiceNumber = invoiceNumber;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getShortCode() {
+		return shortCode;
+	}
+	public void setShortCode(String shortCode) {
+		this.shortCode = shortCode;
+	}
+	public String getOrganizationId() {
+		return organizationId;
+	}
+	public void setOrganizationId(String organizationId) {
+		this.organizationId = organizationId;
+	}
+	public String getTypeLookupCode() {
+		return typeLookupCode;
+	}
+	public void setTypeLookupCode(String typeLookupCode) {
+		this.typeLookupCode = typeLookupCode;
+	}
+	public Date getNeedByDate() {
+		return needByDate;
+	}
+	public void setNeedByDate(Date needByDate) {
+		this.needByDate = needByDate;
 	}
 	
 	

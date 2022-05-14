@@ -105,7 +105,7 @@ tbody {
 								</div>
 								<div class="icon">
 
-									<i class="nav-icon fas fa-list" style="color: #28a745; font-size: 70px;"></i>
+									<i class="nav-icon fas fa-list" style="color: aquamarine; font-size: 70px;"></i>
 								</div>
 								<a href="allPO" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -127,7 +127,7 @@ tbody {
 								</div>
 								<div class="icon">
 
-									<i class="fa fa-tasks" style="color: #dc3545; font-size: 70px;"></i>
+									<i class="fa fa-tasks" style="color: lawngreen; font-size: 70px;"></i>
 								</div>
 								<a href="unprocessPO" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -497,15 +497,16 @@ tbody {
         var unresolvedstsData = {
             labels: [
                 'All PO',
-                'Processed PO',
                 'Unprocessed PO',
-                'Invoice',
-                'Query'
+                'Processed PO',
+                'Query',
+                'Invoices',
+                'Draft Invoices'
                 
             ],//#FF0000(red),00a65a(inactive)
             datasets: [{
-                data: [${totalAllPoCount}, ${totalProcessPoCount},${totalUnprocessPOCount},1,${totalQueryCount}],
-                backgroundColor: ['#17a2b8', '#28a745', '#dc3545', '#007bff', '#fd7e14'],
+                data: [${allPOcount}, ${totalUnprocessPOCount},${totalProcessPoCount},${totalQueryCount},${totalInvoiceCount},${totalDraftInvoiceCount}],
+                backgroundColor: ['aquamarine',  'lawngreen','#28a745',  '#fd7e14','#007bff','#dc3545'],
             }]
         }
         var unresolvedstsOptions = {

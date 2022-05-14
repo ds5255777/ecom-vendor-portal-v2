@@ -34,7 +34,7 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long>{
 	@Query(value = "select count(*) from po_details where status='Unprocess' and vendor_code=?", nativeQuery = true)
 	int getAllUnProcessPoCount(String vendorCode);
 	
-	@Query(value = "select count(*) from query_details where reference_id=:vendorCode", nativeQuery = true)
+	@Query(value = "select count(*) from poinvoice_details where status='Query' and vendor_code=:vendorCode", nativeQuery = true)
 	int getAllQueryCount(String vendorCode);
 	
 	@Query(value = "select * from po_details where po_number=? and vendor_code=?" , nativeQuery = true)
@@ -70,8 +70,12 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long>{
 		@Query(value = "update PoLine_Details set remaning_quatity=:remaningQuatity where  id=:id" , nativeQuery = true)
 		void updateRemaningQuatity(@Param("remaningQuatity") String remaningQuatity,  @Param("id") Long id);
 		
-		 
+		 @Transactional
+		 @Modifying
+		@Query(value = "update po_details set status='Unprocess' where invoice_number=:invoiceNumber " , nativeQuery = true)
+		void updateVendorPoStatusUnprocess(@Param("invoiceNumber") String invoiceNumber);
 		
+		 
  
 		
 	 

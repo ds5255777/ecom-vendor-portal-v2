@@ -105,6 +105,7 @@ public static String invoiceController="invoiceController";
 	 public static String getSelectInvoiceDetailsPo=poController+"/getSelectInvoiceDetailsPo";
 	 public static String savePoInvoiceQuery=poController+"/savePoInvoiceQuery";
 	 public static String getPoQueryData=poController+"/getPoQueryData";
+	 public static String getAllPODetailsByLineNumber=poController+"/getAllPODetailsByLineNumber";
 	 
 	 
 	 public static String PoInvoiceContoller="PoInvoiceContoller";

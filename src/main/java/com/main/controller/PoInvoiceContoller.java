@@ -112,10 +112,10 @@ public class PoInvoiceContoller {
 				List<PoInvoiceLine> poInvoiceLine =invoiceDetails.getPoInvoiceLine();
 				//poInvoiceLine.remaningQuatity;
 				
-				 {				
-				poDetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(ecomInvoiceNumber);
+				 				
+				//poDetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(ecomInvoiceNumber);
 				
-				}
+				
 				
 				invoiceDetails.setStatus("In-Review");
 				invoiceDetails.setVendorCode(vendorCode);

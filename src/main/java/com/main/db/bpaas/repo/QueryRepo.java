@@ -23,7 +23,6 @@ public interface QueryRepo extends JpaRepository<QueryEntity, Integer> {
 	@Query(value = "SELECT id, comment, raised_again_query, raised_by, raised_on, reference_id, trip_query_fk FROM query_details where reference_id=?;", nativeQuery = true)
 	List<QueryEntity> findCommentsByRefID(String reference_id);
 	
-	@Query(value = "SELECT * FROM query_details where reference_id=? and raised_By=? ;", nativeQuery = true)
-	List<QueryEntity> findCommentsByRefIDPo(String reference_id ,String raisedBy);
+	
 
 }

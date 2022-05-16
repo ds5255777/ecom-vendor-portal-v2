@@ -22,9 +22,9 @@ import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.entity.TripDetails;
-import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
-import com.main.db.bpaas.repo.PoInvoiceRepo;
-import com.main.db.bpaas.repo.TripDetailsRepo;
+
+
+
 
 @RequestMapping("/invoiceController")
 @RestController
@@ -32,8 +32,7 @@ public class InvoiceController {
 
 //	@Autowired
 //	private InvoiceDetailsRepo invoiceDetailsRepo;
-	@Autowired
-	PoInvoiceRepo poinvoiceRepo;
+	
 
 	@Autowired
 	private InvoiceGenerationEntityRepo invoiceGenerationEntityRepo;

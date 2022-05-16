@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
-import com.main.db.bpaas.entity.PoInvoiceDetails;
+
 
 public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenerationEntity, Long> {
 

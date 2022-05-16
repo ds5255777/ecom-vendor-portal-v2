@@ -24,34 +24,12 @@ import com.main.bean.DataContainer;
 import com.main.db.JdbcConnection;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
-import com.main.db.bpaas.repo.QueryRepo;
-import com.main.db.bpaas.repo.SupDetailsRepo;
-import com.main.db.bpaas.repo.TripDetailsRepo;
-import com.main.db.bpaas.repo.UserRepository;
-import com.main.service.TripService;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
 @RequestMapping("/tripControllers")
 @RestController
 public class TripControllers {
 
-	@Autowired
-	private TripDetailsRepo tripDetailsRepo;
-
-	@Autowired
-	private QueryRepo queryRepo;
-
-	@Autowired
-	JdbcConnection dbconnection;
-
-	@Autowired
-	private TripService tripService;
-	
-	@Autowired
-	UserRepository userRepository;
-	
-	@Autowired
-	SupDetailsRepo supDetailsRepo;
 
 	@RequestMapping({ "filterTripDetails" })
 	@CrossOrigin("*")

@@ -22,8 +22,6 @@ import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.SupDetailsRepo;
-import com.main.db.bpaas.repo.PoDetailsRepo;
-import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
 import com.main.service.TripService;
 import com.main.service.UserService;
@@ -391,14 +389,7 @@ public class UIController {
 	//End
 		
 	 
-//    @GetMapping("/tripsInvoiceGenerate")
-//    public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
-//
-//        String tripId = request.getParameter("id");
-//        model.addAttribute("tripId", tripId);
-//
-//        return "tripsInvoiceGenerate";
-//    }
+
 //Added by Saurabh for Network Module Part
 	 @GetMapping("/dashbaordNetwork")
 		public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {

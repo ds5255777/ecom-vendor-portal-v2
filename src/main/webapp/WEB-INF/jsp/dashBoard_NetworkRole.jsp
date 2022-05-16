@@ -51,255 +51,248 @@
     </head>
 
     <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
-        <div class="wrapper">
+	<div class="wrapper">
 
-            <!-- Navbar -->
-           
-           <jsp:include page="navbar.jsp?pagename=Network Dashboard" />
-  
-            <!-- Right navbar links -->
-            <jsp:include page="slidebar.jsp?pagename=dashboard" />
-
-            <!-- /.navbar -->
-
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <!-- <h1 class="m-0 text-dark">Dashboard</h1> -->
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
-                                    <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard v1</li> -->
-                                </ol>
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
-                    </div>
-                    <!-- /.container-fluid -->
-                </div>
-                <!-- /.content-header -->
-
-                <!-- Main content -->
-                <section class="content">
-                    <div class="container-fluid">
-                        <!-- Small boxes (Stat box) -->
-                        <div class="row">
-                            <!-- ./col -->
-                            <div class="col-lg-2 col-6">
-                                <!-- small box -->
-                                <div class="small-box bg-white">
-                                    <div class="inner">
-                                        <h2>${totalTripCount}</h2>
-
-                                        <p id="oveTickets" data-toggle="tooltip" data-placement="bottom" title="All Trips">All
-                                            Trips</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="fas fa-truck" style="color: #FAA654; font-size: 50px;"></i>
-                                    </div>
-                                    <a href="allTrips" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                        info <i class="fas fa-arrow-circle-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-2 col-6">
-                                <!-- small box -->
-                                <div class="small-box bg-white">
-                                    <div class="inner">
-                                        <h2>${ApprovedTripscount}</h2>
-
-                                        <p id="iamwatch" data-toggle="tooltip" data-placement="bottom" title="All Approved Trips">Approved</p>
-                                    </div>
-                                    <div class="icon">
-
-                                        <i class="fas fa fa-check" style="color: #28a745; font-size: 50px;"></i>
-                                    </div>
-                                    <a href="getApprovedAdhocTrips" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                        info <i class="fas fa-arrow-circle-right"></i>
-                                    </a>
-                                </div>
-                            </div>    
-
-                            <div class="col-lg-2 col-6">
-                                <!-- small box -->
-                                <div class="small-box bg-white">
-                                    <div class="inner">
-                                        <h2>${yetTobeApproved}</h2>
-
-                                        <p id="UnTickets" data-toggle="tooltip" data-placement="bottom" title="Trips Not Approved yet">Pending Approval</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="fa fa-tasks" style="color: #dc3545; font-size: 50px;"></i>
-                                    </div>
-                                    <a href="pendingApprovalNetwork" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                        info <i class="fas fa-arrow-circle-right"></i>
-                                    </a>
-                                </div>
-                            </div>            
+		<!-- Navbar -->
+		<jsp:include page="navbar.jsp?pagename=Dashboard" />
 
 
 
+		<!-- Right navbar links -->
+		<jsp:include page="slidebar.jsp?pagename=dashboard" />
 
+		<!-- /.navbar -->
 
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<div class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<!-- <h1 class="m-0 text-dark">Dashboard</h1> -->
+						</div>
+						<!-- /.col -->
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+							</ol>
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.container-fluid -->
+			</div>
+			<!-- /.content-header -->
 
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<!-- Small boxes (Stat box) -->
+					<div class="row">
+						<!-- ./col -->
+						<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${totalTripCount}</h2>
 
-                            <!-- ./col -->
-                            <div class="col-lg-2 col-6">
-                                <!-- small box -->
-                                <div class="small-box bg-white">
-                                    <div class="inner">
-                                        <h2>${getTripCountForQueryAdhoc}</h2>
+									<p id="oveTickets" data-toggle="tooltip"
+										data-placement="bottom" title="All Trips">All Trips</p>
+								</div>
+								<div class="icon">
+									<i class="fas fa-truck"
+										style="color: #FAA654; font-size: 50px;"></i>
+								</div>
+								<a href="allTrips" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
 
-                                        <p id="opeTickets" data-toggle="tooltip" data-placement="bottom" title="Trips in which query are raised">Query Trips
-                                            </p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="fas fa-question" style="color: #fd7e14; font-size: 50px;"></i>
-                                    </div>
-                                    <a href="QueryTripsForNetwork" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                        info <i class="fas fa-arrow-circle-right"></i>
-                                    </a>
-                                </div>
-                            </div>
+						<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${ApprovedTripscount}</h2>
 
-                            <div class="col-lg-2 col-6">
+									<p id="iamwatch" data-toggle="tooltip" data-placement="bottom"
+										title="All Approved Trips">Approved</p>
+								</div>
+								<div class="icon">
 
-                                <div class="small-box bg-white">
-                                    <div class="inner">
-                                        <h2>${getInClosedTripCountForAdhoc}</h2>
+									<i class="fas fa fa-check"
+										style="color: #28a745; font-size: 50px;"></i>
+								</div>
+								<a href="getApprovedAdhocTrips" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
 
-                                        <p id="perTicket" data-toggle="tooltip" data-placement="bottom" title="Closed Trips">Closed(ADhoc)</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="far fa-times-circle" style="color: #17a2b8; font-size: 50px;"></i>
-                                    </div>
-                                    <a href="ClosedAdhoc" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                        info <i class="fas fa-arrow-circle-right"></i>
-                                    </a>
-                                </div>
-                            </div>
+						<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${yetTobeApproved}</h2>
 
-                            <!-- ./col -->
-                            <div class="col-lg-2 col-6">
-                                <!-- small box -->
-                                <div class="small-box bg-white">
-                                    <div class="inner">
-                                        <h2>${getAllInvoiceCount}</h2>
+									<p id="UnTickets" data-toggle="tooltip" data-placement="bottom"
+										title="Trips Not Approved yet">Pending Approval</p>
+								</div>
+								<div class="icon">
+									<i class="fa fa-tasks" style="color: #dc3545; font-size: 50px;"></i>
+								</div>
+								<a href="pendingApprovalNetwork" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
 
-                                        <p id="invdue" data-toggle="tooltip" data-placement="bottom" title="All Invoice Count">
-                                            All Invoices</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="fas fa-file-invoice-dollar" style="color: #1F8BFF; font-size: 50px;"></i>
-                                    </div>
-                                    <a href="pendingInvoice" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                        info <i class="fas fa-arrow-circle-right"></i>
-                                    </a>
-                                </div>
-                            </div>
+						<!-- ./col -->
+						<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${getTripCountForQueryAdhoc}</h2>
 
+									<p id="opeTickets" data-toggle="tooltip"
+										data-placement="bottom"
+										title="Trips in which query are raised">Query Trips</p>
+								</div>
+								<div class="icon">
+									<i class="fas fa-question"
+										style="color: #fd7e14; font-size: 50px;"></i>
+								</div>
+								<a href="QueryTripsForNetwork" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
 
+						<div class="col-lg-2 col-6">
 
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${getInClosedTripCountForAdhoc}</h2>
 
+									<p id="perTicket" data-toggle="tooltip" data-placement="bottom"
+										title="Closed Trips">Closed(ADhoc)</p>
+								</div>
+								<div class="icon">
+									<i class="far fa-times-circle"
+										style="color: #17a2b8; font-size: 50px;"></i>
+								</div>
+								<a href="ClosedAdhoc" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
 
+						<!-- ./col -->
+						<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${getAllInvoiceCount}</h2>
 
+									<p id="invdue" data-toggle="tooltip" data-placement="bottom"
+										title="All Invoice Count">All Invoices</p>
+								</div>
+								<div class="icon">
+									<i class="fas fa-file-invoice-dollar"
+										style="color: #1F8BFF; font-size: 50px;"></i>
+								</div>
+								<a href="invoicesQueue" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
 
-                            <!-- ./col -->
-                        </div>
-                        <!-- /.row -->
-                        <!-- Main row -->
+						<!-- ./col -->
+					</div>
+					<!-- /.row -->
+					<!-- Main row -->
 
-                        <!-- /.row (main row) -->
-                    </div>
-                    <!-- /.container-fluid -->
-                </section>
+					<!-- /.row (main row) -->
+				</div>
+				<!-- /.container-fluid -->
+			</section>
 
-                <!-- Main content -->
-                <section class="content">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-8">
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-8">
 
-                                <div class="card card-primary  card-outline ">
-                                    <div class="card-header">
-                                        <h3 class="card-title" id="lastInvoice" data-toggle="tooltip" data-placement="bottom" title="Top 50 Pending Trips">Top 50 Pending Approval Trips</h3>
-                                    </div>
-                                    <!-- /.card-header -->
-                                    <div class="card-body table-responsive p-0" style="height: 420px;">
-                                        <table class="table table-head-fixed" id="tabledata">
-                                            <thead>
-                                                <tr>
+							<div class="card card-primary  card-outline ">
+								<div class="card-header">
+									<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
+										data-placement="bottom" title="Top 50 Pending Trips">Top
+										50 Pending Approval Trips</h3>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body table-responsive p-0"
+									style="height: 420px;">
+									<table class="table table-head-fixed" id="tabledata">
+										<thead>
+											<tr>
 
-                                                    <th class="bg-primary" >Trip ID</th>
-                                                    <th class="bg-primary" >Route</th>
-                                                    <th class="bg-primary" >Run Type</th>
-                                                    <th class="bg-primary" >Trip Status</th>
-                                                    <th class="bg-primary" >Vehicle Number</th>
-                                                </tr>
-                                            </thead>
+												<th class="bg-primary">Trip ID</th>
+												<th class="bg-primary">Route</th>
+												<th class="bg-primary">Run Type</th>
+												<th class="bg-primary">Trip Status</th>
+												<th class="bg-primary">Vehicle Number</th>
+											</tr>
+										</thead>
 
-                                            <tbody>
-                                                <c:forEach var="details" items="${yetTobeApprovedAllDetails}">
-                                                    <tr>
-                                                        <td>${details.tripID}</td>
-                                                        <td>${details.route}</td>
-                                                        <td>${details.runType}</td>
-                                                        <td>${details.runStatus}</td>
-                                                        <td>${details.vehicleNumber}</td>
-                                                        
-                                                       
-                                                    </tr>
-                                                </c:forEach>
-                                            </tbody>
+										<tbody>
+											<c:forEach var="details" items="${yetTobeApprovedAllDetails}">
+												<tr>
+													<td>${details.tripID}</td>
+													<td>${details.route}</td>
+													<td>${details.runType}</td>
+													<td>${details.runStatus}</td>
+													<td>${details.vehicleNumber}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+						</div>
+						<div class="col-md-4">
+							<!-- DONUT CHART -->
+							<div class="card card-primary  card-outline ">
+								<div class="card-body">
+									<p>
+										<strong>Trip by Approval Status</strong>
+									</p>
+									<canvas id="unresolvedsts"
+										style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
+								</div>
+								<!-- /.card-body -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- /.content -->
+		</div>
 
-
-                                        </table>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <!-- DONUT CHART -->
-                                <div class="card card-primary  card-outline ">
-                                    <div class="card-body">
-                                        <p><strong>Trip by Approval Status</strong></p>
-                                        <canvas id="unresolvedsts" style="min-height: 385px;  max-height: 377px; max-width: 100%;display: block;width: 401px;height: 459px;"></canvas>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                                <%-- <div class="card card-primary  card-outline ">
-                                                                    <div class="card-body">
-                                                                            <p>
-                                                                                    <strong>Trip Status</strong>
-                                                                            </p>
-                                                                            <canvas id="unresolvedsts"
-                                                                                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                                                                    </div>
-                                                                    <!-- /.card-body -->
-                                                            </div> --%>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- /.content -->
-            </div>
-
-            <!-- Control Sidebar -->
-            <aside class="control-sidebar control-sidebar-dark">
-                <!-- Control sidebar content goes here -->
-            </aside>
-            <!-- /.control-sidebar -->
-        </div>
-        <!-- ./wrapper -->
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
 
         <!-- Modal -->
         <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -362,7 +355,7 @@
         <!-- AdminLTE App -->
         <script src="dist/js/adminlte.js"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="dist/js/pages/dashboard.js"></script>
+       <!--  <script src="dist/js/pages/dashboard.js"></script> -->
         <!-- AdminLTE for demo purposes -->
         <script src="dist/js/demo.js"></script>
         <script src="plugins/datatables/jquery.dataTables.js"></script>

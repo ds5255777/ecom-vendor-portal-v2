@@ -50,12 +50,22 @@
 <script>
 
         function addValCss(controlName) {
-            $('#' + controlName).css({
-                'border': '1px solid red',
-                'box-shadow': 'inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(249, 0, 0, 0.6)',
-                '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(249, 0, 0, 0.6)',
-                'outline-color': 'transparent'
-            });
+        	alert("hii");
+        	if(controlName=="states"){
+        		 $(".span.select2-selection--multiple[aria-expanded=true").css(
+                     "border", "1px solid red !important"
+                 );
+        		 
+        	}
+        	else{
+        		 $('#' + controlName).css({
+                     'border': '1px solid red',
+                     'box-shadow': 'inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(249, 0, 0, 0.6)',
+                     '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(249, 0, 0, 0.6)',
+                     'outline-color': 'transparent'
+                 });
+        	}
+           
         }
 
         function removeValCss(controlName) {
@@ -77,15 +87,51 @@
          function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
             try {
                 if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
-
-                   /* $("#" + controlName).notify(
-                        tooltipMessage, {
-                            autoHideDelay: 3500,
-                            position: tooltipPlacement
-                        }
-                    );*/
-                    $('#manPara').css('display', '');
-                    addValCss(controlName);
+				
+                	 if(controlName=="introducedByName"){
+                		 swal.fire("Alert", "Fill introducer name ", "warning")
+                         .then((value) => {});
+                		 
+                	 }
+                	 else  if(controlName=="introducedByEmailID"){
+                   	  
+                  	   swal.fire("Alert", "Fill introducer email id", "warning")
+                         .then((value) => {});
+                     }
+                	else  if(controlName=="states"){
+                	  
+                	   swal.fire("Alert", "Fill Business partner type", "warning")
+                       .then((value) => {});
+                   }
+                	else  if(controlName=="suppName"){
+                  	  
+                 	   swal.fire("Alert", "Fill business partner name ", "warning")
+                        .then((value) => {});
+                    }
+                	else  if(controlName=="compEmail"){
+                    	  
+                  	   swal.fire("Alert", "Fill company email id ", "warning")
+                         .then((value) => {});
+                     }
+                	else  if(controlName=="panNumber"){
+                  	  
+                   	   swal.fire("Alert", "Fill PAN number ", "warning")
+                          .then((value) => {});
+                      }
+                	else  if(controlName=="compGstn"){
+                    	  
+                    	   swal.fire("Alert", "Fill GSTN Number ", "warning")
+                           .then((value) => {});
+                       }
+                	else  if(controlName=="natureOfTransactions"){
+                  	  
+                 	   swal.fire("Alert", "Fill Nature of transactions ", "warning")
+                        .then((value) => {});
+                    }
+                   
+                	
+                   // $('#manPara').css('display', '');
+                   // addValCss(controlName);
                     $("#" + controlName).focus();
                 } else {
                     console.log('Values Are Passed As Empty Or Null In notifyTooltip()');
@@ -159,10 +205,12 @@
                 } else {
                     $('.btnfinish').attr('disabled', true);
                 }
-                return checkMand(stepNumber);
+                return checkMand(stepNumber,stepDirection);
 
             });
         });
+        
+       
         
         
 
@@ -180,24 +228,31 @@
             } 
         } 
 
-        function checkMand(stepNo) {
+        function checkMand(stepNo,stepDirection) {
 
-            console.log("stepNo " + stepNo);
+            
+        	if(stepDirection=="backward"){
+        		return true;
+        	}
+        	
             if (stepNo == 0) {
 
                 /* if ($("#partnerType").val() == "Scheduled") { */
 
                     console.log("Inside Step One");
-                    var mandFields = "introducedByName,introducedByEmailID,suppName,compEmail,panNumber,natureOfTransactions,compGstn";
+                    var mandFields = "introducedByName,introducedByEmailID,states,suppName,compEmail,panNumber,compGstn,natureOfTransactions";
                     var mandFieldsArr = mandFields.split(",");
                     for (i = 0; i < mandFieldsArr.length; i++) {
                         console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                         if (document.getElementById(mandFieldsArr[i]).value == '') {
                             notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                           
                             console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                            
                             return false;
                         }
                     }
+                  
 
                     //  
                 /* } else {
@@ -229,7 +284,7 @@
                     return false;
                 }
                 if (contactDetailsGrid == 1) {
-                    swal.fire("Alert", "Add Atleast One Contact", "warning")
+                    swal.fire("Alert", "Add Atleast One Contact !", "warning")
                         .then((value) => {});
                     return false;
                 }
@@ -238,7 +293,7 @@
                 var addBankGrid = $("#addBankGrid tr").length;
                 console.log("addBankGrid " + addBankGrid);
                 if (addBankGrid == 1) {
-                    swal.fire("Alert", "Add Atleast One Account Detail", "warning")
+                    swal.fire("Alert", "Add Atleast One Account Detail !", "warning")
                         .then((value) => {
 
                         });
@@ -275,6 +330,7 @@
             
             
         }
+        
 
         $(document).ready(function() {
             $(".gst").change(function() {
@@ -534,6 +590,21 @@
                 }
             });
         });
+        
+        
+        $(document).ready(function() {
+            $("#pinCode").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /^(\d{4}|\d{6})$/;
+                if (!regex.test(inputvalues)) {
+                    $("#pinCode").val("");
+
+                    swal.fire("Alert", "Invalid Pin Code", "warning");
+                    return regex.test(inputvalues);
+                }
+            });
+        });
+        
 
       /*   function validatephone(phone) {
 
@@ -859,7 +930,7 @@ label {
 
 												<td style="width: auto"><select
 													class="js-example-basic-multiple select2" name="states[]"
-													id="states" onchange="select()" multiple="multiple">
+													id="states" onchange="select()" multiple="multiple" >
 														<c:forEach items="${business}" var="bus">
 
 															<option value="${bus}">${bus}</option>
@@ -1811,6 +1882,21 @@ label {
         //});<input class="btn btn-danger btn-sm" type="button" onClick="$(this).closest(&quot;tr&quot;).remove();">
         //
 
+       /*  alert("hii");
+        function ShowAlert() {
+        	  var ab = document.getElementById('introducedByName').value;
+              console.log("ab =>" + ab);
+        	    if (ab == null || ab == "") {
+        	        swal.alert("Alert", "Fill introducer name !", "warning" );
+        	        ab.focus;
+        	        return false;
+        	    }
+        	   
+        	 } */
+        	 
+
+        	 
+        
         $("#addBookGridButt").click(function() {
             var abc = document.getElementById('city').value;
             var abc2 = document.getElementById('pinCode').value;
@@ -1855,16 +1941,16 @@ label {
             var abc4 = document.getElementById('conEmail').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Fill Mandatory Field !", "warning");
+                swal.fire("Alert", "Fill First Name !", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "Fill Mandatory Field !", "warning");
+                swal.fire("Alert", "Fill Last Name !", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", "Fill Mandatory Field !", "warning");
+                swal.fire("Alert", "Fill Phone Number !", "warning");
                 return false;
             } else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", "Fill Mandatory Field !", "warning");
+                swal.fire("Alert", "Fill Email Id !", "warning");
                 return false;
             } else {
                 console.log("Coming Here");
@@ -2242,11 +2328,14 @@ label {
          		    
          		  } 
                   else {
+                	  
+                	  //swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + response.data, "success", "OK")
          		    $('#divCheckPasswordMatch').html('Account number do not match!').css('color', 'red');
               // Disable #x
      		    $('#addBankGridButt').attr('disabled', true);
                  return;
          		  }
+                  
                //  $("#divCheckPasswordMatch").html(password == $(this).val() ? "Passwords match." : "Passwords do not match!");
              });
          }); 
@@ -2265,6 +2354,8 @@ label {
          		    
          		  } 
                   else {
+                	  
+                	 // swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + response.data, "success", "OK")
          		    $('#divCheckPasswordMatch').html('Account number do not match!').css('color', 'red');
               // Disable #x
      		    $('#addBankGridButt').attr('disabled', true);

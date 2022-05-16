@@ -62,6 +62,9 @@ public class User implements Serializable {
 
 	@Column(name = "status")
 	private String status="0"; // 1- active , 0- inactive, 2- delete 3-change Password
+	
+	@Column(name = "bp_code")
+	private String bpCode;
 
 	@Transient
 	private String passwordConfirm;
@@ -189,6 +192,14 @@ public class User implements Serializable {
 
 	public static String getPk() {
 		return PK;
+	}
+
+	public String getBpCode() {
+		return bpCode;
+	}
+
+	public void setBpCode(String bpCode) {
+		this.bpCode = bpCode;
 	}
 
 }

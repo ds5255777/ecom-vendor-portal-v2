@@ -77,6 +77,13 @@ public class UIController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	
+	
+	@Autowired
+	SupDetailsRepo supDetailsRepo;
+	
+	
 
 	@Autowired
 	private CurrencyRepo currencyRepo;
@@ -156,6 +163,20 @@ public class UIController {
 
 		String rolename = (String) request.getSession().getAttribute("role");
 		User us = userService.findByUsername(principal.getName());
+		
+		//pending
+		//String bpCode="1012";
+		String bpCode=userRepository.getBpCode(principal.getName());
+		if(bpCode =="" || bpCode==null ) {
+			bpCode="";
+		}
+		
+		String vendorType = supDetailsRepo.findVendorType(bpCode);
+		if(vendorType=="" || vendorType==null) {
+			vendorType="vendor";
+		}
+		System.out.println("vendorType in dashboard : "+vendorType);
+				
 
 		model.addAttribute("dataLimit", dataLimit);
 
@@ -245,7 +266,17 @@ public class UIController {
 			model.addAttribute("approveInvoice", approveInvoice);
 			model.addAttribute("draftInvoice", draftInvoice);
 			model.addAttribute("userStatus", us.getStatus());
+			
+			request.setAttribute("vendorType", vendorType);
+			model.addAttribute("vendorType", vendorType);
 
+			//po Details
+			/*
+			 * int totalProcessPoCount = PoDetailsRepo.getAllProcessPoCount(vendorCode);
+			 * model.addAttribute("totalProcessPoCount", totalProcessPoCount);
+			 * System.out.println("totalProcessPoCount : "+totalProcessPoCount);
+			 */
+			
 			return "dashboard";
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
 				|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
@@ -271,6 +302,8 @@ public class UIController {
 		return "";
 
 	}
+	
+	
 
 	@GetMapping({ "/addUsers" })
 	public String addUsers(Model model, Principal principal, String error, String logout, HttpServletRequest request) {
@@ -477,7 +510,10 @@ public class UIController {
 			}
 		 
 
-	@GetMapping("/InsertTrip")
+			return "dashBoard_NetworkRole";
+		}
+	 
+				@GetMapping("/InsertTrip")
 	public void InsertTrip(Model model, Principal principal, HttpServletRequest request) throws FileNotFoundException {
 		System.out.println("***************************Inside Trip************************************************");
 		TripDetails tripDetails = new TripDetails();
@@ -614,6 +650,8 @@ public class UIController {
 		return "draftInvoiceGenerate";
 	}
 
+
+	
 	@GetMapping("/invoiceView")
 	public String invoiceView(Model model, HttpServletRequest request, Principal principal) {
 
@@ -623,7 +661,8 @@ public class UIController {
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		return "invoiceView";
 	}
-
+	
+		
 	@GetMapping("/draftInvoiceGenerate")
 	public String draftInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 

@@ -59,6 +59,8 @@ public class GlobalUrl {
 	public static String checkForExistingInvoiceNumber = invoiceController + "/checkForExistingInvoiceNumber";
 	public static String getAllQueryInvoiceVendor = invoiceController + "/getAllQueryInvoiceVendor";
 	
+	public static String getAllQueryInvoiceVendorPo = invoiceController + "/getAllQueryInvoiceVendorPo";
+	
     public static String dashboardController = "dashboardController";
 
     public static String getDashboardDetails = dashboardController + "/getDashboardDetails";

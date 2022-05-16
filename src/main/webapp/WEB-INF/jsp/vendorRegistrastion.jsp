@@ -1653,16 +1653,16 @@ width: 100% !important;
             var abc4 = document.getElementById('conEmail').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Fill Mandatory Field !", "warning");
+                swal.fire("Alert", "First Name is Mandatory !", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "Fill Mandatory Field !", "warning");
+                swal.fire("Alert", "Last Name is Mandatory !", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", "Fill Mandatory Field !", "warning");
+                swal.fire("Alert", "Phone Name is Mandatory !", "warning");
                 return false;
             } else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", "Fill Mandatory Field !", "warning");
+                swal.fire("Alert", "Email is Mandatory !", "warning");
                 return false;
             } else {
                 console.log("Coming Here");

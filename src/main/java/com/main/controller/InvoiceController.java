@@ -24,6 +24,10 @@ import com.main.db.bpaas.entity.Document;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.serviceManager.ServiceManager;
+import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
+import com.main.db.bpaas.repo.PoInvoiceRepo;
+import com.main.db.bpaas.repo.TripDetailsRepo;
+
 
 @RequestMapping("/invoiceController")
 @RestController
@@ -34,6 +38,10 @@ public class InvoiceController {
 
 	@Autowired
 	private ServiceManager serviceManager;
+	
+	@Autowired
+	PoInvoiceRepo poinvoiceRepo;
+
 
 	@RequestMapping({ "/getAllInvoice" })
 	@CrossOrigin("*")

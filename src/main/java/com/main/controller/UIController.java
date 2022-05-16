@@ -44,6 +44,9 @@ import com.main.db.bpaas.repo.UserRepository;
 import com.main.service.TripService;
 import com.main.service.UserService;
 import com.main.serviceManager.ServiceManager;
+import com.main.db.bpaas.repo.SupDetailsRepo;
+
+
 
 @Controller
 public class UIController {
@@ -430,50 +433,49 @@ public class UIController {
 		return "";
 	}
 
-	@GetMapping("/notification")
-	public String notification(Model model, Principal principal, HttpServletRequest request) {
+	 @GetMapping("/notification")
+	   	public String notification(Model model, Principal principal, HttpServletRequest request) {
+	   		
+	    	String rolename = (String) request.getSession().getAttribute("role");
 
-		String rolename = (String) request.getSession().getAttribute("role");
+			if (rolename.equalsIgnoreCase("Admin")) {
+				
+				return "notification";
+			}
+	   		return "";
+	   	}
+	     
+		 @GetMapping("/vendorRegistrastion")
+	   	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
+	   		
+			 String rolename = (String) request.getSession().getAttribute("role");
 
-		if (rolename.equalsIgnoreCase("Admin")) {
+				if (rolename.equalsIgnoreCase("Admin")) {
+					
+					return "vendorRegistrastion";
+					
+				}
+	   		return "";
+	   	}
+		//End
+			
+		 
 
-			return "notification";
-		}
-		return "";
-	}
+	//Added by Saurabh for Network Module Part
+		 @GetMapping("/dashbaordNetwork")
+			public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {
 
-	@GetMapping("/vendorRegistrastion")
-	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
+				String tripId = request.getParameter("id");
+				model.addAttribute("tripId", tripId);
 
-		String rolename = (String) request.getSession().getAttribute("role");
+				System.out.println("tripId ........." + tripId);
 
-		if (rolename.equalsIgnoreCase("Admin")) {
+				int totalTripCount = tripDetailsRepo.getADHocTripCount("Adhoc");
+				model.addAttribute("totalTripCount", totalTripCount);
 
-			String uname = principal.getName();
-			model.addAttribute("uname", uname);
-			model.addAttribute("maxFileSize", maxFileSize);
-			model.addAttribute("fileSize", fileSize);
-
-			return "vendorRegistrastion";
-
-		}
-		return "";
-	}
-	// End
-
-	@GetMapping("/dashbaordNetwork")
-	public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {
-
-		String tripId = request.getParameter("id");
-		model.addAttribute("tripId", tripId);
-
-		System.out.println("tripId ........." + tripId);
-
-		int totalTripCount = tripDetailsRepo.getADHocTripCount("Adhoc");
-		model.addAttribute("totalTripCount", totalTripCount);
-
-		return "dashBoard_NetworkRole";
-	}
+				return "dashBoard_NetworkRole";
+			}
+		 
 
 	@GetMapping("/InsertTrip")
 	public void InsertTrip(Model model, Principal principal, HttpServletRequest request) throws FileNotFoundException {

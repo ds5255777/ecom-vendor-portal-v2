@@ -23,6 +23,12 @@ import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.serviceManager.ServiceManager;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
+import com.main.db.bpaas.repo.QueryRepo;
+import com.main.db.bpaas.repo.SupDetailsRepo;
+import com.main.db.bpaas.repo.TripDetailsRepo;
+import com.main.db.bpaas.repo.UserRepository;
+import com.main.service.TripService;
+
 
 @RequestMapping("/tripControllers")
 @RestController
@@ -30,6 +36,23 @@ public class TripControllers {
 
 	@Autowired
 	private ServiceManager serviceManager;
+	
+	@Autowired
+	private TripDetailsRepo tripDetailsRepo;
+
+	@Autowired
+	private QueryRepo queryRepo;
+
+
+	@Autowired
+	private TripService tripService;
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
+	SupDetailsRepo supDetailsRepo;
+
 
 	@RequestMapping({ "filterTripDetails" })
 	@CrossOrigin("*")

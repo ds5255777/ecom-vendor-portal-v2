@@ -525,15 +525,19 @@ tbody {
 															</div>
 														</div>
 													</div>
-													<div class="col-md-1"></div>
-														<div class="col-md-4">
+													
+														<div class="col-md-6">
 														<div class="form-group row">
+														<label class="col-sm-3"
+																title="Remarks">Remarks</label>
+																<div class="col-sm-9">
 															<textarea class="form-control" id="comment"
 																name="comment" maxlength="250" required="required"
 																placeholder="Remarks if any" rows="3"></textarea>
 														</div>
 														</div>
-														<div class="col-md-1"><input type="hidden" id="id" name="id" disabled></div>
+														</div>
+														<input type="hidden" id="id" name="id" disabled>
 														<div class="col-md-3">
 
 															<div class="form-group row">

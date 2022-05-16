@@ -2,12 +2,14 @@ package com.main.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +26,7 @@ import com.main.db.bpaas.entity.Document;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.serviceManager.ServiceManager;
+import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
 @RequestMapping("/invoiceController")
 @RestController
@@ -412,6 +415,8 @@ public class InvoiceController {
 			String tripID = obj.getTripID();
 
 			serviceManager.tripDetailsRepo.updateVendorTripStatus(tripID);
+			
+			//serviceManager.invoiceLineItemRepo.updateTrip(tripID);
 
 			data.setMsg("success");
 
@@ -470,6 +475,30 @@ public class InvoiceController {
 				data.setMsg("exist");
 			}
 
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
+	
+	@RequestMapping(value = "/getQueryInvoice")
+	@CrossOrigin("*")
+	public String getQueryInvoice(@RequestBody InvoiceGenerationEntity obj, Principal principal, HttpSession session, HttpServletRequest request)
+			throws UnsupportedEncodingException, MessagingException {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String vendorCode = principal.getName();
+
+		try {
+			String invoiceNumber = obj.getEcomInvoiceNumber();
+			System.out.println(invoiceNumber);
+			obj = serviceManager.invoiceGenerationEntityRepo.getQueryInvoice(vendorCode,invoiceNumber);
+			
+			data.setData(obj);
+			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
 			e.printStackTrace();

@@ -58,6 +58,8 @@ public class GlobalUrl {
 	public static String discardDraftInvoice = invoiceController + "/discardDraftInvoice";
 	public static String checkForExistingInvoiceNumber = invoiceController + "/checkForExistingInvoiceNumber";
 	public static String getAllQueryInvoiceVendor = invoiceController + "/getAllQueryInvoiceVendor";
+	public static String getQueryInvoice = invoiceController + "/getQueryInvoice";
+	
 	
     public static String dashboardController = "dashboardController";
 

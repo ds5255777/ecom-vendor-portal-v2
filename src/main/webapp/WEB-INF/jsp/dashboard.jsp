@@ -3,7 +3,7 @@
 <%@page import="com.main.commonclasses.GlobalUrl"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -65,7 +65,6 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<!-- <h1 class="m-0 text-dark">Dashboard</h1> -->
 						</div>
 						<!-- /.col -->
 						<div class="col-sm-6">
@@ -201,7 +200,6 @@
 								<div class="icon">
 									<i class="fas fa-question"
 										style="color: #fd7e14; font-size: 50px;"></i>
-									<!-- <i class="far fas fa-question" style="color: #17a2b8; font-size: 50px;"></i> -->
 								</div>
 								<a href="queryInvoiceVendor" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -370,6 +368,7 @@
             });
             
             var dataLimit='${dataLimit}';
+    		dataLimit=parseInt(dataLimit);
             
             $('#changePassword1').validate({
                 rules: {

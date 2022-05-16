@@ -438,7 +438,7 @@ public class TripControllers {
 
 			System.out.println("check user id >> " + obj.getTripID());
 			serviceManager.tripDetailsRepo.findTripDetailAgainTripID(invoiceNumber, tripID);
-			// data.setData(list);
+			
 			data.setMsg("success");
 
 		} catch (Exception e) {

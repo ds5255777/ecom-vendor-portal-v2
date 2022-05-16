@@ -365,7 +365,7 @@ public class TripControllers {
 			String tripID = jsonObject.get("tripID").toString();
 			System.out.println(" Trip id is ::" + tripID);
 			List<QueryEntity> qe = serviceManager.queryRepo.findCommentsByRefID(tripID);
-			//System.out.println("Query cahl gyi size hai" + qe.size() + "" + "" + qe.get(0).getComment());
+			
 
 			data.setData(qe);
 			data.setMsg("success");

@@ -50,7 +50,6 @@
 <script>
 
         function addValCss(controlName) {
-        	alert("hii");
         	if(controlName=="states"){
         		 $(".span.select2-selection--multiple[aria-expanded=true").css(
                      "border", "1px solid red !important"
@@ -89,43 +88,43 @@
                 if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
 				
                 	 if(controlName=="introducedByName"){
-                		 swal.fire("Alert", "Fill introducer name ", "warning")
+                		 swal.fire("Alert", "Introducer name is mandatory", "warning")
                          .then((value) => {});
                 		 
                 	 }
                 	 else  if(controlName=="introducedByEmailID"){
                    	  
-                  	   swal.fire("Alert", "Fill introducer email id", "warning")
+                  	   swal.fire("Alert", "Introducer email id is mandatory", "warning")
                          .then((value) => {});
                      }
                 	else  if(controlName=="states"){
                 	  
-                	   swal.fire("Alert", "Fill Business partner type", "warning")
+                	   swal.fire("Alert", "Business partner type is mandatory", "warning")
                        .then((value) => {});
                    }
                 	else  if(controlName=="suppName"){
                   	  
-                 	   swal.fire("Alert", "Fill business partner name ", "warning")
+                 	   swal.fire("Alert", "Business partner name is mandatory", "warning")
                         .then((value) => {});
                     }
                 	else  if(controlName=="compEmail"){
                     	  
-                  	   swal.fire("Alert", "Fill company email id ", "warning")
+                  	   swal.fire("Alert", "Company email id is mandatory", "warning")
                          .then((value) => {});
                      }
                 	else  if(controlName=="panNumber"){
                   	  
-                   	   swal.fire("Alert", "Fill PAN number ", "warning")
+                   	   swal.fire("Alert", "PAN number is mandatory", "warning")
                           .then((value) => {});
                       }
                 	else  if(controlName=="compGstn"){
                     	  
-                    	   swal.fire("Alert", "Fill GSTN Number ", "warning")
+                    	   swal.fire("Alert", "GSTN Number is mandatory", "warning")
                            .then((value) => {});
                        }
                 	else  if(controlName=="natureOfTransactions"){
                   	  
-                 	   swal.fire("Alert", "Fill Nature of transactions ", "warning")
+                 	   swal.fire("Alert", "Nature of transaction is mandatory", "warning")
                         .then((value) => {});
                     }
                    
@@ -161,7 +160,7 @@
                         	
                         	   if ($("#partnerType").val() == "Scheduled") { 
                         		  
-                        		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,ITRFile,FUVFFile,MSMECFile,AMFile,ITRAFile,NMISFile";
+                        		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,ITRFile,FUVFFile,MSMECFile,AMFile,NMISFile";
                                   var mandFieldsArr = mandFields.split(",");
 
                                   for (i = 0; i < mandFieldsArr.length; i++) {
@@ -279,12 +278,12 @@
                 console.log("addBookGridCount " + addBookGridCount);
                 console.log("contactDetailsGrid " + contactDetailsGrid);
                 if (addBookGridCount == 1) {
-                    swal.fire("Alert", "Add Atleast One Address !", "warning")
+                    swal.fire("Alert", "Add Atleast One Address", "warning")
                         .then((value) => {});
                     return false;
                 }
                 if (contactDetailsGrid == 1) {
-                    swal.fire("Alert", "Add Atleast One Contact !", "warning")
+                    swal.fire("Alert", "Add Atleast One Contact", "warning")
                         .then((value) => {});
                     return false;
                 }
@@ -293,7 +292,7 @@
                 var addBankGrid = $("#addBankGrid tr").length;
                 console.log("addBankGrid " + addBankGrid);
                 if (addBankGrid == 1) {
-                    swal.fire("Alert", "Add Atleast One Account Detail !", "warning")
+                    swal.fire("Alert", "Add Atleast One Account Detail", "warning")
                         .then((value) => {
 
                         });

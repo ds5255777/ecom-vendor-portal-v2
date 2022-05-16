@@ -117,14 +117,14 @@ function checkManInvoice() {
         "valTotInvVal", "valTotRo"];
 
 
-    for (var i = 0; i < fields.length; i++) {
+    /*for (var i = 0; i < fields.length; i++) {
         console.log(fields[i] + " :: " + document.getElementsByName(fields[i])[0].value);
         if (document.getElementsByName(fields[i])[0].value === "") {
             addValCss(fields[i]);
             return false;
         }
     }
-    return true;
+    return true;*/
 }
 
 function addValCss(controlName) {

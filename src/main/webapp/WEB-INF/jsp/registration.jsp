@@ -1,34 +1,53 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+
 <!DOCTYPE html>
+<%@page import="com.main.commonclasses.GlobalUrl"%>
 <html lang="en">
 
 <head>
-  
-	
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Business Partner Registration </title>
 
 
-    <!-- Optional SmartWizard themes -->
-    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard_theme_circles.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard_theme_arrows.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="dist/css/perfect-scrollbar/dist/css/perfect-scrollbar.min.css"/>
-    <link rel="stylesheet" href="plugins/flag-icon-css/css/flag-icon.min.css" />
-    <link rel="stylesheet" href="dist/css/style.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard.min.css" />
-    <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-    <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Business Partner Registration</title>
 
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
-    <script src="dist/js/notify.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-       
-    
-    <script>
+
+<!-- Optional SmartWizard themes -->
+<link rel="stylesheet"
+	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard_theme_circles.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard_theme_arrows.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="plugins/fontawesome-free/css/fontawesome.min.css" />
+<link rel="stylesheet"
+	href="dist/css/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
+<link rel="stylesheet"
+	href="plugins/flag-icon-css/css/flag-icon.min.css" />
+<link rel="stylesheet" href="dist/css/style.css" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard.min.css" />
+<link rel="stylesheet"
+	href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+	rel="stylesheet" />
+
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+<script src="dist/js/notify.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+<script>
 
         function addValCss(controlName) {
             $('#' + controlName).css({
@@ -55,7 +74,7 @@
             });
         }
 
-        function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
+         function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
             try {
                 if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
 
@@ -74,7 +93,7 @@
             } catch (err) {
 
             }
-        }
+        } 
 
         $(document).ready(function() {
             $('#smartwizard').smartWizard({
@@ -169,7 +188,7 @@
                 /* if ($("#partnerType").val() == "Scheduled") { */
 
                     console.log("Inside Step One");
-                    var mandFields = "introducedByName,introducedByEmailID,suppName,compEmail,panNumber,natureOfTransactions,opeUnitReqMap";
+                    var mandFields = "introducedByName,introducedByEmailID,suppName,compEmail,panNumber,natureOfTransactions,compGstn";
                     var mandFieldsArr = mandFields.split(",");
                     for (i = 0; i < mandFieldsArr.length; i++) {
                         console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
@@ -210,7 +229,7 @@
                     return false;
                 }
                 if (contactDetailsGrid == 1) {
-                    swal.fire("Alert", "Add Atleast One Conttact", "warning")
+                    swal.fire("Alert", "Add Atleast One Contact", "warning")
                         .then((value) => {});
                     return false;
                 }
@@ -264,7 +283,7 @@
                 if (gstinformat.test(inputvalues)) {
                     return true;
                 } else {
-                    alert('Please Enter Valid GSTIN Number');
+                	swal.fire("","Invalid GSTN Number", "warning");
                     $(".gst").val('');
                     $(".gst").focus();
                 }
@@ -281,7 +300,7 @@
                 } else if (aadhar.match(adharSixteenDigit)) {
                     return true;
                 } else {
-                    alert("Enter valid Aadhar Number");
+                	swal.fire(""," Invalid Aadhar Number", "warning");
                     $("#aadharNumber").val('');
                     $("#aadharNumber").focus();
                     //return false;
@@ -295,12 +314,149 @@
                 var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
                 if (!regex.test(inputvalues)) {
                     $("#panNumber").val("");
-                    alert("invalid PAN no");
+                    swal.fire("","Invalid PAN Number", "warning");
                     return regex.test(inputvalues);
                 }
             });
+            
+            $("#tanNumber").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /[A-Za-z]{4}[0-9]{5}[A-Za-z]{1}/;
+                if (!regex.test(inputvalues)) {
+                    $("#tanNumber").val("");
+                    swal.fire("","Invalid TAN Number", "warning");
+                    return regex.test(inputvalues);
+                }
+            });
+            
+            $("#phoneNumber").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+                if (!regex.test(inputvalues)) {
+                    $("#phoneNumber").val("");
+                    swal.fire("","Invalid Phone Number", "warning");
+                    return regex.test(inputvalues);
+                }
+            });
+            
+            $("#conPhone").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+                if (!regex.test(inputvalues)) {
+                    $("#conPhone").val("");
+                    swal.fire("","Invalid Phone Number", "warning");
+                    return regex.test(inputvalues);
+                }
+            });
+            
+            $(document).ready(function(){
+                $("#introducedByName").keypress(function(event){
+                	
+                    var inputValue = event.which;
+                   
+                    // allow letters and whitespaces only.
+                    if(inputValue==8){
+                    	
+                    }else if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) { 
+                        event.preventDefault(); 
+                    }
+                });
+            });
+            
+            function lettersOnly() 
+            {
+                        var charCode = event.keyCode;
 
+                        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8)
+
+                            return true;
+                        else
+                            return false;
+            }
+            
+             $(document).ready(function(){
+                $("#city").keypress(function(event){
+                	
+                    var inputValue = event.which;
+                   
+                    // allow letters and whitespaces only.
+                    if(inputValue==8){
+                    	
+                    }else if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) { 
+                        event.preventDefault(); 
+                    }
+                });
+            }); 
+             
+           
+             $(document).ready(function(){
+                $("#suppName").keypress(function(event){
+                	
+                    var inputValue = event.which;
+                   
+                    // allow letters and whitespaces only.
+                    if(inputValue==8){
+                    	
+                    }else if(!(inputValue >= 65 && inputValue <= 122 ) && (inputValue != 32 && inputValue != 0) && !(inputValue >= 37 && inputValue <= 47 ) ) { 
+                        event.preventDefault(); 
+                    }
+                });
+            });
+             
+           
+
+            $(document).ready(function(){
+                $("#conFname").keypress(function(event){
+                	
+                    var inputValue = event.which;
+                   
+                    // allow letters and whitespaces only.
+                    if(inputValue==8){
+                    	
+                    }else if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) { 
+                        event.preventDefault(); 
+                    }
+                });
+            });
+            $(function() {
+                $('#conLname').on('keypress', function(e) {
+                    if (e.which == 32){
+                        console.log('Space Detected');
+                        return false;
+                    }
+                });
         });
+            $(document).ready(function(){
+                $("#conLname").keypress(function(event){
+                	
+                    var inputValue = event.which;
+                   
+                    // allow letters and whitespaces only.
+                    if(inputValue==8){
+                    	
+                    }else if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) { 
+                        event.preventDefault(); 
+                    }
+                });
+            });
+            
+            $(document).ready(function(){
+                $("#bankName").keypress(function(event){
+                	
+                    var inputValue = event.which;
+                   
+                    // allow letters and whitespaces only.
+                    if(inputValue==8){
+                    	
+                    }else if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) { 
+                        event.preventDefault(); 
+                    }
+                });
+            });
+           
+        });
+        
+       
 
 
         function changetextbox() {
@@ -318,7 +474,9 @@
                 document.getElementById("tdsRate").disabled = '';
             }
         }
-
+        
+        
+        
         $(document).ready(function() {
             $(".email").change(function() {
                 var inputvalues = $(this).val();
@@ -326,18 +484,24 @@
                 if (!regex.test(inputvalues)) {
                     $("#compEmail").val("");
 
-                    swal.fire("Alert", "Invalid Email Id....", "warning");
+                    swal.fire("Alert", "Invalid Email Id", "warning");
                     return regex.test(inputvalues);
                 }
             });
+            
+            //allow special characters for Business partner type
+    
+          
+            
             $("#introducedByEmailID").change(function() {
                 var inputvalues = $(this).val();
                 var regex = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@ecomexpress.in$/;
                 
                 if (!regex.test(inputvalues)) {
                     $("#introducedByEmailID").val("");
-
-                    swal.fire("Alert", "Dear User Please Provide ECOM Patner Email ID", "warning");
+                    document.getElementById("introducedByEmailID").focus();
+                    swal.fire("Alert", "Invalid Email ID", "warning");
+                    document.getElementById("introducedByEmailID").focus();
                     return regex.test(inputvalues);
                 }
             });
@@ -350,23 +514,40 @@
                 if (!regex.test(inputvalues)) {
                     $("#conEmail").val("");
 
-                    swal.fire("Alert", "Invalid Email Id....", "warning");
+                    swal.fire("Alert", "Invalid Email ID", "warning");
+                    return regex.test(inputvalues);
+                }
+            });
+        });
+        
+     
+        
+        $(document).ready(function() {
+            $("#ifscCode").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
+                if (!regex.test(inputvalues)) {
+                    $("#ifscCode").val("");
+
+                    swal.fire("Alert", "Invalid IFSC Code", "warning");
                     return regex.test(inputvalues);
                 }
             });
         });
 
-        function validatephone(phone) {
+      /*   function validatephone(phone) {
 
             phone = phone.replace(/[^0-9]/g, '');
             $("#phoneNumber").val(phone);
             if (phone == '' || !phone.match(/^0[0-9]{9}$/)) {
                 return false;
-            } else {
+            } 
+            
+            else {
                 return true;
             }
         }
-        
+         */
         function onValidateFile(id){
         	var fileInput3 = document.getElementById(id).value;
         	var gst = document.getElementById(id);
@@ -387,7 +568,7 @@
                 // var size = parseFloat(cc.files[0].size / (1024 * 1024)).toFixed(2);
                  //alert("Your File Size is "+(file/1024)+"MB");
                  if(file > ${maxFileSize}) {
-                 	swal.fire("Alert", "Please select File size less than 5 MB....", "warning");
+                 	swal.fire("Alert", " File size should be less than 5 MB", "warning");
                  	$("#" + id).val("");
                  }else{
                  	 var ext = fileInput3.split(".")[1];
@@ -396,7 +577,7 @@
                       if( ext=="pdf" || ext=="jpg" || ext=="JPEG" || ext=="JPG" || ext=="jpeg" || ext=="PDF" ){
                       	//Sab valid hai
                       }else{
-                      	swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File....", "warning");
+                      	swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File", "warning");
                           
                       	$("#" + id).val("");
                           return false;	
@@ -477,760 +658,1145 @@
     </script>
 
 <style>
-	   
-        .mainbody,
-        .header,
-        .footer {
-            padding: 5px;
-        }
+input:focus {
+	outline-color: red;
+}
 
-        .mainbody {
-            margin-top: 0;
-            min-height: 150px;
-            max-height: 388px;
-            overflow: auto;
-        }
+.mainbody, .header, .footer {
+	padding: 5px;
+}
 
-        .header {
-            height: 10px;
-            border-bottom: 1px solid #EEE;
-            background-color: #ffffff;
-            height: 40px;
-            -webkit-border-top-left-radius: 5px;
-            -webkit-border-top-right-radius: 5px;
-            -moz-border-radius-topleft: 5px;
-            -moz-border-radius-topright: 5px;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-        }
+.mainbody {
+	margin-top: 0;
+	min-height: 150px;
+	max-height: 388px;
+	overflow: auto;
+}
 
-        .footer {
-            height: 40px;
-            background-color: whiteSmoke;
-            border-top: 1px solid #DDD;
-            -webkit-border-bottom-left-radius: 5px;
-            -webkit-border-bottom-right-radius: 5px;
-            -moz-border-radius-bottomleft: 5px;
-            -moz-border-radius-bottomright: 5px;
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-        }
+.header {
+	height: 10px;
+	border-bottom: 1px solid #EEE;
+	background-color: #ffffff;
+	height: 40px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: rgba(255, 255, 255, .8) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
-        }
+.footer {
+	height: 40px;
+	background-color: whiteSmoke;
+	border-top: 1px solid #DDD;
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-moz-border-radius-bottomright: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
 
-        /* When the body has the loading class, we turn
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: rgba(255, 255, 255, .8)
+		url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+}
+
+/* When the body has the loading class, we turn
                the scrollbar off with overflow:hidden */
-        body.loading .modal {
-            overflow: hidden;
-        }
+body.loading .modal {
+	overflow: hidden;
+}
 
-        /* Anytime the body has the loading class, our
+/* Anytime the body has the loading class, our
                modal element will be visible */
-        body.loading .modal {
-            display: block;
-        }
-        
+body.loading .modal {
+	display: block;
+}
 
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            left: -10000px;
-            overflow: hidden;
-        }
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	left: -10000px;
+	overflow: hidden;
+}
 
-        .control,
-        fieldset {
-            margin: 6px 0;
-        }
+.control, fieldset {
+	margin: 6px 0;
+}
 
-        label {
-            display: inline-block;
-            width: 160px;
-            vertical-align: top;
-            font-weight: 100 !important;
+label {
+	display: inline-block;
+	width: 160px;
+	vertical-align: top;
+	font-weight: 100 !important;
+}
 
-        }
+.addressLable {
+	display: inline-block;
+	width: 100px;
+	vertical-align: top;
+	font-weight: 100 !important;
+}
 
-        .addressLable {
-            display: inline-block;
-            width: 100px;
-            vertical-align: top;
-            font-weight: 100 !important;
-        }
+::-webkit-input-placeholder {
+	opacity: .5;
+}
 
-        ::-webkit-input-placeholder {
-            opacity: .5;
-        }
+.required {
+	color: red;
+}
 
-        .required {
-            color: red;
-        }
+#addDetails {
+	resize: vertical;
+}
 
-        #addDetails {
-            resize: vertical;
-        }
+.navbar .navbar-menu-wrapper {
+	transition: width .8s ease!importent;
+	padding: 2px 0px !important;
+	width: calc(100% - 0px) !important;
+}
 
-        .navbar .navbar-menu-wrapper {
-            transition: width .8s ease !importent;
-            padding: 2px 0px !important;
-            width: calc(100% - 0px) !important;
-        }
-        
-    </style>
+.select2 {
+	width: 100% !important;
+}
+</style>
 
 
-    </head>
+</head>
 
 <body>
+	<jsp:include page="loader.jsp" />
 
-    
-    <div class="">
-        <!-- partial:../../partials/_navbar.html -->
-        <nav class="navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-            <div class="navbar-menu-wrapper d-flex align-items-center">
-                <ul class="navbar-nav d-flex align-items-center flex-row" style="margin-left: 30px;">
-                    <li class="nav-item"><a class="nav-link profile-pic" href="#"><img class="img-fluid" src="dist/img/logo/ecomlogo.png" alt="" style="width: 40px;"></a></li>
-                </ul>
-                <h4 style="color: white;">Business Partner Registration</h4>
-            </div>
-        </nav>
-        <br> <br>
-        <div class="content-wrapper" style="margin-left: 0px; width: 100%;">
-            <div id="smartwizard" style="background: white; padding: 20px;">
-                <ul>
-                    <li style="margin-left: 0px; margin-right: auto;"><a href="#step-1">Step-1<br /> <small>Basic Details</small></a></li>
-                    <li style="margin: auto;"><a href="#step-2">Step-2<br />
-                            <small>General Details</small></a></li>
-                    <li style="margin: auto;"><a href="#step-3">Step-3<br />
-                            <small>Banking Details</small></a></li>
-                    <li style="margin: auto; margin-left: auto;"><a href="#step-4">Step-4<br />
-                            <small>Tex Detail</small></a></li>
-                    <li style="margin: unset; margin-left: auto;"><a href="#step-5">Step-5<br /> <small>Documents</small></a></li>
-                </ul>
-                <div>
-                    <div id="step-1" class="">
-                    <p id ="manPara" style="display:none;color:RED">Please fill all mandatory fields.</p>
-                        <div class="card" style="margin-bottom: 10px;">
-                            <div class="card-header" id="addressBookHead" style="background: #11aef6; color: #ffffff;">
-                                <h6 class="mb-0">Basic Details</h6>
-                            </div>
-                            <div id="basicDetailsHeadData" aria-labelledby="basicDetailsHead" style="border-style: solid; border-width: 1px; border-color: #11aef6;">
-                                <form id="stepOneForm" class="forms-sample" style="padding: 20px;">
-                                    <table class="table center-aligned-table" id="fromTable" name="fromTable">
-                                        <thead>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="">
-                                                <td><label for="partnerType">Business Partner</label></td>
-                                                <td>
-                                                    <select id="partnerType" name="partnerType" class="form-control p-input" onchange="showHideRequiredClass();">
-                                                        <option id="scheduled" value="Scheduled">Scheduled</option>
-                                                        <option id="adHoc" value="Ad-Hoc">Ad-Hoc(Need Basic)</option>
-                                                    </select>
-                                                </td>
+	<div class="">
+		<!-- partial:../../partials/_navbar.html -->
+		<nav
+			class="navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+			<div class="navbar-menu-wrapper d-flex align-items-center">
+				<ul class="navbar-nav d-flex align-items-center flex-row"
+					style="margin-left: 30px;">
+					<li class="nav-item"><a class="nav-link profile-pic" href="#"><img
+							class="img-fluid" src="dist/img/logo/ecomlogo.png" alt=""
+							style="width: 40px;"></a></li>
+				</ul>
+				<h4 style="color: white;">Business Partner Registration</h4>
+			</div>
+		</nav>
+		<br> <br>
+		<div class="content-wrapper" style="margin-left: 0px; width: 100%;">
+			<div id="smartwizard" style="background: white; padding: 20px;">
+				<ul>
+					<li style="margin-left: 0px; margin-right: auto;"><a
+						href="#step-1">Step-1<br /> <small>Basic Details</small></a></li>
+					<li style="margin: auto;"><a href="#step-2">Step-2<br />
+							<small>General Details</small></a></li>
+					<li style="margin: auto;"><a href="#step-3">Step-3<br />
+							<small>Banking Details</small></a></li>
+					<li style="margin: auto; margin-left: auto;"><a href="#step-4">Step-4<br />
+							<small>Tax Detail</small></a></li>
+					<li style="margin: unset; margin-left: auto;"><a
+						href="#step-5">Step-5<br /> <small>Documents</small></a></li>
+				</ul>
+				<div>
+					<div id="step-1" class="">
+						<p id="manPara" style="display: none; color: RED">Please fill
+							all mandatory fields.</p>
+						<div class="card" style="margin-bottom: 10px;">
+							<div class="card-header" id="addressBookHead"
+								style="background: #11aef6; color: #ffffff;">
+								<h6 class="mb-0">Basic Details</h6>
+							</div>
+							<div id="basicDetailsHeadData" aria-labelledby="basicDetailsHead"
+								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
+								<form id="stepOneForm" class="forms-sample"
+									style="padding: 20px;">
+									<table class="table center-aligned-table" id="fromTable"
+										name="fromTable">
+										<thead>
+										</thead>
+										<tbody>
+											<tr class="">
+												<td><label for="name">Introducer Name<span
+														class="required adHocRequired">*</span></label></td>
+												<td colspan='1'><input type="text"
+													class="form-control p-input" id="introducedByName"
+													name="introducedByName" placeholder="Reference Name"
+													maxlength="30"></td>
+
+												<td><label for="emailId">Introducer Email ID<span
+														class="required adHocRequired">*</span></label></td>
+												<td colspan='1'><input type="text"
+													class="form-control p-input" id="introducedByEmailID"
+													name="introducedByEmailID" placeholder="abc@ecomexpress.in"
+													onchange="removeValCssByID(this)"><span
+													id="message"></span></td>
+
+												<td><label for="Supplier Type">Business Partner
+														Code</label></td>
+												<td colspan='1'><input type="test"
+													class="form-control p-input" id="bpCode" name="bpCode"
+													placeholder="Business Partner Code"
+													onchange="removeValCssByID(this)" disabled></td>
+
+
+											</tr>
+
+
+
+											<tr>
+
+												<td><label>Business Partner Type<span
+														class="required adHocRequired">*</span></label></td>
+
+												<td style="width: auto"><select
+													class="js-example-basic-multiple select2" name="states[]"
+													id="states" onchange="select()" multiple="multiple">
+														<c:forEach items="${business}" var="bus">
+
+															<option value="${bus}">${bus}</option>
+														</c:forEach>
+												</select></td>
+
+
+												<td><label for="partnerType">Business Partner</label></td>
+												<td><select id="partnerType" name="partnerType"
+													class="form-control p-input"
+													onchange="showHideRequiredClass();" disabled="disabled">
+														<c:forEach items="${partner}" var="par">
+
+															<option value="${par}">${par}</option>
+														</c:forEach>
+
+												</select></td>
+												<input type="hidden" id="roleId" />
+
+												<td><label for="suppName">Business Partner Name<span
+														class="required adHocRequired">*</span></label></td>
+												<td colspan='1'><input type="text"
+													class="form-control p-input" id="suppName" name="suppName"
+													placeholder="Name(As per Cheque/Passbook)"
+													onchange="removeValCssByID(this)" maxlength="50"></td>
+											</tr>
+
+
+
+											<script>
+											
+											function select(){
+											
+												var element = document.getElementById('states');
+									        	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
+									        	var selectedValues = [];    
+									            $("#states :selected").each(function(){
+									                selectedValues.push($(this).val()); 
+									            });
+									           // alert(selectedValues);
+									            
+									            let values = selectedValues.toString();
+									         
+									        	document.getElementById("roleId").value=values;
+									        	//alert("roleId111: "+num);
+										
+												
+												var val = document.getElementById("states").value
+												if (val == "Network") {
+													document.getElementById("partnerType").disabled = false;
+													document.getElementById("partnerType").value = "Scheduled";
+												}else{
+													document.getElementById("partnerType").disabled = true;
+													document.getElementById("partnerType").value = "";
+													
+												}
+												
+											}
+											</script>
+
+
+											<tr class="">
+
+
+												<td><label for="compEmail">Company Email ID<span
+														class="required adHocRequired">*</span></label></td>
+												<td colspan='1'><input type="email"
+													class="form-control p-input email" id="compEmail"
+													name="compEmail" placeholder="Company Mail ID"
+													onchange="removeValCssByID(this);" required></td>
+
+												<td><label for="phoneNumber">Phone Number</label></td>
+												<td colspan='1'><input type="text"
+													class="form-control p-input" id="phoneNumber"
+													name="phoneNumber" placeholder="Phone Number"
+													maxlength="10"
+													oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
+													onchange="removeValCssByID(this)"><span
+													id="message"></span></td>
+
+												<td><label for="businessClassification">Business
+														Classification</label></td>
+												<td><select id="businessClassification"
+													name="businessClassification" class="form-control p-input"
+													colspan='1' placeholder="Business Classification"
+													onchange="removeValCssByID(this)">
+														<option value="">Select</option>
+														<c:forEach items="${classification}" var="classi">
+
+															<option value="${classi}">${classi}</option>
+														</c:forEach>
+
+												</select></td>
+											</tr>
+
+											<tr class="">
+												<td><label for="aadharNumber">Aadhar Number</label></td>
+												<td colspan='1'><input type="text"
+													oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+													class="form-control p-input" id="aadharNumber"
+													maxlength="12" name="aadharNumber"
+													placeholder="Aadhar Number" onblur="AadharValidate();"></td>
+
+												<td><label for="panNumber">Pan Number<span
+														class="required adHocRequired">*</span></label></td>
+												<td colspan='1'><input type="text"
+													class="form-control p-input" id="panNumber"
+													name="panNumber" placeholder="Pan Number"
+													oninput="this.value = this.value.toUpperCase()"
+													maxlength="10" onchange="removeValCssByID(this)"></td>
+
+												<td><label for="tanNumber">TAN Number</label></td>
+												<td colspan='1'><input type="text"
+													class="form-control p-input" id="tanNumber"
+													name="tanNumber" placeholder="TAN Number"
+													oninput="this.value = this.value.toUpperCase()"
+													maxlength="10" onkeypress="return isNumberKey(evt);"></td>
+											</tr>
+
+											<tr>
+												<td><label for="adharLinkStatus">Aadhar Link
+														Status</label></td>
+												<td colspan='1'><input type="text"
+													class="form-control p-input" id="adharLinkStatus"
+													name="adharLinkStatus" placeholder="Aadhar Link Status"></td>
+
+												<td><label for="compGstn">GSTN Number<span
+														class="required adHocRequired">*</span></label></td>
+												<td colspan='1'><input type="test"
+													class="form-control p-input gst" id="compGstn"
+													name="compGstn" placeholder="GSTN Number"
+													oninput="this.value = this.value.toUpperCase()"
+													maxlength="15"></td>
+
+												<td><label for="natureOfTransactions">Nature of
+														transactions<span class="required adHocRequired">*</span>
+												</label></td>
+
+												<td><select colspan='1' class="form-control p-input"
+													id="natureOfTransactions" name="natureOfTransactions"
+													placeholder="Nature of transactions"
+													onchange="removeValCssByID(this)">
+														<option value="">Select</option>
+														<c:forEach items="${nature}" var="nat">
+
+															<option value="${nat}">${nat}</option>
+														</c:forEach>
+
+												</select></td>
+											</tr>
+
+											<tr>
+
+
+												<!-- <td colspan='1'><input type="text" class="form-control p-input" id="businessClassification" name="businessClassification" placeholder="Business Classification" 
                                                 
-                                                <td><label for="name">Introduced By Name<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="introducedByName" name="introducedByName" placeholder="Reference Name"  onchange="removeValCssByID(this)" required></td>
+                                                onchange="removeValCssByID(this)"></td> -->
 
-                                                <td><label for="emailId">Introduced By Email ID<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="introducedByEmailID" name="introducedByEmailID" placeholder="abc@ecomexpress.in"  onchange="removeValCssByID(this)"><span id="message"></span></td>
-                                                
-                                            </tr>
-                                            <tr>
+												<!-- <td><label for="siteDff">SITE DFF</label></td>
+                                                <td colspan='1'><input type="text" class="form-control p-input" id="siteDff" name="siteDff" placeholder="SITE DFF"></td> -->
 
-                                                <td><label for="Supplier Type">Business Partner Code</label></td>
-                                                <td colspan='1'><input type="test" class="form-control p-input" id="bpCode" name="bpCode" placeholder="Business Partner Code" onchange="removeValCssByID(this)" disabled></td>
-
-												<td><label>Business Partner Type<span class="required adHocRequired">*</span></label></td>
-                                                <td >
-                                                    <div class="checkbox checkbox-inline">
-                                                       <input type="checkbox"  name="option[]" value="Network"  required>Network
-                                                        &nbsp;
-                                                        <input type="checkbox" name="option[]" value="Fixed Asset" required>Fixed Asset
-                                                        
-                                                        &nbsp;
-                                                        <input type="checkbox"  name="option[]" value="Other" required>Other
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr class="">
-                                                <td><label for="suppName">Business Partner Name<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="suppName" name="suppName" placeholder="Name(As per Cheque/Passbook)" onchange="removeValCssByID(this)"></td>
-
-                                                <td><label for="compEmail">Company Email ID<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="email" class="form-control p-input email" id="compEmail" name="compEmail" placeholder="Company Mail ID" onchange="removeValCssByID(this);" required></td>
-
-                                                <td><label for="phoneNumber">Phone Number</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" maxlength="10" onkeyup=" return validatephone(this.value); " onchange="removeValCssByID(this)"><span id="message"></span></td>
-                                            </tr>
-
-                                            <tr class="">
-                                                <td><label for="aadharNumber">Aadhar Number</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="aadharNumber" name="aadharNumber" placeholder="Aadhar Number" onblur="AadharValidate();"></td>
-
-                                                <td><label for="panNumber">Pan Number<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="panNumber" name="panNumber" placeholder="Pan Number" onchange="removeValCssByID(this)"></td>
-
-                                                <td><label for="tanNumber">TAN Number</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="tanNumber" name="tanNumber" placeholder="TAN Number"></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td><label for="adharLinkStatus">Aadhar Link
-                                                        Status</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="adharLinkStatus" name="adharLinkStatus" placeholder="Aadhar Link Status" ></td>
-
-                                                <td><label for="compGstn">GSTN Number</label></td>
-                                                <td colspan='1'><input type="test" class="form-control p-input gst" id="compGstn" name="compGstn" placeholder="GSTN Number"></td>
-
-                                                <td><label for="natureOfTransactions">Nature of
-                                                        transactions<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="natureOfTransactions" name="natureOfTransactions" placeholder="Nature of transactions" onchange="removeValCssByID(this)"></td>
-                                            </tr>
-
-                                            <tr>
-
-                                                <td><label for="businessClassification">Business
-                                                        Classification</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="businessClassification" name="businessClassification" placeholder="Business Classification" onchange="removeValCssByID(this)"></td>
-
-                                                <td><label for="siteDff">SITE DFF</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="siteDff" name="siteDff" placeholder="SITE DFF"></td>
-
-                                                <td><label for="opeUnitReqMap">Operating Unit
+												<!-- <td><label for="opeUnitReqMap">Operating Unit
                                                         required to MAP<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="opeUnitReqMap" name="opeUnitReqMap" placeholder="Operating Unit required to MAP" onchange="removeValCssByID(this)"></td>
+                                                <td colspan='1'><input type="text" class="form-control p-input" id="opeUnitReqMap" name="opeUnitReqMap" placeholder="Operating Unit required to MAP" onchange="removeValCssByID(this)"></td> -->
 
-                                            </tr>
+											</tr>
 
-                                        </tbody>
-                                    </table>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="step-2" class="">
-                        <div class="card" style="margin-bottom: 10px;">
-                            <div class="card-header" id="addressBookHead" style="background: #11aef6; color: #ffffff;">
-                                <h6 class="mb-0">Address Book</h6>
-                            </div>
+										</tbody>
+									</table>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div id="step-2" class="">
+						<div class="card" style="margin-bottom: 10px;">
+							<div class="card-header" id="addressBookHead"
+								style="background: #11aef6; color: #ffffff;">
+								<h6 class="mb-0">Address Book</h6>
+							</div>
 
-                            <div id="addressBookHeadData" aria-labelledby="addressBookHead" style="border-style: solid; border-width: 1px; border-color: #11aef6;">
-                                <div class="card-body" style="padding-top: 15px;">
-                                    <form id="stepTwoForm" class="forms-sample">
-                                        <table class="table center-aligned-table addTable" id="fromTable" name="fromTable">
+							<div id="addressBookHeadData" aria-labelledby="addressBookHead"
+								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
+								<div class="card-body" style="padding-top: 15px;">
+									<form id="stepTwoForm" class="forms-sample">
+										<table class="table center-aligned-table addTable"
+											id="fromTable" name="fromTable">
 
-                                            <tbody>
-                                                <tr class="">
-                                                    <td><label class="addressLable" for="country">Country<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><select id="addCountry" name="addCountry" class="form-control p-input">
-                                                            <option id="india" name="india" value="India">India</option>
-                                                        </select>
-                                                    </td>
+											<tbody>
+												<tr class="">
+													<td><label class="addressLable" for="country">Country<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><select id="addCountry"
+														name="addCountry" class="form-control p-input">
+															<c:forEach items="${country}" var="count">
 
-                                                    <td><label class="addressLable">State<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><select name="state" id="state" class="form-control p-input">
-                                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                                            <option value="Andaman and Nicobar Islands">Andaman
-                                                                and Nicobar Islands</option>
-                                                            <option value="Arunachal Pradesh">Arunachal
-                                                                Pradesh</option>
-                                                            <option value="Assam">Assam</option>
-                                                            <option value="Bihar">Bihar</option>
-                                                            <option value="Chandigarh">Chandigarh</option>
-                                                            <option value="Chhattisgarh">Chhattisgarh</option>
-                                                            <option value="Dadar and Nagar Haveli">Dadar and
-                                                                Nagar Haveli</option>
-                                                            <option value="Daman and Diu">Daman and Diu</option>
-                                                            <option value="Delhi">Delhi</option>
-                                                            <option value="Lakshadweep">Lakshadweep</option>
-                                                            <option value="Puducherry">Puducherry</option>
-                                                            <option value="Goa">Goa</option>
-                                                            <option value="Gujarat">Gujarat</option>
-                                                            <option value="Haryana">Haryana</option>
-                                                            <option value="Himachal Pradesh">Himachal
-                                                                Pradesh</option>
-                                                            <option value="Jammu and Kashmir">Jammu and
-                                                                Kashmir</option>
-                                                            <option value="Jharkhand">Jharkhand</option>
-                                                            <option value="Karnataka">Karnataka</option>
-                                                            <option value="Kerala">Kerala</option>
-                                                            <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                                            <option value="Maharashtra">Maharashtra</option>
-                                                            <option value="Manipur">Manipur</option>
-                                                            <option value="Meghalaya">Meghalaya</option>
-                                                            <option value="Mizoram">Mizoram</option>
-                                                            <option value="Nagaland">Nagaland</option>
-                                                            <option value="Odisha">Odisha</option>
-                                                            <option value="Punjab">Punjab</option>
-                                                            <option value="Rajasthan">Rajasthan</option>
-                                                            <option value="Sikkim">Sikkim</option>
-                                                            <option value="Tamil Nadu">Tamil Nadu</option>
-                                                            <option value="Telangana">Telangana</option>
-                                                            <option value="Tripura">Tripura</option>
-                                                            <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                                            <option value="Uttarakhand">Uttarakhand</option>
-                                                            <option value="West Bengal">West Bengal</option>
-                                                        </select>
-                                                        <!-- <input type="text"
+																<option value="${count}">${count}</option>
+															</c:forEach>
+
+													</select></td>
+
+													<td><label class="addressLable">State<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><select name="state" id="state"
+														class="form-control p-input">
+															<option value="Andhra Pradesh">Andhra Pradesh</option>
+															<option value="Andaman and Nicobar Islands">Andaman
+																and Nicobar Islands</option>
+															<option value="Arunachal Pradesh">Arunachal
+																Pradesh</option>
+															<option value="Assam">Assam</option>
+															<option value="Bihar">Bihar</option>
+															<option value="Chandigarh">Chandigarh</option>
+															<option value="Chhattisgarh">Chhattisgarh</option>
+															<option value="Dadar and Nagar Haveli">Dadar and
+																Nagar Haveli</option>
+															<option value="Daman and Diu">Daman and Diu</option>
+															<option value="Delhi">Delhi</option>
+															<option value="Lakshadweep">Lakshadweep</option>
+															<option value="Puducherry">Puducherry</option>
+															<option value="Goa">Goa</option>
+															<option value="Gujarat">Gujarat</option>
+															<option value="Haryana">Haryana</option>
+															<option value="Himachal Pradesh">Himachal
+																Pradesh</option>
+															<option value="Jammu and Kashmir">Jammu and
+																Kashmir</option>
+															<option value="Jharkhand">Jharkhand</option>
+															<option value="Karnataka">Karnataka</option>
+															<option value="Kerala">Kerala</option>
+															<option value="Madhya Pradesh">Madhya Pradesh</option>
+															<option value="Maharashtra">Maharashtra</option>
+															<option value="Manipur">Manipur</option>
+															<option value="Meghalaya">Meghalaya</option>
+															<option value="Mizoram">Mizoram</option>
+															<option value="Nagaland">Nagaland</option>
+															<option value="Odisha">Odisha</option>
+															<option value="Punjab">Punjab</option>
+															<option value="Rajasthan">Rajasthan</option>
+															<option value="Sikkim">Sikkim</option>
+															<option value="Tamil Nadu">Tamil Nadu</option>
+															<option value="Telangana">Telangana</option>
+															<option value="Tripura">Tripura</option>
+															<option value="Uttar Pradesh">Uttar Pradesh</option>
+															<option value="Uttarakhand">Uttarakhand</option>
+															<option value="West Bengal">West Bengal</option>
+													</select> <!-- <input type="text"
 														class="form-control p-input" id="state" name="state"
-														placeholder="State"> -->
-                                                    </td>
-                                                    <td><label class="addressLable">City<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="city" name="city" placeholder="city"></td>
-                                                </tr>
-                                                <tr class="">
+														placeholder="State"> --></td>
+													<td><label class="addressLable">District<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="city" name="city"
+														placeholder="District"></td>
+												</tr>
+												<tr class="">
 
 
-                                                    <td><label>Postal Code/ ZIP Code<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="pinCode" name="pinCode" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Postal Code/ ZIP Code"></td>
+													<td><label>Postal Code/ ZIP Code<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="pinCode" name="pinCode"
+														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+														placeholder="Postal Code/ ZIP Code" maxlength="6"></td>
 
-                                                    <td><label for="addressDetails">Address
-                                                            Details<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><textarea class="form-control" id="addDetails" name="addDetails" placeholder="Complete Address" rows="3"></textarea></td>
-                                                    <td style="width: 150px;"></td>
-                                                    <td colspan='3'><button type="Button" class="btn btn-primary" id="addBookGridButt" name="addBookGridButt">Add Address</button></td>
-                                                </tr>
+													<td><label for="addressDetails">Address
+															Details<span class="required adHocRequired">*</span>
+													</label></td>
+													<td colspan='2'><textarea class="form-control"
+															id="addDetails" name="addDetails" maxlength="250"
+															placeholder="Complete Address" rows="3"></textarea></td>
+													<td style="width: 150px;"></td>
+													<td colspan='3'><button type="Button"
+															class="btn btn-primary" id="addBookGridButt"
+															name="addBookGridButt">Add Address</button></td>
+												</tr>
 
-                                            </tbody>
-                                        </table>
-                                    </form>
-                                    <form class="forms-sample">
-                                        <div class="card-body">
-                                            <div class="table-responsive" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-                                                <table class="table center-aligned-table" id="addBookGrid" name="addBookGrid">
-                                                    <thead>
-                                                        <tr style="background: #1991eb; color: white;">
-                                                            <th>Country</th>
-                                                            <th>State</th>
-                                                            <th>City</th>
-                                                            <th>Postal Code/ ZIP Code</th>
-                                                            <th>Address Details</th>
-                                                            <th>Remove</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card" style="margin-bottom: 10px;" style="margin-bottom: 10px;">
-                            <div class="card-header" id="contactDir" style="background: #1991eb; color: #ffffff;">
-                                <h6 class="mb-0">Contact Details</h6>
-                            </div>
-                            <div id="contactDirData" aria-labelledby="contactDir" class="collapse show" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-                                <div class="card-body">
-                                    <form id="Form-3" class="forms-sample">
-                                        <table class="table center-aligned-table" id="fromTable" name="fromTable">
-                                            <thead>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="">
-                                                    <td><label for="fnameCon">First Name<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="conFname" name="conFname" placeholder="First Name"></td>
+											</tbody>
+										</table>
+									</form>
+									<form class="forms-sample">
+										<div class="card-body">
+											<div class="table-responsive"
+												style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+												<table class="table center-aligned-table" id="addBookGrid"
+													name="addBookGrid">
+													<thead>
+														<tr style="background: #1991eb; color: white;">
+															<th>Country</th>
+															<th>State</th>
+															<th>District</th>
+															<th>Postal Code/ ZIP Code</th>
+															<th>Address Details</th>
+															<th>Remove</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="card" style="margin-bottom: 10px;"
+							style="margin-bottom: 10px;">
+							<div class="card-header" id="contactDir"
+								style="background: #1991eb; color: #ffffff;">
+								<h6 class="mb-0">Contact Details</h6>
+							</div>
+							<div id="contactDirData" aria-labelledby="contactDir"
+								class="collapse show"
+								style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+								<div class="card-body">
+									<form id="Form-3" class="forms-sample">
+										<table class="table center-aligned-table" id="fromTable"
+											name="fromTable">
+											<thead>
+											</thead>
+											<tbody>
+												<tr class="">
+													<td><label for="fnameCon">First Name<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="conFname" name="conFname"
+														placeholder="First Name" maxlength="30"></td>
 
-                                                    <td><label for="lnameCon">Last Name<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="conLname" name="conLname" placeholder="Last Name"></td>
+													<td><label for="lnameCon">Last Name<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="conLname" name="conLname"
+														placeholder="Last Name" maxlength="30"></td>
 
-                                                    <td><label for="phno">Phone Number<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="conPhone" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="conPhone" placeholder="Phone Number"></td>
-                                                <tr>
-                                                <tr class="">
-
-
-                                                    <td><label for="emailId">Email<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="conEmail" name="conEmail" placeholder="Email"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-primary" id="contactDetailsButt" name="contactDetailsButt">Add
-                                                            Contact Details</button>
-                                                    </td>
-                                                <tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="form-group">
-
-                                        </div>
-                                    </form>
-                                    <form class="forms-sample">
-                                        <div class="card-body">
-                                            <div class="table-responsive" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-                                                <table class="table center-aligned-table" id="contactDetailsGrid" name="contactDetailsGrid">
-                                                    <thead>
-                                                        <tr style="background: #1991eb; color: white;">
-                                                            <th>First Name</th>
-                                                            <th>Last Name</th>
-                                                            <th>Phone Number</th>
-                                                            <th>Email</th>
-                                                            <th>Remove</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="step-3" class="">
-                        <div class="card" style="margin-bottom: 10px;">
-                            <div class="card-header" id="addressBookHead" style="background: #1991eb; color: #ffffff;">
-                                <h6 class="mb-0">Bank Details</h6>
-                            </div>
-                            <div id="addressBookHeadData" aria-labelledby="addressBookHead" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-                                <div class="card-body" style="margin-bottom: 10px;">
-                                    <form id="Form-4" class="forms-sample">
-                                        <table class="table center-aligned-table" id="fromTable" name="fromTable">
-                                            <thead>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="">
-                                                    <td><label for="bankName">Bank Name<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="email" class="form-control p-input" id="bankName" name="bankName" placeholder="Bank Name"></td>
-
-                                                    <td><label for="ifscCode">RTGS/ IFSC Code<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="ifscCode" name="ifscCode" placeholder="RTGS/ IFSC Code"></td>
+													<td><label for="phno">Phone Number<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="conPhone"
+														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+														name="conPhone" placeholder="Phone Number" maxlength="10"></td>
+												<tr>
+												<tr class="">
 
 
-                                                    <td><label for="accoutNumber">Account Number<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="accoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="accoutNumber" placeholder="Account Number"></td>
+													<td><label for="emailId">Email ID<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="conEmail" name="conEmail"
+														placeholder="Email ID"></td>
+													<td></td>
+													<td></td>
+													<td>
+														<button type="button" class="btn btn-primary"
+															id="contactDetailsButt" name="contactDetailsButt">Add
+															Contact Details</button>
+													</td>
+												<tr>
+											</tbody>
+										</table>
+										<div class="form-group"></div>
+									</form>
+									<form class="forms-sample">
+										<div class="card-body">
+											<div class="table-responsive"
+												style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+												<table class="table center-aligned-table"
+													id="contactDetailsGrid" name="contactDetailsGrid">
+													<thead>
+														<tr style="background: #1991eb; color: white;">
+															<th>First Name</th>
+															<th>Last Name</th>
+															<th>Phone Number</th>
+															<th>Email ID</th>
+															<th>Remove</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="step-3" class="">
+						<div class="card" style="margin-bottom: 10px;">
+							<div class="card-header" id="addressBookHead"
+								style="background: #1991eb; color: #ffffff;">
+								<h6 class="mb-0">Bank Details</h6>
+							</div>
+							<div id="addressBookHeadData" aria-labelledby="addressBookHead"
+								style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+								<div class="card-body" style="margin-bottom: 10px;">
+									<form id="Form-4" class="forms-sample">
+										<table class="table center-aligned-table" id="fromTable"
+											name="fromTable">
+											<thead>
+											</thead>
+											<tbody>
+												<tr class="">
+													<td><label for="bankName">Bank Name<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="email"
+														class="form-control p-input" id="bankName" name="bankName"
+														placeholder="Bank Name" maxlength="200"></td>
 
-                                                </tr>
-                                                <tr class="">
-                                                    <td><label for="accoutCurrency">Currency<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><select id="accoutCurrency" name="accoutCurrency" class="form-control p-input">
-                                                            <option value="INR">INR</option>
-                                                            <option value="USD">USD</option>
-                                                            <option value="KES">KES</option>
-                                                        </select></td>
-                                                    <td></td>
-                                                    <td colspan='3'>
-                                                        <button type="Button" id="addBankGridButt" name="addBankGridButt" class="btn btn-primary">Add
-                                                            Account Details</button>
-                                                    </td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                        <div class="card-body">
-                                            <div class="table-responsive" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-                                                <table class="table center-aligned-table" id="addBankGrid" name="addBankGrid">
-                                                    <thead>
-                                                        <tr style="background: #1991eb; color: white;">
-                                                            <th>Bank Name</th>
-                                                            <th>RTGS/ IFSC Code</th>
-                                                            <th>Currency</th>
-                                                            <th>Account Number</th>
-                                                            <th></th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card" style="margin-bottom: 10px;">
-                            <div class="card-header" id="addressBookHead" style="background: #1991eb; color: #ffffff;">
-                                <h6 class="mb-0">Invoice Payment Terms</h6>
-                            </div>
-                            <div id="addressBookHeadData" aria-labelledby="addressBookHead" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-                                <div class="card-body" style="margin-bottom: 10px;">
-                                    <form id="stepSixForm" class="forms-sample">
-                                        <table class="table center-aligned-table" id="fromTable" name="fromTable">
-                                            <thead>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="">
-                                                    <td><label for="invoiceCurrency">Invoice
-                                                            Currency<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><select id="invoiceCurrency" name="invoiceCurrency" class="form-control p-input">
-                                                            <option value="INR">INR</option>
-                                                            <option value="USD">USD</option>
-                                                            <option value="KES">KES</option>
-                                                        </select></td>
-
-                                                    <td><label for="paymentCurrency">Payment
-                                                            Currency<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><select id="paymentCurrency" name="paymentCurrency" class="form-control p-input">
-                                                            <option value="INR">INR</option>
-                                                            <option value="USD">USD</option>
-                                                            <option value="KES">KES</option>
-                                                        </select></td>
-
-                                                    <td><label for="creditTerms">Payment / Credit
-                                                            Terms<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="creditTerms" name="creditTerms" onchange="removeValCssByID(this)" placeholder="Payment / Credit Terms"></td>
-                                                </tr>
-                                                <tr class="">
-													<td><label for="paymentMethod">Payment Method<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="paymentMethod" name="paymentMethod" onchange="removeValCssByID(this)" placeholder="Payment Method"></td>
-
-                                                    <td><label for="dateBasis">Terms Date Basis</label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="dateBasis" name="dateBasis" placeholder="Terms Date Basis"></td>
-                                                    <td><label for="deliveryTerms">Delivery Terms</label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="deliveryTerms" name="deliveryTerms" placeholder="Delivery Terms"></td>
-
-                                                    
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div id="step-4" class="">
-                        <div class="card" style="margin-bottom: 10px;">
-
-                            <!-- Start -->
-
-                            <div class="card" style="margin-bottom: 10px;">
-                                <div class="card-header" id="addressBookHead" style="background: #1991eb; color: #ffffff;">
-                                    <h6 class="mb-0">TDS Details</h6>
-                                </div>
-                                <div id="addressBookHeadData" aria-labelledby="addressBookHead" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-                                    <div class="card-body" style="margin-bottom: 10px;">
-                                        <form id="stepSevenForm" class="forms-sample">
-                                            <table class="table center-aligned-table" id="fromTable" name="fromTable">
-                                                <thead>
-                                                </thead>
-                                                <tbody>
-                                                    <tr class="">
-                                                        <td><label class="addressLable" for="tdsApplication">TDS
-                                                                Applicable</label></td>
-                                                        <td colspan='2'><select id="tdsApplication" name="tdsApplication" onchange="changetextbox();" class="form-control p-input ">
-                                                                <option value="Yes">Yes</option>
-                                                                <option value="No">No</option>
-                                                            </select></td>
-
-                                                        <td><label class="addressLable" for="tdsSection">TDS Section</label></td>
-                                                        <td colspan='2'><input type="text" class="form-control p-input" id="tdsSection" name="tdsSection" placeholder="TDS Section"></td>
-
-                                                        <td><label for="tdsRate">TDS Exemption Rate
-                                                                (If Any)</label></td>
-                                                        <td colspan='2'><input type="text" class="form-control p-input" id="tdsRate" name="tdsRate" placeholder="TDS  Exemption Rate"></td>
-                                                    </tr>
-
-                                                </tbody>
-                                            </table>
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- End -->
-
-                            <!-- Start -->
-
-                            <div class="card" style="margin-bottom: 10px;">
-                                <div class="card-header" id="itrHead" style="background: #1991eb; color: #ffffff;">
-                                    <h6 class="mb-0">ITR Details</h6>
-                                </div>
-                                <div id="itrHeadData" aria-labelledby="itrHead" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-                                    <div class="card-body" style="margin-bottom: 10px;">
-                                        <form id="StepEightForm" class="forms-sample">
-                                            <table class="table center-aligned-table" id="fromTable" name="fromTable">
-                                                <thead>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><label class="addressLable" for="tdsApplication">Financial Year</label></td>
-                                                        <td colspan='2'><select id="fyYear" class="form-control p-input ">
-                                                                <option value="2018-19">2018-19</option>
-                                                                <option value="2019-20">2019-20</option>
-                                                                <option value="2020-21">2020-21</option>
-                                                                <option value="2021-22">2021-22</option>
-
-                                                            </select></td>
-                                                        <td style="width: 150px;"></td>
-                                                        <td><label for="tdsApplication">Acknowledgement Number</label></td>
-
-                                                        <td colspan='2'><input type="text" id="acknowledgementNumber" name="acknowledgementNumber" class="form-control p-input ">
-                                                        </td>
-                                                        <td style="width: 150px;"></td>
-                                                        <td colspan='2'>
-                                                            <button type="Button" id="addITRGridButt" name="addITRGridButt" class="btn btn-primary">Add
-                                                                ITR Details</button>
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="card-body">
-                                                <div class="table-responsive" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-                                                    <table class="table center-aligned-table" id="addITRGrid" name="addITRGrid">
-                                                        <thead>
-                                                            <tr style="background: #1991eb; color: white;">
-                                                                <th>Financial Year</th>
-                                                                <th>Acknowledgement Number</th>
-                                                                <th>Action</th>
-
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        </tbody>
-                                                    </table>
+													<td><label for="ifscCode">RTGS/ IFSC Code<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="ifscCode" name="ifscCode"
+														placeholder="RTGS/ IFSC Code"
+														oninput="this.value = this.value.toUpperCase()"
+														maxlength="11"></td>
 
 
 
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <!-- End -->
+													<td><label for="accoutNumber">Account Number<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="accoutNumber"
+														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+														name="accoutNumber" placeholder="Account Number"
+														maxlength="16"></td>
 
-                        </div>
+													<td><label for="Confirmed accoutNumber">Confirmed
+															Account Number<span class="required adHocRequired">*</span>
+													</label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="confirmedAccoutNumber"
+														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+														name="confirmedAccoutNumber"
+														placeholder="Confirmed Account Number" maxlength="16"></td>
 
-                    </div>
-                    <div id="step-5" class="">
-                        <div class="card" style="margin-bottom: 10px;">
-                            <div class="card-header" id="addressBookHead" style="background: #1991eb; color: #ffffff;">
-                                <h6 class="mb-0">Document Upload</h6>
-                            </div>
-                            <div id="addressBookHeadData" aria-labelledby="addressBookHead" style="border-style: solid; border-width: 1px; border-color: #11aef6;">
-                                <div class="card-body">
-                                    <form class="forms-sample">
+												</tr>
+												<tr class="">
+													<td><label for="accoutCurrency">Currency<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><select id="accoutCurrency"
+														name="accoutCurrency" class="form-control p-input">
+															<c:forEach items="${currency}" var="cur">
 
-                                        <div class="card-body">
-                                            <div class="table-responsive" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-                                                <table class="table center-aligned-table" id="addDocTypeGrid" name="addDocTypeGrid">
+																<option value="${cur}">${cur}</option>
+															</c:forEach>
+													</select></td>
+													<td></td>
+													<td colspan='3'>
+														<button type="Button" id="addBankGridButt"
+															name="addBankGridButt" class="btn btn-primary">Add
+															Account Details</button>
+													</td>
 
-                                                    <tbody>
-                                                        <tr>
-                                                            <td><label>GST Certificate<span class="required">*</span></label></td>
-                                                            <td><input type="file" id="GSTFile" name="GSTFile" onchange=" removeValCssByID(this),  handleFileSelect(event,'GSTFileText'), onValidateFile('GSTFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="GSTFileText" rows="5" style="display: none;"></textarea></td>
-                                                            <td><label>Proprietorship declaration<span class="required">*</span></label></td>
-                                                            <td><input type="file" id="PDFile" name="PDFile" onchange=" removeValCssByID(this),  handleFileSelect(event,'PDFileText'), onValidateFile('PDFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="PDFileText" rows="5" style="display: none;"></textarea>
-                                                            </td>
-                                                            
-                                                        </tr>
+													<div class="registrationFormAlert"
+														id="divCheckPasswordMatch"></div>
+												</tr>
 
-                                                        <tr>
-                                                            <td><label>PAN Card<span class="required">*</span></label></td>
-                                                            <td><input type="file" id="PANFile" name="PANFile" onchange="handleFileSelect(event,'PANFileText'), onValidateFile('PANFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="PANFileText" rows="5" style="display: none;"></textarea></td>
-                                                        
-                                                            <td><label>Cancelled Cheque/ Passbook/ Bank Statement<span class="required">*</span></label></td>
-                                                            <td><input type="file" id="CCFile" name="CCFile" onchange="handleFileSelect(event,'CCFileText'), onValidateFile('CCFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="CCFileText" rows="5" style="display: none;"></textarea></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><label>Aadhar Card</label></td>
-                                                            <td><input type="file" id="ACFile" name="ACFile" onchange="handleFileSelect(event,'ACFileText'), onValidateFile('ACFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="ACFileText" rows="5" style="display: none;"></textarea></td>
-                                                            <td><label>Aadhar and PAN Card linking declaration</label></td>
-                                                            <td><input type="file" id="APLFile" name="APLFile" onchange="handleFileSelect(event,'APLFileText'), onValidateFile('APLFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="APLFileText" rows="5" style="display: none;"></textarea></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><label>ITR Filling Declaration<span class="required">*</span></label></td>
-                                                            <td><input type="file" id="ITRFile" name="ITRFile" onchange="handleFileSelect(event,'ITRFileText'), onValidateFile('ITRFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="ITRFileText" rows="5" style="display: none;"></textarea></td>
-                                                            <td><label>Filled Updated VRF Form<span class="required">*</span></label></td>
-                                                            <td><input type="file" id="FUVFFile" name="FUVFFile" onchange="handleFileSelect(event,'FUVFFileText'), onValidateFile('FUVFFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="FUVFFileText" rows="5" style="display: none;"></textarea></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><label>MSME Certificate<span class="required">*</span></label></td>
-                                                            <td><input type="file" id="MSMECFile" name="MSMECFile" onchange="handleFileSelect(event,'MSMECFileText'), onValidateFile('MSMECFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="MSMECFileText" rows="5" style="display: none;"></textarea></td>
-                                                            <td><label>Approval Mail<span class="required">*</span></label></td>
-                                                            <td><input type="file" id="AMFile" name="AMFile" onchange="handleFileSelect(event,'AMFileText'), onValidateFile('AMFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="AMFileText" rows="5" style="display: none;"></textarea></td>
-                                                        </tr>
+											</tbody>
+										</table>
+										<div class="card-body">
+											<div class="table-responsive"
+												style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+												<table class="table center-aligned-table" id="addBankGrid"
+													name="addBankGrid">
+													<thead>
+														<tr style="background: #1991eb; color: white;">
+															<th>Bank Name</th>
+															<th>RTGS/ IFSC Code</th>
+															<th>Currency</th>
+															<th>Account Number</th>
+															<th></th>
+															<th>Action</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
 
-                                                        <tr>
-                                                            <td><label>ITR Acknowledgment of 3 years<span class="required">*</span></label></td>
-                                                            <td><input type="file" id="ITRAFile" name="ITRAFile" onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="ITRAFileText" rows="5" style="display: none;"></textarea></td>
-                                                            <td><label>Name mismatch affidavit or declaration would be required if name mentioned in all document is not same including spelling error<span class="required">*</span></label></td>
-                                                            <td><input type="file" id="NMISFile" name="NMISFile" onchange="handleFileSelect(event,'NMISFileText'), onValidateFile('NMISFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="NMISFileText" rows="5" style="display: none;"></textarea></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+						<div class="card" style="margin-bottom: 10px;">
+							<div class="card-header" id="addressBookHead"
+								style="background: #1991eb; color: #ffffff;">
+								<h6 class="mb-0">Invoice Payment Terms</h6>
+							</div>
+							<div id="addressBookHeadData" aria-labelledby="addressBookHead"
+								style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+								<div class="card-body" style="margin-bottom: 10px;">
+									<form id="stepSixForm" class="forms-sample">
+										<table class="table center-aligned-table" id="fromTable"
+											name="fromTable">
+											<thead>
+											</thead>
+											<tbody>
+												<tr class="">
+													<td><label for="invoiceCurrency">Invoice
+															Currency<span class="required adHocRequired">*</span>
+													</label></td>
+													<td colspan='2'><select id="invoiceCurrency"
+														name="invoiceCurrency" class="form-control p-input">
+															<c:forEach items="${currency}" var="cur">
 
-                        <!-- Start -->
+																<option value="${cur}">${cur}</option>
+															</c:forEach>
 
-                        <div class="card" hidden style="margin-bottom: 10px;">
-                            <div class="card-header" id="changePassword" name="changePassword" style="background: #11aef6; color: #ffffff;">
-                                <h6 class="mb-0">Change Password</h6>
-                            </div>
-                            <div id="passwordBookHeadData" aria-labelledby="passwordBookHead" style="border-style: solid; border-width: 1px; border-color: #11aef6;">
-                                <div class="card-body" style="margin-bottom: 10px;">
-                                    <form id="passwordForm" class="forms-sample">
-                                        <table class="table center-aligned-table" id="fromTable" name="fromTable">
-                                            <thead>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="">
-                                                    <td><label for="oldPassword">Old Password</label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="oldPassword" name="oldPassword" placeholder="Old Password"></td>
+													</select></td>
 
-                                                </tr>
-                                                <tr class="">
-                                                    <td><label for="New Password">Enter New
-                                                            Password</label></td>
-                                                    <td colspan='2'><input type="password" class="form-control p-input" id="newPassword" name="newPassword" placeholder="Enter New Password"></td>
-                                                    <td><label for="Re-Type Password">Retype
-                                                            Password</label></td>
-                                                    <td colspan='2'><input type="password" class="form-control p-input" id="reTypePassword" name="reTypePassword" placeholder="Retype Password"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="form-group"></div>
-                                        <div class="form-group"></div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+													<td><label for="paymentCurrency">Payment
+															Currency<span class="required adHocRequired">*</span>
+													</label></td>
+													<td colspan='2'><select id="paymentCurrency"
+														name="paymentCurrency" class="form-control p-input">
+															<c:forEach items="${currency}" var="cur">
 
-	
-  
-    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
-    <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
-    <script src="js/commonFunctions.js"></script>
-    <script>
+																<option value="${cur}">${cur}</option>
+															</c:forEach>
+													</select></td>
+
+													<td><label for="creditTerms">Payment / Credit
+															Terms<span class="required adHocRequired">*</span>
+													</label></td>
+													<td><select id="creditTerms" name="creditTerms"
+														class="form-control p-input" colspan='2'
+														placeholder="Payment / Credit Terms"
+														onchange="removeValCssByID(this)">
+															<option value="">Select</option>
+															<c:forEach items="${payment}" var="pay">
+
+																<option value="${pay}">${pay}</option>
+															</c:forEach>
+
+													</select></td>
+												</tr>
+												<tr class="">
+													<td><label for="paymentMethod">Payment Method<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="paymentMethod"
+														name="paymentMethod" onchange="removeValCssByID(this)"
+														placeholder="Payment Method"></td>
+
+													<td><label for="dateBasis">Terms Date Basis</label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="dateBasis"
+														name="dateBasis" placeholder="Terms Date Basis"></td>
+													<td><label for="deliveryTerms">Delivery Terms</label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="deliveryTerms"
+														name="deliveryTerms" placeholder="Delivery Terms"></td>
+
+
+												</tr>
+
+											</tbody>
+										</table>
+
+									</form>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+					<div id="step-4" class="">
+						<div class="card" style="margin-bottom: 10px;">
+
+							<!-- Start -->
+
+							<div class="card" style="margin-bottom: 10px;">
+								<div class="card-header" id="addressBookHead"
+									style="background: #1991eb; color: #ffffff;">
+									<h6 class="mb-0">TDS Details</h6>
+								</div>
+								<div id="addressBookHeadData" aria-labelledby="addressBookHead"
+									style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+									<div class="card-body" style="margin-bottom: 10px;">
+										<form id="stepSevenForm" class="forms-sample">
+											<table class="table center-aligned-table" id="fromTable"
+												name="fromTable">
+												<thead>
+												</thead>
+												<tbody>
+													<tr class="">
+														<td><label class="addressLable" for="tdsApplication">TDS
+																Applicable</label></td>
+														<td colspan='2'><input type="text"
+															id="tdsApplication" value="Yes" name="tdsApplication"
+															disabled class="form-control p-input "> </input></td>
+
+														<td><label class="addressLable" for="tdsSection">TDS
+																Section</label></td>
+														<td><select id="tdsSection" name="tdsSection"
+															class="form-control p-input" colspan='2'
+															placeholder="TDS Section">
+																<option value="">Select</option>
+																<c:forEach items="${tdsCode}" var="tds">
+
+																	<option value="${tds}">${tds}</option>
+																</c:forEach>
+
+
+
+														</select></td>
+
+														<td><label for="tdsRate">TDS Exemption Rate
+																(If Any)</label></td>
+														<td colspan='2'><input type="text"
+															class="form-control p-input" id="tdsRate" name="tdsRate"
+															placeholder="TDS  Exemption Rate"></td>
+													</tr>
+
+												</tbody>
+											</table>
+
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<!-- End -->
+
+							<!-- Start -->
+
+							<div class="card" style="margin-bottom: 10px;">
+								<div class="card-header" id="itrHead"
+									style="background: #1991eb; color: #ffffff;">
+									<h6 class="mb-0">ITR Details</h6>
+								</div>
+								<div id="itrHeadData" aria-labelledby="itrHead"
+									style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+									<div class="card-body" style="margin-bottom: 10px;">
+										<form id="StepEightForm" class="forms-sample">
+											<table class="table center-aligned-table" id="fromTable"
+												name="fromTable">
+												<thead>
+												</thead>
+												<tbody>
+													<tr>
+														<td><label class="addressLable" for="tdsApplication">Financial
+																Year</label></td>
+														<td colspan='2'><select id="fyYear"
+															class="form-control p-input ">
+																<option value="">Select</option>
+
+																<c:forEach items="${financialYear}" var="fin">
+
+																	<option value="${fin}">${fin}</option>
+																</c:forEach>
+
+														</select></td>
+														<td></td>
+														<td><label for="tdsApplication">Acknowledgement
+																Number</label></td>
+
+														<td colspan='2'><input type="text"
+															id="acknowledgementNumber" name="acknowledgementNumber"
+															class="form-control p-input "></td>
+														<td></td>
+														<td><label>ITR Acknowledgment of 3 years<span
+																class="required">*</span></label></td>
+														<td><input type="file" id="ITRAFile" name="ITRAFile"
+															onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
+															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+															<textarea id="ITRAFileText" rows="5"
+																style="display: none;"></textarea> <label><span
+																style="font-weight: 500; color: #fd7e14;">* File
+																	size Max ${fileSize} MB</span></label></td>
+
+														<td colspan='2'>
+															<button type="Button" id="addITRGridButt"
+																name="addITRGridButt" class="btn btn-primary">Add
+																ITR Details</button>
+														</td>
+
+													</tr>
+												</tbody>
+											</table>
+											<div class="card-body">
+												<div class="table-responsive"
+													style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+													<table class="table center-aligned-table" id="addITRGrid"
+														name="addITRGrid">
+														<thead>
+															<tr style="background: #1991eb; color: white;">
+																<th>Financial Year</th>
+																<th>Acknowledgement Number</th>
+																<th>ITR Acknowledgment of 3 years</th>
+																<th>Action</th>
+
+															</tr>
+														</thead>
+														<tbody>
+														</tbody>
+													</table>
+
+
+
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<!-- End -->
+
+						</div>
+
+					</div>
+					<div id="step-5" class="">
+						<div class="card" style="margin-bottom: 10px;">
+							<div class="card-header" id="addressBookHead"
+								style="background: #1991eb; color: #ffffff;">
+								<h6 class="mb-0">Document Upload</h6>
+							</div>
+							<div id="addressBookHeadData" aria-labelledby="addressBookHead"
+								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
+								<div class="card-body">
+									<form class="forms-sample">
+
+										<div class="card-body">
+											<div class="table-responsive"
+												style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+												<table class="table center-aligned-table"
+													id="addDocTypeGrid" name="addDocTypeGrid">
+
+													<tbody>
+														<tr>
+															<td><label>GST Certificate<span
+																	class="required">*</span></label></td>
+															<td><input type="file" id="GSTFile" name="GSTFile"
+																onchange=" removeValCssByID(this),  handleFileSelect(event,'GSTFileText'), onValidateFile('GSTFile')"
+																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+																<textarea id="GSTFileText" rows="5"
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
+
+															<td><label>Proprietorship Declaration<span
+																	class="required">*</span></label></td>
+															<td><input type="file" id="PDFile" name="PDFile"
+																onchange=" removeValCssByID(this),  handleFileSelect(event,'PDFileText'), onValidateFile('PDFile')"
+																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+																<textarea id="PDFileText" rows="5"
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
+
+														</tr>
+
+														<tr>
+															<td><label>PAN Card<span class="required">*</span></label></td>
+															<td><input type="file" id="PANFile" name="PANFile"
+																onchange="handleFileSelect(event,'PANFileText'), onValidateFile('PANFile')"
+																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+																<textarea id="PANFileText" rows="5"
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
+
+															<td><label>Cancelled Cheque/ Passbook/ Bank
+																	Statement<span class="required">*</span>
+															</label></td>
+															<td><input type="file" id="CCFile" name="CCFile"
+																onchange="handleFileSelect(event,'CCFileText'), onValidateFile('CCFile')"
+																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+																<textarea id="CCFileText" rows="5"
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
+														</tr>
+														<tr>
+															<td><label>Aadhar Card</label></td>
+															<td><input type="file" id="ACFile" name="ACFile"
+																onchange="handleFileSelect(event,'ACFileText'), onValidateFile('ACFile')"
+																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+																<textarea id="ACFileText" rows="5"
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
+															<td><label>Aadhar and PAN Card linking
+																	declaration</label></td>
+															<td><input type="file" id="APLFile" name="APLFile"
+																onchange="handleFileSelect(event,'APLFileText'), onValidateFile('APLFile')"
+																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+																<textarea id="APLFileText" rows="5"
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
+														</tr>
+														<tr>
+															<td><label>ITR Filling Declaration<span
+																	class="required">*</span></label></td>
+															<td><input type="file" id="ITRFile" name="ITRFile"
+																onchange="handleFileSelect(event,'ITRFileText'), onValidateFile('ITRFile')"
+																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+																<textarea id="ITRFileText" rows="5"
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
+															<td><label>Filled Updated VRF Form<span
+																	class="required">*</span></label></td>
+															<td><input type="file" id="FUVFFile" name="FUVFFile"
+																onchange="handleFileSelect(event,'FUVFFileText'), onValidateFile('FUVFFile')"
+																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+																<textarea id="FUVFFileText" rows="5"
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
+														</tr>
+														<tr>
+															<td><label>MSME Certificate<span
+																	class="required">*</span></label></td>
+															<td><input type="file" id="MSMECFile"
+																name="MSMECFile"
+																onchange="handleFileSelect(event,'MSMECFileText'), onValidateFile('MSMECFile')"
+																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+																<textarea id="MSMECFileText" rows="5"
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
+															<td><label>Approval Mail<span
+																	class="required">*</span></label></td>
+															<td><input type="file" id="AMFile" name="AMFile"
+																onchange="handleFileSelect(event,'AMFileText'), onValidateFile('AMFile')"
+																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+																<textarea id="AMFileText" rows="5"
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
+														</tr>
+
+														<tr>
+															<!-- <td><label>ITR Acknowledgment of 3 years<span
+																	class="required">*</span></label></td>
+															<td><input type="file" id="ITRAFile" name="ITRAFile"
+																onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
+																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+																<textarea id="ITRAFileText" rows="5"
+																	style="display: none;"></textarea></td> -->
+															<td><label>Name mismatch affidavit or
+																	declaration would be required if name mentioned in all
+
+																	document is not same including spelling error<span
+																	class="required">*</span>
+															</label></td>
+															<td><input type="file" id="NMISFile" name="NMISFile"
+																onchange="handleFileSelect(event,'NMISFileText'), onValidateFile('NMISFile')"
+																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+																<textarea id="NMISFileText" rows="5"
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">* File
+																		size Max ${fileSize} MB</span></label></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+						<!-- Start -->
+
+						<div class="card" hidden style="margin-bottom: 10px;">
+							<div class="card-header" id="changePassword"
+								name="changePassword"
+								style="background: #11aef6; color: #ffffff;">
+								<h6 class="mb-0">Change Password</h6>
+							</div>
+							<div id="passwordBookHeadData" aria-labelledby="passwordBookHead"
+								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
+								<div class="card-body" style="margin-bottom: 10px;">
+									<form id="passwordForm" class="forms-sample">
+										<table class="table center-aligned-table" id="fromTable"
+											name="fromTable">
+											<thead>
+											</thead>
+											<tbody>
+												<tr class="">
+													<td><label for="oldPassword">Old Password</label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="oldPassword"
+														name="oldPassword" placeholder="Old Password"></td>
+
+												</tr>
+												<tr class="">
+													<td><label for="New Password">Enter New
+															Password</label></td>
+													<td colspan='2'><input type="password"
+														class="form-control p-input" id="newPassword"
+														name="newPassword" placeholder="Enter New Password"></td>
+													<td><label for="Re-Type Password">Retype
+															Password</label></td>
+													<td colspan='2'><input type="password"
+														class="form-control p-input" id="reTypePassword"
+														name="reTypePassword" placeholder="Retype Password"></td>
+												</tr>
+											</tbody>
+										</table>
+										<div class="form-group"></div>
+										<div class="form-group"></div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- End -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+	<script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
+	<script src="js/commonFunctions.js"></script>
+	<script>
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
             showConfirmButton: true,
             timer: 3000
+        });
+        
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2({
+            	zplaceholder: "Select Partner Type",
+                allowClear: true
+            });
+            
         });
         //$('#accordionExample').accordion();
         //$('#accordionExample .next, #accordionExample .previous').click(function(e) {
@@ -1251,13 +1817,13 @@
             var abc3 = document.getElementById('addDetails').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Fill Mandatory Field ! City", "warning");
+                swal.fire("Alert", "District cannot be blank !", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "Fill Mandatory Field ! Pin Code", "warning");
+                swal.fire("Alert", "Pin Code cannot be blank !", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", "Fill Mandatory Field ! Address", "warning");
+                swal.fire("Alert", "Address cannot be blank !", "warning");
                 return false;
             } else {
 
@@ -1319,53 +1885,21 @@
             var abc = document.getElementById('bankName').value;
             var abc2 = document.getElementById('ifscCode').value;
             var abc3 = document.getElementById('accoutNumber').value;
+            var abc4 = document.getElementById('confirmedAccoutNumber').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
+                swal.fire("Alert", "Bank Name cannot be blank !", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "Fill Mandatory Field ! IFSC Code", "warning");
+                swal.fire("Alert", "IFSC Code cannot be blank !", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", "Fill Mandatory Field ! Account Number", "warning");
+                swal.fire("Alert", " Account Number cannot be blank !", "warning");
                 return false;
+            }else if (abc4 == null || abc4 == "") {
+                swal.fire("Alert", " Confirmed Account Number cannot be blank !", "warning");
+                return false;
+            
             } else {
                 $("#addBankGrid").append('<tr class=""><td>' +
                     document.getElementById('bankName').value + '</td><td>' +
@@ -1376,6 +1910,7 @@
                 document.getElementById('bankName').value = "";
                 document.getElementById('ifscCode').value = "";
                 document.getElementById('accoutNumber').value = "";
+                document.getElementById('confirmedAccoutNumber').value = "";
             }
         });
 
@@ -1393,25 +1928,35 @@
         $("#addITRGridButt").click(function() {
             var abc = document.getElementById('fyYear').value;
             var abc1 = document.getElementById('acknowledgementNumber').value;
+            var abc2 =  document.getElementById('ITRAFile').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Select Financial Year Number. !", "warning");
+                swal.fire("Alert", "Select Financial Year Number !", "warning");
                 return false;
             } else if (abc1 == null || abc1 == "") {
-                swal.fire("Alert", "Fill Acknowledgement Number. !", "warning");
+                swal.fire("Alert", "Fill Acknowledgement Number !", "warning");
+                return false;
+             } else if (abc2 == null || abc2 == "") {
+                swal.fire("Alert", " Please! Upload ITR Acknowledgement ", "warning");
                 return false;
             } else {
                 $("#addITRGrid").append('<tr class=""><td>' +
                     document.getElementById('fyYear').value + '</td><td>' +
+                    
 
-                    document.getElementById('acknowledgementNumber').value + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+                    document.getElementById('acknowledgementNumber').value + '</td><td>' +
+                    
+                    document.getElementById('ITRAFile').value +'</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
                 document.getElementById('fyYear').value = "";
                 document.getElementById('acknowledgementNumber').value = "";
+                document.getElementById('ITRAFile').value = "";
+
             }
         });
 
         function sendToServer() {
+        	$('.loader').show();
             var addressDetailsArray = [];
             var table = document.getElementById('addBookGrid');
             var rowLength = table.rows.length;
@@ -1543,18 +2088,29 @@
             }
             
 
-            var checked = []
+           /*  var checked = []
             $("input[name='option[]']:checked").each(function() {
                 checked.push($(this).val());
             });
 
             let values = checked.toString();
             console.log(values);
-            finalObj.vendorType = values;
+            finalObj.vendorType = values; */
             
+            var element = document.getElementById('states');
+        	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
+        	var selectedValues = [];    
+            $("#states :selected").each(function(){
+                selectedValues.push($(this).val()); 
+            });
+            /*  if(selectedValues== ""){
+            	swal.fire("Alert", "please select Business Partner Type....", "warning")
+                return regex.test(inputvalues);
+            }
+             */
             console.log("finalObj");
             console.log(finalObj);
-            
+             
 
             $.ajax({
                 type: "POST",
@@ -1564,8 +2120,9 @@
                 contentType: "application/json",
                 success: function(response) {
                 	//return;
+                	 $('.loader').hide();
                     if (response.msg == 'success') {
-                        swal.fire("Thanks", "Vendor Onbording request Sucessfully Register", "success", "OK").then(function() {
+                    	swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + response.data, "success", "OK").then(function() {
                             window.location = "login";
                         });
 
@@ -1587,16 +2144,16 @@
             });
         }
 
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
+       /*  if (window.File && window.FileReader && window.FileList && window.Blob) {
             /* document.getElementById('CICFile').addEventListener('change', handleFileSelect, false);
             document.getElementById('GSTFile').addEventListener('change', handleFileSelect, false);
             document.getElementById('TDSFile').addEventListener('change', handleFileSelect, false);
             document.getElementById('PANFile').addEventListener('change', handleFileSelect, false);
-            document.getElementById('CCFile').addEventListener('change', handleFileSelect, false); */
+            document.getElementById('CCFile').addEventListener('change', handleFileSelect, false); 
         } else {
             alert('The File APIs are not fully supported in this browser.');
         }
-
+ */
         function handleFileSelect(evt, id) {
             var f = evt.target.files[0]; // FileList object
             var reader = new FileReader();
@@ -1618,6 +2175,40 @@
             // Read in the image file as a data URL.
             reader.readAsBinaryString(f);
         }
+     /*    
+        function a(event){
+        	var char = event.which;
+        	if(char >31 && char <32 && (char<65 || char>90) && (char < 97 || char >122))){
+        		return false;
+        	}
+        }
+ */
+        function isNumberKey(evt)
+        {
+           var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)){
+              return false;
+            }
+             var x=document.getElementById("hourField").value;
+            console.log(x);
+   if (parseInt(x,10)<10){
+     alert("Value is less than 10");
+     return false;
+   }
+           return true;
+        }
+ 
+/*  function myfun() {
+	var a = document.getElementById("phoneNumber").value;
+	if(a.length<10){
+		document.getElementById("message").innerHTML="Mobile number must be 10 digit";
+		return false;
+	}
+} */
+
+
+
+
 
            /*  getEntityName();
          function getEntityName(){
@@ -1635,16 +2226,64 @@
                      		
                	}
                }	
-         }  */    
-
+         }  */   
+         $(function() {
+             $("#confirmedAccoutNumber").keyup(function() {
+            	
+                 var password = $("#accoutNumber").val();
+                 var passwordConfirm = $("#confirmedAccoutNumber").val();
+                 var passflag = $("#passflag").val();
+                 
+                
+                  if ($('#accoutNumber').val() == $('#confirmedAccoutNumber').val() && passflag!="1" ) {
+         		    $('#divCheckPasswordMatch').html('Account number match.').css('color', 'green');
+         		    // Enable #x	
+         		    $("#addBankGridButt").prop("disabled", false)
+         		    
+         		  } 
+                  else {
+         		    $('#divCheckPasswordMatch').html('Account number do not match!').css('color', 'red');
+              // Disable #x
+     		    $('#addBankGridButt').attr('disabled', true);
+                 return;
+         		  }
+               //  $("#divCheckPasswordMatch").html(password == $(this).val() ? "Passwords match." : "Passwords do not match!");
+             });
+         }); 
+         
+         $(function() {
+             $("#accoutNumber").keyup(function() {
+                 var password = $("#accoutNumber").val();
+                 var passwordConfirm = $("#confirmedAccoutNumber").val();
+                 var passflag = $("#passflag").val();
+                 
+                
+                  if ($('#accoutNumber').val() == $('#confirmedAccoutNumber').val() && passflag!="1" ) {
+         		    $('#divCheckPasswordMatch').html('Account number match.').css('color', 'green');
+         		    // Enable #x	
+         		    $("#addBankGridButt").prop("disabled", false)
+         		    
+         		  } 
+                  else {
+         		    $('#divCheckPasswordMatch').html('Account number do not match!').css('color', 'red');
+              // Disable #x
+     		    $('#addBankGridButt').attr('disabled', true);
+                 return;
+         		  }
+               //  $("#divCheckPasswordMatch").html(password == $(this).val() ? "Passwords match." : "Passwords do not match!");
+             });
+         }); 
+         
     </script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/js/jquery.smartWizard.min.js"></script>
-    <script src="plugins/popper/umd/popper.min.js"></script>
-    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="dist/css/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
-    <script src="plugins/js/off-canvas.js"></script>
-    <script src="plugins/js/hoverable-collapse.js"></script>
-    <script src="plugins/js/misc.js"></script>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/js/jquery.smartWizard.min.js"></script>
+	<script src="plugins/popper/umd/popper.min.js"></script>
+	<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="dist/css/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
+	<script src="plugins/js/off-canvas.js"></script>
+	<script src="plugins/js/hoverable-collapse.js"></script>
+	<script src="plugins/js/misc.js"></script>
 </body>
 </html>

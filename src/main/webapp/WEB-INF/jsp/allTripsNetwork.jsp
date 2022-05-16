@@ -170,12 +170,7 @@
                         <div class="row mb-2">
                             <div class="col-sm-6"></div>
                             <div class="col-sm-6">
-                                <!-- <ol class="breadcrumb float-sm-right">
-                                                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard v1</li>
-                                                    </ol> -->
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -199,25 +194,42 @@
                                     <!-- /.card-header -->
                                     <div class="card-body ">
                                         <form role="form" id="addForm" autocomplete="off">
+                                        
+                                       
                                             <div class="row">
-
                                                 <div class="col-md-2">
                                                     <input type="text" name="fromDate" placeholder="Select Starting Date" class="form-control" id="fromDate" style="height: 34px;">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <input type="text" name="toDate" placeholder="Select End Date" class="form-control" id="toDate" style="height: 34px;">
                                                 </div> 
-                                                <div class="col-md-6">
+                                                <div class="col-md-2">
                                                     <label for="exampleInputserverName1" style="visibility: hidden;">Text</label>
                                                     <button type="button" onclick="getFilterData()" class="btn btn-primary">Search</button>
                                                 </div>
-                                                <div class="dropdown">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Export Details </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#" id="exportLinkPdf">Download PDF</a>
-                                                        <a class="dropdown-item" href="#" id="exportLink">Download Excel</a>
-                                                    </div>
-                                                </div>
+                                                <div class="col-md-3"></div>
+                                                <div class="col-md-2">
+			                                        <div class="form-group row">
+			                                            <label class="col-md-4" style="margin-top: 7px;">Search : </label>
+			                                            <div class="col-md-8">
+			                                                <input type="text" name="searchData" placeholder="search" class="form-control" id="searchData" style="height: 34px;">
+			                                            </div>
+			                                        </div>
+			                                    </div>
+                                                
+                                                <div class="col-md-1">
+												<div class="dropdown">
+													<button type="button"
+														class="btn btn-primary dropdown-toggle"
+														style="font-size: 14px; float: right; margin-bottom: 10px;"
+														data-toggle="dropdown">Export Details</button>
+													<div class="dropdown-menu">
+														<a class="dropdown-item" href="#" id="exportLinkPdf">Download
+															PDF</a> <a class="dropdown-item" href="#" id="exportLink">Download
+															Excel</a>
+													</div>
+												</div>
+											</div>
                                             </div>
                                         </form>
                                         <table class="table table-bordered table-hover" id="tabledata">
@@ -226,6 +238,8 @@
                                                     <th style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
                                                     <th style="padding: 5px 5px 5px 1.5rem;">Route</th>
                                                     <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+                                                    <th style="padding: 5px 5px 5px 1.5rem;">Vendor Name</th>
+                                                    <th style="padding: 5px 5px 5px 1.5rem;">Vendor Code</th>
                                                     <th style="padding: 5px 5px 5px 1.5rem;">Run Status</th>
                                                     <th style="padding: 5px 5px 5px 1.5rem;">Vendor Status</th>
                                                     <th style="padding: 5px 5px 5px 1.5rem;">Actual Departure</th>
@@ -549,16 +563,18 @@
                                                             showConfirmButton: false,
                                                             timer: 3000
                                                         });
+                                                        
+                                                        var currentDate='${currentDate}';
 
                                                         var tabledata = $('#tabledata').DataTable({
                                                             "paging": true,
                                                             "lengthChange": false,
-                                                            "searching": false,
+                                                            "searching": true,
                                                             "info": true,
                                                             "autoWidth": false,
                                                             "aaSorting": [],
                                                             "scrollX": true,
-                                                            "pageLength": 15,
+                                                            "pageLength": 10,
                                                             dom: 'Bfrtip',
                                                             //buttons: ['excel','pdf','print'],
                                                             buttons: [
@@ -639,52 +655,27 @@
                                                             }
                                                         });
 
+                                                     // #myInput is a <input type="text"> element
+                                                        $('#searchData').on( 'keyup', function () {
+                                                        	tabledata.search( this.value ).draw();
+                                                        } );
+                                                        
+                                                        $('#tabledata_filter').css("display","none");
+                                                     
                                                         $('#fromDate').datepicker({
-                                                            dateFormat: 'yy-mm-dd',
+                                                            dateFormat: 'dd-mm-yy',
                                                             changeMonth: true,
                                                             changeYear: true,
-
+                                                            maxDate: currentDate
                                                         });
 
                                                         $('#toDate').datepicker({
-                                                            dateFormat: 'yy-mm-dd',
+                                                            dateFormat: 'dd-mm-yy',
                                                             changeMonth: true,
                                                             changeYear: true,
-
+                                                            maxDate: currentDate
                                                         });
 
-                                                        $.validator.setDefaults({
-                                                            submitHandler: function () {
-                                                                getFilterData();
-
-                                                                //alert("insode add");
-                                                            }
-                                                        });
-
-                                                        $('#addForm').validate({
-
-                                                            rules: {
-                                                                toDate: {
-                                                                    required: true
-                                                                },
-                                                                fromDate: {
-                                                                    required: true
-
-                                                                }
-                                                            },
-
-                                                            errorElement: 'span',
-                                                            errorPlacement: function (error, element) {
-                                                                error.addClass('invalid-feedback');
-                                                                element.closest('.form-group').append(error);
-                                                            },
-                                                            highlight: function (element, errorClass, validClass) {
-                                                                $(element).addClass('is-invalid');
-                                                            },
-                                                            unhighlight: function (element, errorClass, validClass) {
-                                                                $(element).removeClass('is-invalid');
-                                                            }
-                                                        });
 
                                                         function calculateTotalFreight() {
 
@@ -716,6 +707,8 @@
                                                             $('#selectTripStatus').val('');
                                                             $('#selectStatus').val('');
                                                             $('#selectPaymentStatus').val('');
+                                                            $('#fromDate').val('');
+                                                            $('#toDate').val('');
                                                         })
 
                                                         getData();
@@ -765,48 +758,38 @@
                                                                             var runStatus = "";
                                                                             var vendorTripStatus = "";
                                                                             //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
-                                                                            var tempString = [view, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
+                                                                            var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
 
-                                                                            if (result[i].paymentStatus == "Pending") {
-                                                                                tempString[10] = statustemp_payment_Pending;
-
-                                                                            } else if (result[i].paymentStatus == "Approved") {
-                                                                                tempString[10] = statustemp_payment_success;
-
-                                                                            } else if (result[i].paymentStatus == "NA") {
-                                                                                tempString[10] = statustemp_payment_No;
-
-                                                                            }
+                                                                          
                                                                            // console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
                                                                             if (result[i].vendorTripStatus == "Yet To Be Approved By Network Team") {
-                                                                                tempString[4] = statustemp_pending;
+                                                                                tempString[6] = statustemp_pending;
 
                                                                             } else if (result[i].vendorTripStatus == "Approved By Network Team") {
-                                                                                tempString[4] = statustemp_approved;
+                                                                                tempString[6] = statustemp_approved;
 
                                                                             } else if (result[i].vendorTripStatus == "Invoicing") {
-                                                                                tempString[4] = statustemp_Invoicing;
+                                                                                tempString[6] = statustemp_Invoicing;
 
                                                                             } else if (result[i].vendorTripStatus == "Query") {
-                                                                                tempString[4] = statustemp_Query;
+                                                                                tempString[6] = statustemp_Query;
 
                                                                             } else if (result[i].vendorTripStatus == "Yet To Be Approved") {
-                                                                                tempString[4] = statustemp_pending_Vendor;
+                                                                                tempString[6] = statustemp_pending_Vendor;
 
                                                                             } else if (result[i].vendorTripStatus == "Approved") {
-                                                                                tempString[4] = statustemp_approved_Vendor;
+                                                                                tempString[6] = statustemp_approved_Vendor;
 
                                                                             }
 
                                                                             if (result[i].runStatus == "In-Transit") {
-                                                                                tempString[3] = statustemp_runststus_Intransit;
+                                                                                tempString[5] = statustemp_runststus_Intransit;
 
                                                                             } else if (result[i].runStatus == "Closed") {
-                                                                                tempString[3] = statustemp_runststus_Closed;
+                                                                                tempString[5] = statustemp_runststus_Closed;
 
                                                                             }
                                                                             tabledata.row.add(tempString);
-                                                                            //tabledata.row.add([ result[i].tripID,result[i].route,result[i].runType,result[i].paymentStatus,result[i].actualKM,result[i].mode,result[i].originHub ,result[i].destHub,result[i].runStatus,result[i].status,viewData]);  				        	
                                                                         }
                                                                         tabledata.draw();
                                                                         $("tbody").show();
@@ -892,9 +875,7 @@
                                                                         var result = data.data;
                                                                         tabledata.clear();
                                                                         for (var i = 0; i < result.length; i++) {
-
-
-                                                                            //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
+                                                                        	 //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
                                                                             var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
                                                                             var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
@@ -916,49 +897,38 @@
                                                                             var runStatus = "";
                                                                             var vendorTripStatus = "";
                                                                             //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
-                                                                            var tempString = [view, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
+                                                                            var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
 
-                                                                            if (result[i].paymentStatus == "Pending") {
-                                                                                tempString[10] = statustemp_payment_Pending;
-
-                                                                            } else if (result[i].paymentStatus == "Approved") {
-                                                                                tempString[10] = statustemp_payment_success;
-
-                                                                            } else if (result[i].paymentStatus == "NA") {
-                                                                                tempString[10] = statustemp_payment_No;
-
-                                                                            }
-                                                                            console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
+                                                                          
+                                                                           // console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
                                                                             if (result[i].vendorTripStatus == "Yet To Be Approved By Network Team") {
-                                                                                tempString[4] = statustemp_pending;
+                                                                                tempString[6] = statustemp_pending;
 
                                                                             } else if (result[i].vendorTripStatus == "Approved By Network Team") {
-                                                                                tempString[4] = statustemp_approved;
+                                                                                tempString[6] = statustemp_approved;
 
                                                                             } else if (result[i].vendorTripStatus == "Invoicing") {
-                                                                                tempString[4] = statustemp_Invoicing;
+                                                                                tempString[6] = statustemp_Invoicing;
 
                                                                             } else if (result[i].vendorTripStatus == "Query") {
-                                                                                tempString[4] = statustemp_Query;
+                                                                                tempString[6] = statustemp_Query;
 
                                                                             } else if (result[i].vendorTripStatus == "Yet To Be Approved") {
-                                                                                tempString[4] = statustemp_pending_Vendor;
+                                                                                tempString[6] = statustemp_pending_Vendor;
 
                                                                             } else if (result[i].vendorTripStatus == "Approved") {
-                                                                                tempString[4] = statustemp_approved_Vendor;
+                                                                                tempString[6] = statustemp_approved_Vendor;
 
                                                                             }
 
                                                                             if (result[i].runStatus == "In-Transit") {
-                                                                                tempString[3] = statustemp_runststus_Intransit;
+                                                                                tempString[5] = statustemp_runststus_Intransit;
 
                                                                             } else if (result[i].runStatus == "Closed") {
-                                                                                tempString[3] = statustemp_runststus_Closed;
+                                                                                tempString[5] = statustemp_runststus_Closed;
 
                                                                             }
-                                                                            tabledata.row.add(tempString);
-                                                                            //tabledata.row.add([ result[i].tripID,result[i].route,result[i].runType,result[i].paymentStatus,result[i].actualKM,result[i].mode,result[i].originHub ,result[i].destHub,result[i].runStatus,result[i].status,viewData]);  				        	
-                                                                        }
+                                                                            tabledata.row.add(tempString);                                                                        }
                                                                         tabledata.draw();
                                                                         $("tbody").show();
                                                                     } else {
@@ -972,7 +942,11 @@
                                                         }
 
                                                         function getFilterData() {
-                                                            $('.loader').show();
+                                                        	$('#selectTripStatus').val('');
+                                                            $('#selectStatus').val('');
+                                                            $('#selectPaymentStatus').val('');
+                                                        	
+                                                            
                                                             var fromDate = $("#fromDate").val();
                                                             var toDate = $("#toDate").val();
                                                             
@@ -995,6 +969,7 @@
                                                                 document.getElementById("toDate").focus();
                                                                 return;
                                                             }
+                                                            $('.loader').show();
 
                                                             $.ajax({
                                                                 type: "GET",
@@ -1017,8 +992,7 @@
                                                                         tabledata.clear();
 
                                                                         for (var i = 0; i < result.length; i++) {
-
-                                                                            //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
+                                                                        	 //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
                                                                             var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
                                                                             var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
@@ -1040,49 +1014,38 @@
                                                                             var runStatus = "";
                                                                             var vendorTripStatus = "";
                                                                             //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
-                                                                            var tempString = [view, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
+                                                                            var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
 
-                                                                            if (result[i].paymentStatus == "Pending") {
-                                                                                tempString[10] = statustemp_payment_Pending;
-
-                                                                            } else if (result[i].paymentStatus == "Approved") {
-                                                                                tempString[10] = statustemp_payment_success;
-
-                                                                            } else if (result[i].paymentStatus == "NA") {
-                                                                                tempString[10] = statustemp_payment_No;
-
-                                                                            }
-                                                                            console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
+                                                                          
+                                                                           // console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
                                                                             if (result[i].vendorTripStatus == "Yet To Be Approved By Network Team") {
-                                                                                tempString[4] = statustemp_pending;
+                                                                                tempString[6] = statustemp_pending;
 
                                                                             } else if (result[i].vendorTripStatus == "Approved By Network Team") {
-                                                                                tempString[4] = statustemp_approved;
+                                                                                tempString[6] = statustemp_approved;
 
                                                                             } else if (result[i].vendorTripStatus == "Invoicing") {
-                                                                                tempString[4] = statustemp_Invoicing;
+                                                                                tempString[6] = statustemp_Invoicing;
 
                                                                             } else if (result[i].vendorTripStatus == "Query") {
-                                                                                tempString[4] = statustemp_Query;
+                                                                                tempString[6] = statustemp_Query;
 
                                                                             } else if (result[i].vendorTripStatus == "Yet To Be Approved") {
-                                                                                tempString[4] = statustemp_pending_Vendor;
+                                                                                tempString[6] = statustemp_pending_Vendor;
 
                                                                             } else if (result[i].vendorTripStatus == "Approved") {
-                                                                                tempString[4] = statustemp_approved_Vendor;
+                                                                                tempString[6] = statustemp_approved_Vendor;
 
                                                                             }
 
                                                                             if (result[i].runStatus == "In-Transit") {
-                                                                                tempString[3] = statustemp_runststus_Intransit;
+                                                                                tempString[5] = statustemp_runststus_Intransit;
 
                                                                             } else if (result[i].runStatus == "Closed") {
-                                                                                tempString[3] = statustemp_runststus_Closed;
+                                                                                tempString[5] = statustemp_runststus_Closed;
 
                                                                             }
-                                                                            tabledata.row.add(tempString);
-                                                                            //tabledata.row.add([ result[i].tripID,result[i].route,result[i].runType,result[i].paymentStatus,result[i].actualKM,result[i].mode,result[i].originHub ,result[i].destHub,result[i].runStatus,result[i].status,viewData]);  				        	
-                                                                        }
+                                                                            tabledata.row.add(tempString);                                                                        }
                                                                         tabledata.draw();
                                                                         $("tbody").show();
                                                                     } else {
@@ -1141,8 +1104,7 @@
                                                                         tabledata.clear();
 
                                                                         for (var i = 0; i < result.length; i++) {
-
-                                                                            //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
+                                                                        	 //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
                                                                             var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
                                                                             var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
@@ -1164,44 +1126,35 @@
                                                                             var runStatus = "";
                                                                             var vendorTripStatus = "";
                                                                             //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
-                                                                            var tempString = [view, result[i].route, result[i].runType, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
+                                                                            var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
 
-                                                                            if (result[i].paymentStatus == "Pending") {
-                                                                                tempString[10] = statustemp_payment_Pending;
-
-                                                                            } else if (result[i].paymentStatus == "Approved") {
-                                                                                tempString[10] = statustemp_payment_success;
-
-                                                                            } else if (result[i].paymentStatus == "NA") {
-                                                                                tempString[10] = statustemp_payment_No;
-
-                                                                            }
-                                                                            console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
+                                                                          
+                                                                           // console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
                                                                             if (result[i].vendorTripStatus == "Yet To Be Approved By Network Team") {
-                                                                                tempString[4] = statustemp_pending;
+                                                                                tempString[6] = statustemp_pending;
 
                                                                             } else if (result[i].vendorTripStatus == "Approved By Network Team") {
-                                                                                tempString[4] = statustemp_approved;
+                                                                                tempString[6] = statustemp_approved;
 
                                                                             } else if (result[i].vendorTripStatus == "Invoicing") {
-                                                                                tempString[4] = statustemp_Invoicing;
+                                                                                tempString[6] = statustemp_Invoicing;
 
                                                                             } else if (result[i].vendorTripStatus == "Query") {
-                                                                                tempString[4] = statustemp_Query;
+                                                                                tempString[6] = statustemp_Query;
 
                                                                             } else if (result[i].vendorTripStatus == "Yet To Be Approved") {
-                                                                                tempString[4] = statustemp_pending_Vendor;
+                                                                                tempString[6] = statustemp_pending_Vendor;
 
                                                                             } else if (result[i].vendorTripStatus == "Approved") {
-                                                                                tempString[4] = statustemp_approved_Vendor;
+                                                                                tempString[6] = statustemp_approved_Vendor;
 
                                                                             }
 
                                                                             if (result[i].runStatus == "In-Transit") {
-                                                                                tempString[3] = statustemp_runststus_Intransit;
+                                                                                tempString[5] = statustemp_runststus_Intransit;
 
                                                                             } else if (result[i].runStatus == "Closed") {
-                                                                                tempString[3] = statustemp_runststus_Closed;
+                                                                                tempString[5] = statustemp_runststus_Closed;
 
                                                                             }
                                                                             tabledata.row.add(tempString);

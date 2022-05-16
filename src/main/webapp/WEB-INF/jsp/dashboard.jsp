@@ -15,7 +15,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="dist/css/ionicons.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
@@ -48,7 +48,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
-    <div class="wrapper">
+	  <div class="wrapper">
 
         <!-- Navbar -->
         
@@ -358,6 +358,8 @@
         </form>
 
     <!-- jQuery -->
+	
+	<!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -373,9 +375,6 @@
     <script src="plugins/chart.js/Chart.min.js"></script>
     <!-- Sparkline -->
     <script src="plugins/sparklines/sparkline.js"></script>
-    <!-- JQVMap -->
-    <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
     <!-- jQuery Knob Chart -->
     <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
     <!-- daterangepicker -->
@@ -390,7 +389,6 @@
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
     <script src="plugins/datatables/jquery.dataTables.js"></script>
@@ -402,6 +400,7 @@
 	<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
 	<script src="plugins/jquery-validation/additional-methods.min.js"></script>
 		<script>
+		
             $(document).ready(function () {
                 //console.log(${userStatus});
                 if (${userStatus} === 3) {
@@ -409,6 +408,7 @@
                 }
             });
             
+            var dataLimit='${dataLimit}';
             
             $('#changePassword1').validate({
                 rules: {
@@ -435,25 +435,6 @@
 	            } 
        		 });
              
-           /*  $(function() {
-                $("#passwordConfirm").keyup(function() {
-                    var password = $("#password").val();
-                    if ($('#password').val() == $('#passwordConfirm').val()) {
-            		    $('#divCheckPasswordMatch').html('Passwords match.').css('color', 'green');
-            		    // Enable #x
-            		    //$('#changePasswordButton').attr('disabled', false);
-            		    
-            		  } else 
-            		    $('#divCheckPasswordMatch').html('Passwords do not match!').css('color', 'red');
-                 // Disable #x
-        		    $('#changePasswordButton').attr('disabled', true);
-                    return;
-                    
-                  //  $("#divCheckPasswordMatch").html(password == $(this).val() ? "Passwords match." : "Passwords do not match!");
-                });
-
-            });  */
-            
             $(function() {
                 $("#passwordConfirm").keyup(function() {
                     var password = $("#password").val();
@@ -485,39 +466,23 @@
     		});
         </script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var bootstrapTooltip = $.fn.tooltip.noConflict();
-            $.fn.bstooltip = bootstrapTooltip;
-            $('#quickHelp').bstooltip();
-            $('#oveTickets').bstooltip();
-            $('#invdue').bstooltip();
-            $('#opeTickets').bstooltip();
-            $('#UnTickets').bstooltip();
-            $('#iamwatch').bstooltip();
-            $('#perTicket').bstooltip();
-        })
-
-    </script>
-
-
-
 
     <!-- table Data -->
     <script>
         var tabledata = $('#tabledata').DataTable({
-            "paging": false,
+            "paging": true,
             "lengthChange": false,
             "searching": false,
             "info": false,
             "autoWidth": false,
-            "aaSorting": []
+            "aaSorting": [],
+            "pageLength": dataLimit
         });
 
         var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
         var unresolvedstsData = {
             labels: [
-                'Closed',
+                'Query Invoice',
                 'In-Transit',
                 'All Trips',
                 'Process Invoices',
@@ -526,7 +491,7 @@
             ],
             datasets: [{
                 data: [${TotalCloseTripCount}, ${TotalInTransitTripCount}, ${totalTripCount}, ${pendingInvoice}, ${approveInvoice}, ${draftInvoice}],
-                backgroundColor: ['#17a2b8', '#00a65a', '#faa654', '#007bff', '#dc3545', '#6f42c1'],
+                backgroundColor: ['#17a2b8', '#00a65a', '#FAA654', '#007bff', '#dc3545', '#6f42c1'],
             }]
         }
         var unresolvedstsOptions = {

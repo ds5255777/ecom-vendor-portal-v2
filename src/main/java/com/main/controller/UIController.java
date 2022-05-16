@@ -510,10 +510,8 @@ public class UIController {
 			}
 		 
 
-			return "dashBoard_NetworkRole";
-		}
-	 
-				@GetMapping("/InsertTrip")
+		
+			@GetMapping("/InsertTrip")
 	public void InsertTrip(Model model, Principal principal, HttpServletRequest request) throws FileNotFoundException {
 		System.out.println("***************************Inside Trip************************************************");
 		TripDetails tripDetails = new TripDetails();

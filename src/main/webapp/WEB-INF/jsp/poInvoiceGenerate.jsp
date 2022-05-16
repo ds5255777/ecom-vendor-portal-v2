@@ -1158,7 +1158,7 @@
 	  $.ajax({
            type: "POST",
            data: JSON.stringify(obj),
-         <%--   url: "<%=GlobalUrl.updateRemaningQuantity%>" , --%> 
+            url: "<%=GlobalUrl.updateRemaningQuantity%>" , 
            dataType: "json",
            contentType: "application/json",
            async: false,
@@ -1178,7 +1178,7 @@
         $.ajax({
             type: "POST",
             data: JSON.stringify(finalObj),
-            <%-- url: "<%=GlobalUrl.savePoInvoice%>" , --%> 
+             url: "<%=GlobalUrl.savePoInvoice%>" , 
             dataType: "json",
             contentType: "application/json",
             success: function(response) {

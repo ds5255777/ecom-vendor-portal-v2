@@ -75,6 +75,38 @@ public class GlobalUrl {
 	public static String saveUpdateMasterDetails=masterController+"/saveUpdateMasterDetails";
 	public static String deleteMaster=masterController+"/deleteMaster";
 	
+	 public static String poController="poController";
+	 public static String getAllPODetails=poController+"/getAllPODetails";
+	 public static String poDetailsByPoNo=poController+"/poDetailsByPoNo";
+	 public static String getAllProcessPo=poController+"/getAllProcessPo";
+	 public static String getAllUnProcessPo=poController+"/getAllUnProcessPo";
+	 public static String getSelectPoDetails=poController+"/getSelectPoDetails";
+	 public static String getAllPODetailsByPoNo=poController+"/getAllPODetailsByPoNo";
+	 public static String filterPoDetails=poController+"/filterPoDetails";
+	 public static String updateRemaningQuantity=poController+"/updateRemaningQuantity";
+	 
+	 
+	 
+	 
+	 public static String getAllInvoiceDetails=poController+"/getAllInvoiceDetails";
+	 public static String getSelectInvoiceDetailsPo=poController+"/getSelectInvoiceDetailsPo";
+	 public static String savePoInvoiceQuery=poController+"/savePoInvoiceQuery";
+	 public static String getPoQueryData=poController+"/getPoQueryData";
+	 public static String getAllPODetailsByLineNumber=poController+"/getAllPODetailsByLineNumber";
+	 
+	 
+	 public static String PoInvoiceContoller="PoInvoiceContoller";
+	 public static String getAllDraftInvoicePO=PoInvoiceContoller+"/getAllDraftInvoicePO";
+	 public static String deleteDraftPoInvoice=PoInvoiceContoller+"/deleteDraftPoInvoice";
+	 public static String savePoInvoice=PoInvoiceContoller+"/savePoInvoice";
+	 public static String saveDraftInvoice=PoInvoiceContoller+"/saveDraftInvoice";
+	 
+	 
+	 
+	 public static String getAllDraftPODetailsByInvoiceNo=PoInvoiceContoller+"/getAllDraftPODetailsByInvoiceNo"; 
+	 
+
+	
 	public static String financeController="financeController";
 	public static String viewAllInvoiceForFinanceTeam=financeController+"/viewAllInvoiceForFinanceTeam";
 	public static String getDocumentByInvoiceNumber=financeController+"/getDocumentByInvoiceNumber";

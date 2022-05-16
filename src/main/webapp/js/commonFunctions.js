@@ -117,20 +117,29 @@ function checkManInvoice() {
         "valTotInvVal", "valTotRo"];
 
 
-    for (var i = 0; i < fields.length; i++) {
+    /*for (var i = 0; i < fields.length; i++) {
         console.log(fields[i] + " :: " + document.getElementsByName(fields[i])[0].value);
         if (document.getElementsByName(fields[i])[0].value === "") {
             addValCss(fields[i]);
             return false;
         }
     }
-    return true;
+    return true;*/
 }
 
 function addValCss(controlName) {
     
-    $('[name="' + controlName + '"]').css({'border': '1px solid red', 'box-shadow': 'inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(249, 0, 0, 0.6)', '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(249, 0, 0, 0.6)', 'outline-color': 'transparent'});
+   if(controlName=="states"){
+        		 $(".select2-selection select2-selection--multiple").css(
+                     "border", "1px solid red !important"
+                 );
+                 $('[name="' + controlName + '"]').focus();
+        		 
+        	}
+       else{
+	  $('[name="' + controlName + '"]').css({'border': '1px solid red', 'box-shadow': 'inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(249, 0, 0, 0.6)', '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(249, 0, 0, 0.6)', 'outline-color': 'transparent'});
     $('[name="' + controlName + '"]').focus();
+		}
 }
 
 function removeValCss(controlName) {

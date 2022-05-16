@@ -71,7 +71,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "update Trip_Details set vendor_trip_status='Approved' where invoice_number=:invoiceNumber ;", nativeQuery = true)
+    @Query(value = "update Trip_Details set vendor_trip_status='Approved', invoice_number='' where invoice_number=:invoiceNumber ;", nativeQuery = true)
     void discardDraftInvoice(String invoiceNumber);
 
     @Transactional

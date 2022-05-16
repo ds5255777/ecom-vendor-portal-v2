@@ -56,6 +56,11 @@
         .row {
             margin-bottom: 0.5rem !important;
         }
+       /*  #prTable  {
+		    display: block;
+		    overflow-x: auto;
+		    white-space: nowrap;
+		} */
 
     </style>
 </head>
@@ -114,12 +119,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Site Name <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
-                                                <select class="form-control-sm select2" style="width: 100%;" id="siteName" name="siteName">
-                                                    <option value="Site_1">Site 1</option>
-                                                    <option value="Site_2">Site 2</option>
-                                                    <option value="Site_3">Site 3</option>
-                                                </select>
+                                                <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> 
                                             </div>
                                         </div>
                                     </div>
@@ -127,7 +127,8 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Date <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="date" name="invoiceDate" id="invoiceDate" readonly class="form-control-sm" style="width: 100%;">
+                                            <input type="hidden" id="id" name="id" disabled>
+                                                <input type="text" name="invoiceDate" id="invoiceDate" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -143,11 +144,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Currency <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency">
-                                                    <option value="INR">INR</option>
-                                                    <option value="USD">USD</option>
-                                                    <option value="KES">KES</option>
-                                                </select>
+                                            <input type="text" class="form-control-sm" name="invoiceCurrency" id="invoiceCurrency" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -155,7 +152,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Receiving Date</label>
                                             <div class="col-sm-7">
-                                                <input type="text" class="form-control-sm" name="invoiceReceivingDate" id="invoiceReceivingDate" readonly value="<%=(new java.util.Date()).toLocaleString()%>" style="width: 100%;">
+                                                <input type="text" class="form-control-sm" name="invoiceReceivingDate" id="invoiceReceivingDate" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -171,7 +168,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Tax Amount<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount" onfocusout="calculateInvoice()" style="width: 100%;" on>
+                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="text" placeholder="Tax Amount"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -179,7 +176,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Amount <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="number" name="invoiceAmount" id="invoiceAmount" placeholder="Invoice Amount" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" name="invoiceAmount" id="invoiceAmount" placeholder="Invoice Amount" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -201,36 +198,120 @@
                         <!-- /.card-header -->
                         <form id="stepTwoForm" class="forms-sample">
                             <div class="card-body" style="overflow: auto;">
-                                <table id="prTable" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <!-- <th style="padding: 5px 5px 5px 1.5rem;">Number</th> -->
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Current Fuel Rate</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">FS</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Line level Description</th>
-                                        </tr>
-                                    </thead>
-                                </table>
+								<div class="col-md-12">
+									<div class="table-responsive">
+										<table id="prTable" class="table table-bordered responsive">
+		                                    <thead>
+		                                        <tr>
+		                                         <th class="bg-primary" >Trip Id</th>
+		                                            <th class="bg-primary" >Run Type</th>
+		                                            <th class="bg-primary" >Route</th> 
+		                                            <th class="bg-primary" >Standard KM</th>
+		                                            <th class="bg-primary" >Rate per km</th>
+		                                            <th class="bg-primary" >Current Fuel Rate</th>
+		                                            <th class="bg-primary" >FS Base Rate</th>
+		                                            <th class="bg-primary" >FS Diff</th>
+		                                            <th class="bg-primary" >Basic Freight</th>
+		                                            <th class="bg-primary" >FS</th>
+		                                            <th class="bg-primary" >Actual KM</th>
+		                                            <th class="bg-primary" >Total Freight</th>
+		                                            <th class="bg-primary" >Line level Description</th>
+		                                        </tr>
+		                                    </thead>
+		                                </table>
+									
+									</div>
+
+
+								</div>
+
+								
                             </div>
                         </form>
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
-                    <center>
-                        <div class="form-group">
-                            <label style="visibility: hidden;">Select </label> <br>
-                            <button type="button" class="btn btn-primary" id="closeModal" onclick="closeWin()">Close</button>
+                    <div class="card card-primary"  id="queryWindow" style="display: none;" style="margin-top: 1rem;">
+                        <div class="card-header" style="padding: 5px 5px 0px 5px;">
+                            <h4 class="card-title">Remarks</h4>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
-                    </center>
+                        <div class="card-body">
+                            <form id="queryForm" class="forms-sample">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+										    <label class="col-sm-3" >Remarks <span class="text-danger">*</span></label>
+										    <div class="col-sm-9">
+										    <textarea class="form-control" id="comment" name="comment" rows="3" maxlength="250" placeholder="Remarks if Any"></textarea>
+										 </div>
+										 </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <div class="col-md-3"  id="raiseQueryDiv">
+								<button type="button" id="raiseQuery" value="raiseQuery"
+									onclick="raiseQueryModel()" class="btn btn-primary">Replay
+									</button>
+								</div>
+								</div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="row" >
+						<div class="col-md-3"></div>
+							<div class="col-md-2" style="display: none;"
+								id="viewAttachmentDiv">
+								<button type="button" id="viewAttachment"
+									onclick="displayAttachmentForPoDetails()" value="viewAttachment"
+									class="btn btn-primary btn-lg">View Attachments</button>
+							</div>
+							<div class="col-md-1" style="    margin-left: -102px;">
+								<button type="button" onclick="closeWin()"
+									class="btn btn-info btn-lg">Close</button>
+							</div>
+					</div>
                     <!-- /.row -->
+                    
+                    <div class="card card-primary" style="margin-top: 1rem;">
+                        <div class="card-header" style="padding: 5px 5px 0px 5px;">
+                            <h4 class="card-title">Remarks List</h4>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+							<form id="queryForm" class="forms-sample">
+								<div class="col-md-12">
+
+									<div class="table-responsive">
+										<table
+											class="table table-bordered table-hover"
+											id="tabledataQuery">
+											<thead>
+												<tr>
+													<th class="bg-primary"  >S.No</th>
+													<th class="bg-primary"  >Raised By</th>
+													<th class="bg-primary" >Raised On</th>
+													<th class="bg-primary" >Remarks</th>
+												</tr>
+											</thead>
+											<tbody>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</form>
+						</div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
             </section>
@@ -243,6 +324,54 @@
             <!-- Control sidebar content goes here -->
         </aside>
         <!-- /.control-sidebar -->
+    </div>
+    
+    <!-- Document  Modal  -->
+		
+		<div class="modal fade" id="viewAttachmentPopUp" role="dialog">
+        <div class="modal-dialog " style="max-width: 1300px;">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container-fluid panel1">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row innerRow">
+                                    
+                                    
+                                    <div class="col-md-8">
+                                       <div class="form-group">
+                                            <label>Document Name</label>
+                                            <select class="form-control" id="multipleAttachment" style="height: 35px;" >
+                                                
+                                            </select>
+                                             
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-3" style="display: none" id="uploadeddateDiv">
+                                        <div class="form-group">
+                                            <label>Uploaded Date</label>
+                                            <input type="text" class="form-control" id="uploadeddate" style="height: 35px;" readonly>                                               
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid panel2">
+                        <div class="row">                            
+                            <div class="col-lg-12" style="height: 400px;">
+                            <a id="ifrmameHref"   target="_blank">Click Here to open doc in new window</a>
+                                <iframe id="pdfLink" style="height:100%; width:100%"  ></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
     </div>
 
     <!-- jQuery -->
@@ -306,13 +435,40 @@
             "scrollX": true,
             "pageLength": 15,
         });
+        
+        var tabledataQuery = $('#tabledataQuery').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "info": false,
+            "autoWidth": false,
+            "aaSorting": []
+        });
+        
+        var invoiceNumber = '${invoiceNumber}';
+        var type = '${type}';
+        var tripLineArray = [];
+        $("input[type=text]").prop('disabled', true);
+        setInvoiceDetails();
+        
+        showHideButton();
+
+        function showHideButton(){
+        
+        	if( type =="Invoice Queue" || type =="Pending Queue" || type =="Approved Queue" ){
+        		$("#prosInvBtn").css("display","block");
+        		$("#viewAttachmentDiv").css("display","block");
+        		$("#raiseQueryDiv").css("display","block");
+        	}
+        	else if( type =="Query Queue"  ){
+        		$("#queryWindow").css("display","block");
+        		$("#viewAttachmentDiv").css("display","block"); 
+        	}
+        }
 
         function closeWin() {
             window.close()
         }
-        var invoiceNumber = '${invoiceNumber}';
-        var tripLineArray = [];
-        setInvoiceDetails();
 
         function setInvoiceDetails() {
 
@@ -337,8 +493,14 @@
                         setData(myForm, result);
                         $('#prTable').DataTable().clear();
                         for (var i = 0; i < tripLineArray.length; i++) {
+                            if (!tripLineArray[i].hasOwnProperty("tripID")) {
+                                tripLineArray[i].tripID = "";
+                            }
                             if (!tripLineArray[i].hasOwnProperty("runType")) {
                                 tripLineArray[i].runType = "";
+                            }
+                            if (!tripLineArray[i].hasOwnProperty("route")) {
+                                tripLineArray[i].route = "";
                             }
                             if (!tripLineArray[i].hasOwnProperty("standardKM")) {
                                 tripLineArray[i].standardKM = "";
@@ -373,7 +535,7 @@
                             if (!tripLineArray[i].hasOwnProperty("lineLevelDescription")) {
                                 tripLineArray[i].lineLevelDescription = "";
                             }
-                            $('#prTable').DataTable().row.add([tripLineArray[i].runType, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate, tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription]);
+                            $('#prTable').DataTable().row.add([tripLineArray[i].tripID,tripLineArray[i].runType, tripLineArray[i].route, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate, tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription]);
                         }
                         $("#invoiceNumber").val(result.invoiceNumber);
                         $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);
@@ -394,6 +556,173 @@
                 }
             });
         }
+        
+        getQueryData();
+		 
+		 function getQueryData(){
+			 
+			 var obj ={
+						"referenceid": $('#invoiceNumber').val(),
+						"type": "Invoice"
+				}
+				
+				$.ajax({
+					type : "POST",
+					url : "<%=GlobalUrl.getQueryByTypeAndForeignKey%>",
+					data :JSON.stringify(obj),
+					dataType : "json",
+					contentType : "application/json",
+					success : function(response) {
+						if (response.msg == "success") {
+						
+							if("data" in response){
+							
+								var result = response.data;												
+								
+							     	tabledataQuery.clear();
+							     	var count=0;
+				                        for (var i = 0; i < result.length; i++) {
+				                        	count++;
+				                        	tabledataQuery.row.add([count,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
+				                        }
+				                        tabledataQuery.draw();
+				                        $("tbody").show();
+								}
+						} else {
+							Toast.fire({
+								type : 'error',
+								title : 'Failed ..'
+							})
+						}
+					},
+					error : function(jqXHR, textStatue, errorThrown) {
+						
+						Toast.fire({
+							type : 'error',
+							title : 'Failed Added try again..'
+						})
+
+					}
+				}); 
+		 }
+		 
+		 function raiseQueryModel(){
+				var query = document.getElementById("comment").value;
+	            if (query === "" || query === null || query === '') {
+	                Toast.fire({
+	                    type: 'error',
+	                    title: 'Please Insert Remarks'
+	                });
+	                document.getElementById("comment").focus();
+	                return "";
+	            }
+	            
+	            var finalObj={
+	                    "comment": $("#comment").val(),
+	                    "raisedAgainQuery": $("#invoiceNumber").val(),
+	                    "id": $("#id").val(),
+	                    "type":"Invoice"
+	                    }
+	            $.ajax({
+	                type: "POST",
+	                data: JSON.stringify(finalObj),
+	                url: "<%=GlobalUrl.saveQuery%>",
+	                dataType: "json",
+	                contentType: "application/json",
+	                success: function(response) {
+
+	                    if (response.msg == 'success') {
+	                        swal.fire("", "Remarks Sucessfully Submitted", "success", "OK").then(function() {
+	                        	window.opener.refereshList();
+	                            window.close(); 
+	                        });
+	                        setTimeout(function(response) {}, 2000);
+	                    } else {
+	                        alert("failed");
+	                    }
+	                },
+	                error: function(jqXHR, textStatue, errorThrown) {
+	                    Swal.fire({
+	                        icon: 'error',
+	                        title: 'Oops...',
+	                        text: 'Something went wrong!',
+	                    })
+	                }
+	            });
+			}
+		 
+		 /* Document Modal code */
+			
+		 function displayAttachmentForPoDetails(){
+				
+			 $('#multipleAttachment').empty();
+			 
+			 var obj ={
+						"foreignKey": $('#ecomInvoiceNumber').val(),
+						"type": "Invoice"
+				}
+				
+				$.ajax({
+					type : "POST",
+					url : "<%=GlobalUrl.getDocumentByTypeAndForeignKey%>",
+					data :JSON.stringify(obj),
+					dataType : "json",
+					contentType : "application/json",
+					success : function(response) {
+						if (response.msg == "success") {
+						
+							if("data" in response){
+							
+								var result = response.data;												
+								
+								$('#multipleAttachment').append($('<option/>').attr("value", '').text("Select"));
+								
+								for (var i = 0; i < result.length; i++) {																						
+									$('#multipleAttachment').append($('<option/>').attr("value", result[i].docPath).text(result[i].docName));			
+								}
+								$("#viewAttachmentPopUp").modal('show');
+								
+							}else{
+								Toast.fire({
+									type : 'error',
+									title : 'Attachment Not Available..'
+								})
+							}
+						} else {
+							Toast.fire({
+								type : 'error',
+								title : 'Failed ..'
+							})
+						}
+					},
+					error : function(jqXHR, textStatue, errorThrown) {
+						
+						Toast.fire({
+							type : 'error',
+							title : 'Failed Added try again..'
+						})
+
+					}
+				}); 								 
+			}
+		
+		 $("#multipleAttachment").change(function () {
+			 
+			 $("#pdfLink").contents().find("body").html(" ");
+			    var fileName = $("#multipleAttachment option:selected").text();
+			    
+			    console.log("fileName from drop down >> " + fileName);
+				var filePath = $("#multipleAttachment").val();
+			    
+				 fileName = encodeURIComponent(fileName);
+			     filePath = encodeURIComponent(filePath);
+					var urlpath = "getDoc" + "?name=" + fileName+ "&path=" + filePath;
+
+					$('#pdfLink').attr('src', urlpath);
+					$('#ifrmameHref').attr('href', urlpath);
+
+				});
+			
     </script>
 </body>
 

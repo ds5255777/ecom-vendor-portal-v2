@@ -68,6 +68,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <!-- <h1 class="m-0 text-dark">Dashboard</h1> -->
+                            <input type="hidden" id =uname  value=${uname} />
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-6">
@@ -124,7 +125,7 @@
                                       <a style="font-size: larger;"> Total No of Users : </a><b>${getAllUserCount}</b></p>
                                        
                                        <p id="allActive" data-toggle="tooltip" data-placement="bottom" title="All Active User">
-                                       Active User : <b>${totalActiveUser}</b></p>
+                                       Active Users : <b>${totalActiveUser}</b></p>
                                        
                                        <p id="allInactive" data-toggle="tooltip" data-placement="bottom" title="All In-Active Users">
                                         In-Active Users : <b>${totalInActiveUser}</b></p>
@@ -148,13 +149,13 @@
                                 <div class="inner">
                                     <%-- <h2>${getAllInvoiceCount}</h2> --%>
 
-                                    <p id="noofinvoice" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
+                                    <p id="noofinvoice" data-toggle="tooltip" data-placement="bottom" title="All Invoices Due, Pending And Rejected Today and Tommorow">
                                      <a style="font-size: larger;"> Total No of Invoices : </a><b>${getAllInvoiceCount}</b></p>
                                        
-                                       <p id="proinvoice" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
+                                       <p id="proinvoice" data-toggle="tooltip" data-placement="bottom" title="All Process Invoices  ">
                                        Process Invoices : <b>${countForAllProcessedInvoice}</b></p>
                                        
-                                       <p id="appinvoice" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
+                                       <p id="appinvoice" data-toggle="tooltip" data-placement="bottom" title="All Approved Invoices">
                                        Approved Invoices : <b>${countForAllApproveInvoice}</b></p>
                                 </div>
                                 <div class="icon">
@@ -181,7 +182,7 @@
                                        <a style="font-size: larger;">Total No of Vendors : </a><b>${getAllVendorCount}</b></p>
                                        
                                      <p id="Actvendors" data-toggle="tooltip" data-placement="bottom" title="All Active Vendors">
-                                       Active Vendors : <b>${allActiveVendorCount}</b></p>
+                                       Active Vendors : <b>${getAllVendorCount}</b></p>
                                 
                                  	<p id="inactVendor" data-toggle="tooltip" data-placement="bottom" title="All InActive Vendors">
                                        In-Active Vendors : <b>${allInActiveVendorCount}</b></p>
@@ -638,7 +639,14 @@
                              }
 
                              tabledata.row.add([result[i].username, result[i].firstName, lastName, result[i].rolesObj.roleName, result[i].emailId, result[i].contactNo]);
-
+				
+                             let introByEmail="";
+                             var uname = $("#uname").val();
+                        	 if (uname === result[i].username) {
+                        		 introByEmail=result[i].emailId
+                        		//for introByEmail in Vendor Registrastion page
+                        		 
+                        	 }
                          }
 
                          tabledata.draw();

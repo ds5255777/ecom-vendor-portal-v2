@@ -186,25 +186,25 @@ tbody {
                                                             <div class="col-md-3">
                                                                 <label>City</label> <input type="text"
                                                                      name="city" class="form-control"
-                                                                     id="city">
+                                                                     id="city" pattern="[a-zA-Z]+" maxlength="50">
                                                            </div>
                                                            
                                                             <div class="col-md-3">
                                                                 <label>Vendor Name</label> <input type="text"
                                                                      name="vendorName" class="form-control"
-                                                                     id="vendorName">
+                                                                     id="vendorName" pattern="[a-zA-Z. ]+" maxlength="50">
                                                            </div>
                                                            
                                                             <div class="col-md-3">
                                                                 <label>Vehicle Type</label> <input type="text"
                                                                      name="vehicleType" class="form-control"
-                                                                     id="vehicleType">
+                                                                     id="vehicleType" maxlength="50">
                                                            </div>
                                                            
                                                            <div class="col-md-3">
                                                                 <label>Route</label> <input type="text"
                                                                      name="route" class="form-control"
-                                                                     id="route">
+                                                                     id="route"maxlength="50">
                                                            </div>
                                                            
                                                            <div class="col-md-3">
@@ -220,43 +220,43 @@ tbody {
                                                            <div class="col-md-3">
                                                                 <label>Rate </label> <input type="number"
                                                                      name="rate" class="form-control"
-                                                                     id="rate">
+                                                                     id="rate"maxlength="10" min=0 >
                                                            </div>
                                                            
                                                            
                                                            <div class="col-md-3">
                                                                 <label>Trip Cost</label> <input type="number"
                                                                      name="tripCost" class="form-control"
-                                                                     id="tripCost">
+                                                                     id="tripCost" maxlength="10" min=0 >
                                                            </div>
                                                            <div class="col-md-3">
                                                                 <label>Base Rate</label> <input type="number"
                                                                      name="baseRate" class="form-control"
-                                                                     id="baseRate">
+                                                                     id="baseRate" maxlength="10" min=0 >
                                                            </div>
                                                            
                                                             <div class="col-md-3">
-                                                                <label>current Fuel Rate</label> <input type="number"
+                                                                <label>Current Fuel Rate</label> <input type="number"
                                                                      name="currentFuelRate" class="form-control"
-                                                                     id="currentFuelRate">
+                                                                     id="currentFuelRate" maxlength="10" min=0 >
                                                            </div>
                                                            
                                                            <div class="col-md-3">
                                                                 <label>Std Mileage Per Km</label> <input type="number"
                                                                      name="stdMileagePerKm" class="form-control"
-                                                                     id="stdMileagePerKm">
+                                                                     id="stdMileagePerKm" maxlength="10" min=0 >
                                                            </div>
                                                            
                                                            <div class="col-md-3">
                                                                 <label>Max Kms</label> <input type="number"
                                                                      name="maxKms" class="form-control"
-                                                                     id="maxKms">
+                                                                     id="maxKms" maxlength="10" min=0 >
                                                            </div>
                                                            
                                                            <div class="col-md-3">
-                                                                <label>Credit Period in Days</label> <input type="text"
+                                                                <label>Credit Period in Days</label> <input type="number"
                                                                      name="creditPeriodInDays" class="form-control"
-                                                                     id="creditPeriodInDays">
+                                                                     id="creditPeriodInDays" maxlength="5" min=0 oninput="validity.valid||(value='');">
                                                            </div>
                                                            
                                                             <div class="col-md-3">
@@ -415,25 +415,25 @@ tbody {
                                                             <div class="col-md-3">
                                                                 <label>City</label> <input type="text"
                                                                      name="cityEdit" class="form-control"
-                                                                     id="cityEdit">
+                                                                     id="cityEdit" pattern="[a-zA-Z]+" maxlength="50">
                                                            </div>
                                                            
                                                             <div class="col-md-3">
                                                                 <label>Vendor Name</label> <input type="text"
                                                                      name="vendorNameEdit" class="form-control"
-                                                                     id="vendorNameEdit">
+                                                                     id="vendorNameEdit"pattern="[a-zA-Z. ]+" maxlength="50">
                                                            </div>
                                                            
                                                             <div class="col-md-3">
                                                                 <label>Vehicle Type</label> <input type="text"
                                                                      name="vehicleTypeEdit" class="form-control"
-                                                                     id="vehicleTypeEdit">
+                                                                     id="vehicleTypeEdit"maxlength="50">
                                                            </div>
                                                            
                                                            <div class="col-md-3">
                                                                 <label>Route</label> <input type="text"
                                                                      name="routeEdit" class="form-control"
-                                                                     id="routeEdit">
+                                                                     id="routeEdit"maxlength="50">
                                                            </div>
                                                            
                                                            <div class="col-md-3">
@@ -449,43 +449,43 @@ tbody {
                                                            <div class="col-md-3">
                                                                 <label>Rate </label> <input type="number"
                                                                      name="rateEdit" class="form-control"
-                                                                     id="rateEdit">
+                                                                     id="rateEdit"maxlength="10" min=0 >
                                                            </div>
                                                            
                                                            
                                                            <div class="col-md-3">
                                                                 <label>Trip Cost</label> <input type="number"
                                                                      name="tripCostEdit" class="form-control"
-                                                                     id="tripCostEdit">
+                                                                     id="tripCostEdit"maxlength="10" min=0>
                                                            </div>
                                                            <div class="col-md-3">
                                                                 <label>Base Rate</label> <input type="number"
                                                                      name="baseRateEdit" class="form-control"
-                                                                     id="baseRateEdit">
+                                                                     id="baseRateEdit"maxlength="10" min=0>
                                                            </div>
                                                            
                                                             <div class="col-md-3">
-                                                                <label>current Fuel Rate</label> <input type="number"
+                                                                <label>Current Fuel Rate</label> <input type="number"
                                                                      name="currentFuelRateEdit" class="form-control"
-                                                                     id="currentFuelRateEdit">
+                                                                     id="currentFuelRateEdit"maxlength="10" min=0>
                                                            </div>
                                                            
                                                            <div class="col-md-3">
                                                                 <label>Std Mileage Per Km</label> <input type="number"
                                                                      name="stdMileageEdit" class="form-control"
-                                                                     id="stdMileageEdit">
+                                                                     id="stdMileageEdit"maxlength="10" min=0>
                                                            </div>
                                                            
                                                            <div class="col-md-3">
                                                                 <label>Max Kms</label> <input type="number"
                                                                      name="maxKmsEdit" class="form-control"
-                                                                     id="maxKmsEdit">
+                                                                     id="maxKmsEdit"maxlength="10" min=0>
                                                            </div>
                                                            
                                                            <div class="col-md-3">
                                                                 <label>Credit Period in Days</label> <input type="text"
                                                                      name="creditPeriodEdit" class="form-control"
-                                                                     id="creditPeriodEdit">
+                                                                     id="creditPeriodEdit" maxlength="5" min=0 oninput="validity.valid||(value='');">
                                                            </div>
                                                            
                                                             <div class="col-md-3">
@@ -1115,7 +1115,26 @@ tbody {
                });
 
            }
-
+           $(function(){
+        	    $('[name="agreementMadeDate"]').prop('max', function(){
+        	        return new Date().toJSON().split('T')[0];
+        	    });
+        	});
+           $(function(){
+       	    $('[name="agreementExpiryDate"]').prop('min', function(){
+       	        return new Date().toJSON().split('T')[0];
+       	    });
+       	});
+           $(function(){
+       	    $('[name="agreementMadeDateEdit"]').prop('max', function(){
+       	        return new Date().toJSON().split('T')[0];
+       	    });
+       	});
+          $(function(){
+      	    $('[name="agreementExpiryDateEdit"]').prop('min', function(){
+      	        return new Date().toJSON().split('T')[0];
+      	    });
+      	});
            
            
                     

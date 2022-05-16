@@ -6,7 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html  lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -19,27 +19,30 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="dist/css/login/style.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="dist/css/ionicons.min.css">
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
 </head>
 
 <body>
 
     <div class="splitLeft left">
         <!--<div class="centered">-->
-        <img src="dist/img/vendorPortal.jpg" alt="Vendor Portal Logo" class="center brand-image" style="width: 80%;">
+        <img src="dist/img/vendorPortal.jpg" alt="Vendor Portal Logo" class="center brand-image" style="width: 70%;">
         <center>
             <h2 style="color: white;">Vendor Portal</h2>
             <br>
-            <p style="color: white;">vendor portal is an internet-based
+            
+            <br>
+            <p style="color: white;">Vendor portal is an internet-based
                 system used to manage and connect with third party suppliers of
                 goods or/and services. It is a secured management system adopted by
                 organizations that network with multiple suppliers. This portal
                 permits initial registration of suppliers as well as account
                 management.</p>
+                <br>
+                <p style="color: white;">Powered By BPAAS Solutions Pvt. LTD. </p>
         </center>
     </div>
 
@@ -58,8 +61,8 @@
 					<span style="color: red"> </span>
 				</div> -->
                 <label for="username" style="font-weight: bolder;">User ID</label> <input class="form-control" id="username" name="username" type="text" data-role="tagsinput" placeholder="User Id"><br> <label for="password" style="font-weight: bolder;">Password</label> <input class="form-control" id="password" name="password" type="password" placeholder="Password"><br> <input type="hidden" name="" value="" />
-                <button type="submit" class="btn btn-primary">Login</button>
-                <button type="button" class="btn btn-secondary" onclick="openRegister()">Register</button>
+                <button type="submit" class="btn btn-primary" style="color: white">Login</button>
+                <button type="button" class="btn" style="background-color: #c62625 ; color: white" onclick="openRegister()">Register</button>
             </div>
         </form>
     </div>

@@ -15,6 +15,9 @@ public class InvoiceLineItem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name = "trip_id")
+	private String tripID;
+
 	@Column(name = "run_type")
 	private String runType;
 
@@ -23,6 +26,9 @@ public class InvoiceLineItem {
 
 	@Column(name = "rate_per_km")
 	private String ratePerKm;
+
+	@Column(name = "route")
+	private String route;
 
 	@Column(name = "current_fuel_rate")
 	private String currentFuelRate;
@@ -54,6 +60,14 @@ public class InvoiceLineItem {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getTripID() {
+		return tripID;
+	}
+
+	public void setTripID(String tripID) {
+		this.tripID = tripID;
 	}
 
 	public String getRunType() {
@@ -102,6 +116,14 @@ public class InvoiceLineItem {
 
 	public void setFsDiff(String fsDiff) {
 		this.fsDiff = fsDiff;
+	}
+
+	public String getRoute() {
+		return route;
+	}
+
+	public void setRoute(String route) {
+		this.route = route;
 	}
 
 	public String getBasicFreight() {

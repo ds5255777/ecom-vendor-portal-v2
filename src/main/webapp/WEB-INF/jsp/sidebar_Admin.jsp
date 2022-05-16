@@ -78,9 +78,9 @@
 			}%>                            
                             ">
                          
-                         <i class="fa fa-bell" aria-hidden="true" ></i>
+                         <i class="nav-icon fa fa-bell" ></i>
                     
-                        <p>&ensp;Notification</p>
+                        <p>Notification</p>
                     </a></li>
                     
                     
@@ -105,12 +105,12 @@
                          
                       <!-- <i class="fa-solid fa-id-card"></i> -->
                       
-                     <i class="fas fa-registered"></i>
+                     <i class="nav-icon fas fa-registered"></i>
                       
                       
 					
                     
-                       <p>&ensp;Vendor Registrastion</p> 
+                       <p>Vendor Registrastion</p> 
                     </a></li> 
                     
                     

@@ -1,15 +1,33 @@
 package com.main.serviceManager;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.main.db.bpaas.repo.AgreementMasterRepo;
+import com.main.db.bpaas.repo.BusinessClassificationRepo;
+import com.main.db.bpaas.repo.BusinessPartnerRepo;
+import com.main.db.bpaas.repo.BusinessPartnerTypeRepo;
+import com.main.db.bpaas.repo.CountryRepo;
+import com.main.db.bpaas.repo.CurrencyRepo;
+import com.main.db.bpaas.repo.DocumentRepo;
 import com.main.db.bpaas.repo.EmailConfigurationRepository;
+import com.main.db.bpaas.repo.FinancialYearRepo;
+import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
+import com.main.db.bpaas.repo.NatureOfTransactionRepo;
+import com.main.db.bpaas.repo.PaymentTermRepo;
+import com.main.db.bpaas.repo.QueryRepo;
 import com.main.db.bpaas.repo.RolesRepository;
+import com.main.db.bpaas.repo.SupDetailsRepo;
+import com.main.db.bpaas.repo.TDSSectionCodeRepo;
+import com.main.db.bpaas.repo.TripDetailsRepo;
 import com.main.db.bpaas.repo.UserRepository;
+import com.main.service.InvoiceServiceImpl;
+import com.main.service.SecurityService;
+import com.main.service.TripService;
+import com.main.service.UserService;
 
 @Service
 public class ServiceManager {
@@ -22,21 +40,76 @@ public class ServiceManager {
 
 	@Autowired
 	public EmailConfigurationRepository emailConfigurationRepository;
+	
+	@Autowired
+	public SupDetailsRepo detailsRepo;
+
+	@Autowired
+	public SecurityService securityService;
+
+	@Autowired
+	public BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	public UserService userService;
+
+	@Autowired
+	public TripDetailsRepo tripDetailsRepo;
+
+	@Autowired
+	public InvoiceGenerationEntityRepo invoiceGenerationEntityRepo;
+
+	@Autowired
+	public TripService tripService;
+
+	@Autowired
+	public CurrencyRepo currencyRepo;
+
+	@Autowired
+	public BusinessPartnerTypeRepo businessPartnerTypeRepo;
+
+	@Autowired
+	public BusinessPartnerRepo businessPartnerRepo;
+
+	@Autowired
+	public BusinessClassificationRepo businessClassificationRepo;
+
+	@Autowired
+	public PaymentTermRepo paymentTermRepo;
+
+	@Autowired
+	public NatureOfTransactionRepo natureOfTransactionRepo;
+
+	@Autowired
+	public CountryRepo countryRepo;
+
+	@Autowired
+	public TDSSectionCodeRepo tDSSectionCodeRepo;
+
+	@Autowired
+	public FinancialYearRepo financialYearRepo;
+	
+	@Autowired
+	public SupDetailsRepo supDetailsRepo;
+	
+	@Autowired
+	public QueryRepo queryRepo;
+	
+	@Autowired
+	public InvoiceServiceImpl invoiceServiceImpl;
+	
+	@Autowired
+	public AgreementMasterRepo agreementMasterRepo;
+	
+	@Autowired
+	public DocumentRepo documentRepo;
+
 
 	public void insertRecordIntoAuditEntry(HttpServletRequest request, String action, String actionType, String remarks,
 			String ticketId, Integer ticketQueueId) {
 
 		String userName = (String) request.getSession().getAttribute("userName");
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
-		//AuditEntry auditEntry = new AuditEntry();
-//		auditEntry.setActionType(actionType);
-//		auditEntry.setAction(action);
-//		auditEntry.setCreatedOn(new Date());
-//		auditEntry.setRemarks(remarks);
-//		auditEntry.setUserId(userId);
-//		auditEntry.setUserName(userName);
-//
-//		auditEntryRepository.save(auditEntry);
 
 	}
 
@@ -45,38 +118,7 @@ public class ServiceManager {
 
 		String userName = (String) request.getSession().getAttribute("userName");
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
-//		AuditEntry auditEntry = new AuditEntry();
-//		auditEntry.setActionType(actionType);
-//		auditEntry.setAction(action);
-//		auditEntry.setCreatedOn(new Date());
-//		auditEntry.setRemarks(remarks);
-//		auditEntry.setNewValue(newValue);
-//		auditEntry.setOldValue(oldValue);
-//		auditEntry.setUserId(userId);
-//		auditEntry.setUserName(userName);
-//
-//		auditEntryRepository.save(auditEntry);
-
+//		
 	}
-
-	/*
-	 * public void addNotofication(Integer userId,String userName,String
-	 * notificationLink,String notificationType, String ticketId, Integer
-	 * ticketQueueId) {
-	 * 
-	 * NotificationEntity notificationEntity= new NotificationEntity();
-	 * 
-	 * notificationEntity.setUserId(userId);
-	 * notificationEntity.setUserName(userName);
-	 * notificationEntity.setIsRead("False");
-	 * notificationEntity.setNotificationLink(notificationLink);
-	 * notificationEntity.setNoticationDetail(null);
-	 * notificationEntity.setNotificationType(notificationType);
-	 * notificationEntity.setTicketId(ticketId);
-	 * notificationEntity.setTicketQueueId(ticketQueueId);
-	 * notificationRepository.save(notificationEntity);
-	 * 
-	 * }
-	 */
 
 }

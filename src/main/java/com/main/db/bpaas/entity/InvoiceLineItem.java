@@ -51,6 +51,9 @@ public class InvoiceLineItem {
 	@Column(name = "total_freight")
 	private String totalFreight;
 
+	@Column(name = "lumpsome_amount")
+	private String lumpsomeamount;
+
 	@Column(name = "line_level_description")
 	private String lineLevelDescription;
 
@@ -156,6 +159,14 @@ public class InvoiceLineItem {
 
 	public void setTotalFreight(String totalFreight) {
 		this.totalFreight = totalFreight;
+	}
+
+	public String getLumpsomeamount() {
+		return lumpsomeamount;
+	}
+
+	public void setLumpsomeamount(String lumpsomeamount) {
+		this.lumpsomeamount = lumpsomeamount;
 	}
 
 	public String getLineLevelDescription() {

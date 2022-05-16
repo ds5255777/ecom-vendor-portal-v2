@@ -16,6 +16,7 @@ import com.main.db.bpaas.repo.DocumentRepo;
 import com.main.db.bpaas.repo.EmailConfigurationRepository;
 import com.main.db.bpaas.repo.FinancialYearRepo;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
+import com.main.db.bpaas.repo.InvoiceLineItemRepo;
 import com.main.db.bpaas.repo.NatureOfTransactionRepo;
 import com.main.db.bpaas.repo.PaymentTermRepo;
 import com.main.db.bpaas.repo.QueryRepo;
@@ -58,6 +59,9 @@ public class ServiceManager {
 
 	@Autowired
 	public InvoiceGenerationEntityRepo invoiceGenerationEntityRepo;
+	
+	@Autowired
+	public InvoiceLineItemRepo invoiceLineItemRepo;
 
 	@Autowired
 	public TripService tripService;

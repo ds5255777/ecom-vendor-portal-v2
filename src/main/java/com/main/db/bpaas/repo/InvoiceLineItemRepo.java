@@ -6,4 +6,6 @@ import com.main.db.bpaas.entity.InvoiceLineItem;
 
 public interface InvoiceLineItemRepo extends JpaRepository<InvoiceLineItem, Long> {
 
+	
+
 }

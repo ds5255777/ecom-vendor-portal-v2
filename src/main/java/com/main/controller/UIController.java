@@ -30,6 +30,9 @@ import com.main.db.bpaas.entity.RolesEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.serviceManager.ServiceManager;
+import com.main.db.bpaas.repo.SupDetailsRepo;
+
+
 
 @Controller
 public class UIController {
@@ -97,7 +100,21 @@ public class UIController {
 	public String dashboard(Model model, Principal principal, String error, String logout, HttpServletRequest request) {
 
 		String rolename = (String) request.getSession().getAttribute("role");
-		User us = serviceManager.userService.findByUsername(principal.getName());
+		User us = userService.findByUsername(principal.getName());
+		
+		//pending
+		//String bpCode="1012";
+		String bpCode=userRepository.getBpCode(principal.getName());
+		if(bpCode =="" || bpCode==null ) {
+			bpCode="";
+		}
+		
+		String vendorType = supDetailsRepo.findVendorType(bpCode);
+		if(vendorType=="" || vendorType==null) {
+			vendorType="vendor";
+		}
+		System.out.println("vendorType in dashboard : "+vendorType);
+				
 
 		model.addAttribute("dataLimit", dataLimit);
 
@@ -187,7 +204,17 @@ public class UIController {
 			model.addAttribute("approveInvoice", approveInvoice);
 			model.addAttribute("draftInvoice", draftInvoice);
 			model.addAttribute("userStatus", us.getStatus());
+			
+			request.setAttribute("vendorType", vendorType);
+			model.addAttribute("vendorType", vendorType);
 
+			//po Details
+			/*
+			 * int totalProcessPoCount = PoDetailsRepo.getAllProcessPoCount(vendorCode);
+			 * model.addAttribute("totalProcessPoCount", totalProcessPoCount);
+			 * System.out.println("totalProcessPoCount : "+totalProcessPoCount);
+			 */
+			
 			return "dashboard";
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
 				|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
@@ -213,6 +240,7 @@ public class UIController {
 		return "";
 
 	}
+	
 	
 
 	@GetMapping({ "/addUsers" })
@@ -376,32 +404,51 @@ public class UIController {
 		return "";
 	}
 
-	@GetMapping("/notification")
-	public String notification(Model model, Principal principal, HttpServletRequest request) {
+	 @GetMapping("/notification")
+	   	public String notification(Model model, Principal principal, HttpServletRequest request) {
+	   		
+	    	String rolename = (String) request.getSession().getAttribute("role");
 
-		String rolename = (String) request.getSession().getAttribute("role");
+			if (rolename.equalsIgnoreCase("Admin")) {
+				
+				return "notification";
+			}
+	   		return "";
+	   	}
+	     
+		 @GetMapping("/vendorRegistrastion")
+	   	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
+	   		
+			 String rolename = (String) request.getSession().getAttribute("role");
 
-		if (rolename.equalsIgnoreCase("Admin")) {
+				if (rolename.equalsIgnoreCase("Admin")) {
+					
+					return "vendorRegistrastion";
+					
+				}
+	   		return "";
+	   	}
+		//End
+			
+		 
 
-			return "notification";
-		}
-		return "";
-	}
+	//Added by Saurabh for Network Module Part
+		 @GetMapping("/dashbaordNetwork")
+			public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {
 
-	@GetMapping("/vendorRegistrastion")
-	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
+				String tripId = request.getParameter("id");
+				model.addAttribute("tripId", tripId);
 
-		String rolename = (String) request.getSession().getAttribute("role");
+				System.out.println("tripId ........." + tripId);
 
-		if (rolename.equalsIgnoreCase("Admin")) {
+				int totalTripCount = tripDetailsRepo.getADHocTripCount("Adhoc");
+				model.addAttribute("totalTripCount", totalTripCount);
 
-			String uname = principal.getName();
-			model.addAttribute("uname", uname);
-			model.addAttribute("maxFileSize", maxFileSize);
-			model.addAttribute("fileSize", fileSize);
+				return "dashBoard_NetworkRole";
+			}
+		 
 
-			return "vendorRegistrastion";
-
+			return "dashBoard_NetworkRole";
 		}
 		return "";
 	}
@@ -569,6 +616,8 @@ public class UIController {
 		return "draftInvoiceGenerate";
 	}
 
+
+	
 	@GetMapping("/invoiceView")
 	public String invoiceView(Model model, HttpServletRequest request, Principal principal) {
 
@@ -578,7 +627,8 @@ public class UIController {
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		return "invoiceView";
 	}
-
+	
+		
 	@GetMapping("/draftInvoiceGenerate")
 	public String draftInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 

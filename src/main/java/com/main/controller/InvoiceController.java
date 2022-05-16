@@ -24,6 +24,7 @@ import com.main.bean.DataContainer;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.Document;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
+import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.serviceManager.ServiceManager;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
@@ -37,6 +38,10 @@ public class InvoiceController {
 
 	@Autowired
 	private ServiceManager serviceManager;
+	
+	@Autowired
+	PoInvoiceRepo poinvoiceRepo;
+
 
 	@RequestMapping({ "/getAllInvoice" })
 	@CrossOrigin("*")
@@ -454,6 +459,29 @@ public class InvoiceController {
 
 		return gson.toJson(data).toString();
 	}
+	@RequestMapping({ "/getAllQueryInvoiceVendorPo" })
+	@CrossOrigin("*")
+	public String getAllQueryInvoiceVendorPo(Principal principal, HttpServletRequest request) {
+
+		DataContainer data = new DataContainer();
+		String vendorCode = principal.getName();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			List<PoInvoiceDetails> queryInvoice = poinvoiceRepo.getAllQueryInvoiceVendorPo(vendorCode);
+
+			data.setData(queryInvoice);
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+			}
+
+	
+	
 
 	// checkForExistingInvoiceNumber
 	@RequestMapping({ "/checkForExistingInvoiceNumber" })

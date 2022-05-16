@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 
+
 public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenerationEntity, Long> {
 
 	@Query(value = "select * from invoice_generation where invoice_status='In-Review' and vendor_code=?", nativeQuery = true)

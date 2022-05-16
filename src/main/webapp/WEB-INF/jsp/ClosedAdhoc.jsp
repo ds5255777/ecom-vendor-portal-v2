@@ -128,7 +128,10 @@
                         <div class="row mb-2">
                             <div class="col-sm-6"></div>
                             <div class="col-sm-6">
-                                
+                                <!-- <ol class="breadcrumb float-sm-right">
+                                                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard v1</li>
+                                                    </ol> -->
                             </div>
 
                         </div>
@@ -182,6 +185,8 @@
 
                                                     <th class="bg-primary" >Trip ID</th>
                                                     <th class="bg-primary" >Route</th>
+                                                    <th class="bg-primary" >Vendor Name</th>
+                                                    <th class="bg-primary" >Vendor Code</th>
                                                     <th class="bg-primary" >Run Type</th>
                                                     <th class="bg-primary" >Trip Status</th>
                                                     <th class="bg-primary" >Vehicle Number</th>
@@ -194,6 +199,8 @@
                                                     <tr>
                                                         <td><a href="javascript:setTripStatus(${ApprovedAllDetails.tripID})">${ApprovedAllDetails.tripID}</a></td>
                                                         <td>${ApprovedAllDetails.route}</td>
+                                                        <td>${ApprovedAllDetails.vendorName}</td>
+                                                        <td>${ApprovedAllDetails.vendorCode}</td>
                                                         <td>${ApprovedAllDetails.runType}</td>
                                                         <td>${ApprovedAllDetails.runStatus}</td>
                                                         <td>${ApprovedAllDetails.vehicleNumber}</td>
@@ -650,6 +657,7 @@
                                                         showConfirmButton: false,
                                                         timer: 3000
                                                     });
+                                                    
                                                     var tabledata = $('#tabledata1').DataTable({
                                                         "paging": true,
                                                         "lengthChange": false,
@@ -742,7 +750,6 @@
                                                     } );
                                                     
                                                     $('#tabledata1_filter').css("display","none");
-                                                    
                                                     
                                                     console.log(document.getElementById("mode").value);
                                                     //alert(document.getElementById("mode").value);

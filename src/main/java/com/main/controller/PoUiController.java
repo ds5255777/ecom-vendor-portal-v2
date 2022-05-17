@@ -15,6 +15,8 @@ import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.PoInvoiceRepo;
+import com.main.db.bpaas.repo.SupDetailsRepo;
+import com.main.db.bpaas.repo.UserRepository;
 
 @Controller
 public class PoUiController {
@@ -26,13 +28,52 @@ public class PoUiController {
 	
 	@Autowired
 	PoInvoiceRepo poinvoiceRepo;
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
+	SupDetailsRepo supDetailsRepo;
 
 	 @GetMapping("/dashboard_Po")
 	   	public String dashboard_Po(Model model, Principal principal, HttpServletRequest request) {
+		 
+			String bpCode=userRepository.getBpCode(principal.getName());
+			if(bpCode =="" || bpCode==null ) {
+				bpCode="";
+			}
+			
+			String vendorType = supDetailsRepo.findVendorType(bpCode);
+			if(vendorType=="" || vendorType==null) {
+				vendorType="vendor";
+			}
+			System.out.println("vendorType in dashboard : "+vendorType);
+			
+		 
+		 
+
+	        
+	        String[] strArray =   null;
+	        		
+	      strArray = vendorType.split(",");  
+	       
+	      for (int i = 0; i< strArray.length; i++){  
+	      
+	      }  
+	        
+	      
+	     	for (int i = 0; i < strArray.length; i++) {
+	     		   
+	     			if(strArray[i].equalsIgnoreCase("Network")  && strArray[i+1].equalsIgnoreCase("Fixed Asset")){
+	         	    	 System.out.println("vendor type : "+strArray[i]+" and "+strArray[i+1]); 
+	      	    	 
+	      	    	 
+	      	    	 
+	      	    	 
 	   		
-			 String rolename = (String) request.getSession().getAttribute("role");
-			 String vendorCode = (String) request.getSession().getAttribute("userName");
-				
+				 String rolename = (String) request.getSession().getAttribute("role");
+				 String vendorCode = (String) request.getSession().getAttribute("userName");
+					
 				//po Details
 			 	int totalAllPoCount = podetailsRepo.getAllPoCount(vendorCode);
 				model.addAttribute("totalAllPoCount", totalAllPoCount);
@@ -63,7 +104,9 @@ public class PoUiController {
 					
 					return "dashboard_Po";
 					
-				}
+						}
+	     		}
+	     	}
 	   		return "";
 	   	}
 	 

@@ -39,8 +39,7 @@ public class InvoiceController {
 	@Autowired
 	private ServiceManager serviceManager;
 	
-	@Autowired
-	PoInvoiceRepo poinvoiceRepo;
+	
 
 
 	@RequestMapping({ "/getAllInvoice" })
@@ -467,7 +466,7 @@ public class InvoiceController {
 		String vendorCode = principal.getName();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<PoInvoiceDetails> queryInvoice = poinvoiceRepo.getAllQueryInvoiceVendorPo(vendorCode);
+			List<PoInvoiceDetails> queryInvoice = serviceManager.poinvoiceRepo.getAllQueryInvoiceVendorPo(vendorCode);
 
 			data.setData(queryInvoice);
 			data.setMsg("success");

@@ -127,7 +127,16 @@
                  	   swal.fire("Alert", "Nature of transaction is mandatory", "warning")
                         .then((value) => {});
                     }
-                   
+                	 else  if(controlName=="creditTerms"){
+                      	  
+                    	   swal.fire("Alert", "Payment / Credit Terms is mandatory", "warning")
+                           .then((value) => {});
+                       }
+                	 else  if(controlName=="paymentMethod"){
+                     	  
+                  	   swal.fire("Alert", "Payment Method is mandatory", "warning")
+                         .then((value) => {});
+                     }
                 	
                    // $('#manPara').css('display', '');
                    // addValCss(controlName);
@@ -278,12 +287,12 @@
                 console.log("addBookGridCount " + addBookGridCount);
                 console.log("contactDetailsGrid " + contactDetailsGrid);
                 if (addBookGridCount == 1) {
-                    swal.fire("Alert", "Add Atleast One Address", "warning")
+                    swal.fire("Alert", "Add Atleast One Address Detail", "warning")
                         .then((value) => {});
                     return false;
                 }
                 if (contactDetailsGrid == 1) {
-                    swal.fire("Alert", "Add Atleast One Contact", "warning")
+                    swal.fire("Alert", "Add Atleast One Contact Detail", "warning")
                         .then((value) => {});
                     return false;
                 }
@@ -1599,7 +1608,7 @@ label {
 															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 															<textarea id="ITRAFileText" rows="5"
 																style="display: none;"></textarea> <label><span
-																style="font-weight: 500; color: #fd7e14;">* File
+																style="font-weight: 500; color: #fd7e14;">File
 																	size Max ${fileSize} MB</span></label></td>
 
 														<td colspan='2'>
@@ -1669,7 +1678,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="GSTFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 
 															<td><label>Proprietorship Declaration<span
@@ -1679,7 +1688,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="PDFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 
 														</tr>
@@ -1691,7 +1700,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="PANFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 
 															<td><label>Cancelled Cheque/ Passbook/ Bank
@@ -1702,7 +1711,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="CCFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 														<tr>
@@ -1712,7 +1721,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="ACFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 															<td><label>Aadhar and PAN Card linking
 																	declaration</label></td>
@@ -1721,7 +1730,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="APLFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 														<tr>
@@ -1732,7 +1741,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="ITRFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 															<td><label>Filled Updated VRF Form<span
 																	class="required">*</span></label></td>
@@ -1741,7 +1750,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="FUVFFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 														<tr>
@@ -1753,7 +1762,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="MSMECFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 															<td><label>Approval Mail<span
 																	class="required">*</span></label></td>
@@ -1762,7 +1771,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="AMFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 
@@ -1785,7 +1794,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="NMISFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 													</tbody>
@@ -1940,16 +1949,16 @@ label {
             var abc4 = document.getElementById('conEmail').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Fill First Name !", "warning");
+                swal.fire("Alert", "First name is mandatory", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "Fill Last Name !", "warning");
+                swal.fire("Alert", "Last name is mandatory", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", "Fill Phone Number !", "warning");
+                swal.fire("Alert", "Phone number is mandatory", "warning");
                 return false;
             } else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", "Fill Email Id !", "warning");
+                swal.fire("Alert", "Email id is mandatory", "warning");
                 return false;
             } else {
                 console.log("Coming Here");
@@ -1976,13 +1985,13 @@ label {
                 swal.fire("Alert", "Bank Name cannot be blank !", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "IFSC Code cannot be blank !", "warning");
+                swal.fire("Alert", "IFSC Code cannot be blank", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", " Account Number cannot be blank !", "warning");
+                swal.fire("Alert", " Account Number cannot be blank", "warning");
                 return false;
             }else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", " Confirmed Account Number cannot be blank !", "warning");
+                swal.fire("Alert", " Confirmed Account Number cannot be blank", "warning");
                 return false;
             
             } else {
@@ -2016,13 +2025,13 @@ label {
             var abc2 =  document.getElementById('ITRAFile').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Select Financial Year Number !", "warning");
+                swal.fire("Alert", "Select Financial Year Number", "warning");
                 return false;
             } else if (abc1 == null || abc1 == "") {
-                swal.fire("Alert", "Fill Acknowledgement Number !", "warning");
+                swal.fire("Alert", "Fill Acknowledgement Number", "warning");
                 return false;
              } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", " Please! Upload ITR Acknowledgement ", "warning");
+                swal.fire("Alert", " Please! Upload ITR Acknowledgement", "warning");
                 return false;
             } else {
                 $("#addITRGrid").append('<tr class=""><td>' +

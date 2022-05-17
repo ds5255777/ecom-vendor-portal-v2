@@ -60,7 +60,7 @@
     </style>
 </head>
 
-<body class="hold-transition sidebar-mini sidebar-collapse text-sm" onunload="javascript:refreshParent()">
+<body class="hold-transition sidebar-mini sidebar-collapse text-sm" onunload="javascript:refreshParent(); window.close();">
 <jsp:include page="loader.jsp" />
     <div class="wrapper">
         <!-- Navbar -->
@@ -615,12 +615,16 @@
             $('.loader').hide();
             var urlOftripsDetail = "poInvoiceGenerate?id=" + poNo;
             window.open(urlOftripsDetail, "poInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
-      		 window.close();
+      		
+            // window.close();
+            $('#flipToInvoice').attr('disabled', true);
+            
         }
         
         function refreshParent() 
         {
             window.opener.location.reload(true);
+            window.close();
         }
           
     </script>

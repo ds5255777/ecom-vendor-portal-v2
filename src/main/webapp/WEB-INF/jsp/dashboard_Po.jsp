@@ -127,7 +127,7 @@ tbody {
 								</div>
 								<div class="icon">
 
-									<i class="fa fa-tasks" style="color: lawngreen; font-size: 70px;"></i>
+									<i class="fa fa-tasks" style="color: chocolate; font-size: 70px;"></i>
 								</div>
 								<a href="unprocessPO" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -506,7 +506,7 @@ tbody {
             ],//#FF0000(red),00a65a(inactive)
             datasets: [{
                 data: [${allPOcount}, ${totalUnprocessPOCount},${totalProcessPoCount},${totalQueryCount},${totalInvoiceCount},${totalDraftInvoiceCount}],
-                backgroundColor: ['aquamarine',  'lawngreen','#28a745',  '#fd7e14','#007bff','#dc3545'],
+                backgroundColor: ['aquamarine',  'chocolate','#28a745',  '#fd7e14','#007bff','#dc3545'],
             }]
         }
         var unresolvedstsOptions = {

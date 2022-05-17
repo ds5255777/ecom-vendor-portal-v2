@@ -448,27 +448,8 @@ public class UIController {
 			}
 		 
 
-			return "dashBoard_NetworkRole";
-		}
-		return "";
-	}
-	// End
-
-	@GetMapping("/dashbaordNetwork")
-	public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {
-
-		String tripId = request.getParameter("id");
-		model.addAttribute("tripId", tripId);
-
-		System.out.println("tripId ........." + tripId);
-
-		int totalTripCount = serviceManager.tripDetailsRepo.getADHocTripCount("Adhoc");
-		model.addAttribute("totalTripCount", totalTripCount);
-
-		return "dashBoard_NetworkRole";
-	}
-
-	@GetMapping("/InsertTrip")
+		
+			@GetMapping("/InsertTrip")
 	public void InsertTrip(Model model, Principal principal, HttpServletRequest request) throws FileNotFoundException {
 		System.out.println("***************************Inside Trip************************************************");
 		TripDetails tripDetails = new TripDetails();

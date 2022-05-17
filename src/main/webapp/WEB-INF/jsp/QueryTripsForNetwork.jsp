@@ -205,7 +205,7 @@ tbody {
 											items="${AllDetailsForNetwork}">
 											<tr>
 												<td><a
-													href="javascript:setTripStatus(${ApprovedAllDetails.tripID})">${ApprovedAllDetails.tripID}</a></td>
+													href="javascript:setTripStatus('${ApprovedAllDetails.tripID}','${ApprovedAllDetails.vendorName}')">${ApprovedAllDetails.tripID}</a></td>
 												<td>${ApprovedAllDetails.route}</td>
 												<td>${ApprovedAllDetails.vendorName}</td>
 												<td>${ApprovedAllDetails.vendorCode}</td>
@@ -260,15 +260,25 @@ tbody {
 															</div>
 														</div>
 													</div>
-													<div class="col-md-3">
+															<div class="col-md-3">
 														<!-- text input -->
 														<div class="form-group row">
-															<label class="col-sm-5" title="Vendor Name">Vendor
-																Name</label>
-															<div class="col-sm-7">
-																<input type="text" class="form-control" id="vendorName"
-																	name="vendorName" autocomplete="off">
-															</div>
+													
+													<label class="col-sm-5">Vendor Name<span
+														class="required adHocRequired"></span></label>
+
+												<div class="col-sm-7">
+												<select class="form-control" id="vendorName" name="vendorName" style="height: 34px;">
+												
+												<c:forEach items="${vendorNamefortripsQuery}" var="vendorName">
+
+															<option value="${vendorName}">${vendorName}</option>
+														</c:forEach>
+												
+												</select>
+												
+												</div>
+													
 														</div>
 													</div>
 													<div class="col-md-3">
@@ -730,7 +740,9 @@ tbody {
 
 		<script type="text/javascript">
 
-
+		  $('#vendorName').select2({
+  			theme : 'bootstrap4'
+  		});
 
 
                                                     $('#tripValue').modal("hide");
@@ -848,7 +860,7 @@ tbody {
 
 
                                                     var globalTripId = "";
-                                                    function setTripStatus(tripId) {
+                                                    function setTripStatus(tripId ,vendorNameOfTrip) {
 
                                                         //	 tripId =  $("#tripID").val();		
 
@@ -871,6 +883,7 @@ tbody {
                                                                     myForm = document.getElementById("tripForm1");
                                                                     console.log("result " + result.innerHTML);
                                                                     setData(myForm, result);
+                                                                    $("#vendorName").val(vendorNameOfTrip).trigger('change');
                                                                     $('#tripValue').modal('show');
                                                                 } else {
                                                                     Toast.fire({
@@ -1006,6 +1019,7 @@ tbody {
                                                         var AmountLumpSum = document.getElementById("AmountLumpSum").value;
                                                         var lumpsum = document.getElementById("lumpsum").value;
                                                         var fs = document.getElementById("fs").value;
+                                                        var vendorName = document.getElementById("vendorName").value;
 
 
                                                         console.log("routeKms " + routeKms);
@@ -1020,6 +1034,7 @@ tbody {
                                                         console.log("AmountLumpSum " + AmountLumpSum);
                                                         console.log("lumpsum " + lumpsum);
                                                         console.log("Milage ::" + milage);
+                                                        console.log("vendorName ::" + vendorName);
 
                                                         console.log("ratePerKm " + ratePerKm);
                                                         if (milage === "" || milage === null || milage === '') {
@@ -1171,7 +1186,8 @@ tbody {
                                                             "fsBaseRate": fsBaseRate,
                                                             "currentFuelRate": currentFuelRate,
                                                             "fsDiff": fsDiff,
-                                                            "Query": query
+                                                            "Query": query,
+                                                            "vendorName" : vendorName
                                                         }
 
                                                         //  calcualteFormulae();

@@ -80,10 +80,11 @@ public class DashboardController {
 		String totalFreight = jsonObject.getString("totalFreight").toString();
 		String basicFreight = jsonObject.getString("basicFreight").toString();
 		String commentsByUSer = jsonObject.getString("commentsby").toString();
+		String vendorName = jsonObject.getString("vendorName").toString();
 
 ///
 		System.out.println("fs " + fs + "\ntotalFreight " + totalFreight + "\nbasicFreight " + basicFreight + ""
-				+ "\ncommentsByUSer " + commentsByUSer);
+				+ "\ncommentsByUSer " + commentsByUSer+"vendorName : "+vendorName);
 
 		if ("".equalsIgnoreCase(LumpSomeAmount)) {
 			LumpSomeCheckBox = "false";
@@ -101,13 +102,14 @@ public class DashboardController {
 		System.out.println("AssigenedTo" + AssigenedTo);
 		System.out.println("LumpSomeCheckBox" + LumpSomeCheckBox);
 		System.out.println("LumpSomeAmount" + LumpSomeAmount);
+		
 
 		String Query = jsonObject.getString("Query").toString();
 		System.out.println("Query is :::" + Query);
 		if ("No".equalsIgnoreCase(Query)) {
 			serviceManager.tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon,
 					LumpSomeCheckBox, LumpSomeAmount, "Yet To Be Approved", Double.parseDouble(basicFreight),
-					Double.parseDouble(totalFreight), Double.parseDouble(fs));
+					Double.parseDouble(totalFreight), Double.parseDouble(fs),vendorName);
 		} else {
 			String standardKM = jsonObject.getString("standardKM").toString();
 			String milage = jsonObject.getString("milage").toString();
@@ -116,6 +118,8 @@ public class DashboardController {
 			String fsBaseRate = jsonObject.getString("fsBaseRate").toString();
 			String currentFuelRate = jsonObject.getString("currentFuelRate").toString();
 			String fsDiff = jsonObject.getString("fsDiff").toString();
+			
+			
 
 			System.out.println("standardKM " + standardKM);
 			System.out.println("milage " + milage);
@@ -130,7 +134,7 @@ public class DashboardController {
 						LumpSomeCheckBox, LumpSomeAmount, Double.parseDouble(standardKM), Double.parseDouble(milage),
 						Double.parseDouble(ratePerKm), Double.parseDouble(routeKms), Double.parseDouble(fsBaseRate),
 						Double.parseDouble(currentFuelRate), Double.parseDouble(fsDiff),
-						Double.parseDouble(basicFreight), Double.parseDouble(totalFreight));
+						Double.parseDouble(basicFreight), Double.parseDouble(totalFreight) ,vendorName);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

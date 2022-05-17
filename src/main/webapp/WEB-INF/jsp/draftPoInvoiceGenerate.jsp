@@ -147,6 +147,17 @@
                                     
                                     <div class="col-md-3">
                                         <div class="form-group row">
+                                            <label class="col-sm-5">invoice Amount <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
+                                                <input class="form-control-sm" type="text" placeholder="invoice Amount" onkeypress="return event.charCode >= 46 && event.charCode <= 57" maxlength="70" name="invoiceAmount" id="invoiceAmount"  style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
                                             <label class="col-sm-5">Supplier Site <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
                                                 <!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
@@ -191,7 +202,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Payment Currency<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" readonly="readonly" name="paymentCurrency" id="paymentCurrency"   placeholder="Payment Currency" onfocusout="calculateInvoice()" style="width: 100%;" on>
+                                                <input class="form-control-sm" readonly="readonly" name="paymentCurrency" id="paymentCurrency"   placeholder="Payment Currency"  style="width: 100%;" on>
                                             </div>
                                         </div>
                                     </div>
@@ -249,7 +260,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Remit To bank account number <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm"  name="remitToBankAccountNumber" id="remitToBankAccountNumber"  placeholder=" Remit To bank account number"  style="width: 100%;" maxlength="20">
+                                                <input class="form-control-sm"  name="remitToBankAccountNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" id="remitToBankAccountNumber"  placeholder=" Remit To bank account number"  style="width: 100%;" maxlength="20">
                                             </div>
                                         </div>
                                     </div>
@@ -269,56 +280,7 @@
                             </form>
                         </div>
                     </div>
-                    <!-- /.card -->
-                                       <!-- /.card -->
-
-<!--                     <div class="card card-primary">
-                        <div class="card-header" style="padding: 5px 5px 0px 5px;">
-                            <h4 class="card-title">Document Upload</h4>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        /.card-header
-                        <div class="card-body" style="overflow: auto;">
-                            <form id="stepFourForm" class="forms-sample">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Upload Invoice<span class="text-danger"> *</span></label>
-                                            <div class="col-sm-7">
-                                                <input type="file" id="InvoiceUpload" name="InvoiceUpload" class="form-control-sm" accept=".jpg, .jpeg, .pdf" onchange="handleFileSelect(event,'InvoiceFileText'), onValidateFile('InvoiceUpload')" class="form-control p-input">
-                                                <textarea id="InvoiceFileText" name="InvoiceFileText" rows="5" style="display: none;"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Document1<span class="text-danger"> </span></label>
-                                            <div class="col-sm-7">
-                                                <input type="file" id="DocumentFileOne" name="DocumentFileOne" class="form-control-sm" accept=".jpg, .jpeg, .pdf" onchange="handleFileSelect(event,'DocumentFileOneText'), onValidateFile('DocumentFileOne')" class="form-control p-input">
-                                                <textarea id="DocumentFileOneText" name="DocumentFileOneText" rows="5" style="display: none;"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 control-label">Document2<span class="text-danger"> </span></label>
-                                            <div class="col-sm-7">
-                                                <input type="file" id="DocumentFileTwo" name="DocumentFileTwo" class="form-control-sm" accept=".jpg, .jpeg, .pdf" onchange="handleFileSelect(event,'DocumentFileTwoText'), onValidateFile('DocumentFileTwo')" class="form-control p-input">
-                                                <textarea id="DocumentFileTwoText" name="DocumentFileTwoText" rows="5" style="display: none;"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        /.card-body
-                    </div> -->
-                    
-                     <div class="card card-primary">
+                    <div class="card card-primary">
                     <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">Invoice distribution</h4>
                             <div class="card-tools">
@@ -344,7 +306,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Account<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="account" id="account" maxlength="70" style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="account" id="account" maxlength="70" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -360,7 +322,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Amount <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" name="amount" id="amount" maxlength="70"  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Invoice Type" onkeypress="return event.charCode >= 46 && event.charCode <= 57" name="amount" id="amount" maxlength="70"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -592,89 +554,32 @@
                             	  document.getElementById("termsDate").type="date"; 
                               	
                               }
-        					if( termsDate !== undefined ){
+        					if( supplierInvoiceDate !== undefined ){
                               $('#supplierInvoiceDate').val(supplierInvoiceDate.split(" ")[0]);
                               
                         }else{
                         	document.getElementById("supplierInvoiceDate").type="date";
                         }
-                  
-                    
-                    
+              
                      tripLineArray=result[0].poInvoiceLine;
                     var myForm = "";
                     myForm = document.getElementById("stepOneForm");
                     setData(myForm, result[0]);
-                    
-                   
-                    
-                  
-                  /*   $('#glDate').datepicker({
-                        dateFormat: 'yy-mm-dd',
-                        changeMonth: true,
-                        changeYear: true,
-
-                    }); */
-                    
+             
                     myForm = document.getElementById("stepTwoForm");
                     setData(myForm, result[0]);
-                    
-                 //  var date =result[0].glDate;
-                   
-                   
-                   
-                  // $('#gldate').val( new Date(date));
-                   
-                                 
-                  
+                
                     $('#prTable').DataTable().clear();
                     for (var i = 0; i < tripLineArray.length; i++) {
                     	 id=tripLineArray[i].id;
                     	// var remaningQuat;
-                    	 if(tripLineArray[i].remaningQuatity!=null){
+                    	 if(tripLineArray[i].hasOwnProperty("remaningQuatity")){
                     		 remaningQuat= tripLineArray[i].remaningQuatity;
                     		 tripLineArray[i].quantity=tripLineArray[i].remaningQuatity;
                     	 }else{
-                    		 remaningQuat=tripLineArray[i].quantity;
+                    		 remaningQuat="";
                     	 }
                     	 
-
-/*                         if (!tripLineArray[i].hasOwnProperty("tripID")) {
-                        	tripLineArray[i].tripID = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("runType")) {
-                        	tripLineArray[i].runType = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("standardKM")) {
-                        	tripLineArray[i].standardKM = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("ratePerKm")) {
-                        	tripLineArray[i].ratePerKm = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("currentFuelRate")) {
-                        	tripLineArray[i].currentFuelRate = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("fsBaseRate")) {
-                        	tripLineArray[i].fsBaseRate = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("fsDiff")) {
-                        	tripLineArray[i].fsDiff = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("basicFreight")) {
-                        	tripLineArray[i].basicFreight = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("fs")) {
-                        	tripLineArray[i].fs = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("actualKM")) {
-                        	tripLineArray[i].actualKM = "";
-                        }
-                        if (!tripLineArray[i].hasOwnProperty("totalFreight")) {
-                        	tripLineArray[i].totalFreight = "0";
-                        }
-                        if (!result[i].hasOwnProperty("lumpsomeamount")) {
-                            result[i].lumpsomeamount = "0";
-                        } */  
                         var totalamot;
                         var lineNumber= "<input type=\"text\" id=\"lineNumber_"+i+"\" style=\"width: 100%; height: 28px;\" value=\"" + tripLineArray[i].lineNumber + "\"  class=\"form-control-sm \" \"> ";
 
@@ -698,9 +603,7 @@
 				  
 						
 						
-                        //Receipent Line	Description	Line Type	PO Line	GL Date
-                       // Quantity	Remaning Quantity 	Quantity Invoiced	Unit Price	UOM	Tax Percentage	Base Amount	Tax Amount	Total Amount
-                    }
+                         }
                     var  grossamt= "<input type=\"text\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";
                     prTable.row.add(["","","","","","","","","","","","","Total","","",grossamt,""]);
                  
@@ -909,13 +812,6 @@
     	var totalAmount=(parseFloat(baseAmount)+parseFloat(taxAmount)).toFixed(2);
     	
     	$("#totamt_"+index).val(totalAmount);
-    	
-    	
-    	
-    //	grosstotalamt=(parseFloat(grosstotalamt)+parseFloat(totalAmount)).toFixed(2);
-    	
-    	
-    	
     	 tripLineArray[index].totalAmount=totalAmount;
     	 tripLineArray[index].taxAmount=taxAmount;
     	 tripLineArray[index].taxper=value;
@@ -1003,8 +899,7 @@
   						 updatetotalAmount(taxper,index);
   						
   				   }else{
-  					  // alert("kjhlkjh");
-  					  alert("Quantity is greater");
+  					  
   					  setTripArrayDataBlankForIndex(index);
                      }	
   	 }
@@ -1021,7 +916,7 @@
 		if (invoiceDa === "" || invoiceDa === null || invoiceDa === '') {
             Toast.fire({
                 type: 'error',
-                title: 'Please Fill Invoice Type'
+                title: 'Invoice Type is Mandatory !'
             });
             document.getElementById("invoiceType").focus();
             return "";
@@ -1031,7 +926,7 @@
 		if (invoiceNu === "" || invoiceNu === null || invoiceNu === '') {
             Toast.fire({
                 type: 'error',
-                title: 'Please Fill Invoice Amount'
+                title: 'Invoice Amount is Mandatory !'
             });
             document.getElementById("invoiceAmount").focus();
             return "";
@@ -1040,7 +935,7 @@
 		if (invoiceNu1 === "" || invoiceNu1 === null || invoiceNu1 === '') {
             Toast.fire({
                 type: 'error',
-                title: 'Please Fill Trading Partner'
+                title: 'Trading Partner is Mandatory !'
             });
             document.getElementById("tradingPartner").focus();
             return "";
@@ -1049,7 +944,7 @@
 		if (invoiceNu2 === "" || invoiceNu2 === null || invoiceNu2 === '') {
             Toast.fire({
                 type: 'error',
-                title: 'Please Fill Supplier Number'
+                title: 'Supplier Number is Mandatory !'
             });
             document.getElementById("supplierNum").focus();
             return "";
@@ -1058,7 +953,7 @@
 		if (invoiceNu2 === "" || invoiceNu2 === null || invoiceNu2 === '') {
             Toast.fire({
                 type: 'error',
-                title: 'Please Fill GL Date '
+                title: 'GL Date is Mandatory ! '
             });
             document.getElementById("glDate").focus();
             return "";
@@ -1067,7 +962,7 @@
 		if (invoiceNu3 === "" || invoiceNu3 === null || invoiceNu3 === '') {
             Toast.fire({
                 type: 'error',
-                title: 'Please Fill Terms Date '
+                title: 'Terms Date is Mandatory !'
             });
             document.getElementById("termsDate").focus();
             return "";
@@ -1076,7 +971,7 @@
 		if (invoiceNu4 === "" || invoiceNu4 === null || invoiceNu4 === '') {
             Toast.fire({
                 type: 'error',
-                title: 'Please Fill Terms'
+                title: 'Terms is Mandatory !'
             });
             document.getElementById("terms").focus();
             return "";
@@ -1085,7 +980,7 @@
 		if (invoiceNu5 === "" || invoiceNu5 === null || invoiceNu5 === '') {
             Toast.fire({
                 type: 'error',
-                title: 'Please Fill Remit To Bank Account Name'
+                title: 'Remit To Bank Account Name is Mandatory !'
             });
             document.getElementById("remitToBankAccountName").focus();
             return "";
@@ -1094,7 +989,7 @@
 		if (invoiceNu6 === "" || invoiceNu6 === null || invoiceNu6 === '') {
             Toast.fire({
                 type: 'error',
-                title: 'Please Fill Remit To bank Account Number'
+                title: 'Remit To bank Account Number is Mandatory !'
             });
             document.getElementById("remitToBankAccountNumber").focus();
             return "";

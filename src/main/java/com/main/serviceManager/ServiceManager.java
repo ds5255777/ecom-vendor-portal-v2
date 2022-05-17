@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.db.bpaas.repo.AgreementMasterRepo;
 import com.main.db.bpaas.repo.BusinessClassificationRepo;
 import com.main.db.bpaas.repo.BusinessPartnerRepo;
@@ -107,6 +108,9 @@ public class ServiceManager {
 	
 	@Autowired
 	public DocumentRepo documentRepo;
+	
+	@Autowired
+	public PoInvoiceRepo poinvoiceRepo;
 
 
 	public void insertRecordIntoAuditEntry(HttpServletRequest request, String action, String actionType, String remarks,

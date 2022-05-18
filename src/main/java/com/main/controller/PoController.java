@@ -355,13 +355,71 @@ public class PoController {
 			
 			Integer flag= details.getFlag();
 			if(flag==1) {
-			podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(details.getInvoiceno());
+			podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(details.getPoNumber());
 			}else {
-				podetailsRepo.updateVendorPoStatusUnprocess(details.getInvoiceno());
+				podetailsRepo.updateVendorPoStatusUnprocess(details.getPoNumber());
 			}
 			
 			System.out.println("end of getPoQueryData success");
 
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+	
+	@RequestMapping({ "/updateRemaningQuantitydraft" })
+	@CrossOrigin("*")
+	public String updateRemaningQuantitydraft(HttpServletRequest request ,@RequestBody PoAndLineItem  details) {
+
+		DataContainer data = new DataContainer();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			
+			
+			
+			System.out.println("getRemaningQuatity"+details.getRemaningQuatity()+"id"+details.getLineNumberpo());
+			
+			podetailsRepo.updateRemaningQuantitydraft(details.getRemaningQuatity(),details.getLineNumberpo());
+			
+			Integer flag= details.getFlag();
+			if(flag==1) {
+			podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(details.getPoNumber());
+			}else {
+				podetailsRepo.updateVendorPoStatusUnprocess(details.getPoNumber());
+			}
+			
+			System.out.println("end of getPoQueryData success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+	
+	@RequestMapping({ "/getCurrentRemaningQty" })
+	@CrossOrigin("*")
+	public String getCurrentRemaningQty(HttpServletRequest request ,@RequestBody PoAndLineItem  details) {
+
+		DataContainer data = new DataContainer();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			
+			String getRemaningQuatity=podetailsRepo.getCurrentRemaningQty(details.getLineNumberpo());
+			
+			data.setData(getRemaningQuatity);
+			data.setMsg("success");
+		
 		} catch (Exception e) {
 			data.setMsg("error");
 

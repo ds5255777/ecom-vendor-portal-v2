@@ -70,9 +70,11 @@ public class PoInvoiceContoller {
 		try {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
 			
-			List<PoDetails> poInvoiceDetails = poDetailsRepo.getAllDraftPoInvoice(vendorCode);
+			List<PoInvoiceDetails> details =poInvoiceRepo. getAllDraftPoInvoice(vendorCode);
 			
-			data.setData(poInvoiceDetails);
+			
+			
+			data.setData(details);
 			data.setMsg("success");
 			System.out.println("end of draft success");
 

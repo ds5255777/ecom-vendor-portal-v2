@@ -252,7 +252,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Remit To bank account name<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="remitToBankAccountName" id="remitToBankAccountName"  onkeypress="return event.charCode >= 65 && event.charCode <= 122 && event.charCode == 32 " placeholder="Remit To bank account name" style="width: 100%;" >
+                                                <input class="form-control-sm" name="remitToBankAccountName" id="remitToBankAccountName"  onkeypress="return event.charCode >= 65 && event.charCode <= 122 || event.charCode == 32 " placeholder="Remit To bank account name" style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>

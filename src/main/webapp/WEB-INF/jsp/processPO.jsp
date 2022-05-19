@@ -425,12 +425,15 @@
 							 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getPoDataFormDataByPoNumber('" +  result[i].poNo + "')\" >" + result[i].poNo + "</button>";
                             var unprocess_status = '<span class=\"right badge badge-warning\">UnProcess</span>';
                             var process_status = '<span class=\"right badge badge-success\">Process</span>';
+                            var inReview_status = '<span class=\"right badge badge-primary\">In-Review</span>';
                              var postatus="";                       
                          if (result[i].status == "Process") {
                         	 postatus = process_status;
 
                               } else if(result[i].status == "Unprocess"){
                             	  postatus = unprocess_status;
+                              }  else if(result[i].status == "In-Review"){
+                            	  postatus = inReview_status;
                               } 
                             tabledata.row.add([view ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].amount,postatus ]);  				        	
                         }

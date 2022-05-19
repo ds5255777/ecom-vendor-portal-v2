@@ -280,9 +280,9 @@ public class PoUiController {
 			findByPoNumber = podetailsRepo.findByPoNo(PoNumber);
 
 			if (null != findByPoNumber.getPoNo()) {
-				findByPoNumber.setStatus("Draft-Invoicing");
-				findByPoNumber.setInvoiceNumber(invoiceNumber);
-				podetailsRepo.save(findByPoNumber);
+				//findByPoNumber.setStatus("Draft-Invoicing");
+				//findByPoNumber.setInvoiceNumber(invoiceNumber);
+				//podetailsRepo.save(findByPoNumber);
 			}
 			
 			System.out.println("Eom invoiceNumber : "+invoiceNumber);

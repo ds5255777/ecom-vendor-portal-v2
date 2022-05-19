@@ -22,7 +22,7 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long>{
 	
 	PoDetails findByPoNo(String poNo);
 	
-	@Query(value = "select * from po_details where status='Process'", nativeQuery = true)
+	@Query(value = "select * from po_details where status='In-Review'", nativeQuery = true)
 	List<PoDetails> getAllProcessPo(String vendorCode);
 	
 	@Query(value = "select * from po_details where status='Unprocess' and vendor_code=?" , nativeQuery = true)
@@ -50,8 +50,11 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long>{
 		int getAllPoCount(String vendorCode);
 
 
-		@Query(value = "select * from po_details where status='Draft-Invoicing' and vendor_code=?" , nativeQuery = true)
-		List<PoDetails> getAllDraftPoInvoice(String vendorCode);
+		/*
+		 * @Query(value =
+		 * "select * from po_details where status='Draft-Invoicing' and vendor_code=?" ,
+		 * nativeQuery = true) List<PoDetails> getAllDraftPoInvoice(String vendorCode);
+		 */
 		
 		 @Transactional
 		 @Modifying
@@ -61,8 +64,8 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long>{
 		 
 		 @Transactional
 		 @Modifying
-		@Query(value = "update po_details set status='In-Review' where invoice_number=:invoiceNumber " , nativeQuery = true)
-		void updateVendorPoStatusAgainsInvoiceNumber(@Param("invoiceNumber") String invoiceNumber);
+		@Query(value = "update po_details set status='In-Review' where PO_Number=:poNumber " , nativeQuery = true)
+		void updateVendorPoStatusAgainsInvoiceNumber(@Param("poNumber") String poNumber);
 		
 		 
 		 @Transactional
@@ -72,12 +75,19 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long>{
 		
 		 @Transactional
 		 @Modifying
-		@Query(value = "update po_details set status='Unprocess' where invoice_number=:invoiceNumber " , nativeQuery = true)
-		void updateVendorPoStatusUnprocess(@Param("invoiceNumber") String invoiceNumber);
+		@Query(value = "update po_details set status='Unprocess' where PO_Number=:poNumber " , nativeQuery = true)
+		void updateVendorPoStatusUnprocess(@Param("poNumber") String poNumber);
+
+		 @Transactional
+		 @Modifying
+		@Query(value = "update PoLine_Details set remaning_quatity=:remaningQuatity where  line_Number=:lineNumber" , nativeQuery = true)
+		void updateRemaningQuantitydraft(@Param("remaningQuatity") String remaningQuatity, @Param("lineNumber") String lineNumber);
 		
 		 
- 
-		
+		 @Query(value = "select  remaning_quatity from PoLine_Details WHERE  line_Number=:lineNumber ; ", nativeQuery = true)
+		  String getCurrentRemaningQty( @Param("lineNumber") String lineNumber);
+
+		 
 	 
 	
 }

@@ -6,6 +6,8 @@ public class PoAndLineItem {
 	private String invoiceno;
 	private String remaningQuatity;
 	private Integer flag;
+	private String lineNumberpo;
+	private String poNumber;
 	public String getInvoiceno() {
 		return invoiceno;
 	}
@@ -31,6 +33,20 @@ public class PoAndLineItem {
 	public void setFlag(Integer flag) {
 		this.flag = flag;
 	}
+
+	public String getLineNumberpo() {
+		return lineNumberpo;
+	}
+	public void setLineNumberpo(String lineNumberpo) {
+		this.lineNumberpo = lineNumberpo;
+	}
+	public String getPoNumber() {
+		return poNumber;
+	}
+	public void setPoNumber(String poNumber) {
+		this.poNumber = poNumber;
+	}
+	
 	
 	
 	

@@ -210,7 +210,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Match Option <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm"  name="matchOption" id="matchOption" placeholder="Match Option"  style="width: 100%;">
+                                                <input class="form-control-sm"  name="matchOption" id="matchOption" readonly="readonly" placeholder="Match Option"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -355,7 +355,7 @@
                     
                     
                        		      <div class="card-body" style="overflow: auto;">
-                            <form id="stepTwoForm" class="forms-sample">
+                            <form id="stepThreeForm" class="forms-sample">
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group row">
@@ -509,7 +509,7 @@
     var  invoiceNumber='${invoiceNumber}';
 
     var lineNumberArray=[];
-   var lineNum=[];
+   var lineNum1=[];
    
    getPoDetails();
     
@@ -535,13 +535,7 @@
                     var  glDate= result[0].glDate;
                     var termsDate= result[0].termsDate;
                     var supplierInvoiceDate= result[0].supplierInvoiceDate;
-                   
-                    
-                    
-                    
-                    
-                    
-                    
+               
                         if( glDate !== undefined ){
                         	
                               $('#glDate').val(glDate.split(" ")[0]);
@@ -581,13 +575,14 @@
                     for (var i = 0; i < tripLineArray.length; i++) {
                     	
                     	 id=tripLineArray[i].id;
-                       	 lineNum=tripLineArray[i].lineNumber;
+                       	 var lineNum11=tripLineArray[i].lineNumber;
+                       	 
+                       	lineNum1.push(lineNum11);
                        	 
                        	 if(tripLineArray[i].hasOwnProperty("remaningQuatity")){
-                       		// remaningQuat= tripLineArray[i].remaningQuatity;
-                       		 //tripLineArray[i].quantity=tripLineArray[i].remaningQuatity;
+                       		
                        	 }else{
-                       		// remaningQuat="";
+                       		
                        	 }
                     	
                     	 var obj = {
@@ -629,7 +624,7 @@
                         var quantity= "<input type=\"text\" readonly style=\"width: 100px; height: 28px;\" value=\"" + remaningQuat + "\" class=\"form-control-sm \" \"> ";
                         var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" maxlength=\"40\" onkeypress=\"return event.charCode >= 48 && event.charCode <= 57  \" style=\"width: 100%; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
                         var unitPrice= "<input type=\"text\" id=\"unitPrice_"+i+"\" readonly style=\"width: 100px; height: 28x;\" value=\"" + tripLineArray[i].unitPrice + "\"  class=\"form-control-sm \" \"> ";
-                        var uom= "<input type=\"text\" id=\"uom_"+i+"\" maxlength=\"40\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
+                        var uom= "<input type=\"text\" id=\"uom_"+i+"\" oninput=\"updatePOLineItem('uom','"+i+"',this.value)\" maxlength=\"40\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
                         var taxAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"  id=\"tax_"+i+"\" class=\"form-control-sm \" \"> ";
                         var baseAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"   id=\"baseAmt_"+i+"\"   class=\"form-control-sm \" > ";
                         var taxPercentage= "    <select  class=\"form-control-sm \" style=\"width: 67px; height: 28px;\" id=\"taxper_"+i+"\"  onchange=\"updatetotalAmount(this.value,'"+i+"')\" > <option value=\"0\" \">0%</option><option value=\"5\"  \">5%</option><option value=\"8\"  \">8%</option><option value=\"18\" \">18%</option><option value=\"28\" \">28%</option> </select > ";
@@ -646,24 +641,7 @@
                  
                     $('#prTable').DataTable().draw();
                     $("tbody").show();
-                       
-                    
-                    
-                    
-                    
                
-        
-        
-		         
-
-                    
-                    
-                    
-                   
-                    
-                    
-                    // gldate=document.getElementById("glDate").value;
-                   // document.getElementById("glDate1").value=gldate;
 
                     var pono =document.getElementById('poNumber').value
                     //document.getElementById('poNumber1').value=pono;
@@ -722,9 +700,10 @@
 
 	                if (data.msg == 'success') {
 	                    var result = data.data;
-	                   
+	                    var uitprie=result.price;
+	                    result.unitPrice=uitprie
 	                    tripLineArray.push(result);
-	               
+	                   
 	                    showDatatbleData(tripLineArray);
 	            
 	                }else {
@@ -767,7 +746,7 @@
         for (var i = 0; i < tripLineArray.length; i++) {
         	 id=tripLineArray[i].id;
         	 price1[i]=tripLineArray[i].price;
-        	 tripLineArray[i].unitPrice=tripLineArray[i].price;;
+        	// tripLineArray[i].unitPrice=tripLineArray[i].price;;
         	// var remaningQuat;
         	 if(tripLineArray[i].remaningQuatity!=null){
         		 //remaningQuat= tripLineArray[i].remaningQuatity;
@@ -789,8 +768,8 @@
             var remaningQuantity= "<input type=\"text\" readonly id=\"remaningQuantity_"+i+"\" style=\"width: 100%; height: 28px;\" class=\"form-control-sm \" \"> ";
             var quantity= "<input type=\"text\" readonly style=\"width: 100px; height: 28px;\" value=\"" +  tripLineArray[i].quantity + "\" class=\"form-control-sm \" \"> ";
             var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
-            var unitPrice= "<input type=\"text\" id=\"unitPrice_"+i+"\" readonly style=\"width: 100px; height: 28x;\" value=\"" + tripLineArray[i].price + "\"  class=\"form-control-sm \" \"> ";
-            var uom= "<input type=\"text\" id=\"uom_"+i+"\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
+            var unitPrice= "<input type=\"text\" id=\"unitPrice_"+i+"\" readonly style=\"width: 100px; height: 28x;\" value=\"" + tripLineArray[i].unitPrice + "\"  class=\"form-control-sm \" \"> ";
+            var uom= "<input type=\"text\" id=\"uom_"+i+"\" oninput=\"updatePOLineItem('uom','"+i+"',this.value)\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
             var taxAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"  id=\"tax_"+i+"\" class=\"form-control-sm \" \"> ";
             var baseAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"   id=\"baseAmt_"+i+"\"   class=\"form-control-sm \" > ";
             var taxPercentage= "    <select  class=\"form-control-sm \" style=\"width: 67px; height: 28px;\" id=\"taxper_"+i+"\"  onchange=\"updatetotalAmount(this.value,'"+i+"')\" > <option value=\"0\" \">0%</option><option value=\"5\"  \">5%</option><option value=\"8\"  \">8%</option><option value=\"18\" \">18%</option><option value=\"28\" \">28%</option> </select > ";
@@ -1095,11 +1074,11 @@
 		  	}
 
          var stepOneObj = FormDataToJSON('stepOneForm');
-        //var stepThreeObj = FormDataToJSON('stepThreeForm');
+        var stepTwoForm = FormDataToJSON('stepTwoForm');
 
         const finalObj = {
             ...stepOneObj,
-           // ...stepThreeObj
+            ...stepTwoForm
         };
 	console.log();
     
@@ -1137,14 +1116,12 @@
     
 		 var obj = {
 		            "remaningQuatity" : remaningQuatity1[i],
-		            
-		  			
 		  			"poNumber" : poNumber,
-		  			"lineNumberpo"  : lineNum[i],
+		  			"lineNumberpo" : lineNum1[i],
 		  			"flag" : flag
 		        }
 		   
-     
+    
 	  $.ajax({
         type: "POST",
         data: JSON.stringify(obj),
@@ -1159,7 +1136,12 @@
 	  });
 
  }
-     finalObj.grossTotalAmt=tripLineArray.grossTotalAmt
+     
+     var invoiceDate= document.getElementById("invoiceDate").value;
+     finalObj.grossTotalAmt=tripLineArray.grossTotalAmt;
+     finalObj.invoiceDate=invoiceDate;
+     
+   
         
         console.log(finalObj);
 //return;
@@ -1207,10 +1189,7 @@
   var poLineArray=[];
   function inactiveActiveDeleteData(indexc){
 	  
-	//  var checkCondition=confirm("Are you sure you want to delete??");
-	      			  
-	 // if(checkCondition){
-		 // console.log("checkCondition.."+checkCondition);
+	
 		  lineNumberArray.push(tripLineArray[indexc].lineNumber);
 		  
 		  for(var i=0; i<lineNumberArray.length; i++){
@@ -1222,14 +1201,12 @@
 		  $('#tripList').append($('<option value="' + k + '" />').attr("value",lineNumberArray[k]).text(lineNumberArray[k]));
 		  
 		  }
-		 // $option = $('<option value="' + val + '">' + options[val] + '</option>');
 		  }  
 		  tripLineArray.splice(indexc,1);
 		  showDatatbleData(tripLineArray);
 		  var taxper = $("#taxper_"+indexc).val();
-		 // updatetotalAmount(taxper,indexc);
 		  
-	 // }
+	
 }
  
 

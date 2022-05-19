@@ -2,7 +2,9 @@ package com.main.controller;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -256,23 +258,25 @@ public class PoUiController {
 			 String vendorCode = (String) request.getSession().getAttribute("userName");
 
 			int totalInvoiceCount= poinvoiceRepo.getAllInvoiceCountForInvoiceNo(vendorCode);
-			//model.addAttribute("totalInvoiceCount", totalInvoiceCount);
 			invoiceNumber = "ECOM-" + userNameIs +(totalInvoiceCount+1);
 			
-
+			List<String> exitingInvoiceNo=poinvoiceRepo.getExitingInvoiceNo();
+			
+			String[] arr = new String[exitingInvoiceNo.size()];
+			 for (int i = 0; i < exitingInvoiceNo.size(); i++) {
+		            arr[i] = exitingInvoiceNo.get(i);
+		            
+		            if(invoiceNumber.equalsIgnoreCase(arr[i])) {
+		            	invoiceNumber = "ECOM-" + userNameIs +(totalInvoiceCount+3);
+		            }
+		       
+		       
+		}
+			
 			
 			model.addAttribute("invoiceNumber", invoiceNumber);
 			request.getSession().setAttribute("invoiceNumber", invoiceNumber);
 
-			
-			
-			
-
-			
-					
-				
-			
-			
 			String PoNumber = request.getParameter("id");
 			model.addAttribute("PoNumber", PoNumber);
 			

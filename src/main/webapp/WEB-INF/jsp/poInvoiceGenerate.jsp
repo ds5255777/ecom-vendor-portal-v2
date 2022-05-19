@@ -712,7 +712,6 @@
           var taxPercentage= "    <select  class=\"form-control-sm \" style=\"width: 67px; height: 28px;\" id=\"taxper_"+i+"\"  onchange=\"updatetotalAmount(this.value,'"+i+"')\" > <option value=\"0\" \">0%</option><option value=\"5\"  \">5%</option><option value=\"8\"  \">8%</option><option value=\"18\" \">18%</option><option value=\"28\" \">28%</option> </select > ";
           var totalAmount= "<input type=\"text\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"totamt_"+i+"\" > ";
           var inactive = "<button type=\"button\"  class=\" btndeleterow\" style=\"color: #fff;background-color: #007bff; border-color: #007bff;box-shadow: none;\" data-placement=\"bottom\" onclick=\"inactiveActiveDeleteData(" + i + ")\"  data-original-title=\"Click To Delete\" > <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-         // var addLineItem = "<button type=\"button\"  class=\" btndeleterow\" style=\"color: #fff;background-color: #007bff; border-color: #007bff;box-shadow: none;\" data-placement=\"bottom\" onclick=\"AddLineitem(" + i + ")\"  data-original-title=\"Click To Delete\" > <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
           
 			prTable.row.add([i + 1,lineNumber,receipentLine,description,lineType,poline,glDate,quantity,remaningQuantity,quantityInvoiced,unitPrice,uom,taxPercentage,baseAmount,taxAmount,totalAmount,inactive]);
 	  }
@@ -1302,10 +1301,7 @@
     		   var poLineArray=[];
     		  function inactiveActiveDeleteData(indexc){
     			  
-    			//  var checkCondition=confirm("Are you sure you want to delete??");
-    			      			  
-    			 // if(checkCondition){
-    				 // console.log("checkCondition.."+checkCondition);
+    		
     				  lineNumberArray.push(tripLineArray[indexc].lineNumber);
         			  
         			  for(var i=0; i<lineNumberArray.length; i++){
@@ -1317,14 +1313,12 @@
         			  $('#tripList').append($('<option value="' + k + '" />').attr("value",lineNumberArray[k]).text(lineNumberArray[k]));
         			  
         			  }
-        			 // $option = $('<option value="' + val + '">' + options[val] + '</option>');
         			  }  
         			  tripLineArray.splice(indexc,1);
         			  showDatatbleData(tripLineArray);
         			  var taxper = $("#taxper_"+indexc).val();
-        			 // updatetotalAmount(taxper,indexc);
     				  
-    			 // }
+    			 
             }
     		 
     		  

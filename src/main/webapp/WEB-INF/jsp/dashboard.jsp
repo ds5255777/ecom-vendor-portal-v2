@@ -50,13 +50,53 @@
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
 	<div class="wrapper">
 
-		<!-- Navbar -->
-		<jsp:include page="navbar.jsp?pagename=Dashboard" />
+	
+        <!-- Navbar -->
+        
+      
+        <%
+        String vendorType=(String)request.getAttribute("vendorType");
+        
+        String[] strArray =   null;
+        		
+      strArray = vendorType.split(",");  
+       
+      for (int i = 0; i< strArray.length; i++){  
+      
+      }  
+        
+      
+     	   for (int i = 0; i < strArray.length; i++) {
+     		   
+     		  if(strArray.length == 1 && strArray[i].equalsIgnoreCase("Network")  || strArray[i].equalsIgnoreCase("Fixed Asset") || strArray[i].equalsIgnoreCase("Other")){
+      	    	 System.out.println("vendor type : "+strArray[i]); 
+      	    	 %>
+      	    	 
+      	    	 <jsp:include page="navbar.jsp?pagename=Vendor Dashboard" />>
+      	    	 
+      	    	 <% 
+         		  	 	break;
+      	    	 }
+         	
+     	   		else if(strArray[i].equalsIgnoreCase("Network")  && strArray[i+1].equalsIgnoreCase("Fixed Asset")){
+         	    	 System.out.println("vendor type : "+strArray[i]+"and "+strArray[i+1]); 
+         	    	 %>
+         	    	 
+         	    	 <jsp:include page="navbar_po.jsp?pagename= Dashboard" />
+         	    	 
+         	    	 <% 
+            		  	 	break;
+         	     } 
+     	   }
+      %>
+     
 
-		<!-- Right navbar links -->
-		<jsp:include page="sidebar_Vendor.jsp?pagename=dashboard" />
 
-		<!-- /.navbar -->
+
+        <!-- Right navbar links -->
+        <jsp:include page="sidebar_Vendor.jsp?pagename=dashboard" />
+
+        <!-- /.navbar -->
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -318,52 +358,6 @@
 		</div>
 	</form>
 
-        <!-- Navbar -->
-        
-      
-        <%
-        String vendorType=(String)request.getAttribute("vendorType");
-        
-        String[] strArray =   null;
-        		
-      strArray = vendorType.split(",");  
-       
-      for (int i = 0; i< strArray.length; i++){  
-      
-      }  
-        
-      
-     	   for (int i = 0; i < strArray.length; i++) {
-     		   
-     		  if(strArray.length == 1 && strArray[i].equalsIgnoreCase("Network")  || strArray[i].equalsIgnoreCase("Fixed Asset") || strArray[i].equalsIgnoreCase("Other")){
-      	    	 System.out.println("vendor type : "+strArray[i]); 
-      	    	 %>
-      	    	 
-      	    	 <jsp:include page="navbar.jsp?pagename=Vendor Dashboard" />>
-      	    	 
-      	    	 <% 
-         		  	 	break;
-      	    	 }
-         	
-     	   		else if(strArray[i].equalsIgnoreCase("Network")  && strArray[i+1].equalsIgnoreCase("Fixed Asset")){
-         	    	 System.out.println("vendor type : "+strArray[i]+"and "+strArray[i+1]); 
-         	    	 %>
-         	    	 
-         	    	 <jsp:include page="navbar_po.jsp?pagename= Dashboard" />
-         	    	 
-         	    	 <% 
-            		  	 	break;
-         	     } 
-     	   }
-      %>
-     
-
-
-
-        <!-- Right navbar links -->
-        <jsp:include page="sidebar_Vendor.jsp?pagename=dashboard" />
-
-        <!-- /.navbar -->
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

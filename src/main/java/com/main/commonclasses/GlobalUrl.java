@@ -90,6 +90,11 @@ public class GlobalUrl {
 	 public static String getAllPODetailsByPoNo=poController+"/getAllPODetailsByPoNo";
 	 public static String filterPoDetails=poController+"/filterPoDetails";
 	 public static String updateRemaningQuantity=poController+"/updateRemaningQuantity";
+	 public static String getCurrentRemaningQty = poController + "/getCurrentRemaningQty";
+	 
+	 
+	 
+	 
 	 public static String getAllInvoiceDetails=poController+"/getAllInvoiceDetails";
 	 public static String getSelectInvoiceDetailsPo=poController+"/getSelectInvoiceDetailsPo";
 	 public static String savePoInvoiceQuery=poController+"/savePoInvoiceQuery";
@@ -102,6 +107,12 @@ public class GlobalUrl {
 	 public static String deleteDraftPoInvoice=PoInvoiceContoller+"/deleteDraftPoInvoice";
 	 public static String savePoInvoice=PoInvoiceContoller+"/savePoInvoice";
 	 public static String saveDraftInvoice=PoInvoiceContoller+"/saveDraftInvoice";
+	 public static String updateRemaningQuantitydraft=poController+"/updateRemaningQuantitydraft";
+	 
+	 
+	 
+	 
+	 
 	 public static String getAllDraftPODetailsByInvoiceNo=PoInvoiceContoller+"/getAllDraftPODetailsByInvoiceNo"; 
 	
 	public static String financeController="financeController";

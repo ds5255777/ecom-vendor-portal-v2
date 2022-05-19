@@ -351,15 +351,15 @@
                                 if (!result[i].hasOwnProperty("invoiceNumber")) {
                                     result[i].invoiceNumber = "";
                                 }
-                                if (!result[i].hasOwnProperty("poNo")) {
-                                    result[i].poNo = "";
+                                if (!result[i].hasOwnProperty("poNumber")) {
+                                    result[i].poNumber = "";
                                 }
                                 if (!result[i].hasOwnProperty("vendorCode")) {
                                     result[i].vendorCode = "";
                                 }
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "')\" >" + result[i].invoiceNumber + "</button>";
                                 var action = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteInvoice('" + result[i].id + "','" + result[i].invoiceNumber + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-                                tabledata.row.add([view, result[i].poNo, result[i].vendorCode, action]);
+                                tabledata.row.add([view, result[i].poNumber, result[i].vendorCode, action]);
                             }
                             tabledata.draw();
                             $("tbody").show();

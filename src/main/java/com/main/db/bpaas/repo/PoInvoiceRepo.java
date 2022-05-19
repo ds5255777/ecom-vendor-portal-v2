@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoInvoiceDetails;
 
 @Repository
@@ -38,7 +39,7 @@ public interface PoInvoiceRepo extends JpaRepository<PoInvoiceDetails, Long> {
 	@Query(value = "select count(*) from po_details where vendor_code=?", nativeQuery = true)
 	int getAllPOcount(String vendorCode);
 	
-	@Query(value = "select count(*) from po_details where status='Draft-Invoicing' and  vendor_code=?", nativeQuery = true)
+	@Query(value = "select count(*) from poinvoice_details where status='Draft-Invoicing' and  vendor_code=?", nativeQuery = true)
 	int getTotalDraftInvoiceCount(String vendorCode);
 	
 	 @Query(value = "select * from poinvoice_details where status ='Query' And assign_to ='Vendor'  and vendor_code=? ", nativeQuery = true)
@@ -46,6 +47,8 @@ public interface PoInvoiceRepo extends JpaRepository<PoInvoiceDetails, Long> {
 
 	 @Query(value = "select count(*) from poinvoice_details where  vendor_code=?", nativeQuery = true)
 		int getAllInvoiceCountForInvoiceNo(String vendorCode);
-	
+	 
+	 @Query(value = "select * from poinvoice_details where status='Draft-Invoicing' and vendor_code=?" , nativeQuery = true)
+	List<PoInvoiceDetails> getAllDraftPoInvoice(String vendorCode);
 
 }

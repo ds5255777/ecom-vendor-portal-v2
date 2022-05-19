@@ -50,51 +50,13 @@
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
 	<div class="wrapper">
 
-        <%
-        String vendorType=(String)request.getAttribute("vendorType");
-        
-        String[] strArray =   null;
-        		
-      strArray = vendorType.split(",");  
-       
-      for (int i = 0; i< strArray.length; i++){  
-      
-      }  
-        
-      
-     	   for (int i = 0; i < strArray.length; i++) {
-     		   
-     		  if(strArray.length == 1 && strArray[i].equalsIgnoreCase("Network")  || strArray[i].equalsIgnoreCase("Fixed Asset") || strArray[i].equalsIgnoreCase("Other")){
-      	    	 System.out.println("vendor type : "+strArray[i]); 
-      	    	 %>
-      	    	 
-      	    	 <jsp:include page="navbar.jsp?pagename=Vendor Dashboard" />>
-      	    	 
-      	    	 <% 
-         		  	 	break;
-      	    	 }
-         	
-     	   		else if(strArray[i].equalsIgnoreCase("Network")  && strArray[i+1].equalsIgnoreCase("Fixed Asset")){
-         	    	 System.out.println("vendor type : "+strArray[i]+"and "+strArray[i+1]); 
-         	    	 %>
-         	    	 
-         	    	 <jsp:include page="navbar_po.jsp?pagename= Dashboard" />
-         	    	 
-         	    	 <% 
-            		  	 	break;
-         	     } 
-     	   }
-      %>
-     
+		<!-- Navbar -->
+		<jsp:include page="navbar.jsp?pagename=Dashboard" />
 
+		<!-- Right navbar links -->
+		<jsp:include page="sidebar_Vendor.jsp?pagename=dashboard" />
 
-
-        <!-- Right navbar links -->
-        <jsp:include page="sidebar_Vendor.jsp?pagename=dashboard" />
-
-        <!-- /.navbar -->
-
-
+		<!-- /.navbar -->
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -239,7 +201,7 @@
 									<i class="fas fa-question"
 										style="color: #fd7e14; font-size: 50px;"></i>
 								</div>
-								<a href="queryInvoiceVendor" class="small-box-footer"
+								<a href="queryInvoice" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
 									info <i class="fas fa-arrow-circle-right"></i>
 								</a>
@@ -358,20 +320,62 @@
 
         <!-- Navbar -->
         
-              <!-- Content Wrapper. Contains page content -->
+      
+        <%
+        String vendorType=(String)request.getAttribute("vendorType");
+        
+        String[] strArray =   null;
+        		
+      strArray = vendorType.split(",");  
+       
+      for (int i = 0; i< strArray.length; i++){  
+      
+      }  
+        
+      
+     	   for (int i = 0; i < strArray.length; i++) {
+     		   
+     		  if(strArray.length == 1 && strArray[i].equalsIgnoreCase("Network")  || strArray[i].equalsIgnoreCase("Fixed Asset") || strArray[i].equalsIgnoreCase("Other")){
+      	    	 System.out.println("vendor type : "+strArray[i]); 
+      	    	 %>
+      	    	 
+      	    	 <jsp:include page="navbar.jsp?pagename=Vendor Dashboard" />>
+      	    	 
+      	    	 <% 
+         		  	 	break;
+      	    	 }
+         	
+     	   		else if(strArray[i].equalsIgnoreCase("Network")  && strArray[i+1].equalsIgnoreCase("Fixed Asset")){
+         	    	 System.out.println("vendor type : "+strArray[i]+"and "+strArray[i+1]); 
+         	    	 %>
+         	    	 
+         	    	 <jsp:include page="navbar_po.jsp?pagename= Dashboard" />
+         	    	 
+         	    	 <% 
+            		  	 	break;
+         	     } 
+     	   }
+      %>
+     
+
+
+
+        <!-- Right navbar links -->
+        <jsp:include page="sidebar_Vendor.jsp?pagename=dashboard" />
+
+        <!-- /.navbar -->
+
+        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <!-- <h1 class="m-0 text-dark">Dashboard</h1> -->
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li> -->
                             </ol>
                         </div>
                         <!-- /.col -->

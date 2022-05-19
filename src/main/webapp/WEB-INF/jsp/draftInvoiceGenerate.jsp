@@ -173,7 +173,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Tax (%)<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" readonly name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount" value="18" oninput="calculateInvoice()" style="width: 100%;" >
+                                                <input class="form-control-sm" readonly name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount" value="18"  style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -612,11 +612,10 @@
 
 
             var stepOneObj = FormDataToJSON('stepOneForm');
-            var stepTwoObj = FormDataToJSON('queryForm');
+            
 
             const finalObj = {
-                ...stepOneObj,
-                ...stepTwoObj
+                ...stepOneObj
             };
 
             if (document.getElementById("InvoiceUpload").files.length > 0) {
@@ -631,10 +630,6 @@
                 finalObj.documentFileTwoName = document.getElementById("DocumentFileTwo").files.item(0).name;
                 finalObj.documentFileTwoText = $("#DocumentFileTwoText").val();
             }
-
-            
-            	
-             
             // after
             tripLineArray.forEach((item) => {
                 item.id = null;
@@ -767,7 +762,7 @@
                         $("#taxableAmount").val(parseFloat(taxableAmount).toFixed(2));
                         $('#prTable').DataTable().draw();
                         $("tbody").show();
-                        calculateInvoice();
+                       calculateInvoice();
                         
                     } else {
                         alert("failed");
@@ -884,12 +879,9 @@
                     if (data.msg == 'success') {
                         var result = data.data;
                         
-                        console.log(result,"--------");
-                        
                         if (result.length !== 0) {
                             for (var i = 0; i < result.length; i++) {
                                 $('#tripList').append($('<option/>').attr("value", result[i]).text(result[i]));
-                                console.log(result[i].tripID);
                             }
                         }
                     } else {
@@ -911,7 +903,7 @@
             var taxAmount= parseFloat(taxableAmount) *  (parseFloat(taxAmount) /100);
             var finalInvoiceAmount = parseFloat(taxableAmount) +  parseFloat(taxAmount) ;
             $("#invoiceAmount").val(parseFloat(finalInvoiceAmount).toFixed(2));
-        }
+        } 
         
         $("#invoiceNumber").focusout(function() {
 

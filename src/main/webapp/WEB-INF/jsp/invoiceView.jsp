@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head lang="en">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${titleName}|InvoiceView</title>
@@ -101,7 +101,7 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Partner Name <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Partner Name <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" readonly name="vendorName" id="vendorName" style="width: 100%;">
                                             </div>
@@ -109,7 +109,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Partner Code <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Partner Code <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" placeholder="Business Partner Code" name="vendorCode" id="vendorCode" readonly style="width: 100%;">
                                             </div>
@@ -117,7 +117,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Site Name <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Site Name <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> 
                                             </div>
@@ -125,7 +125,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Date <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Invoice Date <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                             <input type="hidden" id="id" name="id" disabled>
                                                 <input type="text" name="invoiceDate" id="invoiceDate" readonly class="form-control-sm" style="width: 100%;">
@@ -134,7 +134,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Number <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Invoice Number <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" placeholder="Invoice Number" name="invoiceNumber" id="invoiceNumber" readonly style="width: 100%;">
                                             </div>
@@ -142,7 +142,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Currency <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Invoice Currency <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                             <input type="text" class="form-control-sm" name="invoiceCurrency" id="invoiceCurrency" style="width: 100%;">
                                             </div>
@@ -166,7 +166,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Tax Amount<span class="text-danger"> *</span></label>
+                                            <label class="col-sm-5">Tax Amount<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" name="taxAmount" id="taxAmount" type="text" placeholder="Tax Amount"  style="width: 100%;">
                                             </div>
@@ -177,6 +177,14 @@
                                             <label class="col-sm-5">Invoice Amount <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" name="invoiceAmount" id="invoiceAmount" placeholder="Invoice Amount" readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Invoice Status<span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" name="invoiceStatus" id="invoiceStatus" placeholder="Invoice Amount" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -196,19 +204,18 @@
                             </div>
                         </div>
                         <!-- /.card-header -->
-                        <form id="stepTwoForm" class="forms-sample">
                             <div class="card-body" style="overflow: auto;">
 								<div class="col-md-12">
 									<div class="table-responsive">
-										<table id="prTable" class="table table-bordered responsive">
+										<table id="prTable" class="table table-bordered">
 		                                    <thead>
 		                                        <tr>
 		                                         <th class="bg-primary" >Trip Id</th>
 		                                            <th class="bg-primary" >Run Type</th>
 		                                            <th class="bg-primary" >Route</th> 
 		                                            <th class="bg-primary" >Standard KM</th>
-		                                            <th class="bg-primary" >Rate per km</th>
-		                                            <th class="bg-primary" >Current Fuel Rate</th>
+		                                            <th class="bg-primary" >Rate/km</th>
+		                                            <th class="bg-primary" >Fuel Rate</th>
 		                                            <th class="bg-primary" >FS Base Rate</th>
 		                                            <th class="bg-primary" >FS Diff</th>
 		                                            <th class="bg-primary" >Basic Freight</th>
@@ -219,15 +226,9 @@
 		                                        </tr>
 		                                    </thead>
 		                                </table>
-									
 									</div>
-
-
 								</div>
-
-								
                             </div>
-                        </form>
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
@@ -245,7 +246,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-										    <label class="col-sm-3" >Remarks <span class="text-danger">*</span></label>
+										    <label class="col-sm-3" >Remarks <span class="text-danger"></span></label>
 										    <div class="col-sm-9">
 										    <textarea class="form-control" id="comment" name="comment" rows="3" maxlength="250" placeholder="Remarks if Any"></textarea>
 										 </div>
@@ -254,7 +255,7 @@
                                     <div class="col-md-6">
                                     <div class="col-md-3"  id="raiseQueryDiv">
 								<button type="button" id="raiseQuery" value="raiseQuery"
-									onclick="raiseQueryModel()" class="btn btn-primary">Replay
+									onclick="raiseQueryModel()" class="btn btn-primary">Reply
 									</button>
 								</div>
 								</div>
@@ -446,6 +447,9 @@
         });
         
         var invoiceNumber = '${invoiceNumber}';
+        
+        console.log(invoiceNumber);
+        
         var type = '${type}';
         var tripLineArray = [];
         $("input[type=text]").prop('disabled', true);
@@ -460,7 +464,7 @@
         		$("#viewAttachmentDiv").css("display","block");
         		$("#raiseQueryDiv").css("display","block");
         	}
-        	else if( type =="Query Queue"  ){
+        	else if( type =="Query Queue" || type =="InvoiceQuery Queue"  ){
         		$("#queryWindow").css("display","block");
         		$("#viewAttachmentDiv").css("display","block"); 
         	}
@@ -471,9 +475,10 @@
         }
 
         function setInvoiceDetails() {
+        	
 
             var obj = {
-                "invoiceNumber": invoiceNumber
+                "ecomInvoiceNumber": invoiceNumber
             }
 
             $.ajax({
@@ -487,6 +492,7 @@
 
                     if (data.msg == 'success') {
                         var result = data.data;
+                        
                         tripLineArray = data.data.invoiceLineItem;
                         var myForm = "";
                         myForm = document.getElementById("stepOneForm");

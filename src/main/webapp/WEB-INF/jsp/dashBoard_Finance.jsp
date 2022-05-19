@@ -607,6 +607,27 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                             var result = data.data;
                             tabledata.clear();
                             for (var i = 0; i < result.length; i++) {
+                            	if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
+                                    result[i].ecomInvoiceNumber = "";
+                                }
+                                if (!result[i].hasOwnProperty("invoiceDate")) {
+                                    result[i].invoiceDate = "";
+                                }
+                                if (!result[i].hasOwnProperty("vendorCode")) {
+                                    result[i].vendorCode = "";
+                                }
+                                if (!result[i].hasOwnProperty("vendorName")) {
+                                    result[i].vendorName = "";
+                                }
+                                if (!result[i].hasOwnProperty("taxableAmount")) {
+                                    result[i].taxableAmount = "";
+                                }
+                                if (!result[i].hasOwnProperty("taxAmount")) {
+                                    result[i].taxAmount = "";
+                                }
+                                if (!result[i].hasOwnProperty("invoiceAmount")) {
+                                    result[i].invoiceAmount = "";
+                                }
                             	tabledata.row.add([result[i].ecomInvoiceNumber,result[i].invoiceDate,result[i].vendorCode,
                                 	result[i].vendorName,result[i].taxableAmount,result[i].taxAmount,result[i].invoiceAmount]);
                             }

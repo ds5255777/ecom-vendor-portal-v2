@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head lang="en">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${titleName}|InvoiceView Finance</title>
@@ -75,7 +75,6 @@
                 </h6>
             </ul>
         </nav>
-
         <!-- /.navbar -->
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper" style="margin-left: 0px !important;">
@@ -97,7 +96,7 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Partner Name <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Partner Name <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" readonly name="vendorName" id="vendorName" style="width: 100%;">
                                             </div>
@@ -105,7 +104,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Partner Code <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Partner Code <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" placeholder="Business Partner Code" name="vendorCode" id="vendorCode" readonly style="width: 100%;">
                                             </div>
@@ -113,7 +112,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Site Name <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Site Name <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
                                                 <select class="form-control-sm select2" disabled style="width: 100%;" id="siteName" name="siteName">
@@ -126,16 +125,16 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Date <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Invoice Date <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                            <input type="hidden" id="id" name="id" disabled>
+                                                <input type="hidden" id="id" name="id" disabled>
                                                 <input type="text" name="invoiceDate" id="invoiceDate" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Number <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Invoice Number <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" placeholder="Invoice Number" name="invoiceNumber" id="invoiceNumber" readonly style="width: 100%;">
                                             </div>
@@ -143,7 +142,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Currency <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Invoice Currency <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <select class="form-control-sm select2" disabled style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency">
                                                     <option value="INR">INR</option>
@@ -171,9 +170,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Tax Amount<span class="text-danger"> *</span></label>
+                                            <label class="col-sm-5">Tax Amount<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="text" placeholder="Tax Amount"  style="width: 100%;" readonly>
+                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="text" placeholder="Tax Amount" style="width: 100%;" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -182,6 +181,14 @@
                                             <label class="col-sm-5">Invoice Amount <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" name="invoiceAmount" id="invoiceAmount" placeholder="Invoice Amount" readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Invoice Status<span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" name="invoiceStatus" id="invoiceStatus" placeholder="Invoice Amount" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -206,19 +213,19 @@
                                 <table id="prTable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-                                             <th style="padding: 5px 5px 5px 1.5rem;">Route</th> 
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Current Fuel Rate</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">FS</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Line level Description</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Current Fuel Rate</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Line level Description</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -226,9 +233,9 @@
                         </form>
                         <!-- /.card-body -->
                     </div>
-                    
+
                     <!-- Query Form -->
-                    
+
                     <div class="card card-primary" id="queryWindow" style="display: none;" style="margin-top: 1rem;">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">Remarks</h4>
@@ -238,91 +245,69 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="card-body" >
+                        <div class="card-body">
                             <form id="queryForm" class="forms-sample">
                                 <div class="row">
-                                
-                                <!-- <div class="col-md-3">
+
+                                    <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Status <span class="text-danger">*</span></label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="invoiceStatus" name="invoiceStatus">
-                                                    <option value="Approved">Approved</option>
-                                                    <option value="Payment Relase">Payment Relase</option>
-                                                    <option value="Pending For Approval">Pending For Approval</option>
-                                                </select>
+                                            <label class="col-sm-3">Remarks <span class="text-danger"></span></label>
+                                            <div class="col-sm-9">
+                                                <textarea class="form-control" id="comment" name="comment" rows="3" maxlength="250" placeholder="Remarks if Any"></textarea>
                                             </div>
                                         </div>
-                                    </div> -->
-                                
-                                
-                                    <div class="col-md-6" >
-                                        <div class="form-group row">
-										    <label class="col-sm-3" >Remarks <span class="text-danger"></span></label>
-										    <div class="col-sm-9">
-										    <textarea class="form-control" id="comment" name="comment" rows="3" maxlength="250" placeholder="Remarks if Any"></textarea>
-										 </div>
-										 </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    
+
                     <!-- /.card -->
-					<div class="row" >
+                    <div class="row">
 
-						<div class="col-md-3"></div>
-							<div class="col-md-2" style="display: none;" id="prosInvBtn">
-								<button type="button" style="float: right;" class="btn btn-success btn-lg"
-									data-toggle="modal" data-target="#myModal">Approve Invoice</button>
-							</div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-2" style="display: none;" id="prosInvBtn">
+                            <button type="button" style="float: right;" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Approve Invoice</button>
+                        </div>
 
-							<div class="col-md-1" style="display: none;" id="raiseQueryDiv">
-								<button type="button" id="raiseQuery" value="raiseQuery"
-									onclick="raiseQueryModel()" class="btn btn-warning btn-lg">Raise
-									Query</button>
-							</div>
+                        <div class="col-md-1" style="display: none;" id="raiseQueryDiv">
+                            <button type="button" id="raiseQuery" value="raiseQuery" onclick="raiseQueryModel()" class="btn btn-warning btn-lg">Raise
+                                Query</button>
+                        </div>
 
-							<div class="col-md-2" style="display: none;"
-								id="viewAttachmentDiv">
-								<button type="button" id="viewAttachment"
-									onclick="displayAttachmentForPoDetails()" value="viewAttachment"
-									class="btn btn-primary btn-lg">View Attachment</button>
-							</div>
-							<div class="col-md-1" style="    margin-left: -102px;">
-								<button type="button" onclick="closeWin()"
-									class="btn btn-info btn-lg">Close</button>
-							</div>
-							
+                        <div class="col-md-2" style="display: none;" id="viewAttachmentDiv">
+                            <button type="button" id="viewAttachment" onclick="displayAttachmentForPoDetails()" value="viewAttachment" class="btn btn-primary btn-lg">View Attachment</button>
+                        </div>
+                        <div class="col-md-1" style="    margin-left: -102px;">
+                            <button type="button" onclick="closeWin()" class="btn btn-info btn-lg">Close</button>
+                        </div>
 
-					</div>
-					<!-- /.row -->
-                    
+
+                    </div>
+                    <!-- /.row -->
+
                     <!-- Modal -->
-			<div class="modal fade" id="myModal" role="dialog">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h3 class="modal-title">Confirmation</h3>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						<div class="modal-body">
-							<p>Are You Sure to Confirm This Invoice....</p>
-						</div>
-						<div class="modal-footer">
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Confirmation</h3>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are You Sure to Confirm This Invoice....</p>
+                                </div>
+                                <div class="modal-footer">
 
-							<button type="button" onclick="approveInvoice()"
-								id="updateBtnBtn" name="updateBtnBtn" class="btn btn-primary">Approve</button>
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
-                    
+                                    <button type="button" onclick="approveInvoice()" id="updateBtnBtn" name="updateBtnBtn" class="btn btn-primary">Approve</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Query table -->
-                    
+
                     <div class="card card-primary" id="remarkWindow" style="display: none;" style="margin-top: 1rem;">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">Remarks List</h4>
@@ -334,20 +319,19 @@
                         </div>
                         <div class="card-body">
                             <form id="queryForm" class="forms-sample">
-                                <table class="table table-bordered table-hover"
-														id="tabledataQuery">
-														<thead>
-															<tr>
-																<th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
-																<th style="padding: 5px 5px 5px 1.5rem;">Raised By</th>
-																<th style="padding: 5px 5px 5px 1.5rem;">Raised On</th>
-																<th style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
-															</tr>
-														</thead>
-														<tbody>
+                                <table class="table table-bordered table-hover" id="tabledataQuery">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">S.No</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Raised By</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Raised On</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-														</tbody>
-													</table>
+                                    </tbody>
+                                </table>
                             </form>
                         </div>
                     </div>
@@ -366,9 +350,9 @@
     </div>
 
 
-		<!-- Document  Modal  -->
-		
-		<div class="modal fade" id="viewAttachmentPopUp" role="dialog">
+    <!-- Document  Modal  -->
+
+    <div class="modal fade" id="viewAttachmentPopUp" role="dialog">
         <div class="modal-dialog " style="max-width: 1300px;">
             <!-- Modal content-->
             <div class="modal-content">
@@ -377,42 +361,43 @@
                         <div class="row">
                             <div class="col">
                                 <div class="row innerRow">
-                                    
-                                    
+
+
                                     <div class="col-md-8">
-                                       <div class="form-group">
+                                        <div class="form-group">
                                             <label>Document Name</label>
-                                            <select class="form-control" id="multipleAttachment" style="height: 35px;" >
-                                                
+                                            <select class="form-control" id="multipleAttachment" style="height: 35px;">
+
                                             </select>
-                                             
-                                        </div> 
+
+                                        </div>
                                     </div>
                                     <div class="col-md-3" style="display: none" id="uploadeddateDiv">
                                         <div class="form-group">
                                             <label>Uploaded Date</label>
-                                            <input type="text" class="form-control" id="uploadeddate" style="height: 35px;" readonly>                                               
+                                            <input type="text" class="form-control" id="uploadeddate" style="height: 35px;" readonly>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="container-fluid panel2">
-                        <div class="row">                            
+                        <div class="row">
                             <div class="col-lg-12" style="height: 400px;">
-                            <a id="ifrmameHref"   target="_blank">Click Here to open doc in new window</a>
-                                <iframe id="pdfLink" style="height:100%; width:100%"  ></iframe>
+                                <a id="ifrmameHref" target="_blank">Click Here to open doc in new window</a>
+                                <iframe id="pdfLink" style="height:100%; width:100%"></iframe>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
+
 
     <!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
@@ -495,7 +480,7 @@
         
         $("input[type=text]").prop('disabled', true);
 
-        var invoiceNumber = '${invoiceNumber}';
+        var ecomInvoiceNumber = '${ecomInvoiceNumber}';
         var type = '${type}';
         var role = '${role}';
         
@@ -549,7 +534,7 @@
         function setInvoiceDetails() {
 
             var obj = {
-                "invoiceNumber": invoiceNumber,
+                "ecomInvoiceNumber": ecomInvoiceNumber,
             }
 			console.log(obj);
             $.ajax({

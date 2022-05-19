@@ -164,7 +164,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Tax (%)<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm"  name="taxAmount" id="taxAmount" type="text" value="18" oninput="calculateInvoice()" style="width: 100%;" >
+                                                <input class="form-control-sm"  name="taxAmount" id="taxAmount" type="text" value="18" style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -227,24 +227,24 @@
                             <table id="prTable" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Number</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Trip ID</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Route</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Current Fuel
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">S.No</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip ID</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Stnd KM</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Rate/km</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Fuel
                                             Rate</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">FS</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Lumpsome Amount</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Line level
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Lumpsome Amount</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Line level
                                             Description</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Action</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Action</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -255,7 +255,7 @@
 
                     <div class="card card-primary">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
-                            <h4 class="card-title">Document Upload</h4>
+                            <h4 class="card-title">Remarks & Document Update</h4>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
                                     <i class="fas fa-minus"></i>
@@ -266,7 +266,14 @@
                         <div class="card-body" style="overflow: auto;">
                             <form id="stepFourForm" class="forms-sample">
                                 <div class="row">
-                                    
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+										    <label class="col-sm-3" >Remarks <span class="text-danger">*</span></label>
+										    <div class="col-sm-9">
+										    <textarea class="form-control" id="remarks" name="remarks" rows="3" maxlength="250" placeholder="Remarks if Any, 250 Characters only"></textarea>
+										 </div>
+										 </div>
+                                    </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5 control-label">Summary Sheet<span class="text-danger">*</span></label>
@@ -292,30 +299,6 @@
                         </div>
                         <!-- /.card-body -->
                     </div>
-                    <div class="card card-primary"  id="queryWindow" style="display: block;" style="margin-top: 1rem;">
-                        <div class="card-header" style="padding: 5px 5px 0px 5px;">
-                            <h4 class="card-title">Vendor Remarks</h4>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    <div class="card-body">
-                            <form id="queryForm" class="forms-sample">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-										    <label class="col-sm-3" >Remarks <span class="text-danger"></span></label>
-										    <div class="col-sm-9">
-										    <textarea class="form-control" id="remarks" name="remarks" rows="3" maxlength="250" placeholder="Remarks if Any, 250 Characters only"></textarea>
-										 </div>
-										 </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                     </div>
                     <center>
                         <div class="form-group">
@@ -327,6 +310,40 @@
                         </div>
                     </center>
                     <!-- /.row -->
+                    <div class="card card-primary" style="margin-top: 1rem;">
+                        <div class="card-header" style="padding: 5px 5px 0px 5px;">
+                            <h4 class="card-title">Remarks List</h4>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+							<form id="queryForm" class="forms-sample">
+								<div class="col-md-12">
+
+									<div class="table-responsive">
+										<table
+											class="table table-bordered table-hover"
+											id="tabledataQuery">
+											<thead>
+												<tr>
+													<th class="bg-primary"  >S.No</th>
+													<th class="bg-primary"  >Raised By</th>
+													<th class="bg-primary" >Raised On</th>
+													<th class="bg-primary" >Remarks</th>
+												</tr>
+											</thead>
+											<tbody>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</form>
+						</div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
             </section>
@@ -400,6 +417,8 @@
         
         $("input[type=text]").prop('disabled', true);
         var tripLineArray = [];
+        var totalFreight = 0;
+        var lumpsomeamount = parseFloat(0);
 
         const Toast = Swal.mixin({
             toast: true,
@@ -417,6 +436,15 @@
             "aaSorting": [],
             "scrollX": true,
             "pageLength": 15,
+        });
+        
+        var tabledataQuery = $('#tabledataQuery').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "info": false,
+            "autoWidth": false,
+            "aaSorting": []
         });
         
         function closeWin() {
@@ -456,9 +484,6 @@
             var obj = {
                 "ecomInvoiceNumber": invoiceNumber
             }
-            
-            console.log(obj);
-
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(obj),
@@ -477,73 +502,11 @@
                          var myForm = "";
                          myForm = document.getElementById("stepOneForm");
                          setData(myForm, result);
-                             
+                          
+                         showTableData();
                          $("#vendorName").val(result.vendorName);
-                             
-                         $('#prTable').DataTable().clear();
-                         for (var i = 0; i < tripLineArray.length; i++) {
-                             if (!tripLineArray[i].hasOwnProperty("tripID")) {
-                                 tripLineArray[i].tripID = "";
-                             }
-                             if (!tripLineArray[i].hasOwnProperty("runType")) {
-                                 tripLineArray[i].runType = "";
-                             }
-                             if (!tripLineArray[i].hasOwnProperty("route")) {
-                                 tripLineArray[i].route = "";
-                             }
-                             if (!tripLineArray[i].hasOwnProperty("standardKM")) {
-                                 tripLineArray[i].standardKM = "";
-                             }
-                             if (!tripLineArray[i].hasOwnProperty("ratePerKm")) {
-                                 tripLineArray[i].ratePerKm = "";
-                             }
-                             if (!tripLineArray[i].hasOwnProperty("currentFuelRate")) {
-                                 tripLineArray[i].currentFuelRate = "";
-                             }
-                             if (!tripLineArray[i].hasOwnProperty("fsBaseRate")) {
-                                 tripLineArray[i].fsBaseRate = "";
-                             }
-                             if (!tripLineArray[i].hasOwnProperty("fsDiff")) {
-                                 tripLineArray[i].fsDiff = "";
-                             }
-                             if (!tripLineArray[i].hasOwnProperty("basicFreight")) {
-                                 tripLineArray[i].basicFreight = "";
-                             }
-                             if (!tripLineArray[i].hasOwnProperty("fs")) {
-                                 tripLineArray[i].fs = "";
-                             }
-                             if (!tripLineArray[i].hasOwnProperty("actualKM")) {
-                                 tripLineArray[i].actualKM = "";
-                             }
-                             if (!tripLineArray[i].hasOwnProperty("totalFreight")) {
-                                 tripLineArray[i].totalFreight = "";
-                             }
-                             if (!tripLineArray[i].hasOwnProperty("lumpsomeamount")) {
-                                 tripLineArray[i].lumpsomeamount = "";
-                             }
-                             if (!tripLineArray[i].hasOwnProperty("lineLevelDescription")) {
-                                 tripLineArray[i].lineLevelDescription = "";
-                             }
-                             textBox = "<input type=\"text\" class=\"form-control\" id=\"form-control\" placeholder=\"Fill Description\" maxlength=\"100\" value=\""+tripLineArray[i].lineLevelDescription+"\" oninput=\"updateTextData('" + i + "',this.value)\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
-                             action = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteRow('" + tripLineArray[i].tripID + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-                            $('#prTable').DataTable().row.add([i+1,tripLineArray[i].tripID,tripLineArray[i].runType, tripLineArray[i].route, 
-                            	tripLineArray[i].standardKM, 
-                            	tripLineArray[i].ratePerKm, 
-                            	tripLineArray[i].currentFuelRate, 
-                            	tripLineArray[i].fsBaseRate, 
-                            	tripLineArray[i].fsDiff, 
-                            	tripLineArray[i].basicFreight,
-                            	tripLineArray[i].fs, 
-                            	tripLineArray[i].actualKM, 
-                            	tripLineArray[i].totalFreight,
-                            	tripLineArray[i].lumpsomeamount,
-                            	textBox,action]);
-                         }
                          $("#invoiceNumber").val(result.invoiceNumber);
                          $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);
-                         $('#prTable').DataTable().draw();
-                         $("tbody").show();
-                        
                     } else {
                         Toast.fire({
                             type: 'error',
@@ -560,6 +523,132 @@
             });
         }
         
+        getQueryData();
+		 
+		 function getQueryData(){
+			 
+			 var obj ={
+						"referenceid": $('#invoiceNumber').val(),
+						"type": "Invoice"
+				}
+				
+				$.ajax({
+					type : "POST",
+					url : "<%=GlobalUrl.getQueryByTypeAndForeignKey%>",
+					data :JSON.stringify(obj),
+					dataType : "json",
+					contentType : "application/json",
+					success : function(response) {
+						if (response.msg == "success") {
+						
+							if("data" in response){
+							
+								var result = response.data;												
+								
+							     	tabledataQuery.clear();
+							     	var count=0;
+				                        for (var i = 0; i < result.length; i++) {
+				                        	count++;
+				                        	tabledataQuery.row.add([count,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
+				                        }
+				                        tabledataQuery.draw();
+				                        $("tbody").show();
+								}
+						} else {
+							Toast.fire({
+								type : 'error',
+								title : 'Failed ..'
+							})
+						}
+					},
+					error : function(jqXHR, textStatue, errorThrown) {
+						
+						Toast.fire({
+							type : 'error',
+							title : 'Failed Added try again..'
+						})
+
+					}
+				}); 
+		 }
+        
+		 
+		 function showTableData(){
+			 
+			 var taxableAmount = 0;
+			 
+			 prTable.clear();
+             for (var i = 0; i < tripLineArray.length; i++) {
+                 if (!tripLineArray[i].hasOwnProperty("tripID")) {
+                     tripLineArray[i].tripID = "";
+                 }
+                 if (!tripLineArray[i].hasOwnProperty("runType")) {
+                     tripLineArray[i].runType = "";
+                 }
+                 if (!tripLineArray[i].hasOwnProperty("route")) {
+                     tripLineArray[i].route = "";
+                 }
+                 if (!tripLineArray[i].hasOwnProperty("standardKM")) {
+                     tripLineArray[i].standardKM = "";
+                 }
+                 if (!tripLineArray[i].hasOwnProperty("ratePerKm")) {
+                     tripLineArray[i].ratePerKm = "";
+                 }
+                 if (!tripLineArray[i].hasOwnProperty("currentFuelRate")) {
+                     tripLineArray[i].currentFuelRate = "";
+                 }
+                 if (!tripLineArray[i].hasOwnProperty("fsBaseRate")) {
+                     tripLineArray[i].fsBaseRate = "";
+                 }
+                 if (!tripLineArray[i].hasOwnProperty("fsDiff")) {
+                     tripLineArray[i].fsDiff = "";
+                 }
+                 if (!tripLineArray[i].hasOwnProperty("basicFreight")) {
+                     tripLineArray[i].basicFreight = "";
+                 }
+                 if (!tripLineArray[i].hasOwnProperty("fs")) {
+                     tripLineArray[i].fs = "";
+                 }
+                 if (!tripLineArray[i].hasOwnProperty("actualKM")) {
+                     tripLineArray[i].actualKM = "";
+                 }
+                 if (!tripLineArray[i].hasOwnProperty("totalFreight")) {
+                     tripLineArray[i].totalFreight = 0;
+                 }
+                 if (!tripLineArray[i].hasOwnProperty("lumpsomeamount")) {
+                     tripLineArray[i].lumpsomeamount = 0;
+                 }
+                 if (!tripLineArray[i].hasOwnProperty("lineLevelDescription")) {
+                     tripLineArray[i].lineLevelDescription = "";
+                 }
+                 textBox = "<input type=\"text\" class=\"form-control\" id=\"form-control\" placeholder=\"Fill Description\" maxlength=\"100\" value=\""+tripLineArray[i].lineLevelDescription+"\" oninput=\"updateTextData('" + i + "',this.value)\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
+                 action = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteRow('" + tripLineArray[i].tripID + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
+                 prTable.row.add([i+1,tripLineArray[i].tripID,tripLineArray[i].runType, tripLineArray[i].route, 
+                	tripLineArray[i].standardKM, 
+                	tripLineArray[i].ratePerKm, 
+                	tripLineArray[i].currentFuelRate, 
+                	tripLineArray[i].fsBaseRate, 
+                	tripLineArray[i].fsDiff, 
+                	tripLineArray[i].basicFreight,
+                	tripLineArray[i].fs, 
+                	tripLineArray[i].actualKM, 
+                	tripLineArray[i].totalFreight,
+                	tripLineArray[i].lumpsomeamount,
+                	textBox,action]);
+                 id = (tripLineArray[i].id);
+                 console.log(id);
+                 console.log(parseFloat(tripLineArray[i].totalFreight));
+                 console.log(tripLineArray[i].lumpsomeamount);
+                 console.log(parseFloat(tripLineArray[i].lumpsomeamount));
+                 taxableAmount += parseFloat(tripLineArray[i].totalFreight)+ parseFloat(tripLineArray[i].lumpsomeamount);
+               console.log(taxableAmount);
+             }
+            
+             $("#taxableAmount").val(parseFloat(taxableAmount).toFixed(2));
+             prTable.draw();
+             $("tbody").show();
+		 }
+		 
         function handleFileSelect(evt, id) {
             var f = evt.target.files[0]; // FileList object
             var reader = new FileReader();
@@ -576,9 +665,9 @@
             reader.readAsBinaryString(f);
         }
         
-        function updateTextData(index, textValue) {
+       /*  function updateTextData(index, textValue) {
             tripLineArray[index].lineLevelDescription = textValue.trim();
-        }
+        } */
         
         function deleteRow(tripID) {
             prTable
@@ -597,7 +686,7 @@
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(json),
-                url: "<%=GlobalUrl.deleteLineItem%>",
+                url: "<%=GlobalUrl.deleteTripQueryInvoice%>",
                 dataType: "json",
                 contentType: "application/json",
                 async: false,
@@ -673,11 +762,11 @@
                 "tripID": tripID,
                 "invoiceNumber": invoiceNumber
             }
-
+			console.log(json);
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(json),
-                url: "<%=GlobalUrl.findByTripDetailUsingTripID%>",
+                url: "<%=GlobalUrl.addNewTripInQueryInvoice%>",
                 dataType: "json",
                 contentType: "application/json",
                 async: false,
@@ -686,9 +775,11 @@
                     if (data.msg == 'success') {
                         Toast.fire({
                             type: 'success',
-                            title: 'Add Successfully.'
+                            title: 'Added Successfully.'
                         })
-                        setInvoiceDetails();
+                        var result=data.data;
+                        tripLineArray.push(result);
+                        showTableData();
                         getSelectTripList();
                     } else {
                         Toast.fire({
@@ -704,6 +795,104 @@
 			}
         }
         
+        function sendToServer(){
+        	console.log("ok");
+        	
+        	var remarks = document.getElementById("remarks").value;
+            if (remarks === "" || remarks === null || remarks === '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Remarks field not blank'
+                });
+                document.getElementById("remarks").focus();
+                return "";
+            }
+            
+            var docOne = document.getElementById("DocumentFileOne").value;
+            if (docOne === "" || docOne === null || docOne === '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Upload Summary Sheet'
+                });
+                document.getElementById("docOne").focus();
+                return "";
+            }
+            
+            var docTwo = document.getElementById("DocumentFileTwo").value;
+            if (docTwo === "" || docTwo === null || docTwo === '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Upload FS Calculation Sheet'
+                });
+                document.getElementById("docTwo").focus();
+                return "";
+            }
+            if(tripLineArray.length === 0){
+            	Toast.fire({
+                    type: 'error',
+                    title: 'Select More Then One Trips'
+                });
+                return "";
+            }
+            
+            const finalObj = {
+            		"remarks": $('#remarks').val(),
+            		"ecomInvoiceNumber":$('#ecomInvoiceNumber').val(),
+            		"taxableAmount":$('#taxableAmount').val(),
+            		"invoiceAmount":$('#invoiceAmount').val(),
+            		"assignTo":"<%=GlobalConstants.ROLE_FINANCE%>",
+            		"vendorCode":$('#vendorCode').val()
+            };
+            
+            
+            if (document.getElementById("DocumentFileOne").files.length > 0) {
+                finalObj.documentFileOneName = document.getElementById("DocumentFileOne").files.item(0).name;
+                finalObj.documentFileOneText = $("#DocumentFileOneText").val();
+            }
+            if (document.getElementById("DocumentFileTwo").files.length > 0) {
+                finalObj.documentFileTwoName = document.getElementById("DocumentFileTwo").files.item(0).name;
+                finalObj.documentFileTwoText = $("#DocumentFileTwoText").val();
+            }
+            
+            tripLineArray.forEach((item) => {
+                item.id = null;
+            });
+			
+            finalObj.invoiceLineItems = tripLineArray;
+            
+            console.log(finalObj);
+            
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(finalObj),
+                url: "<%=GlobalUrl.updateInvoice%>",
+                dataType: "json",
+                contentType: "application/json",
+                success: function(response) {
+
+                    if (response.msg == 'success') {
+                        swal.fire("", "Invoice Processed Sucessfully", "success", "OK").then(function() {
+                            window.opener.refereshList();
+                            window.close();
+                        });
+                        setTimeout(function(response) {}, 2000);
+                    } else {
+                        alert("failed");
+                    }
+                },
+                error: function(jqXHR, textStatue, errorThrown) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+                }
+            });
+        }
+        
+        function updateTextData(index, textValue) {
+            tripLineArray[index].lineLevelDescription = textValue.trim();
+        }
         
     </script>
 </body>

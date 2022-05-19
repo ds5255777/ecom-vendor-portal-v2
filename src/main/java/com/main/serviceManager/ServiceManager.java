@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.db.bpaas.repo.AgreementMasterRepo;
 import com.main.db.bpaas.repo.BusinessClassificationRepo;
 import com.main.db.bpaas.repo.BusinessPartnerRepo;
@@ -20,6 +19,7 @@ import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.InvoiceLineItemRepo;
 import com.main.db.bpaas.repo.NatureOfTransactionRepo;
 import com.main.db.bpaas.repo.PaymentTermRepo;
+import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.db.bpaas.repo.QueryRepo;
 import com.main.db.bpaas.repo.RolesRepository;
 import com.main.db.bpaas.repo.SupDetailsRepo;

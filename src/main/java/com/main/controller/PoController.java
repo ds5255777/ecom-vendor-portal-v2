@@ -21,25 +21,14 @@ import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.entity.PoLineDetails;
 import com.main.db.bpaas.entity.QueryEntity;
-import com.main.db.bpaas.repo.PoDetailsRepo;
-import com.main.db.bpaas.repo.PoInvoiceRepo;
-import com.main.db.bpaas.repo.PoLineItemRepo;
-import com.main.db.bpaas.repo.QueryRepo;
+import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/poController")
 @RestController
 public class PoController {
 
 	@Autowired
-	PoDetailsRepo podetailsRepo;
-	@Autowired
-	PoInvoiceRepo poInvoiceRepo;
-
-	@Autowired
-	QueryRepo queryRepo;
-
-	@Autowired
-	PoLineItemRepo poLineItemRepo;
+	private ServiceManager serviceManager;
 
 	@RequestMapping({ "/getAllPODetails" })
 	@CrossOrigin("*")
@@ -48,7 +37,7 @@ public class PoController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<PoDetails> allPoDetails = podetailsRepo.findAll();
+			List<PoDetails> allPoDetails = serviceManager.podetailsRepo.findAll();
 
 			data.setData(allPoDetails);
 			data.setMsg("success");
@@ -71,8 +60,7 @@ public class PoController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			String vendorCode = (String) request.getSession().getAttribute("userName");
-			details = podetailsRepo.findByPoNo(details.getPoNo());
+			details = serviceManager.podetailsRepo.findByPoNo(details.getPoNo());
 
 			data.setData(details);
 			data.setMsg("success");
@@ -96,7 +84,7 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
-			List<PoDetails> details = podetailsRepo.getAllProcessPo(vendorCode);
+			List<PoDetails> details = serviceManager.podetailsRepo.getAllProcessPo(vendorCode);
 
 			data.setData(details);
 			data.setMsg("success");
@@ -121,7 +109,7 @@ public class PoController {
 		try {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
 			System.out.println("vendorCode in getAllUnProcessPo : " + vendorCode);
-			List<PoDetails> details = podetailsRepo.getAllUnProcessPo(vendorCode);
+			List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
 
 			data.setData(details);
 			data.setMsg("success");
@@ -146,7 +134,7 @@ public class PoController {
 		try {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
 			System.out.println("vendorCode in getAllUnProcessPo : " + vendorCode);
-			List<PoInvoiceDetails> details = poInvoiceRepo.getAllInvoiceDetails(vendorCode);
+			List<PoInvoiceDetails> details = serviceManager.poinvoiceRepo.getAllInvoiceDetails(vendorCode);
 
 			data.setData(details);
 			data.setMsg("success");
@@ -171,7 +159,7 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
-			List<PoInvoiceDetails> poInvoiceDetails = poInvoiceRepo.findByInvoiceNumber(vendorCode,
+			List<PoInvoiceDetails> poInvoiceDetails = serviceManager.poinvoiceRepo.findByInvoiceNumber(vendorCode,
 					details.getInvoiceNumber());
 
 			data.setData(poInvoiceDetails);
@@ -198,7 +186,8 @@ public class PoController {
 		try {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
 
-			List<PoDetails> poInvoiceDetails = podetailsRepo.getPoDetailsByPoNo(details.getPoNo(), vendorCode);
+			List<PoDetails> poInvoiceDetails = serviceManager.podetailsRepo.getPoDetailsByPoNo(details.getPoNo(),
+					vendorCode);
 
 			data.setData(poInvoiceDetails);
 			data.setMsg("success");
@@ -221,9 +210,9 @@ public class PoController {
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			String vendorCode = (String) request.getSession().getAttribute("userName");
 
-			List<PoLineDetails> poInvoiceDetails = poLineItemRepo.getDataByLineNumber(details.getLineNumber());
+			List<PoLineDetails> poInvoiceDetails = serviceManager.poLineItemRepo
+					.getDataByLineNumber(details.getLineNumber());
 
 			data.setData(poInvoiceDetails.get(0));
 			data.setMsg("success");
@@ -253,7 +242,7 @@ public class PoController {
 			System.out.println("commt : " + details.getComment());
 			details.setRaisedOn(new Date());
 
-			queryRepo.save(details);
+			serviceManager.queryRepo.save(details);
 
 			data.setMsg("success");
 			System.out.println("end of allPoDetails success");
@@ -279,7 +268,7 @@ public class PoController {
 
 			String raisedBy = (String) request.getSession().getAttribute("userName");
 			details.setRaisedBy(raisedBy);
-			List<QueryEntity> getPoQueryData = queryRepo.findCommentsByRefIDPo(details.getReferenceid(),
+			List<QueryEntity> getPoQueryData = serviceManager.queryRepo.findCommentsByRefIDPo(details.getReferenceid(),
 					details.getRaisedBy());
 
 			data.setData(getPoQueryData);
@@ -309,8 +298,8 @@ public class PoController {
 		String vendorCode = principal.getName();
 		try {
 			if (fromDate != "" && toDate != "" && vendorCode != "") {
-				List<PoDetails> getListByDateFilter = podetailsRepo.findByActualDepartureBetween(fromDate, toDate,
-						vendorCode);
+				List<PoDetails> getListByDateFilter = serviceManager.podetailsRepo
+						.findByActualDepartureBetween(fromDate, toDate, vendorCode);
 				data.setData(getListByDateFilter);
 				data.setMsg("success");
 			}
@@ -333,13 +322,13 @@ public class PoController {
 
 			System.out.println("getRemaningQuatity" + details.getRemaningQuatity() + "id" + details.getId());
 
-			podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
+			serviceManager.podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
 
 			Integer flag = details.getFlag();
 			if (flag == 1) {
-				podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(details.getPoNumber());
+				serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(details.getPoNumber());
 			} else {
-				podetailsRepo.updateVendorPoStatusUnprocess(details.getPoNumber());
+				serviceManager.podetailsRepo.updateVendorPoStatusUnprocess(details.getPoNumber());
 			}
 
 			System.out.println("end of getPoQueryData success");
@@ -365,13 +354,14 @@ public class PoController {
 
 			System.out.println("getRemaningQuatity" + details.getRemaningQuatity() + "id" + details.getInvoiceno());
 
-			podetailsRepo.updateRemaningQuantitydraft(details.getRemaningQuatity(), details.getLineNumberpo());
+			serviceManager.podetailsRepo.updateRemaningQuantitydraft(details.getRemaningQuatity(),
+					details.getLineNumberpo());
 
 			Integer flag = details.getFlag();
 			if (flag == 1) {
-				podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(details.getPoNumber());
+				serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(details.getPoNumber());
 			} else {
-				podetailsRepo.updateVendorPoStatusUnprocess(details.getPoNumber());
+				serviceManager.podetailsRepo.updateVendorPoStatusUnprocess(details.getPoNumber());
 			}
 
 			System.out.println("end of getPoQueryData success");
@@ -395,7 +385,7 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			String getRemaningQuatity = podetailsRepo.getCurrentRemaningQty(details.getLineNumberpo());
+			String getRemaningQuatity = serviceManager.podetailsRepo.getCurrentRemaningQty(details.getLineNumberpo());
 
 			data.setData(getRemaningQuatity);
 			data.setMsg("success");

@@ -19,7 +19,9 @@ import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.InvoiceLineItemRepo;
 import com.main.db.bpaas.repo.NatureOfTransactionRepo;
 import com.main.db.bpaas.repo.PaymentTermRepo;
+import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.PoInvoiceRepo;
+import com.main.db.bpaas.repo.PoLineItemRepo;
 import com.main.db.bpaas.repo.QueryRepo;
 import com.main.db.bpaas.repo.RolesRepository;
 import com.main.db.bpaas.repo.SupDetailsRepo;
@@ -42,7 +44,7 @@ public class ServiceManager {
 
 	@Autowired
 	public EmailConfigurationRepository emailConfigurationRepository;
-	
+
 	@Autowired
 	public SupDetailsRepo detailsRepo;
 
@@ -51,7 +53,7 @@ public class ServiceManager {
 
 	@Autowired
 	public BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+
 	@Autowired
 	public UserService userService;
 
@@ -60,7 +62,7 @@ public class ServiceManager {
 
 	@Autowired
 	public InvoiceGenerationEntityRepo invoiceGenerationEntityRepo;
-	
+
 	@Autowired
 	public InvoiceLineItemRepo invoiceLineItemRepo;
 
@@ -93,25 +95,30 @@ public class ServiceManager {
 
 	@Autowired
 	public FinancialYearRepo financialYearRepo;
-	
+
 	@Autowired
 	public SupDetailsRepo supDetailsRepo;
-	
+
 	@Autowired
 	public QueryRepo queryRepo;
-	
+
 	@Autowired
 	public InvoiceServiceImpl invoiceServiceImpl;
-	
+
 	@Autowired
 	public AgreementMasterRepo agreementMasterRepo;
-	
+
 	@Autowired
 	public DocumentRepo documentRepo;
-	
+
 	@Autowired
 	public PoInvoiceRepo poinvoiceRepo;
 
+	@Autowired
+	public PoDetailsRepo podetailsRepo;
+
+	@Autowired
+	public PoLineItemRepo poLineItemRepo;
 
 	public void insertRecordIntoAuditEntry(HttpServletRequest request, String action, String actionType, String remarks,
 			String ticketId, Integer ticketQueueId) {

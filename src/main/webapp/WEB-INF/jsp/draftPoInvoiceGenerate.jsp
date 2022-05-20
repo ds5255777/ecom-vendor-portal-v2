@@ -654,7 +654,7 @@
                     var termsDate= result[0].termsDate;
                     var supplierInvoiceDate= result[0].supplierInvoiceDate;
                
-                        if( glDate !== undefined ){
+                        	if( glDate !== undefined ){
                         	
                               $('#glDate').val(glDate.split(" ")[0]);
         					}else{
@@ -1168,7 +1168,7 @@
 				    		}
 				    	}
 		  	}
-
+		 
          var stepOneObj = FormDataToJSON('stepOneForm');
         var stepTwoForm = FormDataToJSON('stepTwoForm');
 
@@ -1232,7 +1232,32 @@
      finalObj.grossTotalAmt=tripLineArray.grossTotalAmt;
      finalObj.invoiceDate=invoiceDate;
      
+     finalObj.glDate;
+     finalObj.termsDate;
+    finalObj.supplierInvoiceDate;
+     
+     
    
+     	
+    	 var glDate=  $('#glDate').val().split(" ");
+    	 
+    	 finalObj.glDate=glDate[0];
+		
+		
+		var termsDate=   $('#termsDate').val().split(" ");
+        
+		  finalObj.termsDate=termsDate[0];
+         	
+        
+		
+       	 var supplierInvoiceDate=  $('#supplierInvoiceDate').val().split(" ");
+         
+  
+       	 finalObj.supplierInvoiceDate=supplierInvoiceDate[0];
+  
+     
+    
+		
         
         console.log(finalObj);
 

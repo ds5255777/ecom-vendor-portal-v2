@@ -3,7 +3,7 @@
 <%@page import="com.main.commonclasses.GlobalUrl"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<html>
+<html  lang="en">
 
 <head>
 <meta charset="utf-8">
@@ -101,7 +101,7 @@ tbody {
 									<h2>${allPOcount}</h2>
 
 									<p id="iamwatch" data-toggle="tooltip" data-placement="bottom"
-										title="Unprocessed PO">All PO</p>
+										>All PO</p>
 								</div>
 								<div class="icon">
 
@@ -123,7 +123,7 @@ tbody {
 									<h2>${totalUnprocessPOCount}</h2>
 
 									<p id="iamwatch" data-toggle="tooltip" data-placement="bottom"
-										title="Unprocessed PO">Unprocessed PO</p>
+										>Unprocessed PO</p>
 								</div>
 								<div class="icon">
 
@@ -143,7 +143,7 @@ tbody {
 									<h2>${totalProcessPoCount}</h2>
 
 									<p id="UnTickets" data-toggle="tooltip" data-placement="bottom"
-										title="Processed PO">Processed PO</p>
+										>Processed PO</p>
 								</div>
 								<div class="icon">
 
@@ -166,7 +166,7 @@ tbody {
 									<h2>${totalQueryCount}</h2>
 
 									<p id="allInactive" data-toggle="tooltip"
-										data-placement="bottom" title="Query">Query</p>
+										data-placement="bottom" >Query</p>
 								</div>
 								<div class="icon">
 
@@ -193,7 +193,7 @@ tbody {
 									<h2><%=totalProcessPoCount %></h2> --%>
 
 									<p id="invdue" data-toggle="tooltip" data-placement="bottom"
-										title="Invoice">All Invoice</p>
+										>All Invoice</p>
 								</div>
 								<div class="icon">
 
@@ -217,7 +217,7 @@ tbody {
 									<h2><%=totalProcessPoCount %></h2> --%>
 
 									<p id="invdue" data-toggle="tooltip" data-placement="bottom"
-										title="Invoice">Draft Invoice</p>
+										>Draft Invoice</p>
 								</div>
 								<div class="icon">
 

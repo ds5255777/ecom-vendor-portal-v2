@@ -51,4 +51,7 @@ public interface PoInvoiceRepo extends JpaRepository<PoInvoiceDetails, Long> {
 	 @Query(value = "select * from poinvoice_details where status='Draft-Invoicing' and vendor_code=?" , nativeQuery = true)
 	List<PoInvoiceDetails> getAllDraftPoInvoice(String vendorCode);
 
+	 @Query(value = "select invoice_num from poinvoice_details " , nativeQuery = true)
+	List<String> getExitingInvoiceNo();
+
 }

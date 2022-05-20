@@ -1,9 +1,6 @@
 package com.main.controller;
 
 import java.security.Principal;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.main.db.bpaas.entity.PoDetails;
-import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.db.bpaas.repo.SupDetailsRepo;
@@ -22,295 +18,282 @@ import com.main.db.bpaas.repo.UserRepository;
 
 @Controller
 public class PoUiController {
-	
-	Integer i=1;
-	
-	@Autowired 
+
+	Integer i = 1;
+
+	@Autowired
 	PoDetailsRepo podetailsRepo;
-	
+
 	@Autowired
 	PoInvoiceRepo poinvoiceRepo;
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	SupDetailsRepo supDetailsRepo;
 
-	 @GetMapping("/dashboard_Po")
-	   	public String dashboard_Po(Model model, Principal principal, HttpServletRequest request) {
-		 
-			String bpCode=userRepository.getBpCode(principal.getName());
-			if(bpCode =="" || bpCode==null ) {
-				bpCode="";
-			}
-			
-			String vendorType = supDetailsRepo.findVendorType(bpCode);
-			if(vendorType=="" || vendorType==null) {
-				vendorType="vendor";
-			}
-			System.out.println("vendorType in dashboard : "+vendorType);
-			
-		 
-		 
+	@GetMapping("/dashboard_Po")
+	public String dashboard_Po(Model model, Principal principal, HttpServletRequest request) {
 
-	        
-	        String[] strArray =   null;
-	        		
-	      strArray = vendorType.split(",");  
-	       
-	      for (int i = 0; i< strArray.length; i++){  
-	      
-	      }  
-	        
-	      
-	     	for (int i = 0; i < strArray.length; i++) {
-	     		   
-	     			if(strArray[i].equalsIgnoreCase("Network")  && strArray[i+1].equalsIgnoreCase("Fixed Asset")){
-	         	    	 System.out.println("vendor type : "+strArray[i]+" and "+strArray[i+1]); 
-	      	    	 
-	      	    	 
-	      	    	 
-	      	    	 
-	   		
-				 String rolename = (String) request.getSession().getAttribute("role");
-				 String vendorCode = (String) request.getSession().getAttribute("userName");
-					
-				//po Details
-			 	int totalAllPoCount = podetailsRepo.getAllPoCount(vendorCode);
+		String bpCode = userRepository.getBpCode(principal.getName());
+		if (bpCode == "" || bpCode == null) {
+			bpCode = "";
+		}
+
+		String vendorType = supDetailsRepo.findVendorType(bpCode);
+		if (vendorType == "" || vendorType == null) {
+			vendorType = "vendor";
+		}
+		System.out.println("vendorType in dashboard : " + vendorType);
+
+		String[] strArray = null;
+
+		strArray = vendorType.split(",");
+
+		for (int i = 0; i < strArray.length; i++) {
+
+		}
+
+		for (int i = 0; i < strArray.length; i++) {
+
+			if (strArray[i].equalsIgnoreCase("Network") && strArray[i + 1].equalsIgnoreCase("Fixed Asset")) {
+				System.out.println("vendor type : " + strArray[i] + " and " + strArray[i + 1]);
+
+				String rolename = (String) request.getSession().getAttribute("role");
+				String vendorCode = (String) request.getSession().getAttribute("userName");
+
+				// po Details
+				int totalAllPoCount = podetailsRepo.getAllPoCount(vendorCode);
 				model.addAttribute("totalAllPoCount", totalAllPoCount);
-			 
+
 				int totalProcessPoCount = podetailsRepo.getAllProcessPoCount(vendorCode);
 				model.addAttribute("totalProcessPoCount", totalProcessPoCount);
-				System.out.println("totalProcessPoCount : "+totalProcessPoCount);
-				int totalUnprocessPOCount= podetailsRepo.getAllUnProcessPoCount(vendorCode);
+				System.out.println("totalProcessPoCount : " + totalProcessPoCount);
+				int totalUnprocessPOCount = podetailsRepo.getAllUnProcessPoCount(vendorCode);
 				model.addAttribute("totalUnprocessPOCount", totalUnprocessPOCount);
-				//Query
-				int totalQueryCount= podetailsRepo.getAllQueryCount(vendorCode);
+				// Query
+				int totalQueryCount = podetailsRepo.getAllQueryCount(vendorCode);
 				model.addAttribute("totalQueryCount", totalQueryCount);
-				
-				//Query
-				int totalInvoiceCount= poinvoiceRepo.getAllInvoiceCount(vendorCode);
+
+				// Query
+				int totalInvoiceCount = poinvoiceRepo.getAllInvoiceCount(vendorCode);
 				model.addAttribute("totalInvoiceCount", totalInvoiceCount);
-				
-				int allPOcount= poinvoiceRepo.getAllPOcount(vendorCode);
+
+				int allPOcount = poinvoiceRepo.getAllPOcount(vendorCode);
 				model.addAttribute("allPOcount", allPOcount);
-				
-				int totalDraftInvoiceCount= poinvoiceRepo.getTotalDraftInvoiceCount(vendorCode);
+
+				int totalDraftInvoiceCount = poinvoiceRepo.getTotalDraftInvoiceCount(vendorCode);
 				model.addAttribute("totalDraftInvoiceCount", totalDraftInvoiceCount);
-				
+
 				System.out.println("end of dashboard_Po");
-			 
-			 
+
 				if (rolename.equalsIgnoreCase("Vendor")) {
-					
+
 					return "dashboard_Po";
-					
-						}
-	     		}
-	     	}
-	   		return "";
-	   	}
-	 
-	 @GetMapping("/allPO")
-	   	public String allPo(Model model, Principal principal, HttpServletRequest request) {
-	   		
-			 String rolename = (String) request.getSession().getAttribute("role");
 
-				if (rolename.equalsIgnoreCase("Vendor")) {
-					
-					return "allPO";
-					
-				}
-	   		return "";
-	   	}
-	 @GetMapping("/processPO")
-	   	public String processPO(Model model, Principal principal, HttpServletRequest request) {
-	   		
-			 String rolename = (String) request.getSession().getAttribute("role");
-
-				if (rolename.equalsIgnoreCase("Vendor")) {
-					
-					return "processPO";
-					
-				}
-	   		return "";
-	   	}
-	
-	 @GetMapping("/unprocessPO")
-	   	public String unprocessPO(Model model, Principal principal, HttpServletRequest request) {
-	   		
-			 String rolename = (String) request.getSession().getAttribute("role");
-
-				if (rolename.equalsIgnoreCase("Vendor")) {
-					
-					return "unprocessPO";
-					
-				}
-	   		return "";
-	   	}
-	 
-		 @GetMapping("/poInvoiceDetails")
-	   	public String poInvoiceDetails(Model model, Principal principal, HttpServletRequest request) {
-	   		
-			 String rolename = (String) request.getSession().getAttribute("role");
-			
-				if (rolename.equalsIgnoreCase("Vendor")) {
-					
-					return "poInvoiceDetails";
-					
-				}
-	   		return "";
-	   	}
-	 
-	 @GetMapping("/QueryPo")
-	   	public String QueryPo(Model model, Principal principal, HttpServletRequest request) {
-	   		
-			 String rolename = (String) request.getSession().getAttribute("role");
-			
-				if (rolename.equalsIgnoreCase("Vendor")) {
-					
-					return "QueryPo";
-					
-				}
-	   		return "";
-	   	}
-	 
-	 @GetMapping("/invoiceViewPo")
-		public String invoiceViewPo(Model model, HttpServletRequest request, Principal principal) {
-		 	
-			String obj= request.getParameter("ob");
-			String invoiceNumber="";
-			String status="";
-			String[] arrSplit = obj.split(",");
-		    for (int i=0; i < arrSplit.length; i++)
-		    {
-		      if(i==0) {
-		    	  invoiceNumber= arrSplit[i];
-		      }
-		      if(i==1) {
-		    	  status=arrSplit[i];
-		      }
-		    }
-		
-			System.out.println("invoiceNo"+invoiceNumber);
-			model.addAttribute("invoiceNo", invoiceNumber);
-			System.out.println("status"+status);
-			model.addAttribute("status", status);
-			return "invoiceViewPo";
-		}
-	 @GetMapping("/invoiceQueryPo")
-		public String invoiceQueryPo(Model model, HttpServletRequest request, Principal principal) {
-		 	
-			String obj= request.getParameter("ob");
-			String invoiceNumber="";
-			String status="";
-			String[] arrSplit = obj.split(",");
-		    for (int i=0; i < arrSplit.length; i++)
-		    {
-		      if(i==0) {
-		    	  invoiceNumber= arrSplit[i];
-		      }
-		      if(i==1) {
-		    	  status=arrSplit[i];
-		      }
-		    }
-		
-			System.out.println("invoiceNo"+invoiceNumber);
-			model.addAttribute("invoiceNo", invoiceNumber);
-			System.out.println("status"+status);
-			model.addAttribute("status", status);
-			return "invoiceViewPo";
-		}
-		@GetMapping("/PoView")
-		public String PoView(Model model, HttpServletRequest request, Principal principal) {
-
-			String id = request.getParameter("id");
-			String arr[]=id.split(",");
-			String poNumber="";
-			String viewPage="";
-			for(int i=0;i<arr.length;i++) {
-				if(arr.length==1) {
-					poNumber=arr[0];
-					break;
-				}else {
-					poNumber=arr[0];
-					viewPage=arr[1];
-					break;
 				}
 			}
-			
-			System.out.println("poNumber"+poNumber);
-			model.addAttribute("poNumber", poNumber);
-		
-			System.out.println("viewPage"+viewPage);
-			model.addAttribute("viewPage", viewPage);
-			return "PoView";
 		}
-		
-		@GetMapping("/poInvoiceGenerate")
-		public String poInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
+		return "";
+	}
 
-			String userName = principal.getName();
-			
-			String userNameIs ="00000000";
-			String invoiceNumber = "";
-			 String vendorCode = (String) request.getSession().getAttribute("userName");
+	@GetMapping("/allPO")
+	public String allPo(Model model, Principal principal, HttpServletRequest request) {
 
-			int totalInvoiceCount= poinvoiceRepo.getAllInvoiceCountForInvoiceNo(vendorCode);
-			invoiceNumber = "ECOM-" + userNameIs +(totalInvoiceCount+1);
-			
-			List<String> exitingInvoiceNo=poinvoiceRepo.getExitingInvoiceNo();
-			
-			String[] arr = new String[exitingInvoiceNo.size()];
-			 for (int i = 0; i < exitingInvoiceNo.size(); i++) {
-		            arr[i] = exitingInvoiceNo.get(i);
-		            
-		            if(invoiceNumber.equalsIgnoreCase(arr[i])) {
-		            	invoiceNumber = "ECOM-" + userNameIs +(totalInvoiceCount+3);
-		            }
-		       
-		       
+		String rolename = (String) request.getSession().getAttribute("role");
+
+		if (rolename.equalsIgnoreCase("Vendor")) {
+
+			return "allPO";
+
 		}
-			
-			
-			model.addAttribute("invoiceNumber", invoiceNumber);
-			request.getSession().setAttribute("invoiceNumber", invoiceNumber);
+		return "";
+	}
 
-			String PoNumber = request.getParameter("id");
-			model.addAttribute("PoNumber", PoNumber);
-			
-			PoDetails findByPoNumber = null;
-			findByPoNumber = podetailsRepo.findByPoNo(PoNumber);
+	@GetMapping("/processPO")
+	public String processPO(Model model, Principal principal, HttpServletRequest request) {
 
-			if (null != findByPoNumber.getPoNo()) {
-				//findByPoNumber.setStatus("Draft-Invoicing");
-				//findByPoNumber.setInvoiceNumber(invoiceNumber);
-				//podetailsRepo.save(findByPoNumber);
+		String rolename = (String) request.getSession().getAttribute("role");
+
+		if (rolename.equalsIgnoreCase("Vendor")) {
+
+			return "processPO";
+
+		}
+		return "";
+	}
+
+	@GetMapping("/unprocessPO")
+	public String unprocessPO(Model model, Principal principal, HttpServletRequest request) {
+
+		String rolename = (String) request.getSession().getAttribute("role");
+
+		if (rolename.equalsIgnoreCase("Vendor")) {
+
+			return "unprocessPO";
+
+		}
+		return "";
+	}
+
+	@GetMapping("/poInvoiceDetails")
+	public String poInvoiceDetails(Model model, Principal principal, HttpServletRequest request) {
+
+		String rolename = (String) request.getSession().getAttribute("role");
+
+		if (rolename.equalsIgnoreCase("Vendor")) {
+
+			return "poInvoiceDetails";
+
+		}
+		return "";
+	}
+
+	@GetMapping("/QueryPo")
+	public String QueryPo(Model model, Principal principal, HttpServletRequest request) {
+
+		String rolename = (String) request.getSession().getAttribute("role");
+
+		if (rolename.equalsIgnoreCase("Vendor")) {
+
+			return "QueryPo";
+
+		}
+		return "";
+	}
+
+	@GetMapping("/invoiceViewPo")
+	public String invoiceViewPo(Model model, HttpServletRequest request, Principal principal) {
+
+		String obj = request.getParameter("ob");
+		String invoiceNumber = "";
+		String status = "";
+		String[] arrSplit = obj.split(",");
+		for (int i = 0; i < arrSplit.length; i++) {
+			if (i == 0) {
+				invoiceNumber = arrSplit[i];
 			}
-			
-			System.out.println("Eom invoiceNumber : "+invoiceNumber);
-			
-			return "poInvoiceGenerate";
+			if (i == 1) {
+				status = arrSplit[i];
+			}
 		}
-		
-		@GetMapping("/draftPO")
-		public String draftPO(Model model, HttpServletRequest request, Principal principal) {
 
-			String PoNumber = request.getParameter("id");
-			model.addAttribute("PoNumber", PoNumber);
-			return "draftPO";
-		}
-		@GetMapping("/draftPoInvoiceGenerate")
-		public String draftPoInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
+		System.out.println("invoiceNo" + invoiceNumber);
+		model.addAttribute("invoiceNo", invoiceNumber);
+		System.out.println("status" + status);
+		model.addAttribute("status", status);
+		return "invoiceViewPo";
+	}
 
-			String PoNumber = request.getParameter("id");
-			model.addAttribute("PoNumber", PoNumber);
-			model.addAttribute("invoiceNumber", PoNumber);
-			return "draftPoInvoiceGenerate";
+	@GetMapping("/invoiceQueryPo")
+	public String invoiceQueryPo(Model model, HttpServletRequest request, Principal principal) {
+
+		String obj = request.getParameter("ob");
+		String invoiceNumber = "";
+		String status = "";
+		String[] arrSplit = obj.split(",");
+		for (int i = 0; i < arrSplit.length; i++) {
+			if (i == 0) {
+				invoiceNumber = arrSplit[i];
+			}
+			if (i == 1) {
+				status = arrSplit[i];
+			}
 		}
-		
-		
-	
-	
+
+		System.out.println("invoiceNo" + invoiceNumber);
+		model.addAttribute("invoiceNo", invoiceNumber);
+		System.out.println("status" + status);
+		model.addAttribute("status", status);
+		return "invoiceViewPo";
+	}
+
+	@GetMapping("/PoView")
+	public String PoView(Model model, HttpServletRequest request, Principal principal) {
+
+		String id = request.getParameter("id");
+		String arr[] = id.split(",");
+		String poNumber = "";
+		String viewPage = "";
+		for (int i = 0; i < arr.length; i++) {
+			if (arr.length == 1) {
+				poNumber = arr[0];
+				break;
+			} else {
+				poNumber = arr[0];
+				viewPage = arr[1];
+				break;
+			}
+		}
+
+		System.out.println("poNumber" + poNumber);
+		model.addAttribute("poNumber", poNumber);
+
+		System.out.println("viewPage" + viewPage);
+		model.addAttribute("viewPage", viewPage);
+		return "PoView";
+	}
+
+	@GetMapping("/poInvoiceGenerate")
+	public String poInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
+
+		String userName = principal.getName();
+
+		String userNameIs = "00000000";
+		String invoiceNumber = "";
+		String vendorCode = (String) request.getSession().getAttribute("userName");
+
+		int totalInvoiceCount = poinvoiceRepo.getAllInvoiceCountForInvoiceNo(vendorCode);
+		invoiceNumber = "ECOM-" + userNameIs + (totalInvoiceCount + 1);
+
+		List<String> exitingInvoiceNo = poinvoiceRepo.getExitingInvoiceNo();
+
+		String[] arr = new String[exitingInvoiceNo.size()];
+		for (int i = 0; i < exitingInvoiceNo.size(); i++) {
+			arr[i] = exitingInvoiceNo.get(i);
+
+			if (invoiceNumber.equalsIgnoreCase(arr[i])) {
+				invoiceNumber = "ECOM-" + userNameIs + (totalInvoiceCount + 3);
+			}
+
+		}
+
+		model.addAttribute("invoiceNumber", invoiceNumber);
+		request.getSession().setAttribute("invoiceNumber", invoiceNumber);
+
+		String PoNumber = request.getParameter("id");
+		model.addAttribute("PoNumber", PoNumber);
+
+		PoDetails findByPoNumber = null;
+		findByPoNumber = podetailsRepo.findByPoNo(PoNumber);
+
+		if (null != findByPoNumber.getPoNo()) {
+			// findByPoNumber.setStatus("Draft-Invoicing");
+			// findByPoNumber.setInvoiceNumber(invoiceNumber);
+			// podetailsRepo.save(findByPoNumber);
+		}
+
+		System.out.println("Eom invoiceNumber : " + invoiceNumber);
+
+		return "poInvoiceGenerate";
+	}
+
+	@GetMapping("/draftPO")
+	public String draftPO(Model model, HttpServletRequest request, Principal principal) {
+
+		String PoNumber = request.getParameter("id");
+		model.addAttribute("PoNumber", PoNumber);
+		return "draftPO";
+	}
+
+	@GetMapping("/draftPoInvoiceGenerate")
+	public String draftPoInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
+
+		String PoNumber = request.getParameter("id");
+		model.addAttribute("PoNumber", PoNumber);
+		model.addAttribute("invoiceNumber", PoNumber);
+		return "draftPoInvoiceGenerate";
+	}
+
 }

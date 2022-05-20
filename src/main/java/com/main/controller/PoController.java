@@ -7,10 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +21,6 @@ import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.entity.PoLineDetails;
 import com.main.db.bpaas.entity.QueryEntity;
-import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.db.bpaas.repo.PoLineItemRepo;
@@ -210,7 +206,6 @@ public class PoController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-
 			e.printStackTrace();
 
 		}
@@ -313,11 +308,6 @@ public class PoController {
 		System.out.println("fromDate : " + fromDate + " toDate : " + toDate);
 		String vendorCode = principal.getName();
 		try {
-			/*
-			 * if(fromDate != "" && toDate != "") { List<TripDetails> getListByDateFilter =
-			 * podetailsRepo.findByActualDepartureBetween(fromDate, toDate);
-			 * data.setData(getListByDateFilter); data.setMsg("success"); }
-			 */
 			if (fromDate != "" && toDate != "" && vendorCode != "") {
 				List<PoDetails> getListByDateFilter = podetailsRepo.findByActualDepartureBetween(fromDate, toDate,
 						vendorCode);
@@ -341,7 +331,6 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			// System.out.println("getRemaningQuatity"+details.getRemaningQuatity());
 			System.out.println("getRemaningQuatity" + details.getRemaningQuatity() + "id" + details.getId());
 
 			podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
@@ -413,7 +402,6 @@ public class PoController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-
 			e.printStackTrace();
 
 		}

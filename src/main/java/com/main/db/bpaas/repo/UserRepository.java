@@ -94,5 +94,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	@Query(value="select count(*) from supdetails where ven_status='0'; ", nativeQuery=true)
 	int getAllInActiveVendorCount();
-	//End																			
+	//End	
+	
+	@Query(value="select bp_code from users where username=:uname ; ", nativeQuery=true)
+	String getBpCode(@Param("uname") String uname);
 }

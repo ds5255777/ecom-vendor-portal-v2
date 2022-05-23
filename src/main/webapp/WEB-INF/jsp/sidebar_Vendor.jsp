@@ -125,7 +125,7 @@
                         </a></li>
                 </ul>
                 <ul class="nav nav-treeview">
-                    <li class="nav-item"><a href="queryInvoiceVendor" class="nav-link
+                    <li class="nav-item"><a href="queryInvoice" class="nav-link
                             <%if (request.getParameter("pagename").equalsIgnoreCase("queryInvoiceVendor")) {
 				out.print("active");
 			}%>">

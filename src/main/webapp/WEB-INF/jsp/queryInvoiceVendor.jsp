@@ -4,7 +4,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -106,6 +106,15 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+
+<%
+String vendorRole = GlobalConstants.ROLE_VENDOR;
+String networkRole = GlobalConstants.ROLE_NETWORK;
+
+request.setAttribute("vendorRole", vendorRole);
+request.setAttribute("networkRole", networkRole);
+
+%>
     <jsp:include page="loader.jsp" />
     <div class="wrapper">
 
@@ -114,7 +123,18 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-         <jsp:include page="sidebar_Vendor.jsp?pagename=queryInvoiceVendor" />
+         <%
+    	String rolename = (String) request.getSession().getAttribute("role");
+        
+        %>
+        <c:choose>  
+			    <c:when test='<%=rolename.equalsIgnoreCase(vendorRole)%>'>  
+			      <jsp:include page="sidebar_Vendor.jsp?pagename=queryInvoiceVendor" />  
+			    </c:when>  
+			    <c:otherwise>  
+			        <jsp:include page="slidebar.jsp?pagename=queryInvoiceVendor" />
+			    </c:otherwise>  
+  		</c:choose>
         
         
        
@@ -238,6 +258,7 @@
                 timer: 3000
             });
 
+            var vendorType = "${rolename}";
             var dataLimit='${dataLimit}';
     		dataLimit=parseInt(dataLimit);
     		
@@ -370,7 +391,7 @@
                                 if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
                                     result[i].invoiceStatus = "";
                                 }
-                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "','Query Queue')\" >" + result[i].ecomInvoiceNumber + "</button>";
+                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].ecomInvoiceNumber + "','InvoiceQuery Queue')\" >" + result[i].ecomInvoiceNumber + "</button>";
 
                                 tabledata.row.add([view, result[i].invoiceNumber, result[i].vendorCode, result[i].vendorName, result[i].invoiceReceivingDate,  result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceStatus]);
                             }
@@ -389,12 +410,23 @@
                 });
             }
             
-            function getInvoiceDataFormDataByInvoiceNumber(value, type) {
-                $('.loader').show();
-
-                var urlOftripsDetail = "invoiceView?id=" + value+"&type="+type;
-                window.open(urlOftripsDetail, "invoiceView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
-                 $('.loader').hide();
+            if(vendorType=="<%=GlobalConstants.ROLE_VENDOR%>"){
+	            function getInvoiceDataFormDataByInvoiceNumber(value, type) {
+	                $('.loader').show();
+	
+	                var urlOftripsDetail = "queryInvoiceEdit?id=" + value+"&type="+type;
+	                window.open(urlOftripsDetail, "queryInvoiceEdit", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
+	                 $('.loader').hide();
+	            }
+            }
+            else{
+	            function getInvoiceDataFormDataByInvoiceNumber(value, type) {
+	                $('.loader').show();
+	
+	                var urlOftripsDetail = "invoiceView?id=" + value+"&type="+type;
+	                window.open(urlOftripsDetail, "invoiceView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
+	                $('.loader').hide();
+	            }
             }
 
             function refereshList() {

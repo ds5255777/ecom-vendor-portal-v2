@@ -60,9 +60,14 @@ public class GlobalUrl {
 	public static String getAllDraftInvoice = invoiceController + "/getAllDraftInvoice";
 	public static String deleteDraftInvoice = invoiceController + "/deleteDraftInvoice";
 	public static String deleteLineItem = invoiceController + "/deleteLineItem";
+	public static String deleteTripQueryInvoice = invoiceController + "/deleteTripQueryInvoice";
 	public static String discardDraftInvoice = invoiceController + "/discardDraftInvoice";
 	public static String checkForExistingInvoiceNumber = invoiceController + "/checkForExistingInvoiceNumber";
 	public static String getAllQueryInvoiceVendor = invoiceController + "/getAllQueryInvoiceVendor";
+	public static String getQueryInvoice = invoiceController + "/getQueryInvoice";
+	public static String updateInvoice=invoiceController+"/updateInvoice";
+	public static String addNewTripInQueryInvoice=invoiceController+"/addNewTripInQueryInvoice";
+	public static String getAllQueryInvoiceVendorPo = invoiceController + "/getAllQueryInvoiceVendorPo";
 	
     public static String dashboardController = "dashboardController";
 
@@ -74,13 +79,49 @@ public class GlobalUrl {
     public static String refreshValues = dashboardController + "/refreshValues";
 
     public static String masterController="masterController";	
+    
 	public static String saveTripMaster=masterController+"/saveTripMaster";
 	public static String getActiveMasterData=masterController+"/getActiveMasterData";
 	public static String getMasterById=masterController+"/getMasterById";
 	public static String saveUpdateMasterDetails=masterController+"/saveUpdateMasterDetails";
 	public static String deleteMaster=masterController+"/deleteMaster";
 	
+	 public static String poController="poController";
+	 public static String getAllPODetails=poController+"/getAllPODetails";
+	 public static String poDetailsByPoNo=poController+"/poDetailsByPoNo";
+	 public static String getAllProcessPo=poController+"/getAllProcessPo";
+	 public static String getAllUnProcessPo=poController+"/getAllUnProcessPo";
+	 public static String getSelectPoDetails=poController+"/getSelectPoDetails";
+	 public static String getAllPODetailsByPoNo=poController+"/getAllPODetailsByPoNo";
+	 public static String filterPoDetails=poController+"/filterPoDetails";
+	 public static String updateRemaningQuantity=poController+"/updateRemaningQuantity";
+	 public static String getCurrentRemaningQty = poController + "/getCurrentRemaningQty";
+	 
+	 
+	 
+	 
+	 public static String getAllInvoiceDetails=poController+"/getAllInvoiceDetails";
+	 public static String getSelectInvoiceDetailsPo=poController+"/getSelectInvoiceDetailsPo";
+	 public static String savePoInvoiceQuery=poController+"/savePoInvoiceQuery";
+	 public static String getPoQueryData=poController+"/getPoQueryData";
+	 public static String getAllPODetailsByLineNumber=poController+"/getAllPODetailsByLineNumber";
+	 
+	 public static String PoInvoiceContoller="PoInvoiceContoller";
+	 
+	 public static String getAllDraftInvoicePO=PoInvoiceContoller+"/getAllDraftInvoicePO";
+	 public static String deleteDraftPoInvoice=PoInvoiceContoller+"/deleteDraftPoInvoice";
+	 public static String savePoInvoice=PoInvoiceContoller+"/savePoInvoice";
+	 public static String saveDraftInvoice=PoInvoiceContoller+"/saveDraftInvoice";
+	 public static String updateRemaningQuantitydraft=poController+"/updateRemaningQuantitydraft";
+	 
+	 
+	 
+	 
+	 
+	 public static String getAllDraftPODetailsByInvoiceNo=PoInvoiceContoller+"/getAllDraftPODetailsByInvoiceNo"; 
+	
 	public static String financeController="financeController";
+	
 	public static String viewAllInvoiceForFinanceTeam=financeController+"/viewAllInvoiceForFinanceTeam";
 	public static String getDocumentByInvoiceNumber=financeController+"/getDocumentByInvoiceNumber";
 	public static String viewAllProcessInvoiceForFinanceTeam=financeController+"/viewAllProcessInvoiceForFinanceTeam";

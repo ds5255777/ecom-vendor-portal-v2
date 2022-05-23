@@ -4,7 +4,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -416,11 +416,14 @@ request.setAttribute("networkRole", networkRole);
                                 if (!result[i].hasOwnProperty("vendorCode")) {
                                     result[i].vendorCode = "";
                                 }
-                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "','Invoice Queue')\" >" + result[i].ecomInvoiceNumber + "</button>";
+                                
 
                                if(vendorType=="<%=GlobalConstants.ROLE_VENDOR%>"){
+                            	   var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].ecomInvoiceNumber + "','Invoice Queue')\" >" + result[i].ecomInvoiceNumber + "</button>";
                                 tabledata.row.add([view, result[i].invoiceReceivingDate, result[i].invoiceNumber, result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceStatus]);
                                }else{
+                            	   var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].ecomInvoiceNumber + "','Invoice Queue')\" >" + result[i].ecomInvoiceNumber + "</button>";
+
                             	   tabledata.row.add([view, result[i].invoiceReceivingDate, result[i].invoiceNumber, result[i].vendorName, result[i].vendorCode, result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceStatus]); 
                                }
                             }

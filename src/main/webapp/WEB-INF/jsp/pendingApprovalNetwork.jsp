@@ -104,7 +104,13 @@
             .tooltip.show p {
                 text-align: left;
             }
-
+			.select2-container--default .select2-selection--multiple {
+			    background-color: white;
+			    border: 1px solid #aaa;
+			    border-radius: 4px;
+			    cursor: text;
+			    height: 1px;
+			}
 
 
         </style>
@@ -197,9 +203,9 @@
                                             <tbody>
                                                 <c:forEach var="yetTobeApprovedAllDetails" items="${yetTobeApprovedAllDetails}">
                                                     <tr>
-                                                        <td><a href="javascript:setTripStatus(${yetTobeApprovedAllDetails.tripID})">${yetTobeApprovedAllDetails.tripID}</a></td>
+                                                        <td><a href="javascript:setTripStatus('${yetTobeApprovedAllDetails.tripID}','${yetTobeApprovedAllDetails.vendorName}')">${yetTobeApprovedAllDetails.tripID}</a></td>
                                                         <td>${yetTobeApprovedAllDetails.route}</td>
-                                                        <td>${yetTobeApprovedAllDetails.vendorName}</td>
+                                                         <td>${yetTobeApprovedAllDetails.vendorName}</td>
                                                           <td>${yetTobeApprovedAllDetails.vendorCode}</td>
                                                         <td>${yetTobeApprovedAllDetails.runType}</td>
                                                         <td>${yetTobeApprovedAllDetails.runStatus}</td>
@@ -255,8 +261,8 @@
 															</div>
 														</div>
 													</div>
-													<div class="col-md-3">
-														<!-- text input -->
+													<!-- <div class="col-md-3">
+														text input
 														<div class="form-group row">
 															<label class="col-sm-5" title="Vendor Name">Vendor
 																Name</label>
@@ -265,7 +271,34 @@
 																	name="vendorName" autocomplete="off">
 															</div>
 														</div>
+													</div> -->
+													
+													
+														<div class="col-md-3">
+														<!-- text input -->
+														<div class="form-group row">
+													
+													<label class="col-sm-5">Vendor Name<span
+														class="required adHocRequired"></span></label>
+
+												<div class="col-sm-7">
+												<select class="form-control" id="vendorName" name="vendorName" style="height: 34px;">
+												
+												<c:forEach items="${vendorNamefortrips}" var="vendorName">
+
+															<option value="${vendorName}">${vendorName}</option>
+														</c:forEach>
+												
+												</select>
+												
+												</div>
+													
+														</div>
 													</div>
+													
+													
+													
+													
 													<div class="col-md-3">
 														<div class="form-group row">
 															<label class="col-sm-5">Route</label>
@@ -687,7 +720,9 @@
 
                 <script type="text/javascript">
 
-
+                $('#vendorName').select2({
+        			theme : 'bootstrap4'
+        		});
 
 
                                                     $('#tripValue').modal("hide");
@@ -805,7 +840,7 @@
 
 
                                                     var globalTripId = "";
-                                                    function setTripStatus(tripId) {
+                                                    function setTripStatus(tripId, vendorNameOfTrip) {
 
                                                         //	 tripId =  $("#tripID").val();		
 
@@ -819,15 +854,17 @@
                                                             url: "<%=GlobalUrl.tripDetailByTripId%>",
                                                             dataType: "json",
                                                             contentType: "application/json",
-                                                            async: false,
                                                             success: function (data) {
                                                                 console.log("data.msg" + data.msg);
                                                                 if (data.msg == 'success') {
                                                                     var result = data.data;
                                                                     var myForm = "";
                                                                     myForm = document.getElementById("tripForm1");
-                                                                    console.log("result " + result.innerHTML);
+                                                                    console.log("result " + result);
                                                                     setData(myForm, result);
+                                                                //    $('#vendorName').val(vendorNameOfTrip);
+                                                              //  $("#vendorName").select2("val", vendorNameOfTrip);
+                                                                $("#vendorName").val(vendorNameOfTrip).trigger('change');
                                                                     $('#tripValue').modal('show');
                                                                 } else {
                                                                     Toast.fire({
@@ -951,6 +988,7 @@
                                                         var AmountLumpSum = document.getElementById("AmountLumpSum").value;
                                                         var lumpsum = document.getElementById("lumpsum").value;
                                                         var fs = document.getElementById("fs").value;
+                                                        var vendorName = document.getElementById("vendorName").value
 
 
                                                         console.log("routeKms " + routeKms);
@@ -965,6 +1003,7 @@
                                                         console.log("AmountLumpSum " + AmountLumpSum);
                                                         console.log("lumpsum " + lumpsum);
                                                         console.log("Milage ::" + milage);
+                                                        console.log("vendorName ::" + vendorName);
 
                                                         console.log("ratePerKm " + ratePerKm);
                                                         if (milage === "" || milage === null || milage === '') {
@@ -1106,7 +1145,8 @@
                                                             "totalFreight": totalFreight,
                                                             "basicFreight": basicFreight,
                                                             "commentsby": comments_by_User,
-                                                            "Query": "No"
+                                                            "Query": "No" ,
+                                                            "vendorName" : vendorName
 
                                                         }
 
@@ -1174,7 +1214,18 @@
                                                         document.getElementById("totalFreight").value = totalFreight.toFixed(2);
 
                                                     }
-
+                                                    $(document).ready(function() {
+                                                        $('.js-example-basic-multiple').select2({
+                                                        	zplaceholder: "Select Partner Type",
+                                                            allowClear: true
+                                                        });
+                                                        
+                                                    });
+                                                    
+                                                                                                     	
+                                                    	
+                                                    	
+                                                    
 
 
                 </script>

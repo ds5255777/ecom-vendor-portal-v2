@@ -2,13 +2,17 @@ package com.main.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,9 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
+import com.main.bean.InvoiceQueryDto;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.Document;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
+import com.main.db.bpaas.entity.InvoiceLineItem;
+import com.main.db.bpaas.entity.PoInvoiceDetails;
+import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.serviceManager.ServiceManager;
 
@@ -50,7 +58,8 @@ public class InvoiceController {
 						.getAllInvoice(vendorCode);
 				data.setData(pandingInvoice);
 			} else {
-				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo.getAllNetworkInvoice();
+				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
+						.getAllNetworkInvoice();
 				data.setData(pandingInvoice);
 			}
 
@@ -115,12 +124,20 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
+		String rolename = (String) request.getSession().getAttribute("role");
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> queryInvoice = serviceManager.invoiceGenerationEntityRepo
-					.getAllQueryInvoiceVendor(vendorCode);
 
-			data.setData(queryInvoice);
+			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+				List<InvoiceGenerationEntity> queryInvoice = serviceManager.invoiceGenerationEntityRepo
+						.getAllQueryInvoiceVendor(vendorCode);
+
+				data.setData(queryInvoice);
+			} else {
+				List<InvoiceGenerationEntity> queryInvoice = serviceManager.invoiceGenerationEntityRepo
+						.getAllQueryInvoiceVendor();
+				data.setData(queryInvoice);
+			}
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -221,12 +238,8 @@ public class InvoiceController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
 		try {
-			String filePath = filepath + "/" + obj.getInvoiceNumber();
+			String filePath = filepath + File.separator + obj.getEcomInvoiceNumber();
 			String fullFilePathWithName = "";
-
-			System.out.println(filePath);
-
-			System.out.println("getCICFileName : " + obj.getInvoiceFileName());
 
 			if (null != obj.getInvoiceFileName()) {
 
@@ -235,8 +248,7 @@ public class InvoiceController {
 				if (!file1.exists()) {
 					file1.mkdirs();
 				}
-				fullFilePathWithName = filePath + "/" + "Invoice-" + obj.getInvoiceFileName();
-				System.out.println(fullFilePathWithName);
+				fullFilePathWithName = filePath + File.separator + "Invoice-" + obj.getInvoiceFileName();
 
 				Document doc = new Document();
 				doc.setDocName(obj.getInvoiceFileName());
@@ -251,17 +263,15 @@ public class InvoiceController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 
-			System.out.println("Pan File Name : " + obj.getDocumentFileOneName());
-
 			if (null != obj.getDocumentFileOneName()) {
 
-				fullFilePathWithName = filePath + "/" + "Summary Sheet-" + obj.getDocumentFileOneName();
+				fullFilePathWithName = filePath + File.separator + "Summary Sheet-" + obj.getDocumentFileOneName();
 
 				Document doc = new Document();
 				doc.setDocName(obj.getDocumentFileOneName());
@@ -276,17 +286,16 @@ public class InvoiceController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 
-			System.out.println("Pan File Name : " + obj.getDocumentFileTwoName());
-
 			if (null != obj.getDocumentFileTwoName()) {
 
-				fullFilePathWithName = filePath + "/" + "FS Calculation Sheet-" + obj.getDocumentFileTwoName();
+				fullFilePathWithName = filePath + File.separator + "FS Calculation Sheet-"
+						+ obj.getDocumentFileTwoName();
 
 				Document doc = new Document();
 				doc.setDocName(obj.getDocumentFileTwoName());
@@ -301,7 +310,7 @@ public class InvoiceController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -332,18 +341,137 @@ public class InvoiceController {
 
 	}
 
+	@RequestMapping("/updateInvoice")
+	public String updateInvoice(@RequestBody InvoiceQueryDto obj) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+		try {
+			String filePath = filepath + File.separator + obj.getEcomInvoiceNumber();
+			System.out.println(filePath);
+			String fullFilePathWithName = "";
+
+			if (null != obj.getDocumentFileOneName()) {
+
+				File file1 = new File(filePath);
+
+				if (!file1.exists()) {
+					file1.mkdirs();
+				}
+
+				fullFilePathWithName = filePath + File.separator + "Summary Sheet-" + obj.getDocumentFileOneName();
+
+				Document doc = new Document();
+				doc.setDocName(obj.getDocumentFileOneName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType("Invoice");
+				doc.setForeignKey(obj.getEcomInvoiceNumber());
+				serviceManager.documentRepo.save(doc);
+				System.out.println(fullFilePathWithName);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = obj.getDocumentFileOneText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (null != obj.getDocumentFileTwoName()) {
+
+				fullFilePathWithName = filePath + File.separator + "FS Calculation Sheet-"
+						+ obj.getDocumentFileTwoName();
+
+				Document doc = new Document();
+				doc.setDocName(obj.getDocumentFileTwoName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType("Invoice");
+				doc.setForeignKey(obj.getEcomInvoiceNumber());
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = obj.getDocumentFileTwoText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
+
+			List<InvoiceLineItem> invoiceLineItems = obj.getInvoiceLineItems();
+			String remarks = obj.getRemarks();
+
+			Long idByinvocienumber = serviceManager.invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
+
+			InvoiceGenerationEntity invoiceEntity = new InvoiceGenerationEntity();
+
+			if (null != idByinvocienumber) {
+				invoiceEntity.setInvoiceStatus(GlobalConstants.INVOICE_STATUS_IN_REVIEW);
+				invoiceEntity.setId(idByinvocienumber);
+				obj.setAssignTo(obj.getAssignTo());
+				invoiceEntity.setInvoiceAmount(obj.getInvoiceAmount());
+				invoiceEntity.setTaxableAmount(obj.getTaxableAmount());
+				invoiceEntity.setInvoiceLineItem(invoiceLineItems);
+
+//				serviceManager.invoiceGenerationEntityRepo.updateQueryInvoicce(invoiceEntity.setInvoiceStatus(GlobalConstants.INVOICE_STATUS_IN_REVIEW),
+//				invoiceEntity.setId(idByinvocienumber),
+//				obj.setAssignTo(obj.getAssignTo()),
+//				invoiceEntity.setInvoiceAmount(obj.getInvoiceAmount()),
+//				invoiceEntity.setTaxableAmount(obj.getTaxableAmount()),
+//				invoiceEntity.setInvoiceLineItem(invoiceLineItems));
+			}
+
+			QueryEntity queryEntity = new QueryEntity();
+
+			String invoiceNumber = obj.getEcomInvoiceNumber();
+			System.out.println(invoiceNumber);
+			// obj =
+			// serviceManager.invoiceGenerationEntityRepo.getQueryInvoice(obj.getVendorCode(),
+			// invoiceNumber);
+
+			data.setData(obj);
+			data.setMsg("success");
+
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+
+	}
+
 	@RequestMapping({ "/getSelectInvoiceDetails" })
 	@CrossOrigin("*")
 	public String getSelectInvoiceDetails(HttpServletRequest request, @RequestBody InvoiceGenerationEntity inviceObj) {
 
 		DataContainer data = new DataContainer();
-		System.out.println("trip id : " + inviceObj.getInvoiceNumber());
-		// System.out.println("trip id : " + inviceObj.getEcomInvoiceNumber());
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String invoiceNumber = inviceObj.getEcomInvoiceNumber();
+		String rolename = (String) request.getSession().getAttribute("role");
 		try {
-			inviceObj = serviceManager.invoiceGenerationEntityRepo.findByInvoiceNumber(inviceObj.getInvoiceNumber());
-			data.setData(inviceObj);
+			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
+					|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)
+					|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+				inviceObj = serviceManager.invoiceGenerationEntityRepo.findByEcomInvoiceNumber(invoiceNumber);
+				data.setData(inviceObj);
+			} else {
+
+				inviceObj = serviceManager.invoiceGenerationEntityRepo.getQueryInvoice(invoiceNumber);
+				data.setData(inviceObj);
+
+			}
+
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -413,6 +541,8 @@ public class InvoiceController {
 
 			serviceManager.tripDetailsRepo.updateVendorTripStatus(tripID);
 
+			// serviceManager.invoiceLineItemRepo.updateTrip(tripID);
+
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -437,7 +567,7 @@ public class InvoiceController {
 			System.out.println(invoiceNumber);
 
 			serviceManager.tripDetailsRepo.discardDraftInvoice(invoiceNumber);
-
+			System.out.println(invoiceNumber);
 			serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsInvoice(invoiceNumber);
 
 			data.setMsg("success");
@@ -450,7 +580,27 @@ public class InvoiceController {
 		return gson.toJson(data).toString();
 	}
 
-	// checkForExistingInvoiceNumber
+	@RequestMapping({ "/getAllQueryInvoiceVendorPo" })
+	@CrossOrigin("*")
+	public String getAllQueryInvoiceVendorPo(Principal principal, HttpServletRequest request) {
+
+		DataContainer data = new DataContainer();
+		String vendorCode = principal.getName();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			List<PoInvoiceDetails> queryInvoice = serviceManager.poinvoiceRepo.getAllQueryInvoiceVendorPo(vendorCode);
+
+			data.setData(queryInvoice);
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
+
 	@RequestMapping({ "/checkForExistingInvoiceNumber" })
 	@CrossOrigin("*")
 	public String checkForExistingInvoiceNumber(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
@@ -468,6 +618,89 @@ public class InvoiceController {
 				data.setMsg("success");
 			} else {
 				data.setMsg("exist");
+			}
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
+
+	@RequestMapping(value = "/getQueryInvoice")
+	@CrossOrigin("*")
+	public String getQueryInvoice(@RequestBody InvoiceGenerationEntity obj, Principal principal, HttpSession session,
+			HttpServletRequest request) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String vendorCode = principal.getName();
+
+		try {
+			String invoiceNumber = obj.getEcomInvoiceNumber();
+			System.out.println(invoiceNumber);
+			obj = serviceManager.invoiceGenerationEntityRepo.getQueryInvoice(vendorCode, invoiceNumber);
+
+			data.setData(obj);
+			data.setMsg("success");
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
+
+	// deleteTripQueryInvoice
+
+	@RequestMapping({ "/deleteTripQueryInvoice" })
+	@CrossOrigin("*")
+	public String deleteTripQueryInvoice(HttpServletRequest request, @RequestBody TripDetails obj) {
+
+		DataContainer data = new DataContainer();
+
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+
+			String tripID = obj.getTripID();
+			serviceManager.tripDetailsRepo.updateVendorTripStatus(tripID);
+			serviceManager.invoiceLineItemRepo.updateTrip(tripID);
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
+
+	@RequestMapping({ "/addNewTripInQueryInvoice" })
+	@CrossOrigin("*")
+	public String addNewTripInQueryInvoice(HttpServletRequest request, @RequestBody TripDetails obj) {
+
+		DataContainer data = new DataContainer();
+
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+
+			String tripID = obj.getTripID();
+			String invoiceNumber = obj.getInvoiceNumber();
+
+			TripDetails tripDetails = serviceManager.tripDetailsRepo.findByTripID(tripID);
+
+			if (null != tripDetails) {
+				Mapper mapper = new DozerBeanMapper();
+
+				InvoiceLineItem lineItem = mapper.map(tripDetails, InvoiceLineItem.class);
+				lineItem.setId(null);
+				data.setData(lineItem);
+				// serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsQueryInvoice(tripID,invoiceNumber);
+				data.setMsg("success");
+			} else {
+				data.setData("data Not found");
+				data.setMsg("Failed");
 			}
 
 		} catch (Exception e) {

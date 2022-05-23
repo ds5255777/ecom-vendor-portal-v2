@@ -273,7 +273,7 @@ window.onload = function(){
 												<input type="text"
 													class="form-control p-input" id="introducedByName"
 													name="introducedByName" placeholder="Reference Name"
-													onchange="removeValCssByID(this)" required></td>
+													onchange="removeValCssByID(this)" disabled="disabled" required></td>
 
 												<td><label for="emailId">Introduced By Email ID<span
 														class="required adHocRequired">*</span></label></td>

@@ -173,7 +173,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Tax (%)<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" readonly name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount" value="18" oninput="calculateInvoice()" style="width: 100%;" >
+                                                <input class="form-control-sm" readonly name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount" value="18"  style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -236,24 +236,24 @@
                             <table id="prTable" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Number</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Trip ID</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Route</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Current Fuel
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Number</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip ID</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Current Fuel
                                             Rate</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">FS</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Lumpsome Amount</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Line level
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Lumpsome Amount</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Line level
                                             Description</th>
-                                        <th style="padding: 5px 5px 5px 1.5rem;">Action</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Action</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -612,11 +612,10 @@
 
 
             var stepOneObj = FormDataToJSON('stepOneForm');
-            var stepTwoObj = FormDataToJSON('queryForm');
+            
 
             const finalObj = {
-                ...stepOneObj,
-                ...stepTwoObj
+                ...stepOneObj
             };
 
             if (document.getElementById("InvoiceUpload").files.length > 0) {
@@ -631,10 +630,6 @@
                 finalObj.documentFileTwoName = document.getElementById("DocumentFileTwo").files.item(0).name;
                 finalObj.documentFileTwoText = $("#DocumentFileTwoText").val();
             }
-
-            
-            	
-             
             // after
             tripLineArray.forEach((item) => {
                 item.id = null;
@@ -710,8 +705,6 @@
                         var action = "";
                         var textBox = "";
                         var taxableAmount = 0;
-                        /* var temp = [];
-                        var temp1 = []; */
                         tripLineArray = result;
 
                         $('#prTable').DataTable().clear();
@@ -769,7 +762,7 @@
                         $("#taxableAmount").val(parseFloat(taxableAmount).toFixed(2));
                         $('#prTable').DataTable().draw();
                         $("tbody").show();
-                        calculateInvoice();
+                       calculateInvoice();
                         
                     } else {
                         alert("failed");
@@ -886,12 +879,9 @@
                     if (data.msg == 'success') {
                         var result = data.data;
                         
-                        console.log(result,"--------");
-                        
                         if (result.length !== 0) {
                             for (var i = 0; i < result.length; i++) {
                                 $('#tripList').append($('<option/>').attr("value", result[i]).text(result[i]));
-                                console.log(result[i].tripID);
                             }
                         }
                     } else {
@@ -913,7 +903,7 @@
             var taxAmount= parseFloat(taxableAmount) *  (parseFloat(taxAmount) /100);
             var finalInvoiceAmount = parseFloat(taxableAmount) +  parseFloat(taxAmount) ;
             $("#invoiceAmount").val(parseFloat(finalInvoiceAmount).toFixed(2));
-        }
+        } 
         
         $("#invoiceNumber").focusout(function() {
 

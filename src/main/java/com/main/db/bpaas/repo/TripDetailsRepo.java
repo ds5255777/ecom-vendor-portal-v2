@@ -66,12 +66,12 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "update Trip_Details set vendor_trip_status='Approved', invoice_number='' where trip_id=:tripID ; ", nativeQuery = true)
+    @Query(value = "update Trip_Details set vendor_trip_status='Approved', invoice_number='',payment_status='' where trip_id=:tripID ; ", nativeQuery = true)
     void updateVendorTripStatus(String tripID);
 
     @Transactional
     @Modifying
-    @Query(value = "update Trip_Details set vendor_trip_status='Approved' where invoice_number=:invoiceNumber ;", nativeQuery = true)
+    @Query(value = "update Trip_Details set vendor_trip_status='Approved'  where invoice_number=:invoiceNumber ;", nativeQuery = true)
     void discardDraftInvoice(String invoiceNumber);
 
     @Transactional
@@ -83,6 +83,11 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Modifying
     @Query(value = "update Trip_Details set vendor_trip_status='Draft-Invoicing', invoice_number=:invoiceNumber where trip_id=:tripID  ; ", nativeQuery = true)
 	void findTripDetailAgainTripID(String invoiceNumber, String tripID);
+    
+    @Transactional
+    @Modifying
+    @Query(value = "update Trip_Details set vendor_trip_status='Invoicing', invoice_number=:invoiceNumber,payment_status='Pending' where trip_id=:tripID ; ", nativeQuery = true)
+    void updateVendorTripStatusAgainsQueryInvoice(String tripID, String invoiceNumber);
 
     @Query(value = "select  trip_id from Trip_Details WHERE vendor_trip_status = 'Approved' And vendor_code=?; ", nativeQuery = true)
     List<String> getTripId(String vendorCode);
@@ -92,14 +97,6 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
     TripDetails findByTripID(String tripID);
 
-	/*
-	 * @Query(value =
-	 * "select  * from Trip_Details WHERE  1=1 AND actual_departure BETWEEN (:startDate) AND (:endDate) ; "
-	 * , nativeQuery = true) List<TripDetails>
-	 * findByActualDepartureBetween(@Param("startDate") String
-	 * startDate, @Param("endDate") String endDate);
-	 */
-//    @Query(value = "select  * from Trip_Details WHERE  vendor_code=:vendorCode AND actual_departure BETWEEN >=:startDate AND <=:endDate ; ", nativeQuery = true)
     List<TripDetails> findByActualDepartureBetween(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
     @Query(value = "select  * from trip_details  where trip_id IN(:tripID)", nativeQuery = true)
@@ -129,7 +126,6 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "select count(*) from Trip_Details where run_type = ?", nativeQuery = true)
     int getADHocTripCount(String type);
     
-//Changed assign_to from network to vendor
     @Query(value = "SELECT * FROM trip_details where vendor_trip_status=:ApprovalStatus and assign_to = 'Vendor' and  run_type='Adhoc'; ", nativeQuery = true)
     List<TripDetails> findAllTripsByStatus(@Param("ApprovalStatus") String ApprovalStatus);
 
@@ -145,7 +141,6 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "SELECT * FROM trip_details where trip_id =:tripID ; ", nativeQuery = true)
     List<TripDetails> findTripsByID(@Param("tripID") String tripID);
 
-//getQueryTripsForNetwork
     @Query(value = "select * from Trip_Details where vendor_trip_status= ?", nativeQuery = true)
     List<TripDetails> getQueryTripsForNetwork(String vendor_trip_status);
 
@@ -158,7 +153,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
             + "mileage=:milage,rate_per_km=:ratePerKm,"
             + "route_kms=:routeKms,"
             + "standard_km=:standardKM,"
-            + "fs_diff=:fs_diff,basic_freight=:basicFreight,total_freight=:totalFreight,fs=:fs where trip_id=:tripID ;", nativeQuery = true)
+            + "fs_diff=:fs_diff,basic_freight=:basicFreight,total_freight=:totalFreight,fs=:fs ,vendor_name=:vendorName  where trip_id=:tripID ;", nativeQuery = true)
     public void updateDetailsByNetworkInQuery(
             @Param("tripID") String tripID,
             @Param("processed_By") String processed_By,
@@ -173,22 +168,24 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
             @Param("currentFuelRate") double currentFuelRate,
             @Param("fs_diff") double fs_diff,
             @Param("basicFreight") double basicFreight,
-            @Param("totalFreight") double totalFreight);
+            @Param("totalFreight") double totalFreight, @Param("vendorName") String vendorName);
+			
     
-    @Transactional
-    @Modifying
-    @Query(value = "update Trip_Details set vendor_trip_status=:vendor_tripStatus,assign_to=:assignto ,processed_By=:processed_By,processed_On=:processed_On,lumpSome_CheckBox=:LumpSomeCheckBox,lumpSome_Amount=:LumpSomeAmount,basic_freight=:basicFreight,total_freight=:totalFreight,fs=:fs where trip_id=:tripID ;", nativeQuery = true)
-    public void updateDetailsByNetwork(
-            @Param("assignto") String assignto,
-            @Param("tripID") String tripID,
-            @Param("processed_By") String processed_By,
-            @Param("processed_On") String processed_On,
-            @Param("LumpSomeCheckBox") String LumpSomeCheckBox,
-            @Param("LumpSomeAmount") String LumpSomeAmount,
-            @Param("vendor_tripStatus") String vendor_tripStatus,
-            @Param("basicFreight") double basicFreight,
-            @Param("totalFreight") double totalFreight,
-            @Param("fs") double fs);//fs
+	  @Transactional
+	    @Modifying
+	    @Query(value = "update Trip_Details set vendor_trip_status=:vendor_tripStatus,assign_to=:assignto ,processed_By=:processed_By,processed_On=:processed_On,lumpSome_CheckBox=:LumpSomeCheckBox,lumpSome_Amount=:LumpSomeAmount,basic_freight=:basicFreight,total_freight=:totalFreight,fs=:fs ,vendor_name=:vendorName where trip_id=:tripID ;", nativeQuery = true)
+	    public void updateDetailsByNetwork(
+	            @Param("assignto") String assignto,
+	            @Param("tripID") String tripID,
+	            @Param("processed_By") String processed_By,
+	            @Param("processed_On") String processed_On,
+	            @Param("LumpSomeCheckBox") String LumpSomeCheckBox,
+	            @Param("LumpSomeAmount") String LumpSomeAmount,
+	            @Param("vendor_tripStatus") String vendor_tripStatus,
+	            @Param("basicFreight") double basicFreight,
+	            @Param("totalFreight") double totalFreight,
+	            @Param("fs") double fs, @Param("vendorName") String vendorName);//fs
+
 
     @Query(value = "select * from  Trip_Details where 1=1 and run_status=:runStatus and vendor_code=:vendorCode", nativeQuery = true)
     List<TripDetails> getTripsByFiltersVendorRunStatus(@Param("runStatus") String runStatus, @Param("vendorCode") String vendorCode);
@@ -196,11 +193,9 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "select * from Trip_Details where 1=1 and vendor_trip_status=:vendorTripStatus and run_status=:runStatus and vendor_code=:vendorCode", nativeQuery = true)
     List<TripDetails> getTripsByFiltersRunStatus_VendorTripStatus(@Param("runStatus") String runStatus, @Param("vendorTripStatus") String vendorTripStatus, @Param("vendorCode") String vendorCode);
 
-    //(runStatus, vendorTripStatus, paymentStatus
     @Query(value = "select * from Trip_Details where 1=1 and run_status=:runStatus and vendor_trip_status=:vendorTripStatus and  payment_status=:paymentStatus and vendor_code=:vendorCode", nativeQuery = true)
     List<TripDetails> getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus( @Param("runStatus") String runStatus, @Param("vendorTripStatus") String vendorTripStatus, @Param("paymentStatus") String paymentStatus, @Param("vendorCode") String vendorCode);
 
-    //Network Trips Filter
     @Query(value = "select * from  Trip_Details where 1=1 and run_status=:runStatus", nativeQuery = true)
     List<TripDetails> getTripsByFiltersVendorRunStatus(@Param("runStatus") String runStatus);
 
@@ -209,11 +204,9 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
     @Query(value = "select * from Trip_Details where 1=1 and run_status=:runStatus and vendor_trip_status=:vendorTripStatus and  payment_status=:paymentStatus ", nativeQuery = true)
     List<TripDetails> getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus( @Param("runStatus") String runStatus, @Param("vendorTripStatus") String vendorTripStatus, @Param("paymentStatus") String paymentStatus);
-
     
-    @Query(value = "select * from Trip_Details where vendor_code=?", nativeQuery = true)
+    @Query(value = "select * from Trip_Details where vendor_code=? and assign_to='Vendor' ", nativeQuery = true)
     List<TripDetails> getAllTripByVendorCode(String vendorCode);
-
 
 	@Query(value = "SELECT * FROM trip_details where vendor_trip_status = 'Yet To Be Approved By Network Team' and assign_to = 'Network' and run_type='Adhoc' and run_status = 'Closed' order by id limit 50; ", nativeQuery = true)
 	List<TripDetails> findAllTripsLimitFifty();

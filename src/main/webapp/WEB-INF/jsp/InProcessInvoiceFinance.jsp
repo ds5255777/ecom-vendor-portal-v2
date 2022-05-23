@@ -362,15 +362,21 @@
                                     result[i].invoiceAmount = "";
                                 }
                                 if (!result[i].hasOwnProperty("invoiceReceivingDate")) {
-                                    result[i].vehicleNumber = "";
+                                    result[i].invoiceReceivingDate = "";
                                 }
                                 if (!result[i].hasOwnProperty("invoiceStatus")) {
                                     result[i].invoiceStatus = "";
                                 }
                                 if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
-                                    result[i].invoiceStatus = "";
+                                    result[i].ecomInvoiceNumber = "";
                                 }
-                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "','In-Processed Invoice')\" >" + result[i].ecomInvoiceNumber + "</button>";
+                                if (!result[i].hasOwnProperty("vendorCode")) {
+                                    result[i].vendorCode = "";
+                                }
+                                if (!result[i].hasOwnProperty("vendorName")) {
+                                    result[i].vendorName = "";
+                                }
+                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].ecomInvoiceNumber + "','In-Processed Invoice')\" >" + result[i].ecomInvoiceNumber + "</button>";
 
                                 tabledata.row.add([view, result[i].invoiceNumber, result[i].vendorCode, result[i].vendorName, result[i].invoiceReceivingDate,  result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceStatus]);
                             }

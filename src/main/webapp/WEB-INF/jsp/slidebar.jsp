@@ -152,38 +152,16 @@
                                 <p>All Invoice</p>
                             </a></li>
                     </ul>
-                    <!--                <ul class="nav nav-treeview">
-                                        <li class="nav-item"><a href="pendingInvoice" class="nav-link
-                    <%if (request.getParameter("pagename").equalsIgnoreCase("pendingInvoice")) {
-                                    out.print("active");
-                                }%>                            
-                    ">
-                     <i class="nav-icon fas fa-times"></i> 
-                    <i class="nav-icon far fa-file-alt"></i>
-                    <p>Invoice Process</p>
-                </a></li>
-        </ul>-->
-                    <!--                <ul class="nav nav-treeview">
-                                        <li class="nav-item"><a href="approvedInvoice" class="nav-link
-                    <%if (request.getParameter("pagename").equalsIgnoreCase("approvedInvoice")) {
-                                    out.print("active");
-                                }%>                            
-                    ">
-                    <i class="nav-icon fas fa-thumbs-up"></i>
-                    <p>Invoice Approved</p>
-                </a></li>
-        </ul>-->
-                    <!--                <ul class="nav nav-treeview">
-                                        <li class="nav-item"><a href="rejectedInvoice" class="nav-link
-                    <%if (request.getParameter("pagename").equalsIgnoreCase("rejectedInvoice")) {
-                                    out.print("active");
-                                }%>                            
-                    ">
-                     <i class="nav-icon fas fa-times"></i> 
-                    <i class="nav-icon far fa-times-circle"></i>
-                    <p>Invoice Rejected</p>
-                </a></li>
-        </ul>-->
+                    <ul class="nav nav-treeview">
+                    <li class="nav-item"><a href="queryInvoice" class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("queryInvoiceVendor")) {
+				out.print("active");
+			}%>">
+                            <i class="nav-icon fas fa-question"></i>
+                            <p>Query Invoice</p>
+                        </a></li>
+                </ul>
+                    
                     <hr>
                 </li>
 
@@ -206,40 +184,6 @@
                         <i class="nav-icon fas fa-chart-bar"></i>
                         <p>Reports</p>
                     </a></li>
-
-                <%-- <li class="nav-item has-treeview"><a href="#" class="nav-link">
-                                               <i class="nav-icon fas fa-circle"></i>
-                                               <p>
-                                                       Admin <i class="right fas fa-angle-left"></i>
-                                               </p>
-                               </a>
-                                       <ul class="nav nav-treeview">
-                                               <li class="nav-item"><a href="addUsers"
-                                                       class="nav-link
-                           <%if (request.getParameter("pagename").equalsIgnoreCase("addUsers")) {
-                               out.print("active");
-                       }%>
-
-                ">
-                <i class="nav-icon fas fa-user"></i>
-                <p>Users</p>
-                </a></li>
-            </ul>
-            <ul class="nav nav-treeview">
-                <li class="nav-item"><a href="emailConfig" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("emailConfig")) {
-                                out.print("active");
-                        }%>                            
-                            ">
-                        <i class="nav-icon fas fa-envelope"></i>
-                        <p>Email Configuration</p>
-                    </a></li>
-            </ul>
-            <hr>
-            </li> --%>
-
-
-
             </ul>
         </nav>
     </div>

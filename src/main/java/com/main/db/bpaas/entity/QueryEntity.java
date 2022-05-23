@@ -23,14 +23,6 @@ public class QueryEntity {
 	@Column(name = "reference_id")
 	private String referenceid;
 
-	public String getReferenceid() {
-		return referenceid;
-	}
-
-	public void setReferenceid(String referenceid) {
-		this.referenceid = referenceid;
-	}
-
 	@Column(name = "raised_by")
 	private String raisedBy;// Vendor Code
 
@@ -69,6 +61,15 @@ public class QueryEntity {
 	public void setRaisedBy(String raisedBy) {
 		this.raisedBy = raisedBy;
 	}
+	
+	public String getReferenceid() {
+		return referenceid;
+	}
+
+	public void setReferenceid(String referenceid) {
+		this.referenceid = referenceid;
+	}
+
 
 	public String getComment() {
 		return comment;

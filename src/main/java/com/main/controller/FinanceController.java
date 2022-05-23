@@ -204,7 +204,8 @@ public class FinanceController {
 					serviceManager.queryRepo.updateInvoiceStatus("Query", "Finance", getid);
 				}
 
-			} else {
+			}
+			else {
 				entity.setType("Trip");
 				serviceManager.queryRepo.updateStatusByUserid("Query", "Network", getid);
 			}

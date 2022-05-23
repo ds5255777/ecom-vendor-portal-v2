@@ -29,6 +29,12 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 	@Query(value="select * from SupDetails where bp_code=:bpCode  ", nativeQuery=true)
 	List<SupDetails> findByVendorCode(String bpCode);
 	
+	@Query(value="select * from SupDetails where pid=:pid  ", nativeQuery=true)
+	List<SupDetails> findBypid(@Param("pid")String pid);
+
+	@Query(value="select id from SupDetails where pid=:pid  ", nativeQuery=true)
+	Long selectIdByPid(String pid);
+	
 	
 															 
 }

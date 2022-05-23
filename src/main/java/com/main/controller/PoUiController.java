@@ -1,6 +1,8 @@
 package com.main.controller;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +21,7 @@ import com.main.db.bpaas.repo.UserRepository;
 @Controller
 public class PoUiController {
 
-	Integer i = 1;
+	
 
 	@Autowired
 	PoDetailsRepo podetailsRepo;
@@ -238,15 +240,13 @@ public class PoUiController {
 	@GetMapping("/poInvoiceGenerate")
 	public String poInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 
-		String userName = principal.getName();
-
-		String userNameIs = "00000000";
-		String invoiceNumber = "";
+		String userNameIs = "ECOM-";
+		
 		String vendorCode = (String) request.getSession().getAttribute("userName");
 
 		int totalInvoiceCount = poinvoiceRepo.getAllInvoiceCountForInvoiceNo(vendorCode);
-		invoiceNumber = "ECOM-" + userNameIs + (totalInvoiceCount + 1);
-
+		String invoiceNumber =  userNameIs+String.format("%08d", totalInvoiceCount+1); // Filling with zeroes
+		
 		List<String> exitingInvoiceNo = poinvoiceRepo.getExitingInvoiceNo();
 
 		String[] arr = new String[exitingInvoiceNo.size()];
@@ -254,7 +254,7 @@ public class PoUiController {
 			arr[i] = exitingInvoiceNo.get(i);
 
 			if (invoiceNumber.equalsIgnoreCase(arr[i])) {
-				invoiceNumber = "ECOM-" + userNameIs + (totalInvoiceCount + 3);
+				invoiceNumber = userNameIs+String.format("%08d", totalInvoiceCount+3);;
 			}
 
 		}
@@ -267,6 +267,7 @@ public class PoUiController {
 
 		PoDetails findByPoNumber = null;
 		findByPoNumber = podetailsRepo.findByPoNo(PoNumber);
+		model.addAttribute("curentDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 
 		if (null != findByPoNumber.getPoNo()) {
 			// findByPoNumber.setStatus("Draft-Invoicing");

@@ -86,16 +86,27 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value="select count(*) from users where status='0' and role_id !='4'; ", nativeQuery=true)
 	int getCountForAllInActiveUsers();
 	
-	@Query(value="select count(*) from supdetails; ", nativeQuery=true)
+	@Query(value="select count(*) from users where  role_id ='4';", nativeQuery=true)
 	int getAllVendorCount();
 	
-	@Query(value="select count(*) from supdetails where ven_status='2'; ", nativeQuery=true)
+	@Query(value="select count(*) from users where status='1' and role_id ='4'; ", nativeQuery=true)
 	int getAllActiveVendorCount();
 	
-	@Query(value="select count(*) from supdetails where ven_status='0'; ", nativeQuery=true)
+	@Query(value="select count(*) from users where status='0' and role_id ='4'; ", nativeQuery=true)
 	int getAllInActiveVendorCount();
 	//End	
 	
 	@Query(value="select bp_code from users where username=:uname ; ", nativeQuery=true)
 	String getBpCode(@Param("uname") String uname);
+	
+	@Transactional
+	@Modifying
+	@Query(value="update users set status=:status where bp_code=:bpCode ; ", nativeQuery=true)
+	void updateStatusOfVendorByBpCode(@Param("status") String status, @Param("bpCode") String bpcode);
+	
+	@Query(value="select * from users where bp_code=:bpCode ; ", nativeQuery=true)
+	List<User> getAllVendorStatus(@Param("bpCode") String bpCode);
+
+	
+	
 }

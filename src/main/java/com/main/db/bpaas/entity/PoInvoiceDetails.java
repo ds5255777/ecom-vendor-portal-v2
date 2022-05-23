@@ -100,6 +100,9 @@ public class PoInvoiceDetails {
 
 	@Column(name = "assign_to")
 	private String assignTo;
+	
+	@Column(name = "gldatedistribution_date")
+	private Date glDateDistributionDate;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn
@@ -359,6 +362,14 @@ public class PoInvoiceDetails {
 
 	public void setVendorInvoiceNumber(String vendorInvoiceNumber) {
 		this.vendorInvoiceNumber = vendorInvoiceNumber;
+	}
+
+	public Date getGlDateDistributionDate() {
+		return glDateDistributionDate;
+	}
+
+	public void setGlDateDistributionDate(Date glDateDistributionDate) {
+		this.glDateDistributionDate = glDateDistributionDate;
 	}
 
 }

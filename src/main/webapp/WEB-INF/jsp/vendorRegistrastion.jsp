@@ -73,78 +73,7 @@
             });
         }
 
-      /*   function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
-            try {
-                if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
- */
-                   /* $("#" + controlName).notify(
-                        tooltipMessage, {
-                            autoHideDelay: 3500,
-                            position: tooltipPlacement
-                        }
-                    );*/
-                 /*    $('#manPara').css('display', '');
-                    addValCss(controlName);
-                    $("#" + controlName).focus();
-                } else {
-                    console.log('Values Are Passed As Empty Or Null In notifyTooltip()');
-                }
-            } catch (err) {
-
-            }
-        } */
-
-       /*  $(document).ready(function() {
-            $('#smartwizard').smartWizard({
-                transitionEffect: 'fade', // Effect on navigation, none/fade/slide/slideleft
-                contentCache: true,
-                theme: 'circles',
-                showStepURLhash: true,
-                keyNavigation: false,
-                toolbarSettings: {
-                    toolbarPosition: 'bottom', // none, top, bottom, both
-                    toolbarButtonPosition: 'right', // left, right
-                    showNextButton: true, // show/hide a Next button
-                    showPreviousButton: true, // show/hide a Previous button
-                    toolbarExtraButtons: [
-                        $('<button  id="finishButton"></button>').text('Finish')
-                        //                            $('<button id="finishButton"></button>').text('Finish')
-                        .addClass('btn btn-success btnfinish')
-                        .on('click', function() {
-                        	
-                        	   if ($("#partnerType").val() == "Scheduled") { 
-                        		  
-                        		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,ITRFile,FUVFFile,MSMECFile,AMFile,ITRAFile,NMISFile";
-                                  var mandFieldsArr = mandFields.split(",");
-
-                                  for (i = 0; i < mandFieldsArr.length; i++) {
-                                      console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
-                                      if (document.getElementById(mandFieldsArr[i]).value == '') {
-                                          notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                                          console.log("Mandatory Check :: " + mandFieldsArr[i]);
-                                          return false;
-                                      }
-                                  }
-                        	   } 
-                        	   else{
-                        		  var mandFields = "suppName,compEmail";
-                                  var mandFieldsArr = mandFields.split(",");
-                                  for (i = 0; i < mandFieldsArr.length; i++) {
-                                      console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
-                                      if (document.getElementById(mandFieldsArr[i]).value == '') {
-                                          notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                                          console.log("Mandatory Check :: " + mandFieldsArr[i]);
-                                          return false;
-                                      }
-                                  }
-                        	  } 
-                          
-                            sendToServer();
-                        })
-                    ]
-                }
-            })
- */            $("#smartwizard").on("leaveStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
+              $("#smartwizard").on("leaveStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
                 console.log(anchorObject);
                 console.log("stepNumber " + stepNumber);
                 console.log("stepDirection " + stepDirection);
@@ -406,61 +335,9 @@
             $(document).ready(function() {
                 
             });
-           /*  else 
-            {
-              // Image preview
-                 if (fileInput.files && fileInput.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        document.getElementById(
-                            'imagePreview').innerHTML = 
-                            '<img src="' + e.target.result
-                            + '"/>';
-                    };
-                    reader.readAsDataURL(fileInput.files[0]);
-                } 
-            } */
-        
-        
-        /* function isNumber(evt)
-        {
-           var charCode = (evt.which) ? evt.which : event.keyCode
-           if (charCode > 31 && (charCode < 48 || charCode > 57))
-              return false;
-   
-           return true;
-        } */
-        
-        
+                 
 
-      <%--   function checkemail(emailid) {
-            console.log("email id" + emailid);
-           // alert("Hiiiiiiiiiiiiii");
-            $.ajax({
-                type: "POST",
-                url: "<%=GlobalUrl.checkemail%>?email="+emailid,
-                dataType: "json",
-                contentType: "application/json",
-                success: function(data) {
-                    alert("Hiiiiiiiiiiiiii");
-
-                    if (data.msg == 'True') {
-                        Toast.fire({
-                            type: 'success',
-                            title: 'Submitted Successfully'
-                        })
-                    } else {
-                        alert("failed");
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-            });
-
-        }
- --%>
-    </script>
+        </script>
 
 <style>
 .mainbody, .header, .footer {
@@ -652,31 +529,25 @@ width: 100% !important;
 												<td><label>Business Partner Type<span
 														class="required adHocRequired">*</span></label></td>
 												
-												<td style="width: auto">
-                                                <select class="js-example-basic-multiple select2" name="states[]" id="states" onchange="select()" multiple="multiple" >
-                                                    <option name="option[]" value="Network">&emsp;Network</option>
-                                                    <option name="option[]" value="Fixed Asset">&emsp;Fixed Asset</option>
-                                                    
-                                                 </select>
-                                                    
-													<!-- <div class="checkbox checkbox-inline">
-                                                       <input type="checkbox"  name="option[]" value="Network"  required>Network
-                                                        &nbsp;
-                                                        <input type="checkbox" name="option[]" value="Fixed Asset" required>Fixed Asset
-                                                        
-                                                        &nbsp;
-                                                        <input type="checkbox"  name="option[]" value="Other" required>Other
-                                                    </div> -->
-												</td>
+												<td style="width: auto"><select
+													class="js-example-basic-multiple select2" name="states[]"
+													id="states" onchange="select()" multiple="multiple" >
+														<c:forEach items="${business}" var="bus">
+
+															<option value="${bus}">${bus}</option>
+														</c:forEach>
+												</select></td>
 												
 												
 												<td><label for="partnerType">Business Partner</label></td>
-												<td><select id="partnerType" name="partnerType"
+													<td><select id="partnerType" name="partnerType"
 													class="form-control p-input"
 													onchange="showHideRequiredClass();" disabled="disabled">
-														<option id="scheduled" value="Scheduled">Scheduled</option>
-														<option id="adHoc" value="Ad-Hoc">Ad-Hoc(Need
-															Basic)</option>
+														<c:forEach items="${partner}" var="par">
+
+															<option value="${par}">${par}</option>
+														</c:forEach>
+
 												</select></td>
 												<input type="hidden" id="roleId" />
  											</tr>
@@ -779,38 +650,36 @@ width: 100% !important;
 												<td><label for="natureOfTransactions">Nature of
 														transactions<span class="required adHocRequired">*</span>
 												</label></td>
-												 <td><select colspan='1' class="form-control p-input"
-                                                                     id="natureOfTransactions" name="natureOfTransactions"
-                                                                     placeholder="Nature of transactions"
-                                                                     onchange="removeValCssByID(this)">
-                                                                          <option id="select" value="">Select</option>
-                                                                           
-                                                                          <option id="fixedAssets" value="FIXED ASSETS">FIXED
-                                                                                ASSETS</option>
-                                                                          <option id="networkCreditors" value="NETWORK CREDITORS">NETWORK
-                                                                                CREDITORS</option>
-                                                                
+											<td><select colspan='1' class="form-control p-input"
+													id="natureOfTransactions" name="natureOfTransactions"
+													placeholder="Nature of transactions"
+													onchange="removeValCssByID(this)">
+														<option value="">Select</option>
+														<c:forEach items="${nature}" var="nat">
 
-                                                                </select></td>
+															<option value="${nat}">${nat}</option>
+														</c:forEach>
+
+												</select></td>
 											</tr>
 
 											<tr>
 
 												<td><label for="businessClassification">Business
 														Classification</label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="businessClassification"
-													name="businessClassification"
-													placeholder="Business Classification"
-													onchange="removeValCssByID(this)"></td>
+													<td><select id="businessClassification"
+													name="businessClassification" class="form-control p-input"
+													colspan='1' placeholder="Business Classification"
+													onchange="removeValCssByID(this)">
+														<option value="">Select</option>
+														<c:forEach items="${classification}" var="classi">
 
-												<!-- <td><label for="siteDff">SITE DFF</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="siteDff" name="siteDff" placeholder="SITE DFF"></td>
+															<option value="${classi}">${classi}</option>
+														</c:forEach>
 
-                                                <td><label for="opeUnitReqMap">Operating Unit
-                                                        required to MAP<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="opeUnitReqMap" name="opeUnitReqMap" placeholder="Operating Unit required to MAP" onchange="removeValCssByID(this)"></td> -->
+												</select></td>
 
+											
 											</tr>
 
 										</tbody>
@@ -839,7 +708,11 @@ width: 100% !important;
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><select id="addCountry"
 														name="addCountry" class="form-control p-input">
-															<option id="india" name="india" value="India">India</option>
+															<c:forEach items="${country}" var="count">
+
+																<option value="${count}">${count}</option>
+															</c:forEach>
+
 													</select></td>
 
 													<td><label class="addressLable">State<span
@@ -1080,8 +953,10 @@ width: 100% !important;
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><select id="accoutCurrency"
 														name="accoutCurrency" class="form-control p-input">
-															<option value="INR">INR</option>
-															
+															<c:forEach items="${currency}" var="cur">
+
+																<option value="${cur}">${cur}</option>
+															</c:forEach>
 													</select></td>
 													<td></td>
 													<td colspan='3'>
@@ -1140,39 +1015,39 @@ width: 100% !important;
 															Currency<span class="required adHocRequired">*</span>
 													</label></td>
 													<td colspan='2'><select id="invoiceCurrency"
-														name="invoiceCurrency" readonly class="form-control p-input">
-															<option value="INR" >INR</option>
-															
+														name="invoiceCurrency" class="form-control p-input">
+															<c:forEach items="${currency}" var="cur">
+
+																<option value="${cur}">${cur}</option>
+															</c:forEach>
+
 													</select></td>
 
 													<td><label for="paymentCurrency">Payment
 															Currency<span class="required adHocRequired">*</span>
 													</label></td>
 													<td colspan='2'><select id="paymentCurrency"
-														name="paymentCurrency" class="form-control p-input"readonly>
-															<option value="INR">INR</option>
-														
+														name="paymentCurrency" class="form-control p-input">
+															<c:forEach items="${currency}" var="cur">
+
+																<option value="${cur}">${cur}</option>
+															</c:forEach>
 													</select></td>
 
 													 <td><label for="creditTerms">Payment / Credit
                                                                                 Terms<span class="required adHocRequired">*</span>
                                                                      </label></td>
-													<td><select id="creditTerms" name="creditTerms"
-                                                                          class="form-control p-input" colspan='2'
-                                                                          placeholder="Payment / Credit Terms"
-                                                                          onchange="removeValCssByID(this)">
-                                                                                <option id="select" value="">Select</option>
-                                                                                <option id="immediatePayments" value="Immediate Payments">Immediate
-                                                                                      Payments</option>
-                                                                                <option id="nET15Days" value="NET 15 Days">NET
-                                                                                      15 Days</option>
-                                                                                <option id="nET30Days" value="NET 30 Days">NET
-                                                                                      30 Days</option>
-                                                                                <option id="nET45Days" value="NET 45 Days">NET
-                                                                                      45 Days</option>
-                                                                                <option id="nET60Days" value="NET 60 Days">NET
-                                                                                      60 Days</option>
-                                                                     </select></td>
+														<td><select id="creditTerms" name="creditTerms"
+														class="form-control p-input" colspan='2'
+														placeholder="Payment / Credit Terms"
+														onchange="removeValCssByID(this)">
+															<option value="">Select</option>
+															<c:forEach items="${payment}" var="pay">
+
+																<option value="${pay}">${pay}</option>
+															</c:forEach>
+
+													</select></td>
 													
 												</tr>
 												<tr class="">
@@ -1234,36 +1109,18 @@ width: 100% !important;
 
 														<td><label class="addressLable" for="tdsSection">TDS
                                                                                       Section</label></td>
-                                                                          <td><select id="tdsSection" name="tdsSection"
-                                                                                class="form-control p-input" colspan='2'
-                                                                                placeholder="TDS Section">
-                                                                                      <option id="select" value="">Select</option>
-                                                                                      <option id="sec194(A)" value="Sec. 194(A)">Sec.
-                                                                                           194(A)</option>
-                                                                                      <option id="sec194(C)" value="Sec. 194(C)">Sec.
-                                                                                           194(C)</option>
-                                                                                      <option id="sec194(C)" value="SEC. 194(H)">SEC.
-                                                                                           194(H)</option>
-                                                                                      <option id="sec194(I)" value="Sec. 194(I)">Sec.
-                                                                                           194(I)</option>
-                                                                                      <option id="sec194(J)" value="Sec. 194(J)">Sec.
-                                                                                           194(J)</option>
-                                                                                      <option id="sec194(Q)" value="SEC. 194(Q)">SEC.
-                                                                                           194(Q)</option>
-                                                                                      <option id="sec194I(A)" value="SEC. 194I(A)">SEC.
-                                                                                           194I(A)</option>
-                                                                                      <option id="sec194I(B)" value="SEC. 194I(B)">SEC.
-                                                                                           194I(B)</option>
-                                                                                      <option id="sec194(LB)" value="SEC. 194(LB)">SEC.
-                                                                                           194(LB)</option>
-                                                                                      <option id="sec194(LC)" value="SEC. 194(LC)">SEC.
-                                                                                           194(LC)</option>
-                                                                                      <option id="sec194(LD)" value="SEC. 194(LD)">SEC.
-                                                                                           194(LD)</option>
-                                                                                      <option id="sec195" value="Sec. 195">Sec. 195</option>
+                                                                    	<td><select id="tdsSection" name="tdsSection"
+															class="form-control p-input" colspan='2'
+															placeholder="TDS Section">
+																<option value="">Select</option>
+																<c:forEach items="${tdsCode}" var="tds">
+
+																	<option value="${tds}">${tds}</option>
+																</c:forEach>
 
 
-                                                                          </select></td>
+
+														</select></td>
 
 														<td><label for="tdsRate">TDS Exemption Rate
 																(If Any)<span
@@ -1304,10 +1161,12 @@ width: 100% !important;
 																Year</label></td>
 														<td colspan='2'><select id="fyYear"
 															class="form-control p-input ">
-																<option value="2018-19">2018-19</option>
-																<option value="2019-20">2019-20</option>
-																<option value="2020-21">2020-21</option>
-																<option value="2021-22">2021-22</option>
+																<option value="">Select</option>
+
+																<c:forEach items="${financialYear}" var="fin">
+
+																	<option value="${fin}">${fin}</option>
+																</c:forEach>
 
 														</select></td>
 														<td style="width: 150px;"></td>
@@ -1321,10 +1180,12 @@ width: 100% !important;
 															 <td><label>ITR Acknowledgment of 3 years<span
                                                                                       class="required">*</span></label></td>
                                                                           <td><input type="file" id="ITRAFile" name="ITRAFile"
-                                                                                onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
-                                                                                class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-                                                                                <textarea id="ITRAFileText" rows="5"
-                                                                                      style="display: none;"></textarea></td>
+															onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
+															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+															<textarea id="ITRAFileText" rows="5"
+																style="display: none;"></textarea> <label><span
+																style="font-weight: 500; color: #fd7e14;">* File
+																	size Max ${fileSize} MB</span></label></td>
 															
 															
 														<td style="width: 150px;"></td>

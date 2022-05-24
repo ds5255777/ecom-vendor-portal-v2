@@ -394,6 +394,32 @@ public class UIController {
 	@GetMapping("/vendorDetails")
 	public String vendorDetails(Model model, Principal principal, HttpServletRequest request) {
 		String rolename = (String) request.getSession().getAttribute("role");
+		 List<String> currency = serviceManager.currencyRepo.getCurrencyType();
+			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+			List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
+			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
+			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+			List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+			List<String> country = serviceManager.countryRepo.getCountry();
+			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
+			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
+
+			model.addAttribute("currency", currency);
+			model.addAttribute("business", business);
+			model.addAttribute("partner", partner);
+			model.addAttribute("classification", classification);
+			model.addAttribute("payment", payment);
+			model.addAttribute("nature", nature);
+			model.addAttribute("country", country);
+			model.addAttribute("tdsCode", tdsCode);
+			model.addAttribute("financialYear", financialYear);
+
+			model.addAttribute("fileSize", fileSize);
+
+			model.addAttribute("maxFileSize", maxFileSize);
+			model.addAttribute("fileSize", fileSize);
+
+
 
 		if (rolename.equalsIgnoreCase("Admin")) {
 
@@ -418,6 +444,31 @@ public class UIController {
 	   	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
 	   		
 			 String rolename = (String) request.getSession().getAttribute("role");
+			 List<String> currency = serviceManager.currencyRepo.getCurrencyType();
+				List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+				List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
+				List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
+				List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+				List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+				List<String> country = serviceManager.countryRepo.getCountry();
+				List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
+				List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
+
+				model.addAttribute("currency", currency);
+				model.addAttribute("business", business);
+				model.addAttribute("partner", partner);
+				model.addAttribute("classification", classification);
+				model.addAttribute("payment", payment);
+				model.addAttribute("nature", nature);
+				model.addAttribute("country", country);
+				model.addAttribute("tdsCode", tdsCode);
+				model.addAttribute("financialYear", financialYear);
+
+				model.addAttribute("fileSize", fileSize);
+
+				model.addAttribute("maxFileSize", maxFileSize);
+				model.addAttribute("fileSize", fileSize);
+
 
 				if (rolename.equalsIgnoreCase("Admin")) {
 					
@@ -430,26 +481,6 @@ public class UIController {
 			
 		 
 
-	//Added by Saurabh for Network Module Part
-	/*
-	 * @GetMapping("/dashbaordNetwork") public String dashbaordNetwork(Model model,
-	 * Principal principal, HttpServletRequest request) {
-	 * 
-	 * String tripId = request.getParameter("id"); model.addAttribute("tripId",
-	 * tripId);
-	 * 
-	 * System.out.println("tripId ........." + tripId);
-	 * 
-	 * int totalTripCount =
-	 * serviceManager.tripDetailsRepo.getADHocTripCount("Adhoc");
-	 * model.addAttribute("totalTripCount", totalTripCount);
-	 * 
-	 * return "dashBoard_NetworkRole"; }
-	 * 
-	 * 
-	 * return "dashBoard_NetworkRole"; } return ""; }
-	 */
-	// End
 
 	@GetMapping("/dashbaordNetwork")
 	public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {

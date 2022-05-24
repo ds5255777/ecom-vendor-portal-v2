@@ -294,24 +294,26 @@ window.onload = function(){
 												<td><label>Business Partner Type<span
 														class="required adHocRequired">*</span></label></td>
 												
-												<td style="width: auto">
-												<select class="js-example-basic-multiple select2"  name="states[]"  id="states" value="Network" onchange="select()" multiple="multiple" >
-												<option    value="Network">&emsp;&emsp;Network</option>
-												<option  value="Fixed Asset">&emsp;&emsp;Fixed Asset</option>
-												
-												</select>
-													
-												</td>
+												<td style="width: auto"><select
+													class="js-example-basic-multiple select2" name="states[]"
+													id="states" onchange="select()" multiple="multiple" >
+														<c:forEach items="${business}" var="bus">
+
+															<option value="${bus}">${bus}</option>
+														</c:forEach>
+												</select></td>
 												
 												
 												
 												<td><label for="partnerType">Business Partner</label></td>
-												<td><select id="partnerType" name="partnerType"
+											<td><select id="partnerType" name="partnerType"
 													class="form-control p-input"
 													onchange="showHideRequiredClass();" disabled="disabled">
-														<option id="scheduled" value="Scheduled">Scheduled</option>
-														<option id="adHoc" value="Ad-Hoc">Ad-Hoc(Need
-															Basic)</option>
+														<c:forEach items="${partner}" var="par">
+
+															<option value="${par}">${par}</option>
+														</c:forEach>
+
 												</select></td>
 												<input type="hidden" id="roleId" />
 											</tr>
@@ -418,37 +420,35 @@ window.onload = function(){
 														transactions<span class="required adHocRequired">*</span>
 												</label></td>
 												<td><select colspan='1' class="form-control p-input"
-                                                                     id="natureOfTransactions" name="natureOfTransactions"
-                                                                     placeholder="Nature of transactions"
-                                                                     onchange="removeValCssByID(this)">
-                                                                          <option id="select" value="">Select</option>
-                                                                           
-                                                                          <option id="fixedAssets" value="FIXED ASSETS">FIXED
-                                                                                ASSETS</option>
-                                                                          <option id="networkCreditors" value="NETWORK CREDITORS">NETWORK
-                                                                                CREDITORS</option>
-                                                                
+													id="natureOfTransactions" name="natureOfTransactions"
+													placeholder="Nature of transactions"
+													onchange="removeValCssByID(this)">
+														<option value="">Select</option>
+														<c:forEach items="${nature}" var="nat">
 
-                                                                </select></td>
+															<option value="${nat}">${nat}</option>
+														</c:forEach>
+
+												</select></td>
 											</tr>
 
 											<tr>
 
 												<td><label for="businessClassification">Business
 														Classification</label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="businessClassification"
-													name="businessClassification"
-													placeholder="Business Classification"
-													onchange="removeValCssByID(this)"></td>
+													<td><select id="businessClassification"
+													name="businessClassification" class="form-control p-input"
+													colspan='1' placeholder="Business Classification"
+													onchange="removeValCssByID(this)">
+														<option value="">Select</option>
+														<c:forEach items="${classification}" var="classi">
 
-												<!-- <td><label for="siteDff">SITE DFF</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="siteDff" name="siteDff" placeholder="SITE DFF"></td>
+															<option value="${classi}">${classi}</option>
+														</c:forEach>
 
-                                                <td><label for="opeUnitReqMap">Operating Unit
-                                                        required to MAP<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="opeUnitReqMap" name="opeUnitReqMap" placeholder="Operating Unit required to MAP" onchange="removeValCssByID(this)"></td> -->
+												</select></td>
 
+												
 											</tr>
 
 										</tbody>
@@ -478,7 +478,11 @@ window.onload = function(){
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><select id="addCountry"
 														name="addCountry" class="form-control p-input">
-															<option id="india" name="india" value="India">India</option>
+															<c:forEach items="${country}" var="count">
+
+																<option value="${count}">${count}</option>
+															</c:forEach>
+
 													</select></td>
 
 													<td><label class="addressLable">State<span
@@ -718,11 +722,12 @@ window.onload = function(){
 												
 													<td><label for="accoutCurrency">Currency<span
 															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><select id="accoutCurrency"
+														<td colspan='2'><select id="accoutCurrency"
 														name="accoutCurrency" class="form-control p-input">
-															<option value="INR">INR</option>
-															<option value="USD">USD</option>
-															<option value="KES">KES</option>
+															<c:forEach items="${currency}" var="cur">
+
+																<option value="${cur}">${cur}</option>
+															</c:forEach>
 													</select></td>
 													<td></td>
 													<td colspan='3'>
@@ -778,40 +783,40 @@ window.onload = function(){
 													<td><label for="invoiceCurrency">Invoice
 															Currency<span class="required adHocRequired">*</span>
 													</label></td>
-													<td colspan='2'><select id="invoiceCurrency"
-														name="invoiceCurrency" class="form-control p-input" readonly>
-															<option value="INR">INR</option>
-															
+														<td colspan='2'><select id="invoiceCurrency"
+														name="invoiceCurrency" class="form-control p-input">
+															<c:forEach items="${currency}" var="cur">
+
+																<option value="${cur}">${cur}</option>
+															</c:forEach>
+
 													</select></td>
 
 													<td><label for="paymentCurrency">Payment
 															Currency<span class="required adHocRequired">*</span>
 													</label></td>
 													<td colspan='2'><select id="paymentCurrency"
-														name="paymentCurrency" class="form-control p-input" readonly>
-															<option value="INR">INR</option>
-															
+														name="paymentCurrency" class="form-control p-input">
+															<c:forEach items="${currency}" var="cur">
+
+																<option value="${cur}">${cur}</option>
+															</c:forEach>
 													</select></td>
 
 													<td><label for="creditTerms">Payment / Credit
 															Terms<span class="required adHocRequired">*</span>
 													</label></td>
 													<td><select id="creditTerms" name="creditTerms"
-                                                                          class="form-control p-input" colspan='2'
-                                                                          placeholder="Payment / Credit Terms"
-                                                                          onchange="removeValCssByID(this)">
-                                                                                <option id="select" value="">Select</option>
-                                                                                <option id="immediatePayments" value="Immediate Payments">Immediate
-                                                                                      Payments</option>
-                                                                                <option id="nET15Days" value="NET 15 Days">NET
-                                                                                      15 Days</option>
-                                                                                <option id="nET30Days" value="NET 30 Days">NET
-                                                                                      30 Days</option>
-                                                                                <option id="nET45Days" value="NET 45 Days">NET
-                                                                                      45 Days</option>
-                                                                                <option id="nET60Days" value="NET 60 Days">NET
-                                                                                      60 Days</option>
-                                                                     </select></td>
+														class="form-control p-input" colspan='2'
+														placeholder="Payment / Credit Terms"
+														onchange="removeValCssByID(this)">
+															<option value="">Select</option>
+															<c:forEach items="${payment}" var="pay">
+
+																<option value="${pay}">${pay}</option>
+															</c:forEach>
+
+													</select></td>
 												</tr>
 												<tr class="">
 													<td><label for="paymentMethod">Payment Method<span
@@ -877,35 +882,17 @@ window.onload = function(){
 																Section<span
 															class="required adHocRequired">*</span></label></td>
 														<td><select id="tdsSection" name="tdsSection"
-                                                                                class="form-control p-input" colspan='2'
-                                                                                placeholder="TDS Section">
-                                                                                      <option id="select" value="">Select</option>
-                                                                                      <option id="sec194(A)" value="Sec. 194(A)">Sec.
-                                                                                           194(A)</option>
-                                                                                      <option id="sec194(C)" value="Sec. 194(C)">Sec.
-                                                                                           194(C)</option>
-                                                                                      <option id="sec194(C)" value="SEC. 194(H)">SEC.
-                                                                                           194(H)</option>
-                                                                                      <option id="sec194(I)" value="Sec. 194(I)">Sec.
-                                                                                           194(I)</option>
-                                                                                      <option id="sec194(J)" value="Sec. 194(J)">Sec.
-                                                                                           194(J)</option>
-                                                                                      <option id="sec194(Q)" value="SEC. 194(Q)">SEC.
-                                                                                           194(Q)</option>
-                                                                                      <option id="sec194I(A)" value="SEC. 194I(A)">SEC.
-                                                                                           194I(A)</option>
-                                                                                      <option id="sec194I(B)" value="SEC. 194I(B)">SEC.
-                                                                                           194I(B)</option>
-                                                                                      <option id="sec194(LB)" value="SEC. 194(LB)">SEC.
-                                                                                           194(LB)</option>
-                                                                                      <option id="sec194(LC)" value="SEC. 194(LC)">SEC.
-                                                                                           194(LC)</option>
-                                                                                      <option id="sec194(LD)" value="SEC. 194(LD)">SEC.
-                                                                                           194(LD)</option>
-                                                                                      <option id="sec195" value="Sec. 195">Sec. 195</option>
+															class="form-control p-input" colspan='2'
+															placeholder="TDS Section">
+																<option value="">Select</option>
+																<c:forEach items="${tdsCode}" var="tds">
+
+																	<option value="${tds}">${tds}</option>
+																</c:forEach>
 
 
-                                                                          </select></td>
+
+														</select></td>
 
 														<td><label for="tdsRate">TDS Exemption Rate
 																(If Any)<span
@@ -945,10 +932,12 @@ window.onload = function(){
 																Year</label></td>
 														<td colspan='2'><select id="fyYear"
 															class="form-control p-input ">
-																<option value="2018-19">2018-19</option>
-																<option value="2019-20">2019-20</option>
-																<option value="2020-21">2020-21</option>
-																<option value="2021-22">2021-22</option>
+																<option value="">Select</option>
+
+																<c:forEach items="${financialYear}" var="fin">
+
+																	<option value="${fin}">${fin}</option>
+																</c:forEach>
 
 														</select></td>
 														<td style="width: 150px;"></td>
@@ -961,11 +950,13 @@ window.onload = function(){
 														
 															 <td><label>ITR Acknowledgment of 3 years<span
                                                                                       class="required">*</span></label></td>
-                                                                          <td><input type="file" id="ITRAFile" name="ITRAFile"
-                                                                                onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
-                                                                                class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-                                                                                <textarea id="ITRAFileText" rows="5"
-                                                                                      style="display: none;"></textarea></td>
+                                                                              <td><input type="file" id="ITRAFile" name="ITRAFile"
+															onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
+															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+															<textarea id="ITRAFileText" rows="5"
+																style="display: none;"></textarea> <label><span
+																style="font-weight: 500; color: #fd7e14;">* File
+																	size Max ${fileSize} MB</span></label></td>
 															
 														
 														<td colspan='2'>

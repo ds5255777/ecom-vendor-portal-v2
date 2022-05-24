@@ -119,7 +119,7 @@
                     console.log("Inside Step One");
                    
                     
-                    var mandFields = "introducedByName,introducedByEmailID,suppName,compEmail,panNumber,natureOfTransactions";
+                    var mandFields = "introducedByName,introducedByEmailID,states,suppName,compEmail,panNumber,compGstn,natureOfTransactions";
                     var mandFieldsArr = mandFields.split(",");
                     for (i = 0; i < mandFieldsArr.length; i++) {
                         console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
@@ -202,19 +202,6 @@
             
         }
 
-        $(document).ready(function() {
-            $(".gst").change(function() {
-                var inputvalues = $(this).val();
-                var gstinformat = new RegExp('^([0-9]{2}[a-zA-Z]{4}([a-zA-Z]{1}|[0-9]{1})[0-9]{4}[a-zA-Z]{1}([a-zA-Z]|[0-9]){3}){0,15}$');
-                if (gstinformat.test(inputvalues)) {
-                    return true;
-                } else {
-                    alert('Please Enter Valid GSTIN Number');
-                    $(".gst").val('');
-                    $(".gst").focus();
-                }
-            });
-        });
 
   
 
@@ -1773,7 +1760,7 @@ width: 100% !important;
         	
         
         	console.log("Inside Step One");
-            var mandFields = "introducedByName,introducedByEmailID,suppName,compEmail,panNumber,natureOfTransactions";
+        	 var mandFields = "introducedByName,introducedByEmailID,states,suppName,compEmail,panNumber,compGstn,natureOfTransactions";
             var mandFieldsArr = mandFields.split(",");
             for (i = 0; i < mandFieldsArr.length; i++) {
                 console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
@@ -2007,7 +1994,7 @@ width: 100% !important;
                 success: function(response) {
                 	//return;
                     if (response.msg == 'success') {
-                        swal.fire("Thanks", "Vendor Onboarding Request Sucessfully Register", "success", "OK").then(function() {
+                    	swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + response.data, "success", "OK").then(function() {
                             //window.location = "login";
                         	window.close();
                         });
@@ -2086,15 +2073,51 @@ width: 100% !important;
          function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
              try {
                  if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
- 
-                     $("#" + controlName).notify(
-                         tooltipMessage, {
-                             autoHideDelay: 3500,
-                             position: tooltipPlacement
-                         }
-                     );
-                      $('#manPara').css('display', '');
-                     addValCss(controlName);
+ 				
+                 	 if(controlName=="introducedByName"){
+                 		 swal.fire("Alert", "Introducer name is mandatory", "warning")
+                          .then((value) => {});
+                 		 
+                 	 }
+                 	 else  if(controlName=="introducedByEmailID"){
+                    	  
+                   	   swal.fire("Alert", "Introducer email id is mandatory", "warning")
+                          .then((value) => {});
+                      }
+                 	else  if(controlName=="states"){
+                 	  
+                 	   swal.fire("Alert", "Business partner type is mandatory", "warning")
+                        .then((value) => {});
+                    }
+                 	else  if(controlName=="suppName"){
+                   	  
+                  	   swal.fire("Alert", "Business partner name is mandatory", "warning")
+                         .then((value) => {});
+                     }
+                 	else  if(controlName=="compEmail"){
+                     	  
+                   	   swal.fire("Alert", "Company email id is mandatory", "warning")
+                          .then((value) => {});
+                      }
+                 	else  if(controlName=="panNumber"){
+                   	  
+                    	   swal.fire("Alert", "PAN number is mandatory", "warning")
+                           .then((value) => {});
+                       }
+                 	else  if(controlName=="compGstn"){
+                     	  
+                     	   swal.fire("Alert", "GSTN Number is mandatory", "warning")
+                            .then((value) => {});
+                        }
+                 	else  if(controlName=="natureOfTransactions"){
+                   	  
+                  	   swal.fire("Alert", "Nature of transaction is mandatory", "warning")
+                         .then((value) => {});
+                     }
+                    
+                 	
+                    // $('#manPara').css('display', '');
+                    // addValCss(controlName);
                      $("#" + controlName).focus();
                  } else {
                      console.log('Values Are Passed As Empty Or Null In notifyTooltip()');
@@ -2102,7 +2125,8 @@ width: 100% !important;
              } catch (err) {
 
              }
-         }
+         } 
+
  
        
         

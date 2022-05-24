@@ -189,8 +189,7 @@ tbody {
 								<div class="inner">
 									<h2>${totalInvoiceCount}</h2>
 
-									<%-- <%Object totalProcessPoCount=request.getAttribute("totalProcessPoCount"); %>
-									<h2><%=totalProcessPoCount %></h2> --%>
+								
 
 									<p id="invdue" data-toggle="tooltip" data-placement="bottom"
 										>All Invoice</p>

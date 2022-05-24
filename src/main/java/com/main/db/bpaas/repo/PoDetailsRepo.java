@@ -17,7 +17,7 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long> {
 
 	PoDetails findByPoNo(String poNo);
 
-	@Query(value = "select * from po_details where status='In-Review'", nativeQuery = true)
+	@Query(value = "select * from po_details where status='In-Review' and vendor_code=?", nativeQuery = true)
 	List<PoDetails> getAllProcessPo(String vendorCode);
 
 	@Query(value = "select * from po_details where status='Unprocess' and vendor_code=?", nativeQuery = true)
@@ -76,5 +76,8 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long> {
 
 	@Query(value = "select  remaning_quatity from PoLine_Details WHERE  line_Number=:lineNumber ; ", nativeQuery = true)
 	String getCurrentRemaningQty(@Param("lineNumber") String lineNumber);
+	
+	@Query(value = "select * from po_details where  vendor_code=?", nativeQuery = true)
+	List<PoDetails> findByVendorCode(String vendorCode);
 
 }

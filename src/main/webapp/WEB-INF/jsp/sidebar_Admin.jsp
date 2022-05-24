@@ -30,7 +30,7 @@
 
 
             <li class="nav-item"><a href="tripMaster" class="nav-link 
-                       <% if (request.getParameter("pagename").equalsIgnoreCase("tripMaster")) {
+                       <% if (request.getParameter("pagename").equalsIgnoreCase("masterEvaluationCriteria")) {
                                out.print("active");
                            }%>
                        ">
@@ -91,8 +91,8 @@
                        <p>Vendor Registrastion</p> 
                     </a></li> 
 
-         <%--   <li class="nav-item"><a href="vendorDetails" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("vendorDetails")) {
+           <li class="nav-item"><a href="vendorDetails" class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("Vendor Details")) {
 				out.print("active");
 			}%>                            
                             ">
@@ -100,7 +100,7 @@
                     <p>Vendor Details</p>
                 </a>
                 <hr>
-            </li> --%>
+            </li>
 
            
                 

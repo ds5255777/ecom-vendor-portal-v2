@@ -32,12 +32,15 @@ public class PoController {
 
 	@RequestMapping({ "/getAllPODetails" })
 	@CrossOrigin("*")
-	public String getActiveMasterData(HttpServletRequest request) {
+	public String getActiveMasterData(HttpServletRequest request, Principal principal) {
+
+		String vendorCode = (String) request.getSession().getAttribute("userName");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<PoDetails> allPoDetails = serviceManager.podetailsRepo.findAll();
+			
+			List<PoDetails> allPoDetails = serviceManager.podetailsRepo.findByVendorCode(vendorCode);
 
 			data.setData(allPoDetails);
 			data.setMsg("success");
@@ -78,7 +81,7 @@ public class PoController {
 
 	@RequestMapping({ "/getAllProcessPo" })
 	@CrossOrigin("*")
-	public String getAllProcessPo(HttpServletRequest request) {
+	public String getAllProcessPo(HttpServletRequest request ,Principal principal) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();

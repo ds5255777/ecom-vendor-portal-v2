@@ -291,7 +291,7 @@
                 },
                 {
                     extend: 'pdfHtml5',
-                    orientation: 'landscape',
+                    orientation: 'portrait',
                     pageSize: 'A4',
                     exportOptions: {
                     	columns: [ 0, 1, 2, 3, 4,5,6],

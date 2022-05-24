@@ -132,7 +132,7 @@ request.setAttribute("networkRole", networkRole);
 			      <jsp:include page="sidebar_Vendor.jsp?pagename=queryInvoiceVendor" />  
 			    </c:when>  
 			    <c:otherwise>  
-			        <jsp:include page="slidebar.jsp?pagename=queryInvoiceVendor" />
+			        <jsp:include page="slidebar.jsp?pagename=queryInvoiceNetwork" />
 			    </c:otherwise>  
   		</c:choose>
         

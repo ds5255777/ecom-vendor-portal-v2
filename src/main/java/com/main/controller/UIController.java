@@ -508,7 +508,7 @@ public class UIController {
 	@GetMapping("/getApprovedAdhocTrips")
 	public String getApprovedAdhocTrips(Model model, Principal principal) {
 		System.out.println("In getApprovedAdhocTrips");
-		List<TripDetails> allApprovedTripscount = serviceManager.tripService.findAllTripsByStatus("Approved By Network Team");
+		List<TripDetails> allApprovedTripscount = serviceManager.tripService.findAllTripsByStatus("Yet To Be Approved");
 		System.out.println("allApprovedTripscount  :::::::::::::::::::; " + allApprovedTripscount.size());
 		model.addAttribute("ApprovedAllDetailsForNetwork", allApprovedTripscount);
 

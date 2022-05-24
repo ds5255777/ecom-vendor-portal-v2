@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -405,33 +406,50 @@ public class InvoiceController {
 			}
 			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
 
-			List<InvoiceLineItem> invoiceLineItems = obj.getInvoiceLineItems();
-			String remarks = obj.getRemarks();
+			List<InvoiceLineItem> invoiceLineItemsList = obj.getInvoiceLineItems();
+			
+			
 
-			Long idByinvocienumber = serviceManager.invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
+			InvoiceGenerationEntity invObj = serviceManager.invoiceGenerationEntityRepo.findByEcomInvoiceNumber(ecomInvoiceNumber);
+			
+			if(null!=obj) {
+				
+				invObj.setInvoiceLineItem(invoiceLineItemsList);
+				invObj.setAssignTo(obj.getAssignTo());
+				invObj.setInvoiceStatus(obj.getInvoiceStatus());
+				invObj.setInvoiceAmount(obj.getInvoiceAmount());
+				invObj.setTaxableAmount(obj.getTaxableAmount());
+				
+				serviceManager.invoiceGenerationEntityRepo.save(invObj);
+				//serviceManager.invoiceGenerationEntityRepo.updateInvoiceStatusAndAssingTo(obj.getAssignTo(),obj.getInvoiceStatus(),obj.getInvoiceAmount(),obj.getTaxableAmount(), idByinvocienumber);
 
-			InvoiceGenerationEntity invoiceEntity = new InvoiceGenerationEntity();
+				//InvoiceGenerationEntity invoiceEntity = new InvoiceGenerationEntity();
 
-			if (null != idByinvocienumber) {
-				invoiceEntity.setInvoiceStatus(GlobalConstants.INVOICE_STATUS_IN_REVIEW);
-				invoiceEntity.setId(idByinvocienumber);
-				obj.setAssignTo(obj.getAssignTo());
-				invoiceEntity.setInvoiceAmount(obj.getInvoiceAmount());
-				invoiceEntity.setTaxableAmount(obj.getTaxableAmount());
-				invoiceEntity.setInvoiceLineItem(invoiceLineItems);
 
-//				serviceManager.invoiceGenerationEntityRepo.updateQueryInvoicce(invoiceEntity.setInvoiceStatus(GlobalConstants.INVOICE_STATUS_IN_REVIEW),
-//				invoiceEntity.setId(idByinvocienumber),
-//				obj.setAssignTo(obj.getAssignTo()),
-//				invoiceEntity.setInvoiceAmount(obj.getInvoiceAmount()),
-//				invoiceEntity.setTaxableAmount(obj.getTaxableAmount()),
-//				invoiceEntity.setInvoiceLineItem(invoiceLineItems));
+				QueryEntity queryEntity = new QueryEntity();
+				queryEntity.setComment(obj.getRemarks());
+				queryEntity.setForeignKey(Integer.valueOf(invObj.getId().toString()));
+				queryEntity.setRaisedAgainQuery(obj.getInvoiceNumber());
+				queryEntity.setRaisedBy(obj.getVendorCode());
+				queryEntity.setRaisedOn(new Date());
+				queryEntity.setReferenceid(obj.getInvoiceNumber());
+				queryEntity.setType("Invoice");
+				serviceManager.queryRepo.save(queryEntity);
+
+				String invoiceNumber = obj.getEcomInvoiceNumber();
+				System.out.println(invoiceNumber);
+				
 			}
-
-			QueryEntity queryEntity = new QueryEntity();
-
-			String invoiceNumber = obj.getEcomInvoiceNumber();
-			System.out.println(invoiceNumber);
+			
+			
+			
+			
+			/*
+			 * InvoiceLineItem invoiceLineItem = new InvoiceLineItem();
+			 * invoiceLineItemsList.size();
+			 */
+			
+			
 			// obj =
 			// serviceManager.invoiceGenerationEntityRepo.getQueryInvoice(obj.getVendorCode(),
 			// invoiceNumber);

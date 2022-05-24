@@ -131,4 +131,16 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 	@Query(value = "select * from invoice_generation where ecom_invoice_nunmber=? ", nativeQuery = true)
 	InvoiceGenerationEntity getQueryInvoice(String invoiceNumber);
 
+	/*
+	 * @Transactional
+	 * 
+	 * @Modifying
+	 * 
+	 * @Query(value =
+	 * "update invoice_generation set assign_to=:assignTo, invoice_status=:invoiceStatus, invoice_amount=:invoiceAmount, taxable_amount=:taxableAmount where id=:idByinvocienumber ; "
+	 * , nativeQuery = true) void updateInvoiceStatusAndAssingTo(String assignTo,
+	 * String invoiceStatus, String invoiceAmount, String taxableAmount, Long
+	 * idByinvocienumber);
+	 */
+
 }

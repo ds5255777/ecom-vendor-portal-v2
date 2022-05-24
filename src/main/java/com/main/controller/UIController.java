@@ -453,6 +453,8 @@ public class UIController {
 				List<String> country = serviceManager.countryRepo.getCountry();
 				List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 				List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
+				String uname = principal.getName();
+				model.addAttribute("uname", uname);
 
 				model.addAttribute("currency", currency);
 				model.addAttribute("business", business);

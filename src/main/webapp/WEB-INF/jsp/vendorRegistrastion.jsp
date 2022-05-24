@@ -2082,18 +2082,18 @@ width: 100% !important;
 
          
          
-        /*  
+          
          function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
              try {
                  if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
- */
-                    /* $("#" + controlName).notify(
+ 
+                     $("#" + controlName).notify(
                          tooltipMessage, {
                              autoHideDelay: 3500,
                              position: tooltipPlacement
                          }
-                     );*/
-                 /*     $('#manPara').css('display', '');
+                     );
+                      $('#manPara').css('display', '');
                      addValCss(controlName);
                      $("#" + controlName).focus();
                  } else {
@@ -2103,7 +2103,7 @@ width: 100% !important;
 
              }
          }
- */
+ 
        
         
          var matchFlag=0;

@@ -115,22 +115,8 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <div class="input-group-prepend">
-
-                                <!--   <div class="btn-group">
-                                    <div  style="font-size: 20px;font-weight: 500;" id="shiowStatusOfTicket">Master Bank Name</div>
-                                </div> -->
-
-
                             </div>
                         </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li> -->
-                            </ol>
-                        </div>
-                        <!-- /.col -->
                     </div>
                     <!-- /.row -->
                 </div>
@@ -145,7 +131,7 @@
                             <!-- general form elements -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Add User, Applicable Only for Admin or Audit or Finance</h3>
+                                    <h3 class="card-title">Add User, Not Applicable For Vendor</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
@@ -178,17 +164,14 @@
                                                 </div>
 
                                             </div>
-                                            
-                                            
-                                            
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleId" style="height: 34px;">
                                                        
-                                                            <option value="1">Admin</option>
-                                                            <option value="3">Audit</option>
-                                                            <option value="5">Finance</option>
-                                                            <option value="6">Finance Head</option>
+                                                          <c:forEach items="${role}" var="roleName">
+
+															<option value="${roleName.id}">${roleName.roleName}</option>
+														</c:forEach>
                                                        
                                                     </select>
                                                 </div>

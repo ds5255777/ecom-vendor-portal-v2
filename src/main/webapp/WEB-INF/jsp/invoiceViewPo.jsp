@@ -389,7 +389,7 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="text"
-													placeholder="GL Date" name="gldate1" id="gldate1" readonly
+													placeholder="GL Date" name="glDateDistributionDate" id="glDateDistributionDate" readonly
 													style="width: 100%;">
 											</div>
 										</div>
@@ -428,11 +428,14 @@
 							<div class="card-body" style="overflow: auto;">
 								<table id="prTable" class="table table-bordered table-striped">
 									<thead>
-
-
+										
 										<tr>
-											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">
-												S.No</th>
+										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">
+																						S.No</th>
+										
+										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">
+												Line Number</th>
+											
 											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">
 												Receipent Line</th>
 											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Description</th>
@@ -683,9 +686,12 @@
                            $('#gldate1').val(result[0].glDate);
                        
                         
-                      
+                          
                         $('#prTable').DataTable().clear();
                          for (var i = 0; i < tripLineArray.length; i++) {
+                        	 if (!tripLineArray[i].hasOwnProperty("lineNumber")) {
+                        		 tripLineArray[i].lineNumber = "";
+                             }
                             if (!tripLineArray[i].hasOwnProperty("lineType")) {
                                 tripLineArray[i].lineType = "";
                             }
@@ -720,7 +726,7 @@
                                 tripLineArray[i].gldate = "";
                             }
                             
-                            $('#prTable').DataTable().row.add([i + 1,tripLineArray[i].receiptline,tripLineArray[i].description,tripLineArray[i].lineType,tripLineArray[i].poline,tripLineArray[i].gldate,tripLineArray[i].remaningQuatity,tripLineArray[i].quantityInvoiced,tripLineArray[i].uom,tripLineArray[i].taxper,tripLineArray[i].baseAmount,tripLineArray[i].taxAmount,tripLineArray[i].totalAmount]);
+                            $('#prTable').DataTable().row.add([i + 1, tripLineArray[i].lineNumber,tripLineArray[i].receiptline,tripLineArray[i].description,tripLineArray[i].lineType,tripLineArray[i].poline,tripLineArray[i].gldate,tripLineArray[i].remaningQuatity,tripLineArray[i].quantityInvoiced,tripLineArray[i].uom,tripLineArray[i].taxper,tripLineArray[i].baseAmount,tripLineArray[i].taxAmount,tripLineArray[i].totalAmount]);
                          }
                          var  grossamt= "<input type=\"text\" value=\"" + result[0].grossTotalAmt + "\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";
                          prTable1.row.add(["","","","","","","","","","","","Gross Total",grossamt,""]);

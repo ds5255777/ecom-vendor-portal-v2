@@ -241,18 +241,19 @@ public class UIController {
 	
 
 	@GetMapping({ "/addUsers" })
-	public String addUsers(Model model, Principal principal, String error, String logout, HttpServletRequest request) {
+	public String addUsers(Model model,Principal principal ,String error, String logout, HttpServletRequest request) {
 
 		String rolename = (String) request.getSession().getAttribute("role");
 
 		if (rolename.equalsIgnoreCase("Admin")) {
+		
+		List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive("1");
+		List<RolesEntity> role = serviceManager.rolesRepository.findByIsActiveAndRoleNameNot("1","Vendor");
+		model.addAttribute("rolesList", roleList);
+		model.addAttribute("role", role);
+		String uname = principal.getName();
+		model.addAttribute("uname", uname);
 
-			List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive("1");
-			model.addAttribute("rolesList", roleList);
-			String uname = principal.getName();
-			model.addAttribute("uname", uname);
-
-//		      serviceManager.insertAddUpdateInMaster(request, action, actionType, null, null, null);
 			return "addUsers";
 
 		}
@@ -393,6 +394,32 @@ public class UIController {
 	@GetMapping("/vendorDetails")
 	public String vendorDetails(Model model, Principal principal, HttpServletRequest request) {
 		String rolename = (String) request.getSession().getAttribute("role");
+		 List<String> currency = serviceManager.currencyRepo.getCurrencyType();
+			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+			List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
+			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
+			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+			List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+			List<String> country = serviceManager.countryRepo.getCountry();
+			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
+			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
+
+			model.addAttribute("currency", currency);
+			model.addAttribute("business", business);
+			model.addAttribute("partner", partner);
+			model.addAttribute("classification", classification);
+			model.addAttribute("payment", payment);
+			model.addAttribute("nature", nature);
+			model.addAttribute("country", country);
+			model.addAttribute("tdsCode", tdsCode);
+			model.addAttribute("financialYear", financialYear);
+
+			model.addAttribute("fileSize", fileSize);
+
+			model.addAttribute("maxFileSize", maxFileSize);
+			model.addAttribute("fileSize", fileSize);
+
+
 
 		if (rolename.equalsIgnoreCase("Admin")) {
 
@@ -417,6 +444,33 @@ public class UIController {
 	   	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
 	   		
 			 String rolename = (String) request.getSession().getAttribute("role");
+			 List<String> currency = serviceManager.currencyRepo.getCurrencyType();
+				List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+				List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
+				List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
+				List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+				List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+				List<String> country = serviceManager.countryRepo.getCountry();
+				List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
+				List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
+				String uname = principal.getName();
+				model.addAttribute("uname", uname);
+
+				model.addAttribute("currency", currency);
+				model.addAttribute("business", business);
+				model.addAttribute("partner", partner);
+				model.addAttribute("classification", classification);
+				model.addAttribute("payment", payment);
+				model.addAttribute("nature", nature);
+				model.addAttribute("country", country);
+				model.addAttribute("tdsCode", tdsCode);
+				model.addAttribute("financialYear", financialYear);
+
+				model.addAttribute("fileSize", fileSize);
+
+				model.addAttribute("maxFileSize", maxFileSize);
+				model.addAttribute("fileSize", fileSize);
+
 
 				if (rolename.equalsIgnoreCase("Admin")) {
 					
@@ -429,26 +483,6 @@ public class UIController {
 			
 		 
 
-	//Added by Saurabh for Network Module Part
-	/*
-	 * @GetMapping("/dashbaordNetwork") public String dashbaordNetwork(Model model,
-	 * Principal principal, HttpServletRequest request) {
-	 * 
-	 * String tripId = request.getParameter("id"); model.addAttribute("tripId",
-	 * tripId);
-	 * 
-	 * System.out.println("tripId ........." + tripId);
-	 * 
-	 * int totalTripCount =
-	 * serviceManager.tripDetailsRepo.getADHocTripCount("Adhoc");
-	 * model.addAttribute("totalTripCount", totalTripCount);
-	 * 
-	 * return "dashBoard_NetworkRole"; }
-	 * 
-	 * 
-	 * return "dashBoard_NetworkRole"; } return ""; }
-	 */
-	// End
 
 	@GetMapping("/dashbaordNetwork")
 	public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {
@@ -499,6 +533,8 @@ public class UIController {
 	@GetMapping("/pendingApprovalNetwork")
 	public String pendingApprovalNetwork(Model model, Principal principal) {
 		List<TripDetails> yetTobeApproved = serviceManager.tripService.findAllTripsByStatus("");
+		List<String> vendorNamefortrips =serviceManager.tripDetailsRepo.getVendorName(); 
+		model.addAttribute("vendorNamefortrips", vendorNamefortrips);
 		System.out.println("Size of pending approval trips is ::" + yetTobeApproved.size());
 		model.addAttribute("yetTobeApprovedAllDetails", yetTobeApproved);
 		return "pendingApprovalNetwork";
@@ -521,6 +557,8 @@ public class UIController {
 		List<TripDetails> AllDetailsForNetwork = serviceManager.tripDetailsRepo.getQueryTripsForNetwork("Query");
 		System.out.println(
 				"AllDetailsForNetwork Query and Adhoc Trips  :::::::::::::::::::; " + AllDetailsForNetwork.size());
+		List<String> vendorNamefortripsQuery =serviceManager.tripDetailsRepo.getVendorName(); 
+		model.addAttribute("vendorNamefortripsQuery", vendorNamefortripsQuery);
 		model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
 
 		return "QueryTripsForNetwork";

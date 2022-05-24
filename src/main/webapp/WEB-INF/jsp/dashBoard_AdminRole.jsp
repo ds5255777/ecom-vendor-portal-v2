@@ -182,7 +182,7 @@
                                        <a style="font-size: larger;">Total No of Vendors : </a><b>${getAllVendorCount}</b></p>
                                        
                                      <p id="Actvendors" data-toggle="tooltip" data-placement="bottom" title="All Active Vendors">
-                                       Active Vendors : <b>${getAllVendorCount}</b></p>
+                                       Active Vendors : <b>${allActiveVendorCount}</b></p>
                                 
                                  	<p id="inactVendor" data-toggle="tooltip" data-placement="bottom" title="All InActive Vendors">
                                        In-Active Vendors : <b>${allInActiveVendorCount}</b></p>
@@ -201,76 +201,7 @@
 							
 
 
-                        <!-- ./col -->
-                       <%--  <div class="col-lg-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                    <h2>${pendingInvoice}</h2>
 
-                                    <p id="invdue" data-toggle="tooltip" data-placement="bottom" title="All Invoice Due, Pending And Rejected Today and Tommorow">
-                                        Process Invoices</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-file-invoice-dollar" style="color: #1F8BFF; font-size: 50px;"></i>
-                                </div>
-                                <a href="pendingInvoice" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                    info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div> --%>
-
-                        <!-- ./col -->
-                        <!-- <div class="col-lg-2 col-6">
-              
-              <div class="small-box bg-white">
-                <div class="inner">
-                  <h2>22</h2>
-
-                  <p id="opeTickets" data-toggle="tooltip" data-placement="bottom" title="Open and Assigned to me" >Tickets On Hold</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div> -->
-                        <!-- ./col -->
-                        <!-- ./col -->
-
-                       <%--  <div class="col-lg-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                    <h2>${approveInvoice}</h2>
-
-                                    <p id="iamwatch" data-toggle="tooltip" data-placement="bottom" title="Approved Invoice">Approved Invoice</p>
-                                </div>
-                                <div class="icon">
-
-                                    <i class="fas fa fa-check" style="color: #28a745; font-size: 50px;"></i>
-                                </div>
-                                <a href="approvedInvoice" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                    info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div> --%>
-                        <%-- <div class="col-lg-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                    <h2>${rejectInvoice}</h2>
-
-                                    <p id="UnTickets" data-toggle="tooltip" data-placement="bottom" title="invoice Rejected some Reasons">Rejected Invoice</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-ban" style="color: #dc3545; font-size: 50px;"></i>
-                                </div>
-                                <a href="rejectedInvoice" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                    info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div> --%>
 
 
                         <!-- ./col -->

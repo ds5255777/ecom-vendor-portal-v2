@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
+import com.main.bean.SupplierDTO;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
@@ -242,14 +243,44 @@ public class UserController {
 
 	@RequestMapping({ "/getActiveVendorData" })
 	@CrossOrigin("*")
-	public String getActiveVendorData(HttpServletRequest request) {
+	public String getActiveVendorData(HttpServletRequest request ) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			List<SupDetails> vendorList = serviceManager.supDetailsRepo.getAllInActiveVendor();
-			data.setData(vendorList);
+			List<Object[]> vendorList = serviceManager.supDetailsRepo.getAllInActiveVendor();
+			
+			List<SupplierDTO> sdtList=new ArrayList<>();
+			for (Object[] objects : vendorList) {
+				SupplierDTO sdt =new SupplierDTO();
+				if(null!=objects[0]) {
+					sdt.setIntroducedByName(objects[0].toString());
+				}if(null!=objects[1]) {
+					sdt.setSuppName(objects[1].toString());
+				}if(null!=objects[2]) {
+					sdt.setCompEmail(objects[2].toString());
+				}if(null!=objects[3]) {
+					sdt.setIntroducedByEmailID(objects[3].toString());
+				}if(null!=objects[4]) {
+					sdt.setCompGstn(objects[4].toString());
+				}if(null!=objects[5]) {
+					sdt.setNatureOfTransactions(objects[5].toString());
+				}if(null!=objects[6]) {
+					sdt.setPartnerType(objects[6].toString());
+				}if(null!=objects[7]) {
+					sdt.setVendorType(objects[7].toString());
+				}if(null!=objects[8]) {
+					sdt.setPhoneNumber(objects[8].toString());
+				}if(null!=objects[9]) {
+					sdt.setStatus(objects[9].toString());
+				}if(null!=objects[10]) {
+					sdt.setBpCode(objects[10].toString());
+				}
+				sdtList.add(sdt);
+			}
+			
+			data.setData(sdtList);
 			data.setMsg("success");
 			System.out.println("end  to getActiveVendorData ");
 
@@ -263,6 +294,7 @@ public class UserController {
 		return gson.toJson(data).toString();
 	}
 
+	
 	@RequestMapping({ "/getVendorById" })
 	@CrossOrigin("*")
 	public String getVendorById(HttpServletRequest request, @RequestBody SupDetails details) {
@@ -286,5 +318,79 @@ public class UserController {
 
 		return gson.toJson(data).toString();
 	}
+	
+	@RequestMapping({ "/setStatusOfVendorByBpCode" })
+	@CrossOrigin("*")
+	public String setStatusOfVendorByBpCode(HttpServletRequest request, @RequestBody User user) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+
+		
+			serviceManager.userRepository.updateStatusOfVendorByBpCode(user.getStatus(), user.getBpCode());
+
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+	@RequestMapping({ "/getAllVendorStatus" })
+	@CrossOrigin("*")
+	public String getAllVendorStatus(HttpServletRequest request , @RequestBody User details) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+
+			String bpCode=details.getBpCode();
+			List<User> vendorListStatus = serviceManager.userRepository.getAllVendorStatus(bpCode);
+			
+			data.setData(vendorListStatus);
+			data.setMsg("success");
+			System.out.println("end  to getActiveVendorData ");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+	@RequestMapping({ "/activeVendor" })
+	@CrossOrigin("*")
+	public String activeVendor(HttpServletRequest request , @RequestBody User details) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+
+			String bpCode=details.getBpCode();
+			String status=details.getStatus();
+			  serviceManager.userRepository.updateStatusOfVendorByBpCode(status,bpCode);
+			
+			
+			data.setMsg("success");
+			System.out.println(" activeVendor status  : "+status);
+
+		} catch (Exception e) {
+			data.setMsg("error");
+
+			e.printStackTrace();
+
+		}
+
+		return gson.toJson(data).toString();
+	}
+
+	
 
 }

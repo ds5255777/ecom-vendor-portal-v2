@@ -1188,7 +1188,8 @@ tbody {
                                                             "currentFuelRate": currentFuelRate,
                                                             "fsDiff": fsDiff,
                                                             "Query": query,
-                                                            "vendorName" : vendorName
+                                                            "vendorName" : vendorName,
+                                                            "type":"Trip"
                                                         }
 
                                                         //  calcualteFormulae();

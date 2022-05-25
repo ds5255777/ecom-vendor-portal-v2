@@ -120,7 +120,7 @@ public class UIController {
 			List<TripDetails> totalTripCount = serviceManager.tripDetailsRepo.findAll();
 			model.addAttribute("totalTripCount", totalTripCount.size());
 
-			List<TripDetails> allApprovedTripscount = serviceManager.tripService.findAllTripsByStatus("Approved By Network Team");
+			List<TripDetails> allApprovedTripscount = serviceManager.tripService.findAllTripsByStatus("Yet To Be Approved");
 			model.addAttribute("ApprovedTripscount", allApprovedTripscount.size());
 
 			List<TripDetails> yetTobeApproved = serviceManager.tripService.findAllTripsByStatus("");

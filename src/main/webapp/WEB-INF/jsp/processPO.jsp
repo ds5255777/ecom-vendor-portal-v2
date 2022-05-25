@@ -5,7 +5,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -109,60 +109,43 @@
 
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
     <jsp:include page="loader.jsp" />
-    <div class="wrapper">
+	<div class="wrapper">
 
-        <!-- Navbar -->
-        <jsp:include page="navbar.jsp?pagename=Process PO" />
-        <!-- /.navbar -->
+		<!-- Navbar -->
+		<jsp:include page="navbar.jsp?pagename=Process PO" />
+		<!-- /.navbar -->
+		<!-- Main Sidebar Container -->
+		<jsp:include page="slidebar_Po.jsp?pagename=Process PO" />
 
-        <!-- Main Sidebar Container -->
-        
-       <jsp:include page="slidebar_Po.jsp?pagename=Unprocess PO" /> 
-  
-  
-        
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<div class="content-header" style="padding: 0px;">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6"></div>
+						<div class="col-sm-6"></div>
+					</div>
+				</div>
+			</div>
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <div class="content-header" style="padding: 0px;">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6"></div>
-                        <div class="col-sm-6">
-                            
-                        </div>
+			<!-- /.content-header -->
 
-                    </div>
-                </div>
-            </div>
-
-            <!-- /.content-header -->
-
-
-            <!-- Main content -->
-            <section class="content mt-2">
-                <div class="container-fluid">
-
-                    <div class="row">
-                        <!-- <div class="col-md-12"> -->
-                        <div class="col-md-12" style="font-size: 14px;">
-                            <!-- general form elements -->
-                            <div class="card card-primary ">
-                               <!--  <div class="card-header">
-                                     <h3 class="card-title" style="font-size: 15px;">PO
-                                            Details</h3>
-                                </div> -->
-                                <!-- /.card-header -->
-                                <div class="card-body ">
-								<div class="card card-primary ">
-                                    <form role="form" id="addForm" autocomplete="off">
+			<!-- Main content -->
+			<section class="content mt-2">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12" style="font-size: 14px;">
+							<!-- general form elements -->
+							<!-- /.card-header -->
+							<div class="card card-primary ">
+								<div class="card-body ">
+									<form role="form" id="addForm" autocomplete="off">
 										<div class="row">
-											
 											<div class="col-md-2">
 												<div class="dropdown">
 													<button type="button"
 														class="btn btn-primary dropdown-toggle"
-														style="  margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
+														style="margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
 														data-toggle="dropdown">Export Details</button>
 													<div class="dropdown-menu">
 														<a class="dropdown-item" href="#" id="exportLinkPdf">Download
@@ -182,55 +165,45 @@
 												</div>
 											</div>
 										</div>
-									</form>							
-                                    <table class="table table-bordered table-hover" id="tabledata">
-                                        <thead >
-                                            <tr >
-												 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">PO Number</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Type</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">UOM</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Need By Date</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Amount</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Status</th>
-                                               
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+									</form>
+									<table class="table table-bordered table-hover" id="tabledata">
+										<thead>
+											<tr>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">PO
+													Number</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Type</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">UOM</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Need
+													By Date</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Amount</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Status</th>
 
-            <!-- Control Sidebar -->
-            <!-- <aside class="control-sidebar control-sidebar-dark">
-			Control sidebar content goes here
-		</aside>
-		/.control-sidebar -->
-        </div>
-        <!-- ./wrapper -->
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 
+			<!-- Control Sidebar -->
+		</div>
+		<!-- ./wrapper -->
+	</div>
 
-
-
-
-
-
-
-      
-        <script src="plugins/jquery/jquery.min.js"></script>
+	<script src="plugins/jquery/jquery.min.js"></script>
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
-            $.widget.bridge('uibutton', $.ui.button);
-            $.widget.bridge('uitooltip', $.ui.tooltip);
-
-        </script>
+									$.widget.bridge('uibutton', $.ui.button);
+									$.widget.bridge('uitooltip', $.ui.tooltip);
+								</script>
         <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/commonFunctions.js"></script>
         <script src="plugins/sparklines/sparkline.js"></script>
@@ -270,6 +243,8 @@
             timer: 3000
         });
         
+        var dataLimit='${dataLimit}';
+		dataLimit=parseInt(dataLimit);
         
         var tabledata = $('#tabledata').DataTable({
             "paging": true,
@@ -279,7 +254,7 @@
             "autoWidth": false,
             "aaSorting": [],
             "scrollX": true,
-            "pageLength": 10,
+            "pageLength": dataLimit,
             dom: 'Bfrtip',
             //buttons: ['excel','pdf','print'],
             buttons: [
@@ -423,19 +398,8 @@
  							}
                              
 							 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getPoDataFormDataByPoNumber('" +  result[i].poNo + "')\" >" + result[i].poNo + "</button>";
-                            var unprocess_status = '<span class=\"right badge badge-warning\">UnProcess</span>';
-                            var process_status = '<span class=\"right badge badge-success\">Process</span>';
-                            var inReview_status = '<span class=\"right badge badge-primary\">In-Review</span>';
-                             var postatus="";                       
-                         if (result[i].status == "Process") {
-                        	 postatus = process_status;
-
-                              } else if(result[i].status == "Unprocess"){
-                            	  postatus = unprocess_status;
-                              }  else if(result[i].status == "In-Review"){
-                            	  postatus = inReview_status;
-                              } 
-                            tabledata.row.add([view ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].amount,postatus ]);  				        	
+                           
+                            tabledata.row.add([view ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].amount,result[i].status ]);  				        	
                         }
                     
                         tabledata.draw();

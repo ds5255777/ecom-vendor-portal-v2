@@ -44,7 +44,7 @@
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item"><a href="unprocessPO" class="nav-link
-                                                <%if (request.getParameter("pagename").equalsIgnoreCase("Unprocessed PO")) {
+                                                <%if (request.getParameter("pagename").equalsIgnoreCase("Unprocess PO")) {
                                     out.print("active");
                                 }%> ">
                                 
@@ -55,7 +55,7 @@
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item"><a href="processPO" class="nav-link
-                                                <%if (request.getParameter("pagename").equalsIgnoreCase("Processed PO")) {
+                                                <%if (request.getParameter("pagename").equalsIgnoreCase("Process PO")) {
                                     out.print("active");
                                 }%>">
                                 <i class="nav-icon fas fa fa-check"></i>
@@ -74,7 +74,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item"><a href="poInvoiceDetails" class="nav-link
-                                                <%if (request.getParameter("pagename").equalsIgnoreCase("All Invoice")) {
+                                                <%if (request.getParameter("pagename").equalsIgnoreCase("poInvoiceDetails")) {
                                     out.print("active");
                                 }%> ">
                                 <i class="nav-icon fas fa-file-invoice"></i>
@@ -83,7 +83,7 @@
                     </ul>
                      <ul class="nav nav-treeview">
                         <li class="nav-item"><a href="draftPO" class="nav-link
-                                                <%if (request.getParameter("pagename").equalsIgnoreCase("Draft PO")) {
+                                                <%if (request.getParameter("pagename").equalsIgnoreCase("draftInvoice")) {
                                     out.print("active");
                                 }%>">
                                 <i class="nav-icon fab fa-firstdraft"></i>

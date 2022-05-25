@@ -289,20 +289,20 @@ public class PoController {
 	@RequestMapping({ "filterPoDetails" })
 	@CrossOrigin("*")
 	public String filterPoDetails(Principal principal, HttpServletRequest request,
-			@RequestParam(name = "actualDeparture") String fromDate,
-			@RequestParam(name = "actualArrival") String toDate) {
+			@RequestParam(name = "actualDeparture") Date fromDate,
+			@RequestParam(name = "actualArrival") Date toDate) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println("fromDate : " + fromDate + " toDate : " + toDate);
 		String vendorCode = principal.getName();
 		try {
-			if (fromDate != "" && toDate != "" && vendorCode != "") {
+			
 				List<PoDetails> getListByDateFilter = serviceManager.podetailsRepo
 						.findByActualDepartureBetween(fromDate, toDate, vendorCode);
 				data.setData(getListByDateFilter);
 				data.setMsg("success");
-			}
+			
 
 		} catch (Exception e) {
 			data.setMsg("error");

@@ -2,6 +2,10 @@ package com.main.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -227,20 +231,24 @@ public class TripControllers {
 
 	@RequestMapping({ "/updateVendorTripStatusAndOpenCloseReadingByTripId" })
 	@CrossOrigin("*")
-	public String getApprovTripsDetails(HttpServletRequest request, @RequestBody TripDetails tripObj) {
+	public String getApprovTripsDetails(Principal principal ,HttpServletRequest request, @RequestBody TripDetails tripObj) {
 
 		DataContainer data = new DataContainer();
 
+		String processedBy=principal.getName();
 		System.out.println("**********Inside getApprovePendingApprovelTripsDetails********************");
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String vendorTripStatus = tripObj.getVendorTripStatus();
 		String tripID = tripObj.getTripID();
 		String openingReading = tripObj.getOpeningReading();
 		String closingReading = tripObj.getClosingReading();
+		Date date = new Date();  
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+		String processedOn = dateFormat.format(date);  
+		
 		try {
 
-			serviceManager.tripDetailsRepo.updateVendorTripStatusByTripId(tripID, vendorTripStatus, openingReading,
-					closingReading);
+			serviceManager.tripDetailsRepo.updateVendorTripStatusByTripId(tripID, vendorTripStatus, openingReading, closingReading,processedBy, processedOn);
 			data.setMsg("success");
 
 		} catch (Exception e) {

@@ -511,6 +511,7 @@ tbody {
 																title="Opening Reading">Opening Reading</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control" placeholder="Trip Strating reading"
+																onkeypress="return event.charCode >= 48 && event.charCode <= 57" id="closingReading"  maxlength="5"
 																	id="openingReading" name="openingReading">
 															</div>
 														</div>
@@ -521,7 +522,7 @@ tbody {
 																title="Closing Reading">Closing Reading</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control" placeholder="Trip Closing reading"
-																	id="closingReading" name="closingReading">
+																	onkeypress="return event.charCode >= 48 && event.charCode <= 57" id="closingReading"  maxlength="5" name="closingReading">
 															</div>
 														</div>
 													</div>

@@ -261,17 +261,7 @@
 															</div>
 														</div>
 													</div>
-													<!-- <div class="col-md-3">
-														text input
-														<div class="form-group row">
-															<label class="col-sm-5" title="Vendor Name">Vendor
-																Name</label>
-															<div class="col-sm-7">
-																<input type="text" class="form-control" id="vendorName"
-																	name="vendorName" autocomplete="off">
-															</div>
-														</div>
-													</div> -->
+												
 													
 													
 														<div class="col-md-3">
@@ -282,7 +272,7 @@
 														class="required adHocRequired"></span></label>
 
 												<div class="col-sm-7">
-												<select class="form-control" id="vendorName" name="vendorName" style="height: 34px;">
+												<select class="form-control" onchange="getBpCode()" id="vendorName1" name="vendorName1" style="height: 34px;">
 												
 												<c:forEach items="${vendorNamefortrips}" var="vendorName">
 
@@ -296,7 +286,16 @@
 														</div>
 													</div>
 													
-													
+														
+													<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5">Vendor Code</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control" id="vendorCode1"
+																	name="vendorCode1" readonly="readonly" autocomplete="off">
+															</div>
+														</div>
+													</div>
 													
 													
 													<div class="col-md-3">
@@ -561,22 +560,22 @@
 															</div>
 														</div>
 													</div>
-													<div class="col-md-3">
+													<div class="col-md-3" style="display: none">
 														<div class="form-group row">
 															<label class="col-sm-5"
-																title="Trip Opening Reading">Start Reading</label>
+																title="Trip Opening Reading" >Start Reading</label>
 															<div class="col-sm-7">
-																<input type="text" class="form-control"
+																<input type="hidden" class="form-control"
 																	id="openingReading" name="openingReading" >
 															</div>
 														</div>
 													</div>
 													<div class="col-md-3">
 														<div class="form-group row">
-															<label class="col-sm-5"
+															<label class="col-sm-5"  style="display: none"
 																title="Trip Closing Reading">End Reading</label>
 															<div class="col-sm-7">
-																<input type="text" class="form-control"
+																<input type="hidden" class="form-control"
 																	id="closingReading" name="closingReading" >
 															</div>
 														</div>
@@ -720,7 +719,7 @@
 
                 <script type="text/javascript">
 
-                $('#vendorName').select2({
+                $('#vendorName1').select2({
         			theme : 'bootstrap4'
         		});
 
@@ -864,7 +863,7 @@
                                                                     setData(myForm, result);
                                                                 //    $('#vendorName').val(vendorNameOfTrip);
                                                               //  $("#vendorName").select2("val", vendorNameOfTrip);
-                                                                $("#vendorName").val(vendorNameOfTrip).trigger('change');
+                                                                $("#vendorName1").val(vendorNameOfTrip).trigger('change');
                                                                     $('#tripValue').modal('show');
                                                                 } else {
                                                                     Toast.fire({
@@ -919,8 +918,12 @@
 
                                                     function lumpsomePropertyChange() {
                                                         var checkedValue = $('.messageCheckbox:checked').val();
+                                                        
                                                         console.log("checkedValue " + checkedValue);
+                                                     
+                                                        
                                                         $("#AmountLumpSum").prop('disabled', true);
+                                                        $("#AmountLumpSum").val("");
                                                         $("#fs").prop('disabled', false);
                                                         $("#totalFreight").prop('disabled', false);
                                                         $("#basicFreight").prop('disabled', false);
@@ -949,6 +952,15 @@
 
                                                         var totalFreight = parseFloat(basicFreight) + parseFloat(fs);
                                                         document.getElementById("totalFreight").value = totalFreight.toFixed(2);
+                                                        
+                                                       var a= $("#fs").val();
+                                                       var b= $("#totalFreight").val();
+                                                       var c= $("#basicFreight").val();
+
+                                                       $("#fs").val(a);
+                                                       $("#totalFreight").val(b);
+                                                       $("#basicFreight").val(c);
+                                                      
 
                                                         if (checkedValue == '') {
                                                             $("#AmountLumpSum").prop('disabled', false);
@@ -958,12 +970,19 @@
                                                             $("#fs").prop('disabled', true);
                                                             $("#totalFreight").prop('disabled', true);
                                                             $("#basicFreight").prop('disabled', true);
+                                                            
+                                                            $("#fs").val("");
+                                                            $("#totalFreight").val("");
+                                                            $("#basicFreight").val("");
+                                                            
+                                                           
+
 
                                                             //Recalcluate
 
 
                                                         }
-
+														
 
 
                                                     }
@@ -988,7 +1007,8 @@
                                                         var AmountLumpSum = document.getElementById("AmountLumpSum").value;
                                                         var lumpsum = document.getElementById("lumpsum").value;
                                                         var fs = document.getElementById("fs").value;
-                                                        var vendorName = document.getElementById("vendorName").value
+                                                        var vendorName = document.getElementById("vendorName1").value
+                                                        var vendorCode = document.getElementById("vendorCode1").value
 
 
                                                         console.log("routeKms " + routeKms);
@@ -1004,6 +1024,7 @@
                                                         console.log("lumpsum " + lumpsum);
                                                         console.log("Milage ::" + milage);
                                                         console.log("vendorName ::" + vendorName);
+                                                        console.log("vendorCode ::" + vendorCode);
 
                                                         console.log("ratePerKm " + ratePerKm);
                                                         if (milage === "" || milage === null || milage === '') {
@@ -1128,7 +1149,15 @@
                                                         console.log("After Validation ::");
                                                         
                                                         calcualteFormulae();
-
+                                                        
+                                                       var checkbox=  $('#lumpsum').is(':checked');  
+														if(checkbox==true){
+															 $("#fs").val("0");
+	                                                            $("#totalFreight").val("0");
+	                                                            $("#basicFreight").val("0");
+														} else{
+															$("#AmountLumpSum").val("0");
+														}
                                                         var fs = document.getElementById("fs").value;
                                                         console.log("fs" + fs);
                                                         var totalFreight = document.getElementById("totalFreight").value;
@@ -1146,7 +1175,8 @@
                                                             "basicFreight": basicFreight,
                                                             "commentsby": comments_by_User,
                                                             "Query": "No" ,
-                                                            "vendorName" : vendorName
+                                                            "vendorName" : vendorName,
+                                                            "vendorCode" : vendorCode
 
                                                         }
 
@@ -1222,7 +1252,47 @@
                                                         
                                                     });
                                                     
-                                                                                                     	
+                                                   function getBpCode(){
+                                                	   var vendorName=$("#vendorName1").val();
+                                                	   
+                                                	   
+                                                	   var json = {
+                                                               "vendorName": vendorName
+                                                           }
+
+                                                           
+
+                                                           $.ajax({
+                                                               type: "POST",
+                                                               data: JSON.stringify(json),
+                                                               url: "<%=GlobalUrl.getBpCodeForNetwork%>",
+                                                               dataType: "json",
+                                                               contentType: "application/json",
+                                                               async: false,
+                                                               success: function(data) {
+
+                                                                   if (data.msg == 'success') {
+                                                                       var result = data.data;
+                                                                       $("#vendorCode1").val(result);
+                                                                 
+                                                                   } else {
+                                                                       Toast.fire({
+                                                                           type: 'error',
+                                                                           title: 'Failed.. Try Again..'
+                                                                       })
+                                                                   }
+                                                               },
+                                                               error: function(jqXHR, textStatue, errorThrown) {
+                                                                   //alert("failed, please try again");
+                                                                   Toast.fire({
+                                                                       type: 'error',
+                                                                       title: 'Failed.. Try Again..'
+                                                                   })
+                                                               }
+                                                           });
+
+                                                	   
+                                                   }                                                    	
                                                     	
                                                     	
                                                     

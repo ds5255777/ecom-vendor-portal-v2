@@ -136,6 +136,9 @@ public class GlobalUrl {
 	 public static String getAllVendorStatus = userController + "/getAllVendorStatus";
 	 public static String activeVendor = userController + "/activeVendor";
 	 
+	 public static String getBpCodeForNetwork = dashboardController + "/getBpCodeForNetwork";
+	 
+	 
 	 
 	 
 }

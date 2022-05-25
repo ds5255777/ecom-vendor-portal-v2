@@ -250,7 +250,7 @@ tbody {
                                                     <!-- /.card-header -->
                                                     <div class="card-body">
                                                         <form role="form" id="tripForm1">
-<div class="row">
+															<div class="row">
                                                             <div class="col-md-3">
 														<div class="form-group row">
 															<label class="col-sm-5">Trip Id</label>
@@ -268,7 +268,7 @@ tbody {
 														class="required adHocRequired"></span></label>
 
 												<div class="col-sm-7">
-												<select class="form-control" id="vendorName" name="vendorName" style="height: 34px;">
+												<select class="form-control" onchange="getBpCode()" id="vendorName1" name="vendorName1" style="height: 34px;">
 												
 												<c:forEach items="${vendorNamefortripsQuery}" var="vendorName">
 
@@ -277,10 +277,20 @@ tbody {
 												
 												</select>
 												
-												</div>
-													
+												</div></div>
+														</div>
+														<div class="col-md-3">
+														<div class="form-group row">
+															<label class="col-sm-5">Vendor Code</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control" id="vendorCode1"
+																	name="vendorCode1" readonly="readonly" autocomplete="off">
+															</div>
 														</div>
 													</div>
+													
+														
+													
 													<div class="col-md-3">
 														<div class="form-group row">
 															<label class="col-sm-5">Route</label>
@@ -647,41 +657,7 @@ tbody {
 
 
                                         </div>
-                                        <!--                                        <div class="col-md-5">
-                                        <%-- <a href="${pageContext.request.contextPath}/getDoc" target="_blank">Click Here to open doc in new window</a> --%>
-                                         <iframe id="pdfLink" style="height:100%; width:100%"> 
-
-                                         Comment History window 
-                                        <div class="card card-primary ">
-                                            <div class="card-header" style="padding: 4px 0px 4px 4px;">
-                                                <h3 class="card-title" style="font-size: 15px;">Ad-Hoc Trips Query</h3>
-                                            </div>
-                                             /.card-header 
-                                            <div class="card-body ">
-                                                <form role="form" id="showQueryDetails" name="showQueryDetails">
-                                                    <table class="table table-bordered table-hover" id="tabledata">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Date</th>
-                                                                <th style="padding: 5px 5px 5px 1.5rem;">Comment</th>
-
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-
-                                                        </tbody>
-                                                    </table>
-                                                </form>
-                                            </div>
-                                             /.card-body 
-                                        </div>
-
-                                         Comment History window 
-
-
-                                    </div>-->
-                                    </div>
+                                                                           </div>
                                 </div>
                             </div>
 
@@ -740,7 +716,7 @@ tbody {
 
 		<script type="text/javascript">
 
-		  $('#vendorName').select2({
+		  $('#vendorName1').select2({
   			theme : 'bootstrap4'
   		});
 
@@ -883,7 +859,7 @@ tbody {
                                                                     myForm = document.getElementById("tripForm1");
                                                                     console.log("result " + result.innerHTML);
                                                                     setData(myForm, result);
-                                                                    $("#vendorName").val(vendorNameOfTrip).trigger('change');
+                                                                    $("#vendorName1").val(vendorNameOfTrip).trigger('change');
                                                                     $('#tripValue').modal('show');
                                                                 } else {
                                                                     Toast.fire({
@@ -948,52 +924,72 @@ tbody {
 
 
                                                     function lumpsomePropertyChange() {
-                                                        var checkedValue = $('.messageCheckbox:checked').val();
-                                                        console.log("checkedValue " + checkedValue);
-                                                        $("#AmountLumpSum").prop('', true);
-                                                        $("#fs").prop('', false);
-                                                        $("#totalFreight").prop('', false);
-                                                        $("#basicFreight").prop('', false);
+                                                    	  var checkedValue = $('.messageCheckbox:checked').val();
+                                                          
+                                                          console.log("checkedValue " + checkedValue);
+                                                       
+                                                          
+                                                          $("#AmountLumpSum").prop('disabled', true);
+                                                          $("#AmountLumpSum").val("");
+                                                          $("#fs").prop('disabled', false);
+                                                          $("#totalFreight").prop('disabled', false);
+                                                          $("#basicFreight").prop('disabled', false);
 
-                                                        var currentFuelRate = document.getElementById("currentFuelRate").value;
-                                                        var fsBaseRate = document.getElementById("fsBaseRate").value;
+                                                          var currentFuelRate = document.getElementById("currentFuelRate").value;
+                                                          var fsBaseRate = document.getElementById("fsBaseRate").value;
 
-                                                        console.log("currentFuelRate " + currentFuelRate);
-                                                        console.log("fsBaseRate " + fsBaseRate);
-
-
-                                                        var basicFreight = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
-                                                        document.getElementById("basicFreight").value = basicFreight.toFixed(2);
-                                                        ;
-
-
-                                                        var mileage = document.getElementById("mileage").value;
-                                                        var routeKms = document.getElementById("routeKms").value;
-                                                        console.log("mileage " + mileage);
-                                                        console.log("routeKms " + routeKms);
-                                                        var fs = (parseFloat(basicFreight) / parseFloat(mileage)) * parseFloat(routeKms);
-                                                        document.getElementById("fs").value = fs.toFixed(2);
-                                                        ;
+                                                          console.log("currentFuelRate " + currentFuelRate);
+                                                          console.log("fsBaseRate " + fsBaseRate);
 
 
-
-                                                        var totalFreight = parseFloat(basicFreight) + parseFloat(fs);
-                                                        document.getElementById("totalFreight").value = totalFreight.toFixed(2);
-
-                                                        if (checkedValue == '') {
-                                                            $("#AmountLumpSum").prop('', false);
-                                                            $('#fs').val('');
-                                                            $('#totalFreight').val('');
-                                                            $('#basicFreight').val('');
-                                                            $("#fs").prop('', true);
-                                                            $("#totalFreight").prop('', true);
-                                                            $("#basicFreight").prop('', true);
-
-                                                            //Recalcluate
+                                                          var basicFreight = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
+                                                          document.getElementById("basicFreight").value = basicFreight.toFixed(2);
+                                                          ;
 
 
-                                                        }
+                                                          var mileage = document.getElementById("mileage").value;
+                                                          var routeKms = document.getElementById("routeKms").value;
+                                                          console.log("mileage " + mileage);
+                                                          console.log("routeKms " + routeKms);
+                                                          var fs = (parseFloat(basicFreight) / parseFloat(mileage)) * parseFloat(routeKms);
+                                                          document.getElementById("fs").value = fs.toFixed(2);
+                                                          ;
 
+
+
+                                                          var totalFreight = parseFloat(basicFreight) + parseFloat(fs);
+                                                          document.getElementById("totalFreight").value = totalFreight.toFixed(2);
+                                                          
+                                                         var a= $("#fs").val();
+                                                         var b= $("#totalFreight").val();
+                                                         var c= $("#basicFreight").val();
+
+                                                         $("#fs").val(a);
+                                                         $("#totalFreight").val(b);
+                                                         $("#basicFreight").val(c);
+                                                        
+
+                                                          if (checkedValue == '') {
+                                                              $("#AmountLumpSum").prop('disabled', false);
+                                                              $('#fs').val('');
+                                                              $('#totalFreight').val('');
+                                                              $('#basicFreight').val('');
+                                                              $("#fs").prop('disabled', true);
+                                                              $("#totalFreight").prop('disabled', true);
+                                                              $("#basicFreight").prop('disabled', true);
+                                                              
+                                                              $("#fs").val("");
+                                                              $("#totalFreight").val("");
+                                                              $("#basicFreight").val("");
+                                                              
+                                                             
+
+
+                                                              //Recalcluate
+
+
+                                                          }
+  														
 
 
                                                     }
@@ -1019,7 +1015,8 @@ tbody {
                                                         var AmountLumpSum = document.getElementById("AmountLumpSum").value;
                                                         var lumpsum = document.getElementById("lumpsum").value;
                                                         var fs = document.getElementById("fs").value;
-                                                        var vendorName = document.getElementById("vendorName").value;
+                                                        var vendorName = document.getElementById("vendorName1").value;
+                                                        var vendorCode = document.getElementById("vendorCode1").value;
 
 
                                                         console.log("routeKms " + routeKms);
@@ -1159,6 +1156,15 @@ tbody {
                                                         console.log("After Validation ::");
 
                                                         calcualteFormulae();
+                                                        
+                                                        var checkbox=  $('#lumpsum').is(':checked');  
+														if(checkbox==true){
+															 $("#fs").val("0");
+	                                                            $("#totalFreight").val("0");
+	                                                            $("#basicFreight").val("0");
+														} else{
+															$("#AmountLumpSum").val("0");
+														}
 
                                                         var fs = document.getElementById("fs").value;
                                                         console.log("fs" + fs);
@@ -1187,7 +1193,9 @@ tbody {
                                                             "currentFuelRate": currentFuelRate,
                                                             "fsDiff": fsDiff,
                                                             "Query": query,
-                                                            "vendorName" : vendorName
+                                                            "vendorName" : vendorName,
+                                                            "vendorCode" : vendorCode,
+                                                            "type":"Trip"
                                                         }
 
                                                         //  calcualteFormulae();
@@ -1322,6 +1330,51 @@ tbody {
 						});
 
 			}
+                                                    
+                                                    function getBpCode(){
+                                                 	   var vendorName=$("#vendorName1").val();
+                                                 	   
+                                                 	   
+                                                 	   var json = {
+                                                                "vendorName": vendorName
+                                                            }
+
+                                                            
+
+                                                            $.ajax({
+                                                                type: "POST",
+                                                                data: JSON.stringify(json),
+                                                                url: "<%=GlobalUrl.getBpCodeForNetwork%>",
+                                                                dataType: "json",
+                                                                contentType: "application/json",
+                                                                async: false,
+                                                                success: function(data) {
+
+                                                                    if (data.msg == 'success') {
+                                                                        var result = data.data;
+                                                                        $("#vendorCode1").val(result);
+                                                                  
+                                                                    } else {
+                                                                        Toast.fire({
+                                                                            type: 'error',
+                                                                            title: 'Failed.. Try Again..'
+                                                                        })
+                                                                    }
+                                                                },
+                                                                error: function(jqXHR, textStatue, errorThrown) {
+                                                                    //alert("failed, please try again");
+                                                                    Toast.fire({
+                                                                        type: 'error',
+                                                                        title: 'Failed.. Try Again..'
+                                                                    })
+                                                                }
+                                                            });
+
+                                                 	   
+                                                    }                                                    	
+                                                     	
+                                                     	
+
 		</script>
 </body>
 

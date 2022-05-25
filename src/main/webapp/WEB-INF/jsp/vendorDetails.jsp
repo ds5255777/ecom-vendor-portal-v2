@@ -1396,7 +1396,7 @@ window.onload = function(){
 
                              
                              
-                             var save = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To save\" onclick=\"activeVendor('"  + result[i].bpCode + "' ,'"  + i+ "','"  + result[i].suppName+ "' )\"> <i class=\"nav-icon fa fa-floppy-o\"> </i>  </button>";
+                             var save = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To save\" onclick=\"activeVendor('"  + result[i].bpCode + "' ,'"  + i+ "','"  + result[i].suppName+ "' )\"> <i class=\"nav-icon fas fa-edit\"> </i>  </button>";
                              
                             tabledata.row.add([view,result[i].introducedByName, result[i].suppName,result[i].compEmail, result[i].introducedByEmailID,result[i].compGstn, result[i].natureOfTransactions,result[i].partnerType, result[i].vendorType,result[i].phoneNumber,Status ,inactive+"   "+save]);
 

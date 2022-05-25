@@ -109,10 +109,11 @@
 <%
 String vendorRole = GlobalConstants.ROLE_VENDOR;
 String networkRole = GlobalConstants.ROLE_NETWORK;
+String adminRole = GlobalConstants.ROLE_ADMIN;
 
 request.setAttribute("vendorRole", vendorRole);
 request.setAttribute("networkRole", networkRole);
-
+request.setAttribute("adminRole", adminRole);
 %>
     <jsp:include page="loader.jsp" />
     <div class="wrapper">
@@ -129,7 +130,12 @@ request.setAttribute("networkRole", networkRole);
         <c:choose>  
 			    <c:when test='<%=rolename.equalsIgnoreCase(vendorRole)%>'>  
 			      <jsp:include page="sidebar_Vendor.jsp?pagename=invoiceQueue" />  
-			    </c:when>  
+			    </c:when>
+			     
+			    <c:when test='<%=rolename.equalsIgnoreCase(adminRole)%>'> 
+			    	<jsp:include page="sidebar_Admin.jsp?pagename=invoiceQueue" />
+			    </c:when> 
+			    
 			    <c:otherwise>  
 			        <jsp:include page="slidebar.jsp?pagename=invoiceQueue" />
 			    </c:otherwise>  
@@ -205,6 +211,24 @@ request.setAttribute("networkRole", networkRole);
                                     </table>
                                     </c:if>
                                     <c:if test="${role.equalsIgnoreCase(networkRole) }">
+                                    <table class="table table-bordered table-hover" id="tabledata">
+                                        <thead>
+                                            <tr>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">ECOM Invoice Number</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Receiving Date</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Invoice Number</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Name</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Code</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    </c:if>
+                                    <c:if test="${role.equalsIgnoreCase(adminRole) }">
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>

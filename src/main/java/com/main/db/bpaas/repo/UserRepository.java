@@ -33,7 +33,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	String getUserPasswordById(@Param("id") Integer id);
 
 	
-	@Query(value="select * from users where role_id !='4' and status in(:userStatusList) ; ", nativeQuery=true)
+	@Query(value="select * from users where role_id !='2' and status in(:userStatusList) ; ", nativeQuery=true)
 	List<User> findByStatusIn(List<String> userStatusList);
 
 	

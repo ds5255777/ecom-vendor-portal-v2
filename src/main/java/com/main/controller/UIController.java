@@ -533,7 +533,7 @@ public class UIController {
 	@GetMapping("/pendingApprovalNetwork")
 	public String pendingApprovalNetwork(Model model, Principal principal) {
 		List<TripDetails> yetTobeApproved = serviceManager.tripService.findAllTripsByStatus("");
-		List<String> vendorNamefortrips =serviceManager.tripDetailsRepo.getVendorName(); 
+		List<String> vendorNamefortrips =serviceManager.tripDetailsRepo.getVendorName();
 		model.addAttribute("vendorNamefortrips", vendorNamefortrips);
 		System.out.println("Size of pending approval trips is ::" + yetTobeApproved.size());
 		model.addAttribute("yetTobeApprovedAllDetails", yetTobeApproved);

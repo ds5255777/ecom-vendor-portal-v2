@@ -33,7 +33,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item"><a href="allTrips" class="nav-link
-                                                <%if (request.getParameter("pagename").equalsIgnoreCase("allTrips")) {
+                                                <%if (request.getParameter("pagename").equalsIgnoreCase("AllTripsNetwork")) {
                                     out.print("active");
                                 }%>
 
@@ -44,7 +44,7 @@
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item"><a href="getApprovedAdhocTrips" class="nav-link
-                                                <%if (request.getParameter("pagename").equalsIgnoreCase("Approved Trips")) {
+                                                <%if (request.getParameter("pagename").equalsIgnoreCase("getApprovedAdhocTrips")) {
                                     out.print("active");
                                 }%>
                                                 ">
@@ -53,7 +53,7 @@
                                 <p>Approved Trips</p>
                             </a></li>
                     </ul>
-                    <ul class="nav nav-treeview">
+                <%--     <ul class="nav nav-treeview">
                         <li class="nav-item"><a href="pendingApprovalNetwork" class="nav-link
                                                 <%if (request.getParameter("pagename").equalsIgnoreCase("Pending For Approval")) {
                                     out.print("active");
@@ -63,7 +63,7 @@
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>Pending for Approval</p>
                             </a></li>
-                    </ul>
+                    </ul> --%>
                     <ul class="nav nav-treeview">
                         <li class="nav-item"><a href="QueryTripsForNetwork" class="nav-link
                                                 <%if (request.getParameter("pagename").equalsIgnoreCase("Query Raised")) {
@@ -125,7 +125,7 @@
             </li> --%>
 
                 <li class="nav-item"><a href="pendingApprovalNetwork" class="nav-link
-                                        <% if (request.getParameter("pagename").equalsIgnoreCase("pendingApproval")) {
+                                        <% if (request.getParameter("pagename").equalsIgnoreCase("Pending For Approval")) {
                                                 out.print("active");
                                             }%>
                                         ">
@@ -143,7 +143,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item"><a href="invoicesQueue" class="nav-link
-                                                <%if (request.getParameter("pagename").equalsIgnoreCase("invoicesQueue")) {
+                                                <%if (request.getParameter("pagename").equalsIgnoreCase("invoiceQueueNetwork")) {
                                     out.print("active");
                                 }%>
 
@@ -154,7 +154,7 @@
                     </ul>
                     <ul class="nav nav-treeview">
                     <li class="nav-item"><a href="queryInvoice" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("queryInvoiceVendor")) {
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("queryInvoiceNetwork")) {
 				out.print("active");
 			}%>">
                             <i class="nav-icon fas fa-question"></i>

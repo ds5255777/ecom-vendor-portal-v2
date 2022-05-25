@@ -37,9 +37,7 @@
 <!-- summernote -->
 <!-- <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css"> -->
 
-<link
-     href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-     rel="stylesheet">
+
 
 <!-- <link rel="stylesheet" type="text/css" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
         <link rel="stylesheet" type="text/css" href="plugins/datatables-buttons/css/buttons.bootstrap4.css">
@@ -327,24 +325,24 @@ tbody {
                                                      <thead>
                                                            <tr>
                                                            		<!-- <th >Sr.No</th> -->
-                                                                <th>Type</th>
-                                                                <th>Zone</th>
-                                                                <th>City</th>
-                                                                <th>Vendor Name </th>
-                                                                <th>Vehicle Type</th>
-                                                                <th>Route</th>
-                                                                <th>Trip Details</th>
-                                                                <th>Rate</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Type</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Zone</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">City</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Name </th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vehicle Type</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Details</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Rate</th>
                                                                 
-                                                                <th>Trip Cost</th>
-                                                                <th>Base Rate</th>
-                                                               <th> current Fuel Rate</th>
-                                                                <th>Std Mileage Per Km</th>
-                                                                <th>Max Kms</th>
-                                                                <th>Credit Period in Days</th>
-                                                                <th>Agreement made date</th>
-                                                                <th>agreement ExpiryDate</th>
-                                                                <th>Action</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Cost</th>
+                                                               <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Base Rate</th>
+                                                               <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;"> current Fuel Rate</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Std Mileage Per Km</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Max Kms</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Credit Period in Days</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Agreement made date</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">agreement ExpiryDate</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Action</th>
                                                                 
                                                            </tr>
                                                      </thead>
@@ -975,19 +973,68 @@ tbody {
                    success: function(data) {
 
                        if (data.msg == 'success') {
-                    	   
-                    	   //alert("data.msg"+data.msg);
 
-                         
                            var result = data.data;
                            tabledata.clear();
 
                            for (var i = 0; i < result.length; i++) {
+                        	  	if(!result[i].hasOwnProperty("type")){
+       								result[i].type="";
+       							}
+                                  if(!result[i].hasOwnProperty("zone")){
+            							result[i].zone="";
+            						}
+  								if(!result[i].hasOwnProperty("city")){
+       								result[i].city="";
+       							}
+                                   if(!result[i].hasOwnProperty("vendorName")){
+       								result[i].vendorName="";
+       							}
+                                   if(!result[i].hasOwnProperty("route")){
+        								result[i].route="";
+        							}
+                                   if(!result[i].hasOwnProperty("tripDetails")){
+       								result[i].tripDetails="";
+       							}
+                                   if(!result[i].hasOwnProperty("rate")){
+        								result[i].rate="";
+        							}
+                                   if(!result[i].hasOwnProperty("tripCost")){
+          								result[i].tripCost="";
+          							}
+                                      if(!result[i].hasOwnProperty("baseRate")){
+           								result[i].baseRate="";
+           							}
+                                      if(!result[i].hasOwnProperty("currentFuelRate")){
+          								result[i].currentFuelRate="";
+          							}
+                                     if(!result[i].hasOwnProperty("stdMileagePerKm")){
+            								result[i].stdMileagePerKm="";
+            							}
+                                        if(!result[i].hasOwnProperty("maxKms")){
+             								result[i].maxKms="";
+             							}
+                                        if(!result[i].hasOwnProperty("creditPeriodInDays")){
+            								result[i].creditPeriodInDays="";
+            							}
+                                        if(!result[i].hasOwnProperty("agreementExpiryDate")){
+             								result[i].agreementExpiryDate="";
+             							}
+                                        if(!result[i].hasOwnProperty("creditPeriodInDays")){
+            								result[i].creditPeriodInDays="";
+            							}
+                                        if(!result[i].hasOwnProperty("agreementMadeDate")){
+             								result[i].agreementMadeDate="";
+             							} if(!result[i].hasOwnProperty("id")){
+             								result[i].id="";
+             							} if(!result[i].hasOwnProperty("vehicleType")){
+             								result[i].vehicleType="";
+             							}
+
 
                                var inactive = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"inactiveActiveDeleteData(" + result[i].id + ")\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-                               var edit = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"   data-original-title=\"Click To Edit\" style=\"width: 43px;\"  onclick=\"editData(" + result[i].id + ")\"><i class=\"nav-icon fas fa-pencil-square-o\"> </i> </button>";
+                               var edit = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"   data-original-title=\"Click To Edit\" style=\"width: 43px;\"  onclick=\"editData(" + result[i].id + ")\"><i class=\"nav-icon fas fa-edit\"> </i> </button>";
                                
-                               //tabledata.row.add([result[i].type, result[i], result[i].rolesObj.roleName, result[i].emailId, result[i].contactNo ,edit + " " + inactive]);
                                
                               
                                tabledata.row.add([result[i].type, result[i].zone, result[i].city, result[i].vendorName, result[i].vehicleType,result[i].route,result[i].tripDetails,result[i].rate,result[i].tripCost,result[i].baseRate,result[i].currentFuelRate,result[i].stdMileagePerKm,result[i].maxKms,result[i].creditPeriodInDays, result[i].agreementMadeDate,result[i].agreementExpiryDate ,edit + " " + inactive]);

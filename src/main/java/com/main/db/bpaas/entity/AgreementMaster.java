@@ -11,51 +11,53 @@ import javax.persistence.Table;
 @Table(name = "Agreement_Master")
 public class AgreementMaster {
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "city_name")
+    private String cityName;
     @Column(name = "current_Fuel_Rate")
     private double currentFuelRate;
-    
-    @Column(name = "Type")
+    @Column(name = "type")
     private String type;
-    
-    @Column(name = "Sr_No")
-    private String srNo;
-    
-    @Column(name = "Zone")
+
+    @Column(name = "zone")
     private String zone;
-    
-    @Column(name = "City")
+    @Column(name = "city")
     private String city;
-    
-    @Column(name = "Vendor_Name")
+    @Column(name = "vendor_name")
     private String vendorName;
-    @Column(name = "Vehicle_Type")
+    @Column(name = "vehicle_type")
     private String vehicleType;
-    @Column(name = "Route")
+    @Column(name = "route")
     private String route;
-    @Column(name = "Trip_Details")
+    @Column(name = "trip_details")
     private String tripDetails;
-    @Column(name = "Rate")
+    @Column(name = "rate")
     private double rate;
-    @Column(name = "Trip_Cost")
+    @Column(name = "trip_cost")
     private double tripCost;
-    @Column(name = "Base_Rate")
+    @Column(name = "base_rate")
     private double baseRate;
-    @Column(name = "Std_Mileage_Per_Km")
+    @Column(name = "std_mileage_per_km")
     private double stdMileagePerKm;
-    @Column(name = "Max_Kms")
+    @Column(name = "max_kms")
     private double maxKms;
-    @Column(name = "Credit_Period_In_Days")
+    @Column(name = "Credit_period_in_days")
     private String creditPeriodInDays;
-    @Column(name = "Agreement_Made_Date")
+    @Column(name = "agreement_made_date")
     private String agreementMadeDate;
-    @Column(name = "Agreement_Expiry_Date")
+    @Column(name = "agreement_expiry_date")
     private String agreementExpiryDate;
-    @Column(name = "Vendor_Code")
+    @Column(name = "vendor_code")
     private String vendorCode;
+    @Column(name = "state")
+    private String state;
+    @Column(name = "fixed_km")
+    private String fixedKm;
+    @Column(name = "fs_diff")
+    private Double fsDiff;
 
     public Long getId() {
         return id;
@@ -65,148 +67,171 @@ public class AgreementMaster {
         this.id = id;
     }
 
-	public String getType() {
-		return type;
-	}
+    public String getCityName() {
+        return cityName;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
 
-	public String getSrNo() {
-		return srNo;
-	}
+    public double getCurrentFuelRate() {
+        return currentFuelRate;
+    }
 
-	public void setSrNo(String srNo) {
-		this.srNo = srNo;
-	}
+    public void setCurrentFuelRate(double currentFuelRate) {
+        this.currentFuelRate = currentFuelRate;
+    }
 
-	public String getZone() {
-		return zone;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setZone(String zone) {
-		this.zone = zone;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public String getZone() {
+        return zone;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public void setZone(String zone) {
+        this.zone = zone;
+    }
 
-	public String getVendorName() {
-		return vendorName;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setVendorName(String vendorName) {
-		this.vendorName = vendorName;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public String getVehicleType() {
-		return vehicleType;
-	}
+    public String getVendorName() {
+        return vendorName;
+    }
 
-	public void setVehicleType(String vehicleType) {
-		this.vehicleType = vehicleType;
-	}
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
+    }
 
-	public String getRoute() {
-		return route;
-	}
+    public String getVehicleType() {
+        return vehicleType;
+    }
 
-	public void setRoute(String route) {
-		this.route = route;
-	}
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
+    }
 
-	public String getTripDetails() {
-		return tripDetails;
-	}
+    public String getRoute() {
+        return route;
+    }
 
-	public void setTripDetails(String tripDetails) {
-		this.tripDetails = tripDetails;
-	}
+    public void setRoute(String route) {
+        this.route = route;
+    }
 
-	public double getRate() {
-		return rate;
-	}
+    public String getTripDetails() {
+        return tripDetails;
+    }
 
-	public void setRate(double rate) {
-		this.rate = rate;
-	}
+    public void setTripDetails(String tripDetails) {
+        this.tripDetails = tripDetails;
+    }
 
-	public double getTripCost() {
-		return tripCost;
-	}
+    public double getRate() {
+        return rate;
+    }
 
-	public void setTripCost(double tripCost) {
-		this.tripCost = tripCost;
-	}
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
 
-	public double getBaseRate() {
-		return baseRate;
-	}
+    public double getTripCost() {
+        return tripCost;
+    }
 
-	public void setBaseRate(double baseRate) {
-		this.baseRate = baseRate;
-	}
+    public void setTripCost(double tripCost) {
+        this.tripCost = tripCost;
+    }
 
-	public double getStdMileagePerKm() {
-		return stdMileagePerKm;
-	}
+    public double getBaseRate() {
+        return baseRate;
+    }
 
-	public void setStdMileagePerKm(double stdMileagePerKm) {
-		this.stdMileagePerKm = stdMileagePerKm;
-	}
+    public void setBaseRate(double baseRate) {
+        this.baseRate = baseRate;
+    }
 
-	public double getMaxKms() {
-		return maxKms;
-	}
+    public double getStdMileagePerKm() {
+        return stdMileagePerKm;
+    }
 
-	public void setMaxKms(double maxKms) {
-		this.maxKms = maxKms;
-	}
+    public void setStdMileagePerKm(double stdMileagePerKm) {
+        this.stdMileagePerKm = stdMileagePerKm;
+    }
 
-	public String getCreditPeriodInDays() {
-		return creditPeriodInDays;
-	}
+    public double getMaxKms() {
+        return maxKms;
+    }
 
-	public void setCreditPeriodInDays(String creditPeriodInDays) {
-		this.creditPeriodInDays = creditPeriodInDays;
-	}
+    public void setMaxKms(double maxKms) {
+        this.maxKms = maxKms;
+    }
 
-	public String getAgreementMadeDate() {
-		return agreementMadeDate;
-	}
+    public String getCreditPeriodInDays() {
+        return creditPeriodInDays;
+    }
 
-	public void setAgreementMadeDate(String agreementMadeDate) {
-		this.agreementMadeDate = agreementMadeDate;
-	}
+    public void setCreditPeriodInDays(String creditPeriodInDays) {
+        this.creditPeriodInDays = creditPeriodInDays;
+    }
 
-	public String getAgreementExpiryDate() {
-		return agreementExpiryDate;
-	}
+    public String getAgreementMadeDate() {
+        return agreementMadeDate;
+    }
 
-	public void setAgreementExpiryDate(String agreementExpiryDate) {
-		this.agreementExpiryDate = agreementExpiryDate;
-	}
+    public void setAgreementMadeDate(String agreementMadeDate) {
+        this.agreementMadeDate = agreementMadeDate;
+    }
 
-	public String getVendorCode() {
-		return vendorCode;
-	}
+    public String getAgreementExpiryDate() {
+        return agreementExpiryDate;
+    }
 
-	public void setVendorCode(String vendorCode) {
-		this.vendorCode = vendorCode;
-	}
+    public void setAgreementExpiryDate(String agreementExpiryDate) {
+        this.agreementExpiryDate = agreementExpiryDate;
+    }
 
-	public double getCurrentFuelRate() {
-		return currentFuelRate;
-	}
+    public String getVendorCode() {
+        return vendorCode;
+    }
 
-	public void setCurrentFuelRate(double currentFuelRate) {
-		this.currentFuelRate = currentFuelRate;
-	}
+    public void setVendorCode(String vendorCode) {
+        this.vendorCode = vendorCode;
+    }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getFixedKm() {
+        return fixedKm;
+    }
+
+    public void setFixedKm(String fixedKm) {
+        this.fixedKm = fixedKm;
+    }
+
+    public Double getFsDiff() {
+        return fsDiff;
+    }
+
+    public void setFsDiff(Double fsDiff) {
+        this.fsDiff = fsDiff;
+    }
 }

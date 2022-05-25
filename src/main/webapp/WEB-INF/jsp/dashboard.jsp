@@ -61,25 +61,31 @@
         String[] strArray =   null;
         		
       strArray = vendorType.split(",");  
-       
-      for (int i = 0; i< strArray.length; i++){  
-      
-      }  
+     
+   			 if(vendorType.equalsIgnoreCase("vendor")){
+    	 	%>
+	    	 
+	    	 <jsp:include page="navbar.jsp?pagename=Dashboard" />
+	    	 
+	    	 <% 
+ 		  	 	
+	    	 }
+ 	
         
       
      	   for (int i = 0; i < strArray.length; i++) {
      		   
-     		  if(strArray.length == 1 && strArray[i].equalsIgnoreCase("Network")  || strArray[i].equalsIgnoreCase("Fixed Asset") || strArray[i].equalsIgnoreCase("Other")){
+     		  if(!vendorType.equalsIgnoreCase("vendor") && strArray.length == 1 && strArray[i].equalsIgnoreCase("Network")  || strArray[i].equalsIgnoreCase("Fixed Asset") || strArray[i].equalsIgnoreCase("Other")){
       	    	 System.out.println("vendor type : "+strArray[i]); 
       	    	 %>
       	    	 
-      	    	 <jsp:include page="navbar.jsp?pagename=Vendor Dashboard" />>
+      	    	 <jsp:include page="navbar.jsp?pagename=Dashboard" />
       	    	 
       	    	 <% 
          		  	 	break;
       	    	 }
          	
-     	   		else if(strArray[i].equalsIgnoreCase("Network")  && strArray[i+1].equalsIgnoreCase("Fixed Asset")){
+     	   		else if(!vendorType.equalsIgnoreCase("vendor") && strArray[i].equalsIgnoreCase("Network")  && strArray[i+1].equalsIgnoreCase("Fixed Asset")){
          	    	 System.out.println("vendor type : "+strArray[i]+"and "+strArray[i+1]); 
          	    	 %>
          	    	 
@@ -91,7 +97,6 @@
      	   }
       %>
      
-
 
 
         <!-- Right navbar links -->
@@ -369,48 +374,7 @@
 
 	<!-- Modal -->
 
-	<form role="form" id="changePassword1" autocomplete="off">
-		<div class="modal fade" id="changePassword" tabindex="-1"
-			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Change
-							Password</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label for="exampleInputEmail1">New Password</label> <input
-								type="hidden" id="passflag"> <input type="password"
-								class="form-control p-input" id="password" name="password"
-								placeholder="New Password"
-								pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-								title="Must contain at least one number and one uppercase and lowercase letter"
-								required>
-						</div>
-						<div class="form-group">
-							<label for="exampleInputEmail1">Confirm Password </label> <input
-								type="password" class="form-control p-input"
-								id="passwordConfirm" name="passwordConfirm"
-								placeholder="Confirm Password">
-						</div>
-						<div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" id="changePasswordButton"
-							class="btn btn-primary"
-							onclick="changePassword(document.getElementById('passwordConfirm').value)"
-							disabled>Change Password</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</form>
-
+	
 	<!-- jQuery -->
 
 	<!-- jQuery -->

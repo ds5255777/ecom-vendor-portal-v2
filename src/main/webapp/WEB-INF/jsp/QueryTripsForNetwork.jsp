@@ -272,7 +272,7 @@ tbody {
 												
 												<c:forEach items="${vendorNamefortripsQuery}" var="vendorName">
 
-															<option value="${vendorName}">${vendorName}</option>
+															<option  value="${vendorName}">${vendorName}</option>
 														</c:forEach>
 												
 												</select>
@@ -820,8 +820,7 @@ tbody {
                                                     } );
                                                     
                                                     $('#tabledata1_filter').css("display","none");
-                                                    console.log(document.getElementById("mode").value);
-                                                    //alert(document.getElementById("mode").value);
+                                                    
                                                     if (document.getElementById("mode").value === "Line Haul") {
                                                         document.getElementById("openingReading").d = 'true';
                                                         document.getElementById("closingReading").d = 'true';
@@ -894,6 +893,7 @@ tbody {
                                                                 if (data.msg == 'success') {
                                                                     var resData = data.data;
                                                                     var table = document.getElementById("tabledata");
+                                                                    tabledata.clear();
                                                                     for (i = 0; i < resData.length; i++) {
                                                                         console.log(resData[i].id);
                                                                         console.log(resData[i].comment);
@@ -912,6 +912,7 @@ tbody {
 
 
                                                                     }
+                                                                    
                                                                 }
                                                             }
 

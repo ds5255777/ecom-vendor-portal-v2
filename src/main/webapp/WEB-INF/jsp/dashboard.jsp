@@ -56,7 +56,8 @@
       
         <%
         String vendorType=(String)request.getAttribute("vendorType");
-        System.out.println("vendorType0 : "+vendorType);
+        
+        
         String[] strArray =   null;
         		
       strArray = vendorType.split(",");  

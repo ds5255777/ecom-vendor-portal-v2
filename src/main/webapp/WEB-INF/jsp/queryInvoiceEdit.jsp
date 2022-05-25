@@ -647,6 +647,7 @@
              $("#taxableAmount").val(parseFloat(taxableAmount).toFixed(2));
              prTable.draw();
              $("tbody").show();
+             calculateInvoice();
 		 }
 		 
         function handleFileSelect(evt, id) {
@@ -796,7 +797,6 @@
         }
         
         function sendToServer(){
-        	console.log("ok");
         	
         	var remarks = document.getElementById("remarks").value;
             if (remarks === "" || remarks === null || remarks === '') {
@@ -840,10 +840,11 @@
             		"ecomInvoiceNumber":$('#ecomInvoiceNumber').val(),
             		"taxableAmount":$('#taxableAmount').val(),
             		"invoiceAmount":$('#invoiceAmount').val(),
+            		"invoiceNumber":$('#invoiceNumber').val(),
             		"assignTo":"<%=GlobalConstants.ROLE_FINANCE%>",
+            		"invoiceStatus":"<%=GlobalConstants.INVOICE_STATUS_IN_REVIEW%>",
             		"vendorCode":$('#vendorCode').val()
             };
-            
             
             if (document.getElementById("DocumentFileOne").files.length > 0) {
                 finalObj.documentFileOneName = document.getElementById("DocumentFileOne").files.item(0).name;
@@ -856,11 +857,13 @@
             
             tripLineArray.forEach((item) => {
                 item.id = null;
+                
             });
 			
             finalObj.invoiceLineItems = tripLineArray;
             
             console.log(finalObj);
+           // return;
             
             $.ajax({
                 type: "POST",
@@ -893,6 +896,14 @@
         function updateTextData(index, textValue) {
             tripLineArray[index].lineLevelDescription = textValue.trim();
         }
+        
+        function calculateInvoice() {
+            var taxAmount = $("#taxAmount").val();
+            var taxableAmount = $("#taxableAmount").val();
+            var taxAmount= parseFloat(taxableAmount) *  (parseFloat(taxAmount) /100);
+            var finalInvoiceAmount = parseFloat(taxableAmount) +  parseFloat(taxAmount) ;
+            $("#invoiceAmount").val(parseFloat(finalInvoiceAmount).toFixed(2));
+        } 
         
     </script>
 </body>

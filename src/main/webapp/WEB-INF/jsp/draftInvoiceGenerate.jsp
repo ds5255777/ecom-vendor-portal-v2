@@ -519,7 +519,7 @@
                     if (data.msg == 'success') {
                         Toast.fire({
                             type: 'success',
-                            title: 'Add Successfully.'
+                            title: 'Added Successfully.'
                         })
                         getTripDetails();
                         getSelectTripList();

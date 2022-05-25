@@ -1275,7 +1275,7 @@
         
         
         if(count==0){
-        	swal.fire("Alert", "Expired PO Please Delete", "warning");
+        	swal.fire("Alert", "Expired PO.", "warning");
         	
         	 return "";
         	 

@@ -179,7 +179,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Charge Account<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="chargeAccount" id="chargeAccount" placeholder="Charge Account" readonly style="width: 100%;" >
+                                                <input type="text" class="form-control-sm" name="chargeAccount" id="chargeAccount" placeholder="Charge Account" readonly style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -307,7 +307,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Accrue at Receipt flag<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="accrueatReceiptflag" id="accrueatReceiptflag" readonly placeholder="Accrue at Receipt flag" style="width: 100%;" >
+                                                <input type="text" class="form-control-sm" name="accrueatReceiptflag" id="accrueatReceiptflag" readonly placeholder="Accrue at Receipt flag" style="width: 100%;" >
                                             </div>
                                         </div>
                                     </div>
@@ -497,6 +497,8 @@
             "scrollX": true,
             "pageLength": 15,
         });
+        
+        $("input[type=text]").prop('disabled', true);
 
         function closeWin() {
             window.close()

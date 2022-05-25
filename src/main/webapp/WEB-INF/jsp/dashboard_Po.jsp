@@ -357,11 +357,7 @@ tbody {
 	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- ChartJS -->
 	<script src="plugins/chart.js/Chart.min.js"></script>
-	<!-- Sparkline -->
-	<script src="plugins/sparklines/sparkline.js"></script>
-	<!-- JQVMap -->
-	<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-	<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+	
 	<!-- jQuery Knob Chart -->
 	<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
 	<!-- daterangepicker -->
@@ -377,8 +373,6 @@ tbody {
 		src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="dist/js/adminlte.js"></script>
-	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-	<script src="dist/js/pages/dashboard.js"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="dist/js/demo.js"></script>
 	<script src="plugins/datatables/jquery.dataTables.js"></script>
@@ -396,6 +390,9 @@ tbody {
                     $('#changePassword').modal('show');
                 }
             });
+            
+            var dataLimit='${dataLimit}';
+    		dataLimit=parseInt(dataLimit);
             
             
             $('#changePassword1').validate({
@@ -484,12 +481,13 @@ tbody {
 	<!-- table Data -->
 	<script>
         var tabledata = $('#tabledata').DataTable({
-            "paging": false,
+            "paging": true,
             "lengthChange": false,
             "searching": false,
             "info": true,
             "autoWidth": false,
-            "aaSorting": []
+            "aaSorting": [],
+            "pageLength": dataLimit
         });
 
         var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
@@ -542,7 +540,6 @@ tbody {
 
                          var result = data.data;
                          tabledata.clear();
-                         console.log("result" + result);
                          
                          var poLineDetails = result[0].poLineDetails;
                     

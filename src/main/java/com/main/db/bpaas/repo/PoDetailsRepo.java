@@ -1,6 +1,7 @@
 package com.main.db.bpaas.repo;
 
 import java.util.List;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -40,7 +41,7 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long> {
 			@Param("endDate") String endDate);
 
 	@Query(value = "select  * from Po_Details WHERE  vendor_code=:vendorCode AND need_by_date BETWEEN (:startDate) AND (:endDate) ; ", nativeQuery = true)
-	List<PoDetails> findByActualDepartureBetween(@Param("startDate") String startDate, @Param("endDate") String endDate,
+	List<PoDetails> findByActualDepartureBetween(@Param("startDate") Date startDate, @Param("endDate") Date endDate,
 			@Param("vendorCode") String vendorCode);
 
 	@Query(value = "select count(*) from po_details where  vendor_code=?", nativeQuery = true)

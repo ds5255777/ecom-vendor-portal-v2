@@ -241,6 +241,9 @@
                 showConfirmButton: false,
                 timer: 3000
             });
+            
+            var dataLimit='${dataLimit}';
+    		dataLimit=parseInt(dataLimit);
 
             var tabledata = $('#tabledata').DataTable({
                 "paging": true,
@@ -250,7 +253,7 @@
                 "autoWidth": false,
                 "aaSorting": [],
                 "scrollX": true,
-                "pageLength": 10,
+                "pageLength": dataLimit,
                 dom: 'Bfrtip',
                 //buttons: ['excel','pdf','print'],
                 buttons: [
@@ -377,21 +380,11 @@
                                 } if (!result[i].hasOwnProperty("status")) {
                                     result[i].status = "";
                                 }
-                                var  DraftInvoicing_status='<span class=\"right badge badge-danger\">Draft-Invoicing</span>';
-                                var inReview_status = '<span class=\"right badge badge-primary\">In-Review</span>';
-                                var statustemp_query = '<span class=\"right badge badge-warning\"  style=\"background-color: violet;\">Query</span>';
-
-                          		 	 if(result[i].status == "Draft-Invoicing"){
-                                	  postatus = DraftInvoicing_status;
-                                  }  else if(result[i].status == "In-Review"){
-                                	  postatus = inReview_status;
-                                  } else if(result[i].status == "Query"){
-                                	  postatus = statustemp_query;
-                                  } 
+                               
                           	
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "')\" >" + result[i].invoiceNumber + "</button>";
 
-                                tabledata.row.add([view,result[i].poNumber, result[i].operatingUnit, result[i].invoiceType, result[i].supplierSite, result[i].invoiceDate,result[i].invoiceAmount,postatus]);
+                                tabledata.row.add([view,result[i].poNumber, result[i].operatingUnit, result[i].invoiceType, result[i].supplierSite, result[i].invoiceDate,result[i].invoiceAmount,result[i].status]);
                             }
                             tabledata.draw();
                             $("tbody").show();

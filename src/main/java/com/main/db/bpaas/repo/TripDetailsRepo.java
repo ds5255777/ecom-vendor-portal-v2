@@ -45,7 +45,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "select * from Trip_Details where run_status='In-Transit' and vendor_code=?", nativeQuery = true)
     List<TripDetails> getAllInTransitTrip(String vendorCode);
 
-    @Query(value = "select * from trip_details where vendor_trip_status='Yet To Be Approved' and assign_to = 'Vendor' and vendor_code=?", nativeQuery = true)
+    @Query(value = "select * from trip_details where vendor_trip_status='Yet To Be Approved' and run_status='Closed' and assign_to = 'Vendor' and vendor_code=?", nativeQuery = true)
     List<TripDetails> getAllPendingTrip(String vendorCode);
 
     @Query(value = "select * from trip_details where vendor_code=?  ORDER by id desc limit ?", nativeQuery = true)
@@ -61,8 +61,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     
     @Transactional
     @Modifying
-    @Query(value = "update trip_details set vendor_trip_status=:vendorTripStatus, opening_reading=:openingReading, closing_reading=:closingReading where trip_id=:tripID ; ", nativeQuery = true)
-    void updateVendorTripStatusByTripId(@Param("tripID") String tripID, @Param("vendorTripStatus") String vendorTripStatus, @Param("openingReading") String openingReading, @Param("closingReading") String closingReading);
+    @Query(value = "update trip_details set vendor_trip_status=:vendorTripStatus, opening_reading=:openingReading, closing_reading=:closingReading,processed_By=:processedBy, processed_On=:processedOn where trip_id=:tripID ; ", nativeQuery = true)
+    void updateVendorTripStatusByTripId(@Param("tripID") String tripID, @Param("vendorTripStatus") String vendorTripStatus, @Param("openingReading") String openingReading, @Param("closingReading") String closingReading, @Param("processedBy") String processedBy, @Param("processedOn") String processedOn);
 
     @Transactional
     @Modifying

@@ -4,7 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +32,8 @@ import com.main.serviceManager.ServiceManager;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
 
+
+
 @RequestMapping("/tripControllers")
 @RestController
 public class TripControllers {
@@ -36,21 +41,29 @@ public class TripControllers {
 	@Autowired
 	private ServiceManager serviceManager;
 	
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(TripControllers.class);
+	
 	@RequestMapping({ "filterTripDetails" })
 	@CrossOrigin("*")
 	public String filterTripDetails(Principal principal, HttpServletRequest request,
 			@RequestParam(name = "actualDeparture") String fromDate,
 			@RequestParam(name = "actualArrival") String toDate, @RequestParam(name = "vendorCode") String vendorCode) {
+		
+		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		System.out.println(fromDate);
-		System.out.println(toDate);
-		System.out.println(vendorCode);
+		logger.info("fromDate : "+fromDate);
+		logger.info("toDate : "+toDate);
+		logger.info("vendorCode : "+vendorCode);
+		
+		
+		
 		try {
 
 			String rolename = (String) request.getSession().getAttribute("role");
-			System.out.println(rolename);
+			System.out.println("YYYYYYY"+rolename);
 			if (rolename.equalsIgnoreCase("Network")) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
 						.findByActualDepartureBetween(fromDate, toDate);
@@ -67,7 +80,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -89,7 +102,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -106,7 +119,7 @@ public class TripControllers {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -125,7 +138,7 @@ public class TripControllers {
 				data.setMsg("success");
 			} catch (Exception e) {
 				data.setMsg("error");
-				e.printStackTrace();
+				logger.error("error : "+e);
 			}
 		} else if (rolename.equalsIgnoreCase("Vendor")) {
 			String vendorCode = principal.getName();
@@ -136,7 +149,7 @@ public class TripControllers {
 				data.setMsg("success");
 			} catch (Exception e) {
 				data.setMsg("error");
-				e.printStackTrace();
+				logger.error("error : "+e);
 			}
 		} else if (rolename.equalsIgnoreCase("Admin")) {
 			try {
@@ -145,7 +158,7 @@ public class TripControllers {
 				data.setMsg("success");
 			} catch (Exception e) {
 				data.setMsg("error");
-				e.printStackTrace();
+				logger.error("error : "+e);
 			}
 		}
 		return gson.toJson(data).toString();
@@ -164,7 +177,7 @@ public class TripControllers {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -181,7 +194,7 @@ public class TripControllers {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -203,7 +216,7 @@ public class TripControllers {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -223,7 +236,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -253,7 +266,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -273,7 +286,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -297,7 +310,7 @@ public class TripControllers {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -318,7 +331,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -356,7 +369,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -382,7 +395,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -407,7 +420,7 @@ public class TripControllers {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -428,7 +441,7 @@ public class TripControllers {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -453,7 +466,7 @@ public class TripControllers {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 

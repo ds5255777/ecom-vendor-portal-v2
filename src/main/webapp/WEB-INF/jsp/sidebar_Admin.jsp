@@ -96,7 +96,7 @@
 				out.print("active");
 			}%>                            
                             ">
-                   <i class="nav-icon fa fa-user-plus"></i>
+                   <i class="nav-icon fa fa-user-circle"></i>
                     <p>Vendor Details</p>
                 </a>
                 <hr>

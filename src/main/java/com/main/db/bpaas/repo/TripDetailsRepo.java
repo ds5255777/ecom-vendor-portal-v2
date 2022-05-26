@@ -236,10 +236,4 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	
 	@Query(value = "select DISTINCT supp_name from supdetails order by supp_name asc ",nativeQuery = true)
 	List<String> getVendorName();
-	
-	
-	  @Query(value ="select  bp_code from supdetails where supp_name=:vendorName  ",nativeQuery = true)
-	  String getVendorCode(String vendorName);
-	 
-
 }

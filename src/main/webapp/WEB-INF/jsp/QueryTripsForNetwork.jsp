@@ -5,7 +5,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 <meta charset="utf-8">
@@ -268,7 +268,7 @@ tbody {
 														class="required adHocRequired"></span></label>
 
 												<div class="col-sm-7">
-												<select class="form-control" onchange="getBpCode()" id="vendorName1" name="vendorName1" style="height: 34px;">
+												<select class="form-control" onchange="getBpCode()" id="vendorName" name="vendorName" style="height: 34px;">
 												
 												<c:forEach items="${vendorNamefortripsQuery}" var="vendorName">
 
@@ -283,8 +283,8 @@ tbody {
 														<div class="form-group row">
 															<label class="col-sm-5">Vendor Code</label>
 															<div class="col-sm-7">
-																<input type="text" class="form-control" id="vendorCode1"
-																	name="vendorCode1" readonly="readonly" autocomplete="off">
+																<input type="text" class="form-control" id="vendorCode"
+																	name="vendorCode" readonly="readonly" autocomplete="off">
 															</div>
 														</div>
 													</div>
@@ -558,20 +558,20 @@ tbody {
 													</div>
 													<div class="col-md-3">
 														<div class="form-group row">
-															<label class="col-sm-5"
+															<label class="col-sm-5" style="display: none;"
 																title="Trip Opening Reading">Start Reading</label>
 															<div class="col-sm-7">
-																<input type="text" class="form-control"
+																<input type="hidden" class="form-control"
 																	id="openingReading" name="openingReading" >
 															</div>
 														</div>
 													</div>
-													<div class="col-md-3">
+													<div class="col-md-3" style="display: none;">
 														<div class="form-group row">
 															<label class="col-sm-5"
 																title="Trip Closing Reading">End Reading</label>
 															<div class="col-sm-7">
-																<input type="text" class="form-control"
+																<input type="hidden" class="form-control"
 																	id="closingReading" name="closingReading" >
 															</div>
 														</div>
@@ -719,6 +719,15 @@ tbody {
 		  $('#vendorName1').select2({
   			theme : 'bootstrap4'
   		});
+		  
+		  var tabledataQuery = $('#tabledataQuery').DataTable({
+              "paging": false,
+              "lengthChange": false,
+              "searching": false,
+              "info": false,
+              "autoWidth": false,
+              "aaSorting": []
+          });
 
 
                                                     $('#tripValue').modal("hide");
@@ -893,6 +902,7 @@ tbody {
                                                                 if (data.msg == 'success') {
                                                                     var resData = data.data;
                                                                     var table = document.getElementById("tabledata");
+                                                                    console.log("Query Table :   ",data);
                                                                     tabledata.clear();
                                                                     for (i = 0; i < resData.length; i++) {
                                                                         console.log(resData[i].id);
@@ -1333,12 +1343,13 @@ tbody {
 			}
                                                     
                                                     function getBpCode(){
-                                                 	   var vendorName=$("#vendorName1").val();
-                                                 	   
+                                                 	   var vendorName=$("#vendorName").val();
+                                                 	   console.log(vendorName,"1337");
                                                  	   
                                                  	   var json = {
                                                                 "vendorName": vendorName
                                                             }
+                                                 	  console.log(json,"1342");
 
                                                             
 

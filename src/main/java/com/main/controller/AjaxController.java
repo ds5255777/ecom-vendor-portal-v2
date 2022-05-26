@@ -28,6 +28,7 @@ import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.AccountDetails;
 import com.main.db.bpaas.entity.AddressDetails;
+import com.main.db.bpaas.entity.EmailConfiguration;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.email.CommEmailFunction;
 import com.main.email.WelcomeEmail;
@@ -586,8 +587,17 @@ public class AjaxController {
 				@Override
 				public void run() {
 					try {
-						CommEmailFunction.sendEmail(supDetails.getCompEmail(), "Vendor Portal Req Acknowldgement",
-								new WelcomeEmail().prepareMailBody("Vendor"), smtpPort, username, password, host);
+						List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
+						
+						if(!emailList.isEmpty()) {
+							EmailConfiguration EmailConfiguration=emailList.get(0);
+							
+							CommEmailFunction.sendEmail(supDetails.getCompEmail(), "Vendor Portal Req Acknowldgement",
+									new WelcomeEmail().prepareMailBody("Vendor"), EmailConfiguration.getSmtpPort(), EmailConfiguration.getUserName(), EmailConfiguration.getPassword(), EmailConfiguration.getServerName());
+						}
+						 
+						
+						
 
 					} catch (Exception e) {
 						e.printStackTrace();

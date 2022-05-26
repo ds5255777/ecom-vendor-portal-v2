@@ -298,7 +298,7 @@ window.onload = function(){
 													id="states" onchange="select()" multiple="multiple" >
 														<c:forEach items="${business}" var="bus">
 
-															<option value="${bus}">${bus}</option>
+															<option value="${bus}">&emsp;&emsp;${bus}</option>
 														</c:forEach>
 												</select></td>
 												
@@ -1396,9 +1396,9 @@ window.onload = function(){
 
                              
                              
-                             var save = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To save\" onclick=\"activeVendor('"  + result[i].bpCode + "' ,'"  + i+ "','"  + result[i].suppName+ "' )\"> <i class=\"nav-icon fas fa-edit\"> </i>  </button>";
+                             var save = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To save\" onclick=\"activeVendor('"  + result[i].bpCode + "' ,'"  + i+ "','"  + result[i].suppName+ "' )\"> <i class=\"nav-icon fas fa-save\"> </i>  </button>";
                              
-                            tabledata.row.add([view,result[i].introducedByName, result[i].suppName,result[i].compEmail, result[i].introducedByEmailID,result[i].compGstn, result[i].natureOfTransactions,result[i].partnerType, result[i].vendorType,result[i].phoneNumber,Status ,inactive+"   "+save]);
+                            tabledata.row.add([view,result[i].introducedByName, result[i].suppName,result[i].compEmail, result[i].introducedByEmailID,result[i].compGstn, result[i].natureOfTransactions,result[i].partnerType, result[i].vendorType,result[i].phoneNumber,Status ,save]);
 
                         } 
 
@@ -1648,7 +1648,7 @@ window.onload = function(){
                            
                          
                         	   for (let i = 0; i < str.length; i++) {
-                            	  // alert("str"+str[i]);
+                            	 
                             	   
                             	    if(str[i] == 'Network' && str[i+1] == 'Fixed Asset' && str[i+2] == 'Other'){
                             	    		$('#states').val(["Network","Fixed Asset","Other"]).change() 

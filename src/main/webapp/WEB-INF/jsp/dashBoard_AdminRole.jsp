@@ -91,47 +91,22 @@
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
                         <!-- ./col -->
-                        <div class="col-lg-3 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                   <%--  <h2>${totalTripCount}</h2> --%>
-
-                                    <p id="oveTickets" data-toggle="tooltip" data-placement="bottom" title="All Trips"><a style="font-size: larger;">Total No of
-                                        Trips : </a><b>${totalTripCount}</b></p>
-                                         <p id="perTicket" data-toggle="tooltip" data-placement="bottom" title="Complet Trip from vendor Side">Closed Trips : <b>${TotalCloseTripCount}</b></p>
-                                          <p id="opeTickets" data-toggle="tooltip" data-placement="bottom" title="Running Trips">In-Transit
-                                        Trip : <b>${TotalInTransitTripCount}</b></p>
-                                         
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-truck" style="color: #FAA654; font-size: 100px;"></i>
-                                </div>
-                                <a href="allTrips" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                    info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
-
-                      
 							
-							<div class="col-lg-3 col-6">
+							<div class="col-lg-6 col-6">
                             <!-- small box -->
                             <div class="small-box bg-white">
-                                <div class="inner">
-                                    <%-- <h2>${getAllUserCount}</h2> --%>
-
-                                    <p id="invdue" data-toggle="tooltip" data-placement="bottom" title="All user">
-                                      <a style="font-size: larger;"> Total No of Users : </a><b>${getAllUserCount}</b></p>
+                                <div class="inner" style="height: 200px;">
+                                    <p id="invdue" data-toggle="tooltip" data-placement="bottom" >
+                                      <a style="font-size: 30px;"> Total No of Users : </a><b style="font-size: 30px;">${getAllUserCount}</b></p>
                                        
-                                       <p id="allActive" data-toggle="tooltip" data-placement="bottom" title="All Active User">
+                                       <p id="allActive" data-toggle="tooltip" data-placement="bottom"  style="font-size: 20px;">
                                        Active Users : <b>${totalActiveUser}</b></p>
                                        
-                                       <p id="allInactive" data-toggle="tooltip" data-placement="bottom" title="All In-Active Users">
+                                       <p id="allInactive" data-toggle="tooltip" data-placement="bottom"  style="font-size: 20px;">
                                         In-Active Users : <b>${totalInActiveUser}</b></p>
                                 </div>
                                 <div class="icon">
-                                <i class="fa fa-user-circle" style="color: #1F8BFF;font-size: 100px; aria-hidden="true" ></i>
+                                <i class="fa fa-user" style="color: #1F8BFF;font-size: 150px; aria-hidden="true" ></i>
                                    <!--  <i class="fas fa-file-invoice-dollar" style="color: #1F8BFF; font-size: 50px;"></i> -->
                                 </div>
                                 <a href="addUsers" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
@@ -139,59 +114,27 @@
                                 </a>
                             </div>
                         </div>
-							
-							
 
-
- 							<div class="col-lg-3 col-6">
+						<div class="col-lg-6 col-6">
                             <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                    <%-- <h2>${getAllInvoiceCount}</h2> --%>
+                            <div class="small-box bg-white" >
+                                <div class="inner" style="height: 200px;">
+                                  
 
-                                    <p id="noofinvoice" data-toggle="tooltip" data-placement="bottom" title="All Invoices Due, Pending And Rejected Today and Tommorow">
-                                     <a style="font-size: larger;"> Total No of Invoices : </a><b>${getAllInvoiceCount}</b></p>
+                                    <p id="vendors" data-toggle="tooltip" data-placement="bottom" >
+                                       <a style="font-size: 30px;">Total No of Vendors : </a><b style="font-size: 30px;">${getAllVendorCount}</b></p>
                                        
-                                       <p id="proinvoice" data-toggle="tooltip" data-placement="bottom" title="All Process Invoices  ">
-                                       Process Invoices : <b>${countForAllProcessedInvoice}</b></p>
-                                       
-                                       <p id="appinvoice" data-toggle="tooltip" data-placement="bottom" title="All Approved Invoices">
-                                       Approved Invoices : <b>${countForAllApproveInvoice}</b></p>
-                                </div>
-                                <div class="icon">
-                               <!--  <i class="fa fa-file-text" aria-hidden="true"></i> -->
-                               <!--  <i class="fa fa-file-text-o" style="color: #1F8BFF; font-size: 50px;" aria-hidden="true"></i> -->
-                                    <i class="fas fa-file-invoice-dollar" style="color: #FAA654; font-size: 100px;"></i> 
-                                </div>
-                                <a href="invoicesQueue" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
-                                    info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
-
-
-
-
-						<div class="col-lg-3 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-white">
-                                <div class="inner">
-                                    <%-- <h2>${getAllVendorCount}</h2> --%>
-
-                                    <p id="vendors" data-toggle="tooltip" data-placement="bottom" title="All Vendors ">
-                                       <a style="font-size: larger;">Total No of Vendors : </a><b>${getAllVendorCount}</b></p>
-                                       
-                                     <p id="Actvendors" data-toggle="tooltip" data-placement="bottom" title="All Active Vendors">
+                                     <p id="Actvendors" data-toggle="tooltip" data-placement="bottom"  style="font-size: 20px;">
                                        Active Vendors : <b>${allActiveVendorCount}</b></p>
                                 
-                                 	<p id="inactVendor" data-toggle="tooltip" data-placement="bottom" title="All InActive Vendors">
+                                 	<p id="inactVendor" data-toggle="tooltip" data-placement="bottom"  style="font-size: 20px;">
                                        In-Active Vendors : <b>${allInActiveVendorCount}</b></p>
                                 
                                        
                                 </div>
                                 <div class="icon">
                                     <!-- <i class="fas fa-file-invoice-dollar" style="color: #1F8BFF; font-size: 50px;"></i> -->
-                                    <i class="fa fa-user-plus" aria-hidden="true" style="color: #1F8BFF;font-size: 100px; "></i>
+                                    <i class="fa fa-user-circle" aria-hidden="true" style="color: #1F8BFF;font-size: 160px; "></i>
                                 </div>
                                 <a href="vendorDetails" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
                                     info <i class="fas fa-arrow-circle-right"></i>
@@ -199,10 +142,6 @@
                             </div>
                         </div>
 							
-
-
-
-
 
                         <!-- ./col -->
                     </div>
@@ -230,15 +169,7 @@
                                     <table class="table table-head-fixed" id="tabledata">
                                         <thead>
                                             <tr>
-                                                <!-- <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip
-                                                    ID</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run
-                                                    Type</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip
-                                                    Status</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Payment
-                                                    Status</th> -->
+                                               
                                                     <th class="bg-primary" >User Name</th>
                                                      <th class="bg-primary" >First Name</th>
                                                      <th class="bg-primary" >Last Name</th>
@@ -262,16 +193,7 @@
                                 </div>
                                 <!-- /.card-body -->
                             </div>
-                            <%-- <div class="card card-primary  card-outline ">
-								<div class="card-body">
-									<p>
-										<strong>Trip Status</strong>
-									</p>
-									<canvas id="unresolvedsts"
-										style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-								</div>
-								<!-- /.card-body -->
-							</div> --%>
+                           
                         </div>
                     </div>
                 </div>
@@ -285,36 +207,7 @@
         </aside>
         <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
-    
-    <!-- Modal -->
-        <!-- <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">New Password</label>
-                            <input type="password" class="form-control p-input" id="password" placeholder="New Password">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Confirm Password </label>
-                            <input type="password" class="form-control p-input" id="passwordConfirm" placeholder="Confirm Password">
-                        </div>
-                        <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="changePasswordButton" class="btn btn-primary" onclick="changePassword(document.getElementById('passwordConfirm').value)" >Change Password</button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        
+   
         <form role="form" id="changePassword1" autocomplete="off">
         <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -562,12 +455,30 @@
 
                          for (var i = 0; i < result.length; i++) {
 
-                             //var inactive = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"inactiveActiveDeleteData(" + result[i].id + ")\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-                            // var edit = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"   data-original-title=\"Click To Edit\" style=\"width: 43px;\"  onclick=\"editData(" + result[i].id + ")\"><i class=\"nav-icon fas fa-pencil-square-o\"> </i> </button>";
                              lastName = "";
-                             if (result[i].hasOwnProperty("lastName")) {
-                                 lastName = result[i].lastName;
-                             }
+                             if(!result[i].hasOwnProperty("username")){
+    								result[i].username="";
+    							}
+                               if(!result[i].hasOwnProperty("firstName")){
+         							result[i].firstName="";
+         						}
+								if(!result[i].hasOwnProperty("lastName")){
+    								result[i].lastName="";
+    							}
+                                if(!result[i].hasOwnProperty("emailId")){
+    								result[i].emailId="";
+    							}
+                                if(!result[i].hasOwnProperty("contactNo")){
+     								result[i].contactNo="";
+     							}
+                                if(!result[i].hasOwnProperty("status")){
+    								result[i].status="";
+    							}
+                                if(!result[i].hasOwnProperty("id")){
+     								result[i].id="";
+     							}if (result[i].hasOwnProperty("lastName")) {
+                                    lastName = result[i].lastName;
+                                }
 
                              tabledata.row.add([result[i].username, result[i].firstName, lastName, result[i].rolesObj.roleName, result[i].emailId, result[i].contactNo]);
 				

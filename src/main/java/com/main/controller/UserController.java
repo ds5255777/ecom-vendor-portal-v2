@@ -1,11 +1,15 @@
 package com.main.controller;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,10 +33,16 @@ public class UserController {
 
 	@Autowired
 	private ServiceManager serviceManager;
+	
+
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(TripControllers.class);
 
 	@RequestMapping({ "/saveUpdateUserDetails" })
 	@CrossOrigin("*")
 	public String saveUpdateUserDetails(HttpServletRequest request, @RequestBody User user) {
+		
+		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -70,7 +80,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -80,6 +90,8 @@ public class UserController {
 	@RequestMapping({ "/getActiveUsersData" })
 	@CrossOrigin("*")
 	public String getActiveUsersData(HttpServletRequest request) {
+		
+		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -101,7 +113,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -127,7 +139,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -152,7 +164,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -162,6 +174,8 @@ public class UserController {
 	@RequestMapping({ "/checkForExistingUserName" })
 	@CrossOrigin("*")
 	public String checkForExistingUserName(HttpServletRequest request, @RequestBody User user) {
+		
+		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -188,7 +202,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -198,6 +212,8 @@ public class UserController {
 	@RequestMapping({ "/getUserByRole" })
 	@CrossOrigin("*")
 	public String getUserByRole(HttpServletRequest request, @RequestBody User user) {
+		
+		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -212,7 +228,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -221,6 +237,8 @@ public class UserController {
 
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public String changePassword(Principal principal, @RequestParam(name = "password") String password) {
+		
+		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -234,7 +252,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -244,6 +262,8 @@ public class UserController {
 	@RequestMapping({ "/getActiveVendorData" })
 	@CrossOrigin("*")
 	public String getActiveVendorData(HttpServletRequest request ) {
+		
+		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -287,7 +307,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -298,6 +318,8 @@ public class UserController {
 	@RequestMapping({ "/getVendorById" })
 	@CrossOrigin("*")
 	public String getVendorById(HttpServletRequest request, @RequestBody SupDetails details) {
+		
+		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -312,7 +334,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -322,6 +344,8 @@ public class UserController {
 	@RequestMapping({ "/setStatusOfVendorByBpCode" })
 	@CrossOrigin("*")
 	public String setStatusOfVendorByBpCode(HttpServletRequest request, @RequestBody User user) {
+		
+		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -335,7 +359,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -344,6 +368,8 @@ public class UserController {
 	@RequestMapping({ "/getAllVendorStatus" })
 	@CrossOrigin("*")
 	public String getAllVendorStatus(HttpServletRequest request , @RequestBody User details) {
+		
+		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -359,7 +385,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -368,6 +394,8 @@ public class UserController {
 	@RequestMapping({ "/activeVendor" })
 	@CrossOrigin("*")
 	public String activeVendor(HttpServletRequest request , @RequestBody User details) {
+		
+		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -384,7 +412,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 

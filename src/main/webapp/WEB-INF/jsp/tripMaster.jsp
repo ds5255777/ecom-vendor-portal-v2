@@ -258,7 +258,7 @@ tbody {
                                                            </div>
                                                            
                                                             <div class="col-md-3">
-                                                                <label>Agreement made date</label> <input type="date"
+                                                                <label>Agreement Made Date</label> <input type="date"
                                                                      name="agreementMadeDate" class="form-control"
                                                                      id="agreementMadeDate">
                                                            </div>
@@ -269,38 +269,7 @@ tbody {
                                                                      name="agreementExpiryDate" class="form-control"
                                                                      id="agreementExpiryDate">
                                                            </div>
-                                                           
-                                                           
-                                                           
-                                                           
-                                                           
-                                                           
-                                                           
-                                                           
-                                                           
-                                                           
-                                                           <!-- <div class="col-md-3">
-                                                                <label>Form Code</label>
-                                                                <div class="select2-purple">
-                                                                     <select class="form-control" id="checkListFormCode"
-                                                                          name="checkListFormCode">
-                                                                     </select>
-                                                                </div>
-                                                           </div>
-                                                           <div class="col-md-3">
-                                                                <label>Evaluation Criteria</label> <input type="text"
-                                                                     name="evaluationCriteria" class="form-control"
-                                                                     id="evaluationCriteria">
-                                                           </div>
-                                                           <div class="col-md-3">
-                                                                <label>Help</label> <input type="text" name="help"
-                                                                     class="form-control" id="help">
-                                                           </div>
-                                                           <div class="col-md-3">
-                                                                <label for="exampleInputserverName1">Maximum Score</label> <input
-                                                                     type="text" name="maximumScore" class="form-control"
-                                                                     id="maximumScore">
-                                                           </div> -->
+                                                     
                                                      </div>
                                                 </div>
                                                 <!-- /.card-body -->
@@ -336,12 +305,12 @@ tbody {
                                                                 
                                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Cost</th>
                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Base Rate</th>
-                                                               <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;"> current Fuel Rate</th>
+                                                               <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;"> Current Fuel Rate</th>
                                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Std Mileage Per Km</th>
                                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Max Kms</th>
                                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Credit Period in Days</th>
-                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Agreement made date</th>
-                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">agreement ExpiryDate</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Agreement Made Date</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Agreement Expiry Date</th>
                                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Action</th>
                                                                 
                                                            </tr>

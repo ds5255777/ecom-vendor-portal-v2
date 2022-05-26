@@ -245,7 +245,7 @@ public class DashboardController {
 			String vendorName = (String) jsonObject.get("vendorName");//
 			
 			System.out.println("vendorName ::" + vendorName);
-			String vendorCodeFromSuppDetails =serviceManager.tripDetailsRepo.getVendorCode(vendorName);
+			String vendorCodeFromSuppDetails =serviceManager.supDetailsRepo.getVendorCode(vendorName);
 			System.out.println("vendor Code ::" + vendorCodeFromSuppDetails);
 			data.setData(vendorCodeFromSuppDetails);
 			data.setMsg("success");

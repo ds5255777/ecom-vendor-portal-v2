@@ -5,7 +5,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
     <head>
         <meta charset="utf-8">
@@ -717,11 +717,20 @@
 		<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 		
 
-                <script type="text/javascript">
+         <script type="text/javascript">
 
-                $('#vendorName1').select2({
-        			theme : 'bootstrap4'
-        		});
+         $('#vendorName1').select2({
+  		 theme : 'bootstrap4'
+  		 });
+         
+         var tabledataQuery = $('#tabledataQuery').DataTable({
+             "paging": false,
+             "lengthChange": false,
+             "searching": false,
+             "info": false,
+             "autoWidth": false,
+             "aaSorting": []
+         });
 
 
                                                     $('#tripValue').modal("hide");
@@ -883,33 +892,33 @@
                                                         });
 
 
-                                                        //Ajax to get remarks
-//                                                        $.ajax({
-//                                                            type: "POST",
-//                                                            data: JSON.stringify(json),
-//                                                            url: "<%=GlobalUrl.getRemarksByRefID%>",
-//                                                            dataType: "json",
-//                                                            contentType: "application/json",
-//                                                            async: false,
-//                                                            success: function (data) {
-//                                                                console.log("data.msg" + data.msg);
-//                                                                console.log("data.msg "+data.data);
-//                                                                if (data.msg == 'success') {
-//                                                                    var result = data.data;
-//                                                                   var obj = $.parseJSON(result.responseText);
-//                                                                    
-//                                                                  //  console.log("vghv "+abc.comment);
-//                                                                
-//
-//                                                                   
-//                                                                    
-//
-//
-//                                                                }
-//                                                            }
-//
-//
-//                                                        });
+                                                      //Ajax to get remarks
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            data: JSON.stringify(json),
+                                                            url: "<%=GlobalUrl.getRemarksByRefID%>",
+                                                            dataType: "json",
+                                                            contentType: "application/json",
+                                                            async: false,
+                                                            success: function (data) {
+                                                                console.log("data.msg" + data.msg);
+                                                                console.log("data.data " + data.data);
+                                                                console.log("Actual data.data " + JSON.stringify(data.data));
+                                                                if (data.msg == 'success') {
+                                                               	 if("data" in data){
+                                           								var result = data.data;												
+                                           							     	tabledataQuery.clear();
+                                           							     	var count=0;
+                                           				                        for (var i = 0; i < result.length; i++) {
+                                           				                        	count++;
+                                           				                        	tabledataQuery.row.add([count,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
+                                           				                        }
+                                           				                        tabledataQuery.draw();
+                                           				                        $("tbody").show();
+                                           								}
+                                                                }
+                                                            }
+                                                        });
 
 
                                                     }

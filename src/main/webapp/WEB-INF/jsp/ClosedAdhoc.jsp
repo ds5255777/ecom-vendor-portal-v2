@@ -5,7 +5,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
     <head>
         <meta charset="utf-8">
@@ -660,20 +660,24 @@
 		<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 		<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 		<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+		<script type="text/javascript">
 
-                <script type="text/javascript">
-
-
-
-
-                                                    $('#tripValue').modal("hide");
-                                                    const Toast = Swal.mixin({
-                                                        toast: true,
-                                                        position: 'top-end',
-                                                        showConfirmButton: false,
-                                                        timer: 3000
-                                                    });
-                                                    
+	    $('#tripValue').modal("hide");
+	    const Toast = Swal.mixin({
+	        toast: true,
+	        position: 'top-end',
+	        showConfirmButton: false,
+	        timer: 3000
+	    });
+	    
+	    var tabledataQuery = $('#tabledataQuery').DataTable({
+	          "paging": false,
+	          "lengthChange": false,
+	          "searching": false,
+	          "info": false,
+	          "autoWidth": false,
+	          "aaSorting": []
+	      });
                                                     var tabledata = $('#tabledata1').DataTable({
                                                         "paging": true,
                                                         "lengthChange": false,
@@ -825,7 +829,7 @@
                                                         });
 
 
-                                                        //Ajax to get remarks
+                                                      //Ajax to get remarks
                                                         $.ajax({
                                                             type: "POST",
                                                             data: JSON.stringify(json),
@@ -835,22 +839,22 @@
                                                             async: false,
                                                             success: function (data) {
                                                                 console.log("data.msg" + data.msg);
-                                                                console.log("data.msg "+data.data);
+                                                                console.log("data.data " + data.data);
+                                                                console.log("Actual data.data " + JSON.stringify(data.data));
                                                                 if (data.msg == 'success') {
-                                                                    var result = data.data;
-                                                                   var obj = $.parseJSON(result.responseText);
-                                                                    
-                                                                  //  console.log("vghv "+abc.comment);
-                                                                
-
-                                                                   
-                                                                    
-
-
+                                                               	 if("data" in data){
+                                           								var result = data.data;												
+                                           							     	tabledataQuery.clear();
+                                           							     	var count=0;
+                                           				                        for (var i = 0; i < result.length; i++) {
+                                           				                        	count++;
+                                           				                        	tabledataQuery.row.add([count,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
+                                           				                        }
+                                           				                        tabledataQuery.draw();
+                                           				                        $("tbody").show();
+                                           								}
                                                                 }
                                                             }
-
-
                                                         });
 
 

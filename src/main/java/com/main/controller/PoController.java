@@ -35,13 +35,13 @@ public class PoController {
 	private ServiceManager serviceManager;
 	
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	private static Logger logger = LoggerFactory.getLogger(TripControllers.class);
+	private static Logger logger = LoggerFactory.getLogger(PoController.class);
 
 	@RequestMapping({ "/getAllPODetails" })
 	@CrossOrigin("*")
 	public String getActiveMasterData(HttpServletRequest request, Principal principal) {
 		
-		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information : "+dateTimeFormatter.format(LocalDateTime.now()));
 
 		String vendorCode = (String) request.getSession().getAttribute("userName");
 

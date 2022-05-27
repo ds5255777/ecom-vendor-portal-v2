@@ -2,6 +2,7 @@ package com.main.controller;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
@@ -36,6 +39,9 @@ public class DashboardController {
 
 	@Value("${tripLimit}")
 	public String tripLimit;
+	
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
 	@RequestMapping({ "getDashboardDetails" })
 	@CrossOrigin("*")
@@ -52,7 +58,7 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("error : "+e);
 			data.setMsg("error");
 		}
 
@@ -159,7 +165,7 @@ public class DashboardController {
 			System.out.println(formatter.format(date));
 			comm.setRaisedOn(date);
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.error("error : "+ex);
 		}
 
 //Find ID on the basic of tripid
@@ -201,7 +207,7 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("error : "+e);
 			data.setMsg("error");
 		}
 
@@ -228,7 +234,7 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("error : "+e);
 			data.setMsg("error");
 		}
 
@@ -251,7 +257,7 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("error : "+e);
 			data.setMsg("error");
 		}
 

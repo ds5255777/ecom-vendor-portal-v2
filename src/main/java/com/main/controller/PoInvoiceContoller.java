@@ -1,9 +1,13 @@
 package com.main.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,18 +34,20 @@ public class PoInvoiceContoller {
 	@Autowired
 	PoDetailsRepo poDetailsRepo;
 	
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(PoInvoiceContoller.class);
+	
 	@RequestMapping({ "/deleteDraftPoInvoice" })
 	@CrossOrigin("*")
 	public String deleteDraftPoInvoice(HttpServletRequest request, @RequestBody PoDetails obj) {
+		
+		logger.info("Log Some Information : "+dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			//Long id = obj.getId();
-			
-			//Long id = 2L;
 			String ecomInvoiceNumber = obj.getInvoiceNumber();
 			Long id = poInvoiceRepo.getId(ecomInvoiceNumber);
 			System.out.println("ecomInvoiceNumber"+ecomInvoiceNumber);
@@ -54,7 +60,7 @@ public class PoInvoiceContoller {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -71,17 +77,13 @@ public class PoInvoiceContoller {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
 			
 			List<PoInvoiceDetails> details =poInvoiceRepo. getAllDraftPoInvoice(vendorCode);
-			
-			
-			
 			data.setData(details);
 			data.setMsg("success");
-			System.out.println("end of draft success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -97,28 +99,11 @@ public class PoInvoiceContoller {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
-			
-			
-			
-			
+		
 			String ecomInvoiceNumber = invoiceDetails.getInvoiceNumber();
 
-			//Long idByinvocienumber = invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
-			//System.out.println(idByinvocienumber);
-
-			//if (null != idByinvocienumber) {
-				//invoiceDetails.setStatus("Processed");
-				//invoiceDetails.setId(ecomInvoiceNumber);
 				System.out.println(ecomInvoiceNumber);
-				
 				List<PoInvoiceLine> poInvoiceLine =invoiceDetails.getPoInvoiceLine();
-				//poInvoiceLine.remaningQuatity;
-				
-				 				
-				//poDetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(ecomInvoiceNumber);
-				
-				
-				
 				invoiceDetails.setStatus("In-Review");
 				invoiceDetails.setVendorCode(vendorCode);
 				
@@ -128,18 +113,15 @@ public class PoInvoiceContoller {
 				poInvoiceRepo.deleteById(id);
 					
 				}
-				//poInvoiceRepo.deleteByInvoiceNumber(ecomInvoiceNumber);
 				
 				poInvoiceRepo.save(invoiceDetails);
 		
 			data.setMsg("success");
-			System.out.println("end of draft success");
-	
 
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -156,17 +138,17 @@ public class PoInvoiceContoller {
 		try {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
 			String invoiceNo=invoiceDetails.getInvoiceNumber();
-			System.out.println("vendorCode in getAllUnProcessPo : "+vendorCode + "invoiceNo : "+invoiceNo);
+			System.out.println("vendorCode : "+vendorCode + "invoiceNo : "+invoiceNo);
 			List<PoInvoiceDetails> details = poInvoiceRepo.getAllDraftPODetailsByInvoiceNo(vendorCode,invoiceNo);
 			
 			data.setData(details);
 			data.setMsg("success");
-			System.out.println("end of allPoDetails");
+			
 
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -189,8 +171,6 @@ public class PoInvoiceContoller {
 			invoiceDetails.setStatus("Draft-Invoicing");
 			invoiceDetails.setVendorCode(vendorCode);
 			System.out.println("save draft invoice , ecomInvoiceNumber : "+ecomInvoiceNumber);
-			
-			
 			Long id = poInvoiceRepo.getId(ecomInvoiceNumber);
 			System.out.println("ecomInvoiceNumber"+ecomInvoiceNumber);
 			if(id!=null ) {
@@ -201,13 +181,12 @@ public class PoInvoiceContoller {
 			poInvoiceRepo.save(invoiceDetails);
 		
 			data.setMsg("success");
-			System.out.println("end of draft success");
 	
 
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 

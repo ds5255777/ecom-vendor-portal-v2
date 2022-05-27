@@ -36,13 +36,13 @@ public class UserController {
 	
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	private static Logger logger = LoggerFactory.getLogger(TripControllers.class);
+	private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@RequestMapping({ "/saveUpdateUserDetails" })
 	@CrossOrigin("*")
 	public String saveUpdateUserDetails(HttpServletRequest request, @RequestBody User user) {
 		
-		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information : "+dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();

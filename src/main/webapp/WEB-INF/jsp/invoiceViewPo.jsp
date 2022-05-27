@@ -678,6 +678,14 @@
                        //var tripLineArray = data.data.poInvoiceLine;
                        var tripLineArray=result[0].poInvoiceLine;
                        var grossamt1=result[0].grossTotalAmt;
+                       var glDate= result[0].glDate.split(" ");
+                       result[0].glDate=glDate[0];
+                       var glDateDistributionDate= result[0].glDateDistributionDate.split(" ");
+                       result[0].glDateDistributionDate=glDateDistributionDate[0];
+                       var supplierInvoiceDate= result[0].supplierInvoiceDate.split(" ");
+                       result[0].supplierInvoiceDate=supplierInvoiceDate[0];
+                       var termsDate= result[0].termsDate.split(" ");
+                       result[0].termsDate=termsDate[0];
                         var myForm = "";
                         myForm = document.getElementById("stepOneForm");
                         setData(myForm, result[0]);
@@ -727,7 +735,8 @@
                             if (!tripLineArray[i].hasOwnProperty("gldate")) {
                                 tripLineArray[i].gldate = "";
                             }
-                            
+                            var gldate= tripLineArray[i].gldate.split(" ");
+                            tripLineArray[i].gldate=gldate[0];
                             $('#prTable').DataTable().row.add([i + 1, tripLineArray[i].lineNumber,tripLineArray[i].receiptline,tripLineArray[i].description,tripLineArray[i].lineType,tripLineArray[i].poline,tripLineArray[i].gldate,tripLineArray[i].remaningQuatity,tripLineArray[i].quantityInvoiced,tripLineArray[i].uom,tripLineArray[i].taxper,tripLineArray[i].baseAmount,tripLineArray[i].taxAmount,tripLineArray[i].totalAmount]);
                          }
                          var  grossamt= "<input disabled type=\"text\" value=\"" + result[0].grossTotalAmt + "\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";

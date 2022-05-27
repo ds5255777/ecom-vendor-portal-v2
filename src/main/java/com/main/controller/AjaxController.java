@@ -105,7 +105,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 			}
 
@@ -132,7 +132,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 			}
 
@@ -158,7 +158,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 			}
 
@@ -185,7 +185,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 			}
 
@@ -211,7 +211,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved" + fullFilePathWithName);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 
 			}
@@ -239,7 +239,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 
 			}
@@ -265,7 +265,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved ");
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 
 			}
@@ -292,7 +292,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 
 			}
@@ -319,7 +319,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 
 			}
@@ -346,7 +346,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 
 			}
@@ -373,7 +373,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 
 			}
@@ -400,7 +400,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 
 			}
@@ -575,7 +575,7 @@ public class AjaxController {
 					logger.error("Ran into an error {}");
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("error : "+e);
 			}
 
 //API calling END
@@ -613,7 +613,7 @@ public class AjaxController {
 		Exception e) {
 			data.setMsg("error");
 			data.setData(e.toString());
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();

@@ -28,13 +28,13 @@ public class MasterController {
 	private ServiceManager serviceManager;
 	
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	private static Logger logger = LoggerFactory.getLogger(TripControllers.class);
+	private static Logger logger = LoggerFactory.getLogger(MasterController.class);
 
 	@RequestMapping({ "/saveTripMaster" })
 	@CrossOrigin("*")
 	public String saveTripMaster(HttpServletRequest request, @RequestBody AgreementMaster master) {
 		
-		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information : "+dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();

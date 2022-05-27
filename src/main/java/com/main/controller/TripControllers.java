@@ -50,16 +50,11 @@ public class TripControllers {
 			@RequestParam(name = "actualDeparture") String fromDate,
 			@RequestParam(name = "actualArrival") String toDate, @RequestParam(name = "vendorCode") String vendorCode) {
 		
-		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Time Information : " +dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		logger.info("fromDate : "+fromDate);
-		logger.info("toDate : "+toDate);
-		logger.info("vendorCode : "+vendorCode);
-		
-		
-		
+	
 		try {
 
 			String rolename = (String) request.getSession().getAttribute("role");
@@ -72,6 +67,7 @@ public class TripControllers {
 			}
 
 			if (rolename.equalsIgnoreCase("Vendor")) {
+				toDate=null;
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
 						.findByVendorCodeAndActualDepartureBetween(vendorCode, fromDate, toDate);
 				data.setData(getListByDateFilter);

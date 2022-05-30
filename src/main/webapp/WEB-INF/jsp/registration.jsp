@@ -31,8 +31,9 @@
 <link rel="stylesheet"
 	href="plugins/flag-icon-css/css/flag-icon.min.css" />
 <link rel="stylesheet" href="dist/css/style.css" />
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard.min.css" />
+ <link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard.min.css" /> 
+	
 <link rel="stylesheet"
 	href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
@@ -45,6 +46,10 @@
 <script src="dist/js/notify.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	
+	 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
 
 <script>
@@ -127,7 +132,16 @@
                  	   swal.fire("Alert", "Nature of transaction is mandatory", "warning")
                         .then((value) => {});
                     }
-                   
+                	 else  if(controlName=="creditTerms"){
+                      	  
+                    	   swal.fire("Alert", "Payment / Credit Terms is mandatory", "warning")
+                           .then((value) => {});
+                       }
+                	 else  if(controlName=="paymentMethod"){
+                     	  
+                  	   swal.fire("Alert", "Payment Method is mandatory", "warning")
+                         .then((value) => {});
+                     }
                 	
                    // $('#manPara').css('display', '');
                    // addValCss(controlName);
@@ -158,8 +172,11 @@
                         .addClass('btn btn-success btnfinish')
                         .on('click', function() {
                         	
+                        	  var pid="${pid}";
+                        	//debugger;
                         	   if ($("#partnerType").val() == "Scheduled") { 
                         		  
+                        		 if(pid==""){
                         		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,ITRFile,FUVFFile,MSMECFile,AMFile,NMISFile";
                                   var mandFieldsArr = mandFields.split(",");
 
@@ -171,6 +188,7 @@
                                           return false;
                                       }
                                   }
+                        	    }
                         	   } 
                         	   else{
                         		  var mandFields = "suppName,compEmail";
@@ -184,29 +202,63 @@
                                       }
                                   }
                         	  } 
-                          
-                            sendToServer();
+                        	   
+                        	   if(pid !=""){
+                        		   for(var k=0;k<5; k++ ){
+                        			   
+                        			  var returnType= checkMand(k,"");
+                        			  if(false==returnType){
+                        				  
+                        				  var virtualStepNo=k+1;
+                        				  swal.fire("Alert", " Fill all mandatory details at step "+virtualStepNo, "warning")
+                                          .then((value) => {});  
+                        				  return false;
+                        			  }
+                        		   }
+                        		   console.log("Going to server in pid state...");
+                        		   sendToServer();
+                        	   }
+                        	   else{
+                        		   sendToServer();
+                        	   }
+                        	   
+                            
                         })
                     ]
                 }
             })
+            
+        
+
+            
             $("#smartwizard").on("leaveStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
-                console.log(anchorObject);
-                console.log("stepNumber " + stepNumber);
+                
+            	console.log(anchorObject);
+                
+            	console.log("stepNumber " + stepNumber);
                 console.log("stepDirection " + stepDirection);
-                console.log("getCurrentIndex " + $("#smartwizard").smartWizard("currentStep"));
-                console.log(stepPosition);
+               // console.log("getCurrentIndex " + $("#smartwizard").smartWizard("currentStep"));
 
-
-                if (stepNumber === 3) {
+                var chedlka=$("#smartwizard").smartWizard("currentStep");
+                var pid="${pid}";
+                console.log(pid);
+               
+                if (stepNumber === 4 && pid =="") {
                     console.log("Coming Here");
                     $('.btnfinish').attr('disabled', false);
+                    $('.sw-btn-next').attr('disabled', true);
                 } else {
-                    $('.btnfinish').attr('disabled', true);
+                   // $('.btnfinish').attr('disabled', true);
+                    $('.sw-btn-next').attr('disabled', false);
                 }
+                
+                
+ 				 /* if(pid!="" && stepNumber === 4){
+ 					$('.btnfinish').attr('disabled', false);
+                }  */
+                
                 return checkMand(stepNumber,stepDirection);
-
-            });
+            }); 
         });
         
        
@@ -278,12 +330,12 @@
                 console.log("addBookGridCount " + addBookGridCount);
                 console.log("contactDetailsGrid " + contactDetailsGrid);
                 if (addBookGridCount == 1) {
-                    swal.fire("Alert", "Add Atleast One Address", "warning")
+                    swal.fire("Alert", "Add Atleast One Address Detail", "warning")
                         .then((value) => {});
                     return false;
                 }
                 if (contactDetailsGrid == 1) {
-                    swal.fire("Alert", "Add Atleast One Contact", "warning")
+                    swal.fire("Alert", "Add Atleast One Contact Detail", "warning")
                         .then((value) => {});
                     return false;
                 }
@@ -412,7 +464,7 @@
                     // allow letters and whitespaces only.
                     if(inputValue==8){
                     	
-                    }else if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) { 
+                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
                         event.preventDefault(); 
                     }
                 });
@@ -437,7 +489,7 @@
                     // allow letters and whitespaces only.
                     if(inputValue==8){
                     	
-                    }else if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) { 
+                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
                         event.preventDefault(); 
                     }
                 });
@@ -468,7 +520,7 @@
                     // allow letters and whitespaces only.
                     if(inputValue==8){
                     	
-                    }else if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) { 
+                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
                         event.preventDefault(); 
                     }
                 });
@@ -489,7 +541,7 @@
                     // allow letters and whitespaces only.
                     if(inputValue==8){
                     	
-                    }else if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) { 
+                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
                         event.preventDefault(); 
                     }
                 });
@@ -503,7 +555,7 @@
                     // allow letters and whitespaces only.
                     if(inputValue==8){
                     	
-                    }else if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) { 
+                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
                         event.preventDefault(); 
                     }
                 });
@@ -850,6 +902,8 @@ label {
 			</div>
 		</nav>
 		<br> <br>
+		<input type="hidden" id="vendorPrimaryKey" />
+		<input type="hidden" id="vendorPid" />
 		<div class="content-wrapper" style="margin-left: 0px; width: 100%;">
 			<div id="smartwizard" style="background: white; padding: 20px;">
 				<ul>
@@ -861,8 +915,10 @@ label {
 							<small>Banking Details</small></a></li>
 					<li style="margin: auto; margin-left: auto;"><a href="#step-4">Step-4<br />
 							<small>Tax Detail</small></a></li>
-					<li style="margin: unset; margin-left: auto;"><a
+					<li style="margin: auto; margin-left: auto;"><a
 						href="#step-5">Step-5<br /> <small>Documents</small></a></li>
+						<li id="step6Id" style="margin: unset; margin-left: auto;"><a
+						href="#step-6">Step-6<br /> <small>Query</small></a></li>
 				</ul>
 				<div>
 					<div id="step-1" class="">
@@ -936,7 +992,8 @@ label {
 
 												</select></td>
 												<input type="hidden" id="roleId" />
-
+												
+												
 												<td><label for="suppName">Business Partner Name<span
 														class="required adHocRequired">*</span></label></td>
 												<td colspan='1'><input type="text"
@@ -947,36 +1004,7 @@ label {
 
 
 
-											<script>
-											
-											function select(){
-											
-												var element = document.getElementById('states');
-									        	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
-									        	var selectedValues = [];    
-									            $("#states :selected").each(function(){
-									                selectedValues.push($(this).val()); 
-									            });
-									           // alert(selectedValues);
-									            
-									            let values = selectedValues.toString();
-									         
-									        	document.getElementById("roleId").value=values;
-									        	//alert("roleId111: "+num);
 										
-												
-												var val = document.getElementById("states").value
-												if (val == "Network") {
-													document.getElementById("partnerType").disabled = false;
-													document.getElementById("partnerType").value = "Scheduled";
-												}else{
-													document.getElementById("partnerType").disabled = true;
-													document.getElementById("partnerType").value = "";
-													
-												}
-												
-											}
-											</script>
 
 
 											<tr class="">
@@ -1047,8 +1075,7 @@ label {
 												<td><label for="compGstn">GSTN Number<span
 														class="required adHocRequired">*</span></label></td>
 												<td colspan='1'><input type="test"
-													class="form-control p-input gst" id="compGstn"
-													name="compGstn" placeholder="GSTN Number"
+													class="form-control p-input gst" id="compGstn" name="compGstn"													name="compGstn" placeholder="GSTN Number"
 													oninput="this.value = this.value.toUpperCase()"
 													maxlength="15"></td>
 
@@ -1107,7 +1134,7 @@ label {
 
 											<tbody>
 												<tr class="">
-													<td><label class="addressLable" for="country">Country<span
+					 								<td><label class="addressLable" for="country">Country<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><select id="addCountry"
 														name="addCountry" class="form-control p-input">
@@ -1509,7 +1536,7 @@ label {
 																Applicable</label></td>
 														<td colspan='2'><input type="text"
 															id="tdsApplication" value="Yes" name="tdsApplication"
-															disabled class="form-control p-input "> </input></td>
+															readonly class="form-control p-input "> </input></td>
 
 														<td><label class="addressLable" for="tdsSection">TDS
 																Section</label></td>
@@ -1561,7 +1588,8 @@ label {
 												<tbody>
 													<tr>
 														<td><label class="addressLable" for="tdsApplication">Financial
-																Year</label></td>
+																Year<span
+																class="required">*</span></label></td>
 														<td colspan='2'><select id="fyYear"
 															class="form-control p-input ">
 																<option value="">Select</option>
@@ -1573,21 +1601,21 @@ label {
 
 														</select></td>
 														<td></td>
-														<td><label for="tdsApplication">Acknowledgement
-																Number</label></td>
+														<td><label for="tdsApplication">Acknowledgement Number<span
+																class="required">*</span></label></td>
 
 														<td colspan='2'><input type="text"
 															id="acknowledgementNumber" name="acknowledgementNumber"
 															class="form-control p-input "></td>
 														<td></td>
-														<td><label>ITR Acknowledgment of 3 years<span
+														<td><label>ITR Document<span
 																class="required">*</span></label></td>
 														<td><input type="file" id="ITRAFile" name="ITRAFile"
 															onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
 															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 															<textarea id="ITRAFileText" rows="5"
 																style="display: none;"></textarea> <label><span
-																style="font-weight: 500; color: #fd7e14;">* File
+																style="font-weight: 500; color: #fd7e14;">File
 																	size Max ${fileSize} MB</span></label></td>
 
 														<td colspan='2'>
@@ -1608,7 +1636,7 @@ label {
 															<tr style="background: #1991eb; color: white;">
 																<th>Financial Year</th>
 																<th>Acknowledgement Number</th>
-																<th>ITR Acknowledgment of 3 years</th>
+																<th>ITR Document</th>
 																<th>Action</th>
 
 															</tr>
@@ -1657,7 +1685,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="GSTFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 
 															<td><label>Proprietorship Declaration<span
@@ -1667,7 +1695,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="PDFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 
 														</tr>
@@ -1679,7 +1707,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="PANFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 
 															<td><label>Cancelled Cheque/ Passbook/ Bank
@@ -1690,7 +1718,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="CCFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 														<tr>
@@ -1700,7 +1728,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="ACFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 															<td><label>Aadhar and PAN Card linking
 																	declaration</label></td>
@@ -1709,7 +1737,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="APLFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 														<tr>
@@ -1720,7 +1748,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="ITRFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 															<td><label>Filled Updated VRF Form<span
 																	class="required">*</span></label></td>
@@ -1729,7 +1757,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="FUVFFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 														<tr>
@@ -1741,7 +1769,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="MSMECFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 															<td><label>Approval Mail<span
 																	class="required">*</span></label></td>
@@ -1750,7 +1778,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="AMFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 
@@ -1773,7 +1801,7 @@ label {
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="NMISFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">* File
+																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 													</tbody>
@@ -1784,53 +1812,66 @@ label {
 								</div>
 							</div>
 						</div>
+					</div>
+					
+					
+				<!-- query page -->
 
-						<!-- Start -->
-
-						<div class="card" hidden style="margin-bottom: 10px;">
-							<div class="card-header" id="changePassword"
-								name="changePassword"
-								style="background: #11aef6; color: #ffffff;">
-								<h6 class="mb-0">Change Password</h6>
+					<div id="step-6" class="">
+						<div class="card" style="margin-bottom: 10px;">
+							<div class="card-header" id="addressBookHead"
+								style="background: #1991eb; color: #ffffff;">
+								<h6 class="mb-0">Query</h6>
 							</div>
-							<div id="passwordBookHeadData" aria-labelledby="passwordBookHead"
+							<div id="queryBookHeadData" aria-labelledby="queryBookHead"
 								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
-								<div class="card-body" style="margin-bottom: 10px;">
-									<form id="passwordForm" class="forms-sample">
-										<table class="table center-aligned-table" id="fromTable"
-											name="fromTable">
-											<thead>
-											</thead>
-											<tbody>
-												<tr class="">
-													<td><label for="oldPassword">Old Password</label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="oldPassword"
-														name="oldPassword" placeholder="Old Password"></td>
 
-												</tr>
-												<tr class="">
-													<td><label for="New Password">Enter New
-															Password</label></td>
-													<td colspan='2'><input type="password"
-														class="form-control p-input" id="newPassword"
-														name="newPassword" placeholder="Enter New Password"></td>
-													<td><label for="Re-Type Password">Retype
-															Password</label></td>
-													<td colspan='2'><input type="password"
-														class="form-control p-input" id="reTypePassword"
-														name="reTypePassword" placeholder="Retype Password"></td>
+								<form class="">
+									<table class="table center-aligned-table" id="fromTable">
+											<tbody>
+												<tr class="container">
+													<td style="width: 150px;"><label for="supplierQuery">Remarks</label>
+													
+													<input type="hidden" name="pid" id="pid" value="${pid}">
+													</td>
+													<td style="width: 150px;">
+														<textarea class="form-control" id="comment" name="comment" rows="3" maxlength="250" placeholder="Remarks if Any"></textarea>
+													</td>
+													<td style="width: 150px;"><button type="Button"
+															class="btn btn-primary" id="addSupplierQueryBtn"
+															name="addSupplierQueryBtn" onclick="saveRemarks()">Add Remarks</button></td>
 												</tr>
 											</tbody>
 										</table>
-										<div class="form-group"></div>
-										<div class="form-group"></div>
-									</form>
-								</div>
+								</form>
+
+							</div>
+
+							<div class="card-body">
+								<form id="queryForm" class="forms-sample">
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="table table-bordered table-hover"
+												id="tabledataQuery">
+												<thead>
+													<tr>
+														<th class="bg-primary" style="color: white;">S.No</th>
+														<th class="bg-primary" style="color: white;">Raised on</th>
+														<th class="bg-primary" style="color: white;">Remarks</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</form>
 							</div>
 						</div>
-						<!-- End -->
 					</div>
+
+
+
 				</div>
 			</div>
 		</div>
@@ -1841,12 +1882,55 @@ label {
 	<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 	<script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
 	<script src="js/commonFunctions.js"></script>
+	<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 	<script>
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
             showConfirmButton: true,
             timer: 3000
+        });
+        
+        var pid="${pid}"; 
+        let stateCheck = setInterval(() => {
+        	  if (document.readyState === 'complete') {
+        		 
+        		  if(pid!=""){
+        			  $('#finishButton').attr("disabled", false);
+        		  }
+        		  clearInterval(stateCheck);
+        	    
+        	    // document ready
+        	  }
+        	}, 100);
+        
+        
+        console.log(pid);
+        if(pid!=""){
+        	
+        location.href="#step-6"
+        console.log(pid);
+       
+        getQueryData();
+        getVendorData();
+        }else{
+        
+        	$("#step6Id").css("display","none");
+        	location.href="#step-1"
+        }
+        
+       var tabledataQuery = $('#tabledataQuery').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "info": false, 
+            "autoWidth": false,
+            "aaSorting": []
         });
         
         $(document).ready(function() {
@@ -1890,13 +1974,13 @@ label {
             var abc3 = document.getElementById('addDetails').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "District cannot be blank !", "warning");
+                swal.fire("Alert", "District is mandatory", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "Pin Code cannot be blank !", "warning");
+                swal.fire("Alert", "Pin Code is mandatory", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", "Address cannot be blank !", "warning");
+                swal.fire("Alert", "Address is mandatory", "warning");
                 return false;
             } else {
 
@@ -1928,16 +2012,16 @@ label {
             var abc4 = document.getElementById('conEmail').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Fill First Name !", "warning");
+                swal.fire("Alert", "First name is mandatory", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "Fill Last Name !", "warning");
+                swal.fire("Alert", "Last name is mandatory", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", "Fill Phone Number !", "warning");
+                swal.fire("Alert", "Phone number is mandatory", "warning");
                 return false;
             } else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", "Fill Email Id !", "warning");
+                swal.fire("Alert", "Email id is mandatory", "warning");
                 return false;
             } else {
                 console.log("Coming Here");
@@ -1961,16 +2045,16 @@ label {
             var abc4 = document.getElementById('confirmedAccoutNumber').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Bank Name cannot be blank !", "warning");
+                swal.fire("Alert", "Bank name is mandatory", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "IFSC Code cannot be blank !", "warning");
+                swal.fire("Alert", "IFSC code is mandatory", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", " Account Number cannot be blank !", "warning");
+                swal.fire("Alert", " Account number is mandatory", "warning");
                 return false;
             }else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", " Confirmed Account Number cannot be blank !", "warning");
+                swal.fire("Alert", " Confirmed account number is mandatory", "warning");
                 return false;
             
             } else {
@@ -2001,29 +2085,28 @@ label {
         $("#addITRGridButt").click(function() {
             var abc = document.getElementById('fyYear').value;
             var abc1 = document.getElementById('acknowledgementNumber').value;
-            var abc2 =  document.getElementById('ITRAFile').value;
+            var abc2 =  document.getElementById('ITRAFile').value; 
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Select Financial Year Number !", "warning");
+                swal.fire("Alert", "Select financial year ", "warning");
                 return false;
             } else if (abc1 == null || abc1 == "") {
-                swal.fire("Alert", "Fill Acknowledgement Number !", "warning");
+                swal.fire("Alert", "Acknowledgement number is mandatory", "warning");
                 return false;
              } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", " Please! Upload ITR Acknowledgement ", "warning");
+                swal.fire("Alert", " Please! Upload ITR document", "warning");
                 return false;
             } else {
                 $("#addITRGrid").append('<tr class=""><td>' +
                     document.getElementById('fyYear').value + '</td><td>' +
-                    
-
                     document.getElementById('acknowledgementNumber').value + '</td><td>' +
                     
-                    document.getElementById('ITRAFile').value +'</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+                    document.getElementById('ITRAFile').files[0].name  +'</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
                 document.getElementById('fyYear').value = "";
                 document.getElementById('acknowledgementNumber').value = "";
                 document.getElementById('ITRAFile').value = "";
+               
 
             }
         });
@@ -2181,7 +2264,15 @@ label {
                 return regex.test(inputvalues);
             }
              */
-            console.log("finalObj");
+             var values= document.getElementById("roleId").value ;
+             console.log("value vendorType : "+values);
+             finalObj.vendorType = values;
+             
+             console.log("finalObj",finalObj.vendorType);
+ 			
+             finalObj.id=$("#vendorPrimaryKey").val();
+             finalObj.pid=$("#vendorPid").val();
+           
             console.log(finalObj);
              
 
@@ -2343,7 +2434,7 @@ label {
                   else {
                 	  
                 	 // swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + response.data, "success", "OK")
-         		    $('#divCheckPasswordMatch').html('Account number do not match!').css('color', 'red');
+         		    $('#divCheckPasswordMatch').html('Account number did not match!').css('color', 'red');
               // Disable #x
      		    $('#addBankGridButt').attr('disabled', true);
                  return;
@@ -2352,10 +2443,289 @@ label {
              });
          }); 
          
+         function saveRemarks(){
+        	 var query = document.getElementById("comment").value;
+	            if (query === "" || query === null || query === '') {
+	                Toast.fire({
+	                    type: 'error',
+	                    title: 'Please Add Remarks'
+	                });
+	                document.getElementById("comment").focus();
+	                return "";
+	            }
+	            var finalObj={
+	                    "comment": $("#comment").val(),
+	                    "raisedAgainQuery": pid,
+	                    "id": "1",
+	                    "type":"Registration"
+	                    }
+	            console.log(finalObj); 
+	            
+	            $.ajax({
+	                type: "POST",
+	                data: JSON.stringify(finalObj),
+	                url: "<%=GlobalUrl.saveRegistrationQuery%>",
+	                dataType: "json",
+	                contentType: "application/json",
+	                success: function(response) {
+	                	
+	                    if (response.msg == 'success') {
+	                        swal.fire("", "Remarks Sucessfully Submitted", "success", "OK").then(function() {
+	                        	getQueryData(); 
+	                        	$("#comment").val('');
+	                        });
+	                        setTimeout(function(response) {}, 2000);
+	                    } else {
+	                        alert("failed");
+	                    }
+	                },
+	                error: function(jqXHR, textStatue, errorThrown) {
+	                    Swal.fire({
+	                        icon: 'error',
+	                        title: 'Oops...',
+	                        text: 'Something went wrong!',
+	                    })
+	                }
+	            });
+         }
+         
+ 
+         //getQueryData();
+		 function getQueryData(){
+			 
+			 var obj ={
+						"referenceid": pid,
+						"type": "Registration"
+				}
+				
+				$.ajax({
+					type : "POST",
+					url : "<%=GlobalUrl.getRegistrationQueryData%>",
+					data :JSON.stringify(obj),
+					dataType : "json",
+					contentType : "application/json",
+					success : function(response) {
+						if (response.msg == "success") {
+						
+							if("data" in response){
+							
+								var result = response.data;												
+								
+							     	tabledataQuery.clear();
+							     	var count=0;
+				                        for (var i = 0; i < result.length; i++) {
+				                        	count++;
+				                        	tabledataQuery.row.add([count,result[i].raisedOn, result[i].comment]);
+				                        }
+				                        tabledataQuery.draw();
+				                        $("tbody").show();
+								}
+						} else {
+							Toast.fire({
+								type : 'error',
+								title : 'Failed ..'
+							})
+						}
+					},
+					error : function(jqXHR, textStatue, errorThrown) {
+						
+						Toast.fire({
+							type : 'error',
+							title : 'Failed Added try again..'
+						})
+
+					}
+				}); 
+		 }
+		 
+	        //var pid= $("#pid").val('');
+	       
+	
+	        function getVendorData() {
+	            console.log(pid);
+	            var json = {
+	                "pid": pid
+	            }
+	            
+	            
+	            $.ajax({
+	                type: "POST",
+	                data: JSON.stringify(json),
+	                url: "<%=GlobalUrl.getVendorDetailByPid%>",
+	                dataType: "json",
+	                contentType: "application/json",
+	                async: false,
+	                success: function(data) {
+	                    //debugger;
+	                    if (data.msg == 'success') {
+	                        var result = data.data;
+	                    	console.log(result);
+	                    
+	                    //	id=result[0].id;
+	                    	
+	                    	$("#vendorPrimaryKey").val(result[0].id);
+	                    	$("#vendorPid").val(pid);
+	                    
+	                    	var myForm = "";
+	                        myForm = document.getElementById("stepOneForm");
+	                        setData(myForm, result[0]);
+	                        
+	                           var vendorType=result[0].vendorType;
+	                        
+	                           var str = vendorType.split(",");
+	                           
+	                         
+	                        	   for (let i = 0; i < str.length; i++) {
+	                            	  // alert("str"+str[i]);
+	                            	   
+	                            	    if(str[i] == 'Network' && str[i+1] == 'Fixed Asset' && str[i+2] == 'Other'){
+	                            	    		$('#states').val(["Network","Fixed Asset","Other"]).change() 
+	                            	    		
+	                            				break;
+	                            	    
+	                            	   	}else if(str[i] == 'Network' && str[i+1] == 'Fixed Asset' ){
+	                               		   		$('#states').val(["Network","Fixed Asset"]).change().css( "color", "blue" );
+	                               		  	 	break;
+	                               	   	}else if(str[i] == 'Fixed Asset' && str[i+1] == 'Other'){
+	                                  		  	 $('#states').val(["Fixed Asset","Other"]).change()
+	                                  			break;
+	                                  	 }else if(str[i] == 'Network' && str[i+1] == 'Other'){
+	                              		  	 $('#states').val(["Network","Other"]).change()
+	                               			break;
+	                               	 	}else if(str[i] == 'Network'){
+	                                    		 
+	                                  		   $('#states').val('Network').submit().trigger('change');
+	                                  			 break;
+	                                  	 }else if(str[i] == 'Fixed Asset'){
+	                                    		 
+	                                  		   $('#states').val('Fixed Asset').submit().trigger('change'); 
+	                                  		 	break;
+	                                  	 }else if(str[i] == 'Other'){
+	                              				$('#states').val('Other').trigger('change');
+	                              		 		break;
+	                              	   }    	
+	                            	  
+	                        	 } 
+	                        
+	                           
+	                        	 select();
+	                      
+	                  
+	                       if(result[0].partnerType!="Ad-Hoc"){
+	                    	   
+	                    	
+	                        //tabledata.clear();
+
+	                         for (var i = 0; i < result[0].addressDetails.length; i++) {
+	                      
+	                        	
+	                        	 $("#addBookGrid").append(' <tr class=""><td>' +
+	                        			 result[0].addressDetails[i].addCountry + '</td><td>' +
+	                        			 result[0].addressDetails[i].state + '</td><td>' +
+	                        			 result[0].addressDetails[i].city + '</td><td>' +
+	                        			 result[0].addressDetails[i].pinCode + '</td><td>' +
+	                        			 result[0].addressDetails[i].addDetails + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+
+	                        	 
+	                        	 
+	                        	 
+	                        } 
+	                         for (var i = 0; i < result[0].contactDetails.length; i++) {
+
+	                         $("#contactDetailsGrid").append('<tr class=""><td>' +
+	                        		 result[0].contactDetails[i].conFname + '</td><td>' +
+	                        		 result[0].contactDetails[i].conLname + '</td><td>' +
+	                        		 result[0].contactDetails[i].conPhone + '</td><td>' +
+	                        		 result[0].contactDetails[i].conEmail + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+
+	                         }
+	                        
+	                        
+	                         for (var i = 0; i < result[0].accountDetails.length; i++) {
+	                         $("#addBankGrid").append('<tr class=""><td>' +
+	                        		 result[0].accountDetails[i].bankName + '</td><td>' +
+	                        		 result[0].accountDetails[i].ifscCode + '</td><td>' +
+	                        		 result[0].accountDetails[i].accoutNumber + '</td><td>' +
+	                        		 result[0].accountDetails[i].accoutCurrency + '</td><td>' + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+
+	                        
+	                         }
+	                        
+	                         for (var i = 0; i < result[0].itrDetails.length; i++) {
+	                         $("#addITRGrid").append('<tr class=""><td>' +
+	                        		 result[0].itrDetails[i].fyYear + '</td><td>' +
+
+	                        		 result[0].itrDetails[i].acknowledgementNumber + '</td><td>' +
+	                        		 '</td><td>' + '  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+
+	                        
+	                        
+	                         }
+	                        
+	                    
+	                       
+	                        
+	                        myForm = document.getElementById("stepSixForm");
+	                        setData(myForm, result[0]);
+	                      
+	                        
+	                        myForm = document.getElementById("stepSevenForm");
+	                        setData(myForm, result[0]);
+
+	                       } 
+	                        
+	                       // $("#id").val(result[0].id);
+	                        //$("#userModal").modal('show');
+
+	                    } else {
+	                        Toast.fire({
+	                            type: 'error',
+	                            title: 'Failed.. Try Again..'
+	                        })
+	                    }
+
+	                },
+	                error: function(jqXHR, textStatue, errorThrown) {
+	                    alert("failed, please try again");
+	                }
+
+	            });
+	        }
+	    	
+			
+			function select(){
+			
+				var element = document.getElementById('states');
+	        	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
+	        	var selectedValues = [];    
+	            $("#states :selected").each(function(){
+	                selectedValues.push($(this).val()); 
+	            });
+	           // alert(selectedValues);
+	            
+	            let values = selectedValues.toString();
+	         
+	        	document.getElementById("roleId").value=values;
+	        	//alert("roleId111: "+num);
+		
+				
+				var val = document.getElementById("states").value
+				if (val == "Network") {
+					document.getElementById("partnerType").disabled = false;
+					document.getElementById("partnerType").value = "Scheduled";
+				}else{
+					document.getElementById("partnerType").disabled = true;
+					document.getElementById("partnerType").value = "";
+					
+				}
+				
+			}
+			
     </script>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/js/jquery.smartWizard.min.js"></script>
+	 <script
+		src="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/js/jquery.smartWizard.min.js"></script> 
+	
 	<script src="plugins/popper/umd/popper.min.js"></script>
 	<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script

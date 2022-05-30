@@ -1,16 +1,24 @@
 package com.main.controller;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
+import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.AccountDetails;
 import com.main.db.bpaas.entity.AddressDetails;
 import com.main.db.bpaas.entity.EmailConfiguration;
@@ -37,6 +47,9 @@ import com.main.serviceManager.ServiceManager;
 @RequestMapping("/ajaxController")
 @RestController
 public class AjaxController {
+
+	@Value("${logFilePath}")
+	private String logFilePath;
 
 	@Autowired
 	private ServiceManager serviceManager;
@@ -52,10 +65,10 @@ public class AjaxController {
 
 	@Value("${host}")
 	public String host;
-	
+
 	@Value("${filepaths}")
 	public String filepaths;
-	
+
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(AjaxController.class);
 
@@ -67,11 +80,24 @@ public class AjaxController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String processID = "";
+		String contents = "";
+		
+		
 
 		try {
 
-			String filePath = filepaths + supDetails.getCompEmail();
-			String fullFilePathWithName = "";
+			System.out.println("logFilePath...." + logFilePath);
+			File logFilePathFolder = new File(logFilePath);
+			if (!logFilePathFolder.exists()) {
+				logFilePathFolder.mkdir();
+			}
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+			String currentDateTimeString = sdf.format(new Date());
+			File file = new File(logFilePath + "/" + currentDateTimeString + ".txt");
+			contents = "Current Date is-" + currentDateTimeString + "\n";
+
+			// String filePath = filepaths + supDetails.getCompEmail();
+			// String fullFilePathWithName = "";
 
 //			
 			JSONArray array = new JSONArray();
@@ -91,25 +117,25 @@ public class AjaxController {
 				DocumentObj.put("Encoded", supDetails.getGstFileText());
 				array.put(DocumentObj);
 
-				File file1 = new File(filePath);
+				// File file1 = new File(filePath);
 
-				if (!file1.exists()) {
-					file1.mkdirs();
-				}
-				fullFilePathWithName = filePath + "/" + "GST Certificate-" + supDetails.getGstFileName();
+//				if (!file1.exists()) {
+//					file1.mkdirs();
+//				}
+//				fullFilePathWithName = filePath + "/" + "GST Certificate-" + supDetails.getGstFileName();
 
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getGstFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+//					String b64 = supDetails.getGstFileText();
+//					byte[] decoder = Base64.getDecoder().decode(b64);
+//
+//					fos.write(decoder);
+//					System.out.println("File Saved");
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 			}
 
-			System.out.println("PD File Name : " + supDetails.getPdFileName());
+			// System.out.println("PD File Name : " + supDetails.getPdFileName());
 
 			if (null != supDetails.getPdFileName()) {
 
@@ -123,20 +149,21 @@ public class AjaxController {
 				DocumentObj.put("Encoded", supDetails.getPdFileText());
 				array.put(DocumentObj);
 
-				fullFilePathWithName = filePath + "/" + "Proprietorship Declaration-" + supDetails.getPdFileName();
+				// fullFilePathWithName = filePath + "/" + "Proprietorship Declaration-" +
+				// supDetails.getPdFileName();
 
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getPdFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+//					String b64 = supDetails.getPdFileText();
+//					byte[] decoder = Base64.getDecoder().decode(b64);
+//
+//					fos.write(decoder);
+//					System.out.println("File Saved");
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 			}
 
-			System.out.println("PAN File name : " + supDetails.getpANFileName());
+			// System.out.println("PAN File name : " + supDetails.getpANFileName());
 			if (null != supDetails.getpANFileName()) {
 
 				documentExtensionArray = supDetails.getpANFileName().split("\\.(?=[^\\.]+$)");
@@ -149,20 +176,20 @@ public class AjaxController {
 				DocumentObj.put("Encoded", supDetails.getpANFileText());
 				array.put(DocumentObj);
 
-				fullFilePathWithName = filePath + "/" + "PAN Certificate-" + supDetails.getpANFileName();
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getpANFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				fullFilePathWithName = filePath + "/" + "PAN Certificate-" + supDetails.getpANFileName();
+//
+//				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+//					String b64 = supDetails.getpANFileText();
+//					byte[] decoder = Base64.getDecoder().decode(b64);
+//
+//					fos.write(decoder);
+//					System.out.println("File Saved");
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 			}
 
-			System.out.println("CC File name : " + supDetails.getCcFileName());
+			// System.out.println("CC File name : " + supDetails.getCcFileName());
 
 			if (null != supDetails.getCcFileName()) {
 
@@ -176,17 +203,17 @@ public class AjaxController {
 				DocumentObj.put("Encoded", supDetails.getCcFileText());
 				array.put(DocumentObj);
 
-				fullFilePathWithName = filePath + "/" + "Cancelled Cheque-" + supDetails.getCcFileName();
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getCcFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				fullFilePathWithName = filePath + "/" + "Cancelled Cheque-" + supDetails.getCcFileName();
+//
+//				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+//					String b64 = supDetails.getCcFileText();
+//					byte[] decoder = Base64.getDecoder().decode(b64);
+//
+//					fos.write(decoder);
+//					System.out.println("File Saved");
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 			}
 
 			System.out.println("AC File name : " + supDetails.getAcFileName());
@@ -202,21 +229,21 @@ public class AjaxController {
 				DocumentObj.put("Encoded", supDetails.getAcFileText());
 				array.put(DocumentObj);
 
-				fullFilePathWithName = filePath + "/" + "Aadhar Card-" + supDetails.getAcFileName();
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getAcFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved" + fullFilePathWithName);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				fullFilePathWithName = filePath + "/" + "Aadhar Card-" + supDetails.getAcFileName();
+//
+//				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+//					String b64 = supDetails.getAcFileText();
+//					byte[] decoder = Base64.getDecoder().decode(b64);
+//
+//					fos.write(decoder);
+//					System.out.println("File Saved" + fullFilePathWithName);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 
 			}
 
-			System.out.println("APL File name : " + supDetails.getAplFileName());
+			// System.out.println("APL File name : " + supDetails.getAplFileName());
 			if (null != supDetails.getAplFileName()) {
 
 				documentExtensionArray = supDetails.getAplFileName().split("\\.(?=[^\\.]+$)");
@@ -229,22 +256,22 @@ public class AjaxController {
 				DocumentObj.put("Encoded", supDetails.getAplFileText());
 				array.put(DocumentObj);
 
-				fullFilePathWithName = filePath + "/" + "Aadhar and PAN Card linking declaration-"
-						+ supDetails.getAplFileName();
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getAplFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				fullFilePathWithName = filePath + "/" + "Aadhar and PAN Card linking declaration-"
+//						+ supDetails.getAplFileName();
+//
+//				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+//					String b64 = supDetails.getAplFileText();
+//					byte[] decoder = Base64.getDecoder().decode(b64);
+//
+//					fos.write(decoder);
+//					System.out.println("File Saved");
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 
 			}
 
-			System.out.println("ITR File name 1 : " + supDetails.getItrFileName());
+			// System.out.println("ITR File name 1 : " + supDetails.getItrFileName());
 			if (null != supDetails.getItrFileName()) {
 
 				documentExtensionArray = supDetails.getItrFileName().split("\\.(?=[^\\.]+$)");
@@ -257,16 +284,16 @@ public class AjaxController {
 				DocumentObj.put("Encoded", supDetails.getItrFileText());
 				array.put(DocumentObj);
 
-				fullFilePathWithName = filePath + "/" + "ITR Filling Declaration-" + supDetails.getItrFileName();
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getItrFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-					fos.write(decoder);
-					System.out.println("File Saved ");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				fullFilePathWithName = filePath + "/" + "ITR Filling Declaration-" + supDetails.getItrFileName();
+//
+//				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+//					String b64 = supDetails.getItrFileText();
+//					byte[] decoder = Base64.getDecoder().decode(b64);
+//					fos.write(decoder);
+//					System.out.println("File Saved ");
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 
 			}
 
@@ -283,17 +310,17 @@ public class AjaxController {
 				DocumentObj.put("Encoded", supDetails.getFuvfFileText());
 				array.put(DocumentObj);
 
-				fullFilePathWithName = filePath + "/" + "Filled Updated VRF Form-" + supDetails.getFuvfFileName();
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getFuvfFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				fullFilePathWithName = filePath + "/" + "Filled Updated VRF Form-" + supDetails.getFuvfFileName();
+//
+//				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+//					String b64 = supDetails.getFuvfFileText();
+//					byte[] decoder = Base64.getDecoder().decode(b64);
+//
+//					fos.write(decoder);
+//					System.out.println("File Saved");
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 
 			}
 
@@ -310,17 +337,17 @@ public class AjaxController {
 				DocumentObj.put("Encoded", supDetails.getMsmecFileText());
 				array.put(DocumentObj);
 
-				fullFilePathWithName = filePath + "/" + "MSME Certificate-" + supDetails.getMsmecFileName();
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getMsmecFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				fullFilePathWithName = filePath + "/" + "MSME Certificate-" + supDetails.getMsmecFileName();
+//
+//				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+//					String b64 = supDetails.getMsmecFileText();
+//					byte[] decoder = Base64.getDecoder().decode(b64);
+//
+//					fos.write(decoder);
+//					System.out.println("File Saved");
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 
 			}
 
@@ -337,17 +364,17 @@ public class AjaxController {
 				DocumentObj.put("Encoded", supDetails.getAmFileText());
 				array.put(DocumentObj);
 
-				fullFilePathWithName = filePath + "/" + "Approval Mail-" + supDetails.getAmFileName();
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getAmFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				fullFilePathWithName = filePath + "/" + "Approval Mail-" + supDetails.getAmFileName();
+//
+//				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+//					String b64 = supDetails.getAmFileText();
+//					byte[] decoder = Base64.getDecoder().decode(b64);
+//
+//					fos.write(decoder);
+//					System.out.println("File Saved");
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 
 			}
 
@@ -364,17 +391,17 @@ public class AjaxController {
 				DocumentObj.put("Encoded", supDetails.getItraFileText());
 				array.put(DocumentObj);
 
-				fullFilePathWithName = filePath + "/" + "ITR Acknowledgment of 3 years-" + supDetails.getItraFileName();
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getItraFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				fullFilePathWithName = filePath + "/" + "ITR Acknowledgment of 3 years-" + supDetails.getItraFileName();
+//
+//				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+//					String b64 = supDetails.getItraFileText();
+//					byte[] decoder = Base64.getDecoder().decode(b64);
+//
+//					fos.write(decoder);
+//					System.out.println("File Saved");
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 
 			}
 
@@ -391,22 +418,22 @@ public class AjaxController {
 				DocumentObj.put("Encoded", supDetails.getNmisFileText());
 				array.put(DocumentObj);
 
-				fullFilePathWithName = filePath + "/" + "Name mismatch affidavit-" + supDetails.getNmisFileName();
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getNmisFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				fullFilePathWithName = filePath + "/" + "Name mismatch affidavit-" + supDetails.getNmisFileName();
+//
+//				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+//					String b64 = supDetails.getNmisFileText();
+//					byte[] decoder = Base64.getDecoder().decode(b64);
+//
+//					fos.write(decoder);
+//					System.out.println("File Saved");
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 
 			}
 
 			// Vendor API calling
-			String vendor = "";
+			//String vendor = "";
 			try {
 				String urldata = "http://65.1.184.148:8080/VendorPortal/portal/createUpdate/vendor";
 				URL url = new URL(urldata);
@@ -414,7 +441,12 @@ public class AjaxController {
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				// body
 				JSONObject json = new JSONObject();
-				json.put("processid", "");
+				
+				String pid = supDetails.getPid();
+				if (pid != null) {
+					json.put("processid", pid);
+				}
+
 				json.put("supplier_name", supDetails.getSuppName());
 				json.put("pan_number", supDetails.getPanNumber());
 				json.put("alternate_supplier_name", "");
@@ -439,6 +471,10 @@ public class AjaxController {
 				json.put("hd_Adhaar", supDetails.getAadharNumber());
 				json.put("hd_Adhaar_LinkStatus", supDetails.getAdharLinkStatus());
 
+				//
+
+				
+
 				if (supDetails.getItrDetails().size() < 3) {
 					System.out.println("please enter three itr details");
 
@@ -457,13 +493,6 @@ public class AjaxController {
 				json.put("business_classification", supDetails.getBusinessClassification());
 				json.put("certificate_no", "");
 				json.put("certifing_agency", "");
-
-				// json.put("VendorSiteDetails", "");
-				// Documents
-//				String runType = supDetails.getVendorType();		
-//				if("Ad-Hoc".equalsIgnoreCase(runType)) {
-//					   
-//				}
 
 				// Adding Vendor Details
 				JSONObject venDetals = new JSONObject();
@@ -508,6 +537,7 @@ public class AjaxController {
 					venDetals.put("ln_InvoiceCurrency", supDetails.getInvoiceCurrency());
 					venDetals.put("ln_PaymentCurrency", supDetails.getPaymentCurrency());
 					venDetals.put("ln_SupplierGSTRegNo", supDetails.getCompGstn());
+
 					// venDetals.put("vendorportal_regno", "sdf");
 					venDetals.put("ln_TDSSection", supDetails.getTdsSection());
 
@@ -572,13 +602,24 @@ public class AjaxController {
 					}
 
 					conn.disconnect();
-					logger.error("Ran into an error {}");
+					try (Writer writer = new BufferedWriter(new FileWriter(file))) {
+
+						writer.write(contents + "\n" + "JSON is ::" + json.toString() + "\n" + "venDetals"
+								+ venDetals.toString());
+						logger.error("Ran into an error {}");
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-//API calling END
+			
+			  //Long vendorId = serviceManager.supDetailsRepo.selectIdByPid(processID);
+			  
+			  //API calling END 
+			 // if(vendorId!=null) { supDetails.setId(vendorId);
+			 
+			 // }
+			 
 			serviceManager.detailsRepo.save(supDetails);
 
 			data.setData(processID);
@@ -616,6 +657,75 @@ public class AjaxController {
 			e.printStackTrace();
 		}
 
+		return gson.toJson(data).toString();
+	}
+
+	@RequestMapping({ "/saveRegistrationQuery" })
+	@CrossOrigin("*")
+	public String saveRegistrationQuery(Principal principal, HttpServletRequest request,
+			@RequestBody QueryEntity entity) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			Integer getid = entity.getId();
+
+			if (getid != null) {
+				entity.setId(null);
+				entity.setForeignKey(getid);
+				entity.setRaisedOn(new Date());
+				entity.setReferenceid(entity.getRaisedAgainQuery());
+				serviceManager.queryRepo.save(entity);
+			}
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+
+		return gson.toJson(data).toString();
+	}
+
+	@RequestMapping({ "/getVendorDetailByPid" })
+	@CrossOrigin("*")
+	public String getVendorDetailByPid(HttpServletRequest request, @RequestBody SupDetails obj) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String pid = obj.getPid();
+		System.out.println("pid my   :  " + obj.getPid());
+		try {
+
+			List<SupDetails> supDetails = serviceManager.supDetailsRepo.findBypid(pid);
+			boolean empty = supDetails.isEmpty();
+			System.out.println("empty :" + empty);
+			data.setData(supDetails);
+			data.setMsg("success");
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+		return gson.toJson(data).toString();
+	}
+
+	@RequestMapping({ "/getRegistrationQueryData" })
+	@CrossOrigin("*")
+	public String getRegistrationQueryData(HttpServletRequest request, @RequestBody QueryEntity obj) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+		try {
+
+			List<QueryEntity> list = serviceManager.queryRepo
+					.findByReferenceidAndTypeOrderByIdDesc(obj.getReferenceid(), obj.getType());
+			data.setData(list);
+			data.setMsg("success");
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
 		return gson.toJson(data).toString();
 	}
 }

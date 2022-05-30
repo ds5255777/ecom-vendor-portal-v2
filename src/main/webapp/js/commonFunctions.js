@@ -28,9 +28,9 @@ function populate(frm, data) {
 	  alert('cut,copy & paste options are disabled !!');
 	 });*/
 
-$('textarea').on("paste", function(e) {   
+/*$('textarea').on("paste", function(e) {   
     e.preventDefault();
-});
+});*/
 
 $(document).keypress(
 		  function(event){

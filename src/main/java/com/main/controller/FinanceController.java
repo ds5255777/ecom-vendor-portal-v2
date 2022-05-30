@@ -214,7 +214,8 @@ public class FinanceController {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,"Query", "Vendor", getid);
 				}
 
-			} else {
+			}
+			else {
 				entity.setType("Trip");
 				
 				

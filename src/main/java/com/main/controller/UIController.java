@@ -22,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -64,36 +65,83 @@ public class UIController {
 
 		return "login";
 	}
+	
+
+	
+	
 
 	@GetMapping("/registration")
-	public String registration(Model model) {
+	public String registration(Model model,HttpServletRequest request) {
+		
+		String pid="";
+		try {
+		pid = request.getParameter("pid");
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		if("".equalsIgnoreCase(pid)) {
+			//normal registartion
 
-		List<String> currency = serviceManager.currencyRepo.getCurrencyType();
-		List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
-		List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
-		List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
-		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
-		List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
-		List<String> country = serviceManager.countryRepo.getCountry();
-		List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
-		List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
+			List<String> currency = currencyRepo.getCurrencyType();
+			List<String> business = businessPartnerTypeRepo.getBusinessPartnerType();
+			List<String> partner = businessPartnerRepo.getBusinessPartner();
+			List<String> classification = businessClassificationRepo.getBusinessClassification();
+			List<String> payment = paymentTermRepo.getPaymentTerms();
+			List<String> nature = natureOfTransactionRepo.getNatureOfTransaction();
+			List<String> country = countryRepo.getCountry();
+			List<String> tdsCode = tDSSectionCodeRepo.getTDSSectionCode();
+			List<String> financialYear = financialYearRepo.getFinancialYear();
 
-		model.addAttribute("currency", currency);
-		model.addAttribute("business", business);
-		model.addAttribute("partner", partner);
-		model.addAttribute("classification", classification);
-		model.addAttribute("payment", payment);
-		model.addAttribute("nature", nature);
-		model.addAttribute("country", country);
-		model.addAttribute("tdsCode", tdsCode);
-		model.addAttribute("financialYear", financialYear);
+			model.addAttribute("currency", currency);
+			model.addAttribute("business", business);
+			model.addAttribute("partner", partner);
+			model.addAttribute("classification", classification);
+			model.addAttribute("payment", payment);
+			model.addAttribute("nature", nature);
+			model.addAttribute("country", country);
+			model.addAttribute("tdsCode", tdsCode);
+			model.addAttribute("financialYear", financialYear);
+			model.addAttribute("pid",pid);
+			model.addAttribute("fileSize", fileSize);
 
-		model.addAttribute("fileSize", fileSize);
+			model.addAttribute("maxFileSize", maxFileSize);
+			model.addAttribute("fileSize", fileSize);
 
-		model.addAttribute("maxFileSize", maxFileSize);
-		model.addAttribute("fileSize", fileSize);
+			//return "registration";
+	
+		}else {
+			
+			//Query page of registration
+			System.out.println(pid);
+			model.addAttribute("pid",pid);
+			List<String> currency = currencyRepo.getCurrencyType();
+			List<String> business = businessPartnerTypeRepo.getBusinessPartnerType();
+			List<String> partner = businessPartnerRepo.getBusinessPartner();
+			List<String> classification = businessClassificationRepo.getBusinessClassification();
+			List<String> payment = paymentTermRepo.getPaymentTerms();
+			List<String> nature = natureOfTransactionRepo.getNatureOfTransaction();
+			List<String> country = countryRepo.getCountry();
+			List<String> tdsCode = tDSSectionCodeRepo.getTDSSectionCode();
+			List<String> financialYear = financialYearRepo.getFinancialYear();
 
-		return "registration";
+			model.addAttribute("currency", currency);
+			model.addAttribute("business", business);
+			model.addAttribute("partner", partner);
+			model.addAttribute("classification", classification);
+			model.addAttribute("payment", payment);
+			model.addAttribute("nature", nature);
+			model.addAttribute("country", country);
+			model.addAttribute("tdsCode", tdsCode);
+			model.addAttribute("financialYear", financialYear);
+
+			model.addAttribute("fileSize", fileSize);
+
+			model.addAttribute("maxFileSize", maxFileSize);
+			model.addAttribute("fileSize", fileSize);
+		}
+		return	"registration";
+		
 	}
 
 	@GetMapping({ "/", "/dashboard" })
@@ -807,5 +855,7 @@ public class UIController {
 			}
 		}
 	}
+	
+	
 
 }

@@ -127,9 +127,6 @@ public class TripDetails {
 	@Column(name = "processed_By")
 	private String processedBy;//
 
-	@Column(name = "lumpsome_checkbox")
-	private String lumpsomecheckbox;
-
 //lumpsome_amount
 	@Column(name = "lumpsome_amount")
 	private String lumpsomeamount;
@@ -438,14 +435,6 @@ public class TripDetails {
 
 	public void setProcessedBy(String processedBy) {
 		this.processedBy = processedBy;
-	}
-
-	public String getLumpsomecheckbox() {
-		return lumpsomecheckbox;
-	}
-
-	public void setLumpsomecheckbox(String lumpsomecheckbox) {
-		this.lumpsomecheckbox = lumpsomecheckbox;
 	}
 
 	public String getLumpsomeamount() {

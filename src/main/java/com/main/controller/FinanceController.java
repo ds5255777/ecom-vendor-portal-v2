@@ -2,15 +2,13 @@ package com.main.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,8 +22,11 @@ import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.Document;
+import com.main.db.bpaas.entity.EmailConfiguration;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.QueryEntity;
+import com.main.email.CommEmailFunction;
+import com.main.email.WelcomeEmail;
 import com.main.serviceManager.ServiceManager;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
@@ -35,16 +36,11 @@ public class FinanceController {
 
 	@Autowired
 	private ServiceManager serviceManager;
-	
-	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	private static Logger logger = LoggerFactory.getLogger(EmailConfigurationController.class);
 
 	// all invoice
 	@RequestMapping({ "/viewAllInvoiceForFinanceTeam" })
 	@CrossOrigin("*")
 	public String getAllInvoice(HttpServletRequest request) {
-		
-		logger.info("Log Some Information : "+dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 
@@ -57,7 +53,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 
 		return gson.toJson(data).toString();
@@ -79,7 +75,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 
 		return gson.toJson(data).toString();
@@ -101,7 +97,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 
 		return gson.toJson(data).toString();
@@ -123,7 +119,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 
 		return gson.toJson(data).toString();
@@ -145,7 +141,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 
 		return gson.toJson(data).toString();
@@ -166,7 +162,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 
 		return gson.toJson(data).toString();
@@ -187,7 +183,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 		return gson.toJson(data).toString();
 	}
@@ -200,22 +196,30 @@ public class FinanceController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String userName = principal.getName();
 		String rolename = (String) request.getSession().getAttribute("role");
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+		String processedOn = dateFormat.format(date);
 		try {
 			Integer getid = entity.getId();
 
 			if ("Invoice".equalsIgnoreCase(entity.getType())) {
 				entity.setType("Invoice");
 				if (GlobalConstants.ROLE_VENDOR.equalsIgnoreCase(rolename)) {
-					serviceManager.queryRepo.updateInvoiceStatus("In-Review", "Finance", getid);
+					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,"In-Review", "Finance", getid);
 				} else if (GlobalConstants.ROLE_FINANCE.equalsIgnoreCase(rolename)) {
-					serviceManager.queryRepo.updateInvoiceStatus("Query", "Vendor", getid);
+					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,"Query", "Vendor", getid);
 				} else if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(rolename)) {
-					serviceManager.queryRepo.updateInvoiceStatus("Query", "Finance", getid);
+					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,"Query", "Finance", getid);
+				}else if (GlobalConstants.ROLE_NETWORK.equalsIgnoreCase(rolename)) {
+					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,"Query", "Vendor", getid);
 				}
 
 			} else {
 				entity.setType("Trip");
-				serviceManager.queryRepo.updateStatusByUserid("Query", "Network", getid);
+				
+				
+				
+				serviceManager.queryRepo.updateStatusByUserid(processedOn, userName, "Query", "Network", getid);
 			}
 
 			if (getid != null) {
@@ -226,11 +230,33 @@ public class FinanceController {
 				entity.setReferenceid(entity.getRaisedAgainQuery());
 				serviceManager.queryRepo.save(entity);
 			}
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
+						
+						if(!emailList.isEmpty()) {
+							EmailConfiguration emailConfiguration=emailList.get(0);
+							
+							CommEmailFunction.sendEmail("girdhar.supyal@bpaassolutions.com", "Trip Query",
+									"Trip is not ok", emailConfiguration.getSmtpPort(), emailConfiguration.getUserName(), emailConfiguration.getPassword(), emailConfiguration.getServerName());
+						}
+						 
+						
+						
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					Thread.currentThread().interrupt();
+				}
+			}).start();
 			data.setMsg("success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 
 		return gson.toJson(data).toString();
@@ -251,7 +277,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 		return gson.toJson(data).toString();
 	}
@@ -259,27 +285,32 @@ public class FinanceController {
 	// getDocumentById
 	@RequestMapping({ "/approveInvoiceFinanceSide" })
 	@CrossOrigin("*")
-	public String approveInvoiceFinanceSide(HttpServletRequest request, @RequestBody InvoiceGenerationEntity entity) {
+	public String approveInvoiceFinanceSide(Principal principal,HttpServletRequest request, @RequestBody InvoiceGenerationEntity entity) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		
+		String userName = principal.getName();
 
 		String role = (String) request.getSession().getAttribute("role");
 		System.out.println(role);
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+		String processedOn = dateFormat.format(date);
 		try {
 
 			if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(role)) {
-				serviceManager.invoiceGenerationEntityRepo.updateInvoiceStatus(entity.getEcomInvoiceNumber(),
+				serviceManager.invoiceGenerationEntityRepo.updateInvoiceStatus(processedOn,userName,entity.getEcomInvoiceNumber(),
 						"Approved");
 			} else {
-				serviceManager.invoiceGenerationEntityRepo.updateInvoiceStatus(entity.getEcomInvoiceNumber(),
+				serviceManager.invoiceGenerationEntityRepo.updateInvoiceStatus(processedOn,userName,entity.getEcomInvoiceNumber(),
 						"Pending For Approval");
 			}
 
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 		return gson.toJson(data).toString();
 	}
@@ -303,7 +334,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 		return gson.toJson(data).toString();
 	}
@@ -320,7 +351,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 		return gson.toJson(data).toString();
 	}
@@ -339,7 +370,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 
 		return gson.toJson(data).toString();

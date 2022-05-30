@@ -272,7 +272,7 @@
 														class="required adHocRequired"></span></label>
 
 												<div class="col-sm-7">
-												<select class="form-control" onchange="getBpCode()" id="vendorName1" name="vendorName1" style="height: 34px;">
+												<select class="form-control" onchange="getBpCode()" id="vendorName" name="vendorName" style="height: 34px;">
 												
 												<c:forEach items="${vendorNamefortrips}" var="vendorName">
 
@@ -291,8 +291,8 @@
 														<div class="form-group row">
 															<label class="col-sm-5">Vendor Code</label>
 															<div class="col-sm-7">
-																<input type="text" class="form-control" id="vendorCode1"
-																	name="vendorCode1" readonly="readonly" autocomplete="off">
+																<input type="text" class="form-control" id="vendorCode"
+																	name="vendorCode" readonly="readonly" autocomplete="off">
 															</div>
 														</div>
 													</div>
@@ -719,7 +719,7 @@
 
          <script type="text/javascript">
 
-         $('#vendorName1').select2({
+         $('#vendorName').select2({
   		 theme : 'bootstrap4'
   		 });
          
@@ -872,7 +872,7 @@
                                                                     setData(myForm, result);
                                                                 //    $('#vendorName').val(vendorNameOfTrip);
                                                               //  $("#vendorName").select2("val", vendorNameOfTrip);
-                                                                $("#vendorName1").val(vendorNameOfTrip).trigger('change');
+                                                                $("#vendorName").val(vendorNameOfTrip).trigger('change');
                                                                     $('#tripValue').modal('show');
                                                                 } else {
                                                                     Toast.fire({
@@ -1016,8 +1016,8 @@
                                                         var AmountLumpSum = document.getElementById("AmountLumpSum").value;
                                                         var lumpsum = document.getElementById("lumpsum").value;
                                                         var fs = document.getElementById("fs").value;
-                                                        var vendorName = document.getElementById("vendorName1").value
-                                                        var vendorCode = document.getElementById("vendorCode1").value
+                                                        var vendorName = document.getElementById("vendorName").value
+                                                        var vendorCode = document.getElementById("vendorCode").value
 
 
                                                         console.log("routeKms " + routeKms);
@@ -1262,14 +1262,14 @@
                                                     });
                                                     
                                                    function getBpCode(){
-                                                	   var vendorName=$("#vendorName1").val();
-                                                	   
+                                                	   var vendorName=$("#vendorName").val();
+                                                	   console.log(vendorName,"vendor name -----");
                                                 	   
                                                 	   var json = {
                                                                "vendorName": vendorName
                                                            }
 
-                                                           
+                                                	   console.log("JSON Obj ",json);
 
                                                            $.ajax({
                                                                type: "POST",
@@ -1282,7 +1282,7 @@
 
                                                                    if (data.msg == 'success') {
                                                                        var result = data.data;
-                                                                       $("#vendorCode1").val(result);
+                                                                       $("#vendorCode").val(result);
                                                                  
                                                                    } else {
                                                                        Toast.fire({

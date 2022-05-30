@@ -5,8 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.Principal;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -50,9 +48,6 @@ public class UIController {
 
 	@Autowired
 	ServiceManager serviceManager;
-	
-	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	private static Logger logger = LoggerFactory.getLogger(UIController.class);
 
 
 	@GetMapping({ "/login" })
@@ -597,7 +592,6 @@ public class UIController {
 	public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
 
 		String userName = principal.getName();
-		//String userNameIs = userName.substring(0, 4).toUpperCase();
 		String invoiceNumber = "";
 
 		invoiceNumber = generateInvoiceNumber();
@@ -621,10 +615,16 @@ public class UIController {
 
 			for (String str : split) {
 				findByTripID = serviceManager.tripDetailsRepo.findByTripID(str);
+				
+				Date date = new Date();
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+				String processedOn = dateFormat.format(date);
 
 				if (null != findByTripID.getTripID()) {
 					findByTripID.setVendorTripStatus("Draft-Invoicing");
 					findByTripID.setInvoiceNumber(invoiceNumber);
+					findByTripID.setProcessedOn(processedOn);
+					findByTripID.setProcessedBy(userName);
 					serviceManager.tripDetailsRepo.save(findByTripID);
 				}
 			}

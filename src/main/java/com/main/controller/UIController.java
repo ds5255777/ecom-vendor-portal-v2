@@ -22,7 +22,6 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -32,8 +31,6 @@ import com.main.db.bpaas.entity.RolesEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.serviceManager.ServiceManager;
-
-
 
 @Controller
 public class UIController {
@@ -50,7 +47,6 @@ public class UIController {
 	@Autowired
 	ServiceManager serviceManager;
 
-
 	@GetMapping({ "/login" })
 	public String login(Model model, String error, String logout) {
 		model.addAttribute("userForm", new User());
@@ -65,33 +61,29 @@ public class UIController {
 
 		return "login";
 	}
-	
-
-	
-	
 
 	@GetMapping("/registration")
-	public String registration(Model model,HttpServletRequest request) {
-		
-		String pid="";
+	public String registration(Model model, HttpServletRequest request) {
+
+		String pid = "";
 		try {
-		pid = request.getParameter("pid");
-		}catch(Exception ex) {
+			pid = request.getParameter("pid");
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
-		if("".equalsIgnoreCase(pid)) {
-			//normal registartion
 
-			List<String> currency = currencyRepo.getCurrencyType();
-			List<String> business = businessPartnerTypeRepo.getBusinessPartnerType();
-			List<String> partner = businessPartnerRepo.getBusinessPartner();
-			List<String> classification = businessClassificationRepo.getBusinessClassification();
-			List<String> payment = paymentTermRepo.getPaymentTerms();
-			List<String> nature = natureOfTransactionRepo.getNatureOfTransaction();
-			List<String> country = countryRepo.getCountry();
-			List<String> tdsCode = tDSSectionCodeRepo.getTDSSectionCode();
-			List<String> financialYear = financialYearRepo.getFinancialYear();
+		if ("".equalsIgnoreCase(pid)) {
+			// normal registartion
+
+			List<String> currency = serviceManager.currencyRepo.getCurrencyType();
+			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+			List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
+			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
+			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+			List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+			List<String> country = serviceManager.countryRepo.getCountry();
+			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
+			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
 
 			model.addAttribute("currency", currency);
 			model.addAttribute("business", business);
@@ -102,28 +94,28 @@ public class UIController {
 			model.addAttribute("country", country);
 			model.addAttribute("tdsCode", tdsCode);
 			model.addAttribute("financialYear", financialYear);
-			model.addAttribute("pid",pid);
+			model.addAttribute("pid", pid);
 			model.addAttribute("fileSize", fileSize);
 
 			model.addAttribute("maxFileSize", maxFileSize);
 			model.addAttribute("fileSize", fileSize);
 
-			//return "registration";
-	
-		}else {
-			
-			//Query page of registration
+			// return "registration";
+
+		} else {
+
+			// Query page of registration
 			System.out.println(pid);
-			model.addAttribute("pid",pid);
-			List<String> currency = currencyRepo.getCurrencyType();
-			List<String> business = businessPartnerTypeRepo.getBusinessPartnerType();
-			List<String> partner = businessPartnerRepo.getBusinessPartner();
-			List<String> classification = businessClassificationRepo.getBusinessClassification();
-			List<String> payment = paymentTermRepo.getPaymentTerms();
-			List<String> nature = natureOfTransactionRepo.getNatureOfTransaction();
-			List<String> country = countryRepo.getCountry();
-			List<String> tdsCode = tDSSectionCodeRepo.getTDSSectionCode();
-			List<String> financialYear = financialYearRepo.getFinancialYear();
+			model.addAttribute("pid", pid);
+			List<String> currency = serviceManager.currencyRepo.getCurrencyType();
+			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+			List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
+			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
+			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+			List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+			List<String> country = serviceManager.countryRepo.getCountry();
+			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
+			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
 
 			model.addAttribute("currency", currency);
 			model.addAttribute("business", business);
@@ -140,8 +132,8 @@ public class UIController {
 			model.addAttribute("maxFileSize", maxFileSize);
 			model.addAttribute("fileSize", fileSize);
 		}
-		return	"registration";
-		
+		return "registration";
+
 	}
 
 	@GetMapping({ "/", "/dashboard" })
@@ -149,18 +141,17 @@ public class UIController {
 
 		String rolename = (String) request.getSession().getAttribute("role");
 		User us = serviceManager.userService.findByUsername(principal.getName());
-		
-		String bpCode=serviceManager.userRepository.getBpCode(principal.getName());
-		if("".equals(bpCode) || bpCode==null ) {
-			bpCode="";
+
+		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
+		if ("".equals(bpCode) || bpCode == null) {
+			bpCode = "";
 		}
-		
+
 		String vendorType = serviceManager.supDetailsRepo.findVendorType(bpCode);
-		if("".equals(vendorType) || vendorType==null) {
-			vendorType="vendor";
+		if ("".equals(vendorType) || vendorType == null) {
+			vendorType = "vendor";
 		}
-		System.out.println("vendorType in dashboard : "+vendorType);
-				
+		System.out.println("vendorType in dashboard : " + vendorType);
 
 		model.addAttribute("dataLimit", dataLimit);
 
@@ -169,17 +160,19 @@ public class UIController {
 			List<TripDetails> totalTripCount = serviceManager.tripDetailsRepo.findAll();
 			model.addAttribute("totalTripCount", totalTripCount.size());
 
-			List<TripDetails> allApprovedTripscount = serviceManager.tripService.findAllTripsByStatus("Yet To Be Approved");
+			List<TripDetails> allApprovedTripscount = serviceManager.tripService
+					.findAllTripsByStatus("Yet To Be Approved");
 			model.addAttribute("ApprovedTripscount", allApprovedTripscount.size());
 
 			List<TripDetails> yetTobeApproved = serviceManager.tripService.findAllTripsByStatus("");
 			model.addAttribute("yetTobeApproved", yetTobeApproved.size());
 
-			List<TripDetails> getTripCountForQueryAdhoc = serviceManager.tripDetailsRepo.getQueryTripsForNetwork("Query");
+			List<TripDetails> getTripCountForQueryAdhoc = serviceManager.tripDetailsRepo
+					.getQueryTripsForNetwork("Query");
 			model.addAttribute("getTripCountForQueryAdhoc", getTripCountForQueryAdhoc.size());
 
-			int getInClosedTripCountForAdhoc = serviceManager.tripDetailsRepo.getInTransitTripCountByRunTypeAndRunStatus("Adhoc",
-					"Closed");
+			int getInClosedTripCountForAdhoc = serviceManager.tripDetailsRepo
+					.getInTransitTripCountByRunTypeAndRunStatus("Adhoc", "Closed");
 			model.addAttribute("getInClosedTripCountForAdhoc", getInClosedTripCountForAdhoc);
 
 			int getAllInvoiceCount = serviceManager.invoiceGenerationEntityRepo.getCountForAllInvoices();
@@ -220,7 +213,8 @@ public class UIController {
 
 			// Invoices
 			int getAllInvoiceCount = serviceManager.invoiceGenerationEntityRepo.getCountForAllInvoices();
-			int countForAllProcessedInvoice = serviceManager.invoiceGenerationEntityRepo.getCountForAllProcessedInvoice();
+			int countForAllProcessedInvoice = serviceManager.invoiceGenerationEntityRepo
+					.getCountForAllProcessedInvoice();
 			int countForAllApproveInvoice = serviceManager.invoiceGenerationEntityRepo.getCountForAllApproveInvoice();
 			model.addAttribute("getAllInvoiceCount", getAllInvoiceCount);
 			model.addAttribute("countForAllProcessedInvoice", countForAllProcessedInvoice);
@@ -250,25 +244,27 @@ public class UIController {
 			model.addAttribute("approveInvoice", approveInvoice);
 			model.addAttribute("draftInvoice", draftInvoice);
 			model.addAttribute("userStatus", us.getStatus());
-			
+
 			request.setAttribute("vendorType", vendorType);
 			model.addAttribute("vendorType", vendorType);
 
-			//po Details
+			// po Details
 			/*
 			 * int totalProcessPoCount = PoDetailsRepo.getAllProcessPoCount(vendorCode);
 			 * model.addAttribute("totalProcessPoCount", totalProcessPoCount);
 			 * System.out.println("totalProcessPoCount : "+totalProcessPoCount);
 			 */
-			
+
 			return "dashboard";
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
 				|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
 			long allInvoice = serviceManager.invoiceGenerationEntityRepo.getCountForAllInvoice();
 			long inReviewInvoice = serviceManager.invoiceGenerationEntityRepo.getCountForInReviewInvoice();
-			int countForPendingForApprovalInvoice = serviceManager.invoiceGenerationEntityRepo.getCountForPendingForApprovalInvoice();
+			int countForPendingForApprovalInvoice = serviceManager.invoiceGenerationEntityRepo
+					.getCountForPendingForApprovalInvoice();
 			int countForApprovedInvoice = serviceManager.invoiceGenerationEntityRepo.getCountForApprovedInvoice();
-			int countForPaymentrelaseInvoice = serviceManager.invoiceGenerationEntityRepo.getCountForPaymentrelaseInvoice();
+			int countForPaymentrelaseInvoice = serviceManager.invoiceGenerationEntityRepo
+					.getCountForPaymentrelaseInvoice();
 			int queryCount = serviceManager.invoiceGenerationEntityRepo.getQueryzInvoice();
 
 			model.addAttribute("role", rolename);
@@ -286,22 +282,20 @@ public class UIController {
 		return "";
 
 	}
-	
-	
 
 	@GetMapping({ "/addUsers" })
-	public String addUsers(Model model,Principal principal ,String error, String logout, HttpServletRequest request) {
+	public String addUsers(Model model, Principal principal, String error, String logout, HttpServletRequest request) {
 
 		String rolename = (String) request.getSession().getAttribute("role");
 
 		if (rolename.equalsIgnoreCase("Admin")) {
-		
-		List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive("1");
-		List<RolesEntity> role = serviceManager.rolesRepository.findByIsActiveAndRoleNameNot("1","Vendor");
-		model.addAttribute("rolesList", roleList);
-		model.addAttribute("role", role);
-		String uname = principal.getName();
-		model.addAttribute("uname", uname);
+
+			List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive("1");
+			List<RolesEntity> role = serviceManager.rolesRepository.findByIsActiveAndRoleNameNot("1", "Vendor");
+			model.addAttribute("rolesList", roleList);
+			model.addAttribute("role", role);
+			String uname = principal.getName();
+			model.addAttribute("uname", uname);
 
 			return "addUsers";
 
@@ -401,7 +395,7 @@ public class UIController {
 
 	@GetMapping("/invoicesQueue")
 	public String invoicesQueue(Model model, Principal principal, HttpServletRequest request) {
-		
+
 		String rolename = (String) request.getSession().getAttribute("role");
 		model.addAttribute("dataLimit", dataLimit);
 		model.addAttribute("rolename", rolename);
@@ -443,32 +437,30 @@ public class UIController {
 	@GetMapping("/vendorDetails")
 	public String vendorDetails(Model model, Principal principal, HttpServletRequest request) {
 		String rolename = (String) request.getSession().getAttribute("role");
-		 List<String> currency = serviceManager.currencyRepo.getCurrencyType();
-			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
-			List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
-			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
-			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
-			List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
-			List<String> country = serviceManager.countryRepo.getCountry();
-			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
-			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
+		List<String> currency = serviceManager.currencyRepo.getCurrencyType();
+		List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+		List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
+		List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
+		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+		List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+		List<String> country = serviceManager.countryRepo.getCountry();
+		List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
+		List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
 
-			model.addAttribute("currency", currency);
-			model.addAttribute("business", business);
-			model.addAttribute("partner", partner);
-			model.addAttribute("classification", classification);
-			model.addAttribute("payment", payment);
-			model.addAttribute("nature", nature);
-			model.addAttribute("country", country);
-			model.addAttribute("tdsCode", tdsCode);
-			model.addAttribute("financialYear", financialYear);
+		model.addAttribute("currency", currency);
+		model.addAttribute("business", business);
+		model.addAttribute("partner", partner);
+		model.addAttribute("classification", classification);
+		model.addAttribute("payment", payment);
+		model.addAttribute("nature", nature);
+		model.addAttribute("country", country);
+		model.addAttribute("tdsCode", tdsCode);
+		model.addAttribute("financialYear", financialYear);
 
-			model.addAttribute("fileSize", fileSize);
+		model.addAttribute("fileSize", fileSize);
 
-			model.addAttribute("maxFileSize", maxFileSize);
-			model.addAttribute("fileSize", fileSize);
-
-
+		model.addAttribute("maxFileSize", maxFileSize);
+		model.addAttribute("fileSize", fileSize);
 
 		if (rolename.equalsIgnoreCase("Admin")) {
 
@@ -477,61 +469,57 @@ public class UIController {
 		return "";
 	}
 
-	 @GetMapping("/notification")
-	   	public String notification(Model model, Principal principal, HttpServletRequest request) {
-	   		
-	    	String rolename = (String) request.getSession().getAttribute("role");
+	@GetMapping("/notification")
+	public String notification(Model model, Principal principal, HttpServletRequest request) {
 
-			if (rolename.equalsIgnoreCase("Admin")) {
-				
-				return "notification";
-			}
-	   		return "";
-	   	}
-	     
-		 @GetMapping("/vendorRegistrastion")
-	   	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
-	   		
-			 String rolename = (String) request.getSession().getAttribute("role");
-			 List<String> currency = serviceManager.currencyRepo.getCurrencyType();
-				List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
-				List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
-				List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
-				List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
-				List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
-				List<String> country = serviceManager.countryRepo.getCountry();
-				List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
-				List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
-				String uname = principal.getName();
-				model.addAttribute("uname", uname);
+		String rolename = (String) request.getSession().getAttribute("role");
 
-				model.addAttribute("currency", currency);
-				model.addAttribute("business", business);
-				model.addAttribute("partner", partner);
-				model.addAttribute("classification", classification);
-				model.addAttribute("payment", payment);
-				model.addAttribute("nature", nature);
-				model.addAttribute("country", country);
-				model.addAttribute("tdsCode", tdsCode);
-				model.addAttribute("financialYear", financialYear);
+		if (rolename.equalsIgnoreCase("Admin")) {
 
-				model.addAttribute("fileSize", fileSize);
+			return "notification";
+		}
+		return "";
+	}
 
-				model.addAttribute("maxFileSize", maxFileSize);
-				model.addAttribute("fileSize", fileSize);
+	@GetMapping("/vendorRegistrastion")
+	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
 
+		String rolename = (String) request.getSession().getAttribute("role");
+		List<String> currency = serviceManager.currencyRepo.getCurrencyType();
+		List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+		List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
+		List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
+		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+		List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+		List<String> country = serviceManager.countryRepo.getCountry();
+		List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
+		List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
+		String uname = principal.getName();
+		model.addAttribute("uname", uname);
 
-				if (rolename.equalsIgnoreCase("Admin")) {
-					
-					return "vendorRegistrastion";
-					
-				}
-	   		return "";
-	   	}
-		//End
-			
-		 
+		model.addAttribute("currency", currency);
+		model.addAttribute("business", business);
+		model.addAttribute("partner", partner);
+		model.addAttribute("classification", classification);
+		model.addAttribute("payment", payment);
+		model.addAttribute("nature", nature);
+		model.addAttribute("country", country);
+		model.addAttribute("tdsCode", tdsCode);
+		model.addAttribute("financialYear", financialYear);
 
+		model.addAttribute("fileSize", fileSize);
+
+		model.addAttribute("maxFileSize", maxFileSize);
+		model.addAttribute("fileSize", fileSize);
+
+		if (rolename.equalsIgnoreCase("Admin")) {
+
+			return "vendorRegistrastion";
+
+		}
+		return "";
+	}
+	// End
 
 	@GetMapping("/dashbaordNetwork")
 	public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {
@@ -582,7 +570,7 @@ public class UIController {
 	@GetMapping("/pendingApprovalNetwork")
 	public String pendingApprovalNetwork(Model model, Principal principal) {
 		List<TripDetails> yetTobeApproved = serviceManager.tripService.findAllTripsByStatus("");
-		List<String> vendorNamefortrips =serviceManager.tripDetailsRepo.getVendorName();
+		List<String> vendorNamefortrips = serviceManager.tripDetailsRepo.getVendorName();
 		model.addAttribute("vendorNamefortrips", vendorNamefortrips);
 		System.out.println("Size of pending approval trips is ::" + yetTobeApproved.size());
 		model.addAttribute("yetTobeApprovedAllDetails", yetTobeApproved);
@@ -606,7 +594,7 @@ public class UIController {
 		List<TripDetails> AllDetailsForNetwork = serviceManager.tripDetailsRepo.getQueryTripsForNetwork("Query");
 		System.out.println(
 				"AllDetailsForNetwork Query and Adhoc Trips  :::::::::::::::::::; " + AllDetailsForNetwork.size());
-		List<String> vendorNamefortripsQuery =serviceManager.tripDetailsRepo.getVendorName(); 
+		List<String> vendorNamefortripsQuery = serviceManager.tripDetailsRepo.getVendorName();
 		model.addAttribute("vendorNamefortripsQuery", vendorNamefortripsQuery);
 		model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
 
@@ -617,23 +605,24 @@ public class UIController {
 	@GetMapping("/ClosedAdhoc")
 	public String ClosedAdhoc(Model model, Principal principal) {
 		System.out.println("********************In ClosedAndAdhoc**************");
-		List<TripDetails> AllDetailsForNetwork = serviceManager.tripService.getInTransitTripByRunTypeAndRunStatus("Adhoc", "Closed");
+		List<TripDetails> AllDetailsForNetwork = serviceManager.tripService
+				.getInTransitTripByRunTypeAndRunStatus("Adhoc", "Closed");
 		System.out.println(
 				"AllDetailsForNetwork In closed and Adhoc Trips  :::::::::::::::::::; " + AllDetailsForNetwork.size());
 		model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
 
 		return "ClosedAdhoc";
 	}
-	
+
 	public synchronized String generateInvoiceNumber() {
-		
-    	long count = serviceManager.invoiceGenerationEntityRepo.count();
-    	String invoiceNumberPrefix = "ECOM";
-    	
-    	count=count+1;
-    	 String invoiceNumber = invoiceNumberPrefix+String.format("%08d", count); // Filling with zeroes  
-    	
-    	return invoiceNumber;
+
+		long count = serviceManager.invoiceGenerationEntityRepo.count();
+		String invoiceNumberPrefix = "ECOM";
+
+		count = count + 1;
+		String invoiceNumber = invoiceNumberPrefix + String.format("%08d", count); // Filling with zeroes
+
+		return invoiceNumber;
 	}
 
 	@GetMapping("/tripsInvoiceGenerate")
@@ -663,9 +652,9 @@ public class UIController {
 
 			for (String str : split) {
 				findByTripID = serviceManager.tripDetailsRepo.findByTripID(str);
-				
+
 				Date date = new Date();
-				DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 				String processedOn = dateFormat.format(date);
 
 				if (null != findByTripID.getTripID()) {
@@ -704,8 +693,6 @@ public class UIController {
 		return "draftInvoiceGenerate";
 	}
 
-
-	
 	@GetMapping("/invoiceView")
 	public String invoiceView(Model model, HttpServletRequest request, Principal principal) {
 
@@ -715,8 +702,7 @@ public class UIController {
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		return "invoiceView";
 	}
-	
-		
+
 	@GetMapping("/draftInvoiceGenerate")
 	public String draftInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 
@@ -801,7 +787,7 @@ public class UIController {
 		model.addAttribute("rolename", rolename);
 		return "queryInvoiceVendor";
 	}
-	
+
 	@GetMapping("/queryInvoiceEdit")
 	public String queryInvoiceEdit(Model model, HttpServletRequest request, Principal principal) {
 		model.addAttribute("maxFileSize", maxFileSize);
@@ -820,7 +806,7 @@ public class UIController {
 
 		File file = null;
 		FileInputStream inputStream = null;
-		try{
+		try {
 			String[] docNameExtensionArray = name.split("\\.");
 			String docNameExtension = docNameExtensionArray[docNameExtensionArray.length - 1];
 			System.out.println("docNameExtension.." + docNameExtension);
@@ -855,7 +841,5 @@ public class UIController {
 			}
 		}
 	}
-	
-	
 
 }

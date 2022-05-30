@@ -13,7 +13,7 @@ public interface SendEmailRepo extends JpaRepository<SendEmail, Integer> {
 
 	List<SendEmail> findByStatus(String string);
 
-	void updateStatus(String setStatus);
+	
 
 
 }

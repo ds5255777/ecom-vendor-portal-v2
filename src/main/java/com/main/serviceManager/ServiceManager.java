@@ -13,10 +13,12 @@ import com.main.db.bpaas.repo.BusinessPartnerTypeRepo;
 import com.main.db.bpaas.repo.CountryRepo;
 import com.main.db.bpaas.repo.CurrencyRepo;
 import com.main.db.bpaas.repo.DocumentRepo;
+import com.main.db.bpaas.repo.EmailAuditLogsRepo;
 import com.main.db.bpaas.repo.EmailConfigurationRepository;
 import com.main.db.bpaas.repo.FinancialYearRepo;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.InvoiceLineItemRepo;
+import com.main.db.bpaas.repo.MailContentRepo;
 import com.main.db.bpaas.repo.NatureOfTransactionRepo;
 import com.main.db.bpaas.repo.PaymentTermRepo;
 import com.main.db.bpaas.repo.PoDetailsRepo;
@@ -24,6 +26,7 @@ import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.db.bpaas.repo.PoLineItemRepo;
 import com.main.db.bpaas.repo.QueryRepo;
 import com.main.db.bpaas.repo.RolesRepository;
+import com.main.db.bpaas.repo.SendEmailRepo;
 import com.main.db.bpaas.repo.SupDetailsRepo;
 import com.main.db.bpaas.repo.TDSSectionCodeRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
@@ -119,6 +122,16 @@ public class ServiceManager {
 
 	@Autowired
 	public PoLineItemRepo poLineItemRepo;
+	
+	@Autowired
+	public SendEmailRepo sendEmailRepo;
+	
+	@Autowired
+	public EmailAuditLogsRepo emailAuditLogsRepo;
+	
+	@Autowired
+	public MailContentRepo mailContentRepo;
+	
 
 	public void insertRecordIntoAuditEntry(HttpServletRequest request, String action, String actionType, String remarks,
 			String ticketId, Integer ticketQueueId) {

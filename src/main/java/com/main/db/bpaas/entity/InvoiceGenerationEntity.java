@@ -46,6 +46,12 @@ public class InvoiceGenerationEntity {
 	@Column(name = "assign_to")
 	private String assignTo;// network Team, Vendor
 
+	@Column(name = "processed_On")
+	private String processedOn;//
+
+	@Column(name = "processed_By")
+	private String processedBy;//
+
 	// form Two
 
 	@Column(name = "taxable_amount")
@@ -181,6 +187,22 @@ public class InvoiceGenerationEntity {
 
 	public void setTaxableAmount(String taxableAmount) {
 		this.taxableAmount = taxableAmount;
+	}
+
+	public String getProcessedOn() {
+		return processedOn;
+	}
+
+	public void setProcessedOn(String processedOn) {
+		this.processedOn = processedOn;
+	}
+
+	public String getProcessedBy() {
+		return processedBy;
+	}
+
+	public void setProcessedBy(String processedBy) {
+		this.processedBy = processedBy;
 	}
 
 	public String getTaxAmount() {

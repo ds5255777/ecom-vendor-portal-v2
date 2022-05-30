@@ -268,7 +268,7 @@ tbody {
 														class="required adHocRequired"></span></label>
 
 												<div class="col-sm-7">
-												<select class="form-control" onchange="getBpCode()" id="vendorName" name="vendorName" style="height: 34px;">
+												<select class="form-control" onchange="getBpCode()"  id="vendorName" name="vendorName" style="height: 34px;">
 												
 												<c:forEach items="${vendorNamefortripsQuery}" var="vendorName">
 
@@ -716,7 +716,7 @@ tbody {
 
 		<script type="text/javascript">
 
-		  $('#vendorName1').select2({
+		  $('#vendorName').select2({
   			theme : 'bootstrap4'
   		});
 		  
@@ -867,7 +867,7 @@ tbody {
                                                                     myForm = document.getElementById("tripForm1");
                                                                     console.log("result " + result.innerHTML);
                                                                     setData(myForm, result);
-                                                                    $("#vendorName1").val(vendorNameOfTrip).trigger('change');
+                                                                    $("#vendorName").val(vendorNameOfTrip).trigger('change');
                                                                     $('#tripValue').modal('show');
                                                                 } else {
                                                                     Toast.fire({
@@ -1026,8 +1026,8 @@ tbody {
                                                         var AmountLumpSum = document.getElementById("AmountLumpSum").value;
                                                         var lumpsum = document.getElementById("lumpsum").value;
                                                         var fs = document.getElementById("fs").value;
-                                                        var vendorName = document.getElementById("vendorName1").value;
-                                                        var vendorCode = document.getElementById("vendorCode1").value;
+                                                        var vendorName = document.getElementById("vendorName").value;
+                                                        var vendorCode = document.getElementById("vendorCode").value;
 
 
                                                         console.log("routeKms " + routeKms);
@@ -1344,14 +1344,10 @@ tbody {
                                                     
                                                     function getBpCode(){
                                                  	   var vendorName=$("#vendorName").val();
-                                                 	   console.log(vendorName,"1337");
                                                  	   
                                                  	   var json = {
                                                                 "vendorName": vendorName
                                                             }
-                                                 	  console.log(json,"1342");
-
-                                                            
 
                                                             $.ajax({
                                                                 type: "POST",
@@ -1364,7 +1360,7 @@ tbody {
 
                                                                     if (data.msg == 'success') {
                                                                         var result = data.data;
-                                                                        $("#vendorCode1").val(result);
+                                                                        $("#vendorCode").val(result);
                                                                   
                                                                     } else {
                                                                         Toast.fire({

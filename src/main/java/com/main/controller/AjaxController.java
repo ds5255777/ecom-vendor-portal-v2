@@ -105,7 +105,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					e.printStackTrace();
 				}
 			}
 
@@ -132,7 +132,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					e.printStackTrace();
 				}
 			}
 
@@ -158,7 +158,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					e.printStackTrace();
 				}
 			}
 
@@ -185,7 +185,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					e.printStackTrace();
 				}
 			}
 
@@ -211,7 +211,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved" + fullFilePathWithName);
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					e.printStackTrace();
 				}
 
 			}
@@ -239,7 +239,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					e.printStackTrace();
 				}
 
 			}
@@ -265,7 +265,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved ");
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					e.printStackTrace();
 				}
 
 			}
@@ -292,7 +292,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					e.printStackTrace();
 				}
 
 			}
@@ -319,7 +319,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					e.printStackTrace();
 				}
 
 			}
@@ -346,7 +346,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					e.printStackTrace();
 				}
 
 			}
@@ -373,7 +373,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					e.printStackTrace();
 				}
 
 			}
@@ -400,7 +400,7 @@ public class AjaxController {
 					fos.write(decoder);
 					System.out.println("File Saved");
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					e.printStackTrace();
 				}
 
 			}
@@ -575,7 +575,7 @@ public class AjaxController {
 					logger.error("Ran into an error {}");
 				}
 			} catch (Exception e) {
-				logger.error("error : "+e);
+				e.printStackTrace();
 			}
 
 //API calling END
@@ -590,10 +590,10 @@ public class AjaxController {
 						List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
 						
 						if(!emailList.isEmpty()) {
-							EmailConfiguration EmailConfiguration=emailList.get(0);
+							EmailConfiguration emailConfiguration=emailList.get(0);
 							
 							CommEmailFunction.sendEmail(supDetails.getCompEmail(), "Vendor Portal Req Acknowldgement",
-									new WelcomeEmail().prepareMailBody("Vendor"), EmailConfiguration.getSmtpPort(), EmailConfiguration.getUserName(), EmailConfiguration.getPassword(), EmailConfiguration.getServerName());
+									new WelcomeEmail().prepareMailBody("Vendor"), emailConfiguration.getSmtpPort(), emailConfiguration.getUserName(), emailConfiguration.getPassword(), emailConfiguration.getServerName());
 						}
 						 
 						
@@ -613,7 +613,7 @@ public class AjaxController {
 		Exception e) {
 			data.setMsg("error");
 			data.setData(e.toString());
-			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 
 		return gson.toJson(data).toString();

@@ -35,34 +35,25 @@ public class User implements Serializable {
 	@Column(name = "password")
 	private String password;
 
-	@Column(name = "add_check")
-	private String addCheck;
-
-	@Column(name = "update_check")
-	private String updateCheck;
-
-	@Column(name = "delete_check")
-	private String deleteCheck;
-
 	@Column(name = "role_id")
 	private Integer roleId;
 
-	@Column(name = "dash_board_interval")
-	private Integer dashBoardInterval;
-	
 	@Column(name = "first_name")
 	private String firstName;
-	
+
 	@Column(name = "last_name")
 	private String lastName;
+	
+	@Column(name = "vendor_name")
+	private String vendorName;
 
 	@ManyToOne
 	@JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
 	private RolesEntity rolesObj;
 
 	@Column(name = "status")
-	private String status="0"; // 1- active , 0- inactive, 2- delete 3-change Password
-	
+	private String status = "0"; // 1- active , 0- inactive, 2- delete 3-change Password
+
 	@Column(name = "bp_code")
 	private String bpCode;
 
@@ -76,7 +67,6 @@ public class User implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 
 	public String getEmailId() {
 		return emailId;
@@ -142,38 +132,6 @@ public class User implements Serializable {
 		this.rolesObj = rolesObj;
 	}
 
-	public Integer getDashBoardInterval() {
-		return dashBoardInterval;
-	}
-
-	public void setDashBoardInterval(Integer dashBoardInterval) {
-		this.dashBoardInterval = dashBoardInterval;
-	}
-
-	public String getAddCheck() {
-		return addCheck;
-	}
-
-	public void setAddCheck(String addCheck) {
-		this.addCheck = addCheck;
-	}
-
-	public String getUpdateCheck() {
-		return updateCheck;
-	}
-
-	public void setUpdateCheck(String updateCheck) {
-		this.updateCheck = updateCheck;
-	}
-
-	public String getDeleteCheck() {
-		return deleteCheck;
-	}
-
-	public void setDeleteCheck(String deleteCheck) {
-		this.deleteCheck = deleteCheck;
-	}
-
 	public String getFirstName() {
 		return firstName;
 	}
@@ -202,4 +160,12 @@ public class User implements Serializable {
 		this.bpCode = bpCode;
 	}
 
+	public String getVendorName() {
+		return vendorName;
+	}
+
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
+	}
+	
 }

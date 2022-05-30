@@ -5,7 +5,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -190,6 +190,7 @@
             </section>
             <!-- Control Sidebar -->
         </div>
+        </div>
         <!-- ./wrapper -->
         <script src="plugins/jquery/jquery.min.js"></script>
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -234,6 +235,9 @@
                 showConfirmButton: false,
                 timer: 3000
             });
+            
+            var dataLimit='${dataLimit}';
+    		dataLimit=parseInt(dataLimit);
 
             var tabledata = $('#tabledata').DataTable({
                 "paging": true,
@@ -243,7 +247,7 @@
                 "autoWidth": false,
                 "aaSorting": [],
                 "scrollX": true,
-                "pageLength": 10,
+                "pageLength": dataLimit,
                 dom: 'Bfrtip',
                 //buttons: ['excel','pdf','print'],
                 buttons: [

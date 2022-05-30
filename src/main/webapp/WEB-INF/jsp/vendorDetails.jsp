@@ -8,12 +8,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>${titleName}|Users</title>
+    <title>${titleName}| Vendor Details</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->
@@ -31,7 +32,6 @@
     <!-- summernote -->
     <!-- <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css"> -->
 
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
 
@@ -123,11 +123,11 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <jsp:include page="navbar.jsp?pagename=Users" />
+        <jsp:include page="navbar.jsp?pagename=Vendor Details" />
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <jsp:include page="sidebar_Admin.jsp?pagename=addUsers" />
+        <jsp:include page="sidebar_Admin.jsp?pagename=Vendor Details" />
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -182,26 +182,28 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card card-primary">
-                                <div class="card-header">
+                             <!--    <div class="card-header">
                                     <h3 class="card-title">Vendor Details</h3>
-                                </div>
+                                </div> -->
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <table id="tabledata" class="table table-bordered table-hover">
                                         <thead>
                                                            <tr>
                                                            		<!-- <th >Sr.No</th> -->
-                                                           		<th>Vendor code</th>
-                                                           		<th>Introduced By Name </th>
-                                                           		<th>Business Partner Name</th>
-                                                                <th>Company Email ID</th>
-                                                                <th>introduced by email id</th>
-                                                                <th>GSTN Number</th>
-                                                                <th>Nature of transactions</th>
+                                                           		<th class="bg-primary">Vendor code</th>
+                                                           		<th class="bg-primary">Introduced By Name </th>
+                                                           		<th class="bg-primary">Business Partner Name</th>
+                                                                <th class="bg-primary">Company Email ID</th>
+                                                                <th class="bg-primary">introduced by email id</th>
+                                                                <th class="bg-primary">GSTN Number</th>
+                                                                <th class="bg-primary">Nature of transactions</th>
                                                                 
-                                                                <th>Business Partner Type</th>
-                                                                <th>Business Partner</th>
-                                                                <th>Phone Number</th>
+                                                                <th class="bg-primary">Business Partner Type</th>
+                                                                <th class="bg-primary">Business Partner</th>
+                                                                <th class="bg-primary">Phone Number</th>
+                                                                <th class="bg-primary">Status</th>
+                                                                 <th class="bg-primary">Action</th>
                                                          
                                                            </tr>
                                                      </thead>
@@ -273,7 +275,7 @@ window.onload = function(){
 												<input type="text"
 													class="form-control p-input" id="introducedByName"
 													name="introducedByName" placeholder="Reference Name"
-													onchange="removeValCssByID(this)" disabled="disabled" required></td>
+													onchange="removeValCssByID(this)" required></td>
 
 												<td><label for="emailId">Introduced By Email ID<span
 														class="required adHocRequired">*</span></label></td>
@@ -291,24 +293,26 @@ window.onload = function(){
 												<td><label>Business Partner Type<span
 														class="required adHocRequired">*</span></label></td>
 												
-												<td style="width: auto">
-												<select class="js-example-basic-multiple select2"  name="states[]"  id="states" value="Network" onchange="select()" multiple="multiple" >
-												<option    value="Network">&emsp;&emsp;Network</option>
-												<option  value="Fixed Asset">&emsp;&emsp;Fixed Asset</option>
-												
-												</select>
-													
-												</td>
+												<td style="width: auto"><select
+													class="js-example-basic-multiple select2" name="states[]"
+													id="states" onchange="select()" multiple="multiple" >
+														<c:forEach items="${business}" var="bus">
+
+															<option value="${bus}">&emsp;&emsp;${bus}</option>
+														</c:forEach>
+												</select></td>
 												
 												
 												
 												<td><label for="partnerType">Business Partner</label></td>
-												<td><select id="partnerType" name="partnerType"
+											<td><select id="partnerType" name="partnerType"
 													class="form-control p-input"
 													onchange="showHideRequiredClass();" disabled="disabled">
-														<option id="scheduled" value="Scheduled">Scheduled</option>
-														<option id="adHoc" value="Ad-Hoc">Ad-Hoc(Need
-															Basic)</option>
+														<c:forEach items="${partner}" var="par">
+
+															<option value="${par}">${par}</option>
+														</c:forEach>
+
 												</select></td>
 												<input type="hidden" id="roleId" />
 											</tr>
@@ -415,37 +419,35 @@ window.onload = function(){
 														transactions<span class="required adHocRequired">*</span>
 												</label></td>
 												<td><select colspan='1' class="form-control p-input"
-                                                                     id="natureOfTransactions" name="natureOfTransactions"
-                                                                     placeholder="Nature of transactions"
-                                                                     onchange="removeValCssByID(this)">
-                                                                          <option id="select" value="">Select</option>
-                                                                           
-                                                                          <option id="fixedAssets" value="FIXED ASSETS">FIXED
-                                                                                ASSETS</option>
-                                                                          <option id="networkCreditors" value="NETWORK CREDITORS">NETWORK
-                                                                                CREDITORS</option>
-                                                                
+													id="natureOfTransactions" name="natureOfTransactions"
+													placeholder="Nature of transactions"
+													onchange="removeValCssByID(this)">
+														<option value="">Select</option>
+														<c:forEach items="${nature}" var="nat">
 
-                                                                </select></td>
+															<option value="${nat}">${nat}</option>
+														</c:forEach>
+
+												</select></td>
 											</tr>
 
 											<tr>
 
 												<td><label for="businessClassification">Business
 														Classification</label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="businessClassification"
-													name="businessClassification"
-													placeholder="Business Classification"
-													onchange="removeValCssByID(this)"></td>
+													<td><select id="businessClassification"
+													name="businessClassification" class="form-control p-input"
+													colspan='1' placeholder="Business Classification"
+													onchange="removeValCssByID(this)">
+														<option value="">Select</option>
+														<c:forEach items="${classification}" var="classi">
 
-												<!-- <td><label for="siteDff">SITE DFF</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="siteDff" name="siteDff" placeholder="SITE DFF"></td>
+															<option value="${classi}">${classi}</option>
+														</c:forEach>
 
-                                                <td><label for="opeUnitReqMap">Operating Unit
-                                                        required to MAP<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="opeUnitReqMap" name="opeUnitReqMap" placeholder="Operating Unit required to MAP" onchange="removeValCssByID(this)"></td> -->
+												</select></td>
 
+												
 											</tr>
 
 										</tbody>
@@ -475,7 +477,11 @@ window.onload = function(){
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><select id="addCountry"
 														name="addCountry" class="form-control p-input">
-															<option id="india" name="india" value="India">India</option>
+															<c:forEach items="${country}" var="count">
+
+																<option value="${count}">${count}</option>
+															</c:forEach>
+
 													</select></td>
 
 													<td><label class="addressLable">State<span
@@ -715,11 +721,12 @@ window.onload = function(){
 												
 													<td><label for="accoutCurrency">Currency<span
 															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><select id="accoutCurrency"
+														<td colspan='2'><select id="accoutCurrency"
 														name="accoutCurrency" class="form-control p-input">
-															<option value="INR">INR</option>
-															<option value="USD">USD</option>
-															<option value="KES">KES</option>
+															<c:forEach items="${currency}" var="cur">
+
+																<option value="${cur}">${cur}</option>
+															</c:forEach>
 													</select></td>
 													<td></td>
 													<td colspan='3'>
@@ -775,40 +782,40 @@ window.onload = function(){
 													<td><label for="invoiceCurrency">Invoice
 															Currency<span class="required adHocRequired">*</span>
 													</label></td>
-													<td colspan='2'><select id="invoiceCurrency"
-														name="invoiceCurrency" class="form-control p-input" readonly>
-															<option value="INR">INR</option>
-															
+														<td colspan='2'><select id="invoiceCurrency"
+														name="invoiceCurrency" class="form-control p-input">
+															<c:forEach items="${currency}" var="cur">
+
+																<option value="${cur}">${cur}</option>
+															</c:forEach>
+
 													</select></td>
 
 													<td><label for="paymentCurrency">Payment
 															Currency<span class="required adHocRequired">*</span>
 													</label></td>
 													<td colspan='2'><select id="paymentCurrency"
-														name="paymentCurrency" class="form-control p-input" readonly>
-															<option value="INR">INR</option>
-															
+														name="paymentCurrency" class="form-control p-input">
+															<c:forEach items="${currency}" var="cur">
+
+																<option value="${cur}">${cur}</option>
+															</c:forEach>
 													</select></td>
 
 													<td><label for="creditTerms">Payment / Credit
 															Terms<span class="required adHocRequired">*</span>
 													</label></td>
 													<td><select id="creditTerms" name="creditTerms"
-                                                                          class="form-control p-input" colspan='2'
-                                                                          placeholder="Payment / Credit Terms"
-                                                                          onchange="removeValCssByID(this)">
-                                                                                <option id="select" value="">Select</option>
-                                                                                <option id="immediatePayments" value="Immediate Payments">Immediate
-                                                                                      Payments</option>
-                                                                                <option id="nET15Days" value="NET 15 Days">NET
-                                                                                      15 Days</option>
-                                                                                <option id="nET30Days" value="NET 30 Days">NET
-                                                                                      30 Days</option>
-                                                                                <option id="nET45Days" value="NET 45 Days">NET
-                                                                                      45 Days</option>
-                                                                                <option id="nET60Days" value="NET 60 Days">NET
-                                                                                      60 Days</option>
-                                                                     </select></td>
+														class="form-control p-input" colspan='2'
+														placeholder="Payment / Credit Terms"
+														onchange="removeValCssByID(this)">
+															<option value="">Select</option>
+															<c:forEach items="${payment}" var="pay">
+
+																<option value="${pay}">${pay}</option>
+															</c:forEach>
+
+													</select></td>
 												</tr>
 												<tr class="">
 													<td><label for="paymentMethod">Payment Method<span
@@ -874,35 +881,17 @@ window.onload = function(){
 																Section<span
 															class="required adHocRequired">*</span></label></td>
 														<td><select id="tdsSection" name="tdsSection"
-                                                                                class="form-control p-input" colspan='2'
-                                                                                placeholder="TDS Section">
-                                                                                      <option id="select" value="">Select</option>
-                                                                                      <option id="sec194(A)" value="Sec. 194(A)">Sec.
-                                                                                           194(A)</option>
-                                                                                      <option id="sec194(C)" value="Sec. 194(C)">Sec.
-                                                                                           194(C)</option>
-                                                                                      <option id="sec194(C)" value="SEC. 194(H)">SEC.
-                                                                                           194(H)</option>
-                                                                                      <option id="sec194(I)" value="Sec. 194(I)">Sec.
-                                                                                           194(I)</option>
-                                                                                      <option id="sec194(J)" value="Sec. 194(J)">Sec.
-                                                                                           194(J)</option>
-                                                                                      <option id="sec194(Q)" value="SEC. 194(Q)">SEC.
-                                                                                           194(Q)</option>
-                                                                                      <option id="sec194I(A)" value="SEC. 194I(A)">SEC.
-                                                                                           194I(A)</option>
-                                                                                      <option id="sec194I(B)" value="SEC. 194I(B)">SEC.
-                                                                                           194I(B)</option>
-                                                                                      <option id="sec194(LB)" value="SEC. 194(LB)">SEC.
-                                                                                           194(LB)</option>
-                                                                                      <option id="sec194(LC)" value="SEC. 194(LC)">SEC.
-                                                                                           194(LC)</option>
-                                                                                      <option id="sec194(LD)" value="SEC. 194(LD)">SEC.
-                                                                                           194(LD)</option>
-                                                                                      <option id="sec195" value="Sec. 195">Sec. 195</option>
+															class="form-control p-input" colspan='2'
+															placeholder="TDS Section">
+																<option value="">Select</option>
+																<c:forEach items="${tdsCode}" var="tds">
+
+																	<option value="${tds}">${tds}</option>
+																</c:forEach>
 
 
-                                                                          </select></td>
+
+														</select></td>
 
 														<td><label for="tdsRate">TDS Exemption Rate
 																(If Any)<span
@@ -942,10 +931,12 @@ window.onload = function(){
 																Year</label></td>
 														<td colspan='2'><select id="fyYear"
 															class="form-control p-input ">
-																<option value="2018-19">2018-19</option>
-																<option value="2019-20">2019-20</option>
-																<option value="2020-21">2020-21</option>
-																<option value="2021-22">2021-22</option>
+																<option value="">Select</option>
+
+																<c:forEach items="${financialYear}" var="fin">
+
+																	<option value="${fin}">${fin}</option>
+																</c:forEach>
 
 														</select></td>
 														<td style="width: 150px;"></td>
@@ -958,11 +949,13 @@ window.onload = function(){
 														
 															 <td><label>ITR Acknowledgment of 3 years<span
                                                                                       class="required">*</span></label></td>
-                                                                          <td><input type="file" id="ITRAFile" name="ITRAFile"
-                                                                                onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
-                                                                                class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-                                                                                <textarea id="ITRAFileText" rows="5"
-                                                                                      style="display: none;"></textarea></td>
+                                                                              <td><input type="file" id="ITRAFile" name="ITRAFile"
+															onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
+															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+															<textarea id="ITRAFileText" rows="5"
+																style="display: none;"></textarea> <label><span
+																style="font-weight: 500; color: #fd7e14;">* File
+																	size Max ${fileSize} MB</span></label></td>
 															
 														
 														<td colspan='2'>
@@ -1329,8 +1322,10 @@ window.onload = function(){
 
        
         getData();
-
+        var result;
         function getData() {
+        	
+        	var bpcode="";
 
             $.ajax({
                 type: "POST",
@@ -1341,17 +1336,19 @@ window.onload = function(){
                 async: false,
                 success: function(data) {
 
-                	//alert("hii"+data.msg);
+                	
                     if (data.msg == 'success') {
 
                         var lastName = "";
-                        var result = data.data;
+                         result = data.data;
                         
                         console.log(result);
                          
                         tabledata.clear();
 
                          for (var i = 0; i < result.length; i++) {
+                        	 
+                        	 bpcode=result[i].bpCode;
                         	
                         	 if(!result[i].hasOwnProperty("introducedByName")){
      							result[i].introducedByName="";
@@ -1380,11 +1377,28 @@ window.onload = function(){
                         	 if(!result[i].hasOwnProperty("phoneNumber")){
      							result[i].phoneNumber="";
      						}
-
+                        	 if(!result[i].hasOwnProperty("status")){
+      							result[i].status="";
+      						}
                         	 
+                        	
                         	 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#\" onclick=\"editData('" + result[i].bpCode + "')\" >" + result[i].bpCode + "</button>";
                         	
-                            tabledata.row.add([view,result[i].introducedByName, result[i].suppName,result[i].compEmail, result[i].introducedByEmailID,result[i].compGstn, result[i].natureOfTransactions,result[i].partnerType, result[i].vendorType,result[i].phoneNumber ]);
+                        	 var inactive = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"inactiveActiveDeleteData('"  + result[i].bpCode + "' ,'"  +  result[i].suppName + "' )\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
+                          
+                        	 if(result[i].status==0){
+                        		 Status=  "<select  class=\"form-control-sm \" onchange=\"setVendorStatus(this.value,'"+i+"')\" style=\"width: 100px; height: 28px;\" id=\"status_"+i+"\" > <option value=\"0\" \">In-Active</option><option value=\"1\"  \">Active</option> </select > ";
+                        	 }
+                        	 else{
+                        		 Status=  "<select  class=\"form-control-sm \" onchange=\"setVendorStatus(this.value,'"+i+"')\" style=\"width: 100px; height: 28px;\" id=\"status_"+i+"\" > <option value=\"1\" \">Active</option><option value=\"0\"  \">In-Active</option> </select > ";		 
+                        	 }
+                        
+
+                             
+                             
+                             var save = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To save\" onclick=\"activeVendor('"  + result[i].bpCode + "' ,'"  + i+ "','"  + result[i].suppName+ "' )\"> <i class=\"nav-icon fas fa-save\"> </i>  </button>";
+                             
+                            tabledata.row.add([view,result[i].introducedByName, result[i].suppName,result[i].compEmail, result[i].introducedByEmailID,result[i].compGstn, result[i].natureOfTransactions,result[i].partnerType, result[i].vendorType,result[i].phoneNumber,Status ,save]);
 
                         } 
 
@@ -1406,9 +1420,136 @@ window.onload = function(){
                 }
 
             });
-
+                  }
+        
+        function setVendorStatus(value,index){
+        	
+        	result[index].status=value;
+        	 console.log(result);
         }
         
+        function activeVendor(bpcode,index,name){
+        	
+        	var status1=result[index].status;
+        	let text="";
+        	if(status1==1){
+        	  text="Are You sure to active "+name;
+        	}else{
+        		  text="Are You sure to In-active "+name;
+        	}
+        	 if (confirm(text) != true) {
+        		 
+        		    
+        		    return false;
+        		  } 
+        	 
+        	 
+        	 var json = {
+                     "bpCode": bpcode,
+                     "status": status1
+                    
+
+                 }
+
+
+                
+                 $('.loader').show();
+
+                 $.ajax({
+                     type: "POST",
+                     data: JSON.stringify(json),
+                     url: "<%=GlobalUrl.activeVendor%>",
+                     dataType: "json",
+                     contentType: "application/json",
+                     async: false,
+                     success: function(data) {
+
+                        
+                         $('.loader').hide();
+
+                         if (data.msg == 'success') {
+                        	 Toast.fire({
+                                 type: 'success',
+                                 title: 'Updated Successfully..'
+                             })
+   
+                         } else {
+                           
+                             $('.loader').hide();
+                             Toast.fire({
+                                 type: 'error',
+                                 title: 'Failed.. Try Again..'
+                             })
+                         }
+
+                     },
+                     error: function(jqXHR, textStatue, errorThrown) {
+                       
+                         alert("failed, please try again");
+                     }
+
+                 });
+
+
+        }
+        function getVendorStatus(value,bpcode,index){
+        	
+        	  var json = {
+                      "bpCode": bpcode
+                     
+
+                  }
+
+
+                 
+                  $('.loader').show();
+
+                  $.ajax({
+                      type: "POST",
+                      data: JSON.stringify(json),
+                      url: "<%=GlobalUrl.getAllVendorStatus%>",
+                      dataType: "json",
+                      contentType: "application/json",
+                      async: false,
+                      success: function(data) {
+
+                         
+                          $('.loader').hide();
+
+                          if (data.msg == 'success') {
+                        	  var result = data.data;
+                        	 
+                          	    for (var i = 0; i < result.length; i++) {
+                          	    	 alert(result[i].status);	
+                              	 
+                              var code=result[i].status;
+                              	
+                              	$("#status_"+index).val(code)
+                              } 
+
+                              tabledata.draw();
+                              $("tbody").show();
+                              
+    
+                          } else {
+                            
+                              $('.loader').hide();
+                              Toast.fire({
+                                  type: 'error',
+                                  title: 'Failed.. Try Again..'
+                              })
+                          }
+
+                      },
+                      error: function(jqXHR, textStatue, errorThrown) {
+                        
+                          alert("failed, please try again");
+                      }
+
+                  });
+
+
+        }
         
         
 
@@ -1507,7 +1648,7 @@ window.onload = function(){
                            
                          
                         	   for (let i = 0; i < str.length; i++) {
-                            	  // alert("str"+str[i]);
+                            	 
                             	   
                             	    if(str[i] == 'Network' && str[i+1] == 'Fixed Asset' && str[i+2] == 'Other'){
                             	    		$('#states').val(["Network","Fixed Asset","Other"]).change() 
@@ -2400,6 +2541,57 @@ window.onload = function(){
         });
 
         
+        function inactiveActiveDeleteData(bpcode,name) {
+      
+        	 let text="Are You sure to delete "+name;
+        	 if (confirm(text) != true) {
+        		 
+        		    
+        		    return false;
+        		  } 
+        	 
+        	 
+        	
+            var json = {
+                "bpCode": bpcode,
+                "status": "0"
+            }
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(json),
+                url: "<%=GlobalUrl.setStatusOfVendorByBpCode%>",
+                dataType: "json",
+                contentType: "application/json",
+                async: false,
+                success: function(data) {
+
+                    if (data.msg == 'success') {
+
+                    	
+                        Toast.fire({
+                            type: 'success',
+                            title: 'Deleted Successfully..'
+                        })
+
+
+                        getData();
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            title: 'Failed.. Try Again..'
+                        })
+                    }
+
+                },
+                error: function(jqXHR, textStatue, errorThrown) {
+                    alert("failed, please try again");
+                }
+
+            });
+
+        }
+
+
         
     </script>
 </body>

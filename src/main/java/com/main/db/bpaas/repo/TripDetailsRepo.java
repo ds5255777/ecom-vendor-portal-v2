@@ -45,7 +45,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "select * from Trip_Details where run_status='In-Transit' and vendor_code=?", nativeQuery = true)
     List<TripDetails> getAllInTransitTrip(String vendorCode);
 
-    @Query(value = "select * from trip_details where vendor_trip_status='Yet To Be Approved' and assign_to = 'Vendor' and vendor_code=?", nativeQuery = true)
+    @Query(value = "select * from trip_details where vendor_trip_status='Yet To Be Approved' and run_status='Closed' and assign_to = 'Vendor' and vendor_code=?", nativeQuery = true)
     List<TripDetails> getAllPendingTrip(String vendorCode);
 
     @Query(value = "select * from trip_details where vendor_code=?  ORDER by id desc limit ?", nativeQuery = true)
@@ -61,8 +61,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     
     @Transactional
     @Modifying
-    @Query(value = "update trip_details set vendor_trip_status=:vendorTripStatus, opening_reading=:openingReading, closing_reading=:closingReading where trip_id=:tripID ; ", nativeQuery = true)
-    void updateVendorTripStatusByTripId(@Param("tripID") String tripID, @Param("vendorTripStatus") String vendorTripStatus, @Param("openingReading") String openingReading, @Param("closingReading") String closingReading);
+    @Query(value = "update trip_details set vendor_trip_status=:vendorTripStatus, opening_reading=:openingReading, closing_reading=:closingReading,processed_By=:processedBy, processed_On=:processedOn where trip_id=:tripID ; ", nativeQuery = true)
+    void updateVendorTripStatusByTripId(@Param("tripID") String tripID, @Param("vendorTripStatus") String vendorTripStatus, @Param("openingReading") String openingReading, @Param("closingReading") String closingReading, @Param("processedBy") String processedBy, @Param("processedOn") String processedOn);
 
     @Transactional
     @Modifying
@@ -153,7 +153,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
             + "mileage=:milage,rate_per_km=:ratePerKm,"
             + "route_kms=:routeKms,"
             + "standard_km=:standardKM,"
-            + "fs_diff=:fs_diff,basic_freight=:basicFreight,total_freight=:totalFreight,fs=:fs ,vendor_name=:vendorName  where trip_id=:tripID ;", nativeQuery = true)
+            + "fs_diff=:fs_diff,basic_freight=:basicFreight,total_freight=:totalFreight,fs=:fs ,vendor_name=:vendorName ,vendor_code=:vendorCode  where trip_id=:tripID ;", nativeQuery = true)
     public void updateDetailsByNetworkInQuery(
             @Param("tripID") String tripID,
             @Param("processed_By") String processed_By,
@@ -168,12 +168,12 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
             @Param("currentFuelRate") double currentFuelRate,
             @Param("fs_diff") double fs_diff,
             @Param("basicFreight") double basicFreight,
-            @Param("totalFreight") double totalFreight, @Param("vendorName") String vendorName);
+            @Param("totalFreight") double totalFreight, @Param("vendorName") String vendorName, @Param("vendorCode") String vendorCode);
 			
     
 	  @Transactional
 	    @Modifying
-	    @Query(value = "update Trip_Details set vendor_trip_status=:vendor_tripStatus,assign_to=:assignto ,processed_By=:processed_By,processed_On=:processed_On,lumpSome_CheckBox=:LumpSomeCheckBox,lumpSome_Amount=:LumpSomeAmount,basic_freight=:basicFreight,total_freight=:totalFreight,fs=:fs ,vendor_name=:vendorName where trip_id=:tripID ;", nativeQuery = true)
+	    @Query(value = "update Trip_Details set vendor_trip_status=:vendor_tripStatus,assign_to=:assignto ,processed_By=:processed_By,processed_On=:processed_On,lumpSome_CheckBox=:LumpSomeCheckBox,lumpSome_Amount=:LumpSomeAmount,basic_freight=:basicFreight,total_freight=:totalFreight,fs=:fs ,vendor_name=:vendorName,vendor_code=:vendorCode where trip_id=:tripID ;", nativeQuery = true)
 	    public void updateDetailsByNetwork(
 	            @Param("assignto") String assignto,
 	            @Param("tripID") String tripID,
@@ -184,7 +184,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	            @Param("vendor_tripStatus") String vendor_tripStatus,
 	            @Param("basicFreight") double basicFreight,
 	            @Param("totalFreight") double totalFreight,
-	            @Param("fs") double fs, @Param("vendorName") String vendorName);//fs
+	            @Param("fs") double fs, @Param("vendorName") String vendorName, @Param("vendorCode") String vendorCode);//fs
 
 
     @Query(value = "select * from  Trip_Details where 1=1 and run_status=:runStatus and vendor_code=:vendorCode", nativeQuery = true)
@@ -205,7 +205,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "select * from Trip_Details where 1=1 and run_status=:runStatus and vendor_trip_status=:vendorTripStatus and  payment_status=:paymentStatus ", nativeQuery = true)
     List<TripDetails> getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus( @Param("runStatus") String runStatus, @Param("vendorTripStatus") String vendorTripStatus, @Param("paymentStatus") String paymentStatus);
     
-    @Query(value = "select * from Trip_Details where vendor_code=? and assign_to='Vendor' ", nativeQuery = true)
+    @Query(value = "select * from Trip_Details where vendor_code=? ", nativeQuery = true)
     List<TripDetails> getAllTripByVendorCode(String vendorCode);
 
 	@Query(value = "SELECT * FROM trip_details where vendor_trip_status = 'Yet To Be Approved By Network Team' and assign_to = 'Network' and run_type='Adhoc' and run_status = 'Closed' order by id limit 50; ", nativeQuery = true)
@@ -233,5 +233,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	List<TripDetails> getAllPendingTrip();
 
 	List<TripDetails> findByVendorCodeAndActualDepartureBetween(String vendorCode,String fromDate, String toDate);
-
+	
+	@Query(value = "select DISTINCT supp_name from supdetails order by supp_name asc ",nativeQuery = true)
+	List<String> getVendorName();
 }

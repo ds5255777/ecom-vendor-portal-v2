@@ -25,31 +25,12 @@
                     </a>
                     <hr>
                 </li>
-            <li class="nav-item has-treeview"><a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-truck"></i>
-                    <p>
-                        Trips <i class="right fas fa-angle-left"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item"><a href="allTrips" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("allTrips")) {
-				out.print("active");
-			}%>
-                            
-                            ">
-                            <i class="nav-icon fas fa-list"></i>
-                            <p>All Trips</p>
-                        </a></li>
-                </ul>
-            
-                <hr>
-            </li>
+
 
 
 
             <li class="nav-item"><a href="tripMaster" class="nav-link 
-                       <% if (request.getParameter("pagename").equalsIgnoreCase("tripMaster")) {
+                       <% if (request.getParameter("pagename").equalsIgnoreCase("masterEvaluationCriteria")) {
                                out.print("active");
                            }%>
                        ">
@@ -106,54 +87,22 @@
                       <!-- <i class="fa-solid fa-id-card"></i> -->
                       
                      <i class="nav-icon fas fa-registered"></i>
-                      
-                      
-					
                     
                        <p>Vendor Registrastion</p> 
                     </a></li> 
-                    
-                    
 
-            <li class="nav-item has-treeview"><a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                    <p>
-                        Invoice <i class="right fas fa-angle-left"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item"><a href="invoicesQueue" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("invoicesQueue")) {
-				out.print("active");
-			}%>
-                            
-                            ">
-                            <i class="nav-icon fas fa-file-invoice"></i>
-                            <p>All Invoice</p>
-                        </a></li>
-                </ul>
-                               <hr>
-            </li>
-
-            <li class="nav-item"><a href="#" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("")) {
+           <li class="nav-item"><a href="vendorDetails" class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("Vendor Details")) {
 				out.print("active");
 			}%>                            
                             ">
-                    <i class="nav-icon far fas fa-cog"></i>
-                    <p>Setting</p>
+                   <i class="nav-icon fa fa-user-circle"></i>
+                    <p>Vendor Details</p>
                 </a>
                 <hr>
             </li>
 
-            <li class="nav-item"><a href="#" class="nav-link
-                            <%if (request.getParameter("pagename").equalsIgnoreCase("")) {
-				out.print("active");
-			}%>                            
-                            ">
-                    <i class="nav-icon fas fa-chart-bar"></i>
-                    <p>Reports</p>
-                </a></li>
+           
                 
                            
             </ul>

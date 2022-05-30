@@ -288,7 +288,7 @@
         	
             if (stepNo == 0) {
 
-                /* if ($("#partnerType").val() == "Scheduled") { */
+               
 
                     console.log("Inside Step One");
                     var mandFields = "introducedByName,introducedByEmailID,states,suppName,compEmail,panNumber,compGstn,natureOfTransactions";
@@ -657,19 +657,7 @@
         });
         
 
-      /*   function validatephone(phone) {
-
-            phone = phone.replace(/[^0-9]/g, '');
-            $("#phoneNumber").val(phone);
-            if (phone == '' || !phone.match(/^0[0-9]{9}$/)) {
-                return false;
-            } 
-            
-            else {
-                return true;
-            }
-        }
-         */
+    
         function onValidateFile(id){
         	var fileInput3 = document.getElementById(id).value;
         	var gst = document.getElementById(id);
@@ -680,7 +668,7 @@
              	return false;
              } */
         	 if (typeof (gst.files) != "undefined") {
-             	//alert("hello");
+             	
              	
              	const fsize = gst.files.item(0).size;
              	

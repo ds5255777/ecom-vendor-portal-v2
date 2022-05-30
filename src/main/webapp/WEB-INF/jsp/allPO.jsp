@@ -5,7 +5,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -117,7 +117,7 @@
 
         <!-- Main Sidebar Container -->
         
-			       <jsp:include page="slidebar_Po.jsp?pagename=All PO" /> 
+		 <jsp:include page="slidebar_Po.jsp?pagename=All PO" /> 
 		
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -126,10 +126,6 @@
                     <div class="row mb-2">
                         <div class="col-sm-6"></div>
                         <div class="col-sm-6">
-                            <!-- <ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li>
-						</ol> -->
                         </div>
 
                     </div>
@@ -144,7 +140,6 @@
                 <div class="container-fluid">
 
                     <div class="row">
-                        <!-- <div class="col-md-12"> -->
                         <div class="col-md-12" style="font-size: 14px;">
                             <!-- general form elements -->
                             <div class="card card-primary ">
@@ -268,7 +263,9 @@
         <script type="text/javascript">
         
         
-        
+        var dataLimit='${dataLimit}';
+		dataLimit=parseInt(dataLimit);
+		
         var tabledata = $('#tabledata').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -277,7 +274,7 @@
             "autoWidth": false,
             "aaSorting": [],
             "scrollX": true,
-            "pageLength": 10,
+            "pageLength": dataLimit,
             dom: 'Bfrtip',
             //buttons: ['excel','pdf','print'],
             buttons: [
@@ -291,7 +288,7 @@
                 },
                 {
                     extend: 'pdfHtml5',
-                    orientation: 'landscape',
+                    orientation: 'portrait',
                     pageSize: 'A4',
                     exportOptions: {
                     	columns: [ 0, 1, 2, 3, 4,5,6],
@@ -362,15 +359,6 @@
         
         $('#tabledata_filter').css("display","none");
 		
-	
-
-        
-        
-        
-        
-        
-        
-        
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -402,8 +390,6 @@
 
                         var result = data.data;
                         tabledata.clear();
-                        console.log("result" + result);
-                        
                         var poLineDetails = result[0].poLineDetails;
                      
                         for (var i = 0; i < result.length; i++) {
@@ -434,23 +420,9 @@
  							}
                              
 							 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getPoDataFormDataByPoNumber('" +  result[i].poNo + "')\" >" + result[i].poNo + "</button>";
-                            var unprocess_status = '<span class=\"right badge badge-warning\">UnProcess</span>';
-                            var process_status = '<span class=\"right badge badge-success\">Process</span>';
-                             var postatus="";                       
-                            var  DraftInvoicing_status='<span class=\"right badge badge-danger\">Draft-Invoicing</span>';
-                            var inReview_status = '<span class=\"right badge badge-primary\">In-Review</span>';
-                         if (result[i].status == "Process") {
-                        	 postatus = process_status;
-
-                              } else if(result[i].status == "Unprocess"){
-                            	  postatus = unprocess_status;
-                              } else if(result[i].status == "Draft-Invoicing"){
-                            	  postatus = DraftInvoicing_status;
-                              }  else if(result[i].status == "In-Review"){
-                            	  postatus = inReview_status;
-                              } 
+                            
                          
-                            tabledata.row.add([view ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].amount,postatus ]);  				        	
+                            tabledata.row.add([view ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].amount,result[i].status ]);  				        	
                         
                         }
                         tabledata.draw();
@@ -509,12 +481,14 @@
         
         function getFilterData() {
 
-
             var fromDate = $("#fromDate").val();
             var toDate = $("#toDate").val();
-           
-
-
+            
+            var startDate = fromDate.concat(" ","00:00:00");
+            var enddate = toDate.concat(" ","23:59:59");
+            
+            var st = new Date(startDate);
+            var et = new Date(enddate);
 
             if (fromDate == "" || fromDate == null) {
                 //alert("plaese select from date"+fromDate);
@@ -542,9 +516,8 @@
             $.ajax({
                 type: "GET",
                 data: {
-                    "actualDeparture": fromDate.concat(" ","00:00:00"),
-                    "actualArrival": toDate.concat(" ","23:59:59")
-                   
+                    "actualDeparture": st,
+                    "actualArrival": et
                 },
                 url: "<%=GlobalUrl.filterPoDetails%>",
                 dataType: "json",
@@ -611,19 +584,8 @@
  							}
                              
 							 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getPoDataFormDataByPoNumber('" +  result[i].poNo + "')\" >" + result[i].poNo + "</button>";
-                            var unprocess_status = '<span class=\"right badge badge-warning\">UnProcess</span>';
-                            var process_status = '<span class=\"right badge badge-success\">Process</span>';
-                            var inReview_status = '<span class=\"right badge badge-primary\">In-Review</span>';
-                             var postatus="";                       
-                         if (result[i].status == "Process") {
-                        	 postatus = process_status;
-
-                              } else if(result[i].status == "Unprocess"){
-                            	  postatus = unprocess_status;
-                              }  else if(result[i].status == "In-Review"){
-                            	  postatus = inReview_status;
-                              } 
-                            tabledata.row.add([view ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].amount,postatus ]);  				        	
+                            
+                            tabledata.row.add([view ,result[i].type,result[i].uom,result[i].quantity,result[i].needByDate,result[i].amount,result[i].status ]);  				        	
                         }
                         
                         tabledata.draw();

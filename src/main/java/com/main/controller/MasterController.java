@@ -1,9 +1,13 @@
 package com.main.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,10 +26,15 @@ public class MasterController {
 
 	@Autowired
 	private ServiceManager serviceManager;
+	
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(MasterController.class);
 
 	@RequestMapping({ "/saveTripMaster" })
 	@CrossOrigin("*")
 	public String saveTripMaster(HttpServletRequest request, @RequestBody AgreementMaster master) {
+		
+		logger.info("Log Some Information : "+dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -39,7 +48,7 @@ public class MasterController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -62,7 +71,7 @@ public class MasterController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -85,7 +94,7 @@ public class MasterController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -106,7 +115,7 @@ public class MasterController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -128,7 +137,7 @@ public class MasterController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 

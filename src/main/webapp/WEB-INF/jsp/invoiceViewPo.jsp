@@ -211,7 +211,7 @@
 											<label class="col-sm-5">Supplier Number<span
 												class="text-danger"> *</span></label>
 											<div class="col-sm-7">
-												<input class="form-control-sm" name="supplierNum"
+												<input type="text" class="form-control-sm" name="supplierNum"
 													id="supplierNum" readonly="readonly"
 													placeholder="Supplier Number" style="width: 100%;" on>
 											</div>
@@ -222,7 +222,7 @@
 											<label class="col-sm-5">GL Date <span
 												class="text-danger"></span></label>
 											<div class="col-sm-7">
-												<input class="form-control-sm" name="glDate" id="glDate"
+												<input type="text" class="form-control-sm" name="glDate" id="glDate"
 													placeholder="GL Date" readonly style="width: 100%;">
 											</div>
 										</div>
@@ -237,7 +237,7 @@
 												<select class="form-control-sm select2" style="width: 100%;"
 													id="paymentCurrency" name="paymentCurrency"
 													disabled="disabled">
-													<option value="INR" readonly>INR</option>
+													<option value="INR" disabled>INR</option>
 
 												</select>
 											</div>
@@ -249,7 +249,7 @@
 											<label class="col-sm-5">Match Option <span
 												class="text-danger"></span></label>
 											<div class="col-sm-7">
-												<input class="form-control-sm" name="matchOption"
+												<input type="text" class="form-control-sm" name="matchOption"
 													id="matchOption" placeholder="Match Option" readonly
 													style="width: 100%;">
 											</div>
@@ -261,7 +261,7 @@
 											<label class="col-sm-5">Terms Date<span
 												class="text-danger"> *</span></label>
 											<div class="col-sm-7">
-												<input class="form-control-sm" name="termsDate"
+												<input type="text" class="form-control-sm" name="termsDate"
 													id="termsDate" readonly="readonly" placeholder="Terms Date"
 													style="width: 100%;" on>
 											</div>
@@ -272,7 +272,7 @@
 											<label class="col-sm-5">Terms <span
 												class="text-danger"></span></label>
 											<div class="col-sm-7">
-												<input class="form-control-sm" name="terms" id="terms"
+												<input type="text" class="form-control-sm" name="terms" id="terms"
 													placeholder="Terms" readonly style="width: 100%;">
 											</div>
 										</div>
@@ -283,7 +283,7 @@
 											<label class="col-sm-5">Payment Method<span
 												class="text-danger"> *</span></label>
 											<div class="col-sm-7">
-												<input class="form-control-sm" name="paymentMethod"
+												<input type="text" class="form-control-sm" name="paymentMethod"
 													id="paymentMethod" placeholder="Payment Method"
 													style="width: 100%;" readonly="readonly">
 											</div>
@@ -305,7 +305,7 @@
 											<label class="col-sm-5">Remit To Bank Account Name<span
 												class="text-danger"> *</span></label>
 											<div class="col-sm-7">
-												<input class="form-control-sm" name="remitToBankAccountName"
+												<input type="text" class="form-control-sm" name="remitToBankAccountName"
 													id="remitToBankAccountName"
 													placeholder="Remit To bank account name"
 													style="width: 100%;">
@@ -318,7 +318,7 @@
 												<span class="text-danger">*</span>
 											</label>
 											<div class="col-sm-7">
-												<input class="form-control-sm"
+												<input type="text" class="form-control-sm"
 													name="remitToBankAccountNumber"
 													id="remitToBankAccountNumber"
 													placeholder=" Remit To bank account number"
@@ -389,7 +389,7 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="text"
-													placeholder="GL Date" name="gldate1" id="gldate1" readonly
+													placeholder="GL Date" name="glDateDistributionDate" id="glDateDistributionDate" readonly
 													style="width: 100%;">
 											</div>
 										</div>
@@ -428,11 +428,14 @@
 							<div class="card-body" style="overflow: auto;">
 								<table id="prTable" class="table table-bordered table-striped">
 									<thead>
-
-
+										
 										<tr>
-											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">
-												S.No</th>
+										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">
+																						S.No</th>
+										
+										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">
+												Line Number</th>
+											
 											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">
 												Receipent Line</th>
 											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Description</th>
@@ -471,7 +474,7 @@
 					<!-- Query Form -->
 
 					<div class="card card-primary" id="queryWindow"
-						style="margin-top: 1rem;">
+						style="margin-top: 1rem;  display: none;">
 						<div class="card-header" style="padding: 5px 5px 0px 5px;">
 							<h4 class="card-title">Remarks</h4>
 							<div class="card-tools">
@@ -523,7 +526,7 @@
 
 
 					<!-- Query -->
-					<div class="card card-primary" style="margin-top: 1rem;">
+					<div class="card card-primary" style="margin-top: 1rem; display: none;">
 						<div class="card-header" style="padding: 5px 5px 0px 5px;">
 							<h4 class="card-title">Remarks List</h4>
 							<div class="card-tools">
@@ -648,6 +651,8 @@
         function closeWin() {
             window.close()
         }
+        
+        $("input[type=text]").prop('disabled', true);
         var invoiceNumber = '${invoiceNo}';
         var status='${status}';
         var tripLineArray = [];
@@ -673,6 +678,14 @@
                        //var tripLineArray = data.data.poInvoiceLine;
                        var tripLineArray=result[0].poInvoiceLine;
                        var grossamt1=result[0].grossTotalAmt;
+                       var glDate= result[0].glDate.split(" ");
+                       result[0].glDate=glDate[0];
+                       var glDateDistributionDate= result[0].glDateDistributionDate.split(" ");
+                       result[0].glDateDistributionDate=glDateDistributionDate[0];
+                       var supplierInvoiceDate= result[0].supplierInvoiceDate.split(" ");
+                       result[0].supplierInvoiceDate=supplierInvoiceDate[0];
+                       var termsDate= result[0].termsDate.split(" ");
+                       result[0].termsDate=termsDate[0];
                         var myForm = "";
                         myForm = document.getElementById("stepOneForm");
                         setData(myForm, result[0]);
@@ -683,9 +696,12 @@
                            $('#gldate1').val(result[0].glDate);
                        
                         
-                      
+                          
                         $('#prTable').DataTable().clear();
                          for (var i = 0; i < tripLineArray.length; i++) {
+                        	 if (!tripLineArray[i].hasOwnProperty("lineNumber")) {
+                        		 tripLineArray[i].lineNumber = "";
+                             }
                             if (!tripLineArray[i].hasOwnProperty("lineType")) {
                                 tripLineArray[i].lineType = "";
                             }
@@ -719,11 +735,12 @@
                             if (!tripLineArray[i].hasOwnProperty("gldate")) {
                                 tripLineArray[i].gldate = "";
                             }
-                            
-                            $('#prTable').DataTable().row.add([i + 1,tripLineArray[i].receiptline,tripLineArray[i].description,tripLineArray[i].lineType,tripLineArray[i].poline,tripLineArray[i].gldate,tripLineArray[i].remaningQuatity,tripLineArray[i].quantityInvoiced,tripLineArray[i].uom,tripLineArray[i].taxper,tripLineArray[i].baseAmount,tripLineArray[i].taxAmount,tripLineArray[i].totalAmount]);
+                            var gldate= tripLineArray[i].gldate.split(" ");
+                            tripLineArray[i].gldate=gldate[0];
+                            $('#prTable').DataTable().row.add([i + 1, tripLineArray[i].lineNumber,tripLineArray[i].receiptline,tripLineArray[i].description,tripLineArray[i].lineType,tripLineArray[i].poline,tripLineArray[i].gldate,tripLineArray[i].remaningQuatity,tripLineArray[i].quantityInvoiced,tripLineArray[i].uom,tripLineArray[i].taxper,tripLineArray[i].baseAmount,tripLineArray[i].taxAmount,tripLineArray[i].totalAmount]);
                          }
-                         var  grossamt= "<input type=\"text\" value=\"" + result[0].grossTotalAmt + "\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";
-                         prTable1.row.add(["","","","","","","","","","","","Gross Total",grossamt,""]);
+                         var  grossamt= "<input disabled type=\"text\" value=\"" + result[0].grossTotalAmt + "\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";
+                         prTable1.row.add(["","","","","","","","","","","","<b>Gross Total</b>",grossamt,""]);
                       
                          
                     

@@ -105,8 +105,8 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 
 	@Transactional
 	@Modifying
-	@Query(value = "update invoice_generation set invoice_status=:status where ecom_invoice_nunmber=:invoiceNumber ; ", nativeQuery = true)
-	void updateInvoiceStatus(@Param("invoiceNumber") String invoiceNumber, @Param("status") String status);
+	@Query(value = "update invoice_generation set processed_on=:processedOn , processed_by=:processedBy, invoice_status=:status where ecom_invoice_nunmber=:invoiceNumber ; ", nativeQuery = true)
+	void updateInvoiceStatus(@Param("processedOn")String processedOn, @Param("processedBy") String processedBy,@Param("invoiceNumber") String invoiceNumber, @Param("status") String status);
 
 	@Query(value = "select * from invoice_generation where invoice_status ='Query' And assign_to ='Vendor'  and vendor_code=? ", nativeQuery = true)
 	List<InvoiceGenerationEntity> getAllQueryInvoiceVendor(String vendorCode);
@@ -130,5 +130,17 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 
 	@Query(value = "select * from invoice_generation where ecom_invoice_nunmber=? ", nativeQuery = true)
 	InvoiceGenerationEntity getQueryInvoice(String invoiceNumber);
+
+	/*
+	 * @Transactional
+	 * 
+	 * @Modifying
+	 * 
+	 * @Query(value =
+	 * "update invoice_generation set assign_to=:assignTo, invoice_status=:invoiceStatus, invoice_amount=:invoiceAmount, taxable_amount=:taxableAmount where id=:idByinvocienumber ; "
+	 * , nativeQuery = true) void updateInvoiceStatusAndAssingTo(String assignTo,
+	 * String invoiceStatus, String invoiceAmount, String taxableAmount, Long
+	 * idByinvocienumber);
+	 */
 
 }

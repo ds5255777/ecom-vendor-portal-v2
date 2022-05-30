@@ -136,4 +136,14 @@ public class GlobalUrl {
 	public static String filterInvoiceDetails=financeController+"/filterInvoiceDetails";
 	public static String getFilterInvoiceByVendorCode=financeController+"/getFilterInvoiceByVendorCode";
 	public static String viewInvoiceForFinanceTeam=financeController+"/viewInvoiceForFinanceTeam";
+	
+	 public static String setStatusOfVendorByBpCode = userController + "/setStatusOfVendorByBpCode";
+	 public static String getAllVendorStatus = userController + "/getAllVendorStatus";
+	 public static String activeVendor = userController + "/activeVendor";
+	 
+	 public static String getBpCodeForNetwork = dashboardController + "/getBpCodeForNetwork";
+	 
+	 
+	 
+	 
 }

@@ -10,7 +10,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${titleName}| Draft Invoice Generate</title>
+<title>${titleName}| PO Invoice Generate</title>
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -242,7 +242,8 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="date" name="glDate"
-													id="glDate" placeholder="GL Date" style="width: 100%;">
+													id="glDate"  max="${curentDate}" placeholder="GL Date" style="width: 100%;">
+													
 											</div>
 										</div>
 									</div>
@@ -280,7 +281,7 @@
 												class="text-danger"> *</span></label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="date" name="termsDate"
-													id="termsDate" placeholder="Terms Date"
+													id="termsDate" max="${curentDate}" placeholder="Terms Date"
 													style="width: 100%;">
 											</div>
 										</div>
@@ -352,7 +353,7 @@
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="date"
 													name="supplierInvoiceDate" id="supplierInvoiceDate"
-													placeholder=" Supplier invoice date" style="width: 100%;">
+													placeholder=" Supplier invoice date"  max="${curentDate}" style="width: 100%;">
 											</div>
 										</div>
 									</div>
@@ -408,7 +409,7 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="date"
-													placeholder="GL Date" name="gldate" id="gldate"
+													placeholder="GL Date" max="${curentDate}" name="glDateDistributionDate" id="glDateDistributionDate"
 													style="width: 100%;">
 											</div>
 										</div>
@@ -811,15 +812,15 @@
       	 }
       	 
       
-
+		var date ='${curentDate}';
           var totalamot;
-          var lineNumber= "<input type=\"text\" id=\"lineNumber_"+i+"\" style=\"width: 100%; height: 28px;\" value=\"" + tripLineArray[i].lineNumber + "\"  class=\"form-control-sm \" \"> ";
+          var lineNumber= "<input type=\"text\" id=\"lineNumber_"+i+"\" readonly style=\"width: 100%; height: 28px;\" value=\"" + tripLineArray[i].lineNumber + "\"  class=\"form-control-sm \" \"> ";
 
           var receipentLine= "<input type=\"text\" id=\"receipentLine_"+i+"\" maxlength=\"40\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('receiptline','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
           var description= "<input type=\"text\" id=\"description_"+i+"\" readonly style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('description','"+i+"',this.value)\" value=\"" + tripLineArray[i].description + "\" class=\"form-control-sm \" \"> ";
           var lineType= "<input type=\"text\" id=\"lineType_"+i+"\" maxlength=\"40\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('lineType','"+i+"',this.value)\"  class=\"form-control-sm \" \"> ";
           var poline= "<input type=\"text\" id=\"poline_"+i+"\" maxlength=\"40\" oninput=\"updatePOLineItem('poline','"+i+"',this.value)\" style=\"width: 70px; height: 28px;\" class=\"form-control-sm \" \"> ";
-          var glDate= "<input type=\"date\" id=\"glDate_"+i+"\" oninput=\"updatePOLineItem('gldate','"+i+"',this.value)\" style=\"width: 100px; height: 28px;\" class=\"form-control-sm \" \"> ";
+          var glDate= "<input type=\"date\" id=\"glDate_"+i+"\" max=\""+date+"\" oninput=\"updatePOLineItem('gldate','"+i+"',this.value)\" style=\"width: 100px; height: 28px;\" class=\"form-control-sm \" \"> ";
           var remaningQuantity= "<input type=\"text\" readonly id=\"remaningQuantity_"+i+"\" style=\"width: 100%; height: 28px;\" class=\"form-control-sm \" \"> ";
           var quantity= "<input type=\"text\" readonly style=\"width: 100px; height: 28px;\" value=\"" + remaningQuat + "\" class=\"form-control-sm \" \"> ";
           var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" maxlength=\"40\" onkeypress=\"return event.charCode >= 48 && event.charCode <= 57  \" style=\"width: 100%; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
@@ -1142,13 +1143,13 @@
             document.getElementById("account").focus();
             return "";
         }
-		var invoiceNu9 = document.getElementById("gldate").value;
+		var invoiceNu9 = document.getElementById("glDateDistributionDate").value;
 		if (invoiceNu9 === "" || invoiceNu9 === null || invoiceNu9 === '') {
             Toast.fire({
                 type: 'error',
                 title: 'GL Date  is Mandatory !'
             });
-            document.getElementById("glDate1").focus();
+            document.getElementById("glDateDistributionDate").focus();
             return "";
         }
 		var invoiceNu10 = document.getElementById("amount").value;
@@ -1274,7 +1275,7 @@
         
         
         if(count==0){
-        	swal.fire("Alert", "Expired PO Please Delete", "warning");
+        	swal.fire("Alert", "Expired PO.", "warning");
         	
         	 return "";
         	 

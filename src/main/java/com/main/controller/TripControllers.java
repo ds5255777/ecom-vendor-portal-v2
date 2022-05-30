@@ -2,12 +2,19 @@ package com.main.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,16 +26,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
+import com.main.db.bpaas.entity.EmailAuditLogs;
+import com.main.db.bpaas.entity.EmailConfiguration;
+import com.main.db.bpaas.entity.MailContent;
 import com.main.db.bpaas.entity.QueryEntity;
+import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.serviceManager.ServiceManager;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
-import com.main.db.bpaas.repo.QueryRepo;
-import com.main.db.bpaas.repo.SupDetailsRepo;
-import com.main.db.bpaas.repo.TripDetailsRepo;
-import com.main.db.bpaas.repo.UserRepository;
-import com.main.service.TripService;
-
 
 @RequestMapping("/tripControllers")
 @RestController
@@ -36,23 +41,9 @@ public class TripControllers {
 
 	@Autowired
 	private ServiceManager serviceManager;
-	
-	@Autowired
-	private TripDetailsRepo tripDetailsRepo;
 
-	@Autowired
-	private QueryRepo queryRepo;
-
-
-	@Autowired
-	private TripService tripService;
-	
-	@Autowired
-	UserRepository userRepository;
-	
-	@Autowired
-	SupDetailsRepo supDetailsRepo;
-
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(TripControllers.class);
 
 	@RequestMapping({ "filterTripDetails" })
 	@CrossOrigin("*")
@@ -60,15 +51,18 @@ public class TripControllers {
 			@RequestParam(name = "actualDeparture") String fromDate,
 			@RequestParam(name = "actualArrival") String toDate, @RequestParam(name = "vendorCode") String vendorCode) {
 
+		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
+
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		System.out.println(fromDate);
-		System.out.println(toDate);
-		System.out.println(vendorCode);
+		logger.info("fromDate : " + fromDate);
+		logger.info("toDate : " + toDate);
+		logger.info("vendorCode : " + vendorCode);
+
 		try {
 
 			String rolename = (String) request.getSession().getAttribute("role");
-			System.out.println(rolename);
+			System.out.println("YYYYYYY" + rolename);
 			if (rolename.equalsIgnoreCase("Network")) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
 						.findByActualDepartureBetween(fromDate, toDate);
@@ -85,7 +79,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -107,7 +101,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -124,7 +118,7 @@ public class TripControllers {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -143,7 +137,7 @@ public class TripControllers {
 				data.setMsg("success");
 			} catch (Exception e) {
 				data.setMsg("error");
-				e.printStackTrace();
+				logger.error("error : " + e);
 			}
 		} else if (rolename.equalsIgnoreCase("Vendor")) {
 			String vendorCode = principal.getName();
@@ -154,7 +148,7 @@ public class TripControllers {
 				data.setMsg("success");
 			} catch (Exception e) {
 				data.setMsg("error");
-				e.printStackTrace();
+				logger.error("error : " + e);
 			}
 		} else if (rolename.equalsIgnoreCase("Admin")) {
 			try {
@@ -163,7 +157,7 @@ public class TripControllers {
 				data.setMsg("success");
 			} catch (Exception e) {
 				data.setMsg("error");
-				e.printStackTrace();
+				logger.error("error : " + e);
 			}
 		}
 		return gson.toJson(data).toString();
@@ -182,7 +176,7 @@ public class TripControllers {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -199,7 +193,7 @@ public class TripControllers {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -221,7 +215,7 @@ public class TripControllers {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -241,7 +235,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -249,25 +243,59 @@ public class TripControllers {
 
 	@RequestMapping({ "/updateVendorTripStatusAndOpenCloseReadingByTripId" })
 	@CrossOrigin("*")
-	public String getApprovTripsDetails(HttpServletRequest request, @RequestBody TripDetails tripObj) {
+	public String getApprovTripsDetails(Principal principal, HttpServletRequest request,
+			@RequestBody TripDetails tripObj) {
 
 		DataContainer data = new DataContainer();
 
+		String processedBy = principal.getName();
 		System.out.println("**********Inside getApprovePendingApprovelTripsDetails********************");
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String vendorTripStatus = tripObj.getVendorTripStatus();
 		String tripID = tripObj.getTripID();
 		String openingReading = tripObj.getOpeningReading();
 		String closingReading = tripObj.getClosingReading();
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		String processedOn = dateFormat.format(date);
+
 		try {
 
 			serviceManager.tripDetailsRepo.updateVendorTripStatusByTripId(tripID, vendorTripStatus, openingReading,
-					closingReading);
+					closingReading, processedBy, processedOn);
+			// call mailing api
+
+			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
+			EmailConfiguration emailConfiguration = emailList.get(0);
+
+			String vendorEmail = (String) request.getSession().getAttribute("userEmail");
+
+			List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Vendor Trip Query");
+
+			if (!queryType.isEmpty()) {
+				SendEmail sendEmail = new SendEmail();
+				MailContent mailContent = queryType.get(0);
+				sendEmail.setMailfrom(emailConfiguration.getUserName());
+				sendEmail.setSendTo(vendorEmail);
+				sendEmail.setSubject(mailContent.getSubject());
+				sendEmail.setEmailBody(mailContent.getEmailBody());
+				sendEmail.setStatus("Y");
+
+				serviceManager.sendEmailRepo.save(sendEmail);
+
+				EmailAuditLogs auditLogs = new EmailAuditLogs();
+				auditLogs.setMailFrom(emailConfiguration.getUserName());
+				auditLogs.setMailTo(vendorEmail);
+				auditLogs.setMailSubject(mailContent.getSubject());
+				auditLogs.setMailMessage(mailContent.getEmailBody());
+
+				serviceManager.emailAuditLogsRepo.save(auditLogs);
+			}
 			data.setMsg("success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -287,7 +315,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -311,7 +339,7 @@ public class TripControllers {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -332,7 +360,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -370,7 +398,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -388,7 +416,6 @@ public class TripControllers {
 			String tripID = jsonObject.get("tripID").toString();
 			System.out.println(" Trip id is ::" + tripID);
 			List<QueryEntity> qe = serviceManager.queryRepo.findCommentsByRefID(tripID);
-			
 
 			data.setData(qe);
 			data.setMsg("success");
@@ -396,7 +423,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -421,7 +448,7 @@ public class TripControllers {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -442,7 +469,7 @@ public class TripControllers {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : " + e);
 
 		}
 
@@ -461,13 +488,13 @@ public class TripControllers {
 
 			System.out.println("check user id >> " + obj.getTripID());
 			serviceManager.tripDetailsRepo.findTripDetailAgainTripID(invoiceNumber, tripID);
-			
+
 			data.setMsg("success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : " + e);
 
 		}
 

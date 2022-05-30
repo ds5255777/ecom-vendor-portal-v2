@@ -5,216 +5,235 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>${titleName}|All Trips</title>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>${titleName}|AllTrips</title>
 
-        <!-- Tell the browser to be responsive to screen width -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-        <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-        <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-        <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-        <link rel="stylesheet" href="dist/css/adminlte.min.css">
-        <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-        <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-        <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-        <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-        <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-        <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-        <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet"
+	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<link rel="stylesheet"
+	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+<link rel="stylesheet" href="dist/css/adminlte.min.css">
+<link rel="stylesheet"
+	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<link rel="stylesheet"
+	href="plugins/daterangepicker/daterangepicker.css">
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="plugins/jquery-ui/jquery-ui.min.css">
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+	rel="stylesheet">
+<link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+<link rel="stylesheet"
+	href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<link rel="stylesheet"
+	href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+<link rel="stylesheet"
+	href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 
-        <script>
-            var statusObject = {
-                "In-Transit": {
-                    "Yet To Be Approved": ["NA"],
-                    "Yet To Be Approved By Network Team": ["NA"],
-                },
-                "Closed": {
-                    "Yet To Be Approved": ["NA"],
-                    "Approved By Network Team": ["NA"],
-                    "Yet To Be Approved By Network Team": ["NA"],
-                    "Approved": ["Pending"],
-                    "Invoicing": ["Pending", "Approved"],
-                }
-            }
-            window.onload = function () {
-                var tripStatus = document.getElementById("selectTripStatus");
-                var status = document.getElementById("selectStatus");
-                var paymentStatus = document.getElementById("selectPaymentStatus");
-                for (var x in statusObject) {
-                    tripStatus.options[tripStatus.options.length] = new Option(x, x);
+<script>
+	var statusObject = {
+		"In-Transit" : {
+			"Yet To Be Approved" : [ "NA" ],
+			"Yet To Be Approved By Network Team" : [ "NA" ],
+		},
+		"Closed" : {
+			"Yet To Be Approved" : [ "NA" ],
+			"Approved By Network Team" : [ "NA" ],
+			"Yet To Be Approved By Network Team" : [ "NA" ],
+			"Approved" : [ "Pending" ],
+			"Invoicing" : [ "Pending", "Approved" ],
+		}
+	}
+	window.onload = function() {
+		var tripStatus = document.getElementById("selectTripStatus");
+		var status = document.getElementById("selectStatus");
+		var paymentStatus = document.getElementById("selectPaymentStatus");
+		for ( var x in statusObject) {
+			tripStatus.options[tripStatus.options.length] = new Option(x, x);
 
-                }
-                tripStatus.onchange = function () {
-                    //empty Chapters- and Topics- dropdowns
-                    paymentStatus.length = 1;
-                    status.length = 1;
-                    //display correct values
-                    for (var y in statusObject[this.value]) {
-                        status.options[status.options.length] = new Option(y, y);
-                    }
-                    GetSelectedTextValue1();
-                }
-                status.onchange = function () {
-                    //empty Chapters dropdown
-                    paymentStatus.length = 1;
-                    //display correct values
-                    var z = statusObject[tripStatus.value][this.value];
-                    for (var i = 0; i < z.length; i++) {
-                        paymentStatus.options[paymentStatus.options.length] = new Option(z[i], z[i]);
-                    }
-                    GetSelectedTextValue1();
-                }
-            }
+		}
+		tripStatus.onchange = function() {
+			//empty Chapters- and Topics- dropdowns
+			paymentStatus.length = 1;
+			status.length = 1;
+			//display correct values
+			for ( var y in statusObject[this.value]) {
+				status.options[status.options.length] = new Option(y, y);
+			}
+			GetSelectedTextValue1();
+		}
+		status.onchange = function() {
+			//empty Chapters dropdown
+			paymentStatus.length = 1;
+			//display correct values
+			var z = statusObject[tripStatus.value][this.value];
+			for (var i = 0; i < z.length; i++) {
+				paymentStatus.options[paymentStatus.options.length] = new Option(
+						z[i], z[i]);
+			}
+			GetSelectedTextValue1();
+		}
+	}
+</script>
+<style>
+custom-file-input {
+	height: 25px;
+	font-size: 14px;
+}
 
-        </script>
-        <style>
-            custom-file-input {
-                height: 25px;
-                font-size: 14px;
-            }
+.custom-file {
+	height: 25px;
+	font-size: 14px;
+	padding-bottom: 35px;
+	font-size: 14px;
+}
 
-            .custom-file {
-                height: 25px;
-                font-size: 14px;
-                padding-bottom: 35px;
-                font-size: 14px;
-            }
+.custom-file-label::after {
+	height: auto !important;
+}
 
-            .custom-file-label::after {
-                height: auto !important;
-            }
+.custom-file-label {
+	padding-bottom: 23px;
+	height: 25px;
+	font-size: 14px;
+}
 
-            .custom-file-label {
-                padding-bottom: 23px;
-                height: 25px;
-                font-size: 14px;
-            }
+.tableheading {
+	font-size: 15px;
+	font-weight: bold;
+}
 
-            .tableheading {
-                font-size: 15px;
-                font-weight: bold;
-            }
+label {
+	font-weight: 500;
+	margin-bottom: 1px;
+}
 
-            label {
-                font-weight: 500;
-                margin-bottom: 1px;
-            }
+.form-control {
+	height: 25px;
+	font-size: 14px;
+}
 
-            .form-control {
-                height: 25px;
-                font-size: 14px;
-            }
+tbody {
+	font-size: 12.9px;
+}
 
-            tbody {
-                font-size: 12.9px;
-            }
+.table td, .table th {
+	vertical-align: top;
+	border-top: 1px solid #dee2e6;
+	padding: 5px 5px 0px 1.5rem;
+}
 
-            .table td,
-            .table th {
-                vertical-align: top;
-                border-top: 1px solid #dee2e6;
-                padding: 5px 5px 0px 1.5rem;
-            }
+.observedScoreheading {
+	width: 60px !important;
+}
 
-            .observedScoreheading {
-                width: 60px !important;
-            }
+.serialNoheading {
+	width: 60px !important;
+}
 
-            .serialNoheading {
-                width: 60px !important;
-            }
+.documentheading {
+	width: 500px;
+}
 
-            .documentheading {
-                width: 500px;
-            }
+.attachmentheading {
+	width: 500px;
+}
 
-            .attachmentheading {
-                width: 500px;
-            }
+.helpheading {
+	width: 60px !important;
+}
 
-            .helpheading {
-                width: 60px !important;
-            }
+.tooltip.show p {
+	text-align: left;
+}
+</style>
+</head>
 
-            .tooltip.show p {
-                text-align: left;
-            }
+<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+	<jsp:include page="loader.jsp" />
+	<div class="wrapper">
 
-        </style>
-    </head>
+		<!-- Navbar -->
+		<jsp:include page="navBar_Network.jsp?pagename=All Trips (Network)" />
+		<!-- /.navbar -->
 
-    <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
-        <jsp:include page="loader.jsp" />
-        <div class="wrapper">
+		<!-- Main Sidebar Container -->
+		<jsp:include page="slidebar.jsp?pagename=AllTripsNetwork" />
 
-            <!-- Navbar -->
-            <jsp:include page="navBar_Network.jsp?pagename=All Trips (Network)" />
-            <!-- /.navbar -->
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<div class="content-header" style="padding: 0px;">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6"></div>
+						<div class="col-sm-6"></div>
+					</div>
+				</div>
+			</div>
 
-            <!-- Main Sidebar Container -->
-            <jsp:include page="slidebar.jsp?pagename=All Trips (Network)" />
-
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-                <div class="content-header" style="padding: 0px;">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6"></div>
-                            <div class="col-sm-6">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- /.content-header -->
+			<!-- /.content-header -->
 
 
-                <!-- Main content -->
-                <section class="content mt-2">
-                    <div class="container-fluid">
+			<!-- Main content -->
+			<section class="content mt-2">
+				<div class="container-fluid">
 
-                        <div class="row">
-                            <!-- <div class="col-md-12"> -->
-                            <div class="col-md-12" style="font-size: 14px;">
-                                <!-- general form elements -->
-                                <div class="card">
-                                    
-                                    <!-- /.card-header -->
-                                    <div class="card-body ">
-                                        <form role="form" id="addForm" autocomplete="off">
-                                        
-                                       
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <input type="text" name="fromDate" placeholder="Select Starting Date" class="form-control" id="fromDate" style="height: 34px;">
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <input type="text" name="toDate" placeholder="Select End Date" class="form-control" id="toDate" style="height: 34px;">
-                                                </div> 
-                                                <div class="col-md-2">
-                                                    <label for="exampleInputserverName1" style="visibility: hidden;">Text</label>
-                                                    <button type="button" onclick="getFilterData()" class="btn btn-primary">Search</button>
-                                                </div>
-                                                <div class="col-md-3"></div>
-                                                <div class="col-md-2">
-			                                        <div class="form-group row">
-			                                            <label class="col-md-4" style="margin-top: 7px;">Search : </label>
-			                                            <div class="col-md-8">
-			                                                <input type="text" name="searchData" placeholder="search" class="form-control" id="searchData" style="height: 34px;">
-			                                            </div>
-			                                        </div>
-			                                    </div>
-                                                
-                                                <div class="col-md-1">
+					<div class="row">
+						<!-- <div class="col-md-12"> -->
+						<div class="col-md-12" style="font-size: 14px;">
+							<!-- general form elements -->
+							<div class="card">
+
+								<!-- /.card-header -->
+								<div class="card-body ">
+									<form role="form" id="addForm" autocomplete="off">
+
+
+										<div class="row">
+											<div class="col-md-2">
+												<input type="text" name="fromDate"
+													placeholder="Select Starting Date" class="form-control"
+													id="fromDate" style="height: 34px;">
+											</div>
+											<div class="col-md-2">
+												<input type="text" name="toDate"
+													placeholder="Select End Date" class="form-control"
+													id="toDate" style="height: 34px;">
+											</div>
+											<div class="col-md-2">
+												<label for="exampleInputserverName1"
+													style="visibility: hidden;">Text</label>
+												<button type="button" onclick="getFilterData()"
+													class="btn btn-primary">Search</button>
+											</div>
+											<div class="col-md-3"></div>
+											<div class="col-md-2">
+												<div class="form-group row">
+													<label class="col-md-4" style="margin-top: 7px;">Search
+														: </label>
+													<div class="col-md-8">
+														<input type="text" name="searchData" placeholder="search"
+															class="form-control" id="searchData"
+															style="height: 34px;">
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-1">
 												<div class="dropdown">
 													<button type="button"
 														class="btn btn-primary dropdown-toggle"
@@ -227,46 +246,58 @@
 													</div>
 												</div>
 											</div>
-                                            </div>
-                                        </form>
-                                        <table class="table table-bordered table-hover" id="tabledata">
-                                            <thead>
-                                                <tr>
-                                                    <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
-                                                    <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
-                                                    <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-                                                    <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Name</th>
-                                                    <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Code</th>
-                                                    <th  class="bg-primary"style="padding: 5px 5px 5px 1.5rem;">Run Status</th>
-                                                    <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Status</th>
-                                                    <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual Departure</th>
-                                                    <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-                                                    <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-                                                    <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Origin Hub</th>
-                                                    <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Destination Hub</th>
-                                                    <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Payment Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+										</div>
+									</form>
+									<table class="table table-bordered table-hover" id="tabledata">
+										<thead>
+											<tr>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip
+													Id</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run
+													Type</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor
+													Name</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor
+													Code</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run
+													Status</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor
+													Status</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual
+													Departure</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual
+													KM</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard
+													KM</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Origin
+													Hub</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Destination
+													Hub</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Payment
+													Status</th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 
-                <!-- Control Sidebar -->
-                <!-- <aside class="control-sidebar control-sidebar-dark">
+			<!-- Control Sidebar -->
+			<!-- <aside class="control-sidebar control-sidebar-dark">
                             Control sidebar content goes here
                     </aside>
                     /.control-sidebar -->
-            </div>
-            <!-- ./wrapper -->
+		</div>
+		<!-- ./wrapper -->
 
-           <!-- Model Start -->
+		<!-- Model Start -->
 		<div class="modal fade" id="tripValue" role="dialog">
 			<div class="modal-dialog " style="max-width: 1400px;">
 				<!-- Modal content-->
@@ -281,8 +312,11 @@
 										<div class="card-header" style="padding: 4px 0px 4px 4px;">
 											<h3 class="card-title" style="font-size: 15px;">Trip
 												Details</h3>
-												<button type="button" class="btn" id="closeModal" style="float: right;"
-												data-dismiss="modal"><i class="nav-icon far fa-window-close" style="font-size: 20px; color: white;"></i></button>
+											<button type="button" class="btn" id="closeModal"
+												style="float: right;" data-dismiss="modal">
+												<i class="nav-icon far fa-window-close"
+													style="font-size: 20px; color: white;"></i>
+											</button>
 										</div>
 										<!-- /.card-header -->
 										<div class="card-body" style="padding-bottom: inherit;">
@@ -333,7 +367,7 @@
 																No.</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"
-																	id="vehicleNumber" name="vehicleNumber" 
+																	id="vehicleNumber" name="vehicleNumber"
 																	autocomplete="off" disabled>
 															</div>
 														</div>
@@ -521,7 +555,8 @@
 													</div>
 													<div class="col-md-3">
 														<div class="form-group row">
-															<label class="col-sm-5" title="Current Fuel Rate">Fuel Rate</label>
+															<label class="col-sm-5" title="Current Fuel Rate">Fuel
+																Rate</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"
 																	id="currentFuelRate" name="currentFuelRate" disabled>
@@ -602,7 +637,7 @@
 													Query</h3>
 											</div>
 
-											<div class="card-body " style="padding: inherit;">
+											<div class="card-body " >
 												<form role="form" id="showQueryDetails"
 													name="showQueryDetails">
 													<div class="col-md-12">
@@ -640,7 +675,7 @@
 			</div>
 		</div>
 		<!-- model Start -->
-            <script src="plugins/jquery/jquery.min.js"></script>
+		 <script src="plugins/jquery/jquery.min.js"></script>
             <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
             <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
             <script>
@@ -679,623 +714,470 @@
             <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
             <script type="text/javascript">
-                                                        const Toast = Swal.mixin({
-                                                            toast: true,
-                                                            position: 'top-end',
-                                                            showConfirmButton: false,
-                                                            timer: 3000
-                                                        });
-                                                        
-                                                        var currentDate='${currentDate}';
-
-                                                        var tabledata = $('#tabledata').DataTable({
-                                                            "paging": true,
-                                                            "lengthChange": false,
-                                                            "searching": true,
-                                                            "info": true,
-                                                            "autoWidth": false,
-                                                            "aaSorting": [],
-                                                            "scrollX": true,
-                                                            "pageLength": 10,
-                                                            dom: 'Bfrtip',
-                                                            //buttons: ['excel','pdf','print'],
-                                                            buttons: [
-
-                                                                {
-                                                                    extend: 'excelHtml5',
-
-                                                                    exportOptions: {
-                                                                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-                                                                    }
-                                                                },
-                                                                {
-                                                                    extend: 'pdfHtml5',
-                                                                    orientation: 'landscape',
-                                                                    pageSize: 'A4',
-                                                                    exportOptions: {
-                                                                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-                                                                    },
-                                                                    customize: function (doc) {
-
-                                                                        var tblBody = doc.content[1].table.body;
-                                                                        for (var i = 0; i < tblBody[0].length; i++) {
-                                                                            //	 console.log(tblBody[0]);
-                                                                            //	 console.log(tblBody[0][i]);
-                                                                            tblBody[0][i].fillColor = '#FFFFFF';
-                                                                            tblBody[0][i].color = 'black';
-                                                                        }
-
-                                                                        var objLayout = {};
-                                                                        objLayout['hLineWidth'] = function (i) {
-                                                                            return .5;
-                                                                        };
-                                                                        objLayout['vLineWidth'] = function (i) {
-                                                                            return .5;
-                                                                        };
-                                                                        objLayout['hLineColor'] = function (i) {
-                                                                            return '#aaa';
-                                                                        };
-                                                                        objLayout['vLineColor'] = function (i) {
-                                                                            return '#aaa';
-                                                                        };
-                                                                        objLayout['paddingLeft'] = function (i) {
-                                                                            return 4;
-                                                                        };
-                                                                        objLayout['paddingRight'] = function (i) {
-                                                                            return 4;
-                                                                        };
-                                                                        doc.content[1].layout = objLayout;
-                                                                        var obj = {};
-                                                                        obj['hLineWidth'] = function (i) {
-                                                                            return .5;
-                                                                        };
-                                                                        obj['hLineColor'] = function (i) {
-                                                                            return '#aaa';
-                                                                        };
-                                                                        //   doc.content[1].margin = [ 150, 0, 150, 0 ];
-
-                                                                    }
-                                                                }
-                                                            ],
-                                                            initComplete: function () {
-                                                                var $buttons = $('.dt-buttons').hide();
-                                                                $('#exportLink').on('click', function () {
-                                                                    var btnClass = "excel" ?
-                                                                            '.buttons-' + "excel" :
-                                                                            null;
-                                                                    if (btnClass)
-                                                                        $buttons.find(btnClass).click();
-                                                                })
-
-                                                                $('#exportLinkPdf').on('click', function () {
-                                                                    var btnClass = "pdf" ?
-                                                                            '.buttons-' + "pdf" :
-                                                                            null;
-                                                                    if (btnClass)
-                                                                        $buttons.find(btnClass).click();
-                                                                })
-                                                            }
-                                                        });
-
-                                                     // #myInput is a <input type="text"> element
-                                                        $('#searchData').on( 'keyup', function () {
-                                                        	tabledata.search( this.value ).draw();
-                                                        } );
-                                                        
-                                                        $('#tabledata_filter').css("display","none");
-                                                     
-                                                        $('#fromDate').datepicker({
-                                                            dateFormat: 'dd-mm-yy',
-                                                            changeMonth: true,
-                                                            changeYear: true,
-                                                            maxDate: currentDate
-                                                        });
-
-                                                        $('#toDate').datepicker({
-                                                            dateFormat: 'dd-mm-yy',
-                                                            changeMonth: true,
-                                                            changeYear: true,
-                                                            maxDate: currentDate
-                                                        });
-
-
-                                                        function calculateTotalFreight() {
-
-                                                            var fs = parseFloat("0");
-                                                            var totalFreight = parseFloat("0");
-
-                                                            if ($.isNumeric($("#currentFuelRate").val())) {
-                                                                totalFreight = parseFloat($("#currentFuelRate").val());
-                                                                console.log("Hiiii" + totalFreight);
-                                                            }
-                                                            var engMarks = document.getElementById('currentFuelRate').value;
-                                                            var currentFuelRate = parseFloat($("#currentFuelRate").val());
-                                                            var fsBaseRate = parseFloat($("#fsBaseRate").val());
-                                                            var mileage = parseFloat($("#mileage").val());
-                                                            var routeKms = parseFloat($("#routeKms").val());
-                                                            /* if($.isNumeric( $("#currentFuelRate").val() )){
-                                                             totalFreight = totalFreight+parseFloat($("#currentFuelRate").val());
-                                                             } */
-                                                            fs = ((currentFuelRate - fsBaseRate / mileage) * routeKms);
-
-                                                            console.log(parseFloat(fs));
-                                                        }
-
-                                                        $("#refreshDashboardButton").click(function (e) {
-                                                            e.preventDefault();
-                                                            $('#refreshDashboardButton').attr('disabled', 'disabled');
-                                                            getData();
-                                                            $('#refreshDashboardButton').removeAttr('disabled');
-                                                            $('#selectTripStatus').val('');
-                                                            $('#selectStatus').val('');
-                                                            $('#selectPaymentStatus').val('');
-                                                            $('#fromDate').val('');
-                                                            $('#toDate').val('');
-                                                        })
-
-                                                        getData();
-
-                                                        function getData() {
-
-                                                            var jsArray = [];
-                                                            $('.loader').show();
-
-                                                            $.ajax({
-                                                                type: "POST",
-                                                                data: JSON.stringify(jsArray),
-                                                                url: "<%=GlobalUrl.getAllTripsDetails%>",
-                                                                dataType: "json",
-                                                                contentType: "application/json",
-                                                                async: false,
-                                                                success: function (data) {
-
-                                                                    $('.loader').hide();
-                                                                    if (data.msg == 'success') {
-
-                                                                        var result = data.data;
-                                                                        tabledata.clear();
-                                                                        //console.log("result" + result);
-
-                                                                        for (var i = 0; i < result.length; i++) {
-
-                                                                            //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
-                                                                            var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
-
-                                                                            var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
-                                                                            var statustemp_payment_Pending = '<span class=\"right badge badge-warning\">Pending</span>';
-                                                                            var statustemp_payment_No = '<span class=\"right badge badge-primary\">NA</span>';
-
-                                                                            var statustemp_runststus_Intransit = '<span class=\"right badge badge-warning\">In-Transit</span>';
-                                                                            var statustemp_runststus_Closed = '<span class=\"right badge badge-success\">Closed</span>';
-
-                                                                            var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved By Network Team</span>';
-                                                                            var statustemp_approved = '<span class=\"right badge badge-success\">Approved By Network Team</span>';
-                                                                            var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
-                                                                            var statustemp_Query = '<span class=\"right badge badge-warning\">Query</span>';
-                                                                            var statustemp_pending_Vendor = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
-                                                                            var statustemp_approved_Vendor = '<span class=\"right badge badge-success\">Approved</span>';
-
-
-                                                                            var paymentStatus = "";
-                                                                            var runStatus = "";
-                                                                            var vendorTripStatus = "";
-                                                                            //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
-                                                                            var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
-
-                                                                          
-                                                                           // console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
-                                                                            if (result[i].vendorTripStatus == "Yet To Be Approved By Network Team") {
-                                                                                tempString[6] = statustemp_pending;
-
-                                                                            } else if (result[i].vendorTripStatus == "Approved By Network Team") {
-                                                                                tempString[6] = statustemp_approved;
-
-                                                                            } else if (result[i].vendorTripStatus == "Invoicing") {
-                                                                                tempString[6] = statustemp_Invoicing;
-
-                                                                            } else if (result[i].vendorTripStatus == "Query") {
-                                                                                tempString[6] = statustemp_Query;
-
-                                                                            } else if (result[i].vendorTripStatus == "Yet To Be Approved") {
-                                                                                tempString[6] = statustemp_pending_Vendor;
-
-                                                                            } else if (result[i].vendorTripStatus == "Approved") {
-                                                                                tempString[6] = statustemp_approved_Vendor;
-
-                                                                            }
-
-                                                                            if (result[i].runStatus == "In-Transit") {
-                                                                                tempString[5] = statustemp_runststus_Intransit;
-
-                                                                            } else if (result[i].runStatus == "Closed") {
-                                                                                tempString[5] = statustemp_runststus_Closed;
-
-                                                                            }
-                                                                            tabledata.row.add(tempString);
-                                                                        }
-                                                                        tabledata.draw();
-                                                                        $("tbody").show();
-                                                                    } else {
-                                                                        Toast.fire({
-                                                                            type: 'error',
-                                                                            title: 'Failed.. Try Again..'
-                                                                        })
-                                                                    }
-                                                                },
-                                                                error: function (jqXHR, textStatue, errorThrown) {
-                                                                    alert("failed, please try again");
-                                                                }
-                                                            });
-                                                        }
-
-                                                        /* function viewCheckList(id){
-                                                         console.log("id >> "+id );
-                                                         location.href = "tripDetailsView?type="+tripID 
-                                                         var urlOftripsDetail="tripDetailsView?type="+id;
-                                                         window.open(urlOftripsDetail, "TripsDetails", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
-                                                         
-                                                         } */
-                                                        function setTripStatus(tripId) {
-                                                            globalTripId = "";
-                                                            globalTripId = tripId;
-                                                            console.log("tripid : " + globalTripId);
-                                                        }
-
-                                                        function setTripStatus(tripId) {
-                                                            console.log("Trip od" + tripId);
-                                                            //	 tripId =  $("#tripID").val();		
-
-                                                            var json = {
-                                                                "tripID": tripId
-                                                            }
-
-                                                            $.ajax({
-                                                                type: "POST",
-                                                                data: JSON.stringify(json),
-                                                                url: "<%=GlobalUrl.tripDetailByTripId%>",
-                                                                dataType: "json",
-                                                                contentType: "application/json",
-                                                                async: false,
-                                                                success: function (data) {
-
-                                                                    if (data.msg == 'success') {
-                                                                        var result = data.data;
-                                                                        /* jsondata=JSON.parse(result) */
-                                                                        var myForm = "";
-                                                                        myForm = document.getElementById("tripForm");
-                                                                        setData(myForm, result);
-                                                                        $("#tripID").val(result.tripID);
-                                                                    } else {
-                                                                        Toast.fire({
-                                                                            type: 'error',
-                                                                            title: 'Failed.. Try Again..'
-                                                                        })
-                                                                    }
-                                                                },
-                                                                error: function (jqXHR, textStatue, errorThrown) {
-                                                                    //alert("failed, please try again");
-                                                                    Toast.fire({
-                                                                        type: 'error',
-                                                                        title: 'Failed.. Try Again..'
-                                                                    })
-                                                                }
-                                                            });
-                                                        }
-
-                                                        function searchTripData() {
-                                                            var jsArray = [];
-                                                            $('.loader').show();
-                                                            console.log("Status" + status);
-                                                            $.ajax({
-                                                                type: "POST",
-                                                                url: "<%=GlobalUrl.status%>?status=" + status,
-                                                                dataType: "json",
-                                                                contentType: "application/json",
-                                                                success: function (data) {
-                                                                    $('.loader').hide();
-                                                                    if (data.msg == "success") {
-                                                                        var result = data.data;
-                                                                        tabledata.clear();
-                                                                        for (var i = 0; i < result.length; i++) {
-                                                                        	 //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
-                                                                            var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
-
-                                                                            var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
-                                                                            var statustemp_payment_Pending = '<span class=\"right badge badge-warning\">Pending</span>';
-                                                                            var statustemp_payment_No = '<span class=\"right badge badge-primary\">NA</span>';
-
-                                                                            var statustemp_runststus_Intransit = '<span class=\"right badge badge-warning\">In-Transit</span>';
-                                                                            var statustemp_runststus_Closed = '<span class=\"right badge badge-success\">Closed</span>';
-
-                                                                            var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved By Network Team</span>';
-                                                                            var statustemp_approved = '<span class=\"right badge badge-success\">Approved By Network Team</span>';
-                                                                            var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
-                                                                            var statustemp_Query = '<span class=\"right badge badge-warning\">Query</span>';
-                                                                            var statustemp_pending_Vendor = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
-                                                                            var statustemp_approved_Vendor = '<span class=\"right badge badge-success\">Approved</span>';
-
-
-                                                                            var paymentStatus = "";
-                                                                            var runStatus = "";
-                                                                            var vendorTripStatus = "";
-                                                                            //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
-                                                                            var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
-
-                                                                          
-                                                                           // console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
-                                                                            if (result[i].vendorTripStatus == "Yet To Be Approved By Network Team") {
-                                                                                tempString[6] = statustemp_pending;
-
-                                                                            } else if (result[i].vendorTripStatus == "Approved By Network Team") {
-                                                                                tempString[6] = statustemp_approved;
-
-                                                                            } else if (result[i].vendorTripStatus == "Invoicing") {
-                                                                                tempString[6] = statustemp_Invoicing;
-
-                                                                            } else if (result[i].vendorTripStatus == "Query") {
-                                                                                tempString[6] = statustemp_Query;
-
-                                                                            } else if (result[i].vendorTripStatus == "Yet To Be Approved") {
-                                                                                tempString[6] = statustemp_pending_Vendor;
-
-                                                                            } else if (result[i].vendorTripStatus == "Approved") {
-                                                                                tempString[6] = statustemp_approved_Vendor;
-
-                                                                            }
-
-                                                                            if (result[i].runStatus == "In-Transit") {
-                                                                                tempString[5] = statustemp_runststus_Intransit;
-
-                                                                            } else if (result[i].runStatus == "Closed") {
-                                                                                tempString[5] = statustemp_runststus_Closed;
-
-                                                                            }
-                                                                            tabledata.row.add(tempString);                                                                        }
-                                                                        tabledata.draw();
-                                                                        $("tbody").show();
-                                                                    } else {
-                                                                        alert("failed");
-                                                                    }
-                                                                },
-                                                                error: function (jqXHR, textStatue, errorThrown) {
-                                                                    alert("failed, please try again");
-                                                                }
-                                                            });
-                                                        }
-
-                                                        function getFilterData() {
-                                                        	$('#selectTripStatus').val('');
-                                                            $('#selectStatus').val('');
-                                                            $('#selectPaymentStatus').val('');
-                                                        	
-                                                            
-                                                            var fromDate = $("#fromDate").val();
-                                                            var toDate = $("#toDate").val();
-                                                            
-                                                            if (fromDate == "" || fromDate == null) {
-                                                                //alert("plaese select from date"+fromDate);
-                                                                Toast.fire({
-                                                                    type: 'error',
-                                                                    title: 'Please Select Start Date..'
-                                                                });
-                                                                document.getElementById("fromDate").focus();
-                                                                return;
-                                                            }
-
-                                                            if (toDate == "" || toDate == null) {
-                                                                //alert("plaese select from date"+fromDate);
-                                                                Toast.fire({
-                                                                    type: 'error',
-                                                                    title: 'Please Select End Date..'
-                                                                });
-                                                                document.getElementById("toDate").focus();
-                                                                return;
-                                                            }
-                                                            $('.loader').show();
-
-                                                            $.ajax({
-                                                                type: "GET",
-                                                                data: {
-                                                                	"actualDeparture": fromDate.concat(" ","00:00:00"),
-                                                                    "actualArrival": toDate.concat(" ","23:59:59")
-                                                                },
-                                                                url: "<%=GlobalUrl.filterTripDetailsByNetwork%>",
-                                                                dataType: "json",
-                                                                contentType: "application/json",
-
-                                                                success: function (data) {
-                                                                	console.log(data," : data : ");
-                                                                    $('.loader').hide();
-                                                                    if (data.msg == 'success') {
-                                                                        //alert("Hiii");
-                                                                        console.log(data);
-
-                                                                        var result = data.data;
-                                                                        tabledata.clear();
-
-                                                                        for (var i = 0; i < result.length; i++) {
-                                                                        	 //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
-                                                                            var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
-
-                                                                            var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
-                                                                            var statustemp_payment_Pending = '<span class=\"right badge badge-warning\">Pending</span>';
-                                                                            var statustemp_payment_No = '<span class=\"right badge badge-primary\">NA</span>';
-
-                                                                            var statustemp_runststus_Intransit = '<span class=\"right badge badge-warning\">In-Transit</span>';
-                                                                            var statustemp_runststus_Closed = '<span class=\"right badge badge-success\">Closed</span>';
-
-                                                                            var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved By Network Team</span>';
-                                                                            var statustemp_approved = '<span class=\"right badge badge-success\">Approved By Network Team</span>';
-                                                                            var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
-                                                                            var statustemp_Query = '<span class=\"right badge badge-warning\">Query</span>';
-                                                                            var statustemp_pending_Vendor = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
-                                                                            var statustemp_approved_Vendor = '<span class=\"right badge badge-success\">Approved</span>';
-
-
-                                                                            var paymentStatus = "";
-                                                                            var runStatus = "";
-                                                                            var vendorTripStatus = "";
-                                                                            //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
-                                                                            var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
-
-                                                                          
-                                                                           // console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
-                                                                            if (result[i].vendorTripStatus == "Yet To Be Approved By Network Team") {
-                                                                                tempString[6] = statustemp_pending;
-
-                                                                            } else if (result[i].vendorTripStatus == "Approved By Network Team") {
-                                                                                tempString[6] = statustemp_approved;
-
-                                                                            } else if (result[i].vendorTripStatus == "Invoicing") {
-                                                                                tempString[6] = statustemp_Invoicing;
-
-                                                                            } else if (result[i].vendorTripStatus == "Query") {
-                                                                                tempString[6] = statustemp_Query;
-
-                                                                            } else if (result[i].vendorTripStatus == "Yet To Be Approved") {
-                                                                                tempString[6] = statustemp_pending_Vendor;
-
-                                                                            } else if (result[i].vendorTripStatus == "Approved") {
-                                                                                tempString[6] = statustemp_approved_Vendor;
-
-                                                                            }
-
-                                                                            if (result[i].runStatus == "In-Transit") {
-                                                                                tempString[5] = statustemp_runststus_Intransit;
-
-                                                                            } else if (result[i].runStatus == "Closed") {
-                                                                                tempString[5] = statustemp_runststus_Closed;
-
-                                                                            }
-                                                                            tabledata.row.add(tempString);                                                                        }
-                                                                        tabledata.draw();
-                                                                        $("tbody").show();
-                                                                    } else {
-                                                                        console.log(data);
-                                                                        Toast.fire({
-                                                                            type: 'error',
-                                                                            title: 'Failed.. Try Again..'
-                                                                        })
-                                                                    }
-
-                                                                },
-                                                                error: function (jqXHR, textStatue, errorThrown) {
-                                                                    $('.loader').hide();
-                                                                    Toast.fire({
-                                                                        type: 'error',
-                                                                        title: '.. Try Again..'
-                                                                    })
-                                                                }
-
-                                                            });
-
-                                                        }
-
-
-                                                        function GetSelectedTextValue1() {
-                                                            
-                                                            var tripStatus = $("#selectTripStatus").val();
-                                                            var selectStatus = $("#selectStatus").val();
-                                                            var selectPaymentStatus = $("#selectPaymentStatus").val();
-                                                            var obj = {
-                                                                "runStatus": tripStatus,
-                                                                "vendorTripStatus": selectStatus,
-                                                                "paymentStatus": selectPaymentStatus,
-                                                            }
-
-															console.log("Status : ",obj);
-
-
-
-
-                                                            $('.loader').show();
-                                                            $.ajax({
-                                                                type: "POST",
-                                                                url: "<%=GlobalUrl.statusNetwork%>",
-                                                                dataType: "json",
-                                                                contentType: "application/json",
-                                                                data: JSON.stringify(obj),
-                                                                success: function (data) {
-                                                                    //alert("Hiiiiiiiiiiiiii");
-
-                                                                    $('.loader').hide();
-                                                                    if (data.msg == "success") {
-
-                                                                        var result = data.data;
-                                                                        console.log("****GetSelected******%%%%%%"+result);
-                                                                        tabledata.clear();
-
-                                                                        for (var i = 0; i < result.length; i++) {
-                                                                        	 //var viewData = "<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"viewCheckList('" + result[i].tripID + "')\"><i class='fa fa-eye ' ></i></button>";
-                                                                            var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
-
-                                                                            var statustemp_payment_success = '<span class=\"right badge badge-success\">Approved</span>';
-                                                                            var statustemp_payment_Pending = '<span class=\"right badge badge-warning\">Pending</span>';
-                                                                            var statustemp_payment_No = '<span class=\"right badge badge-primary\">NA</span>';
-
-                                                                            var statustemp_runststus_Intransit = '<span class=\"right badge badge-warning\">In-Transit</span>';
-                                                                            var statustemp_runststus_Closed = '<span class=\"right badge badge-success\">Closed</span>';
-
-                                                                            var statustemp_pending = '<span class=\"right badge badge-warning\">Yet To Be Approved By Network Team</span>';
-                                                                            var statustemp_approved = '<span class=\"right badge badge-success\">Approved By Network Team</span>';
-                                                                            var statustemp_Invoicing = '<span class=\"right badge badge-primary\">Invoicing</span>';
-                                                                            var statustemp_Query = '<span class=\"right badge badge-warning\">Query</span>';
-                                                                            var statustemp_pending_Vendor = '<span class=\"right badge badge-warning\">Yet To Be Approved</span>';
-                                                                            var statustemp_approved_Vendor = '<span class=\"right badge badge-success\">Approved</span>';
-
-
-                                                                            var paymentStatus = "";
-                                                                            var runStatus = "";
-                                                                            var vendorTripStatus = "";
-                                                                            //var tempString = [view, result[i].route, result[i].runType, runStatus,, result[i].actualKM, result[i].standardKM,result[i].vendorTripStatus, result[i].originHub, result[i].destHub, Status,PaymnmetStatus];
-                                                                            var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, runStatus, status, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, paymentStatus];
-
-                                                                          
-                                                                           // console.log("result[i].vendorTripStatus from network" + result[i].vendorTripStatus);
-                                                                            if (result[i].vendorTripStatus == "Yet To Be Approved By Network Team") {
-                                                                                tempString[6] = statustemp_pending;
-
-                                                                            } else if (result[i].vendorTripStatus == "Approved By Network Team") {
-                                                                                tempString[6] = statustemp_approved;
-
-                                                                            } else if (result[i].vendorTripStatus == "Invoicing") {
-                                                                                tempString[6] = statustemp_Invoicing;
-
-                                                                            } else if (result[i].vendorTripStatus == "Query") {
-                                                                                tempString[6] = statustemp_Query;
-
-                                                                            } else if (result[i].vendorTripStatus == "Yet To Be Approved") {
-                                                                                tempString[6] = statustemp_pending_Vendor;
-
-                                                                            } else if (result[i].vendorTripStatus == "Approved") {
-                                                                                tempString[6] = statustemp_approved_Vendor;
-
-                                                                            }
-
-                                                                            if (result[i].runStatus == "In-Transit") {
-                                                                                tempString[5] = statustemp_runststus_Intransit;
-
-                                                                            } else if (result[i].runStatus == "Closed") {
-                                                                                tempString[5] = statustemp_runststus_Closed;
-
-                                                                            }
-                                                                            tabledata.row.add(tempString);
-                                                                        }
-                                                                        tabledata.draw();
-                                                                        $("tbody").show();
-
-                                                                    } else {
-                                                                        alert("failed");
-                                                                    }
-                                                                },
-                                                                error: function (jqXHR, textStatue, errorThrown) {
-                                                                    alert("failed, please try again");
-                                                                }
-                                                            });
-                                                        }
+            
+            var dataLimit='${dataLimit}';
+    		dataLimit=parseInt(dataLimit);
+      const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+      });
+      
+      var currentDate='${currentDate}';
+      
+      var tabledataQuery = $('#tabledataQuery').DataTable({
+          "paging": false,
+          "lengthChange": false,
+          "searching": false,
+          "info": false,
+          "autoWidth": false,
+          "aaSorting": []
+      });
+
+      var tabledata = $('#tabledata').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": true,
+          "info": true,
+          "autoWidth": false,
+          "aaSorting": [],
+          "scrollX": true,
+          "pageLength": dataLimit,
+          dom: 'Bfrtip',
+          //buttons: ['excel','pdf','print'],
+          buttons: [
+
+              {
+                  extend: 'excelHtml5',
+
+                  exportOptions: {
+                      columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                  }
+              },
+              {
+                  extend: 'pdfHtml5',
+                  orientation: 'landscape',
+                  pageSize: 'A4',
+                  exportOptions: {
+                      columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                  },
+                  customize: function (doc) {
+
+                      var tblBody = doc.content[1].table.body;
+                      for (var i = 0; i < tblBody[0].length; i++) {
+                          //	 console.log(tblBody[0]);
+                          //	 console.log(tblBody[0][i]);
+                          tblBody[0][i].fillColor = '#FFFFFF';
+                          tblBody[0][i].color = 'black';
+                      }
+
+                      var objLayout = {};
+                      objLayout['hLineWidth'] = function (i) {
+                          return .5;
+                      };
+                      objLayout['vLineWidth'] = function (i) {
+                          return .5;
+                      };
+                      objLayout['hLineColor'] = function (i) {
+                          return '#aaa';
+                      };
+                      objLayout['vLineColor'] = function (i) {
+                          return '#aaa';
+                      };
+                      objLayout['paddingLeft'] = function (i) {
+                          return 4;
+                      };
+                      objLayout['paddingRight'] = function (i) {
+                          return 4;
+                      };
+                      doc.content[1].layout = objLayout;
+                      var obj = {};
+                      obj['hLineWidth'] = function (i) {
+                          return .5;
+                      };
+                      obj['hLineColor'] = function (i) {
+                          return '#aaa';
+                      };
+                      //   doc.content[1].margin = [ 150, 0, 150, 0 ];
+
+                  }
+              }
+          ],
+          initComplete: function () {
+              var $buttons = $('.dt-buttons').hide();
+              $('#exportLink').on('click', function () {
+                  var btnClass = "excel" ?
+                          '.buttons-' + "excel" :
+                          null;
+                  if (btnClass)
+                      $buttons.find(btnClass).click();
+              })
+
+              $('#exportLinkPdf').on('click', function () {
+                  var btnClass = "pdf" ?
+                          '.buttons-' + "pdf" :
+                          null;
+                  if (btnClass)
+                      $buttons.find(btnClass).click();
+              })
+          }
+      });
+
+      // #myInput is a <input type="text"> element
+         $('#searchData').on( 'keyup', function () {
+         	tabledata.search( this.value ).draw();
+         } );
+         
+         $('#tabledata_filter').css("display","none");
+      
+         $('#fromDate').datepicker({
+             dateFormat: 'dd-mm-yy',
+             changeMonth: true,
+             changeYear: true,
+             maxDate: currentDate
+         });
+
+         $('#toDate').datepicker({
+             dateFormat: 'dd-mm-yy',
+             changeMonth: true,
+             changeYear: true,
+             maxDate: currentDate
+         });
+
+
+         function calculateTotalFreight() {
+
+             var fs = parseFloat("0");
+             var totalFreight = parseFloat("0");
+
+             if ($.isNumeric($("#currentFuelRate").val())) {
+                 totalFreight = parseFloat($("#currentFuelRate").val());
+                 console.log("Hiiii" + totalFreight);
+             }
+             var engMarks = document.getElementById('currentFuelRate').value;
+             var currentFuelRate = parseFloat($("#currentFuelRate").val());
+             var fsBaseRate = parseFloat($("#fsBaseRate").val());
+             var mileage = parseFloat($("#mileage").val());
+             var routeKms = parseFloat($("#routeKms").val());
+             /* if($.isNumeric( $("#currentFuelRate").val() )){
+              totalFreight = totalFreight+parseFloat($("#currentFuelRate").val());
+              } */
+             fs = ((currentFuelRate - fsBaseRate / mileage) * routeKms);
+
+             console.log(parseFloat(fs));
+         }
+
+         $("#refreshDashboardButton").click(function (e) {
+             e.preventDefault();
+             $('#refreshDashboardButton').attr('disabled', 'disabled');
+             getData();
+             $('#refreshDashboardButton').removeAttr('disabled');
+             $('#selectTripStatus').val('');
+             $('#selectStatus').val('');
+             $('#selectPaymentStatus').val('');
+             $('#fromDate').val('');
+             $('#toDate').val('');
+         })
+
+         getData();
+
+         function getData() {
+
+             var jsArray = [];
+             $('.loader').show();
+
+             $.ajax({
+                 type: "POST",
+                 data: JSON.stringify(jsArray),
+                 url: "<%=GlobalUrl.getAllTripsDetails%>",
+                 dataType: "json",
+                 contentType: "application/json",
+                 async: false,
+                 success: function (data) {
+
+                     $('.loader').hide();
+                     if (data.msg == 'success') {
+
+                         var result = data.data;
+                         tabledata.clear();
+
+                         for (var i = 0; i < result.length; i++) {
+
+                             var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
+
+                             var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, result[i].paymentStatus];
+                           
+                             tabledata.row.add(tempString);
+                         }
+                         tabledata.draw();
+                         $("tbody").show();
+                     } else {
+                         Toast.fire({
+                             type: 'error',
+                             title: 'Failed.. Try Again..'
+                         })
+                     }
+                 },
+                 error: function (jqXHR, textStatue, errorThrown) {
+                     alert("failed, please try again");
+                 }
+             });
+         }
+
+         /* function viewCheckList(id){
+          console.log("id >> "+id );
+          location.href = "tripDetailsView?type="+tripID 
+          var urlOftripsDetail="tripDetailsView?type="+id;
+          window.open(urlOftripsDetail, "TripsDetails", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
+          
+          } */
+         function setTripStatus(tripId) {
+             globalTripId = "";
+             globalTripId = tripId;
+             console.log("tripid : " + globalTripId);
+         }
+
+         function setTripStatus(tripId) {
+             console.log("Trip od" + tripId);
+             //	 tripId =  $("#tripID").val();		
+
+             var json = {
+                 "tripID": tripId
+             }
+
+             $.ajax({
+                 type: "POST",
+                 data: JSON.stringify(json),
+                 url: "<%=GlobalUrl.tripDetailByTripId%>",
+                 dataType: "json",
+                 contentType: "application/json",
+                 async: false,
+                 success: function (data) {
+
+                     if (data.msg == 'success') {
+                         var result = data.data;
+                         /* jsondata=JSON.parse(result) */
+                         var myForm = "";
+                         myForm = document.getElementById("tripForm");
+                         setData(myForm, result);
+                         $("#tripID").val(result.tripID);
+                     } else {
+                         Toast.fire({
+                             type: 'error',
+                             title: 'Failed.. Try Again..'
+                         })
+                     }
+                 },
+                 error: function (jqXHR, textStatue, errorThrown) {
+                     //alert("failed, please try again");
+                     Toast.fire({
+                         type: 'error',
+                         title: 'Failed.. Try Again..'
+                     })
+                 }
+             });
+             
+           //Ajax to get remarks
+             $.ajax({
+                 type: "POST",
+                 data: JSON.stringify(json),
+                 url: "<%=GlobalUrl.getRemarksByRefID%>",
+                 dataType: "json",
+                 contentType: "application/json",
+                 async: false,
+                 success: function (data) {
+                     console.log("data.msg" + data.msg);
+                     console.log("data.data " + data.data);
+                     console.log("Actual data.data " + JSON.stringify(data.data));
+                     if (data.msg == 'success') {
+                    	 if("data" in data){
+								var result = data.data;												
+							     	tabledataQuery.clear();
+							     	var count=0;
+				                        for (var i = 0; i < result.length; i++) {
+				                        	count++;
+				                        	tabledataQuery.row.add([count,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
+				                        }
+				                        tabledataQuery.draw();
+				                        $("tbody").show();
+								}
+                     }
+                 }
+             });
+         }
+
+         function searchTripData() {
+             var jsArray = [];
+             $('.loader').show();
+             console.log("Status" + status);
+             $.ajax({
+                 type: "POST",
+                 url: "<%=GlobalUrl.status%>?status=" + status,
+             dataType: "json",
+             contentType: "application/json",
+             success: function (data) {
+                 $('.loader').hide();
+                 if (data.msg == "success") {
+                     var result = data.data;
+                     tabledata.clear();
+                     for (var i = 0; i < result.length; i++) {
+
+                         var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
+
+                         var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, result[i].paymentStatus];
+                       
+                         tabledata.row.add(tempString);
+                     }
+                     tabledata.draw();
+                     $("tbody").show();
+                 } else {
+                     alert("failed");
+                 }
+             },
+             error: function (jqXHR, textStatue, errorThrown) {
+                 alert("failed, please try again");
+             }
+         });
+     }
+
+     function getFilterData() {
+     	$('#selectTripStatus').val('');
+         $('#selectStatus').val('');
+         $('#selectPaymentStatus').val('');
+     	
+         
+         var fromDate = $("#fromDate").val();
+         var toDate = $("#toDate").val();
+         
+         if (fromDate == "" || fromDate == null) {
+             //alert("plaese select from date"+fromDate);
+             Toast.fire({
+                 type: 'error',
+                 title: 'Please Select Start Date..'
+             });
+             document.getElementById("fromDate").focus();
+             return;
+         }
+
+         if (toDate == "" || toDate == null) {
+             //alert("plaese select from date"+fromDate);
+             Toast.fire({
+                 type: 'error',
+                 title: 'Please Select End Date..'
+             });
+             document.getElementById("toDate").focus();
+             return;
+         }
+         $('.loader').show();
+
+         $.ajax({
+             type: "GET",
+             data: {
+             	"actualDeparture": fromDate.concat(" ","00:00:00"),
+                 "actualArrival": toDate.concat(" ","23:59:59")
+             },
+             url: "<%=GlobalUrl.filterTripDetailsByNetwork%>",
+             dataType: "json",
+             contentType: "application/json",
+
+             success: function (data) {
+             	console.log(data," : data : ");
+                 $('.loader').hide();
+                 if (data.msg == 'success') {
+                     //alert("Hiii");
+                     console.log(data);
+
+                     var result = data.data;
+                     tabledata.clear();
+
+                     for (var i = 0; i < result.length; i++) {
+
+                         var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
+
+                         var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, result[i].paymentStatus];
+                       
+                         tabledata.row.add(tempString);
+                     }
+                     tabledata.draw();
+                     $("tbody").show();                                                                    
+                     } else {
+                     console.log(data);
+                     Toast.fire({
+                         type: 'error',
+                         title: 'Failed.. Try Again..'
+                     })
+                 }
+
+             },
+             error: function (jqXHR, textStatue, errorThrown) {
+                 $('.loader').hide();
+                 Toast.fire({
+                     type: 'error',
+                     title: '.. Try Again..'
+                 })
+             }
+
+         });
+
+     }
+
+
+     function GetSelectedTextValue1() {
+         
+         var tripStatus = $("#selectTripStatus").val();
+         var selectStatus = $("#selectStatus").val();
+         var selectPaymentStatus = $("#selectPaymentStatus").val();
+         var obj = {
+             "runStatus": tripStatus,
+             "vendorTripStatus": selectStatus,
+             "paymentStatus": selectPaymentStatus,
+         }
+
+console.log("Status : ",obj);
+
+
+
+
+         $('.loader').show();
+         $.ajax({
+             type: "POST",
+             url: "<%=GlobalUrl.statusNetwork%>",
+             dataType: "json",
+             contentType: "application/json",
+             data: JSON.stringify(obj),
+             success: function (data) {
+                 //alert("Hiiiiiiiiiiiiii");
+
+                 $('.loader').hide();
+                 if (data.msg == "success") {
+
+                     var result = data.data;
+                     console.log("****GetSelected******%%%%%%"+result);
+                     tabledata.clear();
+
+                     for (var i = 0; i < result.length; i++) {
+
+                         var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
+
+                         var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, result[i].paymentStatus];
+                       
+                         tabledata.row.add(tempString);
+                     }
+                     tabledata.draw();
+                     $("tbody").show();
+                 } else {
+                     alert("failed");
+                 }
+             },
+             error: function (jqXHR, textStatue, errorThrown) {
+                 alert("failed, please try again");
+             }
+         });
+     }
 
 
             </script>
-    </body>
+</body>
 
 </html>

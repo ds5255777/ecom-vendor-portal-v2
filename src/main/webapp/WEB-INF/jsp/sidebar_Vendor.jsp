@@ -136,7 +136,7 @@
                 <hr>
             </li>
 
-            <li class="nav-item"><a href="#" class="nav-link
+           <%--  <li class="nav-item"><a href="#" class="nav-link
                             <%if (request.getParameter("pagename").equalsIgnoreCase("")) {
 				out.print("active");
 			}%>                            
@@ -145,16 +145,16 @@
                     <p>Setting</p>
                 </a>
                 <hr>
-            </li>
+            </li> --%>
 
-            <li class="nav-item"><a href="#" class="nav-link
+           <%--  <li class="nav-item"><a href="#" class="nav-link
                             <%if (request.getParameter("pagename").equalsIgnoreCase("")) {
 				out.print("active");
 			}%>                            
                             ">
                     <i class="nav-icon fas fa-chart-bar"></i>
                     <p>Reports</p>
-                </a></li>
+                </a></li> --%>
             </ul>
             <hr>
             </li> 

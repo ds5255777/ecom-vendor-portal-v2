@@ -1,11 +1,15 @@
 package com.main.controller;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,15 +33,23 @@ public class PoController {
 
 	@Autowired
 	private ServiceManager serviceManager;
+	
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(PoController.class);
 
 	@RequestMapping({ "/getAllPODetails" })
 	@CrossOrigin("*")
-	public String getActiveMasterData(HttpServletRequest request) {
+	public String getActiveMasterData(HttpServletRequest request, Principal principal) {
+		
+		logger.info("Log Some Information : "+dateTimeFormatter.format(LocalDateTime.now()));
+
+		String vendorCode = (String) request.getSession().getAttribute("userName");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<PoDetails> allPoDetails = serviceManager.podetailsRepo.findAll();
+			
+			List<PoDetails> allPoDetails = serviceManager.podetailsRepo.findByVendorCode(vendorCode);
 
 			data.setData(allPoDetails);
 			data.setMsg("success");
@@ -46,7 +58,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -69,7 +81,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -78,7 +90,7 @@ public class PoController {
 
 	@RequestMapping({ "/getAllProcessPo" })
 	@CrossOrigin("*")
-	public String getAllProcessPo(HttpServletRequest request) {
+	public String getAllProcessPo(HttpServletRequest request ,Principal principal) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -93,7 +105,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error in getAllProcessPo method : "+e);
 
 		}
 
@@ -118,7 +130,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -143,7 +155,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -169,7 +181,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -195,7 +207,7 @@ public class PoController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -221,7 +233,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -250,7 +262,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -279,7 +291,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -289,24 +301,24 @@ public class PoController {
 	@RequestMapping({ "filterPoDetails" })
 	@CrossOrigin("*")
 	public String filterPoDetails(Principal principal, HttpServletRequest request,
-			@RequestParam(name = "actualDeparture") String fromDate,
-			@RequestParam(name = "actualArrival") String toDate) {
+			@RequestParam(name = "actualDeparture") Date fromDate,
+			@RequestParam(name = "actualArrival") Date toDate) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println("fromDate : " + fromDate + " toDate : " + toDate);
 		String vendorCode = principal.getName();
 		try {
-			if (fromDate != "" && toDate != "" && vendorCode != "") {
+			
 				List<PoDetails> getListByDateFilter = serviceManager.podetailsRepo
 						.findByActualDepartureBetween(fromDate, toDate, vendorCode);
 				data.setData(getListByDateFilter);
 				data.setMsg("success");
-			}
+			
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -336,7 +348,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -369,7 +381,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 
@@ -392,7 +404,7 @@ public class PoController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		}
 

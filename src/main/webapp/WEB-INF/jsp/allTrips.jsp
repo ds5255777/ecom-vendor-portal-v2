@@ -216,7 +216,7 @@ tbody {
 										<div class="row">
 											<div class="col-md-1">
 												<input type="text" name="fromDate"
-													placeholder="Act Dept Starting Date" class="form-control"
+													placeholder="Act Dept Start Date" class="form-control"
 													id="fromDate">
 											</div>
 											<div class="col-md-1">
@@ -855,6 +855,7 @@ tbody {
                 $('#selectPaymentStatus').val('');
                 $('#fromDate').val('');
                 $('#toDate').val('');
+                $('#searchData').val('');
             })
             
            getData();
@@ -979,6 +980,9 @@ tbody {
                 var fromDate = $("#fromDate").val();
                 var toDate = $("#toDate").val();
                 var vendorCode = $("#vendorCode").val();
+                $('#selectTripStatus').val('');
+                $('#selectStatus').val('');
+                $('#selectPaymentStatus').val('');
                 
                 console.log(vendorCode,"vendorCode");
                 console.log(fromDate,"fromDate");

@@ -209,7 +209,7 @@ tbody {
 										</div>
 										<!-- /.card-header -->
 										<div class="card-body" style="padding-bottom: inherit;">
-											<form role="form" id="tripForm">
+											<form role="form" id="tripForm" autocomplete="off">
 												<div class="row">
 													<div class="col-md-3">
 														<div class="form-group row">
@@ -511,6 +511,7 @@ tbody {
 																title="Opening Reading">Opening Reading</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control" placeholder="Trip Strating reading"
+																onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="5"
 																	id="openingReading" name="openingReading">
 															</div>
 														</div>
@@ -521,7 +522,7 @@ tbody {
 																title="Closing Reading">Closing Reading</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control" placeholder="Trip Closing reading"
-																	id="closingReading" name="closingReading">
+																	onkeypress="return event.charCode >= 48 && event.charCode <= 57" id="closingReading"  maxlength="5" name="closingReading">
 															</div>
 														</div>
 													</div>
@@ -1010,6 +1011,8 @@ function updateTripData(){
             if (response.msg == "success") {
             	swal.fire("", "Trip Approved Sucessfully.", "success", "OK")
             	$("#tripValue").modal('hide');
+            	$("#openingReading").val('');
+            	$("#closingReading").val('');
                 getData();
             } else {
                 Toast.fire({

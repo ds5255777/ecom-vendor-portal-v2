@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,11 +29,13 @@ import com.main.bean.DataContainer;
 import com.main.bean.InvoiceQueryDto;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.Document;
+import com.main.db.bpaas.entity.EmailConfiguration;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.InvoiceLineItem;
 import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
+import com.main.email.CommEmailFunction;
 import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/invoiceController")
@@ -319,17 +324,45 @@ public class InvoiceController {
 
 			Long idByinvocienumber = serviceManager.invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
 			System.out.println(idByinvocienumber);
+			
+			Date date = new Date();
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+			String processedOn = dateFormat.format(date);
 
 			if (null != idByinvocienumber) {
 				obj.setInvoiceStatus("In-Review");
 				obj.setId(idByinvocienumber);
+				obj.setProcessedBy(obj.getVendorCode());
+				obj.setProcessedOn(processedOn);
 				obj.setAssignTo("Finance");
 				System.out.println(ecomInvoiceNumber);
 				serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsInvoiceNumber(ecomInvoiceNumber);
 				obj = serviceManager.invoiceGenerationEntityRepo.save(obj);
 			}
 
-			data.setData(obj);
+			data.setData(obj.getInvoiceNumber());
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
+						
+						if(!emailList.isEmpty()) {
+							EmailConfiguration emailConfiguration=emailList.get(0);
+							
+							CommEmailFunction.sendEmail("girdhar.supyal@bpaassolutions.com", "Invoice Process",
+									"Invoice Process Successfully", emailConfiguration.getSmtpPort(), emailConfiguration.getUserName(), emailConfiguration.getPassword(), emailConfiguration.getServerName());
+						}
+						 
+						
+						
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					Thread.currentThread().interrupt();
+				}
+			}).start();
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -351,6 +384,9 @@ public class InvoiceController {
 			String filePath = filepath + File.separator + obj.getEcomInvoiceNumber();
 			System.out.println(filePath);
 			String fullFilePathWithName = "";
+			Date date = new Date();
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+			String processedOn = dateFormat.format(date);
 
 			if (null != obj.getDocumentFileOneName()) {
 
@@ -405,33 +441,52 @@ public class InvoiceController {
 			}
 			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
 
-			List<InvoiceLineItem> invoiceLineItems = obj.getInvoiceLineItems();
-			String remarks = obj.getRemarks();
+			List<InvoiceLineItem> invoiceLineItemsList = obj.getInvoiceLineItems();
+			
+			
 
-			Long idByinvocienumber = serviceManager.invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
+			InvoiceGenerationEntity invObj = serviceManager.invoiceGenerationEntityRepo.findByEcomInvoiceNumber(ecomInvoiceNumber);
+			
+			if(null!=obj) {
+				
+				invObj.setInvoiceLineItem(invoiceLineItemsList);
+				invObj.setAssignTo(obj.getAssignTo());
+				invObj.setInvoiceStatus(obj.getInvoiceStatus());
+				invObj.setInvoiceAmount(obj.getInvoiceAmount());
+				invObj.setTaxableAmount(obj.getTaxableAmount());
+				invObj.setProcessedBy(obj.getVendorCode());
+				invObj.setProcessedOn(processedOn);
+				
+				serviceManager.invoiceGenerationEntityRepo.save(invObj);
+				//serviceManager.invoiceGenerationEntityRepo.updateInvoiceStatusAndAssingTo(obj.getAssignTo(),obj.getInvoiceStatus(),obj.getInvoiceAmount(),obj.getTaxableAmount(), idByinvocienumber);
 
-			InvoiceGenerationEntity invoiceEntity = new InvoiceGenerationEntity();
+				//InvoiceGenerationEntity invoiceEntity = new InvoiceGenerationEntity();
 
-			if (null != idByinvocienumber) {
-				invoiceEntity.setInvoiceStatus(GlobalConstants.INVOICE_STATUS_IN_REVIEW);
-				invoiceEntity.setId(idByinvocienumber);
-				obj.setAssignTo(obj.getAssignTo());
-				invoiceEntity.setInvoiceAmount(obj.getInvoiceAmount());
-				invoiceEntity.setTaxableAmount(obj.getTaxableAmount());
-				invoiceEntity.setInvoiceLineItem(invoiceLineItems);
 
-//				serviceManager.invoiceGenerationEntityRepo.updateQueryInvoicce(invoiceEntity.setInvoiceStatus(GlobalConstants.INVOICE_STATUS_IN_REVIEW),
-//				invoiceEntity.setId(idByinvocienumber),
-//				obj.setAssignTo(obj.getAssignTo()),
-//				invoiceEntity.setInvoiceAmount(obj.getInvoiceAmount()),
-//				invoiceEntity.setTaxableAmount(obj.getTaxableAmount()),
-//				invoiceEntity.setInvoiceLineItem(invoiceLineItems));
+				QueryEntity queryEntity = new QueryEntity();
+				queryEntity.setComment(obj.getRemarks());
+				queryEntity.setForeignKey(Integer.valueOf(invObj.getId().toString()));
+				queryEntity.setRaisedAgainQuery(obj.getInvoiceNumber());
+				queryEntity.setRaisedBy(obj.getVendorCode());
+				queryEntity.setRaisedOn(new Date());
+				queryEntity.setReferenceid(obj.getInvoiceNumber());
+				queryEntity.setType("Invoice");
+				serviceManager.queryRepo.save(queryEntity);
+
+				String invoiceNumber = obj.getEcomInvoiceNumber();
+				System.out.println(invoiceNumber);
+				
 			}
-
-			QueryEntity queryEntity = new QueryEntity();
-
-			String invoiceNumber = obj.getEcomInvoiceNumber();
-			System.out.println(invoiceNumber);
+			
+			
+			
+			
+			/*
+			 * InvoiceLineItem invoiceLineItem = new InvoiceLineItem();
+			 * invoiceLineItemsList.size();
+			 */
+			
+			
 			// obj =
 			// serviceManager.invoiceGenerationEntityRepo.getQueryInvoice(obj.getVendorCode(),
 			// invoiceNumber);

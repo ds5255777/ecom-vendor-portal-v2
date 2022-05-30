@@ -31,7 +31,6 @@
     <!-- summernote -->
     <!-- <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css"> -->
 
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- <link rel="stylesheet" type="text/css" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
         <link rel="stylesheet" type="text/css" href="plugins/datatables-buttons/css/buttons.bootstrap4.css">
@@ -115,22 +114,8 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <div class="input-group-prepend">
-
-                                <!--   <div class="btn-group">
-                                    <div  style="font-size: 20px;font-weight: 500;" id="shiowStatusOfTicket">Master Bank Name</div>
-                                </div> -->
-
-
                             </div>
                         </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li> -->
-                            </ol>
-                        </div>
-                        <!-- /.col -->
                     </div>
                     <!-- /.row -->
                 </div>
@@ -145,7 +130,7 @@
                             <!-- general form elements -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Add User, Applicable Only for Admin or Audit or Finance</h3>
+                                    <h3 class="card-title">Add User, Not Applicable For Vendor</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
@@ -178,17 +163,14 @@
                                                 </div>
 
                                             </div>
-                                            
-                                            
-                                            
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleId" style="height: 34px;">
                                                        
-                                                            <option value="1">Admin</option>
-                                                            <option value="3">Audit</option>
-                                                            <option value="5">Finance</option>
-                                                            <option value="6">Finance Head</option>
+                                                          <c:forEach items="${role}" var="roleName">
+
+															<option value="${roleName.id}">${roleName.roleName}</option>
+														</c:forEach>
                                                        
                                                     </select>
                                                 </div>
@@ -235,14 +217,14 @@
                                     <table id="tabledata" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th>User Name</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Role</th>
-                                                <th>Email</th>
-                                                <th>Contact No</th>
-                                                <th>Status</th>
-                                                <th>Action</th> 
+                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">User Name</th>
+                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">First Name</th>
+                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Last Name</th>
+                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Role</th>
+                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Email</th>
+                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Contact No</th>
+                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Status</th>
+                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Action</th> 
                                             </tr>
                                         </thead>
                                     </table>
@@ -304,11 +286,10 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleIdEdit" style="height: 34px;">
-                                                       
-                                                            <option value="1">Admin</option>
-                                                            <option value="3">Audit</option>
-                                                            <option value="5">Finance</option>
-                                                            <option value="6">Finance Head</option>
+                                                        <c:forEach items="${role}" var="roleName">
+
+															<option value="${roleName.id}">${roleName.roleName}</option>
+														</c:forEach>
                                                        
                                                     </select>
                                                 </div>
@@ -799,11 +780,34 @@
 
                         for (var i = 0; i < result.length; i++) {
                         	
-                        
+                        	
+                              	if(!result[i].hasOwnProperty("username")){
+       								result[i].username="";
+       							}
+                                  if(!result[i].hasOwnProperty("firstName")){
+            							result[i].firstName="";
+            						}
+  								if(!result[i].hasOwnProperty("lastName")){
+       								result[i].lastName="";
+       							}
+                                   if(!result[i].hasOwnProperty("emailId")){
+       								result[i].emailId="";
+       							}
+                                   if(!result[i].hasOwnProperty("contactNo")){
+        								result[i].contactNo="";
+        							}
+                                   if(!result[i].hasOwnProperty("status")){
+       								result[i].status="";
+       							}
+                                   if(!result[i].hasOwnProperty("id")){
+        								result[i].id="";
+        							}
+                                  
+
 
                             var inactive = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"inactiveActiveDeleteData('" + result[i].id + "' ,'" +result[i].username+ "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
                         
-                            var edit = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"   data-original-title=\"Click To Edit\" style=\"width: 43px;\"  onclick=\"editData(" + result[i].id + ")\"><i class=\"nav-icon fas fa-pencil-square-o\"> </i> </button>";
+                            var edit = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"   data-original-title=\"Click To Edit\" style=\"width: 43px;\"  onclick=\"editData(" + result[i].id + ")\"><i class=\"nav-icon fas fa-edit\"> </i> </button>";
                             lastName = "";
                             if (result[i].hasOwnProperty("lastName")) {
                                 lastName = result[i].lastName;

@@ -2,6 +2,7 @@ package com.main.controller;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
@@ -36,6 +39,9 @@ public class DashboardController {
 
 	@Value("${tripLimit}")
 	public String tripLimit;
+	
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
 	@RequestMapping({ "getDashboardDetails" })
 	@CrossOrigin("*")
@@ -52,7 +58,7 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("error : "+e);
 			data.setMsg("error");
 		}
 
@@ -81,6 +87,9 @@ public class DashboardController {
 		String basicFreight = jsonObject.getString("basicFreight").toString();
 		String commentsByUSer = jsonObject.getString("commentsby").toString();
 		String vendorName = jsonObject.getString("vendorName").toString();
+		String vendorCode = jsonObject.getString("vendorCode").toString();
+		String type = jsonObject.getString("type").toString();
+		
 
 ///
 		System.out.println("fs " + fs + "\ntotalFreight " + totalFreight + "\nbasicFreight " + basicFreight + ""
@@ -109,7 +118,7 @@ public class DashboardController {
 		if ("No".equalsIgnoreCase(Query)) {
 			serviceManager.tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon,
 					LumpSomeCheckBox, LumpSomeAmount, "Yet To Be Approved", Double.parseDouble(basicFreight),
-					Double.parseDouble(totalFreight), Double.parseDouble(fs),vendorName);
+					Double.parseDouble(totalFreight), Double.parseDouble(fs),vendorName,vendorCode);
 		} else {
 			String standardKM = jsonObject.getString("standardKM").toString();
 			String milage = jsonObject.getString("milage").toString();
@@ -134,7 +143,7 @@ public class DashboardController {
 						LumpSomeCheckBox, LumpSomeAmount, Double.parseDouble(standardKM), Double.parseDouble(milage),
 						Double.parseDouble(ratePerKm), Double.parseDouble(routeKms), Double.parseDouble(fsBaseRate),
 						Double.parseDouble(currentFuelRate), Double.parseDouble(fsDiff),
-						Double.parseDouble(basicFreight), Double.parseDouble(totalFreight) ,vendorName);
+						Double.parseDouble(basicFreight), Double.parseDouble(totalFreight) ,vendorName,vendorCode);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -148,28 +157,31 @@ public class DashboardController {
 
 		QueryEntity comm = new QueryEntity();
 		comm.setRaisedBy(processedBy);
+		
+		
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			Date date = new Date();
 			System.out.println(formatter.format(date));
 			comm.setRaisedOn(date);
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.error("error : "+ex);
 		}
 
 //Find ID on the basic of tripid
 		TripDetails obj = serviceManager.tripDetailsRepo.findByTripID(tripid);
 		int id = (int) obj.getId();
 
-		comm.setReferenceid(tripid);
+		comm.setRaisedAgainQuery(tripid);
 		if ("Yes".equalsIgnoreCase(Query)) {
 			comm.setComment("Values Repopulated from MDM");
 		} else {
 			comm.setComment(commentsByUSer);
 		}
 
+		comm.setReferenceid(tripid);
 		comm.setForeignKey(id);
-
+		comm.setType(type);
 		serviceManager.queryRepo.save(comm);
 
 		return gson.toJson(data).toString();
@@ -195,7 +207,7 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("error : "+e);
 			data.setMsg("error");
 		}
 
@@ -222,11 +234,37 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("error : "+e);
 			data.setMsg("error");
 		}
 
 		return gson.toJson(data).toString();
 	}
 
+	@RequestMapping({ "getBpCodeForNetwork" })
+	public String getBpCodeForNetwork(Principal principal, @RequestBody String reqObj) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		System.out.println("**********Inside refresh values********************");
+		try {
+			JSONObject jsonObject = new JSONObject(reqObj);
+			String vendorName = (String) jsonObject.get("vendorName");//
+			
+			System.out.println("vendorName ::" + vendorName);
+			String vendorCodeFromSuppDetails =serviceManager.supDetailsRepo.getVendorCode(vendorName);
+			System.out.println("vendor Code ::" + vendorCodeFromSuppDetails);
+			data.setData(vendorCodeFromSuppDetails);
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			logger.error("error : "+e);
+			data.setMsg("error");
+		}
+
+		return gson.toJson(data).toString();
+	}
+
+	
+	
+	
 }

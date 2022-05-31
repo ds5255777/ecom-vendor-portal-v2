@@ -38,5 +38,19 @@ public class GlobalConstants {
 	public static final String INVOICE_STATUS_APPROVED="Approved";
 	public static final String INVOICE_STATUS_PAYMENT_RELASE="Payment Relase";
 	public static final String INVOICE_STATUS_QUERY="Query";
+	
+	public static final String EMAIL_STATUS_SEND="N";
+	public static final String EMAIL_STATUS_SENDING="Y";
+	
+	public static final String EMAIL_TYPE_VEN_TRIP_QUERY="Vendor Trip Query";
+	public static final String EMAIL_TYPE_VEN_TRIP_APPROVE ="Vendor Trip Approve";
+	public static final String EMAIL_TYPE_VEN_INVOICE_PROCESS="Vendor Invoice Process";
+	public static final String EMAIL_TYPE_VEN_INVOICE_UPDATE="Vendor Invoice Update";
+	
+	public static final String EMAIL_TYPE_FIN_TEM_INVOICE_QUERY="Finance Invoice Query";
+	public static final String EMAIL_TYPE_FIN_HED_INVOICE_QUERY="Finance Head Invoice Query";
+	
+	public static final String EMAIL_TYPE_NET_TEM_INVOICE_QUERY="Network Invoice Query";
+
 
 }

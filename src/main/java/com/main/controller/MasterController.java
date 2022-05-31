@@ -66,7 +66,7 @@ public class MasterController {
 
 			data.setData(allAgreementMasters);
 			data.setMsg("success");
-			System.out.println("end of getActiveMasterData" + allAgreementMasters);
+			logger.info("end of getActiveMasterData" + allAgreementMasters);
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -85,7 +85,7 @@ public class MasterController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			System.out.println("hii master");
+			logger.info("hii master");
 			AgreementMaster agreementMaster = serviceManager.agreementMasterRepo.findById(master.getId()).get();
 
 			data.setData(agreementMaster);
@@ -108,7 +108,7 @@ public class MasterController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			System.out.println("in mster update");
+			logger.info("in mster update");
 			AgreementMaster agreementMaster = serviceManager.agreementMasterRepo.save(master);
 			data.setMsg("success");
 

@@ -413,7 +413,7 @@
   								result[i].needByDate="";
   							} 
                              if(!result[i].hasOwnProperty("amount")){
-  								result[i].ammount="";
+  								result[i].amount="";
   							}
                              if(!result[i].hasOwnProperty("status")){
  								result[i].status="";

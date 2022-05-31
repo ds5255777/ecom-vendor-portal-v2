@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpSession;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -47,6 +50,9 @@ public class InvoiceController {
 
 	@Autowired
 	private ServiceManager serviceManager;
+	
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(MasterController.class);
 
 	@RequestMapping({ "/getAllInvoice" })
 	@CrossOrigin("*")
@@ -72,7 +78,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -95,7 +101,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -117,7 +123,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -147,7 +153,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -171,7 +177,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -194,7 +200,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -207,30 +213,30 @@ public class InvoiceController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String tripID = obj.getTripID();
-		System.out.println(tripID);
+		logger.info(tripID);
 		try {
 
 			tripID = tripID.replaceAll(",", " ");
 
-			System.out.println(tripID + "--------");
+			logger.info(tripID + "--------");
 
 			String[] split = tripID.split(" ");
 
 			List<Object> listofTrips = new ArrayList<>();
 
 			for (String str : split) {
-				System.out.println(str);
+				logger.info(str);
 				TripDetails findByTripID = serviceManager.tripDetailsRepo.findByTripID(str);
 				listofTrips.add(findByTripID);
-				System.out.println("Trip Details :" + findByTripID);
+				logger.info("Trip Details :" + findByTripID);
 			}
-			listofTrips.forEach(m -> System.out.println("----" + m + "-----"));
+			listofTrips.forEach(m -> logger.info("----" + m + "-----"));
 			data.setData(listofTrips);
 			data.setMsg("success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -270,7 +276,7 @@ public class InvoiceController {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 			}
 
@@ -293,7 +299,7 @@ public class InvoiceController {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 			}
 
@@ -317,13 +323,13 @@ public class InvoiceController {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 			}
 			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
 
 			Long idByinvocienumber = serviceManager.invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
-			System.out.println(idByinvocienumber);
+			logger.info(""+idByinvocienumber);
 			
 			Date date = new Date();
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
@@ -335,7 +341,7 @@ public class InvoiceController {
 				obj.setProcessedBy(obj.getVendorCode());
 				obj.setProcessedOn(processedOn);
 				obj.setAssignTo("Finance");
-				System.out.println(ecomInvoiceNumber);
+				logger.info(ecomInvoiceNumber);
 				serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsInvoiceNumber(ecomInvoiceNumber);
 				obj = serviceManager.invoiceGenerationEntityRepo.save(obj);
 			}
@@ -358,7 +364,7 @@ public class InvoiceController {
 						
 
 					} catch (Exception e) {
-						e.printStackTrace();
+						logger.error("error : "+e);
 					}
 					Thread.currentThread().interrupt();
 				}
@@ -367,7 +373,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -382,7 +388,7 @@ public class InvoiceController {
 
 		try {
 			String filePath = filepath + File.separator + obj.getEcomInvoiceNumber();
-			System.out.println(filePath);
+			logger.info(filePath);
 			String fullFilePathWithName = "";
 			Date date = new Date();
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
@@ -405,7 +411,7 @@ public class InvoiceController {
 				doc.setType("Invoice");
 				doc.setForeignKey(obj.getEcomInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
-				System.out.println(fullFilePathWithName);
+				logger.info(fullFilePathWithName);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
 					String b64 = obj.getDocumentFileOneText();
@@ -413,7 +419,7 @@ public class InvoiceController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 			}
 
@@ -436,7 +442,7 @@ public class InvoiceController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : "+e);
 				}
 			}
 			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
@@ -474,7 +480,7 @@ public class InvoiceController {
 				serviceManager.queryRepo.save(queryEntity);
 
 				String invoiceNumber = obj.getEcomInvoiceNumber();
-				System.out.println(invoiceNumber);
+				logger.info(invoiceNumber);
 				
 			}
 			
@@ -498,7 +504,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -531,7 +537,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -553,7 +559,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -577,7 +583,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -602,7 +608,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -619,17 +625,17 @@ public class InvoiceController {
 
 			String invoiceNumber = obj.getEcomInvoiceNumber();
 
-			System.out.println(invoiceNumber);
+			logger.info(invoiceNumber);
 
 			serviceManager.tripDetailsRepo.discardDraftInvoice(invoiceNumber);
-			System.out.println(invoiceNumber);
+			logger.info(invoiceNumber);
 			serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsInvoice(invoiceNumber);
 
 			data.setMsg("success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -650,7 +656,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -667,7 +673,7 @@ public class InvoiceController {
 			String invoiceNumber = serviceManager.invoiceGenerationEntityRepo
 					.checkForExistingInvoiceNumber(obj.getVendorCode(), obj.getInvoiceNumber());
 
-			System.out.println(invoiceNumber);
+			logger.info(invoiceNumber);
 
 			if (null == invoiceNumber) {
 				data.setMsg("success");
@@ -677,7 +683,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -694,14 +700,14 @@ public class InvoiceController {
 
 		try {
 			String invoiceNumber = obj.getEcomInvoiceNumber();
-			System.out.println(invoiceNumber);
+			logger.info(invoiceNumber);
 			obj = serviceManager.invoiceGenerationEntityRepo.getQueryInvoice(vendorCode, invoiceNumber);
 
 			data.setData(obj);
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -725,7 +731,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -760,7 +766,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();

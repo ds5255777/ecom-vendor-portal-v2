@@ -222,7 +222,7 @@ public class UserController {
 			List<User> users = serviceManager.userRepository.findByRoleIdAndStatus(user.getRoleId(),
 					GlobalConstants.ACTIVE_STATUS);
 
-			System.out.println(users.size());
+			logger.info(""+users.size());
 			data.setMsg("success");
 			data.setData(users);
 		} catch (Exception e) {
@@ -242,7 +242,7 @@ public class UserController {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		System.out.println("Password is : " + password);
+		logger.info("Password is : " + password);
 		try {
 			User us = serviceManager.userService.findByUsername(principal.getName());
 			us.setPassword(password);
@@ -302,7 +302,7 @@ public class UserController {
 			
 			data.setData(sdtList);
 			data.setMsg("success");
-			System.out.println("end  to getActiveVendorData ");
+			logger.info("end  to getActiveVendorData ");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -330,7 +330,7 @@ public class UserController {
 			data.setData(supDetails);
 			data.setMsg("success");
 
-			System.out.println(" end to vendor details method");
+			logger.info(" end to vendor details method");
 		} catch (Exception e) {
 			data.setMsg("error");
 
@@ -380,7 +380,7 @@ public class UserController {
 			
 			data.setData(vendorListStatus);
 			data.setMsg("success");
-			System.out.println("end  to getActiveVendorData ");
+			logger.info("end  to getActiveVendorData ");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -407,7 +407,7 @@ public class UserController {
 			
 			
 			data.setMsg("success");
-			System.out.println(" activeVendor status  : "+status);
+			logger.info(" activeVendor status  : "+status);
 
 		} catch (Exception e) {
 			data.setMsg("error");

@@ -281,7 +281,7 @@
 											<div class="col-sm-7">
 												<input class="form-control-sm" name="termsDate"
 													id="termsDate" max="${curentDate}" placeholder="Terms Date"
-													style="width: 100%;" on>
+													style="width: 100%;" >
 											</div>
 										</div>
 									</div>
@@ -408,7 +408,7 @@
 											<label class="col-sm-5">GL Date<span
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
-												<input class="form-control-sm" type="date"
+												<input class="form-control-sm" 
 													placeholder="GL Date" name="glDateDistributionDate" id="glDateDistributionDate"
 													maxlength="70" max="${curentDate}" style="width: 100%;">
 											</div>
@@ -434,6 +434,61 @@
 						</div>
 					</div>
 
+	<div class="card card-primary">
+						<div class="card-header" style="padding: 5px 5px 0px 5px;">
+							<h4 class="card-title">Document Upload</h4>
+							<div class="card-tools">
+								<button type="button" class="btn btn-tool"
+									data-card-widget="collapse" style="margin-right: 10px;">
+									<i class="fas fa-minus"></i>
+								</button>
+							</div>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body" style="overflow: auto;">
+							<form id="stepFourForm" class="forms-sample">
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-sm-5 control-label">Upload Invoice<span
+												class="text-danger"> *</span></label>
+											<div class="col-sm-7">
+												<input type="file" id="InvoiceUpload" name="InvoiceUpload"
+													class="form-control-sm" accept=".jpg, .jpeg, .pdf"
+													onchange="handleFileSelect(event,'InvoiceFileText'), onValidateFile('InvoiceUpload')"
+													class="form-control p-input">
+												<textarea id="InvoiceFileText" name="InvoiceFileText"
+													rows="5" style="display: none;"></textarea>
+												<label><span
+													style="font-weight: 500; color: #fd7e14;">(* File
+														size Max ${fileSize} MB)</span></label>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-sm-5 control-label">Summary Sheet<span
+												class="text-danger">*</span></label>
+											<div class="col-sm-7">
+												<input type="file" id="DocumentFileOne"
+													name="DocumentFileOne" class="form-control-sm"
+													accept=".pdf, .doc, .docx, .xls, .xlsx"
+													onchange="handleFileSelect(event,'DocumentFileOneText'), onValidateFileOne('DocumentFileOne')"
+													class="form-control p-input">
+												<textarea id="DocumentFileOneText"
+													name="DocumentFileOneText" rows="5" style="display: none;"></textarea>
+												<label><span
+													style="font-weight: 500; color: #fd7e14;">(* File
+														size Max ${fileSize} MB)</span></label>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</form>
+						</div>
+						<!-- /.card-body -->
+					</div>
 
 
 
@@ -653,10 +708,13 @@
                     var  glDate= result[0].glDate;
                     var termsDate= result[0].termsDate;
                     var supplierInvoiceDate= result[0].supplierInvoiceDate;
+                   var glDateDistributionDate=result[0].glDateDistributionDate
                
                         	if( glDate !== undefined ){
                         	
                               $('#glDate').val(glDate.split(" ")[0]);
+                              $('#glDate').attr('readonly','readonly');
+                            
         					}else{
         						document.getElementById("glDate").type="date"; 
                             	
@@ -664,17 +722,24 @@
                             }
         					if( termsDate !== undefined ){
                               $('#termsDate').val(termsDate.split(" ")[0]);
+                              $('#termsDate').attr('readonly','readonly');
                               } else{
                             	  document.getElementById("termsDate").type="date"; 
                               	
                               }
         					if( supplierInvoiceDate !== undefined ){
                               $('#supplierInvoiceDate').val(supplierInvoiceDate.split(" ")[0]);
-                              
+                              $('#supplierInvoiceDate').attr('readonly','readonly');
                         }else{
                         	document.getElementById("supplierInvoiceDate").type="date";
                         }
-              
+        					if( glDateDistributionDate !== undefined ){
+                                $('#glDateDistributionDate').val(glDateDistributionDate.split(" ")[0]);
+                                $('#glDateDistributionDate').attr('readonly','readonly');
+                          }else{
+                          	document.getElementById("glDateDistributionDate").type="date";
+                          }
+          					  
                      tripLineArray=result[0].poInvoiceLine;
                      
                      for(var i=0;i<tripLineArray.length;i++){
@@ -796,9 +861,13 @@
     function addPOLineitem() {
 		  var lineitemNo= $('#tripList').val();
 		  
-		  if(lineitemNo==""){
+		if(lineitemNo=="Select Line Item" || lineitemNo==""){
 			  
-			  alert("Kindly select one line number");
+			  
+			  Toast.fire({
+	                type: 'error',
+	                title: 'Kindly select one line number !'
+	            });
 			  return;
 		  }
 		
@@ -1148,6 +1217,24 @@
             document.getElementById("amount").focus();
             return "";
         }
+		var invoiceNu10a = document.getElementById("InvoiceUpload").value;
+		if (invoiceNu10a === "" || invoiceNu10a === null || invoiceNu10a === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Invoice doc is Mandatory !'
+            });
+            document.getElementById("InvoiceUpload").focus();
+            return "";
+        }
+		var invoiceNu10b = document.getElementById("DocumentFileOne").value;
+		if (invoiceNu10b === "" || invoiceNu10b === null || invoiceNu10b === '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Summary Sheet is Mandatory !'
+            });
+            document.getElementById("DocumentFileOne").focus();
+            return "";
+        }
 			
 		
 		  if(quntityflag.length==0){
@@ -1332,6 +1419,71 @@
       timer: 3000
   }); 
 
+  function handleFileSelect(evt, id) {
+      var f = evt.target.files[0]; // FileList object
+      var reader = new FileReader();
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+          return function(e) {
+              var binaryData = e.target.result;
+              //Converting Binary Data to base 64
+              var base64String = window.btoa(binaryData);
+              //showing file converted to base64
+              $("#" + id).val(base64String);
+          };
+      })(f);
+      reader.readAsBinaryString(f);
+  }
+
+  function onValidateFile(id) {
+      var fileInput3 = document.getElementById(id).value;
+      var gst = document.getElementById(id);
+      var allowedExtensions = /(\.jpg|\.jpeg|\.pdf)$/i;
+
+      if (typeof(gst.files) != "undefined") {
+
+          const fsize = gst.files.item(0).size;
+          const file = Math.round((fsize / 1024));
+          if (file > ${maxFileSize}) {
+              swal.fire("", "File should less than 5 MB.", "warning");
+              $("#" + id).val("");
+          } else {
+              var ext = fileInput3.split(".")[1];
+              if (ext == "pdf" || ext == "jpg" || ext == "JPEG" || ext == "JPG" || ext == "jpeg" || ext == "PDF") {} else {
+                  swal.fire("", "Select Only JPEG & PDF File.", "warning");
+                  $("#" + id).val("");
+                  return false;
+              }
+          }
+      } else {
+          alert("This browser does not support HTML5.");
+      }
+  }
+  
+  function onValidateFileOne(id) {
+      var fileInput3 = document.getElementById(id).value;
+      var gst = document.getElementById(id);
+      var allowedExtensions = /(\.pdf|\.doc|\.docx|\.xls|\.xlsx)$/i;
+
+      if (typeof(gst.files) != "undefined") {
+
+          const fsize = gst.files.item(0).size;
+          const file = Math.round((fsize / 1024));
+          if (file > ${maxFileSize}) {
+              swal.fire("", "File should less than 5 MB.", "warning");
+              $("#" + id).val("");
+          } else {
+              var ext = fileInput3.split(".")[1];
+              if (ext == "pdf" || ext == "PDF" || ext == "docx" || ext == "DOCX" || ext == "doc" || ext == "DOC" ||  ext == "xls" || ext == "XLS" || ext == "xlsx" || ext == "XLSX") {} else {
+                  swal.fire("", "Select Only DOC, XLSX & PDF File.", "warning");
+                  $("#" + id).val("");
+                  return false;
+              }
+          }
+      } else {
+          alert("This browser does not support HTML5.");
+      }
+  }
 
     
     </script>

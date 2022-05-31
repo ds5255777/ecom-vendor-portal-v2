@@ -173,7 +173,20 @@
 											</div>
 										</div>
 									</div>
-
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label class="col-sm-5">invoice Amount <span
+												class="text-danger">*</span></label>
+											<div class="col-sm-7">
+												<!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
+												<input class="form-control-sm" type="text"
+													placeholder="invoice Amount"
+													onkeypress="return event.charCode >= 46 && event.charCode <= 57"
+													maxlength="70" name="invoiceAmount" id="invoiceAmount"
+													style="width: 100%;">
+											</div>
+										</div>
+									</div>
 									<div class="col-md-3">
 										<div class="form-group row">
 											<label class="col-sm-5">Supplier Site <span
@@ -682,8 +695,8 @@
                        result[0].glDate=glDate[0];
                        var glDateDistributionDate= result[0].glDateDistributionDate.split(" ");
                        result[0].glDateDistributionDate=glDateDistributionDate[0];
-                       var supplierInvoiceDate= result[0].supplierInvoiceDate.split(" ");
-                       result[0].supplierInvoiceDate=supplierInvoiceDate[0];
+                      // var supplierInvoiceDate= result[0].supplierInvoiceDate.split(" ");
+                      // result[0].supplierInvoiceDate=supplierInvoiceDate[0];
                        var termsDate= result[0].termsDate.split(" ");
                        result[0].termsDate=termsDate[0];
                         var myForm = "";

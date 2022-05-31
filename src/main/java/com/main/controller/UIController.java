@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -46,6 +49,9 @@ public class UIController {
 
 	@Autowired
 	ServiceManager serviceManager;
+	
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(MasterController.class);
 
 	@GetMapping({ "/login" })
 	public String login(Model model, String error, String logout) {
@@ -677,7 +683,7 @@ public class UIController {
 			serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
 			// listof.forEach(System.out::println);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber);
@@ -831,13 +837,13 @@ public class UIController {
 			FileCopyUtils.copy(inputStream, response.getOutputStream());
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("error : "+e);
 
 		} finally {
 			try {
 				inputStream.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error("error : "+e);
 			}
 		}
 	}

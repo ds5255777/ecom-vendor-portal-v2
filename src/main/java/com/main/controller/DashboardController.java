@@ -69,7 +69,7 @@ public class DashboardController {
 	@CrossOrigin("*")
 	public String updateDetailsforNetwork(Model model, Principal principal, @RequestBody String agrn) {
 
-		System.out.println("************************Data is ::" + agrn);
+		logger.info("************************Data is ::" + agrn);
 
 		JSONObject jsonObject = new JSONObject(agrn);
 		String processedon = jsonObject.get("processedOn").toString();
@@ -92,7 +92,7 @@ public class DashboardController {
 		
 
 ///
-		System.out.println("fs " + fs + "\ntotalFreight " + totalFreight + "\nbasicFreight " + basicFreight + ""
+		logger.info("fs " + fs + "\ntotalFreight " + totalFreight + "\nbasicFreight " + basicFreight + ""
 				+ "\ncommentsByUSer " + commentsByUSer+"vendorName : "+vendorName);
 
 		if ("".equalsIgnoreCase(LumpSomeAmount)) {
@@ -105,16 +105,16 @@ public class DashboardController {
 			LumpSomeAmount = "0";
 		}
 
-		System.out.println("processedon" + processedon);
-		System.out.println("tripid" + tripid);
-		System.out.println("processedBy" + processedBy);
-		System.out.println("AssigenedTo" + AssigenedTo);
-		System.out.println("LumpSomeCheckBox" + LumpSomeCheckBox);
-		System.out.println("LumpSomeAmount" + LumpSomeAmount);
+		logger.info("processedon" + processedon);
+		logger.info("tripid" + tripid);
+		logger.info("processedBy" + processedBy);
+		logger.info("AssigenedTo" + AssigenedTo);
+		logger.info("LumpSomeCheckBox" + LumpSomeCheckBox);
+		logger.info("LumpSomeAmount" + LumpSomeAmount);
 		
 
 		String Query = jsonObject.getString("Query").toString();
-		System.out.println("Query is :::" + Query);
+		logger.info("Query is :::" + Query);
 		if ("No".equalsIgnoreCase(Query)) {
 			serviceManager.tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon,
 					LumpSomeCheckBox, LumpSomeAmount, "Yet To Be Approved", Double.parseDouble(basicFreight),
@@ -130,13 +130,13 @@ public class DashboardController {
 			
 			
 
-			System.out.println("standardKM " + standardKM);
-			System.out.println("milage " + milage);
-			System.out.println("ratePerKm " + ratePerKm);
-			System.out.println("routeKms " + routeKms);
-			System.out.println("fsBaseRate " + fsBaseRate);
-			System.out.println("currentFuelRate " + currentFuelRate);
-			System.out.println("fsDiff " + standardKM);
+			logger.info("standardKM " + standardKM);
+			logger.info("milage " + milage);
+			logger.info("ratePerKm " + ratePerKm);
+			logger.info("routeKms " + routeKms);
+			logger.info("fsBaseRate " + fsBaseRate);
+			logger.info("currentFuelRate " + currentFuelRate);
+			logger.info("fsDiff " + standardKM);
 
 			try {
 				serviceManager.tripDetailsRepo.updateDetailsByNetworkInQuery(tripid, processedBy, processedon,
@@ -147,7 +147,7 @@ public class DashboardController {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			System.out.println("***************************Query runned*******************");
+			logger.info("***************************Query runned*******************");
 		}
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -162,7 +162,7 @@ public class DashboardController {
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			Date date = new Date();
-			System.out.println(formatter.format(date));
+			logger.info(formatter.format(date));
 			comm.setRaisedOn(date);
 		} catch (Exception ex) {
 			logger.error("error : "+ex);
@@ -219,17 +219,17 @@ public class DashboardController {
 	public String refreshValues(Principal principal, @RequestBody String reqObj) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		System.out.println("**********Inside refresh values********************");
+		logger.info("**********Inside refresh values********************");
 		try {
 			JSONObject jsonObject = new JSONObject(reqObj);
 			String vendorCode = (String) jsonObject.get("vendorCode");//
 			String route = (String) jsonObject.get("route");
 
-			System.out.println("Vendor code ::" + vendorCode);
-			System.out.println("route ::" + route);
+			logger.info("Vendor code ::" + vendorCode);
+			logger.info("route ::" + route);
 
 			AgreementMaster masterData = serviceManager.agreementMasterRepo.getAllTripsByVendorCode(vendorCode, route);
-			System.out.println("masterData ::" + masterData.getVendorName());
+			logger.info("masterData ::" + masterData.getVendorName());
 			data.setData(masterData);
 			data.setMsg("success");
 
@@ -245,14 +245,14 @@ public class DashboardController {
 	public String getBpCodeForNetwork(Principal principal, @RequestBody String reqObj) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		System.out.println("**********Inside refresh values********************");
+		logger.info("**********Inside refresh values********************");
 		try {
 			JSONObject jsonObject = new JSONObject(reqObj);
 			String vendorName = (String) jsonObject.get("vendorName");//
 			
-			System.out.println("vendorName ::" + vendorName);
+			logger.info("vendorName ::" + vendorName);
 			String vendorCodeFromSuppDetails =serviceManager.supDetailsRepo.getVendorCode(vendorName);
-			System.out.println("vendor Code ::" + vendorCodeFromSuppDetails);
+			logger.info("vendor Code ::" + vendorCodeFromSuppDetails);
 			data.setData(vendorCodeFromSuppDetails);
 			data.setMsg("success");
 

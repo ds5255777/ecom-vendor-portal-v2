@@ -53,7 +53,7 @@ public class PoController {
 
 			data.setData(allPoDetails);
 			data.setMsg("success");
-			System.out.println("end of allPoDetails");
+			logger.info("end of allPoDetails");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -76,7 +76,7 @@ public class PoController {
 
 			data.setData(details);
 			data.setMsg("success");
-			System.out.println("end of allPoDetails");
+			logger.info("end of allPoDetails");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -100,7 +100,7 @@ public class PoController {
 
 			data.setData(details);
 			data.setMsg("success");
-			System.out.println("end of allPoDetails");
+			logger.info("end of allPoDetails");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -120,12 +120,12 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
-			System.out.println("vendorCode in getAllUnProcessPo : " + vendorCode);
+			logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
 			List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
 
 			data.setData(details);
 			data.setMsg("success");
-			System.out.println("end of allPoDetails");
+			logger.info("end of allPoDetails");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -145,12 +145,12 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
-			System.out.println("vendorCode in getAllUnProcessPo : " + vendorCode);
+			logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
 			List<PoInvoiceDetails> details = serviceManager.poinvoiceRepo.getAllInvoiceDetails(vendorCode);
 
 			data.setData(details);
 			data.setMsg("success");
-			System.out.println("end of allPoDetails");
+			logger.info("end of allPoDetails");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -176,7 +176,7 @@ public class PoController {
 
 			data.setData(poInvoiceDetails);
 			data.setMsg("success");
-			System.out.println("end of allPoDetails");
+			logger.info("end of allPoDetails");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -203,7 +203,7 @@ public class PoController {
 
 			data.setData(poInvoiceDetails);
 			data.setMsg("success");
-			System.out.println("end of allPoDetails success");
+			logger.info("end of allPoDetails success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -228,7 +228,7 @@ public class PoController {
 
 			data.setData(poInvoiceDetails.get(0));
 			data.setMsg("success");
-			System.out.println("end of allPoDetails success");
+			logger.info("end of allPoDetails success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -251,13 +251,13 @@ public class PoController {
 			String raisedBy = (String) request.getSession().getAttribute("userName");
 
 			details.setRaisedBy(raisedBy);
-			System.out.println("commt : " + details.getComment());
+			logger.info("commt : " + details.getComment());
 			details.setRaisedOn(new Date());
 
 			serviceManager.queryRepo.save(details);
 
 			data.setMsg("success");
-			System.out.println("end of allPoDetails success");
+			logger.info("end of allPoDetails success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -286,7 +286,7 @@ public class PoController {
 			data.setData(getPoQueryData);
 
 			data.setMsg("success");
-			System.out.println("end of getPoQueryData success");
+			logger.info("end of getPoQueryData success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -306,7 +306,7 @@ public class PoController {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		System.out.println("fromDate : " + fromDate + " toDate : " + toDate);
+		logger.info("fromDate : " + fromDate + " toDate : " + toDate);
 		String vendorCode = principal.getName();
 		try {
 			
@@ -332,7 +332,7 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			System.out.println("getRemaningQuatity" + details.getRemaningQuatity() + "id" + details.getId());
+			logger.info("getRemaningQuatity" + details.getRemaningQuatity() + "id" + details.getId());
 
 			serviceManager.podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
 
@@ -343,7 +343,7 @@ public class PoController {
 				serviceManager.podetailsRepo.updateVendorPoStatusUnprocess(details.getPoNumber());
 			}
 
-			System.out.println("end of getPoQueryData success");
+			logger.info("end of getPoQueryData success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -364,7 +364,7 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			System.out.println("getRemaningQuatity" + details.getRemaningQuatity() + "id" + details.getInvoiceno());
+			logger.info("getRemaningQuatity" + details.getRemaningQuatity() + "id" + details.getInvoiceno());
 
 			serviceManager.podetailsRepo.updateRemaningQuantitydraft(details.getRemaningQuatity(),
 					details.getLineNumberpo());
@@ -376,7 +376,7 @@ public class PoController {
 				serviceManager.podetailsRepo.updateVendorPoStatusUnprocess(details.getPoNumber());
 			}
 
-			System.out.println("end of getPoQueryData success");
+			logger.info("end of updateRemaningQuantitydraft ");
 
 		} catch (Exception e) {
 			data.setMsg("error");

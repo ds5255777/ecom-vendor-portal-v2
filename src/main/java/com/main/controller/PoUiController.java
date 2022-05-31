@@ -270,6 +270,7 @@ public class PoUiController {
 
 		String PoNumber = request.getParameter("id");
 		model.addAttribute("PoNumber", PoNumber);
+		model.addAttribute("maxFileSize", maxFileSize);
 
 		PoDetails findByPoNumber = null;
 		findByPoNumber = serviceManager.podetailsRepo.findByPoNo(PoNumber);
@@ -302,6 +303,7 @@ public class PoUiController {
 		model.addAttribute("PoNumber", PoNumber);
 		model.addAttribute("invoiceNumber", PoNumber);
 		model.addAttribute("curentDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		model.addAttribute("maxFileSize", maxFileSize);
 		return "draftPoInvoiceGenerate";
 	}
 

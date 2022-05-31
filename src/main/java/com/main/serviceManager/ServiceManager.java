@@ -133,20 +133,22 @@ public class ServiceManager {
 	public MailContentRepo mailContentRepo;
 	
 
-	public void insertRecordIntoAuditEntry(HttpServletRequest request, String action, String actionType, String remarks,
-			String ticketId, Integer ticketQueueId) {
-
-		String userName = (String) request.getSession().getAttribute("userName");
-		Integer userId = (Integer) request.getSession().getAttribute("userId");
-
-	}
-
-	public void insertAddUpdateInMaster(HttpServletRequest request, String action, String actionType, String remarks,
-			String newValue, String oldValue) {
-
-		String userName = (String) request.getSession().getAttribute("userName");
-		Integer userId = (Integer) request.getSession().getAttribute("userId");
-//		
-	}
+	/*
+	 * public void insertRecordIntoAuditEntry(HttpServletRequest request, String
+	 * action, String actionType, String remarks, String ticketId, Integer
+	 * ticketQueueId) {
+	 * 
+	 * String userName = (String) request.getSession().getAttribute("userName");
+	 * Integer userId = (Integer) request.getSession().getAttribute("userId");
+	 * 
+	 * }
+	 * 
+	 * public void insertAddUpdateInMaster(HttpServletRequest request, String
+	 * action, String actionType, String remarks, String newValue, String oldValue)
+	 * {
+	 * 
+	 * String userName = (String) request.getSession().getAttribute("userName");
+	 * Integer userId = (Integer) request.getSession().getAttribute("userId"); // }
+	 */
 
 }

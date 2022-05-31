@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.EmailConfiguration;
 import com.main.db.bpaas.entity.SendEmail;
 import com.main.email.CommEmailFunction;
@@ -25,11 +26,9 @@ public class SchedularController {
 	private static Logger logger = LoggerFactory.getLogger(MasterController.class);
 
 	private String checkSchedular = "Completed";
-	@Value("${spring.datasource.jdbcUrl}")
-	private String dburl;
 
 //	@Scheduled(cron="*/5 * * * * *")
-	@Scheduled(fixedDelay = 1 * 60 * 1000) // scheduled for 1 minutes
+	@Scheduled(fixedDelay = 100 * 60 * 1000) // scheduled for 1 minutes
 	public void sendAllEmail() {
 
 		// will run in every 5 minutes
@@ -52,9 +51,8 @@ public class SchedularController {
 									statusList.get(i).getEmailBody(), emailConfiguration.getSmtpPort(),
 									statusList.get(i).getMailfrom(), emailConfiguration.getPassword(),
 									emailConfiguration.getServerName());
-							SendEmail sendEmail = statusList.get(i);
-							
-							//serviceManger.sendEmailRepo.updateStatus(sendEmail.setStatus("N"));
+
+							 serviceManger.sendEmailRepo.updateStatus(GlobalConstants.EMAIL_STATUS_SEND,statusList.get(i).getId());
 
 						}
 					}
@@ -80,6 +78,7 @@ public class SchedularController {
 									statusList.get(i).getEmailBody(), emailConfiguration.getSmtpPort(),
 									emailConfiguration.getUserName(), emailConfiguration.getPassword(),
 									emailConfiguration.getServerName());
+							 serviceManger.sendEmailRepo.updateStatus(GlobalConstants.EMAIL_STATUS_SEND, statusList.get(i).getId());
 						}
 					}
 

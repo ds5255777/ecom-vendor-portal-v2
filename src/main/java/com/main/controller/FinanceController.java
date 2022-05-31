@@ -25,11 +25,12 @@ import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.Document;
+import com.main.db.bpaas.entity.EmailAuditLogs;
 import com.main.db.bpaas.entity.EmailConfiguration;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
+import com.main.db.bpaas.entity.MailContent;
 import com.main.db.bpaas.entity.QueryEntity;
-import com.main.email.CommEmailFunction;
-import com.main.email.WelcomeEmail;
+import com.main.db.bpaas.entity.SendEmail;
 import com.main.serviceManager.ServiceManager;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
@@ -186,6 +187,7 @@ public class FinanceController {
 
 			List<QueryEntity> list = serviceManager.queryRepo
 					.findByReferenceidAndTypeOrderByIdDesc(obj.getReferenceid(), obj.getType());
+
 			data.setData(list);
 			data.setMsg("success");
 		} catch (Exception e) {
@@ -204,30 +206,44 @@ public class FinanceController {
 		String userName = principal.getName();
 		String rolename = (String) request.getSession().getAttribute("role");
 		Date date = new Date();
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String processedOn = dateFormat.format(date);
+		List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
+		EmailConfiguration emailConfiguration = emailList.get(0);
+		String vendorEmail = (String) request.getSession().getAttribute("userEmail");
+		
+		String type="";
+
 		try {
 			Integer getid = entity.getId();
 
 			if ("Invoice".equalsIgnoreCase(entity.getType())) {
 				entity.setType("Invoice");
 				if (GlobalConstants.ROLE_VENDOR.equalsIgnoreCase(rolename)) {
-					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,"In-Review", "Finance", getid);
+					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
+							GlobalConstants.INVOICE_STATUS_IN_REVIEW, GlobalConstants.ROLE_FINANCE, getid);
+					type=GlobalConstants.EMAIL_TYPE_VEN_INVOICE_UPDATE;
 				} else if (GlobalConstants.ROLE_FINANCE.equalsIgnoreCase(rolename)) {
-					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,"Query", "Vendor", getid);
+					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
+							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_VENDOR, getid);
+					type=GlobalConstants.EMAIL_TYPE_FIN_TEM_INVOICE_QUERY;
 				} else if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(rolename)) {
-					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,"Query", "Finance", getid);
-				}else if (GlobalConstants.ROLE_NETWORK.equalsIgnoreCase(rolename)) {
-					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,"Query", "Vendor", getid);
+					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
+							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_FINANCE, getid);
+					type=GlobalConstants.EMAIL_TYPE_FIN_HED_INVOICE_QUERY;
+				} else if (GlobalConstants.ROLE_NETWORK.equalsIgnoreCase(rolename)) {
+					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
+							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_VENDOR, getid);
+					type=GlobalConstants.EMAIL_TYPE_NET_TEM_INVOICE_QUERY;
 				}
 
-			}
-			else {
+			} else {
 				entity.setType("Trip");
-				
-				
-				
-				serviceManager.queryRepo.updateStatusByUserid(processedOn, userName, "Query", "Network", getid);
+				if (GlobalConstants.ROLE_VENDOR.equalsIgnoreCase(rolename)) {
+					serviceManager.queryRepo.updateStatusByUserid(processedOn, userName,
+							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_NETWORK, getid);
+					type=GlobalConstants.EMAIL_TYPE_VEN_TRIP_QUERY;
+				}
 			}
 
 			if (getid != null) {
@@ -238,28 +254,29 @@ public class FinanceController {
 				entity.setReferenceid(entity.getRaisedAgainQuery());
 				serviceManager.queryRepo.save(entity);
 			}
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
-						
-						if(!emailList.isEmpty()) {
-							EmailConfiguration emailConfiguration=emailList.get(0);
-							
-							CommEmailFunction.sendEmail("girdhar.supyal@bpaassolutions.com", "Trip Query",
-									"Trip is not ok", emailConfiguration.getSmtpPort(), emailConfiguration.getUserName(), emailConfiguration.getPassword(), emailConfiguration.getServerName());
-						}
-						 
-						
-						
+			
+			List<MailContent> queryType = serviceManager.mailContentRepo.findByType(type);
 
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					Thread.currentThread().interrupt();
-				}
-			}).start();
+			if (!queryType.isEmpty()) {
+				SendEmail sendEmail = new SendEmail();
+				MailContent mailContent = queryType.get(0);
+				sendEmail.setMailfrom(emailConfiguration.getUserName());
+				sendEmail.setSendTo(vendorEmail);
+				sendEmail.setSubject(mailContent.getSubject());
+				sendEmail.setEmailBody(mailContent.getEmailBody());
+				sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+
+				serviceManager.sendEmailRepo.save(sendEmail);
+
+				EmailAuditLogs auditLogs = new EmailAuditLogs();
+				auditLogs.setMailFrom(emailConfiguration.getUserName());
+				auditLogs.setMailTo(vendorEmail);
+				auditLogs.setMailSubject(mailContent.getSubject());
+				auditLogs.setMailMessage(mailContent.getEmailBody());
+
+				serviceManager.emailAuditLogsRepo.save(auditLogs);
+			}
+
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -293,26 +310,54 @@ public class FinanceController {
 	// getDocumentById
 	@RequestMapping({ "/approveInvoiceFinanceSide" })
 	@CrossOrigin("*")
-	public String approveInvoiceFinanceSide(Principal principal,HttpServletRequest request, @RequestBody InvoiceGenerationEntity entity) {
+	public String approveInvoiceFinanceSide(Principal principal, HttpServletRequest request,
+			@RequestBody InvoiceGenerationEntity entity) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		
+
 		String userName = principal.getName();
 
 		String role = (String) request.getSession().getAttribute("role");
 		logger.info(role);
 		Date date = new Date();
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String processedOn = dateFormat.format(date);
 		try {
 
 			if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(role)) {
-				serviceManager.invoiceGenerationEntityRepo.updateInvoiceStatus(processedOn,userName,entity.getEcomInvoiceNumber(),
-						"Approved");
+				serviceManager.invoiceGenerationEntityRepo.updateInvoiceStatus(processedOn, userName,
+						entity.getEcomInvoiceNumber(), "Approved");
 			} else {
-				serviceManager.invoiceGenerationEntityRepo.updateInvoiceStatus(processedOn,userName,entity.getEcomInvoiceNumber(),
-						"Pending For Approval");
+				serviceManager.invoiceGenerationEntityRepo.updateInvoiceStatus(processedOn, userName,
+						entity.getEcomInvoiceNumber(), "Pending For Approval");
+			}
+
+			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
+			EmailConfiguration emailConfiguration = emailList.get(0);
+
+			String vendorEmail = (String) request.getSession().getAttribute("userEmail");
+
+			List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Finance Team Invoice Approve");
+
+			if (!queryType.isEmpty()) {
+				SendEmail sendEmail = new SendEmail();
+				MailContent mailContent = queryType.get(0);
+				sendEmail.setMailfrom(emailConfiguration.getUserName());
+				sendEmail.setSendTo(vendorEmail);
+				sendEmail.setSubject(mailContent.getSubject());
+				sendEmail.setEmailBody(mailContent.getEmailBody());
+				sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+
+				serviceManager.sendEmailRepo.save(sendEmail);
+
+				EmailAuditLogs auditLogs = new EmailAuditLogs();
+				auditLogs.setMailFrom(emailConfiguration.getUserName());
+				auditLogs.setMailTo(vendorEmail);
+				auditLogs.setMailSubject(mailContent.getSubject());
+				auditLogs.setMailMessage(mailContent.getEmailBody());
+
+				serviceManager.emailAuditLogsRepo.save(auditLogs);
 			}
 
 			data.setMsg("success");

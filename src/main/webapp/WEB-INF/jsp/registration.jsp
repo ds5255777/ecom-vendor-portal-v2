@@ -1,19 +1,14 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-
 <!DOCTYPE html>
 <%@page import="com.main.commonclasses.GlobalUrl"%>
 <html lang="en">
-
 <head>
-
-
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Business Partner Registration</title>
-
 
 <!-- Optional SmartWizard themes -->
 <link rel="stylesheet"
@@ -31,741 +26,21 @@
 <link rel="stylesheet"
 	href="plugins/flag-icon-css/css/flag-icon.min.css" />
 <link rel="stylesheet" href="dist/css/style.css" />
- <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard.min.css" /> 
-	
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard.min.css" />
+
 <link rel="stylesheet"
 	href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
 	rel="stylesheet" />
-
-<script src="plugins/jquery/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
-<script src="dist/js/notify.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-	
-	 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-
-
-<script>
-
-        function addValCss(controlName) {
-        	if(controlName=="states"){
-        		 $(".span.select2-selection--multiple[aria-expanded=true").css(
-                     "border", "1px solid red !important"
-                 );
-        		 
-        	}
-        	else{
-        		 $('#' + controlName).css({
-                     'border': '1px solid red',
-                     'box-shadow': 'inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(249, 0, 0, 0.6)',
-                     '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(249, 0, 0, 0.6)',
-                     'outline-color': 'transparent'
-                 });
-        	}
-           
-        }
-
-        function removeValCss(controlName) {
-            $('#' + controlName).css({
-                'border': '1px solid #b7b7b7',
-                'box-shadow': 'none',
-                '-webkit-box-shadow': 'none'
-            });
-        }
-
-        function removeValCssByID(controlName) {
-            $('#' + controlName.id).css({
-                'border': '1px solid #b7b7b7',
-                'box-shadow': 'none',
-                '-webkit-box-shadow': 'none'
-            });
-        }
-
-         function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
-            try {
-                if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
-				
-                	 if(controlName=="introducedByName"){
-                		 swal.fire("Alert", "Introducer name is mandatory", "warning")
-                         .then((value) => {});
-                		 
-                	 }
-                	 else  if(controlName=="introducedByEmailID"){
-                   	  
-                  	   swal.fire("Alert", "Introducer email id is mandatory", "warning")
-                         .then((value) => {});
-                     }
-                	else  if(controlName=="states"){
-                	  
-                	   swal.fire("Alert", "Business partner type is mandatory", "warning")
-                       .then((value) => {});
-                   }
-                	else  if(controlName=="suppName"){
-                  	  
-                 	   swal.fire("Alert", "Business partner name is mandatory", "warning")
-                        .then((value) => {});
-                    }
-                	else  if(controlName=="compEmail"){
-                    	  
-                  	   swal.fire("Alert", "Company email id is mandatory", "warning")
-                         .then((value) => {});
-                     }
-                	else  if(controlName=="panNumber"){
-                  	  
-                   	   swal.fire("Alert", "PAN number is mandatory", "warning")
-                          .then((value) => {});
-                      }
-                	else  if(controlName=="compGstn"){
-                    	  
-                    	   swal.fire("Alert", "GSTN Number is mandatory", "warning")
-                           .then((value) => {});
-                       }
-                	else  if(controlName=="natureOfTransactions"){
-                  	  
-                 	   swal.fire("Alert", "Nature of transaction is mandatory", "warning")
-                        .then((value) => {});
-                    }
-                	 else  if(controlName=="creditTerms"){
-                      	  
-                    	   swal.fire("Alert", "Payment / Credit Terms is mandatory", "warning")
-                           .then((value) => {});
-                       }
-                	 else  if(controlName=="paymentMethod"){
-                     	  
-                  	   swal.fire("Alert", "Payment Method is mandatory", "warning")
-                         .then((value) => {});
-                     }
-                	
-                   // $('#manPara').css('display', '');
-                   // addValCss(controlName);
-                    $("#" + controlName).focus();
-                } else {
-                    console.log('Values Are Passed As Empty Or Null In notifyTooltip()');
-                }
-            } catch (err) {
-
-            }
-        } 
-
-        $(document).ready(function() {
-            $('#smartwizard').smartWizard({
-                transitionEffect: 'fade', // Effect on navigation, none/fade/slide/slideleft
-                contentCache: true,
-                theme: 'circles',
-                showStepURLhash: true,
-                keyNavigation: false,
-                toolbarSettings: {
-                    toolbarPosition: 'bottom', // none, top, bottom, both
-                    toolbarButtonPosition: 'right', // left, right
-                    showNextButton: true, // show/hide a Next button
-                    showPreviousButton: true, // show/hide a Previous button
-                    toolbarExtraButtons: [
-                        $('<button disabled="true" id="finishButton"></button>').text('Finish')
-                        //                            $('<button id="finishButton"></button>').text('Finish')
-                        .addClass('btn btn-success btnfinish')
-                        .on('click', function() {
-                        	
-                        	  var pid="${pid}";
-                        	//debugger;
-                        	   if ($("#partnerType").val() == "Scheduled") { 
-                        		  
-                        		 if(pid==""){
-                        		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,ITRFile,FUVFFile,MSMECFile,AMFile,NMISFile";
-                                  var mandFieldsArr = mandFields.split(",");
-
-                                  for (i = 0; i < mandFieldsArr.length; i++) {
-                                      console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
-                                      if (document.getElementById(mandFieldsArr[i]).value == '') {
-                                          notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                                          console.log("Mandatory Check :: " + mandFieldsArr[i]);
-                                          return false;
-                                      }
-                                  }
-                        	    }
-                        	   } 
-                        	   else{
-                        		  var mandFields = "suppName,compEmail";
-                                  var mandFieldsArr = mandFields.split(",");
-                                  for (i = 0; i < mandFieldsArr.length; i++) {
-                                      console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
-                                      if (document.getElementById(mandFieldsArr[i]).value == '') {
-                                          notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                                          console.log("Mandatory Check :: " + mandFieldsArr[i]);
-                                          return false;
-                                      }
-                                  }
-                        	  } 
-                        	   
-                        	   if(pid !=""){
-                        		   for(var k=0;k<5; k++ ){
-                        			   
-                        			  var returnType= checkMand(k,"");
-                        			  if(false==returnType){
-                        				  
-                        				  var virtualStepNo=k+1;
-                        				  swal.fire("Alert", " Fill all mandatory details at step "+virtualStepNo, "warning")
-                                          .then((value) => {});  
-                        				  return false;
-                        			  }
-                        		   }
-                        		   console.log("Going to server in pid state...");
-                        		   sendToServer();
-                        	   }
-                        	   else{
-                        		   sendToServer();
-                        	   }
-                        	   
-                            
-                        })
-                    ]
-                }
-            })
-            
-        
-
-            
-            $("#smartwizard").on("leaveStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
-                
-            	console.log(anchorObject);
-                
-            	console.log("stepNumber " + stepNumber);
-                console.log("stepDirection " + stepDirection);
-               // console.log("getCurrentIndex " + $("#smartwizard").smartWizard("currentStep"));
-
-                var chedlka=$("#smartwizard").smartWizard("currentStep");
-                var pid="${pid}";
-                console.log(pid);
-               
-                if (stepNumber === 4 && pid =="") {
-                    console.log("Coming Here");
-                    $('.btnfinish').attr('disabled', false);
-                    $('.sw-btn-next').attr('disabled', true);
-                } else {
-                   // $('.btnfinish').attr('disabled', true);
-                    $('.sw-btn-next').attr('disabled', false);
-                }
-                
-                
- 				 /* if(pid!="" && stepNumber === 4){
- 					$('.btnfinish').attr('disabled', false);
-                }  */
-                
-                return checkMand(stepNumber,stepDirection);
-            }); 
-        });
-        
-       
-        
-        
-
-         function showHideRequiredClass() {
-            //alert($("#partnerType").val());
-            if ($("#partnerType").val() == "Scheduled") {
-                //alert("ji..");
-                $(".required").css("visibility", "visible");
-                $("#finishButton").attr("disabled", true);
-            }  else {
-                $(".required").css("visibility", "hidden");
-                $(".adHocRequired").css("visibility", "visible");
-                $("#finishButton").attr("disabled", false);
-                //alert("ji..2");
-            } 
-        } 
-
-        function checkMand(stepNo,stepDirection) {
-
-            
-        	if(stepDirection=="backward"){
-        		return true;
-        	}
-        	
-            if (stepNo == 0) {
-
-               
-
-                    console.log("Inside Step One");
-                    var mandFields = "introducedByName,introducedByEmailID,states,suppName,compEmail,panNumber,compGstn,natureOfTransactions";
-                    var mandFieldsArr = mandFields.split(",");
-                    for (i = 0; i < mandFieldsArr.length; i++) {
-                        console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
-                        if (document.getElementById(mandFieldsArr[i]).value == '') {
-                            notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                           
-                            console.log("Mandatory Check :: " + mandFieldsArr[i]);
-                            
-                            return false;
-                        }
-                    }
-                  
-
-                    //  
-                /* } else {
-                    console.log("Inside Step One");
-                    //
-
-                    var mandFields = "partnerType,introducedByName,introducedByEmailID,suppName,compEmail,phoneNumber";
-                    var mandFieldsArr = mandFields.split(",");
-                    for (i = 0; i < mandFieldsArr.length; i++) {
-                        console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
-                        if (document.getElementById(mandFieldsArr[i]).value == '') {
-                            notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                            console.log("Mandatory Check :: " + mandFieldsArr[i]);
-                            return false;
-                        }
-                    }
-                } */
-
-
-            } else if (stepNo == 1) {
-                console.log("Inside Step Two");
-                var addBookGridCount = $("#addBookGrid tr").length;
-                var contactDetailsGrid = $("#contactDetailsGrid tr").length;
-                console.log("addBookGridCount " + addBookGridCount);
-                console.log("contactDetailsGrid " + contactDetailsGrid);
-                if (addBookGridCount == 1) {
-                    swal.fire("Alert", "Add Atleast One Address Detail", "warning")
-                        .then((value) => {});
-                    return false;
-                }
-                if (contactDetailsGrid == 1) {
-                    swal.fire("Alert", "Add Atleast One Contact Detail", "warning")
-                        .then((value) => {});
-                    return false;
-                }
-            } else if (stepNo == 2) {
-                console.log("Inside Step Three");
-                var addBankGrid = $("#addBankGrid tr").length;
-                console.log("addBankGrid " + addBankGrid);
-                if (addBankGrid == 1) {
-                    swal.fire("Alert", "Add Atleast One Account Detail", "warning")
-                        .then((value) => {
-
-                        });
-                    return false;
-                }
-                console.log("Inside Step Three second part");
-                //
-
-                var mandFields = "invoiceCurrency,paymentCurrency,creditTerms,paymentMethod";
-                var mandFieldsArr = mandFields.split(",");
-                for (i = 0; i < mandFieldsArr.length; i++) {
-                    console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
-                    if (document.getElementById(mandFieldsArr[i]).value == '') {
-                        notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                        console.log("Mandatory Check :: " + mandFieldsArr[i]);
-                        return false;
-                    }
-                }
-            } else if (stepNo == 3) {
-
-                console.log("Inside Step Four");
-
-                /* if ($("#tdsApplication").val() == "Yes") {
-
-                    
-                        if (document.getElementById(mandFieldsArr[i]).value == '') {
-                            notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                            console.log("Mandatory Check :: " + mandFieldsArr[i]);
-                            return false;
-                        }
-                    
-                } */
-            }
-            
-            
-        }
-        
-
-        $(document).ready(function() {
-            $(".gst").change(function() {
-                var inputvalues = $(this).val();
-                var gstinformat = new RegExp('^([0-9]{2}[a-zA-Z]{4}([a-zA-Z]{1}|[0-9]{1})[0-9]{4}[a-zA-Z]{1}([a-zA-Z]|[0-9]){3}){0,15}$');
-                if (gstinformat.test(inputvalues)) {
-                    return true;
-                } else {
-                	swal.fire("","Invalid GSTN Number", "warning");
-                    $(".gst").val('');
-                    $(".gst").focus();
-                }
-            });
-        });
-
-        function AadharValidate() {
-            var aadhar = document.getElementById("aadharNumber").value;
-            var adharcardTwelveDigit = /^\d{12}$/;
-            var adharSixteenDigit = /^\d{16}$/;
-            if (aadhar != '') {
-                if (aadhar.match(adharcardTwelveDigit)) {
-                    return true;
-                } else if (aadhar.match(adharSixteenDigit)) {
-                    return true;
-                } else {
-                	swal.fire(""," Invalid Aadhar Number", "warning");
-                    $("#aadharNumber").val('');
-                    $("#aadharNumber").focus();
-                    //return false;
-                }
-            }
-        }
-        $(document).ready(function() {
-
-            $("#panNumber").change(function() {
-                var inputvalues = $(this).val();
-                var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-                if (!regex.test(inputvalues)) {
-                    $("#panNumber").val("");
-                    swal.fire("","Invalid PAN Number", "warning");
-                    return regex.test(inputvalues);
-                }
-            });
-            
-            $("#tanNumber").change(function() {
-                var inputvalues = $(this).val();
-                var regex = /[A-Za-z]{4}[0-9]{5}[A-Za-z]{1}/;
-                if (!regex.test(inputvalues)) {
-                    $("#tanNumber").val("");
-                    swal.fire("","Invalid TAN Number", "warning");
-                    return regex.test(inputvalues);
-                }
-            });
-            
-            $("#phoneNumber").change(function() {
-                var inputvalues = $(this).val();
-                var regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-                if (!regex.test(inputvalues)) {
-                    $("#phoneNumber").val("");
-                    swal.fire("","Invalid Phone Number", "warning");
-                    return regex.test(inputvalues);
-                }
-            });
-            
-            $("#conPhone").change(function() {
-                var inputvalues = $(this).val();
-                var regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-                if (!regex.test(inputvalues)) {
-                    $("#conPhone").val("");
-                    swal.fire("","Invalid Phone Number", "warning");
-                    return regex.test(inputvalues);
-                }
-            });
-            
-            $(document).ready(function(){
-                $("#introducedByName").keypress(function(event){
-                	
-                    var inputValue = event.which;
-                   
-                    // allow letters and whitespaces only.
-                    if(inputValue==8){
-                    	
-                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
-                        event.preventDefault(); 
-                    }
-                });
-            });
-            
-            function lettersOnly() 
-            {
-                        var charCode = event.keyCode;
-
-                        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8)
-
-                            return true;
-                        else
-                            return false;
-            }
-            
-             $(document).ready(function(){
-                $("#city").keypress(function(event){
-                	
-                    var inputValue = event.which;
-                   
-                    // allow letters and whitespaces only.
-                    if(inputValue==8){
-                    	
-                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
-                        event.preventDefault(); 
-                    }
-                });
-            }); 
-             
-           
-             $(document).ready(function(){
-                $("#suppName").keypress(function(event){
-                	
-                    var inputValue = event.which;
-                   
-                    // allow letters and whitespaces only.
-                    if(inputValue==8){
-                    	
-                    }else if(!(inputValue >= 65 && inputValue <= 122 ) && (inputValue != 32 && inputValue != 0) && !(inputValue >= 37 && inputValue <= 47 ) ) { 
-                        event.preventDefault(); 
-                    }
-                });
-            });
-             
-           
-
-            $(document).ready(function(){
-                $("#conFname").keypress(function(event){
-                	
-                    var inputValue = event.which;
-                   
-                    // allow letters and whitespaces only.
-                    if(inputValue==8){
-                    	
-                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
-                        event.preventDefault(); 
-                    }
-                });
-            });
-            $(function() {
-                $('#conLname').on('keypress', function(e) {
-                    if (e.which == 32){
-                        console.log('Space Detected');
-                        return false;
-                    }
-                });
-        });
-            $(document).ready(function(){
-                $("#conLname").keypress(function(event){
-                	
-                    var inputValue = event.which;
-                   
-                    // allow letters and whitespaces only.
-                    if(inputValue==8){
-                    	
-                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
-                        event.preventDefault(); 
-                    }
-                });
-            });
-            
-            $(document).ready(function(){
-                $("#bankName").keypress(function(event){
-                	
-                    var inputValue = event.which;
-                   
-                    // allow letters and whitespaces only.
-                    if(inputValue==8){
-                    	
-                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
-                        event.preventDefault(); 
-                    }
-                });
-            });
-           
-        });
-        
-       
-
-
-        function changetextbox() {
-            /* alert(document.getElementById("tdsApplication").value);  */
-            if (document.getElementById("tdsApplication").value === "No") {
-                document.getElementById("tdsSection").disabled = 'true';
-                document.getElementById("tdsRate").disabled = 'true';
-                //    document.getElementById("tdsRate").val()="";
-                //            	    document.getElementById("tdsSection").value()="";
-                $("#tdsSection").val("");
-                $("#tdsRate").val("");
-
-            } else {
-                document.getElementById("tdsSection").disabled = '';
-                document.getElementById("tdsRate").disabled = '';
-            }
-        }
-        
-        
-        
-        $(document).ready(function() {
-            $(".email").change(function() {
-                var inputvalues = $(this).val();
-                var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                if (!regex.test(inputvalues)) {
-                    $("#compEmail").val("");
-
-                    swal.fire("Alert", "Invalid Email Id", "warning");
-                    return regex.test(inputvalues);
-                }
-            });
-            
-            //allow special characters for Business partner type
-    
-          
-            
-            $("#introducedByEmailID").change(function() {
-                var inputvalues = $(this).val();
-                var regex = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@ecomexpress.in$/;
-                
-                if (!regex.test(inputvalues)) {
-                    $("#introducedByEmailID").val("");
-                    document.getElementById("introducedByEmailID").focus();
-                    swal.fire("Alert", "Invalid Email ID", "warning");
-                    document.getElementById("introducedByEmailID").focus();
-                    return regex.test(inputvalues);
-                }
-            });
-        });
-        
-        $(document).ready(function() {
-            $("#conEmail").change(function() {
-                var inputvalues = $(this).val();
-                var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                if (!regex.test(inputvalues)) {
-                    $("#conEmail").val("");
-
-                    swal.fire("Alert", "Invalid Email ID", "warning");
-                    return regex.test(inputvalues);
-                }
-            });
-        });
-        
-     
-        
-        $(document).ready(function() {
-            $("#ifscCode").change(function() {
-                var inputvalues = $(this).val();
-                var regex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
-                if (!regex.test(inputvalues)) {
-                    $("#ifscCode").val("");
-
-                    swal.fire("Alert", "Invalid IFSC Code", "warning");
-                    return regex.test(inputvalues);
-                }
-            });
-        });
-        
-        
-        $(document).ready(function() {
-            $("#pinCode").change(function() {
-                var inputvalues = $(this).val();
-                var regex = /^(\d{4}|\d{6})$/;
-                if (!regex.test(inputvalues)) {
-                    $("#pinCode").val("");
-
-                    swal.fire("Alert", "Invalid Pin Code", "warning");
-                    return regex.test(inputvalues);
-                }
-            });
-        });
-        
-
-    
-        function onValidateFile(id){
-        	var fileInput3 = document.getElementById(id).value;
-        	var gst = document.getElementById(id);
-        	var allowedExtensions = /(\.jpg|\.jpeg|\.pdf)$/i;
-        	 /* if (!allowedExtensions.exec(fileInput3)) {
-        		 $("#GSTFile").val("");
-             	swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File....", "warning");
-             	return false;
-             } */
-        	 if (typeof (gst.files) != "undefined") {
-             	
-             	
-             	const fsize = gst.files.item(0).size;
-             	
-             	console.log(fsize);
-             	const file = Math.round((fsize / 1024));
-             	console.log(file);
-                // var size = parseFloat(cc.files[0].size / (1024 * 1024)).toFixed(2);
-                 //alert("Your File Size is "+(file/1024)+"MB");
-                 if(file > ${maxFileSize}) {
-                 	swal.fire("Alert", " File size should be less than 5 MB", "warning");
-                 	$("#" + id).val("");
-                 }else{
-                 	 var ext = fileInput3.split(".")[1];
-                     // alert("Extension is "+ext);
-                      
-                      if( ext=="pdf" || ext=="jpg" || ext=="JPEG" || ext=="JPG" || ext=="jpeg" || ext=="PDF" ){
-                      	//Sab valid hai
-                      }else{
-                      	swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File", "warning");
-                          
-                      	$("#" + id).val("");
-                          return false;	
-                      }
-                 }
-             } else {
-                 alert("This browser does not support HTML5.");
-             }
-        }
-        
-            function disableScrolling() {
-                setTimeout(function() {
-                    document.body.style.overflow = 'hidden';
-                }, 1000);
-            }
-              
-            function enableScrolling() {
-                document.body.style.overflow = '';
-            }
-            
-            $(document).ready(function() {
-                
-            });
-           /*  else 
-            {
-              // Image preview
-                 if (fileInput.files && fileInput.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        document.getElementById(
-                            'imagePreview').innerHTML = 
-                            '<img src="' + e.target.result
-                            + '"/>';
-                    };
-                    reader.readAsDataURL(fileInput.files[0]);
-                } 
-            } */
-        
-        
-        /* function isNumber(evt)
-        {
-           var charCode = (evt.which) ? evt.which : event.keyCode
-           if (charCode > 31 && (charCode < 48 || charCode > 57))
-              return false;
-   
-           return true;
-        } */
-        
-        
-
-      <%--   function checkemail(emailid) {
-            console.log("email id" + emailid);
-           // alert("Hiiiiiiiiiiiiii");
-            $.ajax({
-                type: "POST",
-                url: "<%=GlobalUrl.checkemail%>?email="+emailid,
-                dataType: "json",
-                contentType: "application/json",
-                success: function(data) {
-                    alert("Hiiiiiiiiiiiiii");
-
-                    if (data.msg == 'True') {
-                        Toast.fire({
-                            type: 'success',
-                            title: 'Submitted Successfully'
-                        })
-                    } else {
-                        alert("failed");
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-            });
-
-        }
- --%>
-    </script>
+<link rel="stylesheet"
+	href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet"
+	href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet"
+	href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
 <style>
 input:focus {
@@ -901,9 +176,8 @@ label {
 				<h4 style="color: white;">Business Partner Registration</h4>
 			</div>
 		</nav>
-		<br> <br>
-		<input type="hidden" id="vendorPrimaryKey" />
-		<input type="hidden" id="vendorPid" />
+		<br> <br> <input type="hidden" id="vendorPrimaryKey" /> <input
+			type="hidden" id="vendorPid" />
 		<div class="content-wrapper" style="margin-left: 0px; width: 100%;">
 			<div id="smartwizard" style="background: white; padding: 20px;">
 				<ul>
@@ -915,9 +189,9 @@ label {
 							<small>Banking Details</small></a></li>
 					<li style="margin: auto; margin-left: auto;"><a href="#step-4">Step-4<br />
 							<small>Tax Detail</small></a></li>
-					<li style="margin: auto; margin-left: auto;"><a
-						href="#step-5">Step-5<br /> <small>Documents</small></a></li>
-						<li id="step6Id" style="margin: unset; margin-left: auto;"><a
+					<li style="margin: auto; margin-left: auto;"><a href="#step-5">Step-5<br />
+							<small>Documents</small></a></li>
+					<li id="step6Id" style="margin: unset; margin-left: auto;"><a
 						href="#step-6">Step-6<br /> <small>Query</small></a></li>
 				</ul>
 				<div>
@@ -960,26 +234,22 @@ label {
 													class="form-control p-input" id="bpCode" name="bpCode"
 													placeholder="Business Partner Code"
 													onchange="removeValCssByID(this)" disabled></td>
-
-
 											</tr>
 
-
-
 											<tr>
-
 												<td><label>Business Partner Type<span
 														class="required adHocRequired">*</span></label></td>
 
-												<td style="width: auto"><select
-													class="js-example-basic-multiple select2" name="states[]"
-													id="states" onchange="select()" multiple="multiple" >
+												<td style="width: auto">
+												<select class="form-control p-input" id="states" name="states"
+													onchange="select(); showHideRequiredClass();" >
+														<option value="">Select</option>
 														<c:forEach items="${business}" var="bus">
-
 															<option value="${bus}">${bus}</option>
 														</c:forEach>
-												</select></td>
 
+												</select>
+												</td>
 
 												<td><label for="partnerType">Business Partner</label></td>
 												<td><select id="partnerType" name="partnerType"
@@ -992,8 +262,8 @@ label {
 
 												</select></td>
 												<input type="hidden" id="roleId" />
-												
-												
+
+
 												<td><label for="suppName">Business Partner Name<span
 														class="required adHocRequired">*</span></label></td>
 												<td colspan='1'><input type="text"
@@ -1004,7 +274,7 @@ label {
 
 
 
-										
+
 
 
 											<tr class="">
@@ -1075,7 +345,8 @@ label {
 												<td><label for="compGstn">GSTN Number<span
 														class="required adHocRequired">*</span></label></td>
 												<td colspan='1'><input type="test"
-													class="form-control p-input gst" id="compGstn" name="compGstn"													name="compGstn" placeholder="GSTN Number"
+													class="form-control p-input gst" id="compGstn"
+													name="compGstn" name="compGstn" placeholder="GSTN Number"
 													oninput="this.value = this.value.toUpperCase()"
 													maxlength="15"></td>
 
@@ -1134,7 +405,7 @@ label {
 
 											<tbody>
 												<tr class="">
-					 								<td><label class="addressLable" for="country">Country<span
+													<td><label class="addressLable" for="country">Country<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><select id="addCountry"
 														name="addCountry" class="form-control p-input">
@@ -1539,9 +810,10 @@ label {
 															readonly class="form-control p-input "> </input></td>
 
 														<td><label class="addressLable" for="tdsSection">TDS
-																Section</label></td>
+																Section<span
+															class="required adHocRequired">*</span></label></td>
 														<td><select id="tdsSection" name="tdsSection"
-															class="form-control p-input" colspan='2'
+															class="form-control p-input" colspan='2' onchange="removeValCssByID(this)"
 															placeholder="TDS Section">
 																<option value="">Select</option>
 																<c:forEach items="${tdsCode}" var="tds">
@@ -1554,7 +826,8 @@ label {
 														</select></td>
 
 														<td><label for="tdsRate">TDS Exemption Rate
-																(If Any)</label></td>
+																(If Any)<span
+															class="required adHocRequired">*</span></label></td>
 														<td colspan='2'><input type="text"
 															class="form-control p-input" id="tdsRate" name="tdsRate"
 															placeholder="TDS  Exemption Rate"></td>
@@ -1588,8 +861,8 @@ label {
 												<tbody>
 													<tr>
 														<td><label class="addressLable" for="tdsApplication">Financial
-																Year<span
-																class="required">*</span></label></td>
+																Year<span class="required">*</span>
+														</label></td>
 														<td colspan='2'><select id="fyYear"
 															class="form-control p-input ">
 																<option value="">Select</option>
@@ -1601,15 +874,15 @@ label {
 
 														</select></td>
 														<td></td>
-														<td><label for="tdsApplication">Acknowledgement Number<span
-																class="required">*</span></label></td>
+														<td><label for="tdsApplication">Acknowledgement
+																Number<span class="required">*</span>
+														</label></td>
 
 														<td colspan='2'><input type="text"
 															id="acknowledgementNumber" name="acknowledgementNumber"
 															class="form-control p-input "></td>
 														<td></td>
-														<td><label>ITR Document<span
-																class="required">*</span></label></td>
+														<td><label>ITR Document<span class="required">*</span></label></td>
 														<td><input type="file" id="ITRAFile" name="ITRAFile"
 															onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
 															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
@@ -1813,41 +1086,42 @@ label {
 							</div>
 						</div>
 					</div>
-					
-					
-				<!-- query page -->
 
-					<div id="step-6" class="">
-						<div class="card" style="margin-bottom: 10px;">
+
+					<!-- query page -->
+
+					<div id="step-6"  >
+						<div class="card queryFormUi" style="display: none; margin-bottom: 10px;">
 							<div class="card-header" id="addressBookHead"
 								style="background: #1991eb; color: #ffffff;">
 								<h6 class="mb-0">Query</h6>
 							</div>
 							<div id="queryBookHeadData" aria-labelledby="queryBookHead"
-								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
+								style="border-style: solid; border-width: 1px; border-color: #11aef6; display: none">
 
 								<form class="">
 									<table class="table center-aligned-table" id="fromTable">
-											<tbody>
-												<tr class="container">
-													<td style="width: 150px;"><label for="supplierQuery">Remarks</label>
-													
+										<tbody>
+											<tr class="container">
+												<td style="width: 150px;"><label for="supplierQuery">Remarks</label>
+
 													<input type="hidden" name="pid" id="pid" value="${pid}">
-													</td>
-													<td style="width: 150px;">
-														<textarea class="form-control" id="comment" name="comment" rows="3" maxlength="250" placeholder="Remarks if Any"></textarea>
-													</td>
-													<td style="width: 150px;"><button type="Button"
-															class="btn btn-primary" id="addSupplierQueryBtn"
-															name="addSupplierQueryBtn" onclick="saveRemarks()">Add Remarks</button></td>
-												</tr>
-											</tbody>
-										</table>
+												</td>
+												<td style="width: 150px;"><textarea
+														class="form-control" id="comment" name="comment" rows="3"
+														maxlength="250" placeholder="Remarks if Any"></textarea></td>
+												<td style="width: 150px;"><button type="Button"
+														class="btn btn-primary" id="addSupplierQueryBtn"
+														name="addSupplierQueryBtn" onclick="saveRemarks()">Add
+														Remarks</button></td>
+											</tr>
+										</tbody>
+									</table>
 								</form>
 
 							</div>
 
-							<div class="card-body">
+							<div class="card-body queryFormViews" style="display: none;">
 								<form id="queryForm" class="forms-sample">
 									<div class="col-md-12">
 										<div class="table-responsive">
@@ -1856,7 +1130,8 @@ label {
 												<thead>
 													<tr>
 														<th class="bg-primary" style="color: white;">S.No</th>
-														<th class="bg-primary" style="color: white;">Raised on</th>
+														<th class="bg-primary" style="color: white;">Raised
+															on</th>
 														<th class="bg-primary" style="color: white;">Remarks</th>
 													</tr>
 												</thead>
@@ -1876,19 +1151,741 @@ label {
 			</div>
 		</div>
 	</div>
-
+	<script src="plugins/jquery/jquery.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+	<script src="dist/js/notify.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
 	<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 	<script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
 	<script src="js/commonFunctions.js"></script>
 	<script src="plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+	<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script
+		src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/js/jquery.smartWizard.min.js"></script>
+
+	<script src="plugins/popper/umd/popper.min.js"></script>
+	<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="dist/css/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
+	<script src="plugins/js/off-canvas.js"></script>
+	<script src="plugins/js/hoverable-collapse.js"></script>
+	<script src="plugins/js/misc.js"></script>
 	<script>
+
+        function addValCss(controlName) {
+        	if(controlName=="states"){
+        		 $(".span.select2-selection--multiple[aria-expanded=true").css(
+                     "border", "1px solid red !important"
+                 );
+        		 
+        	}
+        	else{
+        		 $('#' + controlName).css({
+                     'border': '1px solid red',
+                     'box-shadow': 'inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(249, 0, 0, 0.6)',
+                     '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(249, 0, 0, 0.6)',
+                     'outline-color': 'transparent'
+                 });
+        	}
+           
+        }
+
+        function removeValCss(controlName) {
+            $('#' + controlName).css({
+                'border': '1px solid #b7b7b7',
+                'box-shadow': 'none',
+                '-webkit-box-shadow': 'none'
+            });
+        }
+
+        function removeValCssByID(controlName) {
+            $('#' + controlName.id).css({
+                'border': '1px solid #b7b7b7',
+                'box-shadow': 'none',
+                '-webkit-box-shadow': 'none'
+            });
+        }
+
+         function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
+            try {
+                if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
+				
+                	 if(controlName=="introducedByName"){
+                		 swal.fire("Alert", "Introducer name is mandatory", "warning")
+                         .then((value) => {});
+                		 
+                	 }
+                	 else  if(controlName=="introducedByEmailID"){
+                   	  
+                  	   swal.fire("Alert", "Introducer email id is mandatory", "warning")
+                         .then((value) => {});
+                     }
+                	else  if(controlName=="states"){
+                	  
+                	   swal.fire("Alert", "Business partner type is mandatory", "warning")
+                       .then((value) => {});
+                   }
+                	else  if(controlName=="suppName"){
+                  	  
+                 	   swal.fire("Alert", "Business partner name is mandatory", "warning")
+                        .then((value) => {});
+                    }
+                	else  if(controlName=="compEmail"){
+                    	  
+                  	   swal.fire("Alert", "Company email id is mandatory", "warning")
+                         .then((value) => {});
+                     }
+                	else  if(controlName=="panNumber"){
+                  	  
+                   	   swal.fire("Alert", "PAN number is mandatory", "warning")
+                          .then((value) => {});
+                      }
+                	else  if(controlName=="compGstn"){
+                    	  
+                    	   swal.fire("Alert", "GSTN Number is mandatory", "warning")
+                           .then((value) => {});
+                       }
+                	else  if(controlName=="natureOfTransactions"){
+                  	  
+                 	   swal.fire("Alert", "Nature of transaction is mandatory", "warning")
+                        .then((value) => {});
+                    }
+                	 else  if(controlName=="creditTerms"){
+                      	  
+                    	   swal.fire("Alert", "Payment / Credit Terms is mandatory", "warning")
+                           .then((value) => {});
+                       }
+                	 else  if(controlName=="paymentMethod"){
+                     	  
+                  	   swal.fire("Alert", "Payment Method is mandatory", "warning")
+                         .then((value) => {});
+                     }
+                	 else  if(controlName=="tdsSection"){
+                    	  
+                    	   swal.fire("Alert", "TDS Section is mandatory", "warning")
+                           .then((value) => {});
+                       }
+                	 else  if(controlName=="tdsRate"){
+                   	  
+                  	   swal.fire("Alert", "TDS Rate is mandatory", "warning")
+                         .then((value) => {});
+                     }
+                	
+                   // $('#manPara').css('display', '');
+                   // addValCss(controlName);
+                    $("#" + controlName).focus();
+                } else {
+                    console.log('Values Are Passed As Empty Or Null In notifyTooltip()');
+                }
+            } catch (err) {
+
+            }
+        } 
+
+        $(document).ready(function() {
+            $('#smartwizard').smartWizard({
+                transitionEffect: 'fade', // Effect on navigation, none/fade/slide/slideleft
+                contentCache: true,
+                theme: 'circles',
+                showStepURLhash: true,
+                keyNavigation: false,
+                toolbarSettings: {
+                    toolbarPosition: 'bottom', // none, top, bottom, both
+                    toolbarButtonPosition: 'right', // left, right
+                    showNextButton: true, // show/hide a Next button
+                    showPreviousButton: true, // show/hide a Previous button
+                    toolbarExtraButtons: [
+                        $('<button disabled="true" id="finishButton"></button>').text('Finish')
+                        //                            $('<button id="finishButton"></button>').text('Finish')
+                        .addClass('btn btn-success btnfinish')
+                        .on('click', function() {
+                        	
+                        	  var pid="${pid}";
+                        	//debugger;
+                        	   if ($("#partnerType").val() == "Scheduled") { 
+                        		  
+                        		 if(pid==""){
+                        		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,ITRFile,FUVFFile,MSMECFile,AMFile,NMISFile";
+                                  var mandFieldsArr = mandFields.split(",");
+
+                                  for (i = 0; i < mandFieldsArr.length; i++) {
+                                      console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
+                                      if (document.getElementById(mandFieldsArr[i]).value == '') {
+                                          notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                                          console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                                          return false;
+                                      }
+                                  }
+                        	    }
+                        	   } 
+                        	   else{
+                        		  var mandFields = "suppName,compEmail";
+                                  var mandFieldsArr = mandFields.split(",");
+                                  for (i = 0; i < mandFieldsArr.length; i++) {
+                                      console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
+                                      if (document.getElementById(mandFieldsArr[i]).value == '') {
+                                          notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                                          console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                                          return false;
+                                      }
+                                  }
+                        	  } 
+                        	   
+                        	   if(pid !=""){
+                        		   for(var k=0;k<5; k++ ){
+                        			   
+                        			  var returnType= checkMand(k,"");
+                        			  if(false==returnType){
+                        				  
+                        				  var virtualStepNo=k+1;
+                        				  swal.fire("Alert", " Fill all mandatory details at step "+virtualStepNo, "warning")
+                                          .then((value) => {});  
+                        				  return false;
+                        			  }
+                        		   }
+                        		   console.log("Going to server in pid state...");
+                        		   sendToServer();
+                        	   }
+                        	   else{
+                        		   sendToServer();
+                        	   }
+                        	   
+                            
+                        })
+                    ]
+                }
+            })
+            
+        
+
+            
+            $("#smartwizard").on("leaveStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
+                
+            	console.log(anchorObject);
+                
+            	console.log("stepNumber " + stepNumber);
+                console.log("stepDirection " + stepDirection);
+               // console.log("getCurrentIndex " + $("#smartwizard").smartWizard("currentStep"));
+
+                var chedlka=$("#smartwizard").smartWizard("currentStep");
+                var pid="${pid}";
+                console.log(pid);
+               
+                if (stepNumber === 4 && pid =="") {
+                    console.log("Coming Here");
+                    $('.btnfinish').attr('disabled', false);
+                    $('.sw-btn-next').attr('disabled', true);
+                } else {
+                   // $('.btnfinish').attr('disabled', true);
+                    $('.sw-btn-next').attr('disabled', false);
+                }
+                
+                
+ 				 /* if(pid!="" && stepNumber === 4){
+ 					$('.btnfinish').attr('disabled', false);
+                }  */
+                
+                return checkMand(stepNumber,stepDirection);
+            }); 
+        });
+        
+       
+        
+        
+
+         function showHideRequiredClass() {
+            //alert($("#partnerType").val());
+            if ($("#partnerType").val() == "Scheduled") {
+                //alert("ji..");
+                $(".required").css("visibility", "visible");
+                $("#finishButton").attr("disabled", true);
+            }  else {
+                $(".required").css("visibility", "hidden");
+                $(".adHocRequired").css("visibility", "visible");
+                $("#finishButton").attr("disabled", false);
+                //alert("ji..2");
+            } 
+        } 
+
+        function checkMand(stepNo,stepDirection) {
+
+            
+        	if(stepDirection=="backward"){
+        		return true;
+        	}
+        	
+            if (stepNo == 0) {
+
+               
+
+                    console.log("Inside Step One");
+                    var mandFields = "introducedByName,introducedByEmailID,states,suppName,compEmail,panNumber,compGstn,natureOfTransactions";
+                    var mandFieldsArr = mandFields.split(",");
+                    for (i = 0; i < mandFieldsArr.length; i++) {
+                        console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
+                        if (document.getElementById(mandFieldsArr[i]).value == '') {
+                            notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                           
+                            console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                            
+                            return false;
+                        }
+                    }
+                  
+
+                    //  
+                /* } else {
+                    console.log("Inside Step One");
+                    //
+
+                    var mandFields = "partnerType,introducedByName,introducedByEmailID,suppName,compEmail,phoneNumber";
+                    var mandFieldsArr = mandFields.split(",");
+                    for (i = 0; i < mandFieldsArr.length; i++) {
+                        console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
+                        if (document.getElementById(mandFieldsArr[i]).value == '') {
+                            notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                            console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                            return false;
+                        }
+                    }
+                } */
+
+
+            } else if (stepNo == 1) {
+                console.log("Inside Step Two");
+                var addBookGridCount = $("#addBookGrid tr").length;
+                var contactDetailsGrid = $("#contactDetailsGrid tr").length;
+                console.log("addBookGridCount " + addBookGridCount);
+                console.log("contactDetailsGrid " + contactDetailsGrid);
+                if (addBookGridCount == 1) {
+                    swal.fire("Alert", "Add Atleast One Address Detail", "warning")
+                        .then((value) => {});
+                    return false;
+                }
+                if (contactDetailsGrid == 1) {
+                    swal.fire("Alert", "Add Atleast One Contact Detail", "warning")
+                        .then((value) => {});
+                    return false;
+                }
+            } else if (stepNo == 2) {
+                console.log("Inside Step Three");
+                var addBankGrid = $("#addBankGrid tr").length;
+                console.log("addBankGrid " + addBankGrid);
+                if (addBankGrid == 1) {
+                    swal.fire("Alert", "Add Atleast One Account Detail", "warning")
+                        .then((value) => {
+
+                        });
+                    return false;
+                }
+                console.log("Inside Step Three second part");
+                //
+
+                var mandFields = "invoiceCurrency,paymentCurrency,creditTerms,paymentMethod";
+                var mandFieldsArr = mandFields.split(",");
+                for (i = 0; i < mandFieldsArr.length; i++) {
+                    console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
+                    if (document.getElementById(mandFieldsArr[i]).value == '') {
+                        notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                        console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                        return false;
+                    }
+                }
+            } else if (stepNo == 3) {
+
+                console.log("Inside Step Four");
+                
+                
+                var addItrReport = $("#addITRGrid tr").length;
+                console.log("addITRGrid " + addItrReport);
+                if (addBankGrid == 1) {
+                    swal.fire("Alert", "Add Last Three Year ITR Report ", "warning")
+                        .then((value) => {
+
+                        });
+                    return false;
+                }
+                
+
+                if ($("#tdsApplication").val() == "Yes") {
+
+                    var mandFields = "tdsSection,tdsRate";
+                    var mandFieldsArr = mandFields.split(",");
+                    for (i = 0; i < mandFieldsArr.length; i++) {
+                        console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
+                        if (document.getElementById(mandFieldsArr[i]).value == '') {
+                            notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                            console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        
+
+        $(document).ready(function() {
+            $(".gst").change(function() {
+                var inputvalues = $(this).val();
+                var gstinformat = new RegExp('^([0-9]{2}[a-zA-Z]{4}([a-zA-Z]{1}|[0-9]{1})[0-9]{4}[a-zA-Z]{1}([a-zA-Z]|[0-9]){3}){0,15}$');
+                if (gstinformat.test(inputvalues)) {
+                    return true;
+                } else {
+                	swal.fire("","Invalid GSTN Number", "warning");
+                    $(".gst").val('');
+                    $(".gst").focus();
+                }
+            });
+        });
+
+        function AadharValidate() {
+            var aadhar = document.getElementById("aadharNumber").value;
+            var adharcardTwelveDigit = /^\d{12}$/;
+            var adharSixteenDigit = /^\d{16}$/;
+            if (aadhar != '') {
+                if (aadhar.match(adharcardTwelveDigit)) {
+                    return true;
+                } else if (aadhar.match(adharSixteenDigit)) {
+                    return true;
+                } else {
+                	swal.fire(""," Invalid Aadhar Number", "warning");
+                    $("#aadharNumber").val('');
+                    $("#aadharNumber").focus();
+                    //return false;
+                }
+            }
+        }
+        $(document).ready(function() {
+
+            $("#panNumber").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+                if (!regex.test(inputvalues)) {
+                    $("#panNumber").val("");
+                    swal.fire("","Invalid PAN Number", "warning");
+                    return regex.test(inputvalues);
+                }
+            });
+            
+            $("#tanNumber").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /[A-Za-z]{4}[0-9]{5}[A-Za-z]{1}/;
+                if (!regex.test(inputvalues)) {
+                    $("#tanNumber").val("");
+                    swal.fire("","Invalid TAN Number", "warning");
+                    return regex.test(inputvalues);
+                }
+            });
+            
+            $("#phoneNumber").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+                if (!regex.test(inputvalues)) {
+                    $("#phoneNumber").val("");
+                    swal.fire("","Invalid Phone Number", "warning");
+                    return regex.test(inputvalues);
+                }
+            });
+            
+            $("#conPhone").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+                if (!regex.test(inputvalues)) {
+                    $("#conPhone").val("");
+                    swal.fire("","Invalid Phone Number", "warning");
+                    return regex.test(inputvalues);
+                }
+            });
+            
+            $(document).ready(function(){
+                $("#introducedByName").keypress(function(event){
+                	
+                    var inputValue = event.which;
+                   
+                    // allow letters and whitespaces only.
+                    if(inputValue==8){
+                    	
+                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+                        event.preventDefault(); 
+                    }
+                });
+            });
+            
+            function lettersOnly() 
+            {
+                        var charCode = event.keyCode;
+
+                        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8)
+
+                            return true;
+                        else
+                            return false;
+            }
+            
+             $(document).ready(function(){
+                $("#city").keypress(function(event){
+                	
+                    var inputValue = event.which;
+                   
+                    // allow letters and whitespaces only.
+                    if(inputValue==8){
+                    	
+                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+                        event.preventDefault(); 
+                    }
+                });
+            }); 
+             
+           
+             $(document).ready(function(){
+                $("#suppName").keypress(function(event){
+                	
+                    var inputValue = event.which;
+                   
+                    // allow letters and whitespaces only.
+                    if(inputValue==8){
+                    	
+                    }else if(!(inputValue >= 65 && inputValue <= 122 ) && (inputValue != 32 && inputValue != 0) && !(inputValue >= 37 && inputValue <= 47 ) ) { 
+                        event.preventDefault(); 
+                    }
+                });
+            });
+             
+           
+
+            $(document).ready(function(){
+                $("#conFname").keypress(function(event){
+                	
+                    var inputValue = event.which;
+                   
+                    // allow letters and whitespaces only.
+                    if(inputValue==8){
+                    	
+                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+                        event.preventDefault(); 
+                    }
+                });
+            });
+            $(function() {
+                $('#conLname').on('keypress', function(e) {
+                    if (e.which == 32){
+                        console.log('Space Detected');
+                        return false;
+                    }
+                });
+        });
+            $(document).ready(function(){
+                $("#conLname").keypress(function(event){
+                	
+                    var inputValue = event.which;
+                   
+                    // allow letters and whitespaces only.
+                    if(inputValue==8){
+                    	
+                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+                        event.preventDefault(); 
+                    }
+                });
+            });
+            
+            $(document).ready(function(){
+                $("#bankName").keypress(function(event){
+                	
+                    var inputValue = event.which;
+                   
+                    // allow letters and whitespaces only.
+                    if(inputValue==8){
+                    	
+                    }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+                        event.preventDefault(); 
+                    }
+                });
+            });
+           
+        });
+        
+       
+
+
+        function changetextbox() {
+            /* alert(document.getElementById("tdsApplication").value);  */
+            if (document.getElementById("tdsApplication").value === "No") {
+                document.getElementById("tdsSection").disabled = 'true';
+                document.getElementById("tdsRate").disabled = 'true';
+                //    document.getElementById("tdsRate").val()="";
+                //            	    document.getElementById("tdsSection").value()="";
+                $("#tdsSection").val("");
+                $("#tdsRate").val("");
+
+            } else {
+                document.getElementById("tdsSection").disabled = '';
+                document.getElementById("tdsRate").disabled = '';
+            }
+        }
+        
+        
+        
+        $(document).ready(function() {
+            $(".email").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if (!regex.test(inputvalues)) {
+                    $("#compEmail").val("");
+
+                    swal.fire("Alert", "Invalid Email Id", "warning");
+                    return regex.test(inputvalues);
+                }
+            });
+            
+            //allow special characters for Business partner type
+    
+          
+            
+            $("#introducedByEmailID").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@ecomexpress.in$/;
+                
+                if (!regex.test(inputvalues)) {
+                    $("#introducedByEmailID").val("");
+                    document.getElementById("introducedByEmailID").focus();
+                    swal.fire("Alert", "Invalid Email ID", "warning");
+                    document.getElementById("introducedByEmailID").focus();
+                    return regex.test(inputvalues);
+                }
+            });
+        });
+        
+        $(document).ready(function() {
+            $("#conEmail").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if (!regex.test(inputvalues)) {
+                    $("#conEmail").val("");
+
+                    swal.fire("Alert", "Invalid Email ID", "warning");
+                    return regex.test(inputvalues);
+                }
+            });
+        });
+        
+     
+        
+        $(document).ready(function() {
+            $("#ifscCode").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
+                if (!regex.test(inputvalues)) {
+                    $("#ifscCode").val("");
+
+                    swal.fire("Alert", "Invalid IFSC Code", "warning");
+                    return regex.test(inputvalues);
+                }
+            });
+        });
+        
+        
+        $(document).ready(function() {
+            $("#pinCode").change(function() {
+                var inputvalues = $(this).val();
+                var regex = /^(\d{4}|\d{6})$/;
+                if (!regex.test(inputvalues)) {
+                    $("#pinCode").val("");
+
+                    swal.fire("Alert", "Invalid Pin Code", "warning");
+                    return regex.test(inputvalues);
+                }
+            });
+        });
+        
+
+    
+        function onValidateFile(id){
+        	var fileInput3 = document.getElementById(id).value;
+        	var gst = document.getElementById(id);
+        	var allowedExtensions = /(\.jpg|\.jpeg|\.pdf)$/i;
+        	 /* if (!allowedExtensions.exec(fileInput3)) {
+        		 $("#GSTFile").val("");
+             	swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File....", "warning");
+             	return false;
+             } */
+        	 if (typeof (gst.files) != "undefined") {
+             	
+             	
+             	const fsize = gst.files.item(0).size;
+             	
+             	console.log(fsize);
+             	const file = Math.round((fsize / 1024));
+             	console.log(file);
+                // var size = parseFloat(cc.files[0].size / (1024 * 1024)).toFixed(2);
+                 //alert("Your File Size is "+(file/1024)+"MB");
+                 if(file > ${maxFileSize}) {
+                 	swal.fire("Alert", " File size should be less than 5 MB", "warning");
+                 	$("#" + id).val("");
+                 }else{
+                 	 var ext = fileInput3.split(".")[1];
+                     // alert("Extension is "+ext);
+                      
+                      if( ext=="pdf" || ext=="jpg" || ext=="JPEG" || ext=="JPG" || ext=="jpeg" || ext=="PDF" ){
+                      	//Sab valid hai
+                      }else{
+                      	swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File", "warning");
+                          
+                      	$("#" + id).val("");
+                          return false;	
+                      }
+                 }
+             } else {
+                 alert("This browser does not support HTML5.");
+             }
+        }
+        
+            function disableScrolling() {
+                setTimeout(function() {
+                    document.body.style.overflow = 'hidden';
+                }, 1000);
+            }
+              
+            function enableScrolling() {
+                document.body.style.overflow = '';
+            }
+            
+            $(document).ready(function() {
+                
+            });
+           /*  else 
+            {
+              // Image preview
+                 if (fileInput.files && fileInput.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById(
+                            'imagePreview').innerHTML = 
+                            '<img src="' + e.target.result
+                            + '"/>';
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
+                } 
+            } */
+        
+        
+        /* function isNumber(evt)
+        {
+           var charCode = (evt.which) ? evt.which : event.keyCode
+           if (charCode > 31 && (charCode < 48 || charCode > 57))
+              return false;
+   
+           return true;
+        } */
+        
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -1910,10 +1907,14 @@ label {
         	}, 100);
         
         
-        console.log(pid);
         if(pid!=""){
         	
         location.href="#step-6"
+        	$("#step6Id").css("display","block");
+	        $("#step-6").css("display","none");
+	        $(".queryFormViews").css("display","block");
+	        $("#queryBookHeadData").css("display","block");
+	        $(".queryFormUi").css("display","block");
         console.log(pid);
        
         getQueryData();
@@ -1921,7 +1922,7 @@ label {
         }else{
         
         	$("#step6Id").css("display","none");
-        	location.href="#step-1"
+        	//location.href="#step-1"
         }
         
        var tabledataQuery = $('#tabledataQuery').DataTable({
@@ -2253,18 +2254,20 @@ label {
             console.log(values);
             finalObj.vendorType = values; */
             
-            var element = document.getElementById('states');
+            /* var element = document.getElementById('states');
         	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
         	var selectedValues = [];    
             $("#states :selected").each(function(){
                 selectedValues.push($(this).val()); 
-            });
+            }); */
             /*  if(selectedValues== ""){
             	swal.fire("Alert", "please select Business Partner Type....", "warning")
                 return regex.test(inputvalues);
             }
              */
-             var values= document.getElementById("roleId").value ;
+             //var values= document.getElementById("roleId").value ;
+             var values= $("#states").val()
+             
              console.log("value vendorType : "+values);
              finalObj.vendorType = values;
              
@@ -2695,22 +2698,10 @@ label {
 			
 			function select(){
 			
-				var element = document.getElementById('states');
-	        	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
-	        	var selectedValues = [];    
-	            $("#states :selected").each(function(){
-	                selectedValues.push($(this).val()); 
-	            });
-	           // alert(selectedValues);
-	            
-	            let values = selectedValues.toString();
-	         
-	        	document.getElementById("roleId").value=values;
-	        	//alert("roleId111: "+num);
-		
+				var element = $("#states").val();
+	        	
 				
-				var val = document.getElementById("states").value
-				if (val == "Network") {
+				if (element == "NETWORK CREDITORS") {
 					document.getElementById("partnerType").disabled = false;
 					document.getElementById("partnerType").value = "Scheduled";
 				}else{
@@ -2723,15 +2714,5 @@ label {
 			
     </script>
 
-	 <script
-		src="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/js/jquery.smartWizard.min.js"></script> 
-	
-	<script src="plugins/popper/umd/popper.min.js"></script>
-	<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-	<script
-		src="dist/css/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
-	<script src="plugins/js/off-canvas.js"></script>
-	<script src="plugins/js/hoverable-collapse.js"></script>
-	<script src="plugins/js/misc.js"></script>
 </body>
 </html>

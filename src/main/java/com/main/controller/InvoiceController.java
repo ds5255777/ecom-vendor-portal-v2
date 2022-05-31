@@ -32,11 +32,14 @@ import com.main.bean.DataContainer;
 import com.main.bean.InvoiceQueryDto;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.Document;
+import com.main.db.bpaas.entity.EmailAuditLogs;
 import com.main.db.bpaas.entity.EmailConfiguration;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.InvoiceLineItem;
+import com.main.db.bpaas.entity.MailContent;
 import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.entity.QueryEntity;
+import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.email.CommEmailFunction;
 import com.main.serviceManager.ServiceManager;
@@ -243,7 +246,7 @@ public class InvoiceController {
 	}
 
 	@RequestMapping("/saveInvoice")
-	public String saveInvoice(@RequestBody InvoiceGenerationEntity obj) {
+	public String saveInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -332,7 +335,7 @@ public class InvoiceController {
 			logger.info(""+idByinvocienumber);
 			
 			Date date = new Date();
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 			String processedOn = dateFormat.format(date);
 
 			if (null != idByinvocienumber) {
@@ -347,28 +350,34 @@ public class InvoiceController {
 			}
 
 			data.setData(obj.getInvoiceNumber());
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
-						
-						if(!emailList.isEmpty()) {
-							EmailConfiguration emailConfiguration=emailList.get(0);
-							
-							CommEmailFunction.sendEmail("girdhar.supyal@bpaassolutions.com", "Invoice Process",
-									"Invoice Process Successfully", emailConfiguration.getSmtpPort(), emailConfiguration.getUserName(), emailConfiguration.getPassword(), emailConfiguration.getServerName());
-						}
-						 
-						
-						
+			// call mailing api
 
-					} catch (Exception e) {
-						logger.error("error : "+e);
-					}
-					Thread.currentThread().interrupt();
-				}
-			}).start();
+			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
+			EmailConfiguration emailConfiguration = emailList.get(0);
+
+			String vendorEmail = (String) request.getSession().getAttribute("userEmail");
+
+			List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Vendor Invoice Process");
+
+			if (!queryType.isEmpty()) {
+				SendEmail sendEmail = new SendEmail();
+				MailContent mailContent = queryType.get(0);
+				sendEmail.setMailfrom(emailConfiguration.getUserName());
+				sendEmail.setSendTo(vendorEmail);
+				sendEmail.setSubject(mailContent.getSubject());
+				sendEmail.setEmailBody(mailContent.getEmailBody());
+				sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+
+				serviceManager.sendEmailRepo.save(sendEmail);
+
+				EmailAuditLogs auditLogs = new EmailAuditLogs();
+				auditLogs.setMailFrom(emailConfiguration.getUserName());
+				auditLogs.setMailTo(vendorEmail);
+				auditLogs.setMailSubject(mailContent.getSubject());
+				auditLogs.setMailMessage(mailContent.getEmailBody());
+
+				serviceManager.emailAuditLogsRepo.save(auditLogs);
+			}
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -381,7 +390,7 @@ public class InvoiceController {
 	}
 
 	@RequestMapping("/updateInvoice")
-	public String updateInvoice(@RequestBody InvoiceQueryDto obj) {
+	public String updateInvoice(HttpServletRequest request,@RequestBody InvoiceQueryDto obj) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -391,7 +400,7 @@ public class InvoiceController {
 			logger.info(filePath);
 			String fullFilePathWithName = "";
 			Date date = new Date();
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 			String processedOn = dateFormat.format(date);
 
 			if (null != obj.getDocumentFileOneName()) {
@@ -448,13 +457,12 @@ public class InvoiceController {
 			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
 
 			List<InvoiceLineItem> invoiceLineItemsList = obj.getInvoiceLineItems();
-			
-			
 
-			InvoiceGenerationEntity invObj = serviceManager.invoiceGenerationEntityRepo.findByEcomInvoiceNumber(ecomInvoiceNumber);
-			
-			if(null!=obj) {
-				
+			InvoiceGenerationEntity invObj = serviceManager.invoiceGenerationEntityRepo
+					.findByEcomInvoiceNumber(ecomInvoiceNumber);
+
+			if (null != obj) {
+
 				invObj.setInvoiceLineItem(invoiceLineItemsList);
 				invObj.setAssignTo(obj.getAssignTo());
 				invObj.setInvoiceStatus(obj.getInvoiceStatus());
@@ -462,12 +470,12 @@ public class InvoiceController {
 				invObj.setTaxableAmount(obj.getTaxableAmount());
 				invObj.setProcessedBy(obj.getVendorCode());
 				invObj.setProcessedOn(processedOn);
-				
+
 				serviceManager.invoiceGenerationEntityRepo.save(invObj);
-				//serviceManager.invoiceGenerationEntityRepo.updateInvoiceStatusAndAssingTo(obj.getAssignTo(),obj.getInvoiceStatus(),obj.getInvoiceAmount(),obj.getTaxableAmount(), idByinvocienumber);
+				// serviceManager.invoiceGenerationEntityRepo.updateInvoiceStatusAndAssingTo(obj.getAssignTo(),obj.getInvoiceStatus(),obj.getInvoiceAmount(),obj.getTaxableAmount(),
+				// idByinvocienumber);
 
-				//InvoiceGenerationEntity invoiceEntity = new InvoiceGenerationEntity();
-
+				// InvoiceGenerationEntity invoiceEntity = new InvoiceGenerationEntity();
 
 				QueryEntity queryEntity = new QueryEntity();
 				queryEntity.setComment(obj.getRemarks());
@@ -483,22 +491,43 @@ public class InvoiceController {
 				logger.info(invoiceNumber);
 				
 			}
-			
-			
-			
-			
+
 			/*
 			 * InvoiceLineItem invoiceLineItem = new InvoiceLineItem();
 			 * invoiceLineItemsList.size();
 			 */
-			
-			
+
 			// obj =
 			// serviceManager.invoiceGenerationEntityRepo.getQueryInvoice(obj.getVendorCode(),
 			// invoiceNumber);
 
 			data.setData(obj);
-			data.setMsg("success");
+			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
+			EmailConfiguration emailConfiguration = emailList.get(0);
+
+			String vendorEmail = (String) request.getSession().getAttribute("userEmail");
+
+			List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Invoice Update");
+
+			if (!queryType.isEmpty()) {
+				SendEmail sendEmail = new SendEmail();
+				MailContent mailContent = queryType.get(0);
+				sendEmail.setMailfrom(emailConfiguration.getUserName());
+				sendEmail.setSendTo(vendorEmail);
+				sendEmail.setSubject(mailContent.getSubject());
+				sendEmail.setEmailBody(mailContent.getEmailBody());
+				sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+
+				serviceManager.sendEmailRepo.save(sendEmail);
+
+				EmailAuditLogs auditLogs = new EmailAuditLogs();
+				auditLogs.setMailFrom(emailConfiguration.getUserName());
+				auditLogs.setMailTo(vendorEmail);
+				auditLogs.setMailSubject(mailContent.getSubject());
+				auditLogs.setMailMessage(mailContent.getEmailBody());
+
+				serviceManager.emailAuditLogsRepo.save(auditLogs);
+			}
 
 			data.setMsg("success");
 

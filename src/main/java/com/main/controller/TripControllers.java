@@ -63,7 +63,7 @@ public class TripControllers {
 		try {
 
 			String rolename = (String) request.getSession().getAttribute("role");
-			System.out.println("YYYYYYY" + rolename);
+			logger.info("YYYYYYY" + rolename);
 			if (rolename.equalsIgnoreCase("Network")) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
 						.findByActualDepartureBetween(fromDate, toDate);
@@ -93,7 +93,7 @@ public class TripControllers {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		System.out.println(fromDate);
+		logger.info(fromDate);
 		try {
 			List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
 					.findByActualDepartureBetween(fromDate, toDate);
@@ -250,7 +250,7 @@ public class TripControllers {
 		DataContainer data = new DataContainer();
 
 		String processedBy = principal.getName();
-		System.out.println("**********Inside getApprovePendingApprovelTripsDetails********************");
+		logger.info("**********Inside getApprovePendingApprovelTripsDetails********************");
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String vendorTripStatus = tripObj.getVendorTripStatus();
 		String tripID = tripObj.getTripID();
@@ -376,12 +376,12 @@ public class TripControllers {
 		try {
 
 			String tripId = obj.getTripID();
-			System.out.println(tripId);
+			logger.info(tripId);
 
 			tripId = tripId.replaceAll(",", " ");
 
 			String[] split = tripId.split(" ");
-			System.out.println(split);
+			logger.info(""+split);
 			TripDetails findByTripID = null;
 
 			for (String str : split) {
@@ -413,14 +413,14 @@ public class TripControllers {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			JSONObject jsonObject = new JSONObject(obj);
-			System.out.println("jsonObject " + jsonObject.toString());
+			logger.info("jsonObject " + jsonObject.toString());
 			String tripID = jsonObject.get("tripID").toString();
-			System.out.println(" Trip id is ::" + tripID);
+			logger.info(" Trip id is ::" + tripID);
 			List<QueryEntity> qe = serviceManager.queryRepo.findCommentsByRefID(tripID);
 
 			data.setData(qe);
 			data.setMsg("success");
-			System.out.println("Trip id is ::" + tripID);
+			logger.info("Trip id is ::" + tripID);
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -440,10 +440,10 @@ public class TripControllers {
 
 		try {
 			String invoiceNumber = obj.getInvoiceNumber();
-			System.out.println(invoiceNumber);
+			logger.info(invoiceNumber);
 			List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber);
 			for (TripDetails tripDetails : list) {
-				System.out.println(tripDetails.getTripID());
+				logger.info(tripDetails.getTripID());
 			}
 			data.setData(list);
 			data.setMsg("success");
@@ -487,7 +487,7 @@ public class TripControllers {
 			String tripID = obj.getTripID();
 			String invoiceNumber = obj.getInvoiceNumber();
 
-			System.out.println("check user id >> " + obj.getTripID());
+			logger.info("check user id >> " + obj.getTripID());
 			serviceManager.tripDetailsRepo.findTripDetailAgainTripID(invoiceNumber, tripID);
 
 			data.setMsg("success");

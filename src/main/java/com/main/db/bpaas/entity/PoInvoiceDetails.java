@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Poinvoice_details")
@@ -107,6 +108,15 @@ public class PoInvoiceDetails {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn
 	private List<PoInvoiceLine> poInvoiceLine;
+	
+	@Transient
+	private String invoiceFileName;
+	@Transient
+	private String invoiceFileText;
+	@Transient
+	private String documentFileOneName;
+	@Transient
+	private String documentFileOneText;
 
 	public Long getId() {
 		return id;
@@ -370,6 +380,38 @@ public class PoInvoiceDetails {
 
 	public void setGlDateDistributionDate(Date glDateDistributionDate) {
 		this.glDateDistributionDate = glDateDistributionDate;
+	}
+
+	public String getInvoiceFileName() {
+		return invoiceFileName;
+	}
+
+	public void setInvoiceFileName(String invoiceFileName) {
+		this.invoiceFileName = invoiceFileName;
+	}
+
+	public String getInvoiceFileText() {
+		return invoiceFileText;
+	}
+
+	public void setInvoiceFileText(String invoiceFileText) {
+		this.invoiceFileText = invoiceFileText;
+	}
+
+	public String getDocumentFileOneName() {
+		return documentFileOneName;
+	}
+
+	public void setDocumentFileOneName(String documentFileOneName) {
+		this.documentFileOneName = documentFileOneName;
+	}
+
+	public String getDocumentFileOneText() {
+		return documentFileOneText;
+	}
+
+	public void setDocumentFileOneText(String documentFileOneText) {
+		this.documentFileOneText = documentFileOneText;
 	}
 
 }

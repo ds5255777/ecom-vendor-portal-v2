@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PoLine_Details")
+@Table(name = "po_line_details")
 public class PoLineDetails {
 	
 	
@@ -18,6 +18,8 @@ public class PoLineDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(name = "Po_Line_Id")
+	private Double poLineId;
 	@Column(name = "Line_Number")
 	private String lineNumber;
 	@Column(name = "Item_Type")
@@ -121,6 +123,12 @@ public class PoLineDetails {
 	}
 	public void setChargeAccount(String chargeAccount) {
 		this.chargeAccount = chargeAccount;
+	}
+	public Double getPoLineId() {
+		return poLineId;
+	}
+	public void setPoLineId(Double poLineId) {
+		this.poLineId = poLineId;
 	}
 	
 	

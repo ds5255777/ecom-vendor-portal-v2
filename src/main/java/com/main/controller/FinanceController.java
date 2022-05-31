@@ -4,11 +4,14 @@ import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +40,10 @@ public class FinanceController {
 
 	@Autowired
 	private ServiceManager serviceManager;
+	
+
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
 	// all invoice
 	@RequestMapping({ "/viewAllInvoiceForFinanceTeam" })
@@ -54,7 +61,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -76,7 +83,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -98,7 +105,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -120,7 +127,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -142,7 +149,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -163,7 +170,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -185,7 +192,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -274,7 +281,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -295,7 +302,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -312,7 +319,7 @@ public class FinanceController {
 		String userName = principal.getName();
 
 		String role = (String) request.getSession().getAttribute("role");
-		System.out.println(role);
+		logger.info(role);
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String processedOn = dateFormat.format(date);
@@ -356,7 +363,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -371,8 +378,8 @@ public class FinanceController {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		System.out.println(fromDate);
-		System.out.println(toDate);
+		logger.info(fromDate);
+		logger.info(toDate);
 		try {
 			List<InvoiceGenerationEntity> findByInvoiceDateBetween = serviceManager.invoiceGenerationEntityRepo
 					.findByInvoiceDateBetween(fromDate, toDate);
@@ -380,7 +387,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -397,7 +404,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -416,7 +423,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();

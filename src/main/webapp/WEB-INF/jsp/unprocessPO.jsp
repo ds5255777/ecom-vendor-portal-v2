@@ -403,12 +403,11 @@
   								result[i].needByDate="";
   							} 
                              if(!result[i].hasOwnProperty("amount")){
-  								result[i].poLineDetails[k].ammount="";
+  								result[i].amount="";
   							}
                              if(!result[i].hasOwnProperty("status")){
- 								result[i].poLineDetails[i].status="";
+ 								result[i].status="";
  							}
-                             
 							 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getPoDataFormDataByPoNumber('" +  result[i].poNo + "')\" >" + result[i].poNo + "</button>";
                                                  
                          

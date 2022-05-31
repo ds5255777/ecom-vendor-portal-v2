@@ -72,7 +72,7 @@ public class AjaxController {
 
 		try {
 
-			System.out.println("logFilePath...." + logFilePath);
+			logger.info("logFilePath...." + logFilePath);
 			File logFilePathFolder = new File(logFilePath);
 			if (!logFilePathFolder.exists()) {
 				logFilePathFolder.mkdir();
@@ -202,7 +202,7 @@ public class AjaxController {
 //				}
 			}
 
-			System.out.println("AC File name : " + supDetails.getAcFileName());
+			logger.info("AC File name : " + supDetails.getAcFileName());
 			if (null != supDetails.getAcFileName()) {
 
 				documentExtensionArray = supDetails.getAcFileName().split("\\.(?=[^\\.]+$)");
@@ -283,7 +283,7 @@ public class AjaxController {
 
 			}
 
-			System.out.println("FUVF File name : " + supDetails.getFuvfFileName());
+			logger.info("FUVF File name : " + supDetails.getFuvfFileName());
 			if (null != supDetails.getFuvfFileName()) {
 
 				documentExtensionArray = supDetails.getFuvfFileName().split("\\.(?=[^\\.]+$)");
@@ -310,7 +310,7 @@ public class AjaxController {
 
 			}
 
-			System.out.println("MSME File name : " + supDetails.getMsmecFileName());
+			logger.info("MSME File name : " + supDetails.getMsmecFileName());
 			if (null != supDetails.getMsmecFileName()) {
 
 				documentExtensionArray = supDetails.getMsmecFileName().split("\\.(?=[^\\.]+$)");
@@ -337,7 +337,7 @@ public class AjaxController {
 
 			}
 
-			System.out.println("AM File name : " + supDetails.getAmFileName());
+			logger.info("AM File name : " + supDetails.getAmFileName());
 			if (null != supDetails.getAmFileName()) {
 
 				documentExtensionArray = supDetails.getAmFileName().split("\\.(?=[^\\.]+$)");
@@ -364,7 +364,7 @@ public class AjaxController {
 
 			}
 
-			System.out.println("ITRA File name : " + supDetails.getItraFileName());
+			logger.info("ITRA File name : " + supDetails.getItraFileName());
 			if (null != supDetails.getItraFileName()) {
 
 				documentExtensionArray = supDetails.getItraFileName().split("\\.(?=[^\\.]+$)");
@@ -391,7 +391,7 @@ public class AjaxController {
 
 			}
 
-			System.out.println("NMIS File name : " + supDetails.getNmisFileName());
+			logger.info("NMIS File name : " + supDetails.getNmisFileName());
 			if (null != supDetails.getNmisFileName()) {
 
 				documentExtensionArray = supDetails.getNmisFileName().split("\\.(?=[^\\.]+$)");
@@ -423,7 +423,7 @@ public class AjaxController {
 			try {
 				String urldata = "http://65.1.184.148:8080/VendorPortal/portal/createUpdate/vendor";
 				URL url = new URL(urldata);
-				System.out.println("In here*************");
+				logger.info("In here*************");
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				// body
 				JSONObject json = new JSONObject();
@@ -462,7 +462,7 @@ public class AjaxController {
 				
 
 				if (supDetails.getItrDetails().size() < 3) {
-					System.out.println("please enter three itr details");
+					logger.info("please enter three itr details");
 
 				} else {
 
@@ -539,7 +539,7 @@ public class AjaxController {
 					json.put("Documents", array);
 					json.put("VendorSiteDetails", arrayforVend);
 
-					System.out.println("JSON is ::" + json.toString());
+					logger.info("JSON is ::" + json.toString());
 					// HEADER
 
 					conn.setRequestMethod("PUT");
@@ -555,7 +555,7 @@ public class AjaxController {
 					if (conn.getResponseCode() != 200) {
 						throw new RuntimeException("Failed : HTTP Error code : " + conn.getResponseCode());
 					} else {
-						System.out.println("conn.responsecode" + conn.getResponseCode());
+						logger.info("conn.responsecode" + conn.getResponseCode());
 					}
 					InputStreamReader in = new InputStreamReader(conn.getInputStream());
 					BufferedReader br = new BufferedReader(in);
@@ -563,17 +563,17 @@ public class AjaxController {
 					String outputloop = "";
 					while ((outputloop = br.readLine()) != null) {
 						finalOut = finalOut + outputloop;
-						System.out.println("finalOut :\n" + finalOut);
+						logger.info("finalOut :\n" + finalOut);
 
 					}
 
-					System.out.println("Final output ::: " + finalOut);
+					logger.info("Final output ::: " + finalOut);
 //            vendor = finalOut.toString();
 
 					if ("".equalsIgnoreCase(finalOut)) {
-						System.out.println("Error!!!!!!!!!Output from authentication web service is null");
+						logger.info("Error!!!!!!!!!Output from authentication web service is null");
 					} else {
-						System.out.println(" FinalOutput JSON in api ::: " + finalOut);
+						logger.info(" FinalOutput JSON in api ::: " + finalOut);
 					}
 
 					JSONObject jsonObject = new JSONObject(finalOut);
@@ -583,7 +583,7 @@ public class AjaxController {
 							processID = jsonObject.optString("ProcessID");
 
 							supDetails.setPid(processID);
-							System.out.println("   ------------" + processID);
+							logger.info("   ------------" + processID);
 
 						}
 
@@ -598,7 +598,7 @@ public class AjaxController {
 					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("error : "+e);
 			}
 			
 			  //Long vendorId = serviceManager.supDetailsRepo.selectIdByPid(processID);
@@ -642,7 +642,7 @@ public class AjaxController {
 		Exception e) {
 			data.setMsg("error");
 			data.setData(e.toString());
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -669,7 +669,7 @@ public class AjaxController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 
 		return gson.toJson(data).toString();
@@ -682,12 +682,12 @@ public class AjaxController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String pid = obj.getPid();
-		System.out.println("pid my   :  " + obj.getPid());
+		logger.info("pid my   :  " + obj.getPid());
 		try {
 
 			List<SupDetails> supDetails = serviceManager.supDetailsRepo.findBypid(pid);
 			boolean empty = supDetails.isEmpty();
-			System.out.println("empty :" + empty);
+			logger.info("empty :" + empty);
 			data.setData(supDetails);
 			data.setMsg("success");
 		} catch (Exception e) {
@@ -712,7 +712,7 @@ public class AjaxController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : "+e);
 		}
 		return gson.toJson(data).toString();
 	}

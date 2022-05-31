@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
+import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.EmailAuditLogs;
 import com.main.db.bpaas.entity.EmailConfiguration;
 import com.main.db.bpaas.entity.MailContent;
@@ -270,7 +271,7 @@ public class TripControllers {
 
 			String vendorEmail = (String) request.getSession().getAttribute("userEmail");
 
-			List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Vendor Trip Query");
+			List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Vendor Trip Approve");
 
 			if (!queryType.isEmpty()) {
 				SendEmail sendEmail = new SendEmail();
@@ -279,7 +280,7 @@ public class TripControllers {
 				sendEmail.setSendTo(vendorEmail);
 				sendEmail.setSubject(mailContent.getSubject());
 				sendEmail.setEmailBody(mailContent.getEmailBody());
-				sendEmail.setStatus("Y");
+				sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
 
 				serviceManager.sendEmailRepo.save(sendEmail);
 

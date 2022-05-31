@@ -52,18 +52,6 @@ public class AjaxController {
 	@Autowired
 	private ServiceManager serviceManager;
 
-	@Value("${smtpPort}")
-	public String smtpPort;
-
-	@Value("${emailUserName}")
-	public String username;
-
-	@Value("${password}")
-	public String password;
-
-	@Value("${host}")
-	public String host;
-
 	@Value("${filepaths}")
 	public String filepaths;
 
@@ -542,10 +530,12 @@ public class AjaxController {
 					JSONArray arrayforVend = new JSONArray();
 
 					arrayforVend.put(venDetals);
-					System.out.println("Fin Json " + venDetals.toString());
-					System.out.println("Vendor Site Details " + arrayforVend.toString());
-					System.out.println("Header " + json.toString());
-					System.out.println("----------------------" + array);
+					/*
+					 * System.out.println("Fin Json " + venDetals.toString());
+					 * System.out.println("Vendor Site Details " + arrayforVend.toString());
+					 * System.out.println("Header " + json.toString());
+					 * System.out.println("----------------------" + array);
+					 */
 					json.put("Documents", array);
 					json.put("VendorSiteDetails", arrayforVend);
 

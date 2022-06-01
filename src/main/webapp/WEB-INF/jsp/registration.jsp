@@ -1621,7 +1621,8 @@ label {
 															readonly class="form-control p-input "> </input></td>
 
 														<td><label class="addressLable" for="tdsSection">TDS
-																Section</label></td>
+																Section<span
+															class="required adHocRequired">*</span></label></td>
 														<td><select id="tdsSection" name="tdsSection"
 															class="form-control p-input" colspan='2'
 															placeholder="TDS Section">
@@ -1636,7 +1637,8 @@ label {
 														</select></td>
 
 														<td><label for="tdsRate">TDS Exemption Rate
-																(If Any)</label></td>
+																(If Any)<span
+															class="required adHocRequired">*</span></label></td>
 														<td colspan='2'><input type="text"
 															class="form-control p-input" id="tdsRate" name="tdsRate"
 															placeholder="TDS  Exemption Rate"></td>

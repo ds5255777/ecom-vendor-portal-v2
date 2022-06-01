@@ -716,7 +716,7 @@
 
                 if (data.msg == 'success') {
                     var result = data.data;
-                    tripLineArray=result[0].poLineDetails;
+                    tripLineArray=result[0].poline;
                     for(var i=0;i<tripLineArray.length;i++){
                     	quntityflag.push("0");
                     }

@@ -525,7 +525,7 @@
                     if (data.msg == 'success') {
                         var result = data.data;
                        //var tripLineArray = data.data.poInvoiceLine;
-                       var tripLineArray=result[0].poLineDetails;
+                       var tripLineArray=result[0].poline;
                         var myForm = "";
                         myForm = document.getElementById("stepOneForm");
                         setData(myForm, result[0]);

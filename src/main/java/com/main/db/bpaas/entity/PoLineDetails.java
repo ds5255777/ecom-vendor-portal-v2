@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 @Entity
 @Table(name = "po_line_details")
 public class PoLineDetails {
@@ -46,6 +45,14 @@ public class PoLineDetails {
 	private String remaningQuatity;
 	
 	
+	
+	
+	public Double getPoLineId() {
+		return poLineId;
+	}
+	public void setPoLineId(Double poLineId) {
+		this.poLineId = poLineId;
+	}
 	public String getRemaningQuatity() {
 		return remaningQuatity;
 	}
@@ -124,13 +131,10 @@ public class PoLineDetails {
 	public void setChargeAccount(String chargeAccount) {
 		this.chargeAccount = chargeAccount;
 	}
-	public Double getPoLineId() {
-		return poLineId;
-	}
-	public void setPoLineId(Double poLineId) {
-		this.poLineId = poLineId;
-	}
-	
-	
+							  
+				  
+  
+										   
+		
 
 }

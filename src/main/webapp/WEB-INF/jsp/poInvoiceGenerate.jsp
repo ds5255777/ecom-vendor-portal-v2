@@ -675,6 +675,7 @@
   var tripLineArray=[];
   var price1=[];
   var quanttty=[];
+  var invoiceDate="${invoiceDate}";
   
     
     var  poNo='${PoNumber}';
@@ -746,8 +747,10 @@
                     $('#uom1').val( tripLineArray[0].uom);
                     $('#description1').val( tripLineArray[0].description);
                     
-                    var d = new Date();
-                    $( "#invoiceDate" ).val(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
+                    
+                    $( "#invoiceDate" ).val(invoiceDate);
+                    
+                    
                     
                     $('#invoiceCurrency').val(result[0].currency);  
                     $('#paymentCurrency').val(result[0].currency); 

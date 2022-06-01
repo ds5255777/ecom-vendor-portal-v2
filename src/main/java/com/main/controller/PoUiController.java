@@ -264,7 +264,7 @@ public class PoUiController {
 			}
 
 		}
-
+		model.addAttribute("invoiceDate", new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		request.getSession().setAttribute("invoiceNumber", invoiceNumber);
 

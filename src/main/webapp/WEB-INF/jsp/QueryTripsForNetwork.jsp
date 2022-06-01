@@ -268,7 +268,7 @@ tbody {
 														class="required adHocRequired"></span></label>
 
 												<div class="col-sm-7">
-												<select class="form-control" onchange="getBpCode()"  id="vendorName" name="vendorName" style="height: 34px;">
+												<select class="form-control"  id="vendorName" name="vendorName" style="height: 34px;">
 												
 												<c:forEach items="${vendorNamefortripsQuery}" var="vendorName">
 
@@ -335,12 +335,24 @@ tbody {
 													<div class="col-md-3">
 														<!-- text input -->
 														<div class="form-group row">
-															<label class="col-sm-5" title="Actual Vehicle Type">Vehicle
-																Type</label>
+															<label class="col-sm-5" title="Actual Vehicle Type">Act Vehicle
+																</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"
 																	id="actualVechicleType" name="actualVechicleType"
-																	autocomplete="off">
+																	autocomplete="off" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<!-- text input -->
+														<div class="form-group row">
+															<label class="col-sm-5" title="Standard Vehicle Type">Stnd Vehicle
+																</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	id="standardVechicleType" name="standardVechicleType"
+																	autocomplete="off" disabled>
 															</div>
 														</div>
 													</div>
@@ -556,9 +568,9 @@ tbody {
 															</div>
 														</div>
 													</div>
-													<div class="col-md-3">
+													<div class="col-md-3" style="display: none;">
 														<div class="form-group row">
-															<label class="col-sm-5" style="display: none;"
+															<label class="col-sm-5" 
 																title="Trip Opening Reading">Start Reading</label>
 															<div class="col-sm-7">
 																<input type="hidden" class="form-control"

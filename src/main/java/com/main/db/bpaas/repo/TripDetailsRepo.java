@@ -234,6 +234,6 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
 	List<TripDetails> findByVendorCodeAndActualDepartureBetween(String vendorCode,String fromDate, String toDate);
 	
-	@Query(value = "select DISTINCT supp_name from supdetails order by supp_name asc ",nativeQuery = true)
+	@Query(value = "select DISTINCT vendor_name from users order by vendor_name asc ",nativeQuery = true)
 	List<String> getVendorName();
 }

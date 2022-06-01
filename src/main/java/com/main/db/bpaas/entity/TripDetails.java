@@ -39,6 +39,9 @@ public class TripDetails {
 	@Column(name = "actual_vechicle_type")
 	private String actualVechicleType;
 
+	@Column(name = "standard_vechicle_type")
+	private String standardVechicleType;
+
 	@Column(name = "standard_shipment_capacity")
 	private String standardShipmentCapacity;
 
@@ -203,6 +206,14 @@ public class TripDetails {
 
 	public void setActualVechicleType(String actualVechicleType) {
 		this.actualVechicleType = actualVechicleType;
+	}
+
+	public String getStandardVechicleType() {
+		return standardVechicleType;
+	}
+
+	public void setStandardVechicleType(String standardVechicleType) {
+		this.standardVechicleType = standardVechicleType;
 	}
 
 	public String getStandardShipmentCapacity() {

@@ -290,11 +290,23 @@
 													<div class="col-md-3">
 														<!-- text input -->
 														<div class="form-group row">
-															<label class="col-sm-5" title="Actual Vehicle Type">Vehicle
-																Type</label>
+															<label class="col-sm-5" title="Actual Vehicle Type">Act Vehicle
+																</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"
 																	id="actualVechicleType" name="actualVechicleType"
+																	autocomplete="off" disabled>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<!-- text input -->
+														<div class="form-group row">
+															<label class="col-sm-5" title="Standard Vehicle Type">Stnd Vehicle
+																</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control"
+																	id="standardVechicleType" name="standardVechicleType"
 																	autocomplete="off" disabled>
 															</div>
 														</div>

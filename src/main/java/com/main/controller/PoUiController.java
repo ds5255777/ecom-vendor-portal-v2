@@ -304,6 +304,7 @@ public class PoUiController {
 		model.addAttribute("invoiceNumber", PoNumber);
 		model.addAttribute("curentDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		model.addAttribute("maxFileSize", maxFileSize);
+		model.addAttribute("curentDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		return "draftPoInvoiceGenerate";
 	}
 

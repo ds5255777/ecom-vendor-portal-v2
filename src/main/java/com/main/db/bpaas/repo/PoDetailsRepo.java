@@ -61,7 +61,7 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long> {
 
 	@Transactional
 	@Modifying
-	@Query(value = "update PoLine_Details set remaning_quatity=:remaningQuatity where  id=:id", nativeQuery = true)
+	@Query(value = "update po_line_details set remaning_quatity=:remaningQuatity where  id=:id", nativeQuery = true)
 	void updateRemaningQuatity(@Param("remaningQuatity") String remaningQuatity, @Param("id") Long id);
 
 	@Transactional
@@ -71,11 +71,11 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long> {
 
 	@Transactional
 	@Modifying
-	@Query(value = "update PoLine_Details set remaning_quatity=:remaningQuatity where  line_Number=:lineNumber", nativeQuery = true)
+	@Query(value = "update po_line_details set remaning_quatity=:remaningQuatity where  line_Number=:lineNumber", nativeQuery = true)
 	void updateRemaningQuantitydraft(@Param("remaningQuatity") String remaningQuatity,
 			@Param("lineNumber") String lineNumber);
 
-	@Query(value = "select  remaning_quatity from PoLine_Details WHERE  line_Number=:lineNumber ; ", nativeQuery = true)
+	@Query(value = "select  remaning_quatity from Po_line_Details WHERE  line_Number=:lineNumber ; ", nativeQuery = true)
 	String getCurrentRemaningQty(@Param("lineNumber") String lineNumber);
 	
 	@Query(value = "select * from po_details where  vendor_code=?", nativeQuery = true)

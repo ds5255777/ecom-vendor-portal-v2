@@ -325,13 +325,16 @@ public class AjaxController {
 					conn.setRequestProperty("Content-Type", "application/json");
 					conn.setRequestProperty("Authorization", "Basic bmV3Z2VuOlZFbkQwclBANFQ4OSE=");
 					
-					try (Writer writer = new BufferedWriter(new FileWriter(file))) {
-						writer.write(contents + "\n" + "venDetals Object start----" + venDetals.toString() + "----venDetals Object End---Doc Array start-----" + array+"---Doc Array End");
-					}
+					/*
+					 * try (Writer writer = new BufferedWriter(new FileWriter(file))) {
+					 * writer.write(contents + "\n" + "venDetals Object start----" +
+					 * venDetals.toString() + "----venDetals Object End---Doc Array start-----" +
+					 * array+"---Doc Array End"); }
+					 */
 					
 					conn.setDoOutput(true);
 					OutputStream os = conn.getOutputStream();
-					logger.info(":::::::::JSON:::::::::::" + json.toString());
+					//logger.info(":::::::::JSON:::::::::::" + json.toString());
 					os.write(json.toString().getBytes());
 					os.flush();
 					if (conn.getResponseCode() != 200) {

@@ -2196,7 +2196,7 @@ label {
             }
         });
 
-       /*  $("#addITRGridButt").click(function() {
+        $("#addITRGridButt").click(function() {
             var abc = document.getElementById('fyYear').value;
             var abc1 = document.getElementById('acknowledgementNumber').value;
             var abc2 =  document.getElementById('ITRAFile').value; 
@@ -2223,7 +2223,7 @@ label {
                
 
             }
-        }); */
+        });
 
         function sendToServer() {
         	$('.loader').show();
@@ -2276,7 +2276,7 @@ label {
                 contactDetailsArray.push(pushContactObj);
             }
             
-            var itrDetailsArray = [];
+            /* var itrDetailsArray = [];
             table = document.getElementById('addITRGrid');
             rowLength = table.rows.length;
 
@@ -2288,7 +2288,9 @@ label {
                     "acknowledgementNumber": row.cells[1].innerHTML
                 }
                 itrDetailsArray.push(pushItrObj);
-            }
+            } */
+            
+            
             
             $body.addClass("loading");
 
@@ -2296,17 +2298,18 @@ label {
             var step6Obj = FormDataToJSON('stepSixForm');
             //var step8Obj = FormDataToJSON('StepEightForm');
             var step7Obj = FormDataToJSON('stepSevenForm');
+            var step8Obj=FormDataToJSON('StepEightForm');
 
             const finalObj = {
                 ...step1Obj,
                 ...step6Obj,
-                ...step7Obj
-                //...step8Obj
+                ...step7Obj,
+                ...step8Obj
             };
             finalObj.accountDetails = accountDetailsArray;
             finalObj.addressDetails = addressDetailsArray;
             finalObj.contactDetails = contactDetailsArray;
-            finalObj.itrDetails = itrDetailsArray;
+            /* finalObj.itrDetails = itrDetailsArray; */
 
             if (document.getElementById("GSTFile").files.length > 0) {
                 finalObj.gstFileName = document.getElementById("GSTFile").files.item(0).name;
@@ -2355,16 +2358,16 @@ label {
             
             // last three year ITR file upload
             if (document.getElementById("ITRFile1").files.length > 0) {
-                finalObj.itraFileName = document.getElementById("ITRFile1").files.item(0).name;
-                finalObj.itraFileText = $("#ITRFileText1").val();
+                finalObj.itraFileName1 = document.getElementById("ITRFile1").files.item(0).name;
+                finalObj.itraFileText1 = $("#ITRFileText1").val();
             }
             if (document.getElementById("ITRFile2").files.length > 0) {
-                finalObj.itraFileName = document.getElementById("ITRFile2").files.item(0).name;
-                finalObj.itraFileText = $("#ITRFileText2").val();
+                finalObj.itraFileName2 = document.getElementById("ITRFile2").files.item(0).name;
+                finalObj.itraFileText2 = $("#ITRFileText2").val();
             }
             if (document.getElementById("ITRFile3").files.length > 0) {
-                finalObj.itraFileName = document.getElementById("ITRFile3").files.item(0).name;
-                finalObj.itraFileText = $("#ITRFileText3").val();
+                finalObj.itraFileName3 = document.getElementById("ITRFile3").files.item(0).name;
+                finalObj.itraFileText3 = $("#ITRFileText3").val();
             }
 
            /*  var checked = []

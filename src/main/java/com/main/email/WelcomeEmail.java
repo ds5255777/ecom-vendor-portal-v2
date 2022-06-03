@@ -8,7 +8,7 @@ public class WelcomeEmail {
 	LocalDateTime localDateTime = LocalDateTime.now();
 	LocalDate localDate = localDateTime.toLocalDate();
 
-    public String prepareMailBody(String refId) {
+    public String prepareMailBody(String pid) {
     	
         String emailBody = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">"
                 + "<html xmlns=\"http://www.w3.org/1999/xhtml\">"
@@ -111,7 +111,7 @@ public class WelcomeEmail {
                 + "			   <table style=\"width:100%\">"
                 + "					<tr>"
                 + "						<td><strong>Refrence ID</strong></td>"
-                + "						<td>" + refId + "</td>"
+                + "						<td>" + pid + "</td>"
                 + "					</tr>"
                 + "					<tr>"
                 + "						<td><strong>Raised On</strong></td>"

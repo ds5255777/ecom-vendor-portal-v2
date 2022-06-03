@@ -6,7 +6,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +22,7 @@ public class SchedularController {
 	ServiceManager serviceManger;
 	
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	private static Logger logger = LoggerFactory.getLogger(MasterController.class);
+	private static Logger logger = LoggerFactory.getLogger(SchedularController.class);
 
 	private String checkSchedular = "Completed";
 
@@ -33,7 +32,7 @@ public class SchedularController {
 
 		// will run in every 5 minutes
 		try {
-			logger.info("db...." + dburl + "  checkSchedular1..." + checkSchedular);
+			
 			if ("Completed".equalsIgnoreCase(checkSchedular)) {
 				logger.info("Running only once scheduler ");
 
@@ -86,7 +85,7 @@ public class SchedularController {
 					e.printStackTrace();
 				}
 			}
-			logger.info("db...." + dburl + "  checkSchedular2..." + checkSchedular);
+			
 		} catch (Exception e) {
 
 			e.printStackTrace();

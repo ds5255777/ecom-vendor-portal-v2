@@ -51,6 +51,9 @@ public class GlobalConstants {
 	public static final String EMAIL_TYPE_FIN_HED_INVOICE_QUERY="Finance Head Invoice Query";
 	
 	public static final String EMAIL_TYPE_NET_TEM_INVOICE_QUERY="Network Invoice Query";
+	
+	public static final String SET_TYPE_TRIP="Trip";
+	public static final String SET_TYPE_INVOICE="Invoice";
 
 
 }

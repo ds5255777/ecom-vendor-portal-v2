@@ -212,7 +212,7 @@
                     <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">PO Shipments</h4>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
+                                <button type="button" class="btn btn-tool"  data-card-widget="collapse" style="margin-right: 10px;">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -498,7 +498,7 @@
             "pageLength": 15,
         });
         
-        $("input[type=text]").prop('disabled', true);
+        /* $("input[type=text]").prop('disabled', true); */
 
         function closeWin() {
             window.close()

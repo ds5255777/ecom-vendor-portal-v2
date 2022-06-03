@@ -199,7 +199,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-3" style="display: none;">
 										<div class="form-group row">
 											<label class="col-sm-5">Operating Unit</label>
 											<div class="col-sm-7">
@@ -551,8 +551,9 @@
                        var tripLineArray=result[0].poInvoiceLine;
                        var grossamt1=result[0].grossTotalAmt;
                      
-                       var termsDate= result[0].termsDate.split(" ");
-                       result[0].termsDate=termsDate[0];
+                       var termsDate= result[0].termsDate.split(" ")[0].split("-");
+                       result[0].termsDate=termsDate[1]+"-"+termsDate[2]+"-"+termsDate[0];//2022-02-06
+                       
                         var myForm = "";
                         myForm = document.getElementById("stepOneForm");
                         setData(myForm, result[0]);

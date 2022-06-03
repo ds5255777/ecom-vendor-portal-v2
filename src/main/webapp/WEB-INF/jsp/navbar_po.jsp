@@ -59,15 +59,15 @@
             </c:when>
             
             <c:otherwise>
-                <li class="nav-item d-none d-sm-inline-block"><a class="black-text nav-link quickHelp" data-toggle="tooltip" data-placement="bottom" title="Back" href="#" onclick="history.back()" style="padding-right: 0px;"><b style="font-size: 18px;color: #12344dd6;"><i class="fa fa-fast-backward"></i></b></a></li>
-                <li class="nav-item d-none d-sm-inline-block"> <a class="nav-link"><%=request.getParameter("pagename")%> </a>
+               <!--  <li class="nav-item d-none d-sm-inline-block"><a class="black-text nav-link quickHelp" data-toggle="tooltip" data-placement="bottom" title="Back" href="#" onclick="history.back()" style="padding-right: 0px;"><b style="font-size: 18px;color: #12344dd6;"><i class="fa fa-fast-backward"></i></b></a></li>
+            -->     <li class="nav-item d-none d-sm-inline-block"> <a class="nav-link"><%=request.getParameter("pagename")%> </a>
                
                </li><li>
 				<form>
 				<select name="list" id="list" accesskey="target"  onchange="goToNewPage()"  style="height: 34px;font-size: 17px;">
-				   <option value="">-- Please select --</option>
+				   <option value=""> -- Please select --</option>
 				    <option value="dashboard">Network Dashboard </option>
-				    <option value="dashboard_Po">Po Dashboard</option>
+				    <option value="dashboard_Po">PO Dashboard</option>
 				    
 				</select>
 				<!-- <input type=button value="Go" style="background: #007bffe0; color: white;border: thin;height: 34px; "onclick="goToNewPage()" /> -->

@@ -127,7 +127,7 @@
 											<div class="col-sm-7">
 												
 													<select class="form-control-sm select2" style="width: 100%;"
-													id="invoiceType1" name="invoiceType1" readonly>
+													id="invoiceType" name="invoiceType1" readonly>
 													<option value="Standard" readonly>Standard</option>
 													<option value="Credit Memo" readonly>Credit Memo</option>
 
@@ -199,7 +199,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-3" style="display: none;">
 										<div class="form-group row">
 											<label class="col-sm-5">Operating Unit<span
 												class="text-danger">*</span></label>
@@ -238,18 +238,29 @@
 												
 													
 												<input type="text" name="termsDate" id="termsDate"
-													 class="form-control-sm" onchange="termsDateValidate()" placeholder="DD-MM-YYYY" style="width: 100%;">
+													 class="form-control-sm" readonly="readonly" placeholder="DD-MM-YYYY" style="width: 100%;">
 											
 											</div>
 										</div>
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-3"  >
 										<div class="form-group row">
-											<label class="col-sm-5">Terms <span
+											<label class="col-sm-5">Payment / Credit
+															Terms <span
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
-												<input class="form-control-sm" name="terms" id="terms"
-													placeholder="Terms" maxlength="70" style="width: 100%;">
+												
+													<select id="terms" name="terms" style="width: 100%;" onchange="calTermsDate()"
+														class="form-control-sm select2" 
+														placeholder="Payment / Credit Terms"
+														>
+															<option value="">Select</option>
+															<c:forEach items="${payment}" var="pay">
+
+																<option value="${pay}">${pay}</option>
+															</c:forEach>
+
+													</select>
 											</div>
 										</div>
 									</div>
@@ -277,12 +288,20 @@
 												<span class="text-danger">*</span>
 											</label>
 											<div class="col-sm-7">
-												<input class="form-control-sm"
-													onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-													name="remitToBankAccountNumber"
-													id="remitToBankAccountNumber"
-													placeholder=" Remit To bank account number"
-													style="width: 100%;" maxlength="20">
+												
+													
+													<select id="remitToBankAccountNumber" name="remitToBankAccountNumber" style="width: 100%;" onchange="calTermsDate()"
+														class="form-control-sm select2" 
+														placeholder=" Remit To bank account number"
+														>
+															<option value="">Select</option>
+															<c:forEach items="${accountNumber}" var="pay">
+
+																<option value="${pay}">${pay}</option>
+															</c:forEach>
+
+													</select>
+													
 											</div>
 										</div>
 									</div>
@@ -297,62 +316,7 @@
 					</div>
 				
 
-	<div class="card card-primary">
-						<div class="card-header" style="padding: 5px 5px 0px 5px;">
-							<h4 class="card-title">Document Upload</h4>
-							<div class="card-tools">
-								<button type="button" class="btn btn-tool"
-									data-card-widget="collapse" style="margin-right: 10px;">
-									<i class="fas fa-minus"></i>
-								</button>
-							</div>
-						</div>
-						<!-- /.card-header -->
-						<div class="card-body" style="overflow: auto;">
-							<form id="stepFourForm" class="forms-sample">
-								<div class="row">
-									<div class="col-md-4">
-										<div class="form-group row">
-											<label class="col-sm-5 control-label">Upload Invoice<span
-												class="text-danger"> *</span></label>
-											<div class="col-sm-7">
-												<input type="file" id="InvoiceUpload" name="InvoiceUpload"
-													class="form-control-sm" accept=".jpg, .jpeg, .pdf"
-													onchange="handleFileSelect(event,'InvoiceFileText'), onValidateFile('InvoiceUpload')"
-													class="form-control p-input">
-												<textarea id="InvoiceFileText" name="InvoiceFileText"
-													rows="5" style="display: none;"></textarea>
-												<label><span
-													style="font-weight: 500; color: #fd7e14;">(* File
-														size Max ${fileSize} MB)</span></label>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group row">
-											<label class="col-sm-5 control-label">Summary Sheet<span
-												class="text-danger">*</span></label>
-											<div class="col-sm-7">
-												<input type="file" id="DocumentFileOne"
-													name="DocumentFileOne" class="form-control-sm"
-													accept=".pdf, .doc, .docx, .xls, .xlsx"
-													onchange="handleFileSelect(event,'DocumentFileOneText'), onValidateFileOne('DocumentFileOne')"
-													class="form-control p-input">
-												<textarea id="DocumentFileOneText"
-													name="DocumentFileOneText" rows="5" style="display: none;"></textarea>
-												<label><span
-													style="font-weight: 500; color: #fd7e14;">(* File
-														size Max ${fileSize} MB)</span></label>
-											</div>
-										</div>
-									</div>
-
-								</div>
-							</form>
-						</div>
-						<!-- /.card-body -->
-					</div>
-
+				
 
 
 					<!-- /.card -->
@@ -431,7 +395,109 @@
 								</thead>
 							</table>
 						</div>
+					</div>
 
+						<div class="card card-primary">
+						<div class="card-header" style="padding: 5px 5px 0px 5px;">
+							<h4 class="card-title">Document Upload</h4>
+							<div class="card-tools">
+								<button type="button" class="btn btn-tool"
+									data-card-widget="collapse" style="margin-right: 10px;">
+									<i class="fas fa-minus"></i>
+								</button>
+							</div>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body" style="overflow: auto;">
+							<form id="stepFourForm" class="forms-sample">
+								<div class="row">
+								
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label class="col-sm-5 control-label">Upload Invoice<span
+												class="text-danger"> *</span></label>
+											<div class="col-sm-7">
+												<input type="file" id="InvoiceUpload" name="InvoiceUpload"
+													class="form-control-sm" accept=".jpg, .jpeg, .pdf"
+													onchange="handleFileSelect(event,'InvoiceFileText'), onValidateFile('InvoiceUpload')"
+													class="form-control p-input">
+												<textarea id="InvoiceFileText" name="InvoiceFileText"
+													rows="5" style="display: none;"></textarea>
+												<label><span
+													style="font-weight: 500; color: #fd7e14;">(* File
+														size Max ${fileSize} MB)</span></label>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label class="col-sm-5 control-label">Summary Sheet<span
+												class="text-danger">*</span></label>
+											<div class="col-sm-7">
+												<input type="file" id="DocumentFileOne"
+													name="DocumentFileOne" class="form-control-sm"
+													accept=".pdf, .doc, .docx, .xls, .xlsx"
+													onchange="handleFileSelect(event,'DocumentFileOneText'), onValidateFileOne('DocumentFileOne')"
+													class="form-control p-input">
+												<textarea id="DocumentFileOneText"
+													name="DocumentFileOneText" rows="5" style="display: none;"></textarea>
+												<label><span
+													style="font-weight: 500; color: #fd7e14;">(* File
+														size Max ${fileSize} MB)</span></label>
+											</div>
+										</div>
+									</div>
+									
+							
+
+									<div class="col-md-6">
+										<div class="form-group row">
+											<label class="col-sm-3">Remarks <span
+												class="text-danger">*</span></label>
+											<div class="col-sm-6">
+												<textarea class="form-control" id="comment" name="comment"
+													rows="1" placeholder="Remarks if Any"></textarea>
+											</div>
+										</div>
+									</div>
+
+
+
+								</div>
+							</form>
+						</div>
+						<!-- /.card-body -->
+					</div>
+
+					<div class="card card-primary" style="margin-top: 1rem; ">
+						<div class="card-header" style="padding: 5px 5px 0px 5px;">
+							<h4 class="card-title">Remarks List</h4>
+							<div class="card-tools">
+								<button type="button" class="btn btn-tool"
+									data-card-widget="collapse" style="margin-right: 10px;">
+									<i class="fas fa-minus"></i>
+								</button>
+							</div>
+						</div>
+						<div class="card-body">
+							<form id="queryForm" class="forms-sample">
+								<table class="table table-bordered table-hover"
+									id="tabledataQuery">
+									<thead>
+										<tr>
+											<th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
+											<th style="padding: 5px 5px 5px 1.5rem;">Raised By</th>
+											<th style="padding: 5px 5px 5px 1.5rem;">Raised On</th>
+											<th style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
 
 
 						<center>
@@ -535,7 +601,8 @@
 	<script>
 	
 	
-	var currentDate="${invoiceDate}";
+	var currentDate="${curentDate}";
+
        
 	 $('#invoiceDate').datepicker({
          dateFormat: 'dd-mm-yy',
@@ -543,12 +610,7 @@
          changeYear: true,
          maxDate: currentDate
      });
-	  $('#termsDate').datepicker({
-         dateFormat: 'dd-mm-yy',
-         changeMonth: true,
-         changeYear: true,
-         maxDate: currentDate
-     });
+	  
 	
     var tripLineArray=[];
   
@@ -561,7 +623,8 @@
 		"info" : false,
 		"autoWidth" : false,
 		"aaSorting" : [],
-		"scrollX" : false
+		"scrollX" : false,
+		"bSort" : false
 	});
     
     var  invoiceNumber='${invoiceNumber}';
@@ -572,6 +635,68 @@
    getPoDetails();
     
     function getPoDetails() {
+    	var creidtTerms="${creidtTerms}"; 
+    	$("#terms").val(creidtTerms);
+    	
+   	 var currentDate='${curentDate}';
+ 	
+	 
+  	  var terms =  $("#terms").val();
+  	  
+  	  
+  	  if(terms=="Immediate Payments"){
+	    		
+			 var days=30;
+				  var ts = new Date(currentDate);
+				   
+				  ts.setDate(ts.getDate());
+				var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+            $("#termsDate").val(datestring);
+        	
+   	 } else if(terms=="NET 30 Days"){
+  		
+				 var days=30;
+			   var ts = new Date(currentDate);
+			   
+			  ts.setDate(ts.getDate() + days);
+			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+			
+           $("#termsDate").val(datestring);
+       	
+  	 }else if(terms=="NET 45 Days"){
+  		 
+ 				 var days=45;
+				   var ts = new Date(currentDate);
+				   
+				  ts.setDate(ts.getDate() + days);
+				var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+				
+				
+	             $("#termsDate").val(datestring);
+	         	
+	    	
+  	 }else if(terms=="NET 60 Days"){
+  		 
+				 var days=60;
+			   var ts = new Date(currentDate);
+			   
+			  ts.setDate(ts.getDate() + days);
+			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+			
+			
+           $("#termsDate").val(datestring);
+		 }else if(terms==""){
+			 $("#termsDate").val("");
+		 }
+
+   	
+  		var accountnumber="${accountnumber}";
+    	
+    	
+
+    	
+    	
+    	
 
         var obj = {
             "invoiceNumber": invoiceNumber
@@ -591,7 +716,7 @@
 
                     
                    
-                    var termsDate= result[0].termsDate;
+                   // var termsDate= result[0].termsDate;
                			
                     $('#poNumber').val(result[0].poNumber);
                     $('#supplierSite').val(result[0].supplierSite)
@@ -599,19 +724,7 @@
                     $('#vendorInvoiceNumber').val(result[0].vendorInvoiceNumber)
                      $('#remitToBankAccountNumber').val(result[0].remitToBankAccountNumber)
                         	
-        					/* if( termsDate !== undefined ){
-                              $('#termsDate').val(termsDate.split(" ")[0]);
-                              $('#termsDate').attr('readonly','readonly');
-                              } else{
-                            	  document.getElementById("termsDate").type="date"; 
-                              	
-                              } */
-        					/* if( supplierInvoiceDate !== undefined ){
-                              $('#supplierInvoiceDate').val(supplierInvoiceDate.split(" ")[0]);
-                              $('#supplierInvoiceDate').attr('readonly','readonly');
-                        }else{
-                        	document.getElementById("supplierInvoiceDate").type="date";
-                        } */
+        					
         					
           					  
                      tripLineArray=result[0].poInvoiceLine;
@@ -664,16 +777,12 @@
                     	 var date ='${curentDate}';
                     	 
                         var totalamot;
-                        var lineNumber= "<input type=\"text\" id=\"lineNumber_"+i+"\" readonly style=\"width: 100%; height: 28px;\" value=\"" + tripLineArray[i].lineNumber + "\"  class=\"form-control-sm \" \"> ";
+                        var lineNumber= "<input type=\"text\" id=\"lineNumber_"+i+"\" readonly style=\"width: 80px; height: 28px;\" value=\"" + tripLineArray[i].lineNumber + "\"  class=\"form-control-sm \" \"> ";
 
-                      //  var receipentLine= "<input type=\"text\" id=\"receipentLine_"+i+"\" maxlength=\"40\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('receiptline','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
-                        var description= "<input type=\"text\" id=\"description_"+i+"\" readonly style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('description','"+i+"',this.value)\" value=\"" + tripLineArray[i].description + "\" class=\"form-control-sm \" \"> ";
-                      //  var lineType= "<input type=\"text\" id=\"lineType_"+i+"\" maxlength=\"40\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('lineType','"+i+"',this.value)\"  class=\"form-control-sm \" \"> ";
-                      //  var poline= "<input type=\"text\" id=\"poline_"+i+"\" maxlength=\"40\" oninput=\"updatePOLineItem('poline','"+i+"',this.value)\" style=\"width: 70px; height: 28px;\" class=\"form-control-sm \" \"> ";
-                      //  var glDate= "<input type=\"date\" id=\"glDate_"+i+"\" max=\""+date+"\" oninput=\"updatePOLineItem('gldate','"+i+"',this.value)\" style=\"width: 100px; height: 28px;\" class=\"form-control-sm \" \"> ";
-                        var remaningQuantity= "<input type=\"text\" readonly id=\"remaningQuantity_"+i+"\" style=\"width: 100%; height: 28px;\" class=\"form-control-sm \" \"> ";
-                        var quantity= "<input type=\"text\" readonly style=\"width: 100px; height: 28px;\" value=\"" + remaningQuat + "\" class=\"form-control-sm \" \"> ";
-                        var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" maxlength=\"40\" onkeypress=\"return event.charCode >= 48 && event.charCode <= 57  \" style=\"width: 100%; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+                        var description= "<input type=\"text\" id=\"description_"+i+"\" readonly style=\"width: 300px; height: 28px;\" oninput=\"updatePOLineItem('description','"+i+"',this.value)\" value=\"" + tripLineArray[i].description + "\" class=\"form-control-sm \" \"> ";
+                        var remaningQuantity= "<input type=\"text\" readonly id=\"remaningQuantity_"+i+"\" style=\"width: 120px; height: 28px;\" class=\"form-control-sm \" \"> ";
+                        var quantity= "<input type=\"text\" readonly style=\"width: 80px; height: 28px;\" value=\"" + remaningQuat + "\" class=\"form-control-sm \" \"> ";
+                        var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" maxlength=\"40\" onkeypress=\"return event.charCode >= 48 && event.charCode <= 57  \" style=\"width: 120px; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
                         var unitPrice= "<input type=\"text\" id=\"unitPrice_"+i+"\" readonly style=\"width: 100px; height: 28x;\" value=\"" + tripLineArray[i].unitPrice + "\"  class=\"form-control-sm \" \"> ";
                         var uom= "<input type=\"text\" value=\"" +  tripLineArray[i].uom + "\" id=\"uom_"+i+"\" oninput=\"updatePOLineItem('uom','"+i+"',this.value)\" maxlength=\"40\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
                         var taxAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"  id=\"tax_"+i+"\" class=\"form-control-sm \" \"> ";
@@ -808,16 +917,12 @@
         	 var date ='${curentDate}';
 
             var totalamot;
-            var lineNumber= "<input type=\"text\" id=\"lineNumber_"+i+"\" readonly style=\"width: 100%; height: 28px;\" value=\"" + tripLineArray[i].lineNumber + "\"  class=\"form-control-sm \" \"> ";
+            var lineNumber= "<input type=\"text\" id=\"lineNumber_"+i+"\" readonly style=\"width: 80px; height: 28px;\" value=\"" + tripLineArray[i].lineNumber + "\"  class=\"form-control-sm \" \"> ";
 
-        //    var receipentLine= "<input type=\"text\" id=\"receipentLine_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('receiptline','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
-            var description= "<input type=\"text\" id=\"description_"+i+"\" readonly style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('description','"+i+"',this.value)\" value=\"" + tripLineArray[i].description + "\" class=\"form-control-sm \" \"> ";
-        //    var lineType= "<input type=\"text\" id=\"lineType_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatePOLineItem('lineType','"+i+"',this.value)\"  class=\"form-control-sm \" \"> ";
-         //   var poline= "<input type=\"text\" id=\"poline_"+i+"\" oninput=\"updatePOLineItem('poline','"+i+"',this.value)\" style=\"width: 70px; height: 28px;\" class=\"form-control-sm \" \"> ";
-         //   var glDate= "<input type=\"date\" id=\"glDate_"+i+"\" max=\""+date+"\" oninput=\"updatePOLineItem('gldate','"+i+"',this.value)\" style=\"width: 100px; height: 28px;\" class=\"form-control-sm \" \"> ";
-            var remaningQuantity= "<input type=\"text\" readonly id=\"remaningQuantity_"+i+"\" style=\"width: 100%; height: 28px;\" class=\"form-control-sm \" \"> ";
+            var description= "<input type=\"text\" id=\"description_"+i+"\" readonly style=\"width: 300px; height: 28px;\" oninput=\"updatePOLineItem('description','"+i+"',this.value)\" value=\"" + tripLineArray[i].description + "\" class=\"form-control-sm \" \"> ";
+            var remaningQuantity= "<input type=\"text\" readonly id=\"remaningQuantity_"+i+"\" style=\"width: 120px; height: 28px;\" class=\"form-control-sm \" \"> ";
             var quantity= "<input type=\"text\" readonly style=\"width: 100px; height: 28px;\" value=\"" +  tripLineArray[i].quantity + "\" class=\"form-control-sm \" \"> ";
-            var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" style=\"width: 100%; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+            var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" style=\"width: 120px; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
             var unitPrice= "<input type=\"text\" id=\"unitPrice_"+i+"\" readonly style=\"width: 100px; height: 28x;\" value=\"" + tripLineArray[i].unitPrice + "\"  class=\"form-control-sm \" \"> ";
             var uom= "<input type=\"text\" value=\"" +  tripLineArray[i].uom + "\" id=\"uom_"+i+"\" oninput=\"updatePOLineItem('uom','"+i+"',this.value)\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
             var taxAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"  id=\"tax_"+i+"\" class=\"form-control-sm \" \"> ";
@@ -976,19 +1081,7 @@
           return "";
       }
 		
-  	
   
-		
-		
-		var invoiceNu3 = document.getElementById("termsDate").value;
-		if (invoiceNu3 === "" || invoiceNu3 === null || invoiceNu3 === '') {
-          Toast.fire({
-              type: 'error',
-              title: 'Terms Date is Mandatory !'
-          });
-          document.getElementById("termsDate").focus();
-          return "";
-      }
 		var invoiceNu4 = document.getElementById("terms").value;
 		if (invoiceNu4 === "" || invoiceNu4 === null || invoiceNu4 === '') {
           Toast.fire({
@@ -1041,11 +1134,10 @@
 		  	}
 		 
          var stepOneObj = FormDataToJSON('stepOneForm');
-        var stepTwoForm = FormDataToJSON('stepTwoForm');
 
         const finalObj = {
-            ...stepOneObj,
-            ...stepTwoForm
+            ...stepOneObj
+           
         };
 	console.log();
     
@@ -1067,6 +1159,8 @@
  
      
      console.log(finalObj);
+    
+     
 	 flag=0;
      if(count==0){
      	flag=1;
@@ -1103,32 +1197,21 @@
      finalObj.grossTotalAmt=tripLineArray.grossTotalAmt;
      finalObj.invoiceDate=invoiceDate;
      
-     finalObj.glDate;
-     finalObj.termsDate;
-    finalObj.supplierInvoiceDate;
+     //finalObj.glDate;
+  
+  
      
-     
-   
-     	
-    	 var glDate=  $('#glDate').val().split(" ");
-    	 
-    	 finalObj.glDate=glDate[0];
-		
+ 
 		
 		var termsDate=   $('#termsDate').val().split(" ");
         
 		  finalObj.termsDate=termsDate[0];
          	
-        
-		
-       	 var supplierInvoiceDate=  $('#supplierInvoiceDate').val().split(" ");
-         
-  
-       	 finalObj.supplierInvoiceDate=supplierInvoiceDate[0];
-  
-     
-    
-		
+		   var terrDAte=$("#termsDate").val();
+	        
+	        var ts = new Date(terrDAte);
+	        
+	        finalObj.termsDate=ts;
         
         console.log(finalObj);
 
@@ -1147,7 +1230,7 @@
 			            success: function(response) {
 			
 			            	 if (response.msg == 'success') {
-			                     swal.fire("Thanks", "Invoice Process Sucessfully", "success", "OK").then(function() {
+			                     swal.fire("Invoice Process Sucessfully", "Invoice Number : ${invoiceNumber} "  , "success", "OK").then(function() {
 			                    	 window.opener.refereshList();
 			                         window.close();
 			                     });
@@ -1173,10 +1256,12 @@
 
 
 			var poLineArray=[];
+			var descriptionArray=[];
 			function inactiveActiveDeleteData(indexc){
 	  
 	
 				  lineNumberArray.push(tripLineArray[indexc].lineNumber);
+				  descriptionArray.push(tripLineArray[indexc].description);
 				  
 				  for(var i=0; i<lineNumberArray.length; i++){
 					  
@@ -1184,7 +1269,7 @@
 				  $('#tripList').append($('<option/>').attr("value","").text("Select Line Number"));
 				  for(var k=0; k<lineNumberArray.length; k++){
 					  
-				  $('#tripList').append($('<option value="' + k + '" />').attr("value",lineNumberArray[k]).text(lineNumberArray[k]));
+				  $('#tripList').append($('<option value="' + k + '" />').attr("value",lineNumberArray[k]).text(descriptionArray[k]));
 				  
 				  }
 				  }  
@@ -1292,7 +1377,59 @@
          return ;
      }  
  }
-    
+
+ function calTermsDate(){
+	  var currentDate='${curentDate1}';
+	
+	 
+	  var terms =  $("#terms").val();
+	  
+	  
+	  if(terms=="Immediate Payments"){
+ 		
+		 var days=30;
+			  var ts = new Date(currentDate);
+			   
+			  ts.setDate(ts.getDate());
+			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+         $("#termsDate").val(datestring);
+     	
+	 } else if(terms=="NET 30 Days"){
+		
+			 var days=30;
+		   var ts = new Date(currentDate);
+		   
+		  ts.setDate(ts.getDate() + days);
+		var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+		
+        $("#termsDate").val(datestring);
+    	
+	 }else if(terms=="NET 45 Days"){
+		 
+				 var days=45;
+			   var ts = new Date(currentDate);
+			   
+			  ts.setDate(ts.getDate() + days);
+			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+			
+			
+            $("#termsDate").val(datestring);
+        	
+   	
+	 }else if(terms=="NET 60 Days"){
+		 
+			 var days=60;
+		   var ts = new Date(currentDate);
+		   
+		  ts.setDate(ts.getDate() + days);
+		var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+		
+		
+        $("#termsDate").val(datestring);
+	 }else if(terms==""){
+		 $("#termsDate").val("");
+	 }
+ }
     </script>
 </body>
 

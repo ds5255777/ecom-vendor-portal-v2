@@ -428,6 +428,72 @@
 							</form>
 						</div>
 					</div>
+					
+					 <div class="row" >
+						<div class="col-md-3"></div>
+							<div class="col-md-2" "
+								id="viewAttachmentDiv">
+								<button type="button" id="viewAttachment"
+									onclick="displayAttachmentForPoDetails()" value="viewAttachment"
+									class="btn btn-primary btn-lg">View Attachments</button>
+							</div>
+							<div class="col-md-1" style="    margin-left: -102px;">
+								<button type="button" onclick="closeWin()"
+									class="btn btn-info btn-lg">Close</button>
+							</div>
+					</div>
+					
+					<div class="modal fade" id="viewAttachmentPopUp" role="dialog">
+        <div class="modal-dialog " style="max-width: 1300px;">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container-fluid panel1">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row innerRow">
+                                    
+                                    
+                                    <div class="col-md-8">
+                                       <div class="form-group">
+                                            <label>Document Name</label>
+                                            <select class="form-control" id="multipleAttachment" style="height: 35px;" >
+                                                
+                                            </select>
+                                             
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-3" style="display: none" id="uploadeddateDiv">
+                                        <div class="form-group">
+                                            <label>Uploaded Date</label>
+                                            <input type="text" class="form-control" id="uploadeddate" style="height: 35px;" readonly>                                               
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid panel2">
+                        <div class="row">                            
+                            <div class="col-lg-12" style="height: 400px;">
+                            <a id="ifrmameHref"   target="_blank">Click Here to open doc in new window</a>
+                                <iframe id="pdfLink" style="height:100%; width:100%"  ></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+					
+					
+					
+					
+					
 				</div>
 
 
@@ -744,6 +810,77 @@
 
         }
        
+        function displayAttachmentForPoDetails(){
+			
+			 $('#multipleAttachment').empty();
+			 var invoiceNumber = '${invoiceNo}';
+			 
+			 var obj ={
+						"foreignKey": invoiceNumber,
+						"type": "Invoice"
+				}
+				
+				$.ajax({
+					type : "POST",
+					url : "<%=GlobalUrl.getDocumentByTypeAndForeignKey%>",
+					data :JSON.stringify(obj),
+					dataType : "json",
+					contentType : "application/json",
+					success : function(response) {
+						if (response.msg == "success") {
+						
+							if("data" in response){
+							
+								var result = response.data;												
+								
+								$('#multipleAttachment').append($('<option/>').attr("value", '').text("Select"));
+								
+								for (var i = 0; i < result.length; i++) {																						
+									$('#multipleAttachment').append($('<option/>').attr("value", result[i].docPath).text(result[i].docName));			
+								}
+								$("#viewAttachmentPopUp").modal('show');
+								
+							}else{
+								Toast.fire({
+									type : 'error',
+									title : 'Attachment Not Available..'
+								})
+							}
+						} else {
+							Toast.fire({
+								type : 'error',
+								title : 'Failed ..'
+							})
+						}
+					},
+					error : function(jqXHR, textStatue, errorThrown) {
+						
+						Toast.fire({
+							type : 'error',
+							title : 'Failed Added try again..'
+						})
+
+					}
+				}); 								 
+			}
+		
+		 $("#multipleAttachment").change(function () {
+			 
+			 $("#pdfLink").contents().find("body").html(" ");
+			    var fileName = $("#multipleAttachment option:selected").text();
+			    
+			    console.log("fileName from drop down >> " + fileName);
+				var filePath = $("#multipleAttachment").val();
+			    
+				 fileName = encodeURIComponent(fileName);
+			     filePath = encodeURIComponent(filePath);
+					var urlpath = "getDoc" + "?name=" + fileName+ "&path=" + filePath;
+
+					$('#pdfLink').attr('src', urlpath);
+					$('#ifrmameHref').attr('href', urlpath);
+
+				});
+
         
     </script>
 </body>

@@ -127,7 +127,7 @@
 											<div class="col-sm-7">
 												
 													<select class="form-control-sm select2" style="width: 100%;"
-													id="invoiceType" name="invoiceType1" readonly>
+													id="invoiceType" name="invoiceType" readonly>
 													<option value="Standard" readonly>Standard</option>
 													<option value="Credit Memo" readonly>Credit Memo</option>
 
@@ -1236,6 +1236,16 @@
         
         console.log(finalObj);
 
+        if (document.getElementById("InvoiceUpload").files.length > 0) {
+            finalObj.invoiceFileName = document.getElementById("InvoiceUpload").files.item(0).name;
+            finalObj.invoiceFileText = $("#InvoiceFileText").val();
+        }
+        if (document.getElementById("DocumentFileOne").files.length > 0) {
+            finalObj.documentFileOneName = document.getElementById("DocumentFileOne").files.item(0).name;
+            finalObj.documentFileOneText = $("#DocumentFileOneText").val();
+        }
+ 
+        
 		     if(count==0){
 		     	swal.fire("Alert", "Expired PO Please Delete", "warning");
 		     	 return "";

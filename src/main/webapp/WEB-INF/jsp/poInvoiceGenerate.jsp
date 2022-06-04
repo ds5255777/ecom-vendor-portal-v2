@@ -1361,7 +1361,7 @@
     	        finalObj.poInvoiceLine=tripLineArray;
     	        
     	        var invoDate=$("#invoiceDate").val();
-    	        alert(invoDate);
+    	       
     	        var ts = new Date(invoDate);
     	        
     	        finalObj.termsDate=ts;

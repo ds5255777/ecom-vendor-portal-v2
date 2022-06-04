@@ -410,7 +410,7 @@
                     <!-- /.card -->
                     <center>
                         <div class="form-group">
-                            <label style="visibility: hidden;">Select </label> <br>
+                            
                             <button type="button" class="btn btn-primary" id="closeModal" onclick="closeWin()">Close</button>
                             
                              <c:choose>

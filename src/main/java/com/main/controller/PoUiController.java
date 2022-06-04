@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.main.db.bpaas.entity.AccountDetails;
 import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.SupDetails;
+import com.main.db.bpaas.entity.User;
 import com.main.serviceManager.ServiceManager;
 
 @Controller
@@ -34,6 +35,73 @@ public class PoUiController {
 	@Autowired
 	private ServiceManager serviceManager;
 
+	@GetMapping("/dashboard_Po")
+	public String dashboard_Po(Model model, Principal principal, HttpServletRequest request) {
+
+		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
+		User us = serviceManager.userService.findByUsername(principal.getName());
+		if (bpCode == "" || bpCode == null) {
+			bpCode = "";
+		}
+
+		String vendorType = serviceManager.supDetailsRepo.findVendorType(bpCode);
+		if (vendorType == "" || vendorType == null) {
+			vendorType = "vendor";
+		}
+		System.out.println("vendorType in dashboard : " + vendorType);
+
+
+
+		
+		
+
+			if (vendorType.equalsIgnoreCase("Fixed Asset")) {
+				String rolename = (String) request.getSession().getAttribute("role");
+				String vendorCode = (String) request.getSession().getAttribute("userName");
+				System.out.println("vendor type : " + vendorType);
+
+				 rolename = (String) request.getSession().getAttribute("role");
+				 vendorCode = (String) request.getSession().getAttribute("userName");
+
+				
+
+				// po Details
+				int totalAllPoCount = serviceManager.podetailsRepo.getAllPoCount(vendorCode);
+				model.addAttribute("totalAllPoCount", totalAllPoCount);
+
+				int totalProcessPoCount = serviceManager.podetailsRepo.getAllProcessPoCount(vendorCode);
+				model.addAttribute("totalProcessPoCount", totalProcessPoCount);
+				System.out.println("totalProcessPoCount : " + totalProcessPoCount);
+				int totalUnprocessPOCount = serviceManager.podetailsRepo.getAllUnProcessPoCount(vendorCode);
+				model.addAttribute("totalUnprocessPOCount", totalUnprocessPOCount);
+				// Query
+				int totalQueryCount = serviceManager.podetailsRepo.getAllQueryCount(vendorCode);
+				model.addAttribute("totalQueryCount", totalQueryCount);
+
+				// Query
+				int totalInvoiceCount = serviceManager.poinvoiceRepo.getAllInvoiceCount(vendorCode);
+				model.addAttribute("totalInvoiceCount", totalInvoiceCount);
+
+				int allPOcount = serviceManager.poinvoiceRepo.getAllPOcount(vendorCode);
+				model.addAttribute("allPOcount", allPOcount);
+
+				int totalDraftInvoiceCount = serviceManager.poinvoiceRepo.getTotalDraftInvoiceCount(vendorCode);
+				model.addAttribute("totalDraftInvoiceCount", totalDraftInvoiceCount);
+
+				model.addAttribute("userStatus", us.getStatus());
+				model.addAttribute("dataLimit", dataLimit);
+
+				System.out.println("end of dashboard_Po");
+
+				if (rolename.equalsIgnoreCase("Vendor")) {
+
+					return "dashboard_Po";
+
+				}
+			}
+		
+		return "";
+	}
 
 	@GetMapping("/allPO")
 	public String allPo(Model model, Principal principal, HttpServletRequest request) {

@@ -90,6 +90,22 @@ public class SupDetails {
 	@Column(name = "tds_rate")
 	private String tdsRate;
 
+	/* itr last three year */
+	@Column(name = "fy_year1")
+	private String fyYear1;
+	@Column(name = "acknowledgement_number1")
+	private String acknowledgementNumber1;
+
+	@Column(name = "fy_year2")
+	private String fyYear2;
+	@Column(name = "acknowledgement_number2")
+	private String acknowledgementNumber2;
+
+	@Column(name = "fy_year3")
+	private String fyYear3;
+	@Column(name = "acknowledgement_number3")
+	private String acknowledgementNumber3;
+
 	@OneToMany(targetEntity = AccountDetails.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "sa_fk", referencedColumnName = "id")
 	private List<AccountDetails> accountDetails;
@@ -102,9 +118,11 @@ public class SupDetails {
 	@JoinColumn
 	private List<ContactDetails> contactDetails;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn
-	private List<ItrDetails> itrDetails;
+	/*
+	 * @OneToMany(cascade = CascadeType.ALL)
+	 * 
+	 * @JoinColumn private List<ItrDetails> itrDetails;
+	 */
 
 	/*
 	 * @OneToMany(cascade = CascadeType.ALL)
@@ -450,14 +468,6 @@ public class SupDetails {
 		this.contactDetails = contactDetails;
 	}
 
-	public List<ItrDetails> getItrDetails() {
-		return itrDetails;
-	}
-
-	public void setItrDetails(List<ItrDetails> itrDetails) {
-		this.itrDetails = itrDetails;
-	}
-
 	public String getGstFileText() {
 		return gstFileText;
 	}
@@ -681,7 +691,53 @@ public class SupDetails {
 	public void setItraFileName3(String itraFileName3) {
 		this.itraFileName3 = itraFileName3;
 	}
-	
-	
+
+	public String getFyYear1() {
+		return fyYear1;
+	}
+
+	public void setFyYear1(String fyYear1) {
+		this.fyYear1 = fyYear1;
+	}
+
+	public String getAcknowledgementNumber1() {
+		return acknowledgementNumber1;
+	}
+
+	public void setAcknowledgementNumber1(String acknowledgementNumber1) {
+		this.acknowledgementNumber1 = acknowledgementNumber1;
+	}
+
+	public String getFyYear2() {
+		return fyYear2;
+	}
+
+	public void setFyYear2(String fyYear2) {
+		this.fyYear2 = fyYear2;
+	}
+
+	public String getAcknowledgementNumber2() {
+		return acknowledgementNumber2;
+	}
+
+	public void setAcknowledgementNumber2(String acknowledgementNumber2) {
+		this.acknowledgementNumber2 = acknowledgementNumber2;
+	}
+
+	public String getFyYear3() {
+		return fyYear3;
+	}
+
+	public void setFyYear3(String fyYear3) {
+		this.fyYear3 = fyYear3;
+	}
+
+	public String getAcknowledgementNumber3() {
+		return acknowledgementNumber3;
+	}
+
+	public void setAcknowledgementNumber3(String acknowledgementNumber3) {
+		this.acknowledgementNumber3 = acknowledgementNumber3;
+	}
 
 }

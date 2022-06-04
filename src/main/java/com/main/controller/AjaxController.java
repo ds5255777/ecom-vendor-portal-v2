@@ -262,15 +262,14 @@ public class AjaxController {
 				json.put("sd_INV_PREVALIDATED", "");
 				json.put("hd_Adhaar", supDetails.getAadharNumber());
 				json.put("hd_Adhaar_LinkStatus", supDetails.getAdharLinkStatus());
-				if (supDetails.getItrDetails().size() < 3) {
-				} else {
-					json.put("itr_Ack_No_1", supDetails.getItrDetails().get(0).getAcknowledgementNumber());
-					json.put("itr_Ack_No_2", supDetails.getItrDetails().get(1).getAcknowledgementNumber());
-					json.put("itr_Ack_No_3", supDetails.getItrDetails().get(2).getAcknowledgementNumber());
-					json.put("itr_year1", supDetails.getItrDetails().get(0).getFyYear());
-					json.put("itr_year2", supDetails.getItrDetails().get(1).getFyYear());
-					json.put("itr_year3", supDetails.getItrDetails().get(2).getFyYear());
-				}
+				
+					json.put("itr_Ack_No_1", supDetails.getAcknowledgementNumber1());
+					json.put("itr_Ack_No_2", supDetails.getAcknowledgementNumber2());
+					json.put("itr_Ack_No_3", supDetails.getAcknowledgementNumber3());
+					json.put("itr_year1", supDetails.getFyYear1());
+					json.put("itr_year2", supDetails.getFyYear2());
+					json.put("itr_year3", supDetails.getFyYear3());
+				
 				json.put("typeofRequest", "");
 				json.put("business_classification", supDetails.getBusinessClassification());
 				json.put("certificate_no", "");
@@ -334,7 +333,7 @@ public class AjaxController {
 					
 					conn.setDoOutput(true);
 					OutputStream os = conn.getOutputStream();
-					//logger.info(":::::::::JSON:::::::::::" + json.toString());
+					logger.info(":::::::::JSON:::::::::::" + json.toString());
 					os.write(json.toString().getBytes());
 					os.flush();
 					if (conn.getResponseCode() != 200) {

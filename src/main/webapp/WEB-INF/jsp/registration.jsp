@@ -151,7 +151,37 @@
                  	  
                 	   swal.fire("Alert", "TDS Rate is mandatory", "warning")
                        .then((value) => {});
-                   }else  if(controlName=="ITRFile1"){
+                   }
+                	 
+              	else  if(controlName=="fyYear1"){
+              	  
+                	   swal.fire("Alert", "Financial Year is mandatory", "warning")
+                       .then((value) => {});
+                   }else  if(controlName=="fyYear2"){
+              	  
+                	   swal.fire("Alert", "Financial Year is mandatory", "warning")
+                       .then((value) => {});
+                   }else  if(controlName=="fyYear3"){
+              	  
+                	   swal.fire("Alert", "Financial Year is mandatory", "warning")
+                       .then((value) => {});
+                   }
+                	 
+              	else  if(controlName=="acknowledgementNumber1"){
+              	  
+                	   swal.fire("Alert", "Acknowledgement Number is mandatory", "warning")
+                       .then((value) => {});
+                   } else  if(controlName=="acknowledgementNumber2"){
+                    	  
+                   	   swal.fire("Alert", "Acknowledgement Number is mandatory", "warning")
+                          .then((value) => {});
+                      }else  if(controlName=="acknowledgementNumber3"){
+                    	  
+                      	   swal.fire("Alert", "Acknowledgement Number is mandatory", "warning")
+                             .then((value) => {});
+                         }
+              	 
+              	 else  if(controlName=="ITRFile1"){
                     	  
                    	   swal.fire("Alert", "ITR File is mandatory", "warning")
                           .then((value) => {});
@@ -168,7 +198,7 @@
                 	 
               	else  if(controlName=="GSTFile"){
                	  
-             	   swal.fire("Alert", "GST File is mandatory", "warning")
+             	   swal.fire("Alert", "GST Certificate is mandatory", "warning")
                     .then((value) => {});
                 }
               	else  if(controlName=="PDFile"){
@@ -178,17 +208,17 @@
                  }
               	else  if(controlName=="PANFile"){
                  	  
-              	   swal.fire("Alert", "PAN File is mandatory", "warning")
+              	   swal.fire("Alert", "PAN Card is mandatory", "warning")
                      .then((value) => {});
                  }
               	else  if(controlName=="CCFile"){
                	  
-               	   swal.fire("Alert", "Cancel  is mandatory", "warning")
+               	   swal.fire("Alert", "Cancelled Cheque/ Passbook/ Bank Statemen  is mandatory", "warning")
                       .then((value) => {});
                   }
               	else  if(controlName=="ITRFile"){
                	  
-               	   swal.fire("Alert", "ITR File is mandatory", "warning")
+               	   swal.fire("Alert", "ITR Filling Declaration is mandatory", "warning")
                       .then((value) => {});
                   }
               	else  if(controlName=="FUVFFile"){
@@ -198,7 +228,7 @@
                   }
               	else  if(controlName=="MSMECFile"){
                	  
-               	   swal.fire("Alert", "MSME File is mandatory", "warning")
+               	   swal.fire("Alert", "MSME Certificate is mandatory", "warning")
                       .then((value) => {});
                   }
               	else  if(controlName=="AMFile"){
@@ -260,7 +290,7 @@
                         	    }
                         	   } 
                         	   else{
-                        		  var mandFields = "suppName,compEmail";
+                        		  var mandFields = "suppName,compEmail,ITRFile1,ITRFile2,ITRFile3";
                                   var mandFieldsArr = mandFields.split(",");
                                   for (i = 0; i < mandFieldsArr.length; i++) {
                                       console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
@@ -438,9 +468,8 @@
                 
                    
 
-                if ($("#tdsApplication").val() == "Yes") {
-
-                    var mandFields = "tdsSection,tdsRate";
+                /* if ($("#tdsApplication").val() == "Yes") {*/
+                    var mandFields = "tdsSection,tdsRate,fyYear1,acknowledgementNumber1,ITRFile1,fyYear2,acknowledgementNumber2,ITRFile2,fyYear3,acknowledgementNumber3,ITRFile3";
                     var mandFieldsArr = mandFields.split(",");
                     for (i = 0; i < mandFieldsArr.length; i++) {
                         console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
@@ -450,7 +479,7 @@
                             return false;
                         }
                     }
-                }
+                /* } */
             }
         }
         
@@ -1669,7 +1698,7 @@ label {
 												<tbody>
 													<tr class="">
 													<td><label>Select Financial Year</label> </td>
-														<td><select id="fyYear" class="form-control p-input ">
+														<td><select id="fyYear1" name="fyYear1" class="form-control p-input ">
 																<option value="">Select</option>
 
 																<c:forEach items="${financialYear}" var="fin">
@@ -1679,8 +1708,8 @@ label {
 
 														</select></td>
 														<td><label>Fill Acknowledgement Number</label> </td>
-														<td><input type="text" id="acknowledgementNumber"
-															name="acknowledgementNumber"
+														<td><input type="text" id="acknowledgementNumber1"
+															name="acknowledgementNumber1"
 															class="form-control p-input "></td>
 														<td><input type="file" id="ITRFile1" name="ITRFile1" placeholder="Fill Acknowledgement Number"
 															onchange="handleFileSelect(event,'ITRFileText1'), onValidateFile('ITRFile1')"
@@ -1692,7 +1721,7 @@ label {
 													</tr>
 													<tr class="">
 														<td><label>Select Financial Year</label> </td>
-														<td><select id="fyYear" class="form-control p-input ">
+														<td><select id="fyYear2" name="fyYear2" class="form-control p-input ">
 																<option value="">Select</option>
 
 																<c:forEach items="${financialYear}" var="fin">
@@ -1702,8 +1731,8 @@ label {
 
 														</select></td>
 														<td><label>Fill Acknowledgement Number</label> </td>
-														<td><input type="text" id="acknowledgementNumber"
-															name="acknowledgementNumber"
+														<td><input type="text" id="acknowledgementNumber2"
+															name="acknowledgementNumber2"
 															class="form-control p-input "></td>
 														<td><input type="file" id="ITRFile2" name="ITRFile2" placeholder="Fill Acknowledgement Number"
 															onchange="handleFileSelect(event,'ITRFileText2'), onValidateFile('ITRFile2')"
@@ -1715,7 +1744,7 @@ label {
 													</tr>
 													<tr class="">
 													<td><label>Select Financial Year</label> </td>
-														<td><select id="fyYear" class="form-control p-input ">
+														<td><select id="fyYear3" name="fyYear3" class="form-control p-input ">
 																<option value="">Select</option>
 
 																<c:forEach items="${financialYear}" var="fin">
@@ -1725,8 +1754,8 @@ label {
 
 														</select></td>
 														<td><label>Fill Acknowledgement Number</label> </td>
-														<td><input type="text" id="acknowledgementNumber"
-															name="acknowledgementNumber"
+														<td><input type="text" id="acknowledgementNumber3"
+															name="acknowledgementNumber3"
 															class="form-control p-input "></td>
 														<td><input type="file" id="ITRFile3" name="ITRFile1" placeholder="Fill Acknowledgement Number"
 															onchange="handleFileSelect(event,'ITRFileText3'), onValidateFile('ITRFile1')"
@@ -1738,24 +1767,6 @@ label {
 													</tr>
 												</tbody>
 											</table>
-											<!-- <div class="card-body">
-												<div class="table-responsive"
-													style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-													<table class="table center-aligned-table" id="addITRGrid"
-														name="addITRGrid">
-														<thead>
-															<tr style="background: #1991eb; color: white;">
-																<th>Financial Year</th>
-																<th>Acknowledgement Number</th>
-																<th>ITR Document</th>
-																<th>Action</th>
-															</tr>
-														</thead>
-														<tbody>
-														</tbody>
-													</table>
-												</div>
-											</div> -->
 										</form>
 									</div>
 								</div>
@@ -2196,7 +2207,7 @@ label {
             }
         });
 
-        $("#addITRGridButt").click(function() {
+       /*  $("#addITRGridButt").click(function() {
             var abc = document.getElementById('fyYear').value;
             var abc1 = document.getElementById('acknowledgementNumber').value;
             var abc2 =  document.getElementById('ITRAFile').value; 
@@ -2223,7 +2234,7 @@ label {
                
 
             }
-        });
+        }); */
 
         function sendToServer() {
         	$('.loader').show();
@@ -2296,16 +2307,16 @@ label {
 
             var step1Obj = FormDataToJSON('stepOneForm');
             var step6Obj = FormDataToJSON('stepSixForm');
-            //var step8Obj = FormDataToJSON('StepEightForm');
             var step7Obj = FormDataToJSON('stepSevenForm');
             var step8Obj=FormDataToJSON('StepEightForm');
-
+            console.log("Final object in form 8 : ",step8Obj);
             const finalObj = {
                 ...step1Obj,
                 ...step6Obj,
                 ...step7Obj,
                 ...step8Obj
             };
+            console.log("Final object in form : ",finalObj);
             finalObj.accountDetails = accountDetailsArray;
             finalObj.addressDetails = addressDetailsArray;
             finalObj.contactDetails = contactDetailsArray;
@@ -2454,7 +2465,7 @@ label {
                     //Converting Binary Data to base 64
                     var base64String = window.btoa(binaryData);
                     //showing file converted to base64
-                    console.log(base64String);
+                    //console.log(base64String);
 
                     $("#" + id).val(base64String);
 

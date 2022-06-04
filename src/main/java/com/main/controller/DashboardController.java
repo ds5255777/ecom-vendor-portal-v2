@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,8 +44,8 @@ public class DashboardController {
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
-	@RequestMapping({ "getDashboardDetails" })
-	@CrossOrigin("*")
+	@PostMapping({ "getDashboardDetails" })
+	
 	public String getDashBoardDetails(@RequestBody TripDetails reqObj, HttpSession session,
 			HttpServletRequest request) {
 		DataContainer data = new DataContainer();

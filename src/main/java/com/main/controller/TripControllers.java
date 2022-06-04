@@ -17,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,7 +48,7 @@ public class TripControllers {
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(TripControllers.class);
 
-	@RequestMapping({ "filterTripDetails" })
+	@GetMapping({ "filterTripDetails" })
 	@CrossOrigin("*")
 	public String filterTripDetails(Principal principal, HttpServletRequest request,
 			@RequestParam(name = "actualDeparture") String fromDate,
@@ -85,7 +87,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "filterTripDetailsByNetwork" })
+	@PostMapping({ "filterTripDetailsByNetwork" })
 	@CrossOrigin("*")
 	public String filterTripDetailsByNetwork(Principal principal, HttpServletRequest request,
 			@RequestParam(name = "actualDeparture") String fromDate,
@@ -107,7 +109,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getCloseTripsDetails" })
+	@PostMapping({ "/getCloseTripsDetails" })
 	@CrossOrigin("*")
 	public String getCloseTripsDetails(Principal principal, HttpServletRequest request) {
 		DataContainer data = new DataContainer();
@@ -125,7 +127,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllTripsDetails" })
+	@PostMapping({ "/getAllTripsDetails" })
 	@CrossOrigin("*")
 	public String getAllTripsDetails(Principal principal, HttpServletRequest request) {
 		String rolename = (String) request.getSession().getAttribute("role");
@@ -164,7 +166,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getCloseAndApprovedTripsDetails" })
+	@PostMapping({ "/getCloseAndApprovedTripsDetails" })
 	@CrossOrigin("*")
 	public String getCloseAndApprovedTripsDetails(Principal principal, HttpServletRequest request) {
 
@@ -182,7 +184,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getInTransitTripsDetails" })
+	@PostMapping({ "/getInTransitTripsDetails" })
 	@CrossOrigin("*")
 	public String getInTransitTripsDetails(Principal principal, HttpServletRequest request) {
 		String vendorCode = principal.getName();
@@ -199,7 +201,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping(value = "/statusNetwork", method = RequestMethod.POST)
+	@PostMapping(value = "/statusNetwork")
 	@CrossOrigin("*")
 	public String statusNetwork(@RequestBody TripDetails obj) throws UnsupportedEncodingException, MessagingException {
 		DataContainer data = new DataContainer();
@@ -222,7 +224,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/updateVendorTripStatusByTripId" })
+	@PostMapping({ "/updateVendorTripStatusByTripId" })
 	@CrossOrigin("*")
 	public String getApprovePendingApprovelTripsDetails(HttpServletRequest request, @RequestBody TripDetails tripObj) {
 
@@ -242,7 +244,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/updateVendorTripStatusAndOpenCloseReadingByTripId" })
+	@PostMapping({ "/updateVendorTripStatusAndOpenCloseReadingByTripId" })
 	@CrossOrigin("*")
 	public String getApprovTripsDetails(Principal principal, HttpServletRequest request,
 			@RequestBody TripDetails tripObj) {
@@ -302,7 +304,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getPendingApprovelTripsDetails" })
+	@PostMapping({ "/getPendingApprovelTripsDetails" })
 	@CrossOrigin("*")
 	public String getPendingApprovelTripsDetails(Principal principal, HttpServletRequest request) {
 		String vendorCode = principal.getName();
@@ -322,7 +324,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping(value = "/status", method = RequestMethod.POST)
+	@PostMapping({ "/status" })
 	@CrossOrigin("*")
 	public String status(@RequestBody TripDetails obj) throws UnsupportedEncodingException, MessagingException {
 		DataContainer data = new DataContainer();
@@ -346,7 +348,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/tripDetailByTripId" })
+	@PostMapping({ "/tripDetailByTripId" })
 	@CrossOrigin("*")
 	public String getTripsDetailsByTripId(HttpServletRequest request, @RequestBody TripDetails tripObj) {
 
@@ -367,7 +369,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/updateVendorTripStatusByTrips" })
+	@PostMapping({ "/updateVendorTripStatusByTrips" })
 	@CrossOrigin("*")
 	public String updateVendortripStatusByTrips(HttpServletRequest request, @RequestBody TripDetails obj) {
 
@@ -405,7 +407,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getRemarksByRefID" })
+	@PostMapping({ "/getRemarksByRefID" })
 	@CrossOrigin("*")
 	public String getRemarksByRefID(HttpServletRequest request, @RequestBody String obj) {
 
@@ -430,7 +432,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping(value = "/getDraftLineTripDetails", method = RequestMethod.POST)
+	@PostMapping({ "/getDraftLineTripDetails" })
 	@CrossOrigin("*")
 	public String getDraftLineTripDetails(@RequestBody TripDetails obj, HttpSession session, HttpServletRequest request)
 			throws UnsupportedEncodingException, MessagingException {
@@ -455,7 +457,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getTripDetailByTripId" })
+	@PostMapping({ "/getTripDetailByTripId" })
 	public String getTripDetailByTripId(Principal principal, HttpSession session, HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
@@ -478,7 +480,7 @@ public class TripControllers {
 
 	}
 
-	@RequestMapping({ "/findByTripDetailUsingTripID" })
+	@PostMapping({ "/findByTripDetailUsingTripID" })
 	public String findByTripDetailUsingTripID(Principal principal, @RequestBody TripDetails obj) {
 
 		DataContainer data = new DataContainer();

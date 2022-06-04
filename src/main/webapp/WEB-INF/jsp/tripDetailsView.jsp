@@ -7,7 +7,7 @@
 <!-- By Prashant Aggarwal 3-jun-2021 -->
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">

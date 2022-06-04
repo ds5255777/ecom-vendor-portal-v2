@@ -1,9 +1,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%@page import="com.main.commonclasses.GlobalUrl"%>
 
 <!DOCTYPE html>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
+
 <html lang="en">
 
 <head>
@@ -152,9 +152,53 @@
                 	   swal.fire("Alert", "TDS Rate is mandatory", "warning")
                        .then((value) => {});
                    }
+                	 
+              	else  if(controlName=="fyYear1"){
+              	  
+                	   swal.fire("Alert", "Financial Year is mandatory", "warning")
+                       .then((value) => {});
+                   }else  if(controlName=="fyYear2"){
+              	  
+                	   swal.fire("Alert", "Financial Year is mandatory", "warning")
+                       .then((value) => {});
+                   }else  if(controlName=="fyYear3"){
+              	  
+                	   swal.fire("Alert", "Financial Year is mandatory", "warning")
+                       .then((value) => {});
+                   }
+                	 
+              	else  if(controlName=="acknowledgementNumber1"){
+              	  
+                	   swal.fire("Alert", "Acknowledgement Number is mandatory", "warning")
+                       .then((value) => {});
+                   } else  if(controlName=="acknowledgementNumber2"){
+                    	  
+                   	   swal.fire("Alert", "Acknowledgement Number is mandatory", "warning")
+                          .then((value) => {});
+                      }else  if(controlName=="acknowledgementNumber3"){
+                    	  
+                      	   swal.fire("Alert", "Acknowledgement Number is mandatory", "warning")
+                             .then((value) => {});
+                         }
+              	 
+              	 else  if(controlName=="ITRFile1"){
+                    	  
+                   	   swal.fire("Alert", "ITR File is mandatory", "warning")
+                          .then((value) => {});
+                      }else  if(controlName=="ITRFile2"){
+                       	  
+                      	   swal.fire("Alert", "ITR File is mandatory", "warning")
+                             .then((value) => {});
+                         }else  if(controlName=="ITRFile3"){
+                          	  
+                         	   swal.fire("Alert", "ITR File is mandatory", "warning")
+                                .then((value) => {});
+                            }
+                	 
+                	 
               	else  if(controlName=="GSTFile"){
                	  
-             	   swal.fire("Alert", "GST File is mandatory", "warning")
+             	   swal.fire("Alert", "GST Certificate is mandatory", "warning")
                     .then((value) => {});
                 }
               	else  if(controlName=="PDFile"){
@@ -164,17 +208,17 @@
                  }
               	else  if(controlName=="PANFile"){
                  	  
-              	   swal.fire("Alert", "PAN File is mandatory", "warning")
+              	   swal.fire("Alert", "PAN Card is mandatory", "warning")
                      .then((value) => {});
                  }
               	else  if(controlName=="CCFile"){
                	  
-               	   swal.fire("Alert", "Cancel  is mandatory", "warning")
+               	   swal.fire("Alert", "Cancelled Cheque/ Passbook/ Bank Statemen  is mandatory", "warning")
                       .then((value) => {});
                   }
               	else  if(controlName=="ITRFile"){
                	  
-               	   swal.fire("Alert", "ITR File is mandatory", "warning")
+               	   swal.fire("Alert", "ITR Filling Declaration is mandatory", "warning")
                       .then((value) => {});
                   }
               	else  if(controlName=="FUVFFile"){
@@ -184,7 +228,7 @@
                   }
               	else  if(controlName=="MSMECFile"){
                	  
-               	   swal.fire("Alert", "MSME File is mandatory", "warning")
+               	   swal.fire("Alert", "MSME Certificate is mandatory", "warning")
                       .then((value) => {});
                   }
               	else  if(controlName=="AMFile"){
@@ -246,7 +290,7 @@
                         	    }
                         	   } 
                         	   else{
-                        		  var mandFields = "suppName,compEmail";
+                        		  var mandFields = "suppName,compEmail,ITRFile1,ITRFile2,ITRFile3";
                                   var mandFieldsArr = mandFields.split(",");
                                   for (i = 0; i < mandFieldsArr.length; i++) {
                                       console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
@@ -329,7 +373,7 @@
             }  else {
                 $(".required").css("visibility", "hidden");
                 $(".adHocRequired").css("visibility", "visible");
-                $("#finishButton").attr("disabled", false);
+                $("#finishButton").attr("disabled", true);
                 //alert("ji..2");
             } 
         } 
@@ -421,21 +465,11 @@
             } else if (stepNo == 3) {
 
                 console.log("Inside Step Four");
-
-                var addItrReport = $("#addITRGrid tr").length;
-                console.log("addITRGrid " + addItrReport);
-                if (addBankGrid == 1) {
-                    swal.fire("Alert", "Add Last Three Year ITR Report ", "warning")
-                        .then((value) => {
-
-                        });
-                    return false;
-                }
                 
+                   
 
-                if ($("#tdsApplication").val() == "Yes") {
-
-                    var mandFields = "tdsSection,tdsRate";
+                /* if ($("#tdsApplication").val() == "Yes") {*/
+                    var mandFields = "tdsSection,tdsRate,fyYear1,acknowledgementNumber1,ITRFile1,fyYear2,acknowledgementNumber2,ITRFile2,fyYear3,acknowledgementNumber3,ITRFile3";
                     var mandFieldsArr = mandFields.split(",");
                     for (i = 0; i < mandFieldsArr.length; i++) {
                         console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
@@ -445,10 +479,8 @@
                             return false;
                         }
                     }
-                }
+                /* } */
             }
-            
-            
         }
         
 
@@ -1026,13 +1058,13 @@ label {
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="introducedByName"
 													name="introducedByName" placeholder="Reference Name"
-													maxlength="30"></td>
+													maxlength="50"></td>
 
 												<td><label for="emailId">Introducer Email ID<span
 														class="required adHocRequired">*</span></label></td>
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="introducedByEmailID"
-													name="introducedByEmailID" placeholder="abc@ecomexpress.in"
+													name="introducedByEmailID" maxlength="50" placeholder="abc@ecomexpress.in"
 													onchange="removeValCssByID(this)"><span
 													id="message"></span></td>
 
@@ -1081,7 +1113,9 @@ label {
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="suppName" name="suppName"
 													placeholder="Name(As per Cheque/Passbook)"
-													onchange="removeValCssByID(this)" maxlength="50"></td>
+													onchange="removeValCssByID(this)"
+													oninput="this.value = this.value.toUpperCase()"
+													 maxlength="50"></td>
 											</tr>
 
 
@@ -1097,7 +1131,7 @@ label {
 												<td colspan='1'><input type="email"
 													class="form-control p-input email" id="compEmail"
 													name="compEmail" placeholder="Company Mail ID"
-													onchange="removeValCssByID(this);" required></td>
+													onchange="removeValCssByID(this);"  maxlength="50" required></td>
 
 												<td><label for="phoneNumber">Phone Number</label></td>
 												<td colspan='1'><input type="text"
@@ -1152,7 +1186,7 @@ label {
 														Status</label></td>
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="adharLinkStatus"
-													name="adharLinkStatus" placeholder="Aadhar Link Status"></td>
+													name="adharLinkStatus" maxlength="50" placeholder="Aadhar Link Status"></td>
 
 												<td><label for="compGstn">GSTN Number<span
 														class="required adHocRequired">*</span></label></td>
@@ -1279,7 +1313,7 @@ label {
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><input type="text"
 														class="form-control p-input" id="city" name="city"
-														placeholder="District"></td>
+														placeholder="District" maxlength="50"></td>
 												</tr>
 												<tr class="">
 
@@ -1450,17 +1484,14 @@ label {
 													<td colspan='2'><input type="text"
 														class="form-control p-input" id="accoutNumber"
 														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-														name="accoutNumber" placeholder="Account Number"
-														maxlength="16"></td>
-
-													<td><label for="Confirmed accoutNumber">Confirmed
-															Account Number<span class="required adHocRequired">*</span>
-													</label></td>
+														name="accoutNumber" placeholder="Account Number"></td>
+														
+														<td><label for="Confirmed accoutNumber">Confirmed Account Number<span
+															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><input type="text"
 														class="form-control p-input" id="confirmedAccoutNumber"
 														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-														name="confirmedAccoutNumber"
-														placeholder="Confirmed Account Number" maxlength="16"></td>
+														name="confirmedAccoutNumber"  placeholder="Confirmed Account Number"maxlength="16"></td>
 
 												</tr>
 												<tr class="">
@@ -1621,7 +1652,7 @@ label {
 															readonly class="form-control p-input "> </input></td>
 
 														<td><label class="addressLable" for="tdsSection">TDS
-																Section</label></td>
+																Section<span class="required adHocRequired">*</span></label></td>
 														<td><select id="tdsSection" name="tdsSection"
 															class="form-control p-input" colspan='2'
 															placeholder="TDS Section">
@@ -1636,7 +1667,7 @@ label {
 														</select></td>
 
 														<td><label for="tdsRate">TDS Exemption Rate
-																(If Any)</label></td>
+																(If Any)<span class="required adHocRequired">*</span></label></td>
 														<td colspan='2'><input type="text"
 															class="form-control p-input" id="tdsRate" name="tdsRate"
 															placeholder="TDS  Exemption Rate"></td>
@@ -1663,17 +1694,11 @@ label {
 									style="border-style: solid; border-width: 1px; border-color: #1991eb;">
 									<div class="card-body" style="margin-bottom: 10px;">
 										<form id="StepEightForm" class="forms-sample">
-											<table class="table center-aligned-table" id="fromTable"
-												name="fromTable">
-												<thead>
-												</thead>
+											<table class="table center-aligned-table table-striped" id="addITRGrid" name="addITRGrid">
 												<tbody>
-													<tr>
-														<td><label class="addressLable" for="tdsApplication">Financial
-																Year<span
-																class="required">*</span></label></td>
-														<td colspan='2'><select id="fyYear"
-															class="form-control p-input ">
+													<tr class="">
+													<td><label>Select Financial Year</label> </td>
+														<td><select id="fyYear1" name="fyYear1" class="form-control p-input ">
 																<option value="">Select</option>
 
 																<c:forEach items="${financialYear}" var="fin">
@@ -1682,55 +1707,66 @@ label {
 																</c:forEach>
 
 														</select></td>
-														<td></td>
-														<td><label for="tdsApplication">Acknowledgement Number<span
-																class="required">*</span></label></td>
-
-														<td colspan='2'><input type="text"
-															id="acknowledgementNumber" name="acknowledgementNumber"
+														<td><label>Fill Acknowledgement Number</label> </td>
+														<td><input type="text" id="acknowledgementNumber1"
+															name="acknowledgementNumber1"
 															class="form-control p-input "></td>
-														<td></td>
-														<td><label>ITR Document<span
-																class="required">*</span></label></td>
-														<td><input type="file" id="ITRAFile" name="ITRAFile"
-															onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
+														<td><input type="file" id="ITRFile1" name="ITRFile1" placeholder="Fill Acknowledgement Number"
+															onchange="handleFileSelect(event,'ITRFileText1'), onValidateFile('ITRFile1')"
 															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-															<textarea id="ITRAFileText" rows="5"
+															<textarea id="ITRFileText1" rows="5"
 																style="display: none;"></textarea> <label><span
 																style="font-weight: 500; color: #fd7e14;">File
 																	size Max ${fileSize} MB</span></label></td>
+													</tr>
+													<tr class="">
+														<td><label>Select Financial Year</label> </td>
+														<td><select id="fyYear2" name="fyYear2" class="form-control p-input ">
+																<option value="">Select</option>
 
-														<td colspan='2'>
-															<button type="Button" id="addITRGridButt"
-																name="addITRGridButt" class="btn btn-primary">Add
-																ITR Details</button>
-														</td>
+																<c:forEach items="${financialYear}" var="fin">
 
+																	<option value="${fin}">${fin}</option>
+																</c:forEach>
+
+														</select></td>
+														<td><label>Fill Acknowledgement Number</label> </td>
+														<td><input type="text" id="acknowledgementNumber2"
+															name="acknowledgementNumber2"
+															class="form-control p-input "></td>
+														<td><input type="file" id="ITRFile2" name="ITRFile2" placeholder="Fill Acknowledgement Number"
+															onchange="handleFileSelect(event,'ITRFileText2'), onValidateFile('ITRFile2')"
+															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+															<textarea id="ITRFileText2" rows="5"
+																style="display: none;"></textarea> <label><span
+																style="font-weight: 500; color: #fd7e14;">File
+																	size Max ${fileSize} MB</span></label></td>
+													</tr>
+													<tr class="">
+													<td><label>Select Financial Year</label> </td>
+														<td><select id="fyYear3" name="fyYear3" class="form-control p-input ">
+																<option value="">Select</option>
+
+																<c:forEach items="${financialYear}" var="fin">
+
+																	<option value="${fin}">${fin}</option>
+																</c:forEach>
+
+														</select></td>
+														<td><label>Fill Acknowledgement Number</label> </td>
+														<td><input type="text" id="acknowledgementNumber3"
+															name="acknowledgementNumber3"
+															class="form-control p-input "></td>
+														<td><input type="file" id="ITRFile3" name="ITRFile1" placeholder="Fill Acknowledgement Number"
+															onchange="handleFileSelect(event,'ITRFileText3'), onValidateFile('ITRFile1')"
+															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+															<textarea id="ITRFileText3" rows="5"
+																style="display: none;"></textarea> <label><span
+																style="font-weight: 500; color: #fd7e14;">File
+																	size Max ${fileSize} MB</span></label></td>
 													</tr>
 												</tbody>
 											</table>
-											<div class="card-body">
-												<div class="table-responsive"
-													style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-													<table class="table center-aligned-table" id="addITRGrid"
-														name="addITRGrid">
-														<thead>
-															<tr style="background: #1991eb; color: white;">
-																<th>Financial Year</th>
-																<th>Acknowledgement Number</th>
-																<th>ITR Document</th>
-																<th>Action</th>
-
-															</tr>
-														</thead>
-														<tbody>
-														</tbody>
-													</table>
-
-
-
-												</div>
-											</div>
 										</form>
 									</div>
 								</div>
@@ -2007,7 +2043,7 @@ label {
             }else{
             
             	$("#step6Id").css("display","none");
-            	location.href="#step-1"
+            	//location.href="#step-1"
             }
         
        var tabledataQuery = $('#tabledataQuery').DataTable({
@@ -2171,7 +2207,7 @@ label {
             }
         });
 
-        $("#addITRGridButt").click(function() {
+       /*  $("#addITRGridButt").click(function() {
             var abc = document.getElementById('fyYear').value;
             var abc1 = document.getElementById('acknowledgementNumber').value;
             var abc2 =  document.getElementById('ITRAFile').value; 
@@ -2198,7 +2234,7 @@ label {
                
 
             }
-        });
+        }); */
 
         function sendToServer() {
         	$('.loader').show();
@@ -2251,7 +2287,7 @@ label {
                 contactDetailsArray.push(pushContactObj);
             }
             
-            var itrDetailsArray = [];
+            /* var itrDetailsArray = [];
             table = document.getElementById('addITRGrid');
             rowLength = table.rows.length;
 
@@ -2263,25 +2299,28 @@ label {
                     "acknowledgementNumber": row.cells[1].innerHTML
                 }
                 itrDetailsArray.push(pushItrObj);
-            }
+            } */
+            
+            
             
             $body.addClass("loading");
 
             var step1Obj = FormDataToJSON('stepOneForm');
             var step6Obj = FormDataToJSON('stepSixForm');
-            //var step8Obj = FormDataToJSON('StepEightForm');
             var step7Obj = FormDataToJSON('stepSevenForm');
-
+            var step8Obj=FormDataToJSON('StepEightForm');
+            console.log("Final object in form 8 : ",step8Obj);
             const finalObj = {
                 ...step1Obj,
                 ...step6Obj,
-                ...step7Obj
-                //...step8Obj
+                ...step7Obj,
+                ...step8Obj
             };
+            console.log("Final object in form : ",finalObj);
             finalObj.accountDetails = accountDetailsArray;
             finalObj.addressDetails = addressDetailsArray;
             finalObj.contactDetails = contactDetailsArray;
-            finalObj.itrDetails = itrDetailsArray;
+            /* finalObj.itrDetails = itrDetailsArray; */
 
             if (document.getElementById("GSTFile").files.length > 0) {
                 finalObj.gstFileName = document.getElementById("GSTFile").files.item(0).name;
@@ -2323,15 +2362,24 @@ label {
                 finalObj.amFileName = document.getElementById("AMFile").files.item(0).name;
                 finalObj.amFileText = $("#AMFileText").val();
             }
-            if (document.getElementById("ITRAFile").files.length > 0) {
-                finalObj.itraFileName = document.getElementById("ITRAFile").files.item(0).name;
-                finalObj.itraFileText = $("#ITRAFileText").val();
-            }
             if (document.getElementById("NMISFile").files.length > 0) {
                 finalObj.nmisFileName = document.getElementById("NMISFile").files.item(0).name;
                 finalObj.nmisFileText = $("#NMISFileText").val();
             }
             
+            // last three year ITR file upload
+            if (document.getElementById("ITRFile1").files.length > 0) {
+                finalObj.itraFileName1 = document.getElementById("ITRFile1").files.item(0).name;
+                finalObj.itraFileText1 = $("#ITRFileText1").val();
+            }
+            if (document.getElementById("ITRFile2").files.length > 0) {
+                finalObj.itraFileName2 = document.getElementById("ITRFile2").files.item(0).name;
+                finalObj.itraFileText2 = $("#ITRFileText2").val();
+            }
+            if (document.getElementById("ITRFile3").files.length > 0) {
+                finalObj.itraFileName3 = document.getElementById("ITRFile3").files.item(0).name;
+                finalObj.itraFileText3 = $("#ITRFileText3").val();
+            }
 
            /*  var checked = []
             $("input[name='option[]']:checked").each(function() {
@@ -2372,7 +2420,7 @@ label {
                 dataType: "json",
                 contentType: "application/json",
                 success: function(response) {
-                	//return;
+                	
                 	 $('.loader').hide();
                     if (response.msg == 'success') {
                     	swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + response.data, "success", "OK").then(function() {
@@ -2417,7 +2465,7 @@ label {
                     //Converting Binary Data to base 64
                     var base64String = window.btoa(binaryData);
                     //showing file converted to base64
-                    console.log(base64String);
+                    //console.log(base64String);
 
                     $("#" + id).val(base64String);
 

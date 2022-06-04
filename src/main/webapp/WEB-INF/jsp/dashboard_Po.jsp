@@ -57,7 +57,7 @@ tbody {
 	<div class="wrapper">
 
 		<!-- Navbar -->
-		<jsp:include page="navbar_po.jsp?pagename=Po Dashboard" />
+		<jsp:include page="navbar.jsp?pagename=Po Dashboard" />
 
 
 
@@ -91,9 +91,7 @@ tbody {
 				<div class="container-fluid">
 					<!-- Small boxes (Stat box) -->
 					<div class="row">
-						<!-- ./col -->
-
-
+					
 							<div class="col-lg-2 col-6">
 							<!-- small box -->
 							<div class="small-box bg-white">

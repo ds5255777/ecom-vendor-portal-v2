@@ -458,6 +458,15 @@
 												<textarea class="form-control" id="comment" name="comment"
 													rows="1" placeholder="Remarks if Any"></textarea>
 											</div>
+											
+											
+											<div class="col-sm-3" id="raiseQueryDiv">
+												<button type="button" id="raiseQuery" value="raiseQuery"
+													onclick="raiseQueryModel()" class="btn btn-primary">Replay
+												</button>
+											</div>
+										
+											
 										</div>
 									</div>
 
@@ -488,6 +497,7 @@
 											<th style="padding: 5px 5px 5px 1.5rem;">S.No</th>
 											<th style="padding: 5px 5px 5px 1.5rem;">Raised By</th>
 											<th style="padding: 5px 5px 5px 1.5rem;">Raised On</th>
+											<th style="padding: 5px 5px 5px 1.5rem;">Role</th>
 											<th style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
 										</tr>
 									</thead>
@@ -626,6 +636,16 @@
 		"scrollX" : false,
 		"bSort" : false
 	});
+    var prTable1 = $("#tabledataQuery").DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "info": true,
+        "autoWidth": false,
+        "aaSorting": [],
+        "scrollX": true,
+        "pageLength": 15,
+    });
     
     var  invoiceNumber='${invoiceNumber}';
 
@@ -722,7 +742,8 @@
                     $('#supplierSite').val(result[0].supplierSite)
                     $('#operatingUnit').val(result[0].supplierSite)
                     $('#vendorInvoiceNumber').val(result[0].vendorInvoiceNumber)
-                     $('#remitToBankAccountNumber').val(result[0].remitToBankAccountNumber)
+                     $('#remitToBankAccountNumber').val(result[0].remitToBankAccountNumber);
+                    $('#invoiceDate').val(result[0].invoiceDate);
                         	
         					
         					
@@ -897,7 +918,7 @@
 		  
 	}
 
-  
+    
     function showDatatbleData(tripLineArray){
   	  
   	  
@@ -1159,7 +1180,7 @@
  
      
      console.log(finalObj);
-    
+     finalObj.invoiceNumber='${invoiceNumber}'; 
      
 	 flag=0;
      if(count==0){
@@ -1231,7 +1252,7 @@
 			
 			            	 if (response.msg == 'success') {
 			                     swal.fire("Invoice Process Sucessfully", "Invoice Number : ${invoiceNumber} "  , "success", "OK").then(function() {
-			                    	 window.opener.refereshList();
+			                    	
 			                         window.close();
 			                     });
 			                     
@@ -1430,6 +1451,132 @@
 		 $("#termsDate").val("");
 	 }
  }
+ 
+ var referenceid='${invoiceNumber}';
+ function raiseQueryModel(){
+		var comment = document.getElementById("comment").value;
+		
+     if (comment === "" || comment === null || comment === '') {
+         Toast.fire({
+             type: 'error',
+             title: 'Please Insert Remarks'
+         });
+         document.getElementById("comment").focus();
+         return "";
+     }
+     
+     var obj = {
+             "comment": comment,
+             "referenceid": referenceid,
+             "role" : "Vendor"
+         }
+     
+     $.ajax({
+         type: "POST",
+         data: JSON.stringify(obj),
+         url: "<%=GlobalUrl.savePoInvoiceQuery%>",
+         dataType: "json",
+         contentType: "application/json",
+         async: false,
+         success: function(data) {
+
+             if (data.msg == 'success') {
+
+             	document.getElementById("comment").value='';
+                 $('.loader').hide();
+                 swal.fire("Thanks", "Sucessfully Submitted", "success", "OK")
+               
+				
+                 getData();
+             } else {
+                 $("#submitBtn").prop("disabled", false);
+                 $('.loader').hide();
+
+                 Toast.fire({
+                     type: 'error',
+                     title: 'Failed.. Try Again..'
+                 })
+             }
+
+         },
+         error: function(jqXHR, textStatue, errorThrown) {
+             $("#submitBtn").prop("disabled", false);
+             $('.loader').hide();
+             alert("failed, please try again");
+         }
+
+     });
+     
+     
+ } 
+ 
+ getData();
+  var referenceid='${invoiceNumber}';
+ function getData(){
+ 	
+ 	 var obj = {
+             
+              "referenceid": referenceid
+          }
+      
+      $.ajax({
+          type: "POST",
+          data: JSON.stringify(obj),
+          url: "<%=GlobalUrl.getPoQueryData%>",
+          dataType: "json",
+          contentType: "application/json",
+          async: false,
+          success: function(data) {
+         	 
+         	
+
+              if (data.msg == 'success') {
+
+             	 $('#tabledataQuery').DataTable().clear();
+             	 var result = data.data;
+
+                	if(!result.hasOwnProperty("role")){
+                		result.role="";
+						}
+                    if(!result.hasOwnProperty("comment")){
+                 	   result.comment="";
+						}
+					if(!result.hasOwnProperty("raisedOn")){
+						result.raisedOn="";
+						}
+					if(!result.hasOwnProperty("raisedBy")){
+						result.raisedBy="";
+					}
+             	 
+             	 for (var i = 0; i < result.length; i++) {
+             	 $('#tabledataQuery').DataTable().row.add([i+1,result[i].raisedBy, result[i].raisedOn,result[i].role ,result[i].comment]);
+             	 }
+             	   $('#tabledataQuery').DataTable().draw();
+                    $("tbody").show();
+             	 
+              } else {
+                  $("#submitBtn").prop("disabled", false);
+                  $('.loader').hide();
+
+                  Toast.fire({
+                      type: 'error',
+                      title: 'Failed.. Try Again..'
+                  })
+              }
+
+          },
+          error: function(jqXHR, textStatue, errorThrown) {
+              $("#submitBtn").prop("disabled", false);
+              $('.loader').hide();
+              alert("failed, please try again");
+          }
+
+      });
+      
+
+ }
+
+
     </script>
 </body>
 

@@ -635,7 +635,8 @@
 		
 	});
    
-   var prTable1 = $("#prTable").DataTable({
+
+   var prTable1 = $("#tabledataQuery").DataTable({
        "paging": false,
        "lengthChange": false,
        "searching": false,
@@ -645,7 +646,6 @@
        "scrollX": true,
        "pageLength": 15,
    });
-  
    var lineNumberArray=[];
    
    getPoDetails();
@@ -1360,9 +1360,9 @@
     	        
     	        finalObj.poInvoiceLine=tripLineArray;
     	        
-    	        var terrDAte=$("#termsDate").val();
-    	        
-    	        var ts = new Date(terrDAte);
+    	        var invoDate=$("#invoiceDate").val();
+    	        alert(invoDate);
+    	        var ts = new Date(invoDate);
     	        
     	        finalObj.termsDate=ts;
     	               
@@ -1672,17 +1672,17 @@
     	                    	 $('#tabledataQuery').DataTable().clear();
     	                    	 var result = data.data;
 
-                               	if(!result[i].hasOwnProperty("role")){
-        								result[i].role="";
+                               	if(!result.hasOwnProperty("role")){
+                               		result.role="";
         							}
-                                   if(!result[i].hasOwnProperty("comment")){
-             							result[i].comment="";
+                                   if(!result.hasOwnProperty("comment")){
+                                	   result.comment="";
              						}
-   								if(!result[i].hasOwnProperty("raisedOn")){
-        								result[i].raisedOn="";
+   								if(!result.hasOwnProperty("raisedOn")){
+   									result.raisedOn="";
         							}
-   								if(!result[i].hasOwnProperty("raisedBy")){
-    								result[i].raisedBy="";
+   								if(!result.hasOwnProperty("raisedBy")){
+   									result.raisedBy="";
     							}
     	                    	 
     	                    	 for (var i = 0; i < result.length; i++) {

@@ -268,7 +268,7 @@ tbody {
 														class="required adHocRequired"></span></label>
 
 												<div class="col-sm-7">
-												<select class="form-control"  id="vendorName" name="vendorName" style="height: 34px;">
+												<select class="form-control"  onchange="getBpCode()" id="vendorName" name="vendorName" style="height: 34px;">
 												
 												<c:forEach items="${vendorNamefortripsQuery}" var="vendorName">
 

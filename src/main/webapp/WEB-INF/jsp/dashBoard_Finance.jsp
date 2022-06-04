@@ -194,8 +194,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 											data-placement="bottom">Payment Release</p>
 									</div>
 									<div class="icon">
-
-										<i class="fas fa-file-invoice-dollar"
+										<i class="fas fa-rupee-sign"
 											style="color: #1F8BFF; font-size: 50px;"></i>
 									</div>
 									<a href="paymentRelaseInvoice" class="small-box-footer"

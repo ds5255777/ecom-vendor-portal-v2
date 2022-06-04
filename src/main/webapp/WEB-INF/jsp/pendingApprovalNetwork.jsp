@@ -958,7 +958,6 @@
 
                                                         var basicFreight = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
                                                         document.getElementById("basicFreight").value = basicFreight.toFixed(2);
-                                                        ;
 
 
                                                         var mileage = document.getElementById("mileage").value;
@@ -1197,7 +1196,8 @@
                                                             "commentsby": comments_by_User,
                                                             "Query": "No" ,
                                                             "vendorName" : vendorName,
-                                                            "vendorCode" : vendorCode
+                                                            "vendorCode" : vendorCode,
+                                                            "type" : "Trip"
 
                                                         }
 

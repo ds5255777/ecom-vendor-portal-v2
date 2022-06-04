@@ -239,7 +239,7 @@
 										<div class="card-header" style="padding: 4px 0px 4px 4px;">
 											<h3 class="card-title" style="font-size: 15px;">Trip
 												Details</h3>
-												<button type="button" class="btn" id="closeModal" style="float: right;"
+												<button type="button" class="btn" id="closeModal" style="float: right;padding: 0 10px 0 0;"
 												data-dismiss="modal"><i class="nav-icon far fa-window-close" style="font-size: 20px; color: white;"></i></button>
 										</div>
 										<!-- /.card-header -->

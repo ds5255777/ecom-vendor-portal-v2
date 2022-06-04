@@ -90,6 +90,22 @@ public class SupDetails {
 	@Column(name = "tds_rate")
 	private String tdsRate;
 
+	/* itr last three year */
+	@Column(name = "fy_year1")
+	private String fyYear1;
+	@Column(name = "acknowledgement_number1")
+	private String acknowledgementNumber1;
+
+	@Column(name = "fy_year2")
+	private String fyYear2;
+	@Column(name = "acknowledgement_number2")
+	private String acknowledgementNumber2;
+
+	@Column(name = "fy_year3")
+	private String fyYear3;
+	@Column(name = "acknowledgement_number3")
+	private String acknowledgementNumber3;
+
 	@OneToMany(targetEntity = AccountDetails.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "sa_fk", referencedColumnName = "id")
 	private List<AccountDetails> accountDetails;
@@ -102,9 +118,11 @@ public class SupDetails {
 	@JoinColumn
 	private List<ContactDetails> contactDetails;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn
-	private List<ItrDetails> itrDetails;
+	/*
+	 * @OneToMany(cascade = CascadeType.ALL)
+	 * 
+	 * @JoinColumn private List<ItrDetails> itrDetails;
+	 */
 
 	/*
 	 * @OneToMany(cascade = CascadeType.ALL)
@@ -153,11 +171,6 @@ public class SupDetails {
 	String aplFileName;
 
 	@Transient
-	String itrFileText;
-	@Transient
-	String itrFileName;
-
-	@Transient
 	String fuvfFileText;
 	@Transient
 	String fuvfFileName;
@@ -173,14 +186,31 @@ public class SupDetails {
 	String amFileName;
 
 	@Transient
-	String itraFileText;
+	String itrFileText;
 	@Transient
-	String itraFileName;
+	String itrFileName;
 
 	@Transient
 	String nmisFileText;
 	@Transient
 	String nmisFileName;
+
+	// last three year ITR report
+
+	@Transient
+	String itraFileText1;
+	@Transient
+	String itraFileName1;
+
+	@Transient
+	String itraFileText2;
+	@Transient
+	String itraFileName2;
+
+	@Transient
+	String itraFileText3;
+	@Transient
+	String itraFileName3;
 
 	public Long getId() {
 		return id;
@@ -438,14 +468,6 @@ public class SupDetails {
 		this.contactDetails = contactDetails;
 	}
 
-	public List<ItrDetails> getItrDetails() {
-		return itrDetails;
-	}
-
-	public void setItrDetails(List<ItrDetails> itrDetails) {
-		this.itrDetails = itrDetails;
-	}
-
 	public String getGstFileText() {
 		return gstFileText;
 	}
@@ -606,22 +628,6 @@ public class SupDetails {
 		this.amFileName = amFileName;
 	}
 
-	public String getItraFileText() {
-		return itraFileText;
-	}
-
-	public void setItraFileText(String itraFileText) {
-		this.itraFileText = itraFileText;
-	}
-
-	public String getItraFileName() {
-		return itraFileName;
-	}
-
-	public void setItraFileName(String itraFileName) {
-		this.itraFileName = itraFileName;
-	}
-
 	public String getNmisFileText() {
 		return nmisFileText;
 	}
@@ -638,12 +644,100 @@ public class SupDetails {
 		this.nmisFileName = nmisFileName;
 	}
 
-//	public List<OnboardQuery> getOnboardQuery() {
-//		return onboardQuery;
-//	}
-//
-//	public void setOnboardQuery(List<OnboardQuery> onboardQuery) {
-//		this.onboardQuery = onboardQuery;
-//	}
+	public String getItraFileText1() {
+		return itraFileText1;
+	}
+
+	public void setItraFileText1(String itraFileText1) {
+		this.itraFileText1 = itraFileText1;
+	}
+
+	public String getItraFileName1() {
+		return itraFileName1;
+	}
+
+	public void setItraFileName1(String itraFileName1) {
+		this.itraFileName1 = itraFileName1;
+	}
+
+	public String getItraFileText2() {
+		return itraFileText2;
+	}
+
+	public void setItraFileText2(String itraFileText2) {
+		this.itraFileText2 = itraFileText2;
+	}
+
+	public String getItraFileName2() {
+		return itraFileName2;
+	}
+
+	public void setItraFileName2(String itraFileName2) {
+		this.itraFileName2 = itraFileName2;
+	}
+
+	public String getItraFileText3() {
+		return itraFileText3;
+	}
+
+	public void setItraFileText3(String itraFileText3) {
+		this.itraFileText3 = itraFileText3;
+	}
+
+	public String getItraFileName3() {
+		return itraFileName3;
+	}
+
+	public void setItraFileName3(String itraFileName3) {
+		this.itraFileName3 = itraFileName3;
+	}
+
+	public String getFyYear1() {
+		return fyYear1;
+	}
+
+	public void setFyYear1(String fyYear1) {
+		this.fyYear1 = fyYear1;
+	}
+
+	public String getAcknowledgementNumber1() {
+		return acknowledgementNumber1;
+	}
+
+	public void setAcknowledgementNumber1(String acknowledgementNumber1) {
+		this.acknowledgementNumber1 = acknowledgementNumber1;
+	}
+
+	public String getFyYear2() {
+		return fyYear2;
+	}
+
+	public void setFyYear2(String fyYear2) {
+		this.fyYear2 = fyYear2;
+	}
+
+	public String getAcknowledgementNumber2() {
+		return acknowledgementNumber2;
+	}
+
+	public void setAcknowledgementNumber2(String acknowledgementNumber2) {
+		this.acknowledgementNumber2 = acknowledgementNumber2;
+	}
+
+	public String getFyYear3() {
+		return fyYear3;
+	}
+
+	public void setFyYear3(String fyYear3) {
+		this.fyYear3 = fyYear3;
+	}
+
+	public String getAcknowledgementNumber3() {
+		return acknowledgementNumber3;
+	}
+
+	public void setAcknowledgementNumber3(String acknowledgementNumber3) {
+		this.acknowledgementNumber3 = acknowledgementNumber3;
+	}
 
 }

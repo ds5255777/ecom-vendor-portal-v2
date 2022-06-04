@@ -212,37 +212,43 @@ public class FinanceController {
 		EmailConfiguration emailConfiguration = emailList.get(0);
 		String vendorEmail = (String) request.getSession().getAttribute("userEmail");
 		
+		String emailType=null;
 		String type="";
 
 		try {
 			Integer getid = entity.getId();
 
 			if ("Invoice".equalsIgnoreCase(entity.getType())) {
-				entity.setType("Invoice");
+				entity.setType(GlobalConstants.SET_TYPE_INVOICE);
 				if (GlobalConstants.ROLE_VENDOR.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_IN_REVIEW, GlobalConstants.ROLE_FINANCE, getid);
-					type=GlobalConstants.EMAIL_TYPE_VEN_INVOICE_UPDATE;
+					emailType=GlobalConstants.EMAIL_TYPE_VEN_INVOICE_UPDATE;
+					type=entity.getType();
 				} else if (GlobalConstants.ROLE_FINANCE.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_VENDOR, getid);
-					type=GlobalConstants.EMAIL_TYPE_FIN_TEM_INVOICE_QUERY;
+					emailType=GlobalConstants.EMAIL_TYPE_FIN_TEM_INVOICE_QUERY;
+					type=entity.getType();
 				} else if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_FINANCE, getid);
-					type=GlobalConstants.EMAIL_TYPE_FIN_HED_INVOICE_QUERY;
+					emailType=GlobalConstants.EMAIL_TYPE_FIN_HED_INVOICE_QUERY;
+					type=entity.getType();
 				} else if (GlobalConstants.ROLE_NETWORK.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_VENDOR, getid);
-					type=GlobalConstants.EMAIL_TYPE_NET_TEM_INVOICE_QUERY;
+					emailType=GlobalConstants.EMAIL_TYPE_NET_TEM_INVOICE_QUERY;
+					type=entity.getType();
 				}
 
 			} else {
-				entity.setType("Trip");
+				entity.setType(GlobalConstants.SET_TYPE_TRIP);
 				if (GlobalConstants.ROLE_VENDOR.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateStatusByUserid(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_NETWORK, getid);
-					type=GlobalConstants.EMAIL_TYPE_VEN_TRIP_QUERY;
+					emailType=GlobalConstants.EMAIL_TYPE_VEN_TRIP_QUERY;
+					type=entity.getType();
 				}
 			}
 
@@ -261,7 +267,30 @@ public class FinanceController {
 				SendEmail sendEmail = new SendEmail();
 				MailContent mailContent = queryType.get(0);
 				sendEmail.setMailfrom(emailConfiguration.getUserName());
-				sendEmail.setSendTo(vendorEmail);
+				
+				if(rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+					if(GlobalConstants.SET_TYPE_TRIP.equals(type)) {
+						sendEmail.setSendTo("Network Team");
+					}else {
+						sendEmail.setSendTo("Finance Team");
+						sendEmail.setSendCc("Network Team");
+					}
+					
+				}else if(rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
+					
+					if(GlobalConstants.SET_TYPE_TRIP.equals(type)) {
+						sendEmail.setSendTo("vender");
+					}else {
+						sendEmail.setSendTo("Finance Team");
+						sendEmail.setSendCc("vendor ");
+					}
+					
+				}else if(rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)) {
+					sendEmail.setSendTo("Insert vender email");
+					sendEmail.setSendCc("Network team");
+				}else if(rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
+					sendEmail.setSendCc("Finance team");
+				}
 				sendEmail.setSubject(mailContent.getSubject());
 				sendEmail.setEmailBody(mailContent.getEmailBody());
 				sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);

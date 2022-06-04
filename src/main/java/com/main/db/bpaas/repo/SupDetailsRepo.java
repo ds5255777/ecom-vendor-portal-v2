@@ -32,7 +32,7 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 	@Query(value="select * from SupDetails where pid=:pid  ", nativeQuery=true)
 	List<SupDetails> findBypid(@Param("pid")String pid);
 
-	 @Query(value ="select  vendor_name from users where username=:vendorName  ",nativeQuery = true)
+	 @Query(value ="select  username from users where vendor_name=:vendorName and role_id='2' ",nativeQuery = true)
 	  String getVendorCode(String vendorName);
 
 	@Query(value="select vendor_type from SupDetails where bp_code=:bpCode  ", nativeQuery=true)

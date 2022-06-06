@@ -114,7 +114,8 @@
 													class="form-control-sm" type="text"
 													placeholder="Invoice Number" name="vendorInvoiceNumber"
 													id="vendorInvoiceNumber" maxlength="70"
-													style="width: 100%;">
+													style="width: 100%;"
+													oninput="this.value = this.value.replace(/[^0-9-_A-Za-z]/g, '').replace(/(\..*)\./g, '$1');this.value = this.value.toUpperCase();">
 
 											</div>
 										</div>
@@ -651,6 +652,7 @@
 
     var lineNumberArray=[];
    var lineNum1=[];
+   var remqtty=[];
    
    getPoDetails();
     
@@ -771,7 +773,7 @@
                        	 }
                     	
                     	 var obj = {
-                    	            "lineNumberpo": tripLineArray[i].lineNumber
+                    	            "poLineId": tripLineArray[i].poLineId
                     	        }
                     	
                     	
@@ -868,7 +870,7 @@
 		  }
 		
 	        var obj = {
-	            "lineNumber": lineitemNo
+	            "poLineId": lineitemNo
 	        }
 			
 	        $.ajax({
@@ -886,6 +888,13 @@
 	                    result.unitPrice=uitprie
 	                    tripLineArray.push(result);
 	                   
+	                    
+	                    for(var i=0;i<tripLineArray.length;i++){
+	                    	if(!tripLineArray[i].remaningQuatity==""){
+	            	      	tripLineArray[i].quantity=tripLineArray[i].remaningQuatity;	
+	                    	}
+	            	      }
+	                    
 	                    showDatatbleData(tripLineArray);
 	            
 	                }else {
@@ -908,14 +917,13 @@
 	                $('#tripList option:selected').remove();
 	                
 	                for( var i = 0; i < lineNumberArray.length; i++){ 
-	                    
-	                    if ( lineNumberArray[i] === lineitemNo) { 
+	                    var x=lineNumberArray[i];
+	                    if (x==lineitemNo) { 
 	                
 	                    	lineNumberArray.splice(i); 
 	                    }
 	                
 	                }
-		  
 	}
 
     
@@ -923,6 +931,7 @@
   	  
   	  
   	  prTable.clear();
+  	
         for (var i = 0; i < tripLineArray.length; i++) {
         	 id=tripLineArray[i].id;
         	 price1[i]=tripLineArray[i].price;
@@ -932,9 +941,9 @@
         	 }else{
         		
         	 }
+        	
         	 
-        	 
-        	 tripLineArray[i].quantity= tripLineArray[i].remaningQuatity
+        	 //tripLineArray[i].quantity= tripLineArray[i].remaningQuatity
         	 var date ='${curentDate}';
 
             var totalamot;
@@ -1228,11 +1237,7 @@
         
 		  finalObj.termsDate=termsDate[0];
          	
-		   var terrDAte=$("#termsDate").val();
-	        
-	        var ts = new Date(terrDAte);
-	        
-	        finalObj.termsDate=ts;
+		  
         
         console.log(finalObj);
 
@@ -1288,25 +1293,28 @@
 
 			var poLineArray=[];
 			var descriptionArray=[];
+			
 			function inactiveActiveDeleteData(indexc){
 	  
 	
-				  lineNumberArray.push(tripLineArray[indexc].lineNumber);
+
+				  lineNumberArray.push(tripLineArray[indexc].poLineId);
 				  descriptionArray.push(tripLineArray[indexc].description);
-				  
-				  for(var i=0; i<lineNumberArray.length; i++){
-					  
-				  $('#tripList').empty();
-				  $('#tripList').append($('<option/>').attr("value","").text("Select Line Number"));
-				  for(var k=0; k<lineNumberArray.length; k++){
-					  
-				  $('#tripList').append($('<option value="' + k + '" />').attr("value",lineNumberArray[k]).text(descriptionArray[k]));
-				  
-				  }
-				  }  
-				  tripLineArray.splice(indexc,1);
-				  showDatatbleData(tripLineArray);
-				  var taxper = $("#taxper_"+indexc).val();
+				  remqtty[indexc]=tripLineArray[indexc].quantity;
+  			  
+  			  for(var i=0; i<lineNumberArray.length; i++){
+  				  
+  			  $('#tripList').empty();
+  			  $('#tripList').append($('<option/>').attr("value","").text("Select Line Number"));
+  			  for(var k=0; k<lineNumberArray.length; k++){
+  				  
+  			  $('#tripList').append($('<option value="' + k + '" />').attr("value",lineNumberArray[k]).text(descriptionArray[k]));
+  			  
+  			  }
+  			  }  
+  			  tripLineArray.splice(indexc,1);
+  			  showDatatbleData(tripLineArray);
+  			  var taxper = $("#taxper_"+indexc).val();
 				  
 	
 }

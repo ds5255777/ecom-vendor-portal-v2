@@ -10,7 +10,7 @@ import com.main.db.bpaas.entity.PoLineDetails;
 
 public interface PoLineItemRepo extends JpaRepository<PoLineDetails, Long > {
 
-	@Query(value="select * from po_line_details where line_number=:lineNumber ; ", nativeQuery=true)
-	List<PoLineDetails> getDataByLineNumber(@Param("lineNumber") String lineNumber);
+	@Query(value="select * from po_line_details where Po_Line_Id=:poLineId ; ", nativeQuery=true)
+	List<PoLineDetails> getDataByLineNumber(@Param("poLineId") double poLineId);
 
 }

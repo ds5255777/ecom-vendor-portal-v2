@@ -119,7 +119,7 @@
 													class="form-control-sm" type="text"
 													placeholder="Invoice Number" name="vendorInvoiceNumber"
 													id="vendorInvoiceNumber" maxlength="70"
-													style="width: 100%;">
+													style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9-_A-Za-z]/g, '').replace(/(\..*)\./g, '$1');this.value = this.value.toUpperCase();" >
 
 											</div>
 										</div>
@@ -802,7 +802,7 @@
 		  }
 		
 	        var obj = {
-	            "lineNumber": lineitemNo
+	            "poLineId": lineitemNo
 	        }
 			
 	        $.ajax({
@@ -841,8 +841,8 @@
 	                $('#tripList option:selected').remove();
 	                
 	                for( var i = 0; i < lineNumberArray.length; i++){ 
-	                    
-	                    if ( lineNumberArray[i] === lineitemNo) { 
+	                    var x=lineNumberArray[i];
+	                    if (x==lineitemNo) { 
 	                
 	                    	lineNumberArray.splice(i); 
 	                    }
@@ -1222,11 +1222,7 @@
         
         console.log(finalObj);
         
-        var terrDAte=$("#termsDate").val();
-        
-        var ts = new Date(terrDAte);
-        
-        finalObj.termsDate=ts;
+       
 //return;
 	flag=0;
         if(count==0){
@@ -1364,8 +1360,7 @@
     	       
     	        var ts = new Date(invoDate);
     	        
-    	        finalObj.termsDate=ts;
-    	               
+    	            
 	        console.log(finalObj);
 	
 	        
@@ -1430,7 +1425,7 @@
     		  function inactiveActiveDeleteData(indexc){
     			  
     		
-    				  lineNumberArray.push(tripLineArray[indexc].lineNumber);
+    				  lineNumberArray.push(tripLineArray[indexc].poLineId);
     				  descriptionArray.push(tripLineArray[indexc].description);
         			  
         			  for(var i=0; i<lineNumberArray.length; i++){

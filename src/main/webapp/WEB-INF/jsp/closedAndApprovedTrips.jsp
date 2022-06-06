@@ -144,7 +144,7 @@
 											<div class="col-md-2">
 												<div class="dropdown">
 													<button type="button"
-														class="btn btn-primary dropdown-toggle"
+														class="btn btn-primary dropdown-toggle btn-sm"
 														style="  margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
 														data-toggle="dropdown">Export Details</button>
 													<div class="dropdown-menu">
@@ -154,7 +154,11 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-md-8"></div>
+											
+											<div class="col-md-7"></div>
+											<div class="col-md-1">
+													 <input id="flipToInvoice" type="button" class="btn btn-primary btn-sm" onclick="invoiceProcessing()" value="Flip to Invoice " />
+											</div>
 											<div class="col-md-2">
 												<div class="form-group row">
 													<label class="col-md-4">Search : </label>
@@ -210,10 +214,10 @@
 									style="overflow-y: auto; height: 620px;">
 									<input type="hidden" id="headerDetailsId" class="form-control">
 									<div class="card card-primary">
-										<div class="card-header" style="padding: 4px 0px 4px 4px;">
-											<h3 class="card-title" style="font-size: 15px;">Trip
+										<div class="card-header" style="padding: 0px 5px 0px 5px;">
+											<h3 class="card-title" style="font-size: 15px;padding-top: 6px;">Trip
 												Details</h3>
-												<button type="button" class="btn" id="closeModal" style="float: right;"
+												<button type="button" class="btn btn-sm" id="closeModal" style="float: right;padding: 5px 5px 0px 0;"
 												data-dismiss="modal"><i class="nav-icon far fa-window-close" style="font-size: 20px; color: white;"></i></button>
 										</div>
 										<!-- /.card-header -->
@@ -558,6 +562,7 @@
 																	<tr>
 																		<th class="bg-primary">S.No</th>
 																		<th class="bg-primary">Raised By</th>
+																		<th class="bg-primary">Role/Department</th>
 																		<th class="bg-primary">Raised On</th>
 																		<th class="bg-primary">Remarks</th>
 
@@ -915,9 +920,21 @@
    							     	tabledataQuery.clear();
    							     	var count=0;
    				                        for (var i = 0; i < result.length; i++) {
-   				                        	count++;
-   				                        	tabledataQuery.row.add([count,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
-   				                        }
+   				                        	if(!result[i].hasOwnProperty("raisedBy")){
+   				                            	result[i].raisedBy="";
+   				                            }
+   				                            if(!result[i].hasOwnProperty("role")){
+   				                            	result[i].role="";
+   				                            }
+   				                            if(!result[i].hasOwnProperty("raisedOn")){
+   				                            	result[i].raisedOn="";
+   				                            }
+   				                            if(!result[i].hasOwnProperty("comment")){
+   				                            	result[i].comment="";
+   				                            }                    
+   				                     count++;
+   				                     tabledataQuery.row.add([count,result[i].raisedBy, result[i].role, result[i].raisedOn, result[i].comment]);
+   				                     }
    				                        tabledataQuery.draw();
    				                        $("tbody").show();
    								}

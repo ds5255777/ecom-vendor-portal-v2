@@ -68,9 +68,11 @@ public class DashboardController {
 
 	@RequestMapping("/updateDetailsforNetwork")
 	@CrossOrigin("*")
-	public String updateDetailsforNetwork(Model model, Principal principal, @RequestBody String agrn) {
+	public String updateDetailsforNetwork(Model model, HttpServletRequest request, Principal principal, @RequestBody String agrn) {
 
 		logger.info("************************Data is ::" + agrn);
+		String rolename = (String) request.getSession().getAttribute("role");
+		String userName = principal.getName();
 
 		JSONObject jsonObject = new JSONObject(agrn);
 		String processedon = jsonObject.get("processedOn").toString();
@@ -157,7 +159,7 @@ public class DashboardController {
 		// System.out.println("Value of S si :"+s);
 
 		QueryEntity comm = new QueryEntity();
-		comm.setRaisedBy(processedBy);
+		comm.setRaisedBy(userName);
 		
 		
 		try {
@@ -181,6 +183,7 @@ public class DashboardController {
 		}
 
 		comm.setReferenceid(tripid);
+		comm.setRole(rolename);
 		comm.setForeignKey(id);
 		comm.setType(type);
 		serviceManager.queryRepo.save(comm);

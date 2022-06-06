@@ -201,10 +201,10 @@ tbody {
 									style="overflow-y: auto; height: 620px;">
 									<input type="hidden" id="headerDetailsId" class="form-control">
 									<div class="card card-primary">
-										<div class="card-header" style="padding: 4px 0px 4px 4px;">
-											<h3 class="card-title" style="font-size: 15px;">Trip
+										<div class="card-header" style="padding: 0px 5px 0px 5px;">
+											<h3 class="card-title" style="font-size: 15px;padding-top: 6px;">Trip
 												Details</h3>
-												<button type="button" class="btn" id="closeModal" style="float: right;"
+												<button type="button" class="btn btn-sm" id="closeModal" style="float: right;padding: 5px 5px 0px 0;"
 												data-dismiss="modal"><i class="nav-icon far fa-window-close" style="font-size: 20px; color: white;"></i></button>
 										</div>
 										<!-- /.card-header -->
@@ -546,40 +546,37 @@ tbody {
 																<div class="col-sm-9">
 															<textarea class="form-control" id="comment"
 																name="comment" maxlength="250" required="required"
-																placeholder="Remarks if any" rows="3"></textarea>
+																placeholder="Remarks if any" rows="1"></textarea>
 														</div>
 														</div>
 														</div>
 														<input type="hidden" id="id" name="id" disabled>
-														<div class="col-md-3">
+														<div class="d-grid gap-2 col-6 mx-auto">
 
 															<div class="form-group row">
 
 																<div class="col-sm-4">
 																	<button type="button" class="btn btn-primary"
 																		data-toggle="modal" data-target="#myModal"
-																		 style="margin-right: 10px;">Approve</button>
+																		 style="margin-right: 10px; width: inherit;">Approve</button>
 																		 </div>
 																		 <div class="col-sm-4">
 																	<button id="openCoaDetails" type="button"
-																		class="btn btn-success" style="margin-right: 10px;"
+																		class="btn btn-success" style="margin-right: 10px; width: inherit;"
 																		onclick="saveQuery()">Query</button>
 																		</div>
 																		<div class="col-sm-4">
-																	<button type="button" class="btn btn-secondary"
+																	<button type="button" class="btn btn-secondary" style="margin-right: 10px; width: inherit;"
 																		id="closeModal" data-dismiss="modal">Close</button>
 																		</div>
 															</div>
 														</div>
 													
 													
-													<div class="col-md-3">
-														<div class="form-group row">
+													
 
 															<input type="hidden" class="form-control" id="vendorCode"
 																name="vendorCode" value=${userName } readonly>
-														</div>
-													</div>
 												</div>
 											</form>
 										</div>
@@ -605,6 +602,7 @@ tbody {
 																	<tr>
 																		<th class="bg-primary">S.No</th>
 																		<th class="bg-primary">Raised By</th>
+																		<th class="bg-primary">Role/Department</th>
 																		<th class="bg-primary">Raised On</th>
 																		<th class="bg-primary">Remarks</th>
 
@@ -640,7 +638,7 @@ tbody {
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-						<p>Sure went to Approve Trip.</p>
+						<p>Sure want to Approve Trip.</p>
 					</div>
 					<div class="modal-footer">
 
@@ -974,7 +972,7 @@ tbody {
                         if (response.msg == 'success') {
                         	
                         	
-                            swal.fire("", "Query Submitted Sucessfully.", "success", "OK").then(function() {
+                            swal.fire("", "Remarks Submitted Sucessfully.", "success", "OK").then(function() {
                                 window.location = "pendingApproval";
                             });
 
@@ -1067,8 +1065,20 @@ function getQueryData(tripId){
 						     	tabledataQuery.clear();
 						     	var count=0;
 			                        for (var i = 0; i < result.length; i++) {
-			                        	count++;
-			                        	tabledataQuery.row.add([count,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
+			                        	if(!result[i].hasOwnProperty("raisedBy")){
+			                               	result[i].raisedBy="";
+			                               }
+			                                             if(!result[i].hasOwnProperty("role")){
+			                               	result[i].role="";
+			                               }
+			                                             if(!result[i].hasOwnProperty("raisedOn")){
+			                               	result[i].raisedOn="";
+			                               }
+			                                             if(!result[i].hasOwnProperty("comment")){
+			                               	result[i].comment="";
+			                               }                    
+			                        count++;
+			                        tabledataQuery.row.add([count,result[i].raisedBy, result[i].role, result[i].raisedOn, result[i].comment]);
 			                        }
 			                        tabledataQuery.draw();
 			                        $("tbody").show();

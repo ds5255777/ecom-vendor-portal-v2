@@ -100,7 +100,7 @@
 									<h2>${ApprovedTripscount}</h2>
 
 									<p id="iamwatch" data-toggle="tooltip" data-placement="bottom"
-										title="All Approved Trips">Approved</p>
+										title="All Approved Trips">Approved Trips</p>
 								</div>
 								<div class="icon">
 
@@ -162,7 +162,7 @@
 									<h2>${getInClosedTripCountForAdhoc}</h2>
 
 									<p id="perTicket" data-toggle="tooltip" data-placement="bottom"
-										title="Closed Trips">Closed(ADhoc)</p>
+										title="Closed Trips">Closed(Adhoc) Trips</p>
 								</div>
 								<div class="icon">
 									<i class="far fa-times-circle"
@@ -254,7 +254,7 @@
 							<div class="card card-primary  card-outline ">
 								<div class="card-body">
 									<p>
-										<strong>Trip by Approval Status</strong>
+										<strong>Trips by Status in Network</strong>
 									</p>
 									<canvas id="unresolvedsts"
 										style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>

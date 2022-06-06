@@ -239,6 +239,8 @@ public class UIController {
 			int totalTripCount = serviceManager.tripDetailsRepo.getTripCount(vendorCode);
 			int TotalCloseTripCount = serviceManager.invoiceGenerationEntityRepo.getQueryInvoiceCount(vendorCode);
 			int TotalInTransitTripCount = serviceManager.tripDetailsRepo.getInTransitTripCount(vendorCode);
+			int closedTripCount=serviceManager.tripDetailsRepo.getCloseTripCount(vendorCode);
+			int queryTripCount=serviceManager.tripDetailsRepo.getQueryTripCount(vendorCode);
 
 			long processInvoice = serviceManager.invoiceGenerationEntityRepo.getPendingInvoiceCount(vendorCode);
 			int approveInvoice = serviceManager.invoiceGenerationEntityRepo.getApproveInvoiceCount(vendorCode);
@@ -252,7 +254,9 @@ public class UIController {
 			model.addAttribute("approveInvoice", approveInvoice);
 			model.addAttribute("draftInvoice", draftInvoice);
 			model.addAttribute("userStatus", us.getStatus());
-
+			model.addAttribute("closedTripCount",closedTripCount);
+			model.addAttribute("queryTripCount",queryTripCount);
+			
 			request.setAttribute("vendorType", vendorType);
 			model.addAttribute("vendorType", vendorType);
 

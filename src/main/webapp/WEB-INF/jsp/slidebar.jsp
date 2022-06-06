@@ -71,7 +71,7 @@
                                 }%>
                                                 ">
                                 <i class="nav-icon fas fa-question"></i>
-                                <p>Query Raised</p>
+                                <p>Query Trips</p>
                             </a></li>
                     </ul>
 
@@ -83,46 +83,11 @@
                                 }%>
                                                 ">
                                 <i class="nav-icon far fa-times-circle"></i>
-                                <p>Closed (Adhoc) Trips</p>
+                                <p>Closed(Adhoc) Trips</p>
                             </a></li>
                     </ul>
                     <hr>
                 </li>
-
-                <%-- <li class="nav-item"><a
-                                            href="${pageContext.request.contextPath}/allTrips"
-                                            class="nav-link 
-                           <% if (request.getParameter("pagename").equalsIgnoreCase("allTrips")) {
-                                   out.print("active");
-                               }%>
-                ">
-                <i class="nav-icon fas fa-circle"> </i>
-                <p>All Trips</p>
-                </a>
-                <hr>
-                </li>
-
-            <li class="nav-item"><a href="${pageContext.request.contextPath}/closedTrips" class="nav-link 
-                       <% if (request.getParameter("pagename").equalsIgnoreCase("closedTrips")) {
-                               out.print("active");
-                           }%>
-                       ">
-                    <i class="nav-icon fas fa-circle"> </i>
-                    <p>Closed Trips</p>
-                </a>
-                <hr>
-            </li>
-
-            <li class="nav-item"><a href="${pageContext.request.contextPath}/inTransitTrips" class="nav-link 
-                       <% if (request.getParameter("pagename").equalsIgnoreCase("inTransitTrips")) {
-                               out.print("active");
-                           }%>
-                       ">
-                    <i class="nav-icon fas fa-circle"> </i>
-                    <p>in-Transit Trips</p>
-                </a>
-                <hr>
-            </li> --%>
 
                 <li class="nav-item"><a href="pendingApprovalNetwork" class="nav-link
                                         <% if (request.getParameter("pagename").equalsIgnoreCase("Pending For Approval")) {
@@ -130,7 +95,7 @@
                                             }%>
                                         ">
                         <i class="nav-icon fas fa fa-tasks highlight-icon"> </i>
-                        <p>Pending Approval Trips</p>
+                        <p>Pending Approval</p>
                     </a>
                     <hr>
                 </li>

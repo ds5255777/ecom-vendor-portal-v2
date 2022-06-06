@@ -331,6 +331,7 @@
 												<tr>
 													<th class="bg-primary"  >S.No</th>
 													<th class="bg-primary"  >Raised By</th>
+													<th class="bg-primary">Role/Department</th>
 													<th class="bg-primary" >Raised On</th>
 													<th class="bg-primary" >Remarks</th>
 												</tr>
@@ -548,8 +549,20 @@
 							     	tabledataQuery.clear();
 							     	var count=0;
 				                        for (var i = 0; i < result.length; i++) {
-				                        	count++;
-				                        	tabledataQuery.row.add([count,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
+				                        	if(!result[i].hasOwnProperty("raisedBy")){
+				                               	result[i].raisedBy="";
+				                               }
+				                                             if(!result[i].hasOwnProperty("role")){
+				                               	result[i].role="";
+				                               }
+				                                             if(!result[i].hasOwnProperty("raisedOn")){
+				                               	result[i].raisedOn="";
+				                               }
+				                                             if(!result[i].hasOwnProperty("comment")){
+				                               	result[i].comment="";
+				                               }                    
+				                        count++;
+				                        tabledataQuery.row.add([count,result[i].raisedBy, result[i].role, result[i].raisedOn, result[i].comment]);
 				                        }
 				                        tabledataQuery.draw();
 				                        $("tbody").show();
@@ -874,7 +887,7 @@
                 success: function(response) {
 
                     if (response.msg == 'success') {
-                        swal.fire("", "Invoice Processed Sucessfully", "success", "OK").then(function() {
+                        swal.fire("", "Remarks/Documents Successfully Submitted", "success", "OK").then(function() {
                             window.opener.refereshList();
                             window.close();
                         });

@@ -13,7 +13,7 @@ import com.main.db.bpaas.entity.FinancialYear;
 @Repository
 public interface FinancialYearRepo extends JpaRepository<FinancialYear, Integer>{
 	
-	@Query(value = "select financial_year from financial_year ",nativeQuery = true)
+	@Query(value = "select financial_year from financial_year order BY financial_year desc ",nativeQuery = true)
 	List<String> getFinancialYear();
 	
 	

@@ -146,6 +146,9 @@
 					</form>
 				</li>
 			</c:when>
+			<c:when test="${pageName=='Dashboard' || pageName=='PO Dashboard'}">
+                <li class="nav-item d-none d-sm-inline-block"><b><a class="nav-link"><%=request.getParameter("pagename")%></a></b></li>
+			</c:when>
 
 			<c:otherwise>
                 <li class="nav-item d-none d-sm-inline-block"><a class="black-text nav-link quickHelp" data-toggle="tooltip" data-placement="bottom" title="Back" href="#" onclick="history.back()" style="padding-right: 0px;"><b style="font-size: 18px;color: #12344dd6;"><i class="fa fa-fast-backward"></i></b></a></li>

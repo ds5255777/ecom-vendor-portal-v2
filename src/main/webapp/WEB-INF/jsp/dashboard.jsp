@@ -64,26 +64,9 @@
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-			<div class="content-header">
-				<div class="container-fluid">
-					<div class="row mb-2">
-						<div class="col-sm-6">
-						</div>
-						<!-- /.col -->
-						<div class="col-sm-6">
-							<ol class="breadcrumb float-sm-right">
-							</ol>
-						</div>
-						<!-- /.col -->
-					</div>
-					<!-- /.row -->
-				</div>
-				<!-- /.container-fluid -->
-			</div>
-			<!-- /.content-header -->
-
+			
 			<!-- Main content -->
-			<section class="content">
+			<section class="content" style="padding-top: 15px;">
 				<div class="container-fluid">
 					<!-- Small boxes (Stat box) -->
 					<div class="row">
@@ -95,8 +78,7 @@
 									<h2>${totalTripCount}</h2>
 
 									<p id="oveTickets" data-toggle="tooltip"
-										data-placement="bottom" >Total No of
-										Trips</p>
+										data-placement="bottom" >All Trips</p>
 								</div>
 								<div class="icon">
 									<i class="fas fa-truck"
@@ -255,7 +237,7 @@
 							<div class="card card-primary  card-outline ">
 								<div class="card-body">
 									<p>
-										<strong>Trip by Status</strong>
+										Trips by Status
 									</p>
 									<canvas id="unresolvedsts"
 										style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
@@ -456,16 +438,14 @@
         var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
         var unresolvedstsData = {
             labels: [
-                'Query Invoice',
-                'In-Transit',
                 'All Trips',
-                'Process Invoices',
-                'Approved Invoice',
-                'Draft Invoice'
+                'In-Transit Trip',
+                'Closed Trips',
+                'Query Trips'
             ],
             datasets: [{
-                data: [${TotalCloseTripCount}, ${TotalInTransitTripCount}, ${totalTripCount}, ${pendingInvoice}, ${approveInvoice}, ${draftInvoice}],
-                backgroundColor: ['#17a2b8', '#00a65a', '#FAA654', '#007bff', '#dc3545', '#6f42c1'],
+                data: [ ${totalTripCount},${TotalInTransitTripCount},${closedTripCount},${queryTripCount}],
+                backgroundColor: ['#FAA654','#00a65a','red','yellow'],
             }]
         }
         var unresolvedstsOptions = {

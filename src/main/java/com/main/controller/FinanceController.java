@@ -257,6 +257,7 @@ public class FinanceController {
 				entity.setForeignKey(getid);
 				entity.setRaisedBy(userName);
 				entity.setRaisedOn(new Date());
+				entity.setRole(rolename);
 				entity.setReferenceid(entity.getRaisedAgainQuery());
 				serviceManager.queryRepo.save(entity);
 			}

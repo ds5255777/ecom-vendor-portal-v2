@@ -32,6 +32,9 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
     @Query(value = "select count(*) from Trip_Details where run_status='Closed' and vendor_code=?", nativeQuery = true)
     int getCloseTripCount(String vendorCode);
+    
+    @Query(value = "SELECT  count(*)  FROM trip_details where vendor_trip_status='Query' and vendor_code=?", nativeQuery = true)
+    int getQueryTripCount(String vendorCode);
 
     @Query(value = "select count(*) from Trip_Details where run_status='In-Transit' and vendor_code=?", nativeQuery = true)
     int getInTransitTripCount(String vendorCode);

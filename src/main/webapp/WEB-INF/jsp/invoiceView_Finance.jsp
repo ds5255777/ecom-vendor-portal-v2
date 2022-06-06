@@ -324,6 +324,7 @@
                                         <tr>
                                             <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">S.No</th>
                                             <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Raised By</th>
+                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Role/Department</th>
                                             <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Raised On</th>
                                             <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Remarks</th>
                                         </tr>
@@ -847,8 +848,20 @@
 							     	tabledataQuery.clear();
 							     	var count=0;
 				                        for (var i = 0; i < result.length; i++) {
-				                        	count++;
-				                        	tabledataQuery.row.add([count,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
+				                        	if(!result[i].hasOwnProperty("raisedBy")){
+				                               	result[i].raisedBy="";
+				                               }
+				                                             if(!result[i].hasOwnProperty("role")){
+				                               	result[i].role="";
+				                               }
+				                                             if(!result[i].hasOwnProperty("raisedOn")){
+				                               	result[i].raisedOn="";
+				                               }
+				                                             if(!result[i].hasOwnProperty("comment")){
+				                               	result[i].comment="";
+				                               }                    
+				                        count++;
+				                        tabledataQuery.row.add([count,result[i].raisedBy, result[i].role, result[i].raisedOn, result[i].comment]);
 				                        }
 				                        tabledataQuery.draw();
 				                        $("tbody").show();

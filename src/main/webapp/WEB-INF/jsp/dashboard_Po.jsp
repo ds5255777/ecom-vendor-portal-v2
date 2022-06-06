@@ -159,7 +159,7 @@ tbody {
 									<h2>${totalQueryCount}</h2>
 
 									<p id="allInactive" data-toggle="tooltip"
-										data-placement="bottom" >Query</p>
+										data-placement="bottom" >Query Invoice</p>
 								</div>
 								<div class="icon">
 
@@ -243,8 +243,8 @@ tbody {
 							<div class="card card-primary  card-outline ">
 								<div class="card-header">
 									<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
-										data-placement="bottom" title="Top 15 Users">Top 50
-										Unprocessed PO</h3>
+										data-placement="bottom" title="Top 15 Users"><strong>Top 50
+										Unprocessed PO</strong></h3>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body table-responsive p-0"

@@ -255,7 +255,7 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												
-													<select id="terms" name="terms" style="width: 100%;" 
+													<select id="terms" name="terms" style="width: 100%;" disabled="disabled"
 														class="form-control-sm select2" 
 														placeholder="Payment / Credit Terms" onchange="calTermsDate()"
 														>
@@ -759,6 +759,8 @@
                   
                     $('#invoiceCurrency').val(result[0].currency);  
                     $('#paymentCurrency').val(result[0].currency); 
+                    
+                    
                 
                     showDatatbleData(tripLineArray);
                
@@ -818,7 +820,8 @@
 	                    var result = data.data;
 	                   
 	                    tripLineArray.push(result);
-	               
+	               var arrayLength=tripLineArray.length-1;
+	               quntityflag[arrayLength]="0";
 	                    showDatatbleData(tripLineArray);
 	            
 	                }else {
@@ -889,7 +892,7 @@
           var description= "<input type=\"text\" id=\"description_"+i+"\" readonly style=\"width: 300px; height: 28px;\" oninput=\"updatePOLineItem('description','"+i+"',this.value)\" value=\"" + tripLineArray[i].description + "\" class=\"form-control-sm \" \"> ";
           var remaningQuantity= "<input type=\"text\" readonly id=\"remaningQuantity_"+i+"\" style=\"width: 120px; height: 28px;\" class=\"form-control-sm \" \"> ";
           var quantity= "<input type=\"text\" readonly style=\"width: 100px; height: 28px;\" value=\"" + remaningQuat + "\" class=\"form-control-sm \" \"> ";
-          var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" maxlength=\"40\" onkeypress=\"return event.charCode >= 48 && event.charCode <= 57  \" style=\"width: 120px; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+          var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" maxlength=\"40\" onkeypress=\"return event.charCode >= 49 && event.charCode <= 57  \" style=\"width: 120px; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
           var unitPrice= "<input type=\"text\" id=\"unitPrice_"+i+"\" readonly style=\"width: 100px; height: 28x;\" value=\"" + tripLineArray[i].price + "\"  class=\"form-control-sm \" \"> ";
           var uom= "<input type=\"text\" id=\"uom_"+i+"\" maxlength=\"40\" oninput=\"updatePOLineItem('uom','"+i+"',this.value)\" value=\"" + tripLineArray[i].uom + "\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
           var taxAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"  id=\"tax_"+i+"\" class=\"form-control-sm \" \"> ";
@@ -1140,18 +1143,9 @@
         }
 		
 		
-		var invoiceNu10a = document.getElementById("InvoiceUpload").value;
-		if (invoiceNu10a === "" || invoiceNu10a === null || invoiceNu10a === '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Invoice doc is Mandatory !'
-            });
-            document.getElementById("InvoiceUpload").focus();
-            return "";
-        }
 		
 						
-		  if(quntityflag.length==0){
+		   if(quntityflag.length==0){
 		  		Toast.fire({
 		              type: 'error',
 		              title: 'Quantity Invoiced  is Mandatory !'
@@ -1168,16 +1162,23 @@
 				    		 return "";
 				    		}
 				    	}
-		  	}
-		
+		  	} 
+		   var invoiceNu10a = document.getElementById("InvoiceUpload").value;
+			if (invoiceNu10a === "" || invoiceNu10a === null || invoiceNu10a === '') {
+	            Toast.fire({
+	                type: 'error',
+	                title: 'Invoice doc is Mandatory !'
+	            });
+	            document.getElementById("InvoiceUpload").focus();
+	            return "";
+	        }
+			
         
         var matchOption=$("#invoiceMatchoption").val() ;
        
         
-        //itrDetailsArray.push(obj);
 
          var stepOneObj = FormDataToJSON('stepOneForm');
-       // var stepThreeObj = FormDataToJSON('stepThreeForm');
 
         const finalObj = {
             ...stepOneObj
@@ -1221,6 +1222,7 @@
     
         
         console.log(finalObj);
+        finalObj.terms= $("#terms").val();
         
        
 //return;
@@ -1287,7 +1289,7 @@
         
         
         if(count==0){
-        	swal.fire("Alert", "Expired PO.", "warning");
+        	swal.fire("Alert", "Expired PO || Add Line Item", "warning");
         	
         	 return "";
         	 
@@ -1346,6 +1348,7 @@
     	            
     	        };
     	        finalObj.invoiceNumber='${invoiceNumber}';
+    	        finalObj.terms= $("#terms").val();
     	        
     	        for(var i=0;i<tripLineArray.length;i++){
     	            delete tripLineArray[i].id
@@ -1438,6 +1441,7 @@
         			  
         			  }
         			  }  
+        			  quntityflag[indexc]="1";
         			  tripLineArray.splice(indexc,1);
         			  showDatatbleData(tripLineArray);
         			  var taxper = $("#taxper_"+indexc).val();
@@ -1616,7 +1620,7 @@
 
     	                    	document.getElementById("comment").value='';
     	                        $('.loader').hide();
-    	                        swal.fire("Thanks", "Sucessfully Submitted", "success", "OK")
+    	                        swal.fire("Thanks", "Remarks Sucessfully Submitted", "success", "OK")
     	                      
     						
     	                        getData();

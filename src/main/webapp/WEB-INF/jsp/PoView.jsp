@@ -208,12 +208,12 @@
                         </div>
                     </div>
                     
-                    <div class="card card-primary">
+                    <div class="card card-primary collapsed-card">
                     <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">PO Shipments</h4>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool"  data-card-widget="collapse" style="margin-right: 10px;">
-                                    <i class="fas fa-minus"></i>
+                                    <i class="fas fa-plus"></i>
                                 </button>
                             </div>
                         </div>
@@ -320,12 +320,12 @@
                           </div>
                     
                     
-                     <div class="card card-primary">
+                     <div class="card card-primary collapsed-card">
                     <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">PO Distribution</h4>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
-                                    <i class="fas fa-minus"></i>
+                                    <i class="fas fa-plus"></i>
                                 </button>
                             </div>
                         </div>

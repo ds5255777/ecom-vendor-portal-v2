@@ -2,6 +2,7 @@ package com.main.controller;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.main.db.bpaas.entity.AccountDetails;
 import com.main.db.bpaas.entity.PoDetails;
+import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.serviceManager.ServiceManager;
 
@@ -47,21 +50,20 @@ public class PoUiController {
 		}
 		System.out.println("vendorType in dashboard : " + vendorType);
 
-		String[] strArray = null;
 
-		strArray = vendorType.split(",");
 
-		for (int i = 0; i < strArray.length; i++) {
+		
+		
 
-		}
-
-		for (int i = 0; i < strArray.length; i++) {
-
-			if (strArray[i].equalsIgnoreCase("Network") && strArray[i + 1].equalsIgnoreCase("Fixed Asset")) {
-				System.out.println("vendor type : " + strArray[i] + " and " + strArray[i + 1]);
-
+			if (vendorType.equalsIgnoreCase("Fixed Asset")) {
 				String rolename = (String) request.getSession().getAttribute("role");
 				String vendorCode = (String) request.getSession().getAttribute("userName");
+				System.out.println("vendor type : " + vendorType);
+
+				 rolename = (String) request.getSession().getAttribute("role");
+				 vendorCode = (String) request.getSession().getAttribute("userName");
+
+				
 
 				// po Details
 				int totalAllPoCount = serviceManager.podetailsRepo.getAllPoCount(vendorCode);
@@ -97,7 +99,7 @@ public class PoUiController {
 
 				}
 			}
-		}
+		
 		return "";
 	}
 
@@ -264,7 +266,7 @@ public class PoUiController {
 			}
 
 		}
-
+		model.addAttribute("invoiceDate", new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		request.getSession().setAttribute("invoiceNumber", invoiceNumber);
 
@@ -275,7 +277,42 @@ public class PoUiController {
 		PoDetails findByPoNumber = null;
 		findByPoNumber = serviceManager.podetailsRepo.findByPoNo(PoNumber);
 		model.addAttribute("curentDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+		model.addAttribute("payment", payment);
+		
+		
+		
+		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
+		if ("".equals(bpCode) || bpCode == null) {
+			bpCode = "";
+		}
 
+		String creidtTerms = serviceManager.supDetailsRepo.findCreditTerms(bpCode);
+		if ("".equals(creidtTerms) || creidtTerms == null) {
+			creidtTerms = "";
+		}
+		List<String> accountNumber= new ArrayList<String>();
+		List<SupDetails> supDetails = serviceManager.supDetailsRepo.findbankAccountNumber(bpCode);
+		String accountnumber="";
+		List<AccountDetails> listaccountNumber = supDetails.get(0).getAccountDetails();
+		for(int i=0;i<listaccountNumber.size();i++) {
+			
+		 
+			accountnumber= listaccountNumber.get(i).getAccoutNumber();
+			accountNumber.add(accountnumber);
+		}
+		
+		
+		if ("".equals(accountnumber) || accountnumber == null) {
+			accountnumber = "";
+		}
+		model.addAttribute("accountNumber", accountNumber);
+
+		
+		model.addAttribute("creidtTerms", creidtTerms);
+		System.out.println("creidtTerms : "+creidtTerms);
+		
+		
 		if (null != findByPoNumber.getPoNo()) {
 			// findByPoNumber.setStatus("Draft-Invoicing");
 			// findByPoNumber.setInvoiceNumber(invoiceNumber);
@@ -302,8 +339,40 @@ public class PoUiController {
 		String PoNumber = request.getParameter("id");
 		model.addAttribute("PoNumber", PoNumber);
 		model.addAttribute("invoiceNumber", PoNumber);
-		model.addAttribute("curentDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		model.addAttribute("curentDate", new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+		model.addAttribute("curentDate1", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		model.addAttribute("maxFileSize", maxFileSize);
+		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
+		if ("".equals(bpCode) || bpCode == null) {
+			bpCode = "";
+		}
+		
+		String creidtTerms = serviceManager.supDetailsRepo.findCreditTerms(bpCode);
+		if ("".equals(creidtTerms) || creidtTerms == null) {
+			creidtTerms = "";
+		}
+		model.addAttribute("creidtTerms", creidtTerms);
+		
+		List<String> accountNumber= new ArrayList<String>();
+		List<SupDetails> supDetails = serviceManager.supDetailsRepo.findbankAccountNumber(bpCode);
+		String accountnumber="";
+		List<AccountDetails> listaccountNumber = supDetails.get(0).getAccountDetails();
+		for(int i=0;i<listaccountNumber.size();i++) {
+			
+		 
+			accountnumber= listaccountNumber.get(i).getAccoutNumber();
+			accountNumber.add(accountnumber);
+		}
+		
+		
+		if ("".equals(accountnumber) || accountnumber == null) {
+			accountnumber = "";
+		}
+		model.addAttribute("accountNumber", accountNumber);
+		
+	
+		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+		model.addAttribute("payment", payment);
 		return "draftPoInvoiceGenerate";
 	}
 

@@ -31,6 +31,9 @@ public class QueryEntity {
 
 	@Column(name = "raised_again_query")
 	private String raisedAgainQuery;
+	
+	@Column(name = "role")
+	private String role;
 
 	@Column(name = "foreign_key")
 	private Integer foreignKey;
@@ -102,5 +105,14 @@ public class QueryEntity {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 
 }

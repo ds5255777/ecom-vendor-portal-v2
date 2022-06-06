@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -181,6 +182,8 @@ public class PoInvoiceContoller {
 				List<PoInvoiceLine> poInvoiceLine =invoiceDetails.getPoInvoiceLine();
 				invoiceDetails.setStatus("In-Review");
 				invoiceDetails.setVendorCode(vendorCode);
+				invoiceDetails.setRaisedBy(vendorCode);
+				invoiceDetails.setRaisedOn(new Date());
 				
 				Long id = serviceManager.poinvoiceRepo.getId(ecomInvoiceNumber);
 				logger.info("ecomInvoiceNumber"+ecomInvoiceNumber);

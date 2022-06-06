@@ -212,7 +212,7 @@
                     <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">PO Shipments</h4>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
+                                <button type="button" class="btn btn-tool"  data-card-widget="collapse" style="margin-right: 10px;">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -410,7 +410,7 @@
                     <!-- /.card -->
                     <center>
                         <div class="form-group">
-                            <label style="visibility: hidden;">Select </label> <br>
+                            
                             <button type="button" class="btn btn-primary" id="closeModal" onclick="closeWin()">Close</button>
                             
                              <c:choose>
@@ -498,7 +498,7 @@
             "pageLength": 15,
         });
         
-        $("input[type=text]").prop('disabled', true);
+        /* $("input[type=text]").prop('disabled', true); */
 
         function closeWin() {
             window.close()
@@ -525,7 +525,7 @@
                     if (data.msg == 'success') {
                         var result = data.data;
                        //var tripLineArray = data.data.poInvoiceLine;
-                       var tripLineArray=result[0].poLineDetails;
+                       var tripLineArray=result[0].poline;
                         var myForm = "";
                         myForm = document.getElementById("stepOneForm");
                         setData(myForm, result[0]);

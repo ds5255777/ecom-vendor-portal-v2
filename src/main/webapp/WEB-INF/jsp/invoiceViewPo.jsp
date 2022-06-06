@@ -111,7 +111,7 @@
 
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label class="col-sm-5">Supplier Invoice number (DFF)
+											<label class="col-sm-5">Supplier Invoice Number 
 												<span class="text-danger"></span>
 											</label>
 											<div class="col-sm-7">
@@ -175,7 +175,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label class="col-sm-5">invoice Amount <span
+											<label class="col-sm-5">Invoice Amount <span
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
@@ -199,7 +199,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-3" style="display: none;">
 										<div class="form-group row">
 											<label class="col-sm-5">Operating Unit</label>
 											<div class="col-sm-7">
@@ -209,37 +209,8 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-3">
-										<div class="form-group row">
-											<label class="col-sm-5">Trading partner</label>
-											<div class="col-sm-7">
-												<input class="form-control-sm" name="tradingPartner"
-													id="tradingPartner" type="text"
-													placeholder="Trading partner" style="width: 100%;" readonly>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group row">
-											<label class="col-sm-5">Supplier Number<span
-												class="text-danger"> *</span></label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control-sm" name="supplierNum"
-													id="supplierNum" readonly="readonly"
-													placeholder="Supplier Number" style="width: 100%;" on>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group row">
-											<label class="col-sm-5">GL Date <span
-												class="text-danger"></span></label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control-sm" name="glDate" id="glDate"
-													placeholder="GL Date" readonly style="width: 100%;">
-											</div>
-										</div>
-									</div>
+									
+								
 
 									<div class="col-md-3">
 										<div class="form-group row">
@@ -257,17 +228,7 @@
 
 										</div>
 									</div>
-									<div class="col-md-3">
-										<div class="form-group row">
-											<label class="col-sm-5">Match Option <span
-												class="text-danger"></span></label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control-sm" name="matchOption"
-													id="matchOption" placeholder="Match Option" readonly
-													style="width: 100%;">
-											</div>
-										</div>
-									</div>
+								
 
 									<div class="col-md-3">
 										<div class="form-group row">
@@ -302,32 +263,11 @@
 											</div>
 										</div>
 									</div>
+									
+								
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label class="col-sm-5">Pay Group <span
-												class="text-danger"></span></label>
-											<div class="col-sm-7">
-												<input class="form-control-sm" type="text" name="payGroup"
-													id="payGroup" placeholder="Pay Group " readonly
-													style="width: 100%;">
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group row">
-											<label class="col-sm-5">Remit To Bank Account Name<span
-												class="text-danger"> *</span></label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control-sm" name="remitToBankAccountName"
-													id="remitToBankAccountName"
-													placeholder="Remit To bank account name"
-													style="width: 100%;">
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group row">
-											<label class="col-sm-5">Remit To bank account number
+											<label class="col-sm-5">Remit To bank account Number
 												<span class="text-danger">*</span>
 											</label>
 											<div class="col-sm-7">
@@ -341,16 +281,7 @@
 									</div>
 
 
-									<div class="col-md-3">
-										<div class="form-group row">
-											<label class="col-sm-5">Supplier invoice date (DFF) </label>
-											<div class="col-sm-7">
-												<input class="form-control-sm" type="text"
-													name="supplierInvoiceDate" id="supplierInvoiceDate"
-													placeholder=" Supplier invoice date" style="width: 100%;">
-											</div>
-										</div>
-									</div>
+								
 
 
 								</div>
@@ -359,72 +290,7 @@
 					</div>
 
 
-					<div class="card card-primary">
-						<div class="card-header" style="padding: 5px 5px 0px 5px;">
-							<h4 class="card-title">Invoice distribution</h4>
-							<div class="card-tools">
-								<button type="button" class="btn btn-tool"
-									data-card-widget="collapse" style="margin-right: 10px;">
-									<i class="fas fa-minus"></i>
-								</button>
-							</div>
-						</div>
-
-						<div class="card-body">
-							<form id="stepTwoForm" class="forms-sample">
-								<div class="row">
-
-									<div class="col-md-3">
-										<div class="form-group row">
-											<label class="col-sm-5">Line type <span
-												class="text-danger">*</span></label>
-											<div class="col-sm-7">
-												<input class="form-control-sm" type="text"
-													placeholder="lineType" name="lineType" id="lineType"
-													readonly style="width: 100%;">
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group row">
-											<label class="col-sm-5">Account<span
-												class="text-danger">*</span></label>
-											<div class="col-sm-7">
-												<input class="form-control-sm" type="text"
-													placeholder="Invoice Type" name="account" id="account"
-													readonly style="width: 100%;">
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group row">
-											<label class="col-sm-5">GL Date<span
-												class="text-danger">*</span></label>
-											<div class="col-sm-7">
-												<input class="form-control-sm" type="text"
-													placeholder="GL Date" name="glDateDistributionDate" id="glDateDistributionDate" readonly
-													style="width: 100%;">
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group row">
-											<label class="col-sm-5">Amount <span
-												class="text-danger">*</span></label>
-											<div class="col-sm-7">
-												<input class="form-control-sm" type="text"
-													placeholder="Invoice Type" name="amount" id="amount"
-													readonly style="width: 100%;">
-											</div>
-										</div>
-									</div>
-
-
-								</div>
-							</form>
-						</div>
-					</div>
-
+					
 					<!-- /.card -->
 					<div class="card card-primary">
 						<div class="card-header" style="padding: 5px 5px 0px 5px;">
@@ -444,37 +310,31 @@
 										
 										<tr>
 										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">
-																						S.No</th>
-										
+											S.No</th>
 										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">
-												Line Number</th>
-											
-											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">
-												Receipent Line</th>
-											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Description</th>
-											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Line
-												Type</th>
-											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">PO
-												Line</th>
-											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">GL
-												Date</th>
-											<!-- <th class="bg-primary"  style="padding: 5px 5px 5px 1.5rem;">Quantity</th> -->
-											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Remaning
-												Quantity</th>
-											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Quantity
-												Invoiced</th>
+											Line Number</th>
+									
+										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Description</th>
+										
+										
+										
+									
+										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Remaning
+											Quantity</th>
+										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Quantity
+											Invoiced</th>
+										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Unit
+											Price</th>
+										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">UOM</th>
+										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Tax
+											%</th>
+										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Base
+											Amount</th>
+										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Tax
+											Amount</th>
 
-											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">UOM</th>
-											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Tax
-												%</th>
-											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Base
-												Amount</th>
-											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Tax
-												Amount</th>
-
-											<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Total
-												Amount</th>
-
+										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Total
+											Amount</th>
 										</tr>
 
 									</thead>
@@ -568,6 +428,72 @@
 							</form>
 						</div>
 					</div>
+					
+					 <div class="row" >
+						<div class="col-md-3"></div>
+							<div class="col-md-2" "
+								id="viewAttachmentDiv">
+								<button type="button" id="viewAttachment"
+									onclick="displayAttachmentForPoDetails()" value="viewAttachment"
+									class="btn btn-primary btn-lg">View Attachments</button>
+							</div>
+							<div class="col-md-1" style="    margin-left: -102px;">
+								<button type="button" onclick="closeWin()"
+									class="btn btn-info btn-lg">Close</button>
+							</div>
+					</div>
+					
+					<div class="modal fade" id="viewAttachmentPopUp" role="dialog">
+        <div class="modal-dialog " style="max-width: 1300px;">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container-fluid panel1">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row innerRow">
+                                    
+                                    
+                                    <div class="col-md-8">
+                                       <div class="form-group">
+                                            <label>Document Name</label>
+                                            <select class="form-control" id="multipleAttachment" style="height: 35px;" >
+                                                
+                                            </select>
+                                             
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-3" style="display: none" id="uploadeddateDiv">
+                                        <div class="form-group">
+                                            <label>Uploaded Date</label>
+                                            <input type="text" class="form-control" id="uploadeddate" style="height: 35px;" readonly>                                               
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid panel2">
+                        <div class="row">                            
+                            <div class="col-lg-12" style="height: 400px;">
+                            <a id="ifrmameHref"   target="_blank">Click Here to open doc in new window</a>
+                                <iframe id="pdfLink" style="height:100%; width:100%"  ></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+					
+					
+					
+					
+					
 				</div>
 
 
@@ -688,27 +614,16 @@
 
                     if (data.msg == 'success') {
                         var result = data.data;
-                       //var tripLineArray = data.data.poInvoiceLine;
                        var tripLineArray=result[0].poInvoiceLine;
                        var grossamt1=result[0].grossTotalAmt;
-                       var glDate= result[0].glDate.split(" ");
-                       result[0].glDate=glDate[0];
-                       var glDateDistributionDate= result[0].glDateDistributionDate.split(" ");
-                       result[0].glDateDistributionDate=glDateDistributionDate[0];
-                      // var supplierInvoiceDate= result[0].supplierInvoiceDate.split(" ");
-                      // result[0].supplierInvoiceDate=supplierInvoiceDate[0];
-                       var termsDate= result[0].termsDate.split(" ");
-                       result[0].termsDate=termsDate[0];
+                     
+                       var termsDate= result[0].termsDate.split(" ")[0].split("-");
+                       result[0].termsDate=termsDate[1]+"-"+termsDate[2]+"-"+termsDate[0];//2022-02-06
+                       
                         var myForm = "";
                         myForm = document.getElementById("stepOneForm");
                         setData(myForm, result[0]);
-                        
-                        myForm = document.getElementById("stepTwoForm");
-                        setData(myForm, result[0]);
-
-                           $('#gldate1').val(result[0].glDate);
-                       
-                        
+                     
                           
                         $('#prTable').DataTable().clear();
                          for (var i = 0; i < tripLineArray.length; i++) {
@@ -750,10 +665,10 @@
                             }
                             var gldate= tripLineArray[i].gldate.split(" ");
                             tripLineArray[i].gldate=gldate[0];
-                            $('#prTable').DataTable().row.add([i + 1, tripLineArray[i].lineNumber,tripLineArray[i].receiptline,tripLineArray[i].description,tripLineArray[i].lineType,tripLineArray[i].poline,tripLineArray[i].gldate,tripLineArray[i].remaningQuatity,tripLineArray[i].quantityInvoiced,tripLineArray[i].uom,tripLineArray[i].taxper,tripLineArray[i].baseAmount,tripLineArray[i].taxAmount,tripLineArray[i].totalAmount]);
+                            $('#prTable').DataTable().row.add([i + 1, tripLineArray[i].lineNumber,tripLineArray[i].description,tripLineArray[i].remaningQuatity,tripLineArray[i].quantityInvoiced,tripLineArray[i].unitPrice,tripLineArray[i].uom,tripLineArray[i].taxper,tripLineArray[i].baseAmount,tripLineArray[i].taxAmount,tripLineArray[i].totalAmount]);
                          }
                          var  grossamt= "<input disabled type=\"text\" value=\"" + result[0].grossTotalAmt + "\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";
-                         prTable1.row.add(["","","","","","","","","","","","<b>Gross Total</b>",grossamt,""]);
+                         prTable1.row.add(["","","","","","","","","","<b>Gross Total</b>",grossamt," "]);
                       
                          
                     
@@ -895,6 +810,77 @@
 
         }
        
+        function displayAttachmentForPoDetails(){
+			
+			 $('#multipleAttachment').empty();
+			 var invoiceNumber = '${invoiceNo}';
+			 
+			 var obj ={
+						"foreignKey": invoiceNumber,
+						"type": "Invoice"
+				}
+				
+				$.ajax({
+					type : "POST",
+					url : "<%=GlobalUrl.getDocumentByTypeAndForeignKey%>",
+					data :JSON.stringify(obj),
+					dataType : "json",
+					contentType : "application/json",
+					success : function(response) {
+						if (response.msg == "success") {
+						
+							if("data" in response){
+							
+								var result = response.data;												
+								
+								$('#multipleAttachment').append($('<option/>').attr("value", '').text("Select"));
+								
+								for (var i = 0; i < result.length; i++) {																						
+									$('#multipleAttachment').append($('<option/>').attr("value", result[i].docPath).text(result[i].docName));			
+								}
+								$("#viewAttachmentPopUp").modal('show');
+								
+							}else{
+								Toast.fire({
+									type : 'error',
+									title : 'Attachment Not Available..'
+								})
+							}
+						} else {
+							Toast.fire({
+								type : 'error',
+								title : 'Failed ..'
+							})
+						}
+					},
+					error : function(jqXHR, textStatue, errorThrown) {
+						
+						Toast.fire({
+							type : 'error',
+							title : 'Failed Added try again..'
+						})
+
+					}
+				}); 								 
+			}
+		
+		 $("#multipleAttachment").change(function () {
+			 
+			 $("#pdfLink").contents().find("body").html(" ");
+			    var fileName = $("#multipleAttachment option:selected").text();
+			    
+			    console.log("fileName from drop down >> " + fileName);
+				var filePath = $("#multipleAttachment").val();
+			    
+				 fileName = encodeURIComponent(fileName);
+			     filePath = encodeURIComponent(filePath);
+					var urlpath = "getDoc" + "?name=" + fileName+ "&path=" + filePath;
+
+					$('#pdfLink').attr('src', urlpath);
+					$('#ifrmameHref').attr('href', urlpath);
+
+				});
+
         
     </script>
 </body>

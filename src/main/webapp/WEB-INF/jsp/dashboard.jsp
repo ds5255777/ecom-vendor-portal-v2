@@ -52,52 +52,9 @@
 
 	
         <!-- Navbar -->
-        
-      
-        <%
-        String vendorType=(String)request.getAttribute("vendorType");
-        
-        
-        String[] strArray =   null;
-        		
-      strArray = vendorType.split(",");  
-     
-   			 if(vendorType.equalsIgnoreCase("vendor")){
-    	 	%>
-	    	 
-	    	 <jsp:include page="navbar.jsp?pagename=Dashboard" />
-	    	 
-	    	 <% 
- 		  	 	
-	    	 }
- 	
-        
-      
-     	   for (int i = 0; i < strArray.length; i++) {
-     		   
-     		  if(!vendorType.equalsIgnoreCase("vendor") && strArray.length == 1 && strArray[i].equalsIgnoreCase("Network")  || strArray[i].equalsIgnoreCase("Fixed Asset") || strArray[i].equalsIgnoreCase("Other")){
-      	    	 System.out.println("vendor type : "+strArray[i]); 
-      	    	 %>
-      	    	 
-      	    	 <jsp:include page="navbar.jsp?pagename=Dashboard" />
-      	    	 
-      	    	 <% 
-         		  	 	break;
-      	    	 }
-         	
-     	   		else if(!vendorType.equalsIgnoreCase("vendor") && strArray[i].equalsIgnoreCase("Network")  && strArray[i+1].equalsIgnoreCase("Fixed Asset")){
-         	    	 System.out.println("vendor type : "+strArray[i]+"and "+strArray[i+1]); 
-         	    	 %>
-         	    	 
-         	    	 <jsp:include page="navbar_po.jsp?pagename= Dashboard" />
-         	    	 
-         	    	 <% 
-            		  	 	break;
-         	     } 
-     	   }
-      %>
-     
 
+     
+ 		<jsp:include page="navbar.jsp?pagename=Dashboard" />
 
         <!-- Right navbar links -->
         <jsp:include page="sidebar_Vendor.jsp?pagename=dashboard" />

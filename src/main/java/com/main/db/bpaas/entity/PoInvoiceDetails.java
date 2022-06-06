@@ -102,6 +102,12 @@ public class PoInvoiceDetails {
 	@Column(name = "assign_to")
 	private String assignTo;
 	
+	@Column(name = "raised_on")
+	private Date raisedOn;
+	@Column(name = "raised_by")
+	private String raisedBy;// Vendor Code
+
+	
 	@Column(name = "gldatedistribution_date")
 	private Date glDateDistributionDate;
 
@@ -412,6 +418,22 @@ public class PoInvoiceDetails {
 
 	public void setDocumentFileOneText(String documentFileOneText) {
 		this.documentFileOneText = documentFileOneText;
+	}
+
+	public Date getRaisedOn() {
+		return raisedOn;
+	}
+
+	public void setRaisedOn(Date raisedOn) {
+		this.raisedOn = raisedOn;
+	}
+
+	public String getRaisedBy() {
+		return raisedBy;
+	}
+
+	public void setRaisedBy(String raisedBy) {
+		this.raisedBy = raisedBy;
 	}
 
 }

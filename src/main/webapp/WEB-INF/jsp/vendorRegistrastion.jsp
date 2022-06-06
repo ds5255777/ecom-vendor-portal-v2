@@ -448,6 +448,18 @@ label {
 .select2{
 width: 100% !important;
 }
+.select2-container--default .select2-selection--multiple .select2-selection__clear {
+    cursor: pointer;
+    font-weight: bold;
+    height: 20px;
+    margin-right: 10px;
+    margin-top: 5px;
+    position: absolute;
+    right: 0;
+    padding: 1px;
+    /* border: hidden; */
+    display: none;
+}
 </style>
 
 

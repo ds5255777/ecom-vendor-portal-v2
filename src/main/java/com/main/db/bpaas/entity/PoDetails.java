@@ -14,10 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "Po_Details")
 public class PoDetails {
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,8 +54,8 @@ public class PoDetails {
 	@Column(name = "Invoice_Match_option")
 	private String invoiceMatchoption;
 	
-	@Column(name = "Org")
-	private String org;
+	
+					
 	@Column(name = "Match_Approval_Level")
 	private String matchApprovalLevel;
 	
@@ -105,7 +105,7 @@ public class PoDetails {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn
-	private List<PoLineDetails> poLineDetails;
+	private List<PoLineDetails> poline;
 	
 	
 	public Long getId() {
@@ -117,6 +117,7 @@ public class PoDetails {
 	public String getPoNo() {
 		return poNo;
 	}
+	
 	public void setPoNo(String poNo) {
 		this.poNo = poNo;
 	}
@@ -178,12 +179,12 @@ public class PoDetails {
 		this.invoiceMatchoption = invoiceMatchoption;
 	}
 	
-	public String getOrg() {
-		return org;
-	}
-	public void setOrg(String org) {
-		this.org = org;
-	}
+
+			 
+  
+								 
+				 
+  
 	public String getMatchApprovalLevel() {
 		return matchApprovalLevel;
 	}
@@ -223,13 +224,15 @@ public class PoDetails {
 	public void setVendorCode(String vendorCode) {
 		this.vendorCode = vendorCode;
 	}
-	public List<PoLineDetails> getPoLineDetails() {
-		return poLineDetails;
-	}
-	public void setPoLineDetails(List<PoLineDetails> poLineDetails) {
-		this.poLineDetails = poLineDetails;
-	}
 	
+	
+	
+	public List<PoLineDetails> getPoline() {
+		return poline;
+	}
+	public void setPoline(List<PoLineDetails> poline) {
+		this.poline = poline;
+	}
 	public String getSupplierSite() {
 		return supplierSite;
 	}
@@ -303,10 +306,6 @@ public class PoDetails {
 		this.needByDate = needByDate;
 	}
 	
-	
-	
-	
-
 	
 
 }

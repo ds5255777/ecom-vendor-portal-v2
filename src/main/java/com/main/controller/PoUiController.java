@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.main.db.bpaas.entity.AccountDetails;
 import com.main.db.bpaas.entity.PoDetails;
+import com.main.db.bpaas.entity.PoLineDetails;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.serviceManager.ServiceManager;
@@ -63,7 +64,23 @@ public class PoUiController {
 				 rolename = (String) request.getSession().getAttribute("role");
 				 vendorCode = (String) request.getSession().getAttribute("userName");
 
-				
+				 	List<PoDetails> details1=new ArrayList<PoDetails>();
+					List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
+					
+					for(int i=0;i<details.size();i++) {
+						List<PoLineDetails> podet=details.get(i).getPoline();
+						String pono=details.get(i).getPoNo();
+						float remaningquantity=0;
+						for(int j=0;j<podet.size();j++) {
+							remaningquantity=remaningquantity+Float.parseFloat(podet.get(i).getRemaningQuatity());
+						}
+						if(remaningquantity!=0.0 || remaningquantity!=0.00 ||remaningquantity!=0) {
+							details1.add(details.get(i));
+						}else {
+							serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(pono);
+						}
+						System.out.println("remaningquantity is :::"+remaningquantity +"VendorCode ::"+vendorCode);
+					}
 
 				// po Details
 				int totalAllPoCount = serviceManager.podetailsRepo.getAllPoCount(vendorCode);
@@ -92,6 +109,8 @@ public class PoUiController {
 				model.addAttribute("dataLimit", dataLimit);
 
 				System.out.println("end of dashboard_Po");
+				
+				
 
 				if (rolename.equalsIgnoreCase("Vendor")) {
 

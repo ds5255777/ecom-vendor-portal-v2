@@ -90,6 +90,15 @@
                                 <p>Draft invoice</p>
                             </a></li>
                     </ul>
+                    <ul class="nav nav-treeview">
+                    <li class="nav-item"><a href="QueryPo" class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("queryInvoicePO")) {
+				out.print("active");
+			}%>">
+                            <i class="nav-icon fas fa-question"></i>
+                            <p>Query Invoice</p>
+                        </a></li>
+                </ul>
                     <hr>
                 </li>
 

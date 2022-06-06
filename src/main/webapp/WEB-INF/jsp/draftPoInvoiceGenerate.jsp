@@ -252,13 +252,13 @@
 											<div class="col-sm-7">
 												
 													<select id="terms" name="terms" style="width: 100%;" onchange="calTermsDate()"
-														class="form-control-sm select2" 
+														class="form-control-sm select2" disabled="disabled"
 														placeholder="Payment / Credit Terms"
 														>
 															<option value="">Select</option>
 															<c:forEach items="${payment}" var="pay">
 
-																<option value="${pay}">${pay}</option>
+																<option value="${pay}" >${pay}</option>
 															</c:forEach>
 
 													</select>
@@ -894,7 +894,8 @@
 	            	      	tripLineArray[i].quantity=tripLineArray[i].remaningQuatity;	
 	                    	}
 	            	      }
-	                    
+	                    var arrayLength=tripLineArray.length-1;
+	 	               quntityflag[arrayLength]="0";
 	                    showDatatbleData(tripLineArray);
 	            
 	                }else {
@@ -1133,15 +1134,7 @@
       }
 		
 		
-		var invoiceNu10a = document.getElementById("InvoiceUpload").value;
-		if (invoiceNu10a === "" || invoiceNu10a === null || invoiceNu10a === '') {
-          Toast.fire({
-              type: 'error',
-              title: 'Invoice doc is Mandatory !'
-          });
-          document.getElementById("InvoiceUpload").focus();
-          return "";
-      }
+		
 	
 		
 		  if(quntityflag.length==0){
@@ -1162,7 +1155,15 @@
 				    		}
 				    	}
 		  	}
-		 
+		  var invoiceNu10a = document.getElementById("InvoiceUpload").value;
+			if (invoiceNu10a === "" || invoiceNu10a === null || invoiceNu10a === '') {
+	          Toast.fire({
+	              type: 'error',
+	              title: 'Invoice doc is Mandatory !'
+	          });
+	          document.getElementById("InvoiceUpload").focus();
+	          return "";
+	      }
          var stepOneObj = FormDataToJSON('stepOneForm');
 
         const finalObj = {
@@ -1236,7 +1237,7 @@
 		var termsDate=   $('#termsDate').val().split(" ");
         
 		  finalObj.termsDate=termsDate[0];
-         	
+		  finalObj.terms= $("#terms").val();
 		  
         
         console.log(finalObj);
@@ -1252,7 +1253,7 @@
  
         
 		     if(count==0){
-		     	swal.fire("Alert", "Expired PO Please Delete", "warning");
+		     	swal.fire("Alert", "Expired PO || Add Line Item", "warning");
 		     	 return "";
 		     	 
 		     }else{
@@ -1312,6 +1313,7 @@
   			  
   			  }
   			  }  
+  			 quntityflag[indexc]="1";
   			  tripLineArray.splice(indexc,1);
   			  showDatatbleData(tripLineArray);
   			  var taxper = $("#taxper_"+indexc).val();

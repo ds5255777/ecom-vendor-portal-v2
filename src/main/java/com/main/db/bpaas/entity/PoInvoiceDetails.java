@@ -58,7 +58,7 @@ public class PoInvoiceDetails {
 	private String matchOption;
 
 	@Column(name = "Terms_Date")
-	private Date termsDate;
+	private String termsDate;
 	@Column(name = "Terms")
 	private String terms;
 
@@ -212,11 +212,13 @@ public class PoInvoiceDetails {
 		this.matchOption = matchOption;
 	}
 
-	public Date getTermsDate() {
+	
+
+	public String getTermsDate() {
 		return termsDate;
 	}
 
-	public void setTermsDate(Date termsDate) {
+	public void setTermsDate(String termsDate) {
 		this.termsDate = termsDate;
 	}
 

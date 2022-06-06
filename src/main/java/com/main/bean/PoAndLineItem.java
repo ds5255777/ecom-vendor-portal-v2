@@ -1,5 +1,7 @@
 package com.main.bean;
 
+import javax.persistence.Column;
+
 public class PoAndLineItem {
 
 	private long id;
@@ -8,6 +10,8 @@ public class PoAndLineItem {
 	private Integer flag;
 	private String lineNumberpo;
 	private String poNumber;
+	
+	private Double poLineId;
 
 	public String getInvoiceno() {
 		return invoiceno;
@@ -55,6 +59,14 @@ public class PoAndLineItem {
 
 	public void setPoNumber(String poNumber) {
 		this.poNumber = poNumber;
+	}
+
+	public Double getPoLineId() {
+		return poLineId;
+	}
+
+	public void setPoLineId(Double poLineId) {
+		this.poLineId = poLineId;
 	}
 
 }

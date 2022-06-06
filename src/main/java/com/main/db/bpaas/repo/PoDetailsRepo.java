@@ -75,10 +75,13 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long> {
 	void updateRemaningQuantitydraft(@Param("remaningQuatity") String remaningQuatity,
 			@Param("lineNumber") String lineNumber);
 
-	@Query(value = "select  remaning_quatity from Po_line_Details WHERE  line_Number=:lineNumber ; ", nativeQuery = true)
-	String getCurrentRemaningQty(@Param("lineNumber") String lineNumber);
+	@Query(value = "select  remaning_quatity from Po_line_Details WHERE  po_line_id=:polineid ; ", nativeQuery = true)
+	String getCurrentRemaningQty(@Param("polineid") double polineid);
 	
 	@Query(value = "select * from po_details where  vendor_code=?", nativeQuery = true)
 	List<PoDetails> findByVendorCode(String vendorCode);
+
+	@Query(value = "select  quantity from Po_line_Details WHERE  po_line_id=:polineid ; ", nativeQuery = true)
+	String getCurrentQty(@Param("polineid") Double poLineId);
 
 }

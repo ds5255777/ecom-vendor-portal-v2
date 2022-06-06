@@ -224,7 +224,7 @@ public class PoController {
 		try {
 
 			List<PoLineDetails> poInvoiceDetails = serviceManager.poLineItemRepo
-					.getDataByLineNumber(details.getLineNumber());
+					.getDataByLineNumber(details.getPoLineId());
 
 			data.setData(poInvoiceDetails.get(0));
 			data.setMsg("success");
@@ -397,8 +397,11 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			String getRemaningQuatity = serviceManager.podetailsRepo.getCurrentRemaningQty(details.getLineNumberpo());
-
+			String getRemaningQuatity = serviceManager.podetailsRepo.getCurrentRemaningQty(details.getPoLineId());
+			if(getRemaningQuatity==null) {
+				
+				getRemaningQuatity= serviceManager.podetailsRepo.getCurrentQty(details.getPoLineId());
+			}
 			data.setData(getRemaningQuatity);
 			data.setMsg("success");
 

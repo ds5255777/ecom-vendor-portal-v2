@@ -89,7 +89,7 @@
                     <!-- SELECT2 EXAMPLE -->
                     <div class="card card-primary" style="margin-top: 1rem;">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
-                            <h4 class="card-title">BASIC DETAILS</h4>
+                            <h4 class="card-title">Basic Details</h4>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
                                     <i class="fas fa-minus"></i>
@@ -300,6 +300,7 @@
 												<tr>
 													<th class="bg-primary"  >S.No</th>
 													<th class="bg-primary"  >Raised By</th>
+													<th class="bg-primary">Role/Department</th>
 													<th class="bg-primary" >Raised On</th>
 													<th class="bg-primary" >Remarks</th>
 												</tr>
@@ -588,8 +589,20 @@
 							     	tabledataQuery.clear();
 							     	var count=0;
 				                        for (var i = 0; i < result.length; i++) {
-				                        	count++;
-				                        	tabledataQuery.row.add([count,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
+				                        	if(!result[i].hasOwnProperty("raisedBy")){
+				                               	result[i].raisedBy="";
+				                               }
+				                                             if(!result[i].hasOwnProperty("role")){
+				                               	result[i].role="";
+				                               }
+				                                             if(!result[i].hasOwnProperty("raisedOn")){
+				                               	result[i].raisedOn="";
+				                               }
+				                                             if(!result[i].hasOwnProperty("comment")){
+				                               	result[i].comment="";
+				                               }                    
+				                        count++;
+				                        tabledataQuery.row.add([count,result[i].raisedBy, result[i].role, result[i].raisedOn, result[i].comment]);
 				                        }
 				                        tabledataQuery.draw();
 				                        $("tbody").show();

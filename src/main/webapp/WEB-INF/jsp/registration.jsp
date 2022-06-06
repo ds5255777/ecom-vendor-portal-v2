@@ -1057,7 +1057,7 @@ label {
 														class="required adHocRequired">*</span></label></td>
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="introducedByName"
-													name="introducedByName" placeholder="Reference Name"
+													name="introducedByName" placeholder="Introducer Name"
 													maxlength="50"></td>
 
 												<td><label for="emailId">Introducer Email ID<span
@@ -1667,10 +1667,10 @@ label {
 														</select></td>
 
 														<td><label for="tdsRate">TDS Exemption Rate
-																(If Any)<span class="required adHocRequired">*</span></label></td>
-														<td colspan='2'><input type="text"
+																%<span class="required adHocRequired">*</span></label></td>
+														<td colspan='2'><input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode <= 46"
 															class="form-control p-input" id="tdsRate" name="tdsRate"
-															placeholder="TDS  Exemption Rate"></td>
+															placeholder="TDS  Exemption Rate" maxlength="4"></td>
 													</tr>
 
 												</tbody>
@@ -1697,7 +1697,7 @@ label {
 											<table class="table center-aligned-table table-striped" id="addITRGrid" name="addITRGrid">
 												<tbody>
 													<tr class="">
-													<td><label>Select Financial Year</label> </td>
+													<td><label>Select Financial Year<span class="required adHocRequired">*</span></label> </td>
 														<td><select id="fyYear1" name="fyYear1" class="form-control p-input ">
 																<option value="">Select</option>
 
@@ -1707,7 +1707,7 @@ label {
 																</c:forEach>
 
 														</select></td>
-														<td><label>Fill Acknowledgement Number</label> </td>
+														<td><label>Fill Acknowledgement Number<span class="required adHocRequired">*</span></label> </td>
 														<td><input type="text" id="acknowledgementNumber1"
 															name="acknowledgementNumber1"
 															class="form-control p-input "></td>
@@ -1720,7 +1720,7 @@ label {
 																	size Max ${fileSize} MB</span></label></td>
 													</tr>
 													<tr class="">
-														<td><label>Select Financial Year</label> </td>
+														<td><label>Select Financial Year<span class="required adHocRequired">*</span></label> </td>
 														<td><select id="fyYear2" name="fyYear2" class="form-control p-input ">
 																<option value="">Select</option>
 
@@ -1730,7 +1730,7 @@ label {
 																</c:forEach>
 
 														</select></td>
-														<td><label>Fill Acknowledgement Number</label> </td>
+														<td><label>Fill Acknowledgement Number<span class="required adHocRequired">*</span></label> </td>
 														<td><input type="text" id="acknowledgementNumber2"
 															name="acknowledgementNumber2"
 															class="form-control p-input "></td>
@@ -1743,7 +1743,7 @@ label {
 																	size Max ${fileSize} MB</span></label></td>
 													</tr>
 													<tr class="">
-													<td><label>Select Financial Year</label> </td>
+													<td><label>Select Financial Year<span class="required adHocRequired">*</span></label> </td>
 														<td><select id="fyYear3" name="fyYear3" class="form-control p-input ">
 																<option value="">Select</option>
 
@@ -1753,7 +1753,7 @@ label {
 																</c:forEach>
 
 														</select></td>
-														<td><label>Fill Acknowledgement Number</label> </td>
+														<td><label>Fill Acknowledgement Number<span class="required adHocRequired">*</span></label> </td>
 														<td><input type="text" id="acknowledgementNumber3"
 															name="acknowledgementNumber3"
 															class="form-control p-input "></td>
@@ -1814,7 +1814,10 @@ label {
 																<textarea id="PDFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
 																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label></td>
+																		size Max ${fileSize} MB</span></label>
+																		<a href="/C:/1.BPAAS/Document/doc.pdf" download>Download Template
+																		</a>
+																		</td>
 
 														</tr>
 
@@ -1856,7 +1859,8 @@ label {
 																<textarea id="APLFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
 																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label></td>
+																		size Max ${fileSize} MB</span></label><a href="/C:/1.BPAAS/Document/doc.pdf" download>Download Template
+																		</a></td>
 														</tr>
 														<tr>
 															<td><label>ITR Filling Declaration<span
@@ -1867,7 +1871,8 @@ label {
 																<textarea id="ITRFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
 																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label></td>
+																		size Max ${fileSize} MB</span></label><a href="/C:/1.BPAAS/Document/doc.pdf" download>Download Template
+																		</a></td>
 															<td><label>Filled Updated VRF Form<span
 																	class="required">*</span></label></td>
 															<td><input type="file" id="FUVFFile" name="FUVFFile"
@@ -1876,7 +1881,8 @@ label {
 																<textarea id="FUVFFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
 																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label></td>
+																		size Max ${fileSize} MB</span></label><a href="/C:/1.BPAAS/Document/doc.pdf" download>Download Template
+																		</a></td>
 														</tr>
 														<tr>
 															<td><label>MSME Certificate<span
@@ -1888,7 +1894,8 @@ label {
 																<textarea id="MSMECFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
 																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label></td>
+																		size Max ${fileSize} MB</span></label><a href="/C:/1.BPAAS/Document/doc.pdf" download>Download Template
+																		</a></td>
 															<td><label>Approval Mail<span
 																	class="required">*</span></label></td>
 															<td><input type="file" id="AMFile" name="AMFile"
@@ -1920,7 +1927,8 @@ label {
 																<textarea id="NMISFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
 																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label></td>
+																		size Max ${fileSize} MB</span></label><a href="/C:/1.BPAAS/Document/doc.pdf" download>Download Template
+																		</a></td>
 														</tr>
 													</tbody>
 												</table>

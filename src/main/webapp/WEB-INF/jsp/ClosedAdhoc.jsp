@@ -236,11 +236,14 @@
 									style="overflow-y: auto; height: 620px;">
 									<input type="hidden" id="headerDetailsId" class="form-control">
 									<div class="card card-primary">
-										<div class="card-header" style="padding: 4px 0px 4px 4px;">
+										<div class="card-header" style="padding: 4px 0px 0px 4px;">
 											<h3 class="card-title" style="font-size: 15px;">Trip
 												Details</h3>
-												<button type="button" class="btn" id="closeModal" style="float: right;padding: 0 10px 0 0;"
-												data-dismiss="modal"><i class="nav-icon far fa-window-close" style="font-size: 20px; color: white;"></i></button>
+											<button type="button" class="btn btn-sm" id="closeModal"
+												style="float: right;padding: 0 10px 0 0;" data-dismiss="modal">
+												<i class="nav-icon far fa-window-close"
+													style="font-size: 20px; color: white;"></i>
+											</button>
 										</div>
 										<!-- /.card-header -->
 										<div class="card-body" style="padding-bottom: inherit;">
@@ -606,6 +609,7 @@
 																	<tr>
 																		<th class="bg-primary">S.No</th>
 																		<th class="bg-primary">Raised By</th>
+																		<th class="bg-primary">Role/Department</th>
 																		<th class="bg-primary">Raised On</th>
 																		<th class="bg-primary">Remarks</th>
 
@@ -859,9 +863,21 @@
                                            							     	tabledataQuery.clear();
                                            							     	var count=0;
                                            				                        for (var i = 0; i < result.length; i++) {
-                                           				                        	count++;
-                                           				                        	tabledataQuery.row.add([count,result[i].raisedBy, result[i].raisedOn, result[i].comment]);
-                                           				                        }
+                                           				                        	if(!result[i].hasOwnProperty("raisedBy")){
+                                           				                            	result[i].raisedBy="";
+                                           				                            }
+                                           				                                          if(!result[i].hasOwnProperty("role")){
+                                           				                            	result[i].role="";
+                                           				                            }
+                                           				                                          if(!result[i].hasOwnProperty("raisedOn")){
+                                           				                            	result[i].raisedOn="";
+                                           				                            }
+                                           				                                          if(!result[i].hasOwnProperty("comment")){
+                                           				                            	result[i].comment="";
+                                           				                            }                    
+                                           				                     count++;
+                                           				                     tabledataQuery.row.add([count,result[i].raisedBy, result[i].role, result[i].raisedOn, result[i].comment]);
+                                           				                     }
                                            				                        tabledataQuery.draw();
                                            				                        $("tbody").show();
                                            								}

@@ -83,7 +83,7 @@
                     <!-- SELECT2 EXAMPLE -->
                     <div class="card card-primary" style="margin-top: 1rem;">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
-                            <h4 class="card-title">BASIC DETAILS</h4>
+                            <h4 class="card-title">Basic Details</h4>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
                                     <i class="fas fa-minus"></i>
@@ -793,7 +793,7 @@
                 success: function(data) {
 
                     if (data.msg == 'success') {
-                        swal.fire("", "Invoice Cancel.", "success", "OK").then(function() {
+                        swal.fire("", "Invoice Cancelled Successfully.", "success", "OK").then(function() {
                             window.opener.refereshList();
                             window.close();
                         });

@@ -2,7 +2,6 @@ package com.main.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -41,7 +40,6 @@ import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.TripDetails;
-import com.main.email.CommEmailFunction;
 import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/invoiceController")
@@ -394,7 +392,7 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-
+		String rolename = (String) request.getSession().getAttribute("role");
 		try {
 			String filePath = filepath + File.separator + obj.getEcomInvoiceNumber();
 			logger.info(filePath);
@@ -481,6 +479,7 @@ public class InvoiceController {
 				queryEntity.setComment(obj.getRemarks());
 				queryEntity.setForeignKey(Integer.valueOf(invObj.getId().toString()));
 				queryEntity.setRaisedAgainQuery(obj.getInvoiceNumber());
+				queryEntity.setRole(rolename);
 				queryEntity.setRaisedBy(obj.getVendorCode());
 				queryEntity.setRaisedOn(new Date());
 				queryEntity.setReferenceid(obj.getInvoiceNumber());

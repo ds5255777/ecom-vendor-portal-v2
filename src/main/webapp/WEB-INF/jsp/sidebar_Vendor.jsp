@@ -103,7 +103,7 @@
 				out.print("active");
 			}%>">
                             <i class="nav-icon fas fa-file-contract"></i>
-                            <p>Invoice Process</p>
+                            <p>Process Invoice</p>
                         </a></li>
                 </ul>
                 <ul class="nav nav-treeview">
@@ -112,7 +112,7 @@
 				out.print("active");
 			}%>">
                             <i class="nav-icon fas fa fa-check"></i>
-                            <p>Invoice Approved</p>
+                            <p>Approved Invoice</p>
                         </a></li>
                 </ul>
                 <ul class="nav nav-treeview">

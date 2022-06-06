@@ -641,16 +641,17 @@ tbody {
                                             <div class="col-md-12">
                                                 <div class="card card-primary ">
                                                     <div class="card-header" style="padding: 4px 0px 4px 4px;">
-                                                        <h3 class="card-title" style="font-size: 15px;">Ad-Hoc Trips Query</h3>
+                                                        <h3 class="card-title" style="font-size: 15px;">Trips Query</h3>
                                                     </div>
 
                                                     <div class="card-body ">
                                                         <form role="form" id="showQueryDetails" name="showQueryDetails">
-                                                            <table class="table table-bordered table-hover" id="tabledata">
+                                                            <table class="table table-bordered table-hover" id="queryTabledata">
                                                                 <thead>
 																	<tr>
 																		<th class="bg-primary">S.No</th>
 																		<th class="bg-primary">Raised By</th>
+																		<th class="bg-primary">Role/Department</th>
 																		<th class="bg-primary">Raised On</th>
 																		<th class="bg-primary">Remarks</th>
 
@@ -732,7 +733,7 @@ tbody {
   			theme : 'bootstrap4'
   		});
 		  
-		  var tabledataQuery = $('#tabledataQuery').DataTable({
+		  var tabledataQuery = $('#queryTabledata').DataTable({
               "paging": false,
               "lengthChange": false,
               "searching": false,
@@ -749,6 +750,7 @@ tbody {
                                                         showConfirmButton: false,
                                                         timer: 3000
                                                     });
+                                                    
                                                     var tabledata = $('#tabledata1').DataTable({
                                                         "paging": true,
                                                         "lengthChange": false,
@@ -912,35 +914,32 @@ tbody {
                                                                 console.log("data.data " + data.data);
                                                                 console.log("Actual data.data " + JSON.stringify(data.data));
                                                                 if (data.msg == 'success') {
-                                                                    var resData = data.data;
-                                                                    var table = document.getElementById("tabledata");
-                                                                    console.log("Query Table :   ",data);
-                                                                    tabledata.clear();
-                                                                    for (i = 0; i < resData.length; i++) {
-                                                                        console.log(resData[i].id);
-                                                                        console.log(resData[i].comment);
-                                                                        var row = table.insertRow(i + 1);
-
-
-                                                                        var cell1 = row.insertCell(0);
-                                                                        var cell2 = row.insertCell(1);
-                                                                        var cell3 = row.insertCell(2);
-                                                                        var cell4 = row.insertCell(3);
-
-                                                                        cell1.innerHTML = i + 1;
-                                                                        cell2.innerHTML = resData[i].raisedBy;
-                                                                        cell3.innerHTML = resData[i].raisedOn;
-                                                                        cell4.innerHTML = resData[i].comment;
-
-
-                                                                    }
-                                                                    
+                                                               	 if("data" in data){
+                                           								var result = data.data;												
+                                           							     	tabledataQuery.clear();
+                                           							     	var count=0;
+                                           				                        for (var i = 0; i < result.length; i++) {
+                                           				                        	if(!result[i].hasOwnProperty("raisedBy")){
+                                           				                               	result[i].raisedBy="";
+                                           				                               }
+                                           				                                             if(!result[i].hasOwnProperty("role")){
+                                           				                               	result[i].role="";
+                                           				                               }
+                                           				                                             if(!result[i].hasOwnProperty("raisedOn")){
+                                           				                               	result[i].raisedOn="";
+                                           				                               }
+                                           				                                             if(!result[i].hasOwnProperty("comment")){
+                                           				                               	result[i].comment="";
+                                           				                               }                    
+                                           				                        count++;
+                                           				                        tabledataQuery.row.add([count,result[i].raisedBy, result[i].role, result[i].raisedOn, result[i].comment]);
+                                           				                        }
+                                           				                        tabledataQuery.draw();
+                                           				                        $("tbody").show();
+                                           								}
                                                                 }
                                                             }
-
-
                                                         });
-
 
                                                     }
 

@@ -98,7 +98,7 @@ tbody {
 								</div>
 								<div class="icon">
 
-									<i class="nav-icon fas fa-list" style="color: aquamarine; font-size: 70px;"></i>
+									<i class="nav-icon fas fa-list" style="color: #FAA654; font-size:50px;"></i>
 								</div>
 								<a href="allPO" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -120,7 +120,7 @@ tbody {
 								</div>
 								<div class="icon">
 
-									<i class="fa fa-tasks" style="color: chocolate; font-size: 70px;"></i>
+									<i class="fa fa-tasks" style="color: chocolate; font-size: 50px;"></i>
 								</div>
 								<a href="unprocessPO" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -141,7 +141,7 @@ tbody {
 								<div class="icon">
 
 									<i class="fas fa fa-check"
-										style="color: #28a745; font-size: 70px;"></i>
+										style="color: #28a745; font-size: 50px;"></i>
 								</div>
 								<a href="processPO" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -152,29 +152,7 @@ tbody {
 
 
 							
-						<div class="col-lg-2 col-6">
-							<!-- small box -->
-							<div class="small-box bg-white">
-								<div class="inner">
-									<h2>${totalQueryCount}</h2>
-
-									<p id="allInactive" data-toggle="tooltip"
-										data-placement="bottom" >Query Invoice</p>
-								</div>
-								<div class="icon">
-
-
-
-
-									<i class="fas fa-question"
-										style="color: #fd7e14; font-size: 70px;"></i>
-								</div>
-								<a href="QueryPo" class="small-box-footer"
-									style="background: #007bffe0; color: white !important;">More
-									info <i class="fas fa-arrow-circle-right"></i>
-								</a>
-							</div>
-						</div>
+					
 							
 						<div class="col-lg-2 col-6">
 							<!-- small box -->
@@ -189,8 +167,8 @@ tbody {
 								</div>
 								<div class="icon">
 
-									<i class="fas fa-file-invoice-dollar"
-										style="color: #007bff; font-size: 75px;"></i>
+										<i class="fas fas fa-rupee-sign"
+										style="color: #1F8BFF; font-size: 50px;"></i>
 								</div>
 								<a href="poInvoiceDetails" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -199,7 +177,7 @@ tbody {
 							</div>
 						</div>
 						
-												<div class="col-lg-2 col-6">
+						<div class="col-lg-2 col-6">
 							<!-- small box -->
 							<div class="small-box bg-white">
 								<div class="inner">
@@ -214,7 +192,7 @@ tbody {
 								<div class="icon">
 
 									<i class="nav-icon fab fa-firstdraft"
-										style="color: #dc3545; font-size: 75px;"></i>
+										style="color: #dc3545; font-size: 55px;"></i>
 								</div>
 								<a href="draftPO" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -223,6 +201,26 @@ tbody {
 							</div>
 						</div>
 
+						<div class="col-lg-2 col-6">
+							<!-- small box -->
+							<div class="small-box bg-white">
+								<div class="inner">
+									<h2>${totalQueryCount}</h2>
+
+									<p id="allInactive" data-toggle="tooltip"
+										data-placement="bottom" >Query Invoice</p>
+								</div>
+								<div class="icon">
+
+									<i class="fas fa-question"
+										style="color: #fd7e14; font-size: 50px;"></i>
+								</div>
+								<a href="QueryPo" class="small-box-footer"
+									style="background: #007bffe0; color: white !important;">More
+									info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
 
 						<!-- ./col -->
 					</div>
@@ -489,14 +487,13 @@ tbody {
                 'All PO',
                 'Unprocessed PO',
                 'Processed PO',
-                'Query',
-                'Invoices',
-                'Draft Invoices'
+                'Draft Invoices',
+                'Query'
                 
             ],//#FF0000(red),00a65a(inactive)
             datasets: [{
-                data: [${allPOcount}, ${totalUnprocessPOCount},${totalProcessPoCount},${totalQueryCount},${totalInvoiceCount},${totalDraftInvoiceCount}],
-                backgroundColor: ['aquamarine',  'chocolate','#28a745',  '#fd7e14','#007bff','#dc3545'],
+                data: [${allPOcount}, ${totalUnprocessPOCount},${totalProcessPoCount},${totalDraftInvoiceCount},${totalQueryCount}],
+                backgroundColor: ['#FAA654',  'chocolate','#28a745','#dc3545','#fd7e14'],
             }]
         }
         var unresolvedstsOptions = {

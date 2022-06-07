@@ -319,8 +319,8 @@
 										
 										
 									
-										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Remaning
-											Quantity</th>
+										<!-- <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Remaning
+											Quantity</th> -->
 										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Quantity
 											Invoiced</th>
 										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Unit
@@ -431,7 +431,7 @@
 					
 					 <div class="row" >
 						<div class="col-md-3"></div>
-							<div class="col-md-2" "
+							<div class="col-md-2" 
 								id="viewAttachmentDiv">
 								<button type="button" id="viewAttachment"
 									onclick="displayAttachmentForPoDetails()" value="viewAttachment"
@@ -617,8 +617,7 @@
                        var tripLineArray=result[0].poInvoiceLine;
                        var grossamt1=result[0].grossTotalAmt;
                      
-                       var termsDate= result[0].termsDate.split(" ")[0].split("-");
-                       result[0].termsDate=termsDate[1]+"-"+termsDate[2]+"-"+termsDate[0];//2022-02-06
+                      
                        
                         var myForm = "";
                         myForm = document.getElementById("stepOneForm");
@@ -665,7 +664,7 @@
                             }
                             var gldate= tripLineArray[i].gldate.split(" ");
                             tripLineArray[i].gldate=gldate[0];
-                            $('#prTable').DataTable().row.add([i + 1, tripLineArray[i].lineNumber,tripLineArray[i].description,tripLineArray[i].remaningQuatity,tripLineArray[i].quantityInvoiced,tripLineArray[i].unitPrice,tripLineArray[i].uom,tripLineArray[i].taxper,tripLineArray[i].baseAmount,tripLineArray[i].taxAmount,tripLineArray[i].totalAmount]);
+                            $('#prTable').DataTable().row.add([i + 1, tripLineArray[i].lineNumber,tripLineArray[i].description,tripLineArray[i].quantityInvoiced,tripLineArray[i].unitPrice,tripLineArray[i].uom,tripLineArray[i].taxper,tripLineArray[i].baseAmount,tripLineArray[i].taxAmount,tripLineArray[i].totalAmount]);
                          }
                          var  grossamt= "<input disabled type=\"text\" value=\"" + result[0].grossTotalAmt + "\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";
                          prTable1.row.add(["","","","","","","","","","<b>Gross Total</b>",grossamt," "]);

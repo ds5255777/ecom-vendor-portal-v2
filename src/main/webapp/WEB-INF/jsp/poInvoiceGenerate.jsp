@@ -103,7 +103,7 @@
 							</div>
 						</div>
 						<div class="card-body">
-							<form id="stepOneForm" class="forms-sample">
+							<form id="stepOneForm" class="forms-sample" autocomplete="off">
 								<div class="row">
 
 									<div class="col-md-3">
@@ -184,7 +184,7 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control-sm" type="text"
-													placeholder="invoice Amount"
+													placeholder="Invoice Amount"
 													onkeypress="return event.charCode >= 46 && event.charCode <= 57"
 													maxlength="70" name="invoiceAmount" id="invoiceAmount"
 													style="width: 100%;" readonly>
@@ -295,7 +295,7 @@
 											<div class="col-sm-7">
 												<select id="remitToBankAccountNumber" name="remitToBankAccountNumber" style="width: 100%;" onchange="calTermsDate()"
 														class="form-control-sm select2" 
-														placeholder=" Remit To bank account number"
+														placeholder=" Remit To Bank Account Number"
 														>
 															<option value="">Select</option>
 															<c:forEach items="${accountNumber}" var="pay">
@@ -345,7 +345,7 @@
 
 						<div class="card-body" style="overflow: auto;">
 						
-													<form id="stepTwoForm" class="forms-sample">
+													<form id="stepTwoForm" class="forms-sample" autocomplete="off">
 								<div class="row">
 									<div class="col-md-3">
 										<div class="form-group row">
@@ -372,7 +372,7 @@
 							</form>
 						
 						
-							<table id="prTable" class="table table-bordered table-striped">
+							<table id="prTable" class="table table-bordered table-striped" >
 								<thead>
 									<tr>
 										<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">
@@ -422,7 +422,7 @@
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body" style="overflow: auto;">
-							<form id="stepFourForm" class="forms-sample">
+							<form id="stepFourForm" class="forms-sample" autocomplete="off">
 								<div class="row">
 								
 									<div class="col-md-3">
@@ -877,22 +877,17 @@
       	 tripLineArray[i].unitPrice=tripLineArray[i].price;
       	quanttty[i]=tripLineArray[i].remaningQuatity;
       	// var remaningQuat;
-      	 if(tripLineArray[i].remaningQuatity!=null){
-      		 remaningQuat= tripLineArray[i].remaningQuatity;
-      		 tripLineArray[i].quantity=tripLineArray[i].remaningQuatity;
-      	 }else{
-      		 remaningQuat=tripLineArray[i].quantity;
-      	 }
+      	
       	 
-      
+      	
 		var date ='${curentDate}';
           var totalamot;
           var lineNumber= "<input type=\"text\" id=\"lineNumber_"+i+"\" readonly style=\"width: 80px; height: 28px;\" value=\"" + tripLineArray[i].lineNumber + "\"  class=\"form-control-sm \" \"> ";
 
           var description= "<input type=\"text\" id=\"description_"+i+"\" readonly style=\"width: 300px; height: 28px;\" oninput=\"updatePOLineItem('description','"+i+"',this.value)\" value=\"" + tripLineArray[i].description + "\" class=\"form-control-sm \" \"> ";
-          var remaningQuantity= "<input type=\"text\" readonly id=\"remaningQuantity_"+i+"\" style=\"width: 120px; height: 28px;\" class=\"form-control-sm \" \"> ";
-          var quantity= "<input type=\"text\" readonly style=\"width: 100px; height: 28px;\" value=\"" + remaningQuat + "\" class=\"form-control-sm \" \"> ";
-          var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" maxlength=\"40\" onkeypress=\"return event.charCode >= 49 && event.charCode <= 57  \" style=\"width: 120px; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
+          var remaningQuantity= "<input type=\"text\" readonly id=\"remaningQuantity_"+i+"\" value=\"" + tripLineArray[i].remaningQuatity + "\" style=\"width: 120px; height: 28px;\" class=\"form-control-sm \" \"> ";
+          var quantity= "<input type=\"text\" readonly style=\"width: 100px; height: 28px;\" value=\"" + tripLineArray[i].quantity + "\" class=\"form-control-sm \" \"> ";
+          var quantityInvoiced= "<input type=\"text\" id=\"quantityInvoiced_"+i+"\" maxlength=\"40\" onkeypress=\"return event.charCode >= 48 && event.charCode <= 57  \" style=\"width: 120px; height: 28px;\" oninput=\"updatebaseaAmt('"+id+"','"+i+"',this.value)\" class=\"form-control-sm \" \"> ";
           var unitPrice= "<input type=\"text\" id=\"unitPrice_"+i+"\" readonly style=\"width: 100px; height: 28x;\" value=\"" + tripLineArray[i].price + "\"  class=\"form-control-sm \" \"> ";
           var uom= "<input type=\"text\" id=\"uom_"+i+"\" maxlength=\"40\" oninput=\"updatePOLineItem('uom','"+i+"',this.value)\" value=\"" + tripLineArray[i].uom + "\" style=\"width: 100px; height: 28px;\"  class=\"form-control-sm \" \"> ";
           var taxAmount= "<input type=\"text\" readonly style=\"width: 110px; height: 28px;\"  id=\"tax_"+i+"\" class=\"form-control-sm \" \"> ";
@@ -978,7 +973,8 @@
 	  
 	  $("#quantityInvoiced_"+index).val("");
 	   $("#baseAmt_"+index).val("");
-	   $("#remaningQuantity_"+index).val("");
+	   $("#remaningQuantity_"+index).val(tripLineArray[index].remaningQuatity);
+	
 	   $("#tax_"+index).val("");
 	   $("#totamt_"+index).val("");
 	  
@@ -997,14 +993,14 @@
  function updatebaseaAmt(reId, index,quntity){
 	 
 	 
-	 if(quntity==""){
-		 
+	 if(quntity=="" ||quntity==0 ){
+		// var reQtty=tripLineArray[index].remaningQuatity;
 		 setTripArrayDataBlankForIndex(index);
 			quntityflag[index]="0";
 		 return; 
 	 }
 	 quntityflag[index]="1";
-	   var allquantity =parseFloat(tripLineArray[index].quantity)
+	   var allquantity =parseFloat(tripLineArray[index].remaningQuatity)
 	   //var allquantity = remaningQuat;
 		 quntity=parseFloat(quntity);
 		  		 if(quntity<=allquantity){
@@ -1013,7 +1009,7 @@
 		  			 var  remaningQuantity= allquantity-quntity;
 					  $("#remaningQuantity_"+index).val(remaningQuantity);
 					 var taxper = $("#taxper_"+index).val();
-					 tripLineArray[index].remaningQuatity=remaningQuantity;
+					// tripLineArray[index].remaningQuatity=remaningQuantity;
 						tripLineArray[index].lineitemId=reId; 
 					
 					 

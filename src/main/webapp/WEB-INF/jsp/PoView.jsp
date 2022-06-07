@@ -610,6 +610,113 @@
         
         function invoiceProcessing() {
         	
+        	var a=$("#poNo").val();
+        	var b=$("#supplierSite").val();
+        	var c=$("#shipTo").val();
+        	var d=$("#billTo").val();
+        	var e=$("#buyer").val();
+        	var f=$("#currency").val();
+        	
+        	var g=$("#uom").val();
+        	var h=$("#quantity").val();
+        	var i=$("#needByDate").val();
+        	var j=$("#chargeAccount").val();
+        	var k=$("#org").val();
+        	var l=$("#deliverTo").val();
+        	
+        	var m=$("#amount").val();
+        	var n=$("#matchApprovalLevel").val();
+        	var o=$("#invoiceMatchoption").val();
+        	var p=$("#accrueatReceiptflag").val();
+        	var q=$("#itemType").val();
+        
+        	
+        	if(a==""|| a==null){
+        		 a="Po Number,";	
+        	}else{
+        		a="";
+        	}if(b==""|| b==null){
+        		 b="Supplier Site,";	
+        	}else{
+        		b="";
+        	}if(c==""|| c==null){
+        		 c="Ship To,";
+        	}else{
+        		c="";
+        	}if(d==""|| d==null){
+        		d="Bill To,";
+        	}else{
+        		d="";
+        	}if(e==""|| e==null){
+        		e="Buyer,";	
+        	}else{
+        		e="";
+        	}if(f==""|| f==null){
+        		 f="Currency,";	
+        	}else{
+        		f="";
+        	}if(g==""|| g==null){
+        		g="UOM,";;	
+        	}else{
+        		g="";
+        	}if(h==""|| h==null){
+        		 h="Quantity,";	
+        	}else{
+        		h="";
+        	}if(i==""|| i==null){
+        		i="Need By Date,";	
+        	}else{
+        		i="";
+        	}if(j==""|| j==null){
+        		j="Charge Account,";
+        	}else{
+        		j="";
+        	}if(k==""|| k==null){
+        		 k="Org,";	
+        	}else{
+        		k="";
+        	}if(l==""|| l==null){
+        		l="Deliver To,";
+        	}else{
+        		l="";
+        	}if(m==""|| m==null){
+        		 m="Amount,";
+        	}else{
+        		m="";
+        	}if(n==""|| n==null){
+        		 n="Match Approval Level,";
+        	}else{
+        		n="";
+        	}if(o==""|| o==null){
+        		 o="Invoice Match Option,";
+        	}else{
+        		o="";
+        	}if(p==""|| p==null){
+        		p="Accrueat Receipt Flag,";
+        	}else{
+        		p="";
+        	}if(q==""|| q==null){
+        		q="Item Type,";
+        	}else{
+        		q="";
+        	}
+        	
+        	
+	        	if(a==""|| a==null || b=="" || b==null  || c==""|| c==null || d=="" || d==null || e==""|| e==null || f=="" || f==null ||
+	        			g==""|| g==null || h=="" || h==null  || i==""|| i==null || j=="" || j==null || k==""|| k==null || l=="" || l==null ||
+	        			m==""|| m==null || n=="" || n==null  || o==""|| o==null || p=="" || p==null || q==""|| q==null ){
+	        		
+	        		confirm("Are You Sure To Confirm! : "+a+""+b+""+c+""+d+""+e+""+f+""+g+""+h+""+i+""+j+""+k+""+l+""+m+""+n+""+o+""+p+""+q+" Field(s) Vales Are Blank");
+	        		//  swal.fire("Are You Sure To Confirm! : ", "+a+""+b+""+c+""+d+""+e+""+f+""+g+""+h+""+i+""+j+""+k+""+l+""+m+""+n+""+o+""+p+""+q+"  , "success", "OK")
+	        		
+	        	}
+        	
+        	
+        	
+        	$('#flipToInvoice').attr('disabled', false);
+        	
+        	
+        	
             var table = document.getElementById('tabledata');
             
           

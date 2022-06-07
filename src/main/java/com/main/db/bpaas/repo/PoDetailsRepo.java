@@ -21,13 +21,13 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long> {
 	@Query(value = "select * from po_details where status='In-Review' and vendor_code=?", nativeQuery = true)
 	List<PoDetails> getAllProcessPo(String vendorCode);
 
-	@Query(value = "select * from po_details where status='Unprocess' and vendor_code=?", nativeQuery = true)
+	@Query(value = "select * from po_details where status='Unprocess' or status='Partially Invoiced' and vendor_code=?", nativeQuery = true)
 	List<PoDetails> getAllUnProcessPo(String vendorCode);
 
 	@Query(value = "select count(*) from po_details where status='In-Review' and vendor_code=?", nativeQuery = true)
 	int getAllProcessPoCount(String vendorCode);
 
-	@Query(value = "select count(*) from po_details where status='Unprocess' and vendor_code=?", nativeQuery = true)
+	@Query(value = "select count(*) from po_details where status='Unprocess' or status='Partially Invoiced' and vendor_code=?", nativeQuery = true)
 	int getAllUnProcessPoCount(String vendorCode);
 
 	@Query(value = "select count(*) from poinvoice_details where status='Query' and vendor_code=:vendorCode", nativeQuery = true)
@@ -66,7 +66,7 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long> {
 
 	@Transactional
 	@Modifying
-	@Query(value = "update po_details set status='Unprocess' where PO_Number=:poNumber ", nativeQuery = true)
+	@Query(value = "update po_details set status='Partially Invoiced' where PO_Number=:poNumber ", nativeQuery = true)
 	void updateVendorPoStatusUnprocess(@Param("poNumber") String poNumber);
 
 	@Transactional

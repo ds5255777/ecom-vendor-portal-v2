@@ -667,7 +667,7 @@
                             $('#prTable').DataTable().row.add([i + 1, tripLineArray[i].lineNumber,tripLineArray[i].description,tripLineArray[i].quantityInvoiced,tripLineArray[i].unitPrice,tripLineArray[i].uom,tripLineArray[i].taxper,tripLineArray[i].baseAmount,tripLineArray[i].taxAmount,tripLineArray[i].totalAmount]);
                          }
                          var  grossamt= "<input disabled type=\"text\" value=\"" + result[0].grossTotalAmt + "\" readonly class=\"form-control-sm \" style=\"width: 110px; height: 28px;\" id=\"grossAmt\" >";
-                         prTable1.row.add(["","","","","","","","","","<b>Gross Total</b>",grossamt," "]);
+                         prTable1.row.add(["","","","","","","","","<b>Gross Total</b>",grossamt," "]);
                       
                          
                     

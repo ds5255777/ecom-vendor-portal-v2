@@ -1055,7 +1055,7 @@
         for(var i=0;i<tripLineArray.length;i++){
             delete tripLineArray[i].id
             delete tripLineArray[i].amount
-            tripLineArray[i].quntity=quanttty[i];
+           // tripLineArray[i].quntity=quanttty[i];
            
            };
            
@@ -1141,7 +1141,7 @@
 		
 		
 						
-		   if(quntityflag.length==0){
+		   /* if(quntityflag.length==0){
 		  		Toast.fire({
 		              type: 'error',
 		              title: 'Quantity Invoiced  is Mandatory !'
@@ -1158,7 +1158,7 @@
 				    		 return "";
 				    		}
 				    	}
-		  	} 
+		  	}  */
 		   var invoiceNu10a = document.getElementById("InvoiceUpload").value;
 			if (invoiceNu10a === "" || invoiceNu10a === null || invoiceNu10a === '') {
 	            Toast.fire({
@@ -1191,27 +1191,7 @@
         delete tripLineArray[i].price
        };
         finalObj.poInvoiceLine=tripLineArray;
-        
-        
-    	var count=0;
-        
-        
-        for(var i=0;i<tripLineArray.length;i++){
-        	var receiptline=tripLineArray[i].receiptline;
-        	
-        	count=parseFloat(count)+parseFloat(tripLineArray[i].quantity);
-        	
-    		if (receiptline === "" || receiptline === null || receiptline === '') {
-                Toast.fire({
-                    type: 'error',
-                    title: 'Please Fill Receipt line'
-                });
-                document.getElementById("invoiceAmount").focus();
-                return "";
-            }
-
-        }
-
+    
         finalObj.matchOption=matchOption;
         
 	console.log();
@@ -1222,8 +1202,14 @@
         
        
 //return;
-	flag=0;
-        if(count==0){
+	var flag=0;
+       
+        var count1=0;
+        for(var i=0;i<remaningQuatity1.length;i++){
+        	
+        	count1=parseFloat(count1)+parseFloat(remaningQuatity1[i]);
+        }
+        if(count1==0){
         	flag=1;
         }
 		
@@ -1284,12 +1270,7 @@
                }
         
         
-        if(count==0){
-        	swal.fire("Alert", "Expired PO || Add Line Item", "warning");
-        	
-        	 return "";
-        	 
-        }else{
+        
         
         
         $.ajax({
@@ -1325,7 +1306,7 @@
             }
         });
       }
-    }
+    
   			  Discardinvoice();
     		function Discardinvoice(){
 
@@ -1349,7 +1330,7 @@
     	        for(var i=0;i<tripLineArray.length;i++){
     	            delete tripLineArray[i].id
     	           // delete tripLineArray[i].amount
-    	            tripLineArray[i].quntity=quanttty[i];
+    	           // tripLineArray[i].quntity=quanttty[i];
     	           
     	           };
     	        

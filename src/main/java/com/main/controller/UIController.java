@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.main.commonclasses.GlobalConstants;
+import com.main.db.bpaas.entity.AddressDetails;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoLineDetails;
@@ -752,6 +753,12 @@ public class UIController {
 			String vendorName = findByTripID.getVendorName();
 			model.addAttribute("vendorName", vendorName);
 			System.out.println(vendorName);
+			
+			List<AddressDetails> vendorAddress = serviceManager.addressDetailsRepo.getVendorAddress(vendorName);
+			
+			model.addAttribute("vendorAddress",vendorAddress);
+			
+			
 			// heasder
 			InvoiceGenerationEntity invoiceSave = new InvoiceGenerationEntity();
 			invoiceSave.setVendorName(vendorName);
@@ -762,6 +769,7 @@ public class UIController {
 			// listof.forEach(System.out::println);
 		} catch (Exception e) {
 			logger.error("error : "+e);
+			e.printStackTrace();
 		}
 
 		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber);
@@ -800,12 +808,17 @@ public class UIController {
 		System.out.println(invoiceNumber);
 		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber);
 		List<Object> listofTrips = new ArrayList<>();
+		
+		
 
 		for (TripDetails tripDetails : list) {
 			String tripID = tripDetails.getTripID();
 			listofTrips.add(tripID);
 			vendorName = tripDetails.getVendorName();
 		}
+		List<AddressDetails> vendorAddress = serviceManager.addressDetailsRepo.getVendorAddress(vendorName);
+		
+		model.addAttribute("vendorAddress",vendorAddress);
 
 		model.addAttribute("vendorName", vendorName);
 		model.addAttribute("listofTrips", listofTrips);
@@ -821,6 +834,8 @@ public class UIController {
 //allInvoices_Finance
 	@GetMapping("/allInvoices_Finance")
 	public String allInvoicesFinance(Model model, HttpServletRequest request, Principal principal) {
+		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("dataLimit", dataLimit);
 		return "allInvoices_Finance";
 	}

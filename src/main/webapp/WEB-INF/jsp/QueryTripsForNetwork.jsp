@@ -135,12 +135,7 @@ tbody {
 					<div class="row mb-2">
 						<div class="col-sm-6"></div>
 						<div class="col-sm-6">
-							<!-- <ol class="breadcrumb float-sm-right">
-                                                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard v1</li>
-                                                    </ol> -->
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -155,6 +150,10 @@ tbody {
 					<div class="row">
 						<div class="col-md-12" style="font-size: 14px;">
 							<!-- general form elements -->
+							<div class="card">
+
+								<!-- /.card-header -->
+								<div class="card-body ">
 							<form role="form" id="addForm" autocomplete="off">
 								<div class="row">
 
@@ -224,11 +223,13 @@ tbody {
 							<!-- /.card-body -->
 						</div>
 
-
+</div>
+</div>
 					</div>
 				</div>
+				</section>
 		</div>
-		</section>
+		
 
  <!-- Modal -->
                 <div class="modal fade" id="tripValue" role="dialog">
@@ -347,7 +348,7 @@ tbody {
 													<div class="col-md-3">
 														<!-- text input -->
 														<div class="form-group row">
-															<label class="col-sm-5" title="Standard Vehicle Type">Stnd Vehicle
+															<label class="col-sm-5" title="Standard Vehicle Type">Std. Vehicle
 																</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"
@@ -679,7 +680,7 @@ tbody {
                     </div>
                 </div>
 
-
+</div>
 
 
 

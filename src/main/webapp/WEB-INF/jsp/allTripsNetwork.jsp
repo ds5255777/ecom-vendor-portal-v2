@@ -193,7 +193,6 @@ tbody {
 				<div class="container-fluid">
 
 					<div class="row">
-						<!-- <div class="col-md-12"> -->
 						<div class="col-md-12" style="font-size: 14px;">
 							<!-- general form elements -->
 							<div class="card">
@@ -268,7 +267,7 @@ tbody {
 													Departure</th>
 												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual
 													KM</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Std.
 													KM</th>
 												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Origin
 													Hub</th>
@@ -398,7 +397,7 @@ tbody {
 													<div class="col-md-3">
 														<!-- text input -->
 														<div class="form-group row">
-															<label class="col-sm-5" title="Standard Vehicle Type">Stnd Vehicle
+															<label class="col-sm-5" title="Standard Vehicle Type">Std. Vehicle
 																</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"
@@ -690,6 +689,7 @@ tbody {
 		<!-- model Start -->
 		 <script src="plugins/jquery/jquery.min.js"></script>
             <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+            <script src="js/common.js"></script>
             <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
             <script>
                                                         $.widget.bridge('uibutton', $.ui.button);
@@ -897,24 +897,22 @@ tbody {
 
          function getData() {
 
-             var jsArray = [];
              $('.loader').show();
 
              $.ajax({
                  type: "POST",
-                 data: JSON.stringify(jsArray),
+                 data: "",
                  url: "<%=GlobalUrl.getAllTripsDetails%>",
                  dataType: "json",
                  contentType: "application/json",
-                 async: false,
                  success: function (data) {
 
-                     $('.loader').hide();
+                	 $('.loader').hide();
                      if (data.msg == 'success') {
 
                          var result = data.data;
                          tabledata.clear();
-
+                         
                          for (var i = 0; i < result.length; i++) {
 
                              var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
@@ -965,7 +963,6 @@ tbody {
                  url: "<%=GlobalUrl.tripDetailByTripId%>",
                  dataType: "json",
                  contentType: "application/json",
-                 async: false,
                  success: function (data) {
 
                      if (data.msg == 'success') {
@@ -998,7 +995,6 @@ tbody {
                  url: "<%=GlobalUrl.getRemarksByRefID%>",
                  dataType: "json",
                  contentType: "application/json",
-                 async: false,
                  success: function (data) {
                      console.log("data.msg" + data.msg);
                      console.log("data.data " + data.data);
@@ -1094,7 +1090,11 @@ tbody {
              document.getElementById("toDate").focus();
              return;
          }
+         var dateReturnCheck=  dateValidationCheck(fromDate,toDate);
+         if(dateReturnCheck == "false"){
+         
          $('.loader').show();
+         
 
          $.ajax({
              type: "GET",
@@ -1144,6 +1144,15 @@ tbody {
              }
 
          });
+         }else{
+        	 Toast.fire({
+                 type: 'error',
+                 title: 'Start Date Less than End Date.'
+             });
+       	  $('#fromDate').val('');
+             document.getElementById("fromDate").focus();
+             return;
+         }
 
      }
 
@@ -1159,11 +1168,6 @@ tbody {
              "paymentStatus": selectPaymentStatus,
          }
 
-console.log("Status : ",obj);
-
-
-
-
          $('.loader').show();
          $.ajax({
              type: "POST",
@@ -1176,9 +1180,7 @@ console.log("Status : ",obj);
 
                  $('.loader').hide();
                  if (data.msg == "success") {
-
                      var result = data.data;
-                     console.log("****GetSelected******%%%%%%"+result);
                      tabledata.clear();
 
                      for (var i = 0; i < result.length; i++) {

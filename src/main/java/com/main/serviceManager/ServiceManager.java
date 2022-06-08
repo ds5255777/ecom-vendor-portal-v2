@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.main.db.bpaas.repo.AddressDetailsRepo;
 import com.main.db.bpaas.repo.AgreementMasterRepo;
 import com.main.db.bpaas.repo.BusinessClassificationRepo;
 import com.main.db.bpaas.repo.BusinessPartnerRepo;
@@ -131,6 +132,9 @@ public class ServiceManager {
 	
 	@Autowired
 	public MailContentRepo mailContentRepo;
+	
+	@Autowired
+	public AddressDetailsRepo addressDetailsRepo;
 	
 
 	/*

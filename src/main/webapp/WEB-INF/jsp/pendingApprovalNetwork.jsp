@@ -158,6 +158,10 @@ tbody {
 						<div class="col-md-12" style="font-size: 14px;">
 							<!-- general form elements -->
 							<div class="card card-primary ">
+							<!-- <div class="card"> -->
+
+								<!-- /.card-header -->
+								<div class="card-body ">
 								<form role="form" id="addForm" autocomplete="off">
 									<div class="row">
 
@@ -227,11 +231,11 @@ tbody {
 								</div>
 								<!-- /.card-body -->
 							</div>
-
+</div>
+</div>
 
 						</div>
 					</div>
-				</div>
 			</section>
 
 
@@ -366,7 +370,7 @@ tbody {
 															<div class="col-md-3">
 																<!-- text input -->
 																<div class="form-group row">
-																	<label class="col-sm-5" title="Standard Vehicle Type">Stnd
+																	<label class="col-sm-5" title="Standard Vehicle Type">Std.
 																		Vehicle </label>
 																	<div class="col-sm-7">
 																		<input type="text" class="form-control"
@@ -711,7 +715,7 @@ tbody {
 						</div>
 
 					</div>
-
+</div>
 				</div>
 			</div>
 
@@ -1260,19 +1264,20 @@ tbody {
      function calcualteFormulae() {
          var currentFuelRate = document.getElementById("currentFuelRate").value;
          var fsBaseRate = document.getElementById("fsBaseRate").value;
+         var standKMS= document.getElementById("standardKM").value;
+         var ratePerKm=document.getElementById("ratePerKm").value;
 
-         console.log("currentFuelRate " + currentFuelRate);
-         console.log("fsBaseRate " + fsBaseRate);
-
-
-         var basicFreight = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
+         var fsCal = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
+         var basicFreight=parseFloat(standKMS) * parseFloat(ratePerKm);
          document.getElementById("basicFreight").value = basicFreight.toFixed(2);
+         
+         console.log("Fs Cal",fsCal);
 
          var mileage = document.getElementById("mileage").value;
          var routeKms = document.getElementById("routeKms").value;
          console.log("mileage " + mileage);
          console.log("routeKms " + routeKms);
-         var fs = (parseFloat(basicFreight) / parseFloat(mileage)) * parseFloat(routeKms);
+         var fs = (parseFloat(fsCal) / parseFloat(mileage)) * parseFloat(routeKms);
          document.getElementById("fs").value = fs.toFixed(2);
          ;
 

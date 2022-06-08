@@ -149,6 +149,10 @@
                             <div class="col-md-12" style="font-size: 14px;">
                                 <!-- general form elements -->
                                 <div class="card card-primary ">
+                                <div class="card">
+
+								<!-- /.card-header -->
+								<div class="card-body ">
                                     <form role="form" id="addForm" autocomplete="off">
 										<div class="row">
 											
@@ -215,7 +219,8 @@
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
-
+</div>
+</div>
 
                             </div>
                         </div>
@@ -325,7 +330,7 @@
 													<div class="col-md-3">
 														<!-- text input -->
 														<div class="form-group row">
-															<label class="col-sm-5" title="Standard Vehicle Type">Stnd Vehicle
+															<label class="col-sm-5" title="Standard Vehicle Type">Std. Vehicle
 																</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"

@@ -760,7 +760,24 @@
 
                             textBox = "<input type=\"text\" class=\"form-control\" id=\"form-control\" placeholder=\"Fill Description\" maxlength=\"100\" oninput=\"updateTextData('" + i + "',this.value)\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
                             action = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteRow('" + result[i].tripID + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-                            $('#prTable').DataTable().row.add([i + 1, result[i].tripID, result[i].runType, result[i].route, result[i].standardKM, result[i].ratePerKm, result[i].currentFuelRate, result[i].fsBaseRate, result[i].standardVechicleType, result[i].fsDiff, result[i].basicFreight, result[i].fs, result[i].mileage,result[i].actualKM, result[i].totalFreight, result[i].lumpsomeamount, textBox, action]);
+                            $('#prTable').DataTable().row.add(
+                            		[i + 1, 
+                            			result[i].tripID, 
+                            			result[i].runType, 
+                            			result[i].route, 
+                            			result[i].standardKM, 
+                            			result[i].ratePerKm, 
+                            			result[i].currentFuelRate,
+                            			result[i].fsBaseRate,
+                            			result[i].standardVechicleType, 
+                            			result[i].fsDiff, 
+                            			result[i].basicFreight,
+                            			result[i].fs, 
+                            			result[i].mileage, 
+                            			result[i].totalFreight,
+                            			result[i].lumpsomeamount, 
+                            			textBox, 
+                            			action]);
                             id = (result[i].id);
                             taxableAmount += parseFloat(result[i].totalFreight)+ parseFloat(result[i].lumpsomeamount);
                         }

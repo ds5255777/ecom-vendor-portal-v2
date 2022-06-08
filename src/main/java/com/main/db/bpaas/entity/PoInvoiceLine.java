@@ -60,8 +60,8 @@ public class PoInvoiceLine {
 	
 	@Column(name = "base_Amount")
 	private String baseAmount;
-	@Column(name = "Quntity")
-	private String quntity;
+	@Column(name = "Quantity")
+	private String quantity;
 	@Column(name = "tax_Amount")
 	private String taxAmount;
 	@Column(name = "taxper")
@@ -188,12 +188,14 @@ public class PoInvoiceLine {
 
 	
 
-	public String getQuntity() {
-		return quntity;
+	
+
+	public String getQuantity() {
+		return quantity;
 	}
 
-	public void setQuntity(String quntity) {
-		this.quntity = quntity;
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
 	}
 
 	public String getTaxAmount() {

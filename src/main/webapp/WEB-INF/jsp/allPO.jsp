@@ -472,6 +472,7 @@
         $("#refreshDashboardButton").click(function(e) {
             e.preventDefault();
             $('#refreshDashboardButton').attr('disabled', 'disabled');
+            $('.loader').show();
             getData();
             $('#refreshDashboardButton').removeAttr('disabled');
             $("#fromDate").val("");

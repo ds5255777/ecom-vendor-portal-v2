@@ -72,7 +72,7 @@ public class PoUiController {
 						String pono=details.get(i).getPoNo();
 						float remaningquantity=0;
 						for(int j=0;j<podet.size();j++) {
-							remaningquantity=remaningquantity+Float.parseFloat(podet.get(i).getRemaningQuatity());
+							remaningquantity=remaningquantity+Float.parseFloat(podet.get(j).getRemaningQuatity());
 						}
 						if(remaningquantity!=0.0 || remaningquantity!=0.00 ||remaningquantity!=0) {
 							details1.add(details.get(i));

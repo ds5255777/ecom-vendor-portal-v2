@@ -269,7 +269,7 @@ tbody {
 												<th class="bg-primary">Vendor Status</th>
 												<th class="bg-primary">Act Dept</th>
 												<th class="bg-primary">Act KM</th>
-												<th class="bg-primary">Stnd KM</th>
+												<th class="bg-primary">Std. KM</th>
 												<th class="bg-primary">Ori Hub</th>
 												<th class="bg-primary">Dest Hub</th>
 												<th class="bg-primary">Pay Status</th>
@@ -392,7 +392,7 @@ tbody {
 													<div class="col-md-3">
 														<!-- text input -->
 														<div class="form-group row">
-															<label class="col-sm-5" title="Standard Vehicle Type">Stnd Vehicle
+															<label class="col-sm-5" title="Standard Vehicle Type">Std. Vehicle
 																</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"
@@ -691,6 +691,7 @@ tbody {
 		</script>
 		<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="js/commonFunctions.js"></script>
+		<script src="js/common.js"></script>
 		<script src="plugins/sparklines/sparkline.js"></script>
 		<script src="plugins/moment/moment.min.js"></script>
 		<script src="plugins/daterangepicker/daterangepicker.js"></script>
@@ -883,7 +884,6 @@ tbody {
                     url: "<%=GlobalUrl.getAllTripsDetails%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
 //return;
                         $('.loader').hide();
@@ -963,7 +963,6 @@ tbody {
                     url: "<%=GlobalUrl.tripDetailByTripId%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
 
                         if (data.msg == 'success') {
@@ -997,10 +996,6 @@ tbody {
                 $('#selectStatus').val('');
                 $('#selectPaymentStatus').val('');
                 
-                console.log(vendorCode,"vendorCode");
-                console.log(fromDate,"fromDate");
-                console.log(toDate,"toDate");
-
 
                 if (fromDate == "" || fromDate == null) {
                     Toast.fire({
@@ -1019,94 +1014,103 @@ tbody {
                     document.getElementById("toDate").focus();
                     return;
                 }
-                $('.loader').show();
+                
+              var dateReturnCheck=  dateValidationCheck(fromDate,toDate);
+              if(dateReturnCheck == "false"){
+            	 
+                  $('.loader').show();
 
 
-                $.ajax({
-                    type: "GET",
-                    data: {
-                        "actualDeparture": fromDate.concat(" ","00:00"),
-                        "actualArrival": toDate.concat(" ","23:59"),
-                        "vendorCode": vendorCode
-                    },
-                    url: "<%=GlobalUrl.filterTripDetails%>",
-                    dataType: "json",
-                    contentType: "application/json",
+                  $.ajax({
+                      type: "GET",
+                      data: {
+                          "actualDeparture": fromDate.concat(" ","00:00"),
+                          "actualArrival": toDate.concat(" ","23:59"),
+                          "vendorCode": vendorCode
+                      },
+                      url: "<%=GlobalUrl.filterTripDetails%>",
+                      dataType: "json",
+                      contentType: "application/json",
 
-                    success: function(data) {
-                    	console.log(data);
-                        $('.loader').hide();
-                        if (data.msg == 'success') {
-                            //alert("Hiii");
-                            console.log(data);
+                      success: function(data) {
+                          $('.loader').hide();
+                          if (data.msg == 'success') {
 
-                            var result = data.data;
-                            tabledata.clear();
+                              var result = data.data;
+                              tabledata.clear();
 
-                            for (var i = 0; i < result.length; i++) {
-                            	if(!result[i].hasOwnProperty("tripID")){
-     								result[i].tripID="";
-     							}
-                                if(!result[i].hasOwnProperty("invoiceNumber")){
-          							result[i].invoiceNumber="";
+                              for (var i = 0; i < result.length; i++) {
+                              	if(!result[i].hasOwnProperty("tripID")){
+       								result[i].tripID="";
+       							}
+                                  if(!result[i].hasOwnProperty("invoiceNumber")){
+            							result[i].invoiceNumber="";
+            						}
+  								if(!result[i].hasOwnProperty("route")){
+       								result[i].route="";
+       							}
+                                   if(!result[i].hasOwnProperty("runType")){
+       								result[i].runType="";
+       							}
+                                   if(!result[i].hasOwnProperty("runStatus")){
+        								result[i].runStatus="";
+        							}
+                                   if(!result[i].hasOwnProperty("vendorTripStatus")){
+       								result[i].vendorTripStatus="";
+       							}
+                                   if(!result[i].hasOwnProperty("actualDeparture")){
+        								result[i].actualDeparture="";
+        							}
+                                   if(!result[i].hasOwnProperty("actualKM")){
+        								result[i].actualKM="";
+        							}
+                                   if(!result[i].hasOwnProperty("standardKM")){
+       								result[i].standardKM="";
+       							}
+                                    if(!result[i].hasOwnProperty("originHub")){
+        								result[i].originHub="";
+        							}
+                                    if(!result[i].hasOwnProperty("destHub")){
+        								result[i].destHub="";
+        							}
+                                    if(!result[i].hasOwnProperty("paymentStatus")){
+          							result[i].paymentStatus="";
           						}
-								if(!result[i].hasOwnProperty("route")){
-     								result[i].route="";
-     							}
-                                 if(!result[i].hasOwnProperty("runType")){
-     								result[i].runType="";
-     							}
-                                 if(!result[i].hasOwnProperty("runStatus")){
-      								result[i].runStatus="";
-      							}
-                                 if(!result[i].hasOwnProperty("vendorTripStatus")){
-     								result[i].vendorTripStatus="";
-     							}
-                                 if(!result[i].hasOwnProperty("actualDeparture")){
-      								result[i].actualDeparture="";
-      							}
-                                 if(!result[i].hasOwnProperty("actualKM")){
-      								result[i].actualKM="";
-      							}
-                                 if(!result[i].hasOwnProperty("standardKM")){
-     								result[i].standardKM="";
-     							}
-                                  if(!result[i].hasOwnProperty("originHub")){
-      								result[i].originHub="";
-      							}
-                                  if(!result[i].hasOwnProperty("destHub")){
-      								result[i].destHub="";
-      							}
-                                  if(!result[i].hasOwnProperty("paymentStatus")){
-        							result[i].paymentStatus="";
-        						}
 
-                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
-                               
-                                tabledata.row.add([view, result[i].invoiceNumber, result[i].route, result[i].runType, result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub,  result[i].paymentStatus]);
-                           
-                            }
-                            tabledata.draw();
-                            $("tbody").show();
-                        } else {
-                            console.log(data);
-                            Toast.fire({
-                                type: 'error',
-                                title: 'Failed.. Try Again..'
-                            })
-                        }
+                                  var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
+                                 
+                                  tabledata.row.add([view, result[i].invoiceNumber, result[i].route, result[i].runType, result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub,  result[i].paymentStatus]);
+                             
+                              }
+                              tabledata.draw();
+                              $("tbody").show();
+                          } else {
+                              console.log(data);
+                              Toast.fire({
+                                  type: 'error',
+                                  title: 'Failed.. Try Again..'
+                              })
+                          }
 
-                    },
-                    error: function(jqXHR, textStatue, errorThrown) {
-                        $('.loader').hide();
-                        Toast.fire({
-                            type: 'error',
-                            title: '.. Try Again..'
-                        })
-                    }
+                      },
+                      error: function(jqXHR, textStatue, errorThrown) {
+                          $('.loader').hide();
+                          Toast.fire({
+                              type: 'error',
+                              title: '.. Try Again..'
+                          })
+                      }
 
-                });
-
+                  });
+              }else{
+            	  Toast.fire({
+                      type: 'error',
+                      title: 'Start Date Less than End Date.'
+                  });
+            	  $('#fromDate').val('');
+                  document.getElementById("fromDate").focus();
+                  return;
+              }
             }
             //getQueryData();
    		 

@@ -132,6 +132,7 @@ public class DashboardController {
 			String fsDiff = jsonObject.getString("fsDiff").toString();
 			
 			
+			
 
 			logger.info("standardKM " + standardKM);
 			logger.info("milage " + milage);
@@ -146,7 +147,7 @@ public class DashboardController {
 						LumpSomeCheckBox, LumpSomeAmount, Double.parseDouble(standardKM), Double.parseDouble(milage),
 						Double.parseDouble(ratePerKm), Double.parseDouble(routeKms), Double.parseDouble(fsBaseRate),
 						Double.parseDouble(currentFuelRate), Double.parseDouble(fsDiff),
-						Double.parseDouble(basicFreight), Double.parseDouble(totalFreight) ,vendorName,vendorCode);
+						Double.parseDouble(basicFreight), Double.parseDouble(totalFreight) ,Double.parseDouble(fs),vendorName,vendorCode);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

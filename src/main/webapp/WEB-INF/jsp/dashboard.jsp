@@ -164,7 +164,7 @@
 								</div>
 								<div class="icon">
 									<i class="fab fa-firstdraft"
-										style="color: #dc3545; font-size: 50px;"></i>
+										style="color: #1F8BFF; font-size: 50px;"></i>
 								</div>
 								<a href="draftInvoice" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -184,7 +184,7 @@
 								</div>
 								<div class="icon">
 									<i class="fas fa-question"
-										style="color: #fd7e14; font-size: 50px;"></i>
+										style="color: #3010af; font-size: 50px;"></i>
 								</div>
 								<a href="queryInvoice" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -445,7 +445,7 @@
             ],
             datasets: [{
                 data: [ ${totalTripCount},${TotalInTransitTripCount},${closedTripCount},${queryTripCount}],
-                backgroundColor: ['#FAA654','#00a65a','red','yellow'],
+                backgroundColor: ['#FAA654','#00a65a','#1477B0','#C422F4'],
             }]
         }
         var unresolvedstsOptions = {

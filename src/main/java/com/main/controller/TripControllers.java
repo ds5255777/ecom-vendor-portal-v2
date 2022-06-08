@@ -87,7 +87,7 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	@PostMapping({ "filterTripDetailsByNetwork" })
+	@GetMapping({ "filterTripDetailsByNetwork" })
 	@CrossOrigin("*")
 	public String filterTripDetailsByNetwork(Principal principal, HttpServletRequest request,
 			@RequestParam(name = "actualDeparture") String fromDate,

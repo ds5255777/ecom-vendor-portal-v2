@@ -147,6 +147,10 @@ tbody {
 						<div class="col-md-12" style="font-size: 14px;">
 							<!-- general form elements -->
 							<div class="card card-primary ">
+							<div class="card">
+
+								<!-- /.card-header -->
+								<div class="card-body ">
 								<form role="form" id="addForm" autocomplete="off">
 									<div class="row">
 
@@ -216,7 +220,8 @@ tbody {
 								</div>
 								<!-- /.card-body -->
 							</div>
-
+</div>
+</div>
 
 						</div>
 					</div>
@@ -326,7 +331,7 @@ tbody {
 													<div class="col-md-3">
 														<!-- text input -->
 														<div class="form-group row">
-															<label class="col-sm-5" title="Standard Vehicle Type">Stnd Vehicle
+															<label class="col-sm-5" title="Standard Vehicle Type">Std. Vehicle
 																</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"
@@ -807,6 +812,7 @@ tbody {
 
    var globalTripId = "";
    function setTripStatus(tripId) {
+	   $('.loader').show();
 
        var json = {
            "tripID": tripId
@@ -820,8 +826,8 @@ tbody {
            url: "<%=GlobalUrl.tripDetailByTripId%>",
            dataType: "json",
            contentType: "application/json",
-           async: false,
            success: function (data) {
+        	   $('.loader').hide();
                if (data.msg == 'success') {
                    var result = data.data;
                    var myForm = "";
@@ -955,6 +961,7 @@ tbody {
 
 
    function updateTripDataByNetworkTeam() {
+	   $('.loader').show();
 
 
        //Validations
@@ -971,20 +978,6 @@ tbody {
        var lumpsum = document.getElementById("lumpsum").value;
        var fs = document.getElementById("fs").value;
 
-
-       console.log("routeKms " + routeKms);
-       console.log("fsBaseRate " + fsBaseRate);
-       console.log("currentFuelRate " + currentFuelRate);
-       console.log("fsDiff " + fsDiff);
-       console.log("basicFreight " + basicFreight);
-       console.log("totalFreight " + totalFreight);
-
-       console.log("openingReading " + openingReading);
-       console.log("closingReading " + closingReading);
-       console.log("AmountLumpSum " + AmountLumpSum);
-       console.log("lumpsum " + lumpsum);
-
-       console.log("ratePerKm " + ratePerKm);
        if (ratePerKm === "" || ratePerKm === null || ratePerKm === '') {
            Toast.fire({
                type: 'error',
@@ -1023,7 +1016,6 @@ tbody {
        var dateTime = date + ' ' + time;
        var checkedValue = $('.messageCheckbox:checked').val();
 
-       console.log("checkedValue " + checkedValue);
 
        if (checkedValue != '' || checkedValue != "") {
            checkedValue = 'unchecked';
@@ -1097,9 +1089,8 @@ tbody {
            url: "<%=GlobalUrl.updateDetailsforNetwork%>",
            dataType: "json",
            contentType: "application/json",
-           async: false,
            success: function (data) {
-               console.log("data.msg" + data.msg);
+        	   $('.loader').hide();
                if (data.msg == 'success') {
                    var result = data.data;
 

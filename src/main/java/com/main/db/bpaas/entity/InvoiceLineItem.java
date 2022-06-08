@@ -51,6 +51,12 @@ public class InvoiceLineItem {
 	@Column(name = "total_freight")
 	private String totalFreight;
 
+	@Column(name = "standard_vechicle_type")
+	private String standardVechicleType;
+
+	@Column(name = "mileage")
+	private Double mileage;
+
 	@Column(name = "lumpsome_amount")
 	private String lumpsomeamount;
 
@@ -175,6 +181,22 @@ public class InvoiceLineItem {
 
 	public void setLineLevelDescription(String lineLevelDescription) {
 		this.lineLevelDescription = lineLevelDescription;
+	}
+
+	public String getStandardVechicleType() {
+		return standardVechicleType;
+	}
+
+	public void setStandardVechicleType(String standardVechicleType) {
+		this.standardVechicleType = standardVechicleType;
+	}
+
+	public Double getMileage() {
+		return mileage;
+	}
+
+	public void setMileage(Double mileage) {
+		this.mileage = mileage;
 	}
 
 }

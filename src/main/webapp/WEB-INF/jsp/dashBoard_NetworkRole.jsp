@@ -80,7 +80,7 @@
 									<h2>${totalTripCount}</h2>
 
 									<p id="oveTickets" data-toggle="tooltip"
-										data-placement="bottom" title="All Trips">All Trips</p>
+										data-placement="bottom" >All Trips</p>
 								</div>
 								<div class="icon">
 									<i class="fas fa-truck"
@@ -100,7 +100,7 @@
 									<h2>${ApprovedTripscount}</h2>
 
 									<p id="iamwatch" data-toggle="tooltip" data-placement="bottom"
-										title="All Approved Trips">Approved Trips</p>
+										>Approved Trips</p>
 								</div>
 								<div class="icon">
 
@@ -121,10 +121,10 @@
 									<h2>${yetTobeApproved}</h2>
 
 									<p id="UnTickets" data-toggle="tooltip" data-placement="bottom"
-										title="Trips Not Approved yet">Pending Approval</p>
+										>Pending Approval</p>
 								</div>
 								<div class="icon">
-									<i class="fa fa-tasks" style="color: #dc3545; font-size: 50px;"></i>
+									<i class="fa fa-tasks" style="color: #8d4f55; font-size: 50px;"></i>
 								</div>
 								<a href="pendingApprovalNetwork" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -142,11 +142,11 @@
 
 									<p id="opeTickets" data-toggle="tooltip"
 										data-placement="bottom"
-										title="Trips in which query are raised">Query Trips</p>
+										>Query Trips</p>
 								</div>
 								<div class="icon">
 									<i class="fas fa-question"
-										style="color: #fd7e14; font-size: 50px;"></i>
+										style="color: #C422F4; font-size: 50px;"></i>
 								</div>
 								<a href="QueryTripsForNetwork" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -162,7 +162,7 @@
 									<h2>${getInClosedTripCountForAdhoc}</h2>
 
 									<p id="perTicket" data-toggle="tooltip" data-placement="bottom"
-										title="Closed Trips">Closed(Adhoc) Trips</p>
+										>Closed(Adhoc) Trips</p>
 								</div>
 								<div class="icon">
 									<i class="far fa-times-circle"
@@ -183,7 +183,7 @@
 									<h2>${getAllInvoiceCount}</h2>
 
 									<p id="invdue" data-toggle="tooltip" data-placement="bottom"
-										title="All Invoice Count">All Invoices</p>
+										>All Invoices</p>
 								</div>
 								<div class="icon">
 									<i class="fas fa-file-invoice-dollar"
@@ -215,7 +215,7 @@
 							<div class="card card-primary  card-outline ">
 								<div class="card-header">
 									<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
-										data-placement="bottom" title="Top 50 Pending Trips">Top
+										data-placement="bottom">Top
 										50 Pending Approval Trips</h3>
 								</div>
 								<!-- /.card-header -->
@@ -254,7 +254,7 @@
 							<div class="card card-primary  card-outline ">
 								<div class="card-body">
 									<p>
-										<strong>Trips by Status in Network</strong>
+										<strong>Trips by Status</strong>
 									</p>
 									<canvas id="unresolvedsts"
 										style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
@@ -399,13 +399,15 @@
             var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
             var unresolvedstsData = {
                 labels: [
-                    'Approved',
-                    'Yet To be Approved',
-                    'Total'
+                    'All Trips',
+                    'Approved Trips',
+                    'Pending Approval',
+                    'Query Trips',
+                    'Closed(Adhoc) Trips'
                 ],
                 datasets: [{
-                        data: [${ApprovedTripscount}, ${yetTobeApproved}, ${totalTripCount}],
-                        backgroundColor: ['#17a2b8', '#00a65a', '#faa654'],
+                        data: [${totalTripCount},${ApprovedTripscount}, ${yetTobeApproved}, ${getTripCountForQueryAdhoc},${getInClosedTripCountForAdhoc} ],
+                        backgroundColor: ['#faa654', '#00a65a', '#8d4f55', '#C422F4','#1477B0' ],
                     }]
             }
             var unresolvedstsOptions = {

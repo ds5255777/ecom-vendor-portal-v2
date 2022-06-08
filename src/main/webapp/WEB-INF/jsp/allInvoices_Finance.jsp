@@ -216,6 +216,7 @@
         <!-- ./wrapper -->
         <script src="plugins/jquery/jquery.min.js"></script>
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script src="js/common.js"></script>
         <script>
             $.widget.bridge('uibutton', $.ui.button);
             $.widget.bridge('uitooltip', $.ui.tooltip);
@@ -257,7 +258,7 @@
                 showConfirmButton: false,
                 timer: 3000
             });
-            
+            var currentDate='${currentDate}';
             var dataLimit='${dataLimit}';
     		dataLimit=parseInt(dataLimit);
 
@@ -371,13 +372,14 @@
                 dateFormat: 'yy-mm-dd',
                 changeMonth: true,
                 changeYear: true,
-
+                maxDate: currentDate
             });
 
             $('#toDate').datepicker({
                 dateFormat: 'yy-mm-dd',
                 changeMonth: true,
                 changeYear: true,
+                maxDate: currentDate
 
             });
 
@@ -469,6 +471,10 @@
                     document.getElementById("toDate").focus();
                     return;
                 }
+                
+                var dateReturnCheck=  dateValidationCheck(fromDate,toDate);
+                if(dateReturnCheck == "false"){
+                
                 $('.loader').show();
 
 
@@ -539,6 +545,15 @@
                     }
 
                 });
+                }else{
+              	  Toast.fire({
+                        type: 'error',
+                        title: 'Start Date Less than End Date.'
+                    });
+              	  $('#fromDate').val('');
+                    document.getElementById("fromDate").focus();
+                    return;
+                }
 
             }
 

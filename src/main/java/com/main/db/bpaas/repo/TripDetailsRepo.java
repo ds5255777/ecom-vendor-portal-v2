@@ -33,7 +33,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "select count(*) from Trip_Details where run_status='Closed' and vendor_code=?", nativeQuery = true)
     int getCloseTripCount(String vendorCode);
     
-    @Query(value = "SELECT  count(*)  FROM trip_details where vendor_trip_status='Query' and vendor_code=?", nativeQuery = true)
+    @Query(value = "SELECT  count(*)  FROM trip_details where vendor_trip_status='Query' and vendor_code=? ", nativeQuery = true)
     int getQueryTripCount(String vendorCode);
 
     @Query(value = "select count(*) from Trip_Details where run_status='In-Transit' and vendor_code=?", nativeQuery = true)
@@ -144,7 +144,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "SELECT * FROM trip_details where trip_id =:tripID ; ", nativeQuery = true)
     List<TripDetails> findTripsByID(@Param("tripID") String tripID);
 
-    @Query(value = "select * from Trip_Details where vendor_trip_status= ?", nativeQuery = true)
+    @Query(value = "select * from Trip_Details where vendor_trip_status= ? ORDER BY processed_on ASC", nativeQuery = true)
     List<TripDetails> getQueryTripsForNetwork(String vendor_trip_status);
 
     @Transactional
@@ -171,7 +171,10 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
             @Param("currentFuelRate") double currentFuelRate,
             @Param("fs_diff") double fs_diff,
             @Param("basicFreight") double basicFreight,
-            @Param("totalFreight") double totalFreight, @Param("vendorName") String vendorName, @Param("vendorCode") String vendorCode);
+            @Param("totalFreight") double totalFreight, 
+            @Param("fs") Double fs,
+            @Param("vendorName") String vendorName, 
+            @Param("vendorCode") String vendorCode);
 			
     
 	  @Transactional
@@ -237,6 +240,6 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
 	List<TripDetails> findByVendorCodeAndActualDepartureBetween(String vendorCode,String fromDate, String toDate);
 	
-	@Query(value = "select DISTINCT vendor_name from users order by vendor_name asc ",nativeQuery = true)
+	@Query(value = "select DISTINCT vendor_name from users where role_id='2' order by vendor_name asc ",nativeQuery = true)
 	List<String> getVendorName();
 }

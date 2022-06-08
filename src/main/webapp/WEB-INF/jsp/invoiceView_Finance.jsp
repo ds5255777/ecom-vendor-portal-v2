@@ -114,12 +114,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Site Name <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
-                                                <select class="form-control-sm select2" disabled style="width: 100%;" id="siteName" name="siteName">
-                                                    <option value="Site_1">Site 1</option>
-                                                    <option value="Site_2">Site 2</option>
-                                                    <option value="Site_3">Site 3</option>
-                                                </select>
+                                                <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> 
                                             </div>
                                         </div>
                                     </div>
@@ -213,19 +208,23 @@
                                 <table id="prTable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
-                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
-                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
-                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Current Fuel Rate</th>
-                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
-                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
-                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
-                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS</th>
-                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Line level Description</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip ID</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Current Fuel
+                                            Rate</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
+                                         <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Std. Vehicle</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Mileage</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Lumpsome Amount</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Line level
+                                            Description</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -577,6 +576,9 @@
                             if (!tripLineArray[i].hasOwnProperty("fsBaseRate")) {
                                 tripLineArray[i].fsBaseRate = "";
                             }
+                            if (!tripLineArray[i].hasOwnProperty("standardVechicleType")) {
+                                result[i].standardVechicleType = "";
+                            }
                             if (!tripLineArray[i].hasOwnProperty("fsDiff")) {
                                 tripLineArray[i].fsDiff = "";
                             }
@@ -585,6 +587,9 @@
                             }
                             if (!tripLineArray[i].hasOwnProperty("fs")) {
                                 tripLineArray[i].fs = "";
+                            }
+                            if (!tripLineArray[i].hasOwnProperty("mileage")) {
+                                result[i].mileage = "";
                             }
                             if (!tripLineArray[i].hasOwnProperty("actualKM")) {
                                 tripLineArray[i].actualKM = "";
@@ -598,7 +603,7 @@
                             if (!tripLineArray[i].hasOwnProperty("lineLevelDescription")) {
                                 tripLineArray[i].lineLevelDescription = "";
                             }
-                            $('#prTable').DataTable().row.add([tripLineArray[i].tripID, tripLineArray[i].runType, tripLineArray[i].route, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate, tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription]);
+                            $('#prTable').DataTable().row.add([tripLineArray[i].tripID, tripLineArray[i].runType, tripLineArray[i].route, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate, tripLineArray[i].standardVechicleType, tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].mileage, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription]);
                         }
                         $("#invoiceNumber").val(result.invoiceNumber);
                         $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);

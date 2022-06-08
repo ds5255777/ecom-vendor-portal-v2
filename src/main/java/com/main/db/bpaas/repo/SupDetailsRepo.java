@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.main.db.bpaas.entity.AddressDetails;
 import com.main.db.bpaas.entity.SupDetails;
 
 @Repository
@@ -43,5 +44,5 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 
 	@Query(value="select * from SupDetails where bp_code=:bpCode  ", nativeQuery=true)
 	List<SupDetails> findbankAccountNumber(String bpCode);
- 
+
 }

@@ -221,11 +221,11 @@
                	   swal.fire("Alert", "ITR Filling Declaration is mandatory", "warning")
                       .then((value) => {});
                   }
-              	else  if(controlName=="FUVFFile"){
+              	/* else  if(controlName=="FUVFFile"){
                	  
                	   swal.fire("Alert", "Filled Updated VRF Form is mandatory", "warning")
                       .then((value) => {});
-                  }
+                  } */
               	else  if(controlName=="MSMECFile"){
                	  
                	   swal.fire("Alert", "MSME Certificate is mandatory", "warning")
@@ -276,7 +276,7 @@
                         	   if ($("#partnerType").val() == "Scheduled") { 
                         		  
                         		 if(pid==""){
-                        		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,ITRFile,FUVFFile,MSMECFile,AMFile,NMISFile";
+                        		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,ITRFile,MSMECFile,AMFile,NMISFile";
                                   var mandFieldsArr = mandFields.split(",");
 
                                   for (i = 0; i < mandFieldsArr.length; i++) {
@@ -1815,7 +1815,7 @@ label {
 																	style="display: none;"></textarea> <label><span
 																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label>
-																		<a href="/C:/1.BPAAS/Document/doc.pdf" download>Download Template
+																		<a href="document/ProprietorshipDeclaration.docx" download>Download Template
 																		</a>
 																		</td>
 
@@ -1859,7 +1859,7 @@ label {
 																<textarea id="APLFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
 																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label><a href="/C:/1.BPAAS/Document/doc.pdf" download>Download Template
+																		size Max ${fileSize} MB</span></label><a href="document/139 - Declaration from payees.docx" download>Download Template
 																		</a></td>
 														</tr>
 														<tr>
@@ -1871,18 +1871,16 @@ label {
 																<textarea id="ITRFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
 																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label><a href="/C:/1.BPAAS/Document/doc.pdf" download>Download Template
+																		size Max ${fileSize} MB</span></label><a href="document/206AB - Declaration form ITR Filing.docx" download>Download Template
 																		</a></td>
-															<td><label>Filled Updated VRF Form<span
-																	class="required">*</span></label></td>
+															<td><label>Filled Updated VRF Form</label></td>
 															<td><input type="file" id="FUVFFile" name="FUVFFile"
 																onchange="handleFileSelect(event,'FUVFFileText'), onValidateFile('FUVFFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="FUVFFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
 																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label><a href="/C:/1.BPAAS/Document/doc.pdf" download>Download Template
-																		</a></td>
+																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 														<tr>
 															<td><label>MSME Certificate<span
@@ -1894,7 +1892,7 @@ label {
 																<textarea id="MSMECFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
 																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label><a href="/C:/1.BPAAS/Document/doc.pdf" download>Download Template
+																		size Max ${fileSize} MB</span></label><a href="document/GST and MSME Annexure.xlsx" download>Download Template
 																		</a></td>
 															<td><label>Approval Mail<span
 																	class="required">*</span></label></td>
@@ -1927,8 +1925,8 @@ label {
 																<textarea id="NMISFileText" rows="5"
 																	style="display: none;"></textarea> <label><span
 																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label><a href="/C:/1.BPAAS/Document/doc.pdf" download>Download Template
-																		</a></td>
+																		size Max ${fileSize} MB</span></label><!-- <a href="C:/1.BPAAS/Document/doc.pdf" download="doc.pdf">Download Template
+																		</a> --></td>
 														</tr>
 													</tbody>
 												</table>

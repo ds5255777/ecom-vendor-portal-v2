@@ -71,7 +71,7 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long> {
 
 	@Transactional
 	@Modifying
-	@Query(value = "update po_line_details set remaning_quatity=:remaningQuatity where  line_Number=:lineNumber", nativeQuery = true)
+	@Query(value = "update po_line_details set remaning_quatity=:remaningQuatity where  po_line_id=:lineNumber", nativeQuery = true)
 	void updateRemaningQuantitydraft(@Param("remaningQuatity") String remaningQuatity,
 			@Param("lineNumber") String lineNumber);
 

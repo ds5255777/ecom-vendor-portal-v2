@@ -364,10 +364,12 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			logger.info("getRemaningQuatity" + details.getRemaningQuatity() + "id" + details.getInvoiceno());
+			logger.info("getRemaningQuatity" + details.getRemaningQuatity() + "id" + details.getId());
+			
+			serviceManager.podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
 
-			serviceManager.podetailsRepo.updateRemaningQuantitydraft(details.getRemaningQuatity(),
-					details.getLineNumberpo());
+			//serviceManager.podetailsRepo.updateRemaningQuantitydraft(details.getRemaningQuatity(),
+				//	details.getLineNumberpo());
 
 			Integer flag = details.getFlag();
 			if (flag == 1) {

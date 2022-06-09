@@ -126,6 +126,9 @@ public class PoUiController {
 	public String allPo(Model model, Principal principal, HttpServletRequest request) {
 
 		String rolename = (String) request.getSession().getAttribute("role");
+
+		String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("dataLimit", dataLimit);
 
 		if (rolename.equalsIgnoreCase("Vendor")) {

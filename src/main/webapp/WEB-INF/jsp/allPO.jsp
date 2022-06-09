@@ -228,6 +228,7 @@
         </script>
         <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/commonFunctions.js"></script>
+        <script src="js/common.js"></script>
         <script src="plugins/sparklines/sparkline.js"></script>
         <script src="plugins/moment/moment.min.js"></script>
         <script src="plugins/daterangepicker/daterangepicker.js"></script>
@@ -262,7 +263,7 @@
 
         <script type="text/javascript">
         
-        
+        var currentDate='${currentDate}';
         var dataLimit='${dataLimit}';
 		dataLimit=parseInt(dataLimit);
 		
@@ -446,20 +447,20 @@
             window.open(urlOftripsDetail, "PoView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
             $('.loader').hide();
         }
-        
+       
         $('#fromDate').datepicker({
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true,
-
+            maxDate: currentDate
         });
 
         $('#toDate').datepicker({
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true,
-
-        });
+            maxDate: currentDate
+        }); 
         
         $.validator.setDefaults({
             submitHandler: function() {
@@ -472,7 +473,7 @@
         $("#refreshDashboardButton").click(function(e) {
             e.preventDefault();
             $('#refreshDashboardButton').attr('disabled', 'disabled');
-            $('.loader').show();
+           // $('.loader').show();
             getData();
             $('#refreshDashboardButton').removeAttr('disabled');
             $("#fromDate").val("");
@@ -510,6 +511,8 @@
                 document.getElementById("toDate").focus();
                 return;
             }
+            var dateReturnCheck=  dateValidationCheck(fromDate,toDate);
+            if(dateReturnCheck == "false"){
             $('.loader').show();
 
         
@@ -538,23 +541,6 @@
                         	
                         	  var poLineDetails = result[0].poLineDetails;
                         	
-                        	  /*
-                        	 for(var k = 0; k< poLineDetails.length; k++){
-                        	 if( poLineDetails[k] !== undefined ){
-                        		 poLineDetails[k]
-                        		
-           					}else{
-           						document.getElementById("glDate").type="date"; 
-                               	
-                               	 
-                               }	
-                        	
-                        	 } */
-                        	
-                       
-                        
-                        
-                        
                      
                         for (var i = 0; i < result.length; i++) {
                         	
@@ -618,6 +604,15 @@
                 }
 
             });
+            }else{
+          	  Toast.fire({
+                  type: 'error',
+                  title: 'Start Date Less than End Date.'
+              });
+        	  $('#fromDate').val('');
+              document.getElementById("fromDate").focus();
+              return;
+          }
 
         }
 

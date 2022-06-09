@@ -1132,7 +1132,7 @@
 		
 	
 		
-		  if(quntityflag.length==0){
+		/*   if(quntityflag.length==0){
 		  		Toast.fire({
 		              type: 'error',
 		              title: 'Quantity Invoiced  is Mandatory !'
@@ -1149,7 +1149,7 @@
 				    		 return "";
 				    		}
 				    	}
-		  	}
+		  	} */
 		  var invoiceNu10a = document.getElementById("InvoiceUpload").value;
 			if (invoiceNu10a === "" || invoiceNu10a === null || invoiceNu10a === '') {
 	          Toast.fire({
@@ -1201,12 +1201,14 @@
      
    var invoiceno= document.getElementById("invoiceNumber").value;
    var poNumber= document.getElementById("poNumber").value;
-     for(var i=0;i<remaningQuatity1.length;i++){
+   for(var i=0;i<tripLineArray.length;i++){
+   	
+   	var poLineId=tripLineArray[i].poLineId;
     
 		 var obj = {
 		            "remaningQuatity" : remaningQuatity1[i],
 		  			"poNumber" : poNumber,
-		  			"lineNumberpo" : lineNum1[i],
+		  			"id" : poLineId,
 		  			"flag" : flag
 		        }
 		   

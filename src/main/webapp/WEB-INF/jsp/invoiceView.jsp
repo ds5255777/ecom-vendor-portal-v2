@@ -219,7 +219,7 @@
 		                                            <th class="bg-primary" >FS Base Rate</th>
 		                                            <th class="bg-primary" >FS Diff</th>
 		                                            <th class="bg-primary" >Basic Freight</th>
-		                                            <th class="bg-primary" >FS</th>
+		                                            <th class="bg-primary" >FS Amount</th>
 		                                            <th class="bg-primary" >Actual KM</th>
 		                                            <th class="bg-primary" >Total Freight</th>
 		                                            <th class="bg-primary" >Line level Description</th>

@@ -1071,6 +1071,9 @@ tbody {
          var fromDate = $("#fromDate").val();
          var toDate = $("#toDate").val();
          
+         fromDate=moment(fromDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+         toDate=moment(toDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+         
          if (fromDate == "" || fromDate == null) {
              //alert("plaese select from date"+fromDate);
              Toast.fire({

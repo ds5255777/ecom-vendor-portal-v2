@@ -502,7 +502,7 @@
 													<div class="col-md-3">
 														<!-- text input -->
 														<div class="form-group row">
-															<label class="col-sm-5" title="FS">FS</label>
+															<label class="col-sm-5" title="FS">FS Amount</label>
 															<div class="col-sm-7">
 																<input type="text"
 																	class="form-control numberWithDecimalcheck"

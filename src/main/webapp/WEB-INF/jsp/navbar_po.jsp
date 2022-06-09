@@ -86,7 +86,7 @@
         <li class="nav-item"><a class="nav-link">${userName}</a></li>
         
         <c:if test="${isssoEnable!='yes'}">
-            <li class="nav-item"><a class="nav-link" href="logout" id="quickHelp" data-toggle="tooltip" data-placement="bottom" title="LogOut"> <i class="fa fa-power-off fa-lg"></i>
+            <li class="nav-item"><a class="nav-link" href="logout" id="quickHelp" data-toggle="tooltip" data-placement="bottom" title="LogOut"> <i class="fa fa-power-off fa-lg" style="color: #C62625;"></i>
                 </a></li>
         </c:if>
     </ul>

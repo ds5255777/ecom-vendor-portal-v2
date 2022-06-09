@@ -61,9 +61,19 @@ public class TripControllers {
 		logger.info("fromDate : " + fromDate);
 		logger.info("toDate : " + toDate);
 		logger.info("vendorCode : " + vendorCode);
+		
+		
 
 		try {
-
+			/*
+			 * SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); Date
+			 * convertedCurrentDate = sdf.parse(fromDate); String
+			 * date=sdf.format(convertedCurrentDate ); System.out.println(date);
+			 * 
+			 * Date convertedendDate = sdf.parse(toDate); String
+			 * enddate=sdf.format(convertedendDate ); System.out.println(enddate);
+			 */
+			
 			String rolename = (String) request.getSession().getAttribute("role");
 			logger.info("YYYYYYY" + rolename);
 			if (rolename.equalsIgnoreCase("Network")) {

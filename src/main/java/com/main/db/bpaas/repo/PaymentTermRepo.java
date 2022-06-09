@@ -12,7 +12,7 @@ import com.main.db.bpaas.entity.PaymentTerms;
 @Repository
 public interface PaymentTermRepo extends JpaRepository<PaymentTerms, Integer>{
 	
-	@Query(value = "select payment_term from payment_terms ",nativeQuery = true)
+	@Query(value = "select payment_term from payment_terms order by payment_term asc ",nativeQuery = true)
 	List<String> getPaymentTerms();
 
 }

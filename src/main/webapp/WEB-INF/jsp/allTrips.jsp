@@ -592,7 +592,7 @@ tbody {
 													<div class="col-md-3">
 														<!-- text input -->
 														<div class="form-group row">
-															<label class="col-sm-5" title="FS">FS</label>
+															<label class="col-sm-5" title="FS">FS Amount</label>
 															<div class="col-sm-7">
 																<input type="text"
 																	class="form-control numberWithDecimalcheck"
@@ -992,6 +992,13 @@ tbody {
                 var fromDate = $("#fromDate").val();
                 var toDate = $("#toDate").val();
                 var vendorCode = $("#vendorCode").val();
+                
+                /* var d = new Date(); */
+                console.log(fromDate ,"  ", toDate);
+                fromDate=moment(fromDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+                toDate=moment(toDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+                console.log("After : ",fromDate ,"  ", toDate);
+                
                 $('#selectTripStatus').val('');
                 $('#selectStatus').val('');
                 $('#selectPaymentStatus').val('');
@@ -1024,8 +1031,8 @@ tbody {
                   $.ajax({
                       type: "GET",
                       data: {
-                          "actualDeparture": fromDate.concat(" ","00:00"),
-                          "actualArrival": toDate.concat(" ","23:59"),
+                          "actualDeparture": fromDate.concat(" ","00:00:00"),
+                          "actualArrival": toDate.concat(" ","23:59:59"),
                           "vendorCode": vendorCode
                       },
                       url: "<%=GlobalUrl.filterTripDetails%>",

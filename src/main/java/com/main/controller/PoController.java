@@ -332,7 +332,7 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			logger.info("getRemaningQuatity" + details.getRemaningQuatity() + "id" + details.getId());
+			logger.info("getRemaningQuatity in po line :::::::: " + details.getRemaningQuatity() + "poLineId" + details.getId());
 
 			serviceManager.podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
 

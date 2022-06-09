@@ -779,17 +779,9 @@
                 })
             }
         });
-        
-        
-		         
-        
-        
-        
+   
     }
-    
-    
-    
-    
+
     function addPOLineitem() {
 		  var lineitemNo= $('#tripList').val();
 		  
@@ -1215,15 +1207,19 @@
 		
       var invoiceno= document.getElementById("invoiceNumber").value;
       var poNumber= document.getElementById("poNumber").value;
-        for(var i=0;i<remaningQuatity1.length;i++){
-       
-		 var obj = {
-		            "remaningQuatity" : remaningQuatity1[i],
+    
+		        for(var i=0;i<tripLineArray.length;i++){
+		        	
+		        	var poLineId=tripLineArray[i].poLineId;
+		        	
 		            
-		  			"id"  : remanId1[i],
-		  			"poNumber" : poNumber,
-		  			"flag" : flag
-		        }
+		   		 var obj = {
+		   		            "remaningQuatity" : remaningQuatity1[i],
+		   		            
+		   		  			"id"  : poLineId,
+		   		  			"poNumber" : poNumber,
+		   		  			"flag" : flag
+		   		        }
 		   
         
 	  $.ajax({

@@ -21,13 +21,13 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long> {
 	@Query(value = "select * from po_details where status='In-Review' and vendor_code=?", nativeQuery = true)
 	List<PoDetails> getAllProcessPo(String vendorCode);
 
-	@Query(value = "select * from po_details where status='Unprocess' or status='Partially Invoiced' and vendor_code=?", nativeQuery = true)
+	@Query(value = "select * from po_details where  status  in('Unprocess','Partially Invoiced') and vendor_code=?", nativeQuery = true)
 	List<PoDetails> getAllUnProcessPo(String vendorCode);
 
 	@Query(value = "select count(*) from po_details where status='In-Review' and vendor_code=?", nativeQuery = true)
 	int getAllProcessPoCount(String vendorCode);
 
-	@Query(value = "select count(*) from po_details where status='Unprocess' or status='Partially Invoiced' and vendor_code=?", nativeQuery = true)
+	@Query(value = "select count(*) from po_details where status in('Unprocess','Partially Invoiced') and vendor_code=?", nativeQuery = true)
 	int getAllUnProcessPoCount(String vendorCode);
 
 	@Query(value = "select count(*) from poinvoice_details where status='Query' and vendor_code=:vendorCode", nativeQuery = true)
@@ -61,7 +61,7 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long> {
 
 	@Transactional
 	@Modifying
-	@Query(value = "update po_line_details set remaning_quatity=:remaningQuatity where  id=:id", nativeQuery = true)
+	@Query(value = "update po_line_details set remaning_quatity=:remaningQuatity where  po_line_id=:id", nativeQuery = true)
 	void updateRemaningQuatity(@Param("remaningQuatity") String remaningQuatity, @Param("id") Long id);
 
 	@Transactional

@@ -16,10 +16,10 @@ import com.main.db.bpaas.entity.PoInvoiceDetails;
 @Repository
 public interface PoInvoiceRepo extends JpaRepository<PoInvoiceDetails, Long> {
 
-	@Query(value = "select count(*) from poinvoice_details where  status='In-Review' or status='Query' and vendor_code=?", nativeQuery = true)
+	@Query(value = "select count(*) from poinvoice_details where  status in('In-Review','Query') and vendor_code=?", nativeQuery = true)
 	int getAllInvoiceCount(String vendorCode);
 
-	@Query(value = "select * from poinvoice_details where status='In-Review' or status='Query'  and vendor_code=:vendorCode", nativeQuery = true)
+	@Query(value = "select * from poinvoice_details where status in('In-Review','Query')  and vendor_code=:vendorCode", nativeQuery = true)
 	List<PoInvoiceDetails> getAllInvoiceDetails( @Param("vendorCode") String vendorCode);
 
 	@Query(value = "select * from poinvoice_details where  vendor_code=:vendorCode and invoice_num=:invoiceNumber", nativeQuery = true)

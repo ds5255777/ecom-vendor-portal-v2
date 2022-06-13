@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.main.db.bpaas.repo.AddressDetailsRepo;
+import com.main.db.bpaas.repo.AdharLinkStatusRepo;
 import com.main.db.bpaas.repo.AgreementMasterRepo;
 import com.main.db.bpaas.repo.BusinessClassificationRepo;
 import com.main.db.bpaas.repo.BusinessPartnerRepo;
@@ -26,7 +27,9 @@ import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.db.bpaas.repo.PoLineItemRepo;
 import com.main.db.bpaas.repo.QueryRepo;
+import com.main.db.bpaas.repo.RegionRepo;
 import com.main.db.bpaas.repo.RolesRepository;
+import com.main.db.bpaas.repo.SectionTypeRepo;
 import com.main.db.bpaas.repo.SendEmailRepo;
 import com.main.db.bpaas.repo.SupDetailsRepo;
 import com.main.db.bpaas.repo.TDSSectionCodeRepo;
@@ -136,6 +139,14 @@ public class ServiceManager {
 	@Autowired
 	public AddressDetailsRepo addressDetailsRepo;
 	
+	@Autowired
+	public AdharLinkStatusRepo adharLinkStatusRepo;
+	
+	@Autowired
+	public RegionRepo regionRepo;
+	
+	@Autowired
+	public SectionTypeRepo sectionTypeRepo;
 
 	/*
 	 * public void insertRecordIntoAuditEntry(HttpServletRequest request, String

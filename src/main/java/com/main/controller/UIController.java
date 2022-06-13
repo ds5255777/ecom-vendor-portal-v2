@@ -93,6 +93,9 @@ public class UIController {
 			List<String> country = serviceManager.countryRepo.getCountry();
 			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
+			List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
+			List<String> region = serviceManager.regionRepo.getRegion();
+			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
 
 			model.addAttribute("currency", currency);
 			model.addAttribute("business", business);
@@ -108,6 +111,10 @@ public class UIController {
 
 			model.addAttribute("maxFileSize", maxFileSize);
 			model.addAttribute("fileSize", fileSize);
+			model.addAttribute("adharLink", adharLinkStatus);
+			model.addAttribute("region", region);
+			model.addAttribute("sectionType", sectionType);
+			
 
 			// return "registration";
 
@@ -125,6 +132,9 @@ public class UIController {
 			List<String> country = serviceManager.countryRepo.getCountry();
 			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
+			List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
+			List<String> region = serviceManager.regionRepo.getRegion();
+			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
 
 			model.addAttribute("currency", currency);
 			model.addAttribute("business", business);
@@ -140,6 +150,10 @@ public class UIController {
 
 			model.addAttribute("maxFileSize", maxFileSize);
 			model.addAttribute("fileSize", fileSize);
+			model.addAttribute("adharLink", adharLinkStatus);
+			model.addAttribute("region", region);
+			model.addAttribute("sectionType", sectionType);
+			
 		}
 		return "registration";
 

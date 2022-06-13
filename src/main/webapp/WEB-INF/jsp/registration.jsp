@@ -93,152 +93,94 @@
                 if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
 				
                 	 if(controlName=="introducedByName"){
-                		 swal.fire("Alert", "Introducer name is mandatory", "warning")
+                		 swal.fire("Alert", "Introducer Name is Mandatory", "warning")
                          .then((value) => {});
                 		 
                 	 }
                 	 else  if(controlName=="introducedByEmailID"){
                    	  
-                  	   swal.fire("Alert", "Introducer email id is mandatory", "warning")
+                  	   swal.fire("Alert", "Introducer Email Id is Mandatory", "warning")
                          .then((value) => {});
                      }
                 	else  if(controlName=="states"){
                 	  
-                	   swal.fire("Alert", "Business partner type is mandatory", "warning")
+                	   swal.fire("Alert", "Business Partner Type is Mandatory", "warning")
                        .then((value) => {});
                    }
                 	else  if(controlName=="suppName"){
                   	  
-                 	   swal.fire("Alert", "Business partner name is mandatory", "warning")
+                 	   swal.fire("Alert", "Business Partner Name is Mandatory", "warning")
                         .then((value) => {});
                     }
-                	else  if(controlName=="compEmail"){
-                    	  
-                  	   swal.fire("Alert", "Company email id is mandatory", "warning")
-                         .then((value) => {});
-                     }
+                	
                 	else  if(controlName=="panNumber"){
                   	  
-                   	   swal.fire("Alert", "PAN number is mandatory", "warning")
+                   	   swal.fire("Alert", "PAN Number is Mandatory", "warning")
                           .then((value) => {});
                       }
-                	else  if(controlName=="compGstn"){
-                    	  
-                    	   swal.fire("Alert", "GSTN Number is mandatory", "warning")
-                           .then((value) => {});
-                       }
-                	else  if(controlName=="natureOfTransactions"){
-                  	  
-                 	   swal.fire("Alert", "Nature of transaction is mandatory", "warning")
-                        .then((value) => {});
-                    }
+                	
                 	 else  if(controlName=="creditTerms"){
                       	  
-                    	   swal.fire("Alert", "Payment / Credit Terms is mandatory", "warning")
+                    	   swal.fire("Alert", "Payment / Credit Terms is Mandatory", "warning")
                            .then((value) => {});
                        }
                 	 else  if(controlName=="paymentMethod"){
                      	  
-                  	   swal.fire("Alert", "Payment Method is mandatory", "warning")
+                  	   swal.fire("Alert", "Payment Method is Mandatory", "warning")
                          .then((value) => {});
                      }
                 	 else  if(controlName=="tdsSection"){
                    	  
-                  	   swal.fire("Alert", "TDS Section is mandatory", "warning")
+                  	   swal.fire("Alert", "TDS Section is Mandatory", "warning")
                          .then((value) => {});
                      }
               	 else  if(controlName=="tdsRate"){
                  	  
-                	   swal.fire("Alert", "TDS Rate is mandatory", "warning")
+                	   swal.fire("Alert", "TDS Rate is Mandatory", "warning")
                        .then((value) => {});
                    }
                 	 
-              	else  if(controlName=="fyYear1"){
-              	  
-                	   swal.fire("Alert", "Financial Year is mandatory", "warning")
-                       .then((value) => {});
-                   }else  if(controlName=="fyYear2"){
-              	  
-                	   swal.fire("Alert", "Financial Year is mandatory", "warning")
-                       .then((value) => {});
-                   }else  if(controlName=="fyYear3"){
-              	  
-                	   swal.fire("Alert", "Financial Year is mandatory", "warning")
-                       .then((value) => {});
-                   }
-                	 
-              	else  if(controlName=="acknowledgementNumber1"){
-              	  
-                	   swal.fire("Alert", "Acknowledgement Number is mandatory", "warning")
-                       .then((value) => {});
-                   } else  if(controlName=="acknowledgementNumber2"){
-                    	  
-                   	   swal.fire("Alert", "Acknowledgement Number is mandatory", "warning")
-                          .then((value) => {});
-                      }else  if(controlName=="acknowledgementNumber3"){
-                    	  
-                      	   swal.fire("Alert", "Acknowledgement Number is mandatory", "warning")
-                             .then((value) => {});
-                         }
-              	 
-              	 else  if(controlName=="ITRFile1"){
-                    	  
-                   	   swal.fire("Alert", "ITR File is mandatory", "warning")
-                          .then((value) => {});
-                      }else  if(controlName=="ITRFile2"){
-                       	  
-                      	   swal.fire("Alert", "ITR File is mandatory", "warning")
-                             .then((value) => {});
-                         }else  if(controlName=="ITRFile3"){
-                          	  
-                         	   swal.fire("Alert", "ITR File is mandatory", "warning")
-                                .then((value) => {});
-                            }
-                	 
+             
                 	 
               	else  if(controlName=="GSTFile"){
                	  
-             	   swal.fire("Alert", "GST Certificate is mandatory", "warning")
+             	   swal.fire("Alert", "GST Certificate is Mandatory", "warning")
                     .then((value) => {});
                 }
               	else  if(controlName=="PDFile"){
                  	  
-              	   swal.fire("Alert", "Proprietorship Declaration is mandatory", "warning")
+              	   swal.fire("Alert", "Proprietorship Declaration is Mandatory", "warning")
                      .then((value) => {});
                  }
               	else  if(controlName=="PANFile"){
                  	  
-              	   swal.fire("Alert", "PAN Card is mandatory", "warning")
+              	   swal.fire("Alert", "PAN Card is Mandatory", "warning")
                      .then((value) => {});
                  }
               	else  if(controlName=="CCFile"){
                	  
-               	   swal.fire("Alert", "Cancelled Cheque/ Passbook/ Bank Statemen  is mandatory", "warning")
+               	   swal.fire("Alert", "Cancelled Cheque/ Passbook/ Bank Statemen  is Mandatory", "warning")
                       .then((value) => {});
                   }
               	else  if(controlName=="ITRFile"){
                	  
-               	   swal.fire("Alert", "ITR Filling Declaration is mandatory", "warning")
+               	   swal.fire("Alert", "ITR Filling Declaration is Mandatory", "warning")
                       .then((value) => {});
                   }
-              	/* else  if(controlName=="FUVFFile"){
-               	  
-               	   swal.fire("Alert", "Filled Updated VRF Form is mandatory", "warning")
-                      .then((value) => {});
-                  } */
+              
               	else  if(controlName=="MSMECFile"){
                	  
-               	   swal.fire("Alert", "MSME Certificate is mandatory", "warning")
+               	   swal.fire("Alert", "MSME Certificate is Mandatory", "warning")
                       .then((value) => {});
                   }
               	else  if(controlName=="AMFile"){
                	  
-               	   swal.fire("Alert", "Approval Mail is mandatory", "warning")
+               	   swal.fire("Alert", "Approval Mail is Mandatory", "warning")
                       .then((value) => {});
                   }
               	else  if(controlName=="NMISFile"){
                	  
-               	   swal.fire("Alert", "Name Mismatch Affidavit is mandatory", "warning")
+               	   swal.fire("Alert", "Name Mismatch Affidavit is Mandatory", "warning")
                       .then((value) => {});
                   }
                 	
@@ -276,7 +218,7 @@
                         	   if ($("#partnerType").val() == "Scheduled") { 
                         		  
                         		 if(pid==""){
-                        		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,ITRFile,MSMECFile,AMFile,NMISFile";
+                        		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,MSMECFile,AMFile,NMISFile";
                                   var mandFieldsArr = mandFields.split(",");
 
                                   for (i = 0; i < mandFieldsArr.length; i++) {
@@ -290,7 +232,7 @@
                         	    }
                         	   } 
                         	   else{
-                        		  var mandFields = "suppName,compEmail,ITRFile1,ITRFile2,ITRFile3";
+                        		  var mandFields = "suppName";
                                   var mandFieldsArr = mandFields.split(",");
                                   for (i = 0; i < mandFieldsArr.length; i++) {
                                       console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
@@ -390,7 +332,7 @@
                
 
                     console.log("Inside Step One");
-                    var mandFields = "introducedByName,introducedByEmailID,states,suppName,compEmail,panNumber,compGstn,natureOfTransactions";
+                    var mandFields = "introducedByName,introducedByEmailID,states,suppName,panNumber";
                     var mandFieldsArr = mandFields.split(",");
                     for (i = 0; i < mandFieldsArr.length; i++) {
                         console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
@@ -469,7 +411,7 @@
                    
 
                 /* if ($("#tdsApplication").val() == "Yes") {*/
-                    var mandFields = "tdsSection,tdsRate,fyYear1,acknowledgementNumber1,ITRFile1,fyYear2,acknowledgementNumber2,ITRFile2,fyYear3,acknowledgementNumber3,ITRFile3";
+                    var mandFields = "tdsSection,tdsRate";
                     var mandFieldsArr = mandFields.split(",");
                     for (i = 0; i < mandFieldsArr.length; i++) {
                         console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
@@ -1112,7 +1054,7 @@ label {
 														class="required adHocRequired">*</span></label></td>
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="suppName" name="suppName"
-													placeholder="Name(As per Cheque/Passbook)"
+													placeholder="Business Partner Name"
 													onchange="removeValCssByID(this)"
 													oninput="this.value = this.value.toUpperCase()"
 													 maxlength="50"></td>
@@ -1125,29 +1067,12 @@ label {
 
 											<tr class="">
 
-
-												<td><label for="compEmail">Company Email ID<span
-														class="required adHocRequired">*</span></label></td>
-												<td colspan='1'><input type="email"
-													class="form-control p-input email" id="compEmail"
-													name="compEmail" placeholder="Company Mail ID"
-													onchange="removeValCssByID(this);"  maxlength="50" required></td>
-
-												<td><label for="phoneNumber">Phone Number</label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="phoneNumber"
-													name="phoneNumber" placeholder="Phone Number"
-													maxlength="10"
-													oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
-													onchange="removeValCssByID(this)"><span
-													id="message"></span></td>
-
 												<td><label for="businessClassification">Business
 														Classification</label></td>
 												<td><select id="businessClassification"
 													name="businessClassification" class="form-control p-input"
 													colspan='1' placeholder="Business Classification"
-													onchange="removeValCssByID(this)">
+													onchange="MESMENumber()" >
 														<option value="">Select</option>
 														<c:forEach items="${classification}" var="classi">
 
@@ -1155,15 +1080,27 @@ label {
 														</c:forEach>
 
 												</select></td>
-											</tr>
-
-											<tr class="">
+												
+												<td><label for="mesmeNumber">MESME Certificate Number</label></td>
+												<td colspan='1'><input type="text"
+												
+													class="form-control p-input" id="mesmeNumber"
+													maxlength="12" name="mesmeNumber"
+													placeholder="MESME Certificate Number"  disabled="disabled"></td>
+													
 												<td><label for="aadharNumber">Aadhar Number</label></td>
 												<td colspan='1'><input type="text"
 													oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
 													class="form-control p-input" id="aadharNumber"
 													maxlength="12" name="aadharNumber"
 													placeholder="Aadhar Number" onblur="AadharValidate();"></td>
+													
+													
+
+												
+											</tr>
+
+											<tr class="">
 
 												<td><label for="panNumber">Pan Number<span
 														class="required adHocRequired">*</span></label></td>
@@ -1172,62 +1109,64 @@ label {
 													name="panNumber" placeholder="Pan Number"
 													oninput="this.value = this.value.toUpperCase()"
 													maxlength="10" onchange="removeValCssByID(this)"></td>
-
 												<td><label for="tanNumber">TAN Number</label></td>
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="tanNumber"
 													name="tanNumber" placeholder="TAN Number"
 													oninput="this.value = this.value.toUpperCase()"
 													maxlength="10" onkeypress="return isNumberKey(evt);"></td>
-											</tr>
-
-											<tr>
-												<td><label for="adharLinkStatus">Aadhar Link
+													
+													<td><label for="adharLinkStatus">Aadhar Link
 														Status</label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="adharLinkStatus"
-													name="adharLinkStatus" maxlength="50" placeholder="Aadhar Link Status"></td>
-
-												<td><label for="compGstn">GSTN Number<span
-														class="required adHocRequired">*</span></label></td>
-												<td colspan='1'><input type="test"
-													class="form-control p-input gst" id="compGstn" name="compGstn"													name="compGstn" placeholder="GSTN Number"
-													oninput="this.value = this.value.toUpperCase()"
-													maxlength="15"></td>
-
-												<td><label for="natureOfTransactions">Nature of
-														transactions<span class="required adHocRequired">*</span>
-												</label></td>
-
-												<td><select colspan='1' class="form-control p-input"
-													id="natureOfTransactions" name="natureOfTransactions"
-													placeholder="Nature of transactions"
+												
+													<td><select colspan='1' class="form-control p-input"
+													id="adharLinkStatus" name="adharLinkStatus"
+													placeholder="Aadhar Link Status"
 													onchange="removeValCssByID(this)">
 														<option value="">Select</option>
-														<c:forEach items="${nature}" var="nat">
+														<c:forEach items="${adharLink}" var="link">
 
-															<option value="${nat}">${nat}</option>
+															<option value="${link}">${link}</option>
 														</c:forEach>
 
 												</select></td>
 											</tr>
+											
+											<tr class="">
+	
+													<td><label>Region<span
+														 class="required adHocRequired">*</span></label></td>
 
-											<tr>
+												<td style="width: auto"><select colspan='1'
+													class="js-example-basic-multiple1 select2" name="region[]"
+													 id="region"  multiple="multiple" onchange="region1();" >
+														<c:forEach items="${region}" var="reg">
 
+															<option value="${reg}">${reg}</option>
+														</c:forEach>
+												</select></td>
+											
+											<td><label>Section Type<span
+														 class="required adHocRequired">*</span></label></td>
 
-												<!-- <td colspan='1'><input type="text" class="form-control p-input" id="businessClassification" name="businessClassification" placeholder="Business Classification" 
-                                                
-                                                onchange="removeValCssByID(this)"></td> -->
+													<td><select colspan='1' class="form-control p-input"
+													id="sectionType" name="sectionType"
+													placeholder="Aadhar Link Status"
+													onchange="removeValCssByID(this)">
+														<option value="">Select</option>
+														<c:forEach items="${sectionType}" var="type">
 
-												<!-- <td><label for="siteDff">SITE DFF</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="siteDff" name="siteDff" placeholder="SITE DFF"></td> -->
+															<option value="${type}">${type}</option>
+														</c:forEach>
 
-												<!-- <td><label for="opeUnitReqMap">Operating Unit
-                                                        required to MAP<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="opeUnitReqMap" name="opeUnitReqMap" placeholder="Operating Unit required to MAP" onchange="removeValCssByID(this)"></td> -->
-
+												</select></td>
+												
+												
+											
 											</tr>
-
+										
+										
+										
 										</tbody>
 									</table>
 								</form>
@@ -1325,6 +1264,35 @@ label {
 														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 														placeholder="Postal Code/ ZIP Code" maxlength="6"></td>
 
+																								
+
+												<td><label for="compGstn">GSTN Number<span
+														class="required adHocRequired"></span></label></td>
+												<td colspan='2'><input type="test"
+													class="form-control p-input gst" id="compGstn" name="compGstn"													name="compGstn" placeholder="GSTN Number"
+													oninput="this.value = this.value.toUpperCase()"
+													maxlength="15"></td>
+
+												<td><label for="natureOfTransactions">Nature of
+														Transactions<span class="required adHocRequired">*</span>
+												</label></td>
+
+												<td><select colspan='2' class="form-control p-input"
+													id="natureOfTransactions" name="natureOfTransactions"
+													placeholder="Nature of Transactions"
+													onchange="removeValCssByID(this)">
+														<option value="">Select</option>
+														<c:forEach items="${nature}" var="nat">
+
+															<option value="${nat}">${nat}</option>
+														</c:forEach>
+
+												</select></td>												
+												</tr>
+												
+												<tr class="">
+
+
 													<td><label for="addressDetails">Address
 															Details<span class="required adHocRequired">*</span>
 													</label></td>
@@ -1352,6 +1320,8 @@ label {
 															<th>State</th>
 															<th>District</th>
 															<th>Postal Code/ ZIP Code</th>
+															<th>GSTN Number</th>
+															<th>Nature of Transactions</th>
 															<th>Address Details</th>
 															<th>Remove</th>
 														</tr>
@@ -1468,33 +1438,14 @@ label {
 														class="form-control p-input" id="bankName" name="bankName"
 														placeholder="Bank Name" maxlength="200"></td>
 
-													<td><label for="ifscCode">RTGS/ IFSC Code<span
+													<td><label for="ifscCode">IFSC Code<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><input type="text"
 														class="form-control p-input" id="ifscCode" name="ifscCode"
-														placeholder="RTGS/ IFSC Code"
+														placeholder="IFSC Code"
 														oninput="this.value = this.value.toUpperCase()"
 														maxlength="11"></td>
 
-
-
-
-													<td><label for="accoutNumber">Account Number<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="accoutNumber"
-														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-														name="accoutNumber" placeholder="Account Number"></td>
-														
-														<td><label for="Confirmed accoutNumber">Confirmed Account Number<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="confirmedAccoutNumber"
-														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-														name="confirmedAccoutNumber"  placeholder="Confirmed Account Number"maxlength="16"></td>
-
-												</tr>
-												<tr class="">
 													<td><label for="accoutCurrency">Currency<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><select id="accoutCurrency"
@@ -1504,6 +1455,24 @@ label {
 																<option value="${cur}">${cur}</option>
 															</c:forEach>
 													</select></td>
+
+												</tr>
+												
+												<tr class="">
+												<td><label for="accoutNumber">Account Number<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="accoutNumber"
+														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+														name="accoutNumber" placeholder="Account Number"></td>
+														
+														<td><label for="Confirmed accoutNumber">Confirm Account Number<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="confirmedAccoutNumber"
+														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+														name="confirmedAccoutNumber"  placeholder="Confirm  Account Number"maxlength="16"></td>
+												
 													<td></td>
 													<td colspan='3'>
 														<button type="Button" id="addBankGridButt"
@@ -2071,6 +2040,14 @@ label {
             });
             
         });
+        $(document).ready(function() {
+            $('.js-example-basic-multiple1').select2({
+            	zplaceholder: "Select Partner Type",
+                allowClear: true
+    		
+            });
+            
+        });
         //$('#accordionExample').accordion();
         //$('#accordionExample .next, #accordionExample .previous').click(function(e) {
         //	e.preventDefault();
@@ -2103,6 +2080,8 @@ label {
             var abc = document.getElementById('city').value;
             var abc2 = document.getElementById('pinCode').value;
             var abc3 = document.getElementById('addDetails').value;
+            var abc4 = document.getElementById('natureOfTransactions').value;
+            
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
                 swal.fire("Alert", "District is mandatory", "warning");
@@ -2110,16 +2089,21 @@ label {
             } else if (abc2 == null || abc2 == "") {
                 swal.fire("Alert", "Pin Code is mandatory", "warning");
                 return false;
+            } else if (abc4 == null || abc4 == "") {
+                swal.fire("Alert", "Nature of Transactions is mandatory", "warning");
+                return false;
             } else if (abc3 == null || abc3 == "") {
                 swal.fire("Alert", "Address is mandatory", "warning");
                 return false;
-            } else {
+            }else {
 
                 $("#addBookGrid").append(' <tr class=""><td>' +
                     document.getElementById('addCountry').value + '</td><td>' +
                     document.getElementById('state').value + '</td><td>' +
                     document.getElementById('city').value + '</td><td>' +
                     document.getElementById('pinCode').value + '</td><td>' +
+                    document.getElementById('compGstn').value + '</td><td>' +
+                    document.getElementById('natureOfTransactions').value + '</td><td>' +
                     document.getElementById('addDetails').value + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
                 /*  document.getElementById('addCountry').value = "";
@@ -2127,6 +2111,8 @@ label {
                 document.getElementById('city').value = "";
                 document.getElementById('pinCode').value = "";
                 document.getElementById('addDetails').value = "";
+                document.getElementById('compGstn').value="";
+                document.getElementById('natureOfTransactions').value="";
             }
 
         });
@@ -2176,16 +2162,16 @@ label {
             var abc4 = document.getElementById('confirmedAccoutNumber').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Bank name is mandatory", "warning");
+                swal.fire("Alert", "Bank Name is Mandatory", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "IFSC code is mandatory", "warning");
+                swal.fire("Alert", "IFSC Code is Mandatory", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", " Account number is mandatory", "warning");
+                swal.fire("Alert", " Account Number is Mandatory", "warning");
                 return false;
             }else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", " Confirmed account number is mandatory", "warning");
+                swal.fire("Alert", " Confirm Account Number is Mandatory", "warning");
                 return false;
             
             } else {
@@ -2255,7 +2241,9 @@ label {
                     "state": row.cells[1].innerHTML,
                     "city": row.cells[2].innerHTML,
                     "pinCode": row.cells[3].innerHTML,
-                    "addDetails": row.cells[4].innerHTML
+                    "compGstn": row.cells[4].innerHTML,
+                    "natureOfTransactions": row.cells[5].innerHTML,
+                    "addDetails": row.cells[6].innerHTML
                 };
                 addressDetailsArray.push(objs);
             }
@@ -2415,7 +2403,9 @@ label {
  			
              finalObj.id=$("#vendorPrimaryKey").val();
              finalObj.pid=$("#vendorPid").val();
-           
+             
+             var region =$("#region").val();
+             finalObj.region=region;
             console.log(finalObj);
              
 
@@ -2863,10 +2853,25 @@ label {
 				}
 				
 			}
+			function MESMENumber(){
+				var busClassif=$("#businessClassification").val();
+				if (busClassif != "Other") {
+					document.getElementById("mesmeNumber").disabled = false;
+					
+				}else{
+					document.getElementById("mesmeNumber").disabled = true;
+					document.getElementById("mesmeNumber").value = "";
+					
+				}
+				
+			}
 			
-			$("#states").select2({
-			    maximumSelectionLength: 3
-			});
+			function region1(){
+				var region =$("#region").val();
+				alert(region);
+			}
+			
+		
     </script>
 
 	 <script

@@ -32,6 +32,10 @@ public class AddressDetails {
 	private String city;
 	@Column(name = "pin_code")
 	private String pinCode;
+	@Column(name = "comp_gstn")
+	private String compGstn;
+	@Column(name = "nature_of_transactions")
+	private String natureOfTransactions;
 	@Column(name = "add_details")
 	private String addDetails;
 
@@ -94,6 +98,22 @@ public class AddressDetails {
 
 	public void setAddDetails(String addDetails) {
 		this.addDetails = addDetails;
+	}
+
+	public String getCompGstn() {
+		return compGstn;
+	}
+
+	public void setCompGstn(String compGstn) {
+		this.compGstn = compGstn;
+	}
+
+	public String getNatureOfTransactions() {
+		return natureOfTransactions;
+	}
+
+	public void setNatureOfTransactions(String natureOfTransactions) {
+		this.natureOfTransactions = natureOfTransactions;
 	}
 
 }

@@ -110,7 +110,7 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <jsp:include page="navbar.jsp?pagename=In-Review PO Invoice" />
+        <jsp:include page="navbar.jsp?pagename=In-Review PO Invoices" />
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->

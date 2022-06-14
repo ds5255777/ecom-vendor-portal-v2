@@ -36,7 +36,7 @@
                 <li class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-invoice-dollar"></i>
                         <p>
-                            Invoice <i class="right fas fa-angle-left"></i>
+                            Invoices <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -47,7 +47,7 @@
 
                                                 ">
                                 <i class="nav-icon fas fa-file-invoice"></i>
-                                <p>All Invoice</p>
+                                <p>All Invoices</p>
                             </a></li>
                     </ul>
                         
@@ -59,7 +59,7 @@
 
                                                 ">
                                 <i class="nav-icon fas fa-file-contract"></i>
-                                <p>In-Review Trip Invoice</p>
+                                <p>In-Review Trip Invoices</p>
                             </a></li>
                     </ul>
                     <ul class="nav nav-treeview">
@@ -70,7 +70,7 @@
 
                                                 ">
                                 <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                                <p>In-Review PO Invoice</p>
+                                <p>In-Review PO Invoices</p>
                             </a></li>
                     </ul>
                     
@@ -93,7 +93,7 @@
 
                                                 ">
                                 <i class="nav-icon fa fas fa fa-check"></i>
-                                <p>Approved Invoice</p>
+                                <p>Approved Invoices</p>
                             </a></li>
                     </ul>
                     
@@ -115,7 +115,7 @@
                 <li class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-invoice-dollar"></i>
                         <p>
-                            Invoice <i class="right fas fa-angle-left"></i>
+                            Invoices <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -124,7 +124,7 @@
                                     out.print("active");
                                 }%> ">
                                 <i class="nav-icon fas fa-file-invoice"></i>
-                                <p>All Invoice</p>
+                                <p>All Invoices</p>
                             </a></li>
                     </ul>
                         
@@ -135,7 +135,7 @@
                                     out.print("active");
                                 }%>">
                                 <i class="nav-icon fas fa-receipt"></i>
-                                <p>Pending For Approval Invoice</p>
+                                <p>Pending For Approval</p>
                             </a></li>
                     </ul>
                     <ul class="nav nav-treeview">
@@ -144,7 +144,7 @@
                                     out.print("active");
                                 }%>">
                                 <i class="nav-icon fa fas fa fa-check"></i>
-                                <p>Approved Invoice</p>
+                                <p>Approved Invoices</p>
                             </a></li>
                     </ul>
                     <hr>

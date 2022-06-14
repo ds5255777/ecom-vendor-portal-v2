@@ -206,12 +206,12 @@ tbody {
 											<div class="col-md-2">
 												<input type="text" name="fromDate"
 													placeholder="Select Starting Date" class="form-control"
-													id="fromDate" style="height: 34px;">
+													id="fromDate" readonly style="height: 34px;">
 											</div>
 											<div class="col-md-2">
 												<input type="text" name="toDate"
 													placeholder="Select End Date" class="form-control"
-													id="toDate" style="height: 34px;">
+													id="toDate" readonly style="height: 34px;">
 											</div>
 											<div class="col-md-2">
 												<label for="exampleInputserverName1"

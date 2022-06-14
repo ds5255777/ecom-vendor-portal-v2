@@ -148,12 +148,12 @@
 										<div class="row">
 											<div class="col-md-1">
 												<input type="text" name="fromDate"
-													placeholder="Act Dept Starting Date" class="form-control"
+													placeholder="Act Dept Starting Date" readonly class="form-control"
 													id="fromDate">
 											</div>
 											<div class="col-md-1">
 												<input type="text" name="toDate"
-													placeholder="Act Dept End Date" class="form-control"
+													placeholder="Act Dept End Date" readonly class="form-control"
 													id="toDate">
 											</div>
 											<div class="col-md-1">

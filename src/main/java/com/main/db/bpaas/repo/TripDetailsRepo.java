@@ -14,7 +14,7 @@ import com.main.db.bpaas.entity.TripDetails;
 
 @Repository
 public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
-
+	
     @Query(value = "select * from Trip_Details where trip_id=?", nativeQuery = true)
     List<TripDetails> getTripDetailsById(String id);
 
@@ -242,4 +242,20 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	
 	@Query(value = "select DISTINCT vendor_name from users where role_id='2' order by vendor_name asc ",nativeQuery = true)
 	List<String> getVendorName();
+
+	List<TripDetails> findByTripIDAndVendorCode(@Param("columnValue")String columnValue, @Param("vendorCode")String vendorCode);
+
+	List<TripDetails> findByRouteAndVendorCode(@Param("columnValue")String columnValue, @Param("vendorCode")String vendorCode);
+
+	List<TripDetails> findByRunTypeAndVendorCode(@Param("columnValue")String columnValue, @Param("vendorCode")String vendorCode);
+
+	List<TripDetails> findByDestHubAndVendorCode(@Param("columnValue")String columnValue, @Param("vendorCode")String vendorCode);
+
+	List<TripDetails> findByStandardKMAndVendorCode(@Param("columnValue")String columnValue, @Param("vendorCode")String vendorCode);
+
+	List<TripDetails> findByModeAndVendorCode(@Param("columnValue")String columnValue, @Param("vendorCode")String vendorCode);
+
+	List<TripDetails> findByOriginHubAndVendorCode(@Param("columnValue")String columnValue, @Param("vendorCode")String vendorCode);
+
+	
 }

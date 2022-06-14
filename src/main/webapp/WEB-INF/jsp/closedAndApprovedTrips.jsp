@@ -140,12 +140,43 @@
                                 <div class="card-body ">
                                 <form role="form" id="addForm" autocomplete="off">
 										<div class="row">
+											<div class="col-md-2">
+												<div class="form-group">
+													<select class="form-control" name="selectLevelValue"
+														id="selectLevelValue" 
+														style="height: auto;">
+														<option value="">Select Type</option>
+														<option value="trip_id">Trip Id</option>
+														<option value="route">Route</option>
+														<option value="origin_hub">Origin Hub</option>
+														<option value="dest_hub">Destination Hub</option>
+														<option value="run_type">Run Type</option>
+														<option value="standard_km">Standard KM</option>
+														<option value="mode">Mode</option>
+														<!-- <option value="actual_departure">Origin Hub</option>
+														<option value="actual_arrival">Actual Arrival</option> -->
+													</select>
+												</div>
+											</div>
 											
+											<div class="col-md-2">
+												<div class="form-group" style="width: inherit;height: auto;">
+													<input type="text" name="selectInputValue" style="height: auto;"
+													placeholder="Enter Value" class="form-control" 
+													id="selectInputValue">
+												</div>
+											</div>
+											<div class="col-md-2">
+
+												<button type="button" onclick="selectDropDownValue()"
+													style="width: inherit;"
+													class="btn btn-primary">Search</button>
+											</div>
 											<div class="col-md-2">
 												<div class="dropdown">
 													<button type="button"
-														class="btn btn-primary dropdown-toggle btn-sm"
-														style="  margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
+														class="btn btn-primary dropdown-toggle"
+														style="width: inherit;"
 														data-toggle="dropdown">Export Details</button>
 													<div class="dropdown-menu">
 														<a class="dropdown-item" href="#" id="exportLinkPdf">Download
@@ -154,11 +185,7 @@
 													</div>
 												</div>
 											</div>
-											
-											<div class="col-md-7"></div>
-											<div class="col-md-1">
-													 <input id="flipToInvoice" type="button" class="btn btn-primary btn-sm" onclick="invoiceProcessing()" value="Flip to Invoice " />
-											</div>
+											<div class="col-md-2"></div>
 											<div class="col-md-2">
 												<div class="form-group row">
 													<label class="col-md-4">Search : </label>
@@ -178,8 +205,9 @@
                                                     </button></th>
                                                 <th class="bg-primary" >Trip Id</th>
                                                 <th class="bg-primary" >Route</th>
+                                                <th class="bg-primary" >Origin Hub</th>
+                                                <th class="bg-primary" >Destination Hub</th>
                                                 <th class="bg-primary" >Run Type</th>
-                                                <th class="bg-primary" >Actual KM</th>
                                                 <th class="bg-primary" >Standard KM</th>
                                                 <th class="bg-primary" >Mode</th>
                                                 <th class="bg-primary" >Actual Departure (ATD)</th>
@@ -522,8 +550,7 @@
 													<div class="col-md-3">
 														<div class="form-group row">
 															<label class="col-sm-5"
-																title="Lump Sum Amount (Total Trip Cost)">Total
-																Amount</label>
+																title="Lump Sum Amount (Total Trip Cost)">Lump Sum Amt.</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"
 																	id="lumpsomeamount" name="lumpsomeamount" disabled>
@@ -769,6 +796,15 @@
                     }
                 })
             })
+            
+            $("#refreshDashboardButton").click(function(e) {
+                e.preventDefault();
+                $('#refreshDashboardButton').attr('disabled', 'disabled');
+                getData();
+                $('#refreshDashboardButton').removeAttr('disabled');
+                $('#selectLevelValue').val('');
+                $('#selectInputValue').val('');
+            })
 
             function invoiceProcessing() {
                 var table = document.getElementById('tabledata');
@@ -814,11 +850,14 @@
                                 if (!result[i].hasOwnProperty("route")) {
                                     result[i].route = "";
                                 }
+                                if (!result[i].hasOwnProperty("originHub")) {
+                                    result[i].originHub = "";
+                                }
+                                if (!result[i].hasOwnProperty("destHub")) {
+                                    result[i].destHub = "";
+                                }
                                 if (!result[i].hasOwnProperty("runType")) {
                                     result[i].runType = "";
-                                }
-                                if (!result[i].hasOwnProperty("actualKM")) {
-                                    result[i].actualKM = "";
                                 }
                                 if (!result[i].hasOwnProperty("standardKM")) {
                                     result[i].standardKM = "";
@@ -837,7 +876,7 @@
                                 var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\"" + result[i].tripID + "\" ><\div>";
 
 
-                                tabledata.row.add([checkbox, view, result[i].route, result[i].runType, result[i].actualKM, result[i].standardKM, result[i].mode, result[i].actualDeparture, result[i].actualArrival]);
+                                tabledata.row.add([checkbox, view, result[i].route, result[i].originHub, result[i].destHub, result[i].runType, result[i].standardKM, result[i].mode, result[i].actualDeparture, result[i].actualArrival]);
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -955,6 +994,99 @@
    					}
    				}); 
    		 }
+            function selectDropDownValue(){
+            	
+            	var columnName= $("#selectLevelValue").val();
+            	var columnValue=$("#selectInputValue").val();
+            	var vendorCode=$("#vendorCode").val();
+            	
+            	if (columnName == "" || columnName == null) {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Select Column Type.'
+                    });
+                    document.getElementById("selectLevelValue").focus();
+                    return;
+                }
+            	
+            	if (columnValue == "" || columnValue == null) {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Please Insert Value.'
+                    });
+                    document.getElementById("selectInputValue").focus();
+                    return;
+                }
+            	
+            	 var json ={
+    						"columnName":columnName,
+    						"columnValue":columnValue,
+    						"vendorCode":vendorCode
+    				}
+            
+            	 console.log(json);
+            	 $.ajax({
+    					type : "GET",
+    					url : "<%=GlobalUrl.filterByColumn%>",
+    					data :json,
+    					dataType : "json",
+    					contentType : "application/json",
+    					success : function(response) {
+    						if (response.msg == "success") {
+    							 var result = response.data;
+    	                            tabledata.clear();
+    	                            for (var i = 0; i < result.length; i++) {
+    	                            	if (!result[i].hasOwnProperty("tripID")) {
+    	                                    result[i].tripID = "";
+    	                                }
+    	                                if (!result[i].hasOwnProperty("route")) {
+    	                                    result[i].route = "";
+    	                                }
+    	                                if (!result[i].hasOwnProperty("originHub")) {
+    	                                    result[i].originHub = "";
+    	                                }
+    	                                if (!result[i].hasOwnProperty("destHub")) {
+    	                                    result[i].destHub = "";
+    	                                }
+    	                                if (!result[i].hasOwnProperty("runType")) {
+    	                                    result[i].runType = "";
+    	                                }
+    	                                if (!result[i].hasOwnProperty("standardKM")) {
+    	                                    result[i].standardKM = "";
+    	                                }
+    	                                if (!result[i].hasOwnProperty("mode")) {
+    	                                    result[i].mode = "";
+    	                                }
+    	                                if (!result[i].hasOwnProperty("actualDeparture")) {
+    	                                    result[i].actualDeparture = "";
+    	                                }
+    	                                if (!result[i].hasOwnProperty("actualArrival")) {
+    	                                    result[i].actualArrival = "";
+    	                                }
+
+    	                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
+    	                                var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\"" + result[i].tripID + "\" ><\div>";
+
+
+    	                                tabledata.row.add([checkbox, view, result[i].route, result[i].originHub, result[i].destHub, result[i].runType, result[i].standardKM, result[i].mode, result[i].actualDeparture, result[i].actualArrival]);
+    	                            }
+    	                            tabledata.draw();
+    	                            $("tbody").show();
+    						} else {
+    							Toast.fire({
+    								type : 'error',
+    								title : 'Failed ..'
+    							})
+    						}
+    					},
+    					error : function(jqXHR, textStatue, errorThrown) {
+    						Toast.fire({
+    							type : 'error',
+    							title : 'Failed Added try again..'
+    						})
+    					}
+    				});
+            }
         </script>
 </body>
 </html>

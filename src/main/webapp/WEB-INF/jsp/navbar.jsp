@@ -107,6 +107,17 @@
 					</form>
 				</div>
 			</c:when>
+			
+			<c:when test="${pageName=='Closed And Approved Trips'}">
+				<li class="nav-item d-none d-sm-inline-block"><a class="black-text nav-link quickHelp" data-toggle="tooltip" data-placement="bottom" title="Back" href="#" onclick="history.back()" style="padding-right: 0px;"><b style="font-size: 18px;color: #12344dd6;"><i class="fa fa-fast-backward"></i></b></a></li>
+                <li class="nav-item d-none d-sm-inline-block"><b><a class="nav-link"><%=request.getParameter("pagename")%></a></b></li>
+                
+                <button type="button" class="btn btn-default btn-sm "
+						id="refreshDashboardButton">
+						<i class="fas fa-sync-alt"></i>
+					</button>
+			
+			</c:when>
 
 			<c:when test="${pageName=='All PO'}">
 				<li class="nav-item d-none d-sm-inline-block"><a

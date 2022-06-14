@@ -268,6 +268,20 @@ public class DashboardController {
 
 		return gson.toJson(data).toString();
 	}
+	
+	/*
+	 * @RequestMapping({ "findVendorCodeAndName" }) public String
+	 * findVendorCodeAndName(Principal principal, @RequestBody String reqObj) {
+	 * DataContainer data = new DataContainer(); Gson gson = new
+	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create(); try { JSONObject
+	 * jsonObject = new JSONObject(reqObj); String vendorName = (String)
+	 * jsonObject.get("vendorName");// Object findByVendorCodeVendorName =
+	 * serviceManager.userRepository.getVendorCodeVendorNameById(vendorName);
+	 * data.setData(findByVendorCodeVendorName); data.setMsg("success"); } catch
+	 * (Exception e) { e.printStackTrace(); data.setMsg("error"); }
+	 * 
+	 * return gson.toJson(data).toString(); }
+	 */
 
 	
 	

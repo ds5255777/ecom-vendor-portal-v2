@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -61,8 +60,6 @@ public class TripControllers {
 		logger.info("fromDate : " + fromDate);
 		logger.info("toDate : " + toDate);
 		logger.info("vendorCode : " + vendorCode);
-		
-		
 
 		try {
 			/*
@@ -73,7 +70,7 @@ public class TripControllers {
 			 * Date convertedendDate = sdf.parse(toDate); String
 			 * enddate=sdf.format(convertedendDate ); System.out.println(enddate);
 			 */
-			
+
 			String rolename = (String) request.getSession().getAttribute("role");
 			logger.info("YYYYYYY" + rolename);
 			if (rolename.equalsIgnoreCase("Network")) {
@@ -393,7 +390,7 @@ public class TripControllers {
 			tripId = tripId.replaceAll(",", " ");
 
 			String[] split = tripId.split(" ");
-			logger.info(""+split);
+			logger.info("" + split);
 			TripDetails findByTripID = null;
 
 			for (String str : split) {
@@ -513,5 +510,56 @@ public class TripControllers {
 
 		return gson.toJson(data).toString();
 
+	}
+
+	@RequestMapping({ "/filterByColumn" })
+	@CrossOrigin("*")
+	public String filterByColumn(Principal principal, HttpServletRequest request,
+			@RequestParam(name = "columnName") String columnName,
+			@RequestParam(name = "columnValue") String columnValue,
+			@RequestParam(name = "vendorCode") String vendorCode) {
+
+		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+
+			if (columnName.equals("trip_id")) {
+				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+						.findByTripIDAndVendorCode(columnValue, vendorCode);
+				data.setData(getListByDateFilter);
+			} else if (columnName.equals("route")) {
+				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+						.findByRouteAndVendorCode(columnValue, vendorCode);
+				data.setData(getListByDateFilter);
+			} else if (columnName.equals("origin_hub")) {
+				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+						.findByOriginHubAndVendorCode(columnValue, vendorCode);
+				data.setData(getListByDateFilter);
+			} else if (columnName.equals("dest_hub")) {
+				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+						.findByDestHubAndVendorCode(columnValue, vendorCode);
+				data.setData(getListByDateFilter);
+			} else if (columnName.equals("run_type")) {
+				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+						.findByRunTypeAndVendorCode(columnValue, vendorCode);
+				data.setData(getListByDateFilter);
+			} else if (columnName.equals("standard_km")) {
+				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+						.findByStandardKMAndVendorCode(columnValue, vendorCode);
+				data.setData(getListByDateFilter);
+			} else if (columnName.equals("mode")) {
+				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+						.findByModeAndVendorCode(columnValue, vendorCode);
+				data.setData(getListByDateFilter);
+			}
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			logger.error("error : " + e);
+		}
+		return gson.toJson(data).toString();
 	}
 }

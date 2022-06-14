@@ -149,7 +149,7 @@
                             <div class="col-md-12" style="font-size: 14px;">
                                 <!-- general form elements -->
                                 <div class="card card-primary ">
-                                <div class="card">
+                                <!-- <div class="card"> -->
 
 								<!-- /.card-header -->
 								<div class="card-body ">
@@ -219,7 +219,6 @@
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
-</div>
 </div>
 
                             </div>
@@ -318,6 +317,17 @@
 													<div class="col-md-3">
 														<!-- text input -->
 														<div class="form-group row">
+															<label class="col-sm-5" title="Vendor Code">Vendor
+																Code</label>
+															<div class="col-sm-7">
+																<input type="text" class="form-control" id="vendorCode"
+																	name="vendorCode" autocomplete="off" disabled>
+															</div>
+														</div>
+													</div>
+													<!-- <div class="col-md-3">
+														text input
+														<div class="form-group row">
 															<label class="col-sm-5" title="Actual Vehicle Type">Act Vehicle
 																</label>
 															<div class="col-sm-7">
@@ -326,7 +336,7 @@
 																	autocomplete="off" disabled>
 															</div>
 														</div>
-													</div>
+													</div> -->
 													<div class="col-md-3">
 														<!-- text input -->
 														<div class="form-group row">
@@ -530,7 +540,7 @@
 													<div class="col-md-3">
 														<!-- text input -->
 														<div class="form-group row">
-															<label class="col-sm-5" title="FS">FS</label>
+															<label class="col-sm-5" title="FS">FS Amount</label>
 															<div class="col-sm-7">
 																<input type="text"
 																	class="form-control numberWithDecimalcheck"
@@ -574,8 +584,7 @@
 													<div class="col-md-3">
 														<div class="form-group row">
 															<label class="col-sm-5"
-																title="Lump Sum Amount (Total Trip Cost)">Total
-																Amount</label>
+																title="Lump Sum Amount (Total Trip Cost)">Lump sum Amt.</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"
 																	id="lumpsomeamount" name="lumpsomeamount" disabled>
@@ -639,7 +648,7 @@
 				</div>
 
 			</div>
-		</div>
+		</div></div></div>
 		<!-- model Start -->
 
 

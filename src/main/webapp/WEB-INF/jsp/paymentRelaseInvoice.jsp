@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>${titleName}|Payment Release Invoice</title>
+    <title>${titleName}|PO Invoice</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -110,7 +110,7 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <jsp:include page="navbar.jsp?pagename=Payment Release Invoice" />
+        <jsp:include page="navbar.jsp?pagename=In-Review PO Invoice" />
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
@@ -174,12 +174,14 @@
                                         <thead>
                                             <tr>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">ECOM Invoice Number</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Invoice Number</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Code</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Name</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Receiving Date</th>
+	                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">PO Number</th>
+	                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Supplier Invoice No</th>
+	                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Code</th>
+	                                            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Name</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Supplier Site</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Total Amount</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -337,23 +339,32 @@
             getData();
 
             function getData() {
+                var jsArray = [];
                 $('.loader').show();
                 $.ajax({
                     type: "POST",
-                    data: "",
-                    url: "<%=GlobalUrl.getPaymentReleaseInvoice%>",
+                    data: JSON.stringify(jsArray),
+                    url: "<%=GlobalUrl.getAllInvoiceDetails%>",
                     dataType: "json",
                     contentType: "application/json",
                     async: false,
                     success: function(data) {
-
                         $('.loader').hide();
                         if (data.msg == 'success') {
                             var result = data.data;
                             tabledata.clear();
                             for (var i = 0; i < result.length; i++) {
-                                if (!result[i].hasOwnProperty("invoiceNumber")) {
-                                    result[i].invoiceNumber = "";
+                            	 if (!result[i].hasOwnProperty("invoiceNum")) {
+                                     result[i].invoiceNum = "";
+                                 }
+                                if (!result[i].hasOwnProperty("operatingUnit")) {
+                                    result[i].operatingUnit = "";
+                                }
+                                if (!result[i].hasOwnProperty("invoiceType")) {
+                                    result[i].invoiceType = "";
+                                }
+                                if (!result[i].hasOwnProperty("supplierSite")) {
+                                    result[i].supplierSite = "";
                                 }
                                 if (!result[i].hasOwnProperty("invoiceDate")) {
                                     result[i].invoiceDate = "";
@@ -361,18 +372,18 @@
                                 if (!result[i].hasOwnProperty("invoiceAmount")) {
                                     result[i].invoiceAmount = "";
                                 }
-                                if (!result[i].hasOwnProperty("invoiceReceivingDate")) {
-                                    result[i].vehicleNumber = "";
+                                if (!result[i].hasOwnProperty("poNumber")) {
+                                    result[i].poNumber = "";
+                                } if (!result[i].hasOwnProperty("status")) {
+                                    result[i].status = "";
+                                }if (!result[i].hasOwnProperty("vendorInvoiceNumber")) {
+                                    result[i].vendorInvoiceNumber = "";
                                 }
-                                if (!result[i].hasOwnProperty("invoiceStatus")) {
-                                    result[i].invoiceStatus = "";
-                                }
-                                if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
-                                    result[i].invoiceStatus = "";
-                                }
-                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].ecomInvoiceNumber + "','Payment Relase')\" >" + result[i].ecomInvoiceNumber + "</button>";
+                               
+                          	
+                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "')\" >" + result[i].invoiceNumber + "</button>";
 
-                                tabledata.row.add([view, result[i].invoiceNumber, result[i].vendorCode, result[i].vendorName, result[i].invoiceReceivingDate,  result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceStatus]);
+                                tabledata.row.add([view,result[i].poNumber,result[i].vendorInvoiceNumber,result[i].vendorCode, result[i].vendorName, result[i].supplierSite, result[i].invoiceDate,result[i].invoiceAmount,result[i].status]);
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -389,17 +400,20 @@
                 });
             }
 
-            function getInvoiceDataFormDataByInvoiceNumber(id, type) {
+            function getInvoiceDataFormDataByInvoiceNumber(id) {
                 $('.loader').show();
-
-                var urlOftripsDetail = "invoiceView_Finance?id=" + id+"&type="+type;
-                window.open(urlOftripsDetail, "invoiceView_Finance", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
+            	var status="In-Review";
+				var ob =[];
+				ob.push(id);
+				ob.push(status);
+                
+                var urlOftripsDetail = "invoiceViewPo?ob=" + ob;
+                window.open(urlOftripsDetail, "invoiceViewPo", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
                 $('.loader').hide();
             }
 
-            function refereshList() {
-                getData();
-            }
+
+            
         </script>
 
        </body>

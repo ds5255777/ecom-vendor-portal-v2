@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <%@page import="com.main.commonclasses.GlobalConstants"%>
 <%@page import="com.main.commonclasses.GlobalUrl"%>
@@ -130,7 +129,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 										<h2>${inReviewInvoice}</h2>
 
 										<p id="UnTickets" data-toggle="tooltip"
-											data-placement="bottom">In-Review Invoice</p>
+											data-placement="bottom">In-Review Trip Invoice</p>
 									</div>
 									<div class="icon">
 
@@ -138,6 +137,25 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 											style="color: #1F8BFF; font-size: 50px;"></i>
 									</div>
 									<a href="InProcessInvoiceFinance" class="small-box-footer"
+										style="background: #007bffe0; color: white !important;">More
+										info <i class="fas fa-arrow-circle-right"></i>
+									</a>
+								</div>
+							</div>
+							<div class="col-lg-2 col-6">
+								<!-- small box -->
+								<div class="small-box bg-white">
+									<div class="inner">
+										<h2>${countForPaymentrelaseInvoice}</h2>
+
+										<p id="UnTickets" data-toggle="tooltip"
+											data-placement="bottom">In-Review PO Invoice</p>
+									</div>
+									<div class="icon">
+										<i class="fas fa-rupee-sign"
+											style="color: #1F8BFF; font-size: 50px;"></i>
+									</div>
+									<a href="paymentRelaseInvoice" class="small-box-footer"
 										style="background: #007bffe0; color: white !important;">More
 										info <i class="fas fa-arrow-circle-right"></i>
 									</a>
@@ -179,25 +197,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 											style="color: #28a745; font-size: 50px;"></i>
 									</div>
 									<a href="processInvoiceFinance" class="small-box-footer"
-										style="background: #007bffe0; color: white !important;">More
-										info <i class="fas fa-arrow-circle-right"></i>
-									</a>
-								</div>
-							</div>
-							<div class="col-lg-2 col-6">
-								<!-- small box -->
-								<div class="small-box bg-white">
-									<div class="inner">
-										<h2>${countForPaymentrelaseInvoice}</h2>
-
-										<p id="UnTickets" data-toggle="tooltip"
-											data-placement="bottom">Payment Release</p>
-									</div>
-									<div class="icon">
-										<i class="fas fa-rupee-sign"
-											style="color: #1F8BFF; font-size: 50px;"></i>
-									</div>
-									<a href="paymentRelaseInvoice" class="small-box-footer"
 										style="background: #007bffe0; color: white !important;">More
 										info <i class="fas fa-arrow-circle-right"></i>
 									</a>

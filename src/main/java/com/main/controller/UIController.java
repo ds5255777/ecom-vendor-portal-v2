@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.AddressDetails;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
+import com.main.db.bpaas.entity.InvoiceNumber;
 import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoLineDetails;
 import com.main.db.bpaas.entity.RolesEntity;
@@ -719,8 +720,8 @@ public class UIController {
 
 	public synchronized String generateInvoiceNumber() {
 
-		long count = serviceManager.invoiceGenerationEntityRepo.count();
-		String invoiceNumberPrefix = "ECOM";
+		long count = serviceManager.invoiceNumberRepo.count();
+		String invoiceNumberPrefix = "ECOM-";
 
 		count = count + 1;
 		String invoiceNumber = invoiceNumberPrefix + String.format("%08d", count); // Filling with zeroes
@@ -735,6 +736,11 @@ public class UIController {
 		String invoiceNumber = "";
 
 		invoiceNumber = generateInvoiceNumber();
+		
+		InvoiceNumber inNumber= new InvoiceNumber();
+		inNumber.setEcomInvoiceNumber(invoiceNumber);
+		inNumber.setStatus("Used_Trip_Invoice");
+		serviceManager.invoiceNumberRepo.save(inNumber);
 
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		request.getSession().setAttribute("invoiceNumber", invoiceNumber);

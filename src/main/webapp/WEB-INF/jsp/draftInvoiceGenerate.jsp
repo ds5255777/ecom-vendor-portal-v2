@@ -137,7 +137,7 @@
                                             <label class="col-sm-5">Invoice Date <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
                                                 <input type="text" name="invoiceDate"
-													placeholder="Act Dept Start Date" class="form-control-sm" style="width: 100%;"
+													placeholder="Invoice Date" class="form-control-sm" style="width: 100%;"
 													id="invoiceDate" readonly>
                                                <!--  <input type="date" name="invoiceDate" id="invoiceDate" class="form-control-sm" style="width: 100%;"> -->
                                             </div>

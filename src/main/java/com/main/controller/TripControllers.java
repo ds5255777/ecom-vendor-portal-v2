@@ -527,31 +527,31 @@ public class TripControllers {
 
 			if (columnName.equals("trip_id")) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByTripIDAndVendorCode(columnValue, vendorCode);
+						.findByTripIDAndVendorTripStatusAndVendorCode(columnValue, GlobalConstants.VENDOR_TRIP_STATUS_APPROVED ,vendorCode);
 				data.setData(getListByDateFilter);
 			} else if (columnName.equals("route")) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByRouteAndVendorCode(columnValue, vendorCode);
+						.findByRouteAndVendorTripStatusAndVendorCode(columnValue,GlobalConstants.VENDOR_TRIP_STATUS_APPROVED , vendorCode);
 				data.setData(getListByDateFilter);
 			} else if (columnName.equals("origin_hub")) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByOriginHubAndVendorCode(columnValue, vendorCode);
+						.findByOriginHubAndVendorTripStatusAndVendorCode(columnValue, GlobalConstants.VENDOR_TRIP_STATUS_APPROVED ,vendorCode);
 				data.setData(getListByDateFilter);
 			} else if (columnName.equals("dest_hub")) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByDestHubAndVendorCode(columnValue, vendorCode);
+						.findByDestHubAndVendorTripStatusAndVendorCode(columnValue,GlobalConstants.VENDOR_TRIP_STATUS_APPROVED , vendorCode);
 				data.setData(getListByDateFilter);
 			} else if (columnName.equals("run_type")) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByRunTypeAndVendorCode(columnValue, vendorCode);
+						.findByRunTypeAndVendorTripStatusAndVendorCode(columnValue,GlobalConstants.VENDOR_TRIP_STATUS_APPROVED , vendorCode);
 				data.setData(getListByDateFilter);
 			} else if (columnName.equals("standard_km")) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByStandardKMAndVendorCode(columnValue, vendorCode);
+						.findByStandardKMAndVendorTripStatusAndVendorCode(columnValue,GlobalConstants.VENDOR_TRIP_STATUS_APPROVED , vendorCode);
 				data.setData(getListByDateFilter);
 			} else if (columnName.equals("mode")) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByModeAndVendorCode(columnValue, vendorCode);
+						.findByModeAndVendorTripStatusAndVendorCode(columnValue, GlobalConstants.VENDOR_TRIP_STATUS_APPROVED ,vendorCode);
 				data.setData(getListByDateFilter);
 			}
 			data.setMsg("success");

@@ -76,6 +76,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Modifying
     @Query(value = "update Trip_Details set vendor_trip_status='Approved', invoice_number=''  where invoice_number=:invoiceNumber ;", nativeQuery = true)
     void discardDraftInvoice(String invoiceNumber);
+    
 
     @Transactional
     @Modifying
@@ -243,19 +244,24 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	@Query(value = "select DISTINCT vendor_name from users where role_id='2' order by vendor_name asc ",nativeQuery = true)
 	List<String> getVendorName();
 
-	List<TripDetails> findByTripIDAndVendorCode(@Param("columnValue")String columnValue, @Param("vendorCode")String vendorCode);
+	List<TripDetails> findByTripIDAndVendorTripStatusAndVendorCode(String columnValue, String vendorTripStatusApproved,	String vendorCode);
 
-	List<TripDetails> findByRouteAndVendorCode(@Param("columnValue")String columnValue, @Param("vendorCode")String vendorCode);
+	List<TripDetails> findByRouteAndVendorTripStatusAndVendorCode(String columnValue, String vendorTripStatusApproved,
+			String vendorCode);
 
-	List<TripDetails> findByRunTypeAndVendorCode(@Param("columnValue")String columnValue, @Param("vendorCode")String vendorCode);
+	List<TripDetails> findByOriginHubAndVendorTripStatusAndVendorCode(String columnValue,
+			String vendorTripStatusApproved, String vendorCode);
 
-	List<TripDetails> findByDestHubAndVendorCode(@Param("columnValue")String columnValue, @Param("vendorCode")String vendorCode);
+	List<TripDetails> findByDestHubAndVendorTripStatusAndVendorCode(String columnValue, String vendorTripStatusApproved,
+			String vendorCode);
 
-	List<TripDetails> findByStandardKMAndVendorCode(@Param("columnValue")String columnValue, @Param("vendorCode")String vendorCode);
+	List<TripDetails> findByRunTypeAndVendorTripStatusAndVendorCode(String columnValue, String vendorTripStatusApproved,
+			String vendorCode);
 
-	List<TripDetails> findByModeAndVendorCode(@Param("columnValue")String columnValue, @Param("vendorCode")String vendorCode);
+	List<TripDetails> findByStandardKMAndVendorTripStatusAndVendorCode(String columnValue,
+			String vendorTripStatusApproved, String vendorCode);
 
-	List<TripDetails> findByOriginHubAndVendorCode(@Param("columnValue")String columnValue, @Param("vendorCode")String vendorCode);
+	List<TripDetails> findByModeAndVendorTripStatusAndVendorCode(String columnValue, String vendorTripStatusApproved,
+			String vendorCode);
 
-	
 }

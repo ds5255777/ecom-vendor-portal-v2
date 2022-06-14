@@ -616,6 +616,7 @@ public class InvoiceController {
 			Long id = obj.getId();
 			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
 			serviceManager.invoiceGenerationEntityRepo.deleteById(id);
+			serviceManager.invoiceNumberRepo.removeInvoice(ecomInvoiceNumber);
 			serviceManager.tripDetailsRepo.updatetripStatusagainsInvoiceNumber(ecomInvoiceNumber);
 
 			data.setMsg("success");
@@ -664,10 +665,8 @@ public class InvoiceController {
 
 			String invoiceNumber = obj.getEcomInvoiceNumber();
 
-			logger.info(invoiceNumber);
-
 			serviceManager.tripDetailsRepo.discardDraftInvoice(invoiceNumber);
-			logger.info(invoiceNumber);
+			serviceManager.invoiceNumberRepo.removeInvoice(invoiceNumber);
 			serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsInvoice(invoiceNumber);
 
 			data.setMsg("success");

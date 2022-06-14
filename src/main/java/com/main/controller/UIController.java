@@ -88,6 +88,7 @@ public class UIController {
 			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
 			List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
 			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
+			List<String> stateName = serviceManager.stateRepo.getStateName();
 			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
 			List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
 			List<String> country = serviceManager.countryRepo.getCountry();
@@ -101,6 +102,7 @@ public class UIController {
 			model.addAttribute("business", business);
 			model.addAttribute("partner", partner);
 			model.addAttribute("classification", classification);
+			model.addAttribute("stateName",stateName);
 			model.addAttribute("payment", payment);
 			model.addAttribute("nature", nature);
 			model.addAttribute("country", country);
@@ -126,6 +128,7 @@ public class UIController {
 			List<String> currency = serviceManager.currencyRepo.getCurrencyType();
 			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
 			List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
+			List<String> stateName = serviceManager.stateRepo.getStateName();
 			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
 			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
 			List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
@@ -139,6 +142,7 @@ public class UIController {
 			model.addAttribute("currency", currency);
 			model.addAttribute("business", business);
 			model.addAttribute("partner", partner);
+			model.addAttribute("stateName",stateName);
 			model.addAttribute("classification", classification);
 			model.addAttribute("payment", payment);
 			model.addAttribute("nature", nature);

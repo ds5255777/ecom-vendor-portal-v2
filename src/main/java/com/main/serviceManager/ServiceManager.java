@@ -31,6 +31,7 @@ import com.main.db.bpaas.repo.RegionRepo;
 import com.main.db.bpaas.repo.RolesRepository;
 import com.main.db.bpaas.repo.SectionTypeRepo;
 import com.main.db.bpaas.repo.SendEmailRepo;
+import com.main.db.bpaas.repo.StateRepo;
 import com.main.db.bpaas.repo.SupDetailsRepo;
 import com.main.db.bpaas.repo.TDSSectionCodeRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
@@ -147,6 +148,9 @@ public class ServiceManager {
 	
 	@Autowired
 	public SectionTypeRepo sectionTypeRepo;
+	
+	@Autowired
+	public StateRepo stateRepo;
 
 	/*
 	 * public void insertRecordIntoAuditEntry(HttpServletRequest request, String

@@ -43,10 +43,7 @@ public class SupDetails {
 	private String vendorType;
 	@Column(name = "supp_name")
 	private String suppName;
-	@Column(name = "comp_email")
-	private String compEmail;
-	@Column(name = "phone_number")
-	private String phoneNumber;
+	
 	@Column(name = "aadhar_number")
 	private String aadharNumber;
 	@Column(name = "pan_number")
@@ -55,11 +52,6 @@ public class SupDetails {
 	private String tanNumber;
 	@Column(name = "adhar_link_status")
 	private String adharLinkStatus;
-	@Column(name = "comp_gstn")
-	private String compGstn;
-	@Column(name = "nature_of_transactions")
-	private String natureOfTransactions;
-	@Column(name = "business_classification")
 	private String businessClassification;
 	@Column(name = "site_dff")
 	private String siteDff;
@@ -105,6 +97,15 @@ public class SupDetails {
 	private String fyYear3;
 	@Column(name = "acknowledgement_number3")
 	private String acknowledgementNumber3;
+	
+	@Column(name = "mesme_Number")
+	private String mesmeNumber;
+	
+	@Column(name = "section_Type")
+	private String sectionType;
+	
+	@Column(name = "region")
+	private String region;
 
 	@OneToMany(targetEntity = AccountDetails.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "sa_fk", referencedColumnName = "id")
@@ -284,21 +285,6 @@ public class SupDetails {
 		this.suppName = suppName;
 	}
 
-	public String getCompEmail() {
-		return compEmail;
-	}
-
-	public void setCompEmail(String compEmail) {
-		this.compEmail = compEmail;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
 
 	public String getAadharNumber() {
 		return aadharNumber;
@@ -332,22 +318,7 @@ public class SupDetails {
 		this.adharLinkStatus = adharLinkStatus;
 	}
 
-	public String getCompGstn() {
-		return compGstn;
-	}
-
-	public void setCompGstn(String compGstn) {
-		this.compGstn = compGstn;
-	}
-
-	public String getNatureOfTransactions() {
-		return natureOfTransactions;
-	}
-
-	public void setNatureOfTransactions(String natureOfTransactions) {
-		this.natureOfTransactions = natureOfTransactions;
-	}
-
+	
 	public String getBusinessClassification() {
 		return businessClassification;
 	}
@@ -740,4 +711,29 @@ public class SupDetails {
 		this.acknowledgementNumber3 = acknowledgementNumber3;
 	}
 
+	public String getMesmeNumber() {
+		return mesmeNumber;
+	}
+
+	public void setMesmeNumber(String mesmeNumber) {
+		this.mesmeNumber = mesmeNumber;
+	}
+
+	public String getSectionType() {
+		return sectionType;
+	}
+
+	public void setSectionType(String sectionType) {
+		this.sectionType = sectionType;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	
 }

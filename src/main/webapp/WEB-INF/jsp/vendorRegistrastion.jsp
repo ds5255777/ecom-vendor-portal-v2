@@ -116,19 +116,19 @@
                 
 
                 	
-                    console.log("Inside Step One");
-                   
-                    
-                    var mandFields = "introducedByName,introducedByEmailID,states,suppName,compEmail,panNumber,compGstn,natureOfTransactions";
-                    var mandFieldsArr = mandFields.split(",");
-                    for (i = 0; i < mandFieldsArr.length; i++) {
-                        console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
-                        if (document.getElementById(mandFieldsArr[i]).value == '') {
-                            notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                            console.log("Mandatory Check :: " + mandFieldsArr[i]);
-                            return false;
-                        }
-                    }
+            	 console.log("Inside Step One");
+                 var mandFields = "introducedByName,introducedByEmailID,states,suppName,panNumber";
+                 var mandFieldsArr = mandFields.split(",");
+                 for (i = 0; i < mandFieldsArr.length; i++) {
+                     console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
+                     if (document.getElementById(mandFieldsArr[i]).value == '') {
+                         notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                        
+                         console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                         
+                         return false;
+                     }
+                 }
 
                    
              
@@ -449,7 +449,7 @@ label {
 width: 100% !important;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__clear {
-    cursor: pointer;
+     cursor: pointer;
     font-weight: bold;
     height: 20px;
     margin-right: 10px;
@@ -507,27 +507,38 @@ width: 100% !important;
 										</thead>
 										<tbody>
 											<tr class="">
-
-								
-												<td><label for="name">Introduced By Name</label></td>
-												<td colspan='1'><input type="text" value="${uname}"
+												<td><label for="name">Introducer Name<span
+														class="required adHocRequired">*</span></label></td>
+												<td colspan='1'><input type="text"
 													class="form-control p-input" id="introducedByName"
-													name="introducedByName" placeholder="Reference Name"
-													onchange="removeValCssByID(this)" readonly="readonly" required></td>
+													name="introducedByName" placeholder="Introducer Name"
+													maxlength="50"></td>
 
-												<td><label for="emailId">Introduced By Email ID</label></td>
+												<td><label for="emailId">Introducer Email ID<span
+														class="required adHocRequired">*</span></label></td>
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="introducedByEmailID"
-													name="introducedByEmailID" placeholder="abc@ecomexpress.in"
+													name="introducedByEmailID" maxlength="50" placeholder="abc@ecomexpress.in"
 													onchange="removeValCssByID(this)"><span
 													id="message"></span></td>
 
+												<td><label for="Supplier Type">Business Partner
+														Code</label></td>
+												<td colspan='1'><input type="test"
+													class="form-control p-input" id="bpCode" name="bpCode"
+													placeholder="Business Partner Code"
+													onchange="removeValCssByID(this)" disabled></td>
+
+
 											</tr>
+
+
+
 											<tr>
 
 												<td><label>Business Partner Type<span
 														class="required adHocRequired">*</span></label></td>
-												
+
 												<td style="width: auto"><select
 													class="js-example-basic-multiple select2" name="states[]"
 													id="states" onchange="select()" multiple="multiple" >
@@ -536,10 +547,10 @@ width: 100% !important;
 															<option value="${bus}">${bus}</option>
 														</c:forEach>
 												</select></td>
-												
-												
+
+
 												<td><label for="partnerType">Business Partner</label></td>
-													<td><select id="partnerType" name="partnerType"
+												<td><select id="partnerType" name="partnerType"
 													class="form-control p-input"
 													onchange="showHideRequiredClass();" disabled="disabled">
 														<c:forEach items="${partner}" var="par">
@@ -549,127 +560,31 @@ width: 100% !important;
 
 												</select></td>
 												<input type="hidden" id="roleId" />
- 											</tr>
-
-
-
-											<script>
-											
-											function select(){
-											
-												var element = document.getElementById('states');
-									        	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
-									        	var selectedValues = [];    
-									            $("#states :selected").each(function(){
-									                selectedValues.push($(this).val()); 
-									            });
-									           // alert(selectedValues);
-									            
-									            let values = selectedValues.toString();
-									         
-									        	document.getElementById("roleId").value=values;
-									        	//alert("roleId111: "+num);
-										
 												
-												var val = document.getElementById("states").value
-												if (val == "Network") {
-													document.getElementById("partnerType").disabled = false;
-													document.getElementById("partnerType").value = "Scheduled";
-												}else{
-													document.getElementById("partnerType").disabled = true;
-													document.getElementById("partnerType").value = "";
-													
-												}
 												
-											}
-											</script>
-
-
-
-											<tr class="">
 												<td><label for="suppName">Business Partner Name<span
 														class="required adHocRequired">*</span></label></td>
 												<td colspan='1'><input type="text"
-													class="form-control p-input" id="suppName" name="suppName" 
-													placeholder="Name(As per Cheque/Passbook)"
-													onchange="removeValCssByID(this)" maxlength="50"></td>
-
-												<td><label for="compEmail">Company Email ID<span
-														class="required adHocRequired">*</span></label></td>
-												<td colspan='1'><input type="email"
-													class="form-control p-input email" id="compEmail"
-													name="compEmail" placeholder="Company Mail ID"
-													onchange="removeValCssByID(this);" required></td>
-
-												<td><label for="phoneNumber">Phone Number</label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="phoneNumber"
-													name="phoneNumber" placeholder="Phone Number"
-													maxlength="10"
-													onkeyup=" return validatephone(this.value); "
-													onchange="removeValCssByID(this)"><span
-													id="message"></span></td>
+													class="form-control p-input" id="suppName" name="suppName"
+													placeholder="Business Partner Name"
+													onchange="removeValCssByID(this)"
+													oninput="this.value = this.value.toUpperCase()"
+													 maxlength="50"></td>
 											</tr>
+
+
+
+										
+
 
 											<tr class="">
-												<td><label for="aadharNumber">Aadhar Number</label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="aadharNumber"
-													name="aadharNumber" placeholder="Aadhar Number"
-													onblur="AadharValidate();"maxlength="16"></td>
-													
-												<td><label for="panNumber">Pan Number<span
-														class="required adHocRequired">*</span></label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="panNumber"
-													name="panNumber" placeholder="Pan Number" maxlength="10" oninput="this.value = this.value.toUpperCase()"
-													>
-													<span id="lblPANCard" class="error">Invalid PAN Number</span>
-													</td>
-
-												<td><label for="tanNumber">TAN Number</label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="tanNumber"
-													name="tanNumber" placeholder="TAN Number" maxlength="10" oninput="this.value = this.value.toUpperCase()"></td>
-											</tr>
-
-											<tr>
-												<td><label for="adharLinkStatus">Aadhar Link
-														Status</label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="adharLinkStatus"
-													name="adharLinkStatus" placeholder="Aadhar Link Status"></td>
-
-												<td><label for="compGstn">GSTN Number<span
-														class="required adHocRequired">*</span></label></td>
-												<td colspan='1'><input type="test"
-													class="form-control p-input gst" id="compGstn"
-													name="compGstn" placeholder="GSTN Number" maxlength="15" oninput="this.value = this.value.toUpperCase()"></td>
-
-												<td><label for="natureOfTransactions">Nature of
-														transactions<span class="required adHocRequired">*</span>
-												</label></td>
-											<td><select colspan='1' class="form-control p-input"
-													id="natureOfTransactions" name="natureOfTransactions"
-													placeholder="Nature of transactions"
-													onchange="removeValCssByID(this)">
-														<option value="">Select</option>
-														<c:forEach items="${nature}" var="nat">
-
-															<option value="${nat}">${nat}</option>
-														</c:forEach>
-
-												</select></td>
-											</tr>
-
-											<tr>
 
 												<td><label for="businessClassification">Business
 														Classification</label></td>
-													<td><select id="businessClassification"
+												<td><select id="businessClassification"
 													name="businessClassification" class="form-control p-input"
 													colspan='1' placeholder="Business Classification"
-													onchange="removeValCssByID(this)">
+													onchange="MESMENumber()" >
 														<option value="">Select</option>
 														<c:forEach items="${classification}" var="classi">
 
@@ -677,8 +592,76 @@ width: 100% !important;
 														</c:forEach>
 
 												</select></td>
+												
+												<td><label for="mesmeNumber">MESME Certificate Number</label></td>
+												<td colspan='1'><input type="text"
+												
+													class="form-control p-input" id="mesmeNumber"
+													maxlength="12" name="mesmeNumber"
+													placeholder="MESME Certificate Number"  disabled="disabled"></td>
+													
+												<td><label for="aadharNumber">Aadhar Number</label></td>
+												<td colspan='1'><input type="text"
+													oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+													class="form-control p-input" id="aadharNumber"
+													maxlength="12" name="aadharNumber"
+													placeholder="Aadhar Number" onblur="AadharValidate();"></td>
+													
+													
 
-											
+												
+											</tr>
+
+											<tr class="">
+
+												<td><label for="panNumber">Pan Number<span
+														class="required adHocRequired">*</span></label></td>
+												<td colspan='1'><input type="text"
+													class="form-control p-input" id="panNumber"
+													name="panNumber" placeholder="Pan Number"
+													oninput="this.value = this.value.toUpperCase()"
+													maxlength="10" onchange="removeValCssByID(this)"></td>
+												<td><label for="tanNumber">TAN Number</label></td>
+												<td colspan='1'><input type="text"
+													class="form-control p-input" id="tanNumber"
+													name="tanNumber" placeholder="TAN Number"
+													oninput="this.value = this.value.toUpperCase()"
+													maxlength="10" onkeypress="return isNumberKey(evt);"></td>
+													
+													<td><label for="adharLinkStatus">Aadhar Link
+														Status</label></td>
+												
+													<td><select colspan='1' class="form-control p-input"
+													id="adharLinkStatus" name="adharLinkStatus"
+													placeholder="Aadhar Link Status"
+													onchange="removeValCssByID(this)">
+														<option value="">Select</option>
+														<c:forEach items="${adharLink}" var="link">
+
+															<option value="${link}">${link}</option>
+														</c:forEach>
+
+												</select></td>
+											</tr>
+
+											<tr>
+
+											</tr>
+
+											<tr>
+
+
+												<!-- <td colspan='1'><input type="text" class="form-control p-input" id="businessClassification" name="businessClassification" placeholder="Business Classification" 
+                                                
+                                                onchange="removeValCssByID(this)"></td> -->
+
+												<!-- <td><label for="siteDff">SITE DFF</label></td>
+                                                <td colspan='1'><input type="text" class="form-control p-input" id="siteDff" name="siteDff" placeholder="SITE DFF"></td> -->
+
+												<!-- <td><label for="opeUnitReqMap">Operating Unit
+                                                        required to MAP<span class="required adHocRequired">*</span></label></td>
+                                                <td colspan='1'><input type="text" class="form-control p-input" id="opeUnitReqMap" name="opeUnitReqMap" placeholder="Operating Unit required to MAP" onchange="removeValCssByID(this)"></td> -->
+
 											</tr>
 
 										</tbody>
@@ -703,7 +686,7 @@ width: 100% !important;
 
 											<tbody>
 												<tr class="">
-													<td><label class="addressLable" for="country">Country<span
+					 								<td><label class="addressLable" for="country">Country<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><select id="addCountry"
 														name="addCountry" class="form-control p-input">
@@ -762,11 +745,11 @@ width: 100% !important;
 													</select> <!-- <input type="text"
 														class="form-control p-input" id="state" name="state"
 														placeholder="State"> --></td>
-													    <td><label class="addressLable">District<span
-                                                                                class="required adHocRequired">*</span></label></td>
-                                                                     <td colspan='2'><input type="text"
-                                                                          class="form-control p-input" id="city" name="city"
-                                                                          placeholder="District" maxlength="50"></td>
+													<td><label class="addressLable">District<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="city" name="city"
+														placeholder="District" maxlength="50"></td>
 												</tr>
 												<tr class="">
 
@@ -776,14 +759,43 @@ width: 100% !important;
 													<td colspan='2'><input type="text"
 														class="form-control p-input" id="pinCode" name="pinCode"
 														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-														placeholder="Postal Code/ ZIP Code" onkeypress="return event.charCode >= 48 && event.charCode <= 57"  maxlength="6"></td>
+														placeholder="Postal Code/ ZIP Code" maxlength="6"></td>
+
+																								
+
+												<td><label for="compGstn">GSTN Number<span
+														class="required adHocRequired"></span></label></td>
+												<td colspan='2'><input type="test"
+													class="form-control p-input gst" id="compGstn" name="compGstn"													name="compGstn" placeholder="GSTN Number"
+													oninput="this.value = this.value.toUpperCase()"
+													maxlength="15"></td>
+
+												<td><label for="natureOfTransactions">Nature of
+														Transactions<span class="required adHocRequired">*</span>
+												</label></td>
+
+												<td><select colspan='2' class="form-control p-input"
+													id="natureOfTransactions" name="natureOfTransactions"
+													placeholder="Nature of Transactions"
+													onchange="removeValCssByID(this)">
+														<option value="">Select</option>
+														<c:forEach items="${nature}" var="nat">
+
+															<option value="${nat}">${nat}</option>
+														</c:forEach>
+
+												</select></td>												
+												</tr>
+												
+												<tr class="">
+
 
 													<td><label for="addressDetails">Address
 															Details<span class="required adHocRequired">*</span>
 													</label></td>
 													<td colspan='2'><textarea class="form-control"
-															id="addDetails" name="addDetails"
-															placeholder="Complete Address" rows="3" maxlength="200"></textarea></td>
+															id="addDetails" name="addDetails" maxlength="250"
+															placeholder="Complete Address" rows="3"></textarea></td>
 													<td style="width: 150px;"></td>
 													<td colspan='3'><button type="Button"
 															class="btn btn-primary" id="addBookGridButt"
@@ -805,6 +817,8 @@ width: 100% !important;
 															<th>State</th>
 															<th>District</th>
 															<th>Postal Code/ ZIP Code</th>
+															<th>GSTN Number</th>
+															<th>Nature of Transactions</th>
 															<th>Address Details</th>
 															<th>Remove</th>
 														</tr>
@@ -1452,7 +1466,8 @@ width: 100% !important;
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2({
             	zplaceholder: "Select Partner Type",
-                allowClear: true
+                allowClear: true,
+                maximumSelectionLength: 1
             });
             
         });
@@ -1473,23 +1488,30 @@ width: 100% !important;
             var abc = document.getElementById('city').value;
             var abc2 = document.getElementById('pinCode').value;
             var abc3 = document.getElementById('addDetails').value;
+            var abc4 = document.getElementById('natureOfTransactions').value;
+            
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Fill Mandatory Field ! City", "warning");
+                swal.fire("Alert", "District is mandatory", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "Fill Mandatory Field ! Pin Code", "warning");
+                swal.fire("Alert", "Pin Code is mandatory", "warning");
+                return false;
+            } else if (abc4 == null || abc4 == "") {
+                swal.fire("Alert", "Nature of Transactions is mandatory", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", "Fill Mandatory Field ! Address", "warning");
+                swal.fire("Alert", "Address is mandatory", "warning");
                 return false;
-            } else {
+            }else {
 
                 $("#addBookGrid").append(' <tr class=""><td>' +
                     document.getElementById('addCountry').value + '</td><td>' +
                     document.getElementById('state').value + '</td><td>' +
                     document.getElementById('city').value + '</td><td>' +
                     document.getElementById('pinCode').value + '</td><td>' +
+                    document.getElementById('compGstn').value + '</td><td>' +
+                    document.getElementById('natureOfTransactions').value + '</td><td>' +
                     document.getElementById('addDetails').value + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
                 /*  document.getElementById('addCountry').value = "";
@@ -1497,6 +1519,8 @@ width: 100% !important;
                 document.getElementById('city').value = "";
                 document.getElementById('pinCode').value = "";
                 document.getElementById('addDetails').value = "";
+                document.getElementById('compGstn').value="";
+                document.getElementById('natureOfTransactions').value="";
             }
 
         });
@@ -1769,19 +1793,21 @@ width: 100% !important;
         
         
         function sendToServer() {
-        	
+        	$('.loader').show();
         
-        	console.log("Inside Step One");
-        	 var mandFields = "introducedByName,introducedByEmailID,states,suppName,compEmail,panNumber,compGstn,natureOfTransactions";
-            var mandFieldsArr = mandFields.split(",");
-            for (i = 0; i < mandFieldsArr.length; i++) {
-                console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
-                if (document.getElementById(mandFieldsArr[i]).value == '') {
-                    notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                    console.log("Mandatory Check :: " + mandFieldsArr[i]);
-                    return false;
-                }
-            }
+        	 console.log("Inside Step One");
+             var mandFields = "introducedByName,introducedByEmailID,states,suppName,panNumber";
+             var mandFieldsArr = mandFields.split(",");
+             for (i = 0; i < mandFieldsArr.length; i++) {
+                 console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
+                 if (document.getElementById(mandFieldsArr[i]).value == '') {
+                     notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                    
+                     console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                     
+                     return false;
+                 }
+             }
         	
             var element = document.getElementById('states');
         	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
@@ -1802,11 +1828,13 @@ width: 100% !important;
             for (var i = 1; i < rowLength; i += 1) {
                 var row = table.rows[i];
                 var objs = {
-                    "addCountry": row.cells[0].innerHTML,
-                    "state": row.cells[1].innerHTML,
-                    "city": row.cells[2].innerHTML,
-                    "pinCode": row.cells[3].innerHTML,
-                    "addDetails": row.cells[4].innerHTML
+                		 "addCountry": row.cells[0].innerHTML,
+                         "state": row.cells[1].innerHTML,
+                         "city": row.cells[2].innerHTML,
+                         "pinCode": row.cells[3].innerHTML,
+                         "compGstn": row.cells[4].innerHTML,
+                         "natureOfTransactions": row.cells[5].innerHTML,
+                         "addDetails": row.cells[6].innerHTML
                 };
                 addressDetailsArray.push(objs);
             }
@@ -1816,7 +1844,7 @@ width: 100% !important;
             if(addressDetailsArray.length==0 && partnerType!="Ad-Hoc"){
             	
             	swal.fire("Alert", "Please Add Address", "warning")
-                return regex.test(inputvalues);
+                //return regex.test(inputvalues);
             }
             
             var accountDetailsArray = [];
@@ -1895,7 +1923,7 @@ width: 100% !important;
                   }
         	   } 
         	   else{
-        		  var mandFields = "suppName,compEmail";
+        		  var mandFields = "suppName";
                   var mandFieldsArr = mandFields.split(",");
                   for (i = 0; i < mandFieldsArr.length; i++) {
                       console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
@@ -2086,46 +2114,96 @@ width: 100% !important;
              try {
                  if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
  				
-                 	 if(controlName=="introducedByName"){
-                 		 swal.fire("Alert", "Introducer name is mandatory", "warning")
-                          .then((value) => {});
-                 		 
-                 	 }
-                 	 else  if(controlName=="introducedByEmailID"){
-                    	  
-                   	   swal.fire("Alert", "Introducer email id is mandatory", "warning")
-                          .then((value) => {});
-                      }
-                 	else  if(controlName=="states"){
-                 	  
-                 	   swal.fire("Alert", "Business partner type is mandatory", "warning")
+                	 if(controlName=="introducedByName"){
+                		 swal.fire("Alert", "Introducer Name is Mandatory", "warning")
+                         .then((value) => {});
+                		 
+                	 }
+                	 else  if(controlName=="introducedByEmailID"){
+                   	  
+                  	   swal.fire("Alert", "Introducer Email Id is Mandatory", "warning")
+                         .then((value) => {});
+                     }
+                	else  if(controlName=="states"){
+                	  
+                	   swal.fire("Alert", "Business Partner Type is Mandatory", "warning")
+                       .then((value) => {});
+                   }
+                	else  if(controlName=="suppName"){
+                  	  
+                 	   swal.fire("Alert", "Business Partner Name is Mandatory", "warning")
                         .then((value) => {});
                     }
-                 	else  if(controlName=="suppName"){
-                   	  
-                  	   swal.fire("Alert", "Business partner name is mandatory", "warning")
-                         .then((value) => {});
-                     }
-                 	else  if(controlName=="compEmail"){
-                     	  
-                   	   swal.fire("Alert", "Company email id is mandatory", "warning")
+                	
+                	else  if(controlName=="panNumber"){
+                  	  
+                   	   swal.fire("Alert", "PAN Number is Mandatory", "warning")
                           .then((value) => {});
                       }
-                 	else  if(controlName=="panNumber"){
-                   	  
-                    	   swal.fire("Alert", "PAN number is mandatory", "warning")
+                	
+                	 else  if(controlName=="creditTerms"){
+                      	  
+                    	   swal.fire("Alert", "Payment / Credit Terms is Mandatory", "warning")
                            .then((value) => {});
                        }
-                 	else  if(controlName=="compGstn"){
+                	 else  if(controlName=="paymentMethod"){
                      	  
-                     	   swal.fire("Alert", "GSTN Number is mandatory", "warning")
-                            .then((value) => {});
-                        }
-                 	else  if(controlName=="natureOfTransactions"){
-                   	  
-                  	   swal.fire("Alert", "Nature of transaction is mandatory", "warning")
+                  	   swal.fire("Alert", "Payment Method is Mandatory", "warning")
                          .then((value) => {});
                      }
+                	 else  if(controlName=="tdsSection"){
+                   	  
+                  	   swal.fire("Alert", "TDS Section is Mandatory", "warning")
+                         .then((value) => {});
+                     }
+              	 else  if(controlName=="tdsRate"){
+                 	  
+                	   swal.fire("Alert", "TDS Rate is Mandatory", "warning")
+                       .then((value) => {});
+                   }
+                	 
+             
+              	else  if(controlName=="GSTFile"){
+               	  
+             	   swal.fire("Alert", "GST Certificate is Mandatory", "warning")
+                    .then((value) => {});
+                }
+              	else  if(controlName=="PDFile"){
+                 	  
+              	   swal.fire("Alert", "Proprietorship Declaration is Mandatory", "warning")
+                     .then((value) => {});
+                 }
+              	else  if(controlName=="PANFile"){
+                 	  
+              	   swal.fire("Alert", "PAN Card is Mandatory", "warning")
+                     .then((value) => {});
+                 }
+              	else  if(controlName=="CCFile"){
+               	  
+               	   swal.fire("Alert", "Cancelled Cheque/ Passbook/ Bank Statemen  is Mandatory", "warning")
+                      .then((value) => {});
+                  }
+              	else  if(controlName=="ITRFile"){
+               	  
+               	   swal.fire("Alert", "ITR Filling Declaration is Mandatory", "warning")
+                      .then((value) => {});
+                  }
+             
+              	else  if(controlName=="MSMECFile"){
+               	  
+               	   swal.fire("Alert", "MSME Certificate is Mandatory", "warning")
+                      .then((value) => {});
+                  }
+              	else  if(controlName=="AMFile"){
+               	  
+               	   swal.fire("Alert", "Approval Mail is Mandatory", "warning")
+                      .then((value) => {});
+                  }
+              	else  if(controlName=="NMISFile"){
+               	  
+               	   swal.fire("Alert", "Name Mismatch Affidavit is Mandatory", "warning")
+                      .then((value) => {});
+                  }
                     
                  	
                     // $('#manPara').css('display', '');
@@ -2329,7 +2407,48 @@ width: 100% !important;
                     }
                 });
             });
-           
+        	function select(){
+    			
+				var element = document.getElementById('states');
+	        	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
+	        	var selectedValues = [];    
+	            $("#states :selected").each(function(){
+	                selectedValues.push($(this).val()); 
+	            });
+	           // alert(selectedValues);
+	            
+	            let values = selectedValues.toString();
+	         
+	        	document.getElementById("roleId").value=values;
+	        	//alert("roleId111: "+num);
+		
+				
+				var val = document.getElementById("states").value
+				if (val == "Network") {
+					document.getElementById("partnerType").disabled = false;
+					document.getElementById("partnerType").value = "Scheduled";
+				}else{
+					document.getElementById("partnerType").disabled = true;
+					document.getElementById("partnerType").value = "";
+					
+				}
+				
+			}
+        	function MESMENumber(){
+				var busClassif=$("#businessClassification").val();
+				if (busClassif != "Other") {
+					document.getElementById("mesmeNumber").disabled = false;
+					
+				}else{
+					document.getElementById("mesmeNumber").disabled = true;
+					document.getElementById("mesmeNumber").value = "";
+					
+				}
+				
+			}
+			
+			
+			
     </script>
 
 	<script

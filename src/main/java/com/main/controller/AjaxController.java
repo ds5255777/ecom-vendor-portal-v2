@@ -35,6 +35,7 @@ import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.AccountDetails;
 import com.main.db.bpaas.entity.AddressDetails;
+import com.main.db.bpaas.entity.ContactDetails;
 import com.main.db.bpaas.entity.EmailConfiguration;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SupDetails;
@@ -254,6 +255,13 @@ public class AjaxController {
 						json.put("ifsc_code", supDetails.getAccountDetails().get(i).getIfscCode());
 					}
 				}
+				if (!supDetails.getContactDetails().isEmpty()) {
+					List<ContactDetails> contactDetails = supDetails.getContactDetails();
+					for (int i = 0; i < contactDetails.size(); i++) {
+						json.put("ln_EmailAddress", contactDetails.get(i).getConEmail());
+						}
+					}
+					
 				json.put("sd_Website", "");
 				json.put("sd_Alias", "");
 				json.put("sd_Unmatched_Inv", "");
@@ -294,15 +302,19 @@ public class AjaxController {
 						venDetals.put("ln_State", adrsDetails.get(i).getState());
 						venDetals.put("ln_Country", adrsDetails.get(i).getAddCountry());
 						venDetals.put("ln_PinCode", adrsDetails.get(i).getPinCode());
+						venDetals.put("ln_NatureofTrans", adrsDetails.get(i).getNatureOfTransactions());
+						venDetals.put("ln_SupplierGSTRegNo", adrsDetails.get(i).getCompGstn());
+						//venDetals.put("ln_EmailAddress", adrsDetails.get(i).getCompEmail());
+						//venDetals.put("ln_MobileNumber", adrsDetails.get(i).getPhoneNumber());
 					}
 					venDetals.put("ln_operatingUnit", "");
 					venDetals.put("ln_PhoneAreaCode", "");
 					venDetals.put("ln_LandlineNumber", "");
 					venDetals.put("ln_BeneficiaryName", "");
 					venDetals.put("ln_ContactPerson", "");
-					venDetals.put("ln_EmailAddress", supDetails.getCompEmail());
-					venDetals.put("ln_NatureofTrans", supDetails.getNatureOfTransactions());
-					venDetals.put("ln_MobileNumber", supDetails.getPhoneNumber());
+					//venDetals.put("ln_EmailAddress", supDetails.getCompEmail());
+					//venDetals.put("ln_NatureofTrans", supDetails.getNatureOfTransactions());
+					//venDetals.put("ln_MobileNumber", supDetails.getPhoneNumber());
 					venDetals.put("ln_PaymentMethod", supDetails.getPaymentMethod());
 //				venDetals.put("ln_BankName", "");
 //				venDetals.put("ln_AccountNumber", "");
@@ -313,7 +325,7 @@ public class AjaxController {
 					venDetals.put("ln_GSTPartyType", "");
 					venDetals.put("ln_InvoiceCurrency", supDetails.getInvoiceCurrency());
 					venDetals.put("ln_PaymentCurrency", supDetails.getPaymentCurrency());
-					venDetals.put("ln_SupplierGSTRegNo", supDetails.getCompGstn());
+					//venDetals.put("ln_SupplierGSTRegNo", supDetails.getCompGstn());
 					// venDetals.put("vendorportal_regno", "sdf");
 					venDetals.put("ln_TDSSection", supDetails.getTdsSection());
 					JSONArray arrayforVend = new JSONArray();
@@ -385,10 +397,16 @@ public class AjaxController {
 								.findByIsActive("1");
 						if (!emailList.isEmpty()) {
 							EmailConfiguration emailConfiguration = emailList.get(0);
-							CommEmailFunction.sendEmail(supDetails.getCompEmail(), "Vendor Portal Req Acknowldgement",
+							
+							if (!supDetails.getContactDetails().isEmpty()) {
+								List<ContactDetails> contactDetails = supDetails.getContactDetails();
+								for (int i = 0; i < contactDetails.size(); i++) {
+									CommEmailFunction.sendEmail(contactDetails.get(i).getConEmail(), "Vendor Portal Req Acknowldgement",
 									new WelcomeEmail().prepareMailBody(processID), emailConfiguration.getSmtpPort(),
 									emailConfiguration.getUserName(), emailConfiguration.getPassword(),
 									emailConfiguration.getServerName());
+								}
+							}
 						}
 					} catch (Exception e) {
 						e.printStackTrace();

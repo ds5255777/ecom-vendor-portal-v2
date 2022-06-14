@@ -798,6 +798,8 @@ public class UIController {
 			listofTrips.add(tripID);
 
 		}
+		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("listofTrips", listofTrips);
 
 		return "draftInvoiceGenerate";
@@ -835,7 +837,8 @@ public class UIController {
 			vendorName = tripDetails.getVendorName();
 		}
 		List<AddressDetails> vendorAddress = serviceManager.addressDetailsRepo.getVendorAddress(vendorName);
-		
+		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("vendorAddress",vendorAddress);
 
 		model.addAttribute("vendorName", vendorName);

@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
     <!-- Bootstrap Color Picker -->
     <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
@@ -56,6 +57,12 @@
         .row {
             margin-bottom: 0.5rem !important;
         }
+        
+        /* date picker dropdown is hiding .. thats y added the below style */
+		#ui-datepicker-div {
+			z-index: 1000 !important;
+		}
+		/*  date picker style ended */
 
     </style>
 </head>
@@ -129,7 +136,10 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Date <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="date" name="invoiceDate" id="invoiceDate" class="form-control-sm" style="width: 100%;">
+                                                <input type="text" name="invoiceDate"
+													placeholder="Act Dept Start Date" class="form-control-sm" style="width: 100%;"
+													id="invoiceDate" readonly>
+                                               <!--  <input type="date" name="invoiceDate" id="invoiceDate" class="form-control-sm" style="width: 100%;"> -->
                                             </div>
                                         </div>
                                     </div>
@@ -364,8 +374,8 @@
         <!-- /.control-sidebar -->
     </div>
 
-    <!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
+		<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Bootstrap4 Duallistbox -->
@@ -426,6 +436,8 @@
             showConfirmButton: false,
             timer: 3000
         });
+        
+        var currentDate='${currentDate}';
 
         var prTable = $("#prTable").DataTable({
             "paging": true,
@@ -443,11 +455,11 @@
             window.close()
         }
         
-        $(function(){
+        /* $(function(){
     	    $('[name="invoiceDate"]').prop('max', function(){
     	        return new Date().toJSON().split('T')[0];
     	    });
-    	});
+    	}); */
        
 
         function onValidateFile(id) {
@@ -499,6 +511,13 @@
                 alert("This browser does not support HTML5.");
             }
         }
+        
+        $('#invoiceDate').datepicker({
+            dateFormat: 'dd-mm-yy',
+            changeMonth: true,
+            changeYear: true,
+            maxDate: currentDate 
+        });
 
         function AddDocCheck() {
             var invoiceNumber = $("#ecomInvoiceNumber").val();

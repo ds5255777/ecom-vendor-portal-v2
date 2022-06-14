@@ -569,7 +569,7 @@ tbody {
 															<div class="col-md-3">
 																<!-- text input -->
 																<div class="form-group row">
-																	<label class="col-sm-5" title="FS">FS</label>
+																	<label class="col-sm-5" title="FS">FS Amount</label>
 																	<div class="col-sm-7">
 																		<input type="text"
 																			class="form-control numberWithDecimalcheck"
@@ -613,7 +613,7 @@ tbody {
 																	<input type="checkbox" id="lumpsum" name="lumpsum"
 																		class="messageCheckbox" value=""
 																		onclick="lumpsomePropertyChange()"> <label
-																		class="col-sm-11" for="lumsum"> If Lump Some
+																		class="col-sm-11" for="lumsum"> If Lump Sum
 																		amount is applicable</label><br>
 																	<div class="col-sm-7">
 																		<label class="col-sm-12" style="margin-bottom: 1px;">Amount</label>

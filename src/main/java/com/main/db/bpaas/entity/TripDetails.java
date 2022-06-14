@@ -134,6 +134,9 @@ public class TripDetails {
 	@Column(name = "lumpsome_amount")
 	private String lumpsomeamount;
 
+	@Column(name = "lumpsome_checkbox")
+	private String lumpsomecheckbox;
+
 //Saurabh End
 
 	public Integer getId() {
@@ -454,6 +457,14 @@ public class TripDetails {
 
 	public void setLumpsomeamount(String lumpsomeamount) {
 		this.lumpsomeamount = lumpsomeamount;
+	}
+
+	public String getLumpsomecheckbox() {
+		return lumpsomecheckbox;
+	}
+
+	public void setLumpsomecheckbox(String lumpsomecheckbox) {
+		this.lumpsomecheckbox = lumpsomecheckbox;
 	}
 
 }

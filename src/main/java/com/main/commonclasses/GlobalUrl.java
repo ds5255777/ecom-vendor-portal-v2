@@ -46,6 +46,7 @@ public class GlobalUrl {
     public static String getDraftLineTripDetails = tripControllers + "/getDraftLineTripDetails";
     public static String getTripDetailByTripId = tripControllers + "/getTripDetailByTripId";
     public static String findByTripDetailUsingTripID = tripControllers + "/findByTripDetailUsingTripID";
+    public static String filterByColumn = tripControllers + "/filterByColumn";
 
     public static String invoiceController="invoiceController";
 	
@@ -142,6 +143,8 @@ public class GlobalUrl {
 	 public static String activeVendor = userController + "/activeVendor";
 	 
 	 public static String getBpCodeForNetwork = dashboardController + "/getBpCodeForNetwork";
+	// public static String findVendorCodeAndName = dashboardController + "/findVendorCodeAndName";
+	 
 	 
 	 
 	 

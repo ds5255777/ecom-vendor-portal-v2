@@ -509,8 +509,7 @@ tbody {
 													<div class="col-md-3">
 														<div class="form-group row">
 															<label class="col-sm-5"
-																title="Lump Sum Amount (Total Trip Cost)">Total
-																Amount</label>
+																title="Lump Sum Amount (Total Trip Cost)">Lump Sum Amt.</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"
 																	id="lumpsomeamount" name="lumpsomeamount" disabled>

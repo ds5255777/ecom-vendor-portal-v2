@@ -21,9 +21,15 @@ public interface PoInvoiceRepo extends JpaRepository<PoInvoiceDetails, Long> {
 
 	@Query(value = "select * from poinvoice_details where status in('In-Review','Query')  and vendor_code=:vendorCode", nativeQuery = true)
 	List<PoInvoiceDetails> getAllInvoiceDetails( @Param("vendorCode") String vendorCode);
+	
+	@Query(value = "select * from poinvoice_details where status in('In-Review','Query')  ", nativeQuery = true)
+	List<PoInvoiceDetails> getAllInvoiceDetailsForFinance( );
 
 	@Query(value = "select * from poinvoice_details where  vendor_code=:vendorCode and invoice_num=:invoiceNumber", nativeQuery = true)
 	List<PoInvoiceDetails> findByInvoiceNumber(@Param("vendorCode") String vendorCode , @Param("invoiceNumber")  String invoiceNumber);
+	
+	@Query(value = "select * from poinvoice_details where  invoice_num=:invoiceNumber", nativeQuery = true)
+	List<PoInvoiceDetails> findByInvoiceNumberByFinance(@Param("invoiceNumber")  String invoiceNumber);
 
 	@Query(value = "select * from poinvoice_details where vendor_code=? and Invoice_Num=?", nativeQuery = true)
 	List<PoInvoiceDetails> getAllDraftPODetailsByInvoiceNo(String vendorCode , String invoiceNo);

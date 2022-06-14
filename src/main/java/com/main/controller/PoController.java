@@ -144,11 +144,21 @@ public class PoController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
+			
 			String vendorCode = (String) request.getSession().getAttribute("userName");
-			logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
-			List<PoInvoiceDetails> details = serviceManager.poinvoiceRepo.getAllInvoiceDetails(vendorCode);
+			
+			if(vendorCode.equals("finance1")) {
+				logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
+				List<PoInvoiceDetails> details = serviceManager.poinvoiceRepo.getAllInvoiceDetailsForFinance();
+				data.setData(details);
+			
+			}else {
+				logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
+				List<PoInvoiceDetails> details = serviceManager.poinvoiceRepo.getAllInvoiceDetails(vendorCode);
+				data.setData(details);
+			}
 
-			data.setData(details);
+			
 			data.setMsg("success");
 			logger.info("end of allPoDetails");
 
@@ -171,10 +181,15 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
-			List<PoInvoiceDetails> poInvoiceDetails = serviceManager.poinvoiceRepo.findByInvoiceNumber(vendorCode,
-					details.getInvoiceNumber());
-
+			
+			if(vendorCode.equals("finance1")) {
+			List<PoInvoiceDetails> poInvoiceDetails = serviceManager.poinvoiceRepo.findByInvoiceNumberByFinance(details.getInvoiceNumber());
 			data.setData(poInvoiceDetails);
+			}else {
+				List<PoInvoiceDetails> poInvoiceDetails = serviceManager.poinvoiceRepo.findByInvoiceNumber(vendorCode,
+						details.getInvoiceNumber());
+				data.setData(poInvoiceDetails);
+			}
 			data.setMsg("success");
 			logger.info("end of allPoDetails");
 

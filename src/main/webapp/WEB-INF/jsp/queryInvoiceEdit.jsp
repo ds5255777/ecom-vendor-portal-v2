@@ -649,12 +649,7 @@
                 	tripLineArray[i].lumpsomeamount,
                 	textBox,action]);
                  id = (tripLineArray[i].id);
-                 console.log(id);
-                 console.log(parseFloat(tripLineArray[i].totalFreight));
-                 console.log(tripLineArray[i].lumpsomeamount);
-                 console.log(parseFloat(tripLineArray[i].lumpsomeamount));
                  taxableAmount += parseFloat(tripLineArray[i].totalFreight)+ parseFloat(tripLineArray[i].lumpsomeamount);
-               console.log(taxableAmount);
              }
             
              $("#taxableAmount").val(parseFloat(taxableAmount).toFixed(2));
@@ -696,7 +691,6 @@
             var json = {
                 "tripID": tripID
             }
-            console.log(json);
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(json),
@@ -747,12 +741,10 @@
                     if (data.msg == 'success') {
                         var result = data.data;
                         
-                        console.log(result,"--------");
                         
                         if (result.length !== 0) {
                             for (var i = 0; i < result.length; i++) {
                                 $('#tripList').append($('<option/>').attr("value", result[i]).text(result[i]));
-                                //console.log(result[i].tripID);
                             }
                         }
                     } else {
@@ -776,7 +768,6 @@
                 "tripID": tripID,
                 "invoiceNumber": invoiceNumber
             }
-			console.log(json);
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(json),
@@ -792,6 +783,7 @@
                             title: 'Added Successfully.'
                         })
                         var result=data.data;
+                        result.newAdded="1";
                         tripLineArray.push(result);
                         showTableData();
                         getSelectTripList();
@@ -806,6 +798,7 @@
                     alert("failed, please try again");
                 }
             });
+            
 			}
         }
         
@@ -875,8 +868,7 @@
 			
             finalObj.invoiceLineItems = tripLineArray;
             
-            console.log(finalObj);
-           // return;
+           //return;
             
             $.ajax({
                 type: "POST",

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -460,7 +461,15 @@ public class InvoiceController {
 					.findByEcomInvoiceNumber(ecomInvoiceNumber);
 
 			if (null != obj) {
-
+				
+				List<InvoiceLineItem> artifactsList= invoiceLineItemsList.stream().filter(x -> "1".equalsIgnoreCase(x.getNewAdded())).collect(Collectors.toList());
+				
+				if(!artifactsList.isEmpty()){
+					for (InvoiceLineItem invoiceLineItem : artifactsList) {
+						serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsQueryInvoice(invoiceLineItem.getTripID(),ecomInvoiceNumber);
+					}
+				}
+				
 				invObj.setInvoiceLineItem(invoiceLineItemsList);
 				invObj.setAssignTo(obj.getAssignTo());
 				invObj.setInvoiceStatus(obj.getInvoiceStatus());
@@ -474,6 +483,8 @@ public class InvoiceController {
 				// idByinvocienumber);
 
 				// InvoiceGenerationEntity invoiceEntity = new InvoiceGenerationEntity();
+				
+				serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsQueryInvoice("123",ecomInvoiceNumber);
 
 				QueryEntity queryEntity = new QueryEntity();
 				queryEntity.setComment(obj.getRemarks());

@@ -173,6 +173,9 @@
 													class="btn btn-primary">Search</button>
 											</div>
 											<div class="col-md-2">
+													 <input id="flipToInvoice" type="button" style="width: inherit;" class="btn btn-primary" onclick="invoiceProcessing()" value="Flip to Invoice " />
+											</div>
+											<div class="col-md-2">
 												<div class="dropdown">
 													<button type="button"
 														class="btn btn-primary dropdown-toggle"
@@ -185,7 +188,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-md-2"></div>
+											
 											<div class="col-md-2">
 												<div class="form-group row">
 													<label class="col-md-4">Search : </label>

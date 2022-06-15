@@ -14,7 +14,6 @@ public interface InvoiceNumberRepo extends JpaRepository<InvoiceNumber, Integer>
 	
 	@Transactional
     @Modifying
-    @Query(value = "DELETE FROM invoice_number WHERE ecom_invoice_nunmber=:invoiceNumber ; ", nativeQuery = true)
+    @Query(value = "update invoice_number set invoice_status='Delete' WHERE ecom_invoice_nunmber=:invoiceNumber ; ", nativeQuery = true)
     void removeInvoice(String invoiceNumber);
-
 }

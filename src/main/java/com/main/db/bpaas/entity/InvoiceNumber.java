@@ -14,7 +14,7 @@ public class InvoiceNumber {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "ecom_invoice_nunmber")
+	@Column(unique=true,name = "ecom_invoice_nunmber")
 	private String ecomInvoiceNumber;
 
 	@Column(name = "invoice_status")

@@ -93,7 +93,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
     @Query(value = "update Trip_Details set vendor_trip_status='Invoicing', invoice_number=:invoiceNumber,payment_status='Pending' where trip_id=:tripID ; ", nativeQuery = true)
     void updateVendorTripStatusAgainsQueryInvoice(String tripID, String invoiceNumber);
 
-    @Query(value = "select  trip_id from Trip_Details WHERE vendor_trip_status = 'Approved' And vendor_code=?; ", nativeQuery = true)
+    @Query(value = "select  trip_id from Trip_Details WHERE vendor_trip_status = 'Approved' And run_status= 'Closed' And vendor_code=?; ", nativeQuery = true)
     List<String> getTripId(String vendorCode);
 
     @Query(value = "select  * from Trip_Details where trip_id=:tripID ; ", nativeQuery = true)

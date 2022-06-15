@@ -1,7 +1,5 @@
 package com.main.serviceManager;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,6 +18,7 @@ import com.main.db.bpaas.repo.EmailConfigurationRepository;
 import com.main.db.bpaas.repo.FinancialYearRepo;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.InvoiceLineItemRepo;
+import com.main.db.bpaas.repo.InvoiceNumberRepo;
 import com.main.db.bpaas.repo.MailContentRepo;
 import com.main.db.bpaas.repo.NatureOfTransactionRepo;
 import com.main.db.bpaas.repo.PaymentTermRepo;
@@ -31,6 +30,7 @@ import com.main.db.bpaas.repo.RegionRepo;
 import com.main.db.bpaas.repo.RolesRepository;
 import com.main.db.bpaas.repo.SectionTypeRepo;
 import com.main.db.bpaas.repo.SendEmailRepo;
+import com.main.db.bpaas.repo.StateRepo;
 import com.main.db.bpaas.repo.SupDetailsRepo;
 import com.main.db.bpaas.repo.TDSSectionCodeRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
@@ -147,6 +147,12 @@ public class ServiceManager {
 	
 	@Autowired
 	public SectionTypeRepo sectionTypeRepo;
+	
+	@Autowired
+	public StateRepo stateRepo;
+	
+	@Autowired
+	public InvoiceNumberRepo invoiceNumberRepo;
 
 	/*
 	 * public void insertRecordIntoAuditEntry(HttpServletRequest request, String

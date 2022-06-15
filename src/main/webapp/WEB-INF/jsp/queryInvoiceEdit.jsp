@@ -227,25 +227,24 @@
                             <table id="prTable" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">S.No</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip ID</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Stnd KM</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Rate/km</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Fuel
-                                            Rate</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Diff</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Basic Freight</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Lumpsome Amount</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Line level
-                                            Description</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Action</th>
-                                    </tr>
+                                    	<th class="bg-primary">S.N</th>
+										<th class="bg-primary">Trip ID</th>
+										<th class="bg-primary">Run Type</th>
+										<th class="bg-primary">Route</th>
+										<th class="bg-primary">Standard KM</th>
+										<th class="bg-primary">Rate per km</th>
+										<th class="bg-primary">Current Fuel Rate</th>
+										<th class="bg-primary">FS Base Rate</th>
+										<th class="bg-primary">Std. Vehicle</th>
+										<th class="bg-primary">FS Diff</th>
+										<th class="bg-primary">Basic Freight</th>
+										<th class="bg-primary">FS</th>
+										<th class="bg-primary">Mileage</th>
+										<th class="bg-primary">Total Freight</th>
+										<th class="bg-primary">Lumpsome Amount</th>
+										<th class="bg-primary">Line level Description</th>
+										<th class="bg-primary">Action</th>
+									</tr>
                                 </thead>
                             </table>
                         </div>
@@ -418,6 +417,7 @@
         
         $("input[type=text]").prop('disabled', true);
         var tripLineArray = [];
+        var tripIdArray=[];
         var totalFreight = 0;
         var lumpsomeamount = parseFloat(0);
 
@@ -592,11 +592,11 @@
 			 
 			 prTable.clear();
              for (var i = 0; i < tripLineArray.length; i++) {
+            	 if (!tripLineArray[i].hasOwnProperty("runType")) {
+                     tripLineArray[i].runType = "";
+                 }
                  if (!tripLineArray[i].hasOwnProperty("tripID")) {
                      tripLineArray[i].tripID = "";
-                 }
-                 if (!tripLineArray[i].hasOwnProperty("runType")) {
-                     tripLineArray[i].runType = "";
                  }
                  if (!tripLineArray[i].hasOwnProperty("route")) {
                      tripLineArray[i].route = "";
@@ -613,6 +613,9 @@
                  if (!tripLineArray[i].hasOwnProperty("fsBaseRate")) {
                      tripLineArray[i].fsBaseRate = "";
                  }
+                 if (!tripLineArray[i].hasOwnProperty("standardVechicleType")) {
+                     result[i].standardVechicleType = "";
+                 }
                  if (!tripLineArray[i].hasOwnProperty("fsDiff")) {
                      tripLineArray[i].fsDiff = "";
                  }
@@ -622,39 +625,29 @@
                  if (!tripLineArray[i].hasOwnProperty("fs")) {
                      tripLineArray[i].fs = "";
                  }
+                 if (!tripLineArray[i].hasOwnProperty("mileage")) {
+                     result[i].mileage = "";
+                 }
                  if (!tripLineArray[i].hasOwnProperty("actualKM")) {
                      tripLineArray[i].actualKM = "";
                  }
                  if (!tripLineArray[i].hasOwnProperty("totalFreight")) {
-                     tripLineArray[i].totalFreight = 0;
+                     tripLineArray[i].totalFreight = "";
                  }
                  if (!tripLineArray[i].hasOwnProperty("lumpsomeamount")) {
-                     tripLineArray[i].lumpsomeamount = 0;
+                     tripLineArray[i].lumpsomeamount = "";
                  }
                  if (!tripLineArray[i].hasOwnProperty("lineLevelDescription")) {
                      tripLineArray[i].lineLevelDescription = "";
                  }
                  textBox = "<input type=\"text\" class=\"form-control\" id=\"form-control\" placeholder=\"Fill Description\" maxlength=\"100\" value=\""+tripLineArray[i].lineLevelDescription+"\" oninput=\"updateTextData('" + i + "',this.value)\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
                  action = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"deleteRow('" + tripLineArray[i].tripID + "')\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-                 prTable.row.add([i+1,tripLineArray[i].tripID,tripLineArray[i].runType, tripLineArray[i].route, 
-                	tripLineArray[i].standardKM, 
-                	tripLineArray[i].ratePerKm, 
-                	tripLineArray[i].currentFuelRate, 
-                	tripLineArray[i].fsBaseRate, 
-                	tripLineArray[i].fsDiff, 
-                	tripLineArray[i].basicFreight,
-                	tripLineArray[i].fs, 
-                	tripLineArray[i].actualKM, 
-                	tripLineArray[i].totalFreight,
-                	tripLineArray[i].lumpsomeamount,
-                	textBox,action]);
+                 prTable.row.add([i+1,tripLineArray[i].tripID, tripLineArray[i].runType, tripLineArray[i].route, 
+                	 tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate, 
+                	 tripLineArray[i].standardVechicleType, tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, 
+                	 tripLineArray[i].mileage,  tripLineArray[i].totalFreight,tripLineArray[i].lumpsomeamount, textBox,action]);
                  id = (tripLineArray[i].id);
-                 console.log(id);
-                 console.log(parseFloat(tripLineArray[i].totalFreight));
-                 console.log(tripLineArray[i].lumpsomeamount);
-                 console.log(parseFloat(tripLineArray[i].lumpsomeamount));
                  taxableAmount += parseFloat(tripLineArray[i].totalFreight)+ parseFloat(tripLineArray[i].lumpsomeamount);
-               console.log(taxableAmount);
              }
             
              $("#taxableAmount").val(parseFloat(taxableAmount).toFixed(2));
@@ -696,7 +689,6 @@
             var json = {
                 "tripID": tripID
             }
-            console.log(json);
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(json),
@@ -746,13 +738,12 @@
 
                     if (data.msg == 'success') {
                         var result = data.data;
-                        
-                        console.log(result,"--------");
+                        tripIdArray=result;
+                        console.log("All trip Id is :",tripIdArray);
                         
                         if (result.length !== 0) {
                             for (var i = 0; i < result.length; i++) {
                                 $('#tripList').append($('<option/>').attr("value", result[i]).text(result[i]));
-                                //console.log(result[i].tripID);
                             }
                         }
                     } else {
@@ -771,12 +762,20 @@
         function AddDocCheck() {
             var invoiceNumber = $("#ecomInvoiceNumber").val();
             var tripID = document.getElementById("tripList").value;
+            console.log("-----------------",tripID);
+            for (var i = 0; i < tripIdArray.length; i++) {
+                if (tripIdArray[i] === tripID) {
+                	tripIdArray.splice(i,tripID);
+                }
+            }
+            
+            console.log("************",tripIdArray,"*************");
+            
 			if(tripID != ''){
             var json = {
                 "tripID": tripID,
                 "invoiceNumber": invoiceNumber
             }
-			console.log(json);
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(json),
@@ -792,6 +791,7 @@
                             title: 'Added Successfully.'
                         })
                         var result=data.data;
+                        result.newAdded="1";
                         tripLineArray.push(result);
                         showTableData();
                         getSelectTripList();
@@ -806,6 +806,7 @@
                     alert("failed, please try again");
                 }
             });
+            
 			}
         }
         
@@ -875,8 +876,7 @@
 			
             finalObj.invoiceLineItems = tripLineArray;
             
-            console.log(finalObj);
-           // return;
+           //return;
             
             $.ajax({
                 type: "POST",

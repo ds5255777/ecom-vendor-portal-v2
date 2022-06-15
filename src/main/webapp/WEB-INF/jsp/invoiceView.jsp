@@ -209,22 +209,24 @@
 									<div class="table-responsive">
 										<table id="prTable" class="table table-bordered">
 		                                    <thead>
-		                                        <tr>
-		                                         <th class="bg-primary" >Trip Id</th>
-		                                            <th class="bg-primary" >Run Type</th>
-		                                            <th class="bg-primary" >Route</th> 
-		                                            <th class="bg-primary" >Standard KM</th>
-		                                            <th class="bg-primary" >Rate/km</th>
-		                                            <th class="bg-primary" >Fuel Rate</th>
-		                                            <th class="bg-primary" >FS Base Rate</th>
-		                                            <th class="bg-primary" >FS Diff</th>
-		                                            <th class="bg-primary" >Basic Freight</th>
-		                                            <th class="bg-primary" >FS Amount</th>
-		                                            <th class="bg-primary" >Actual KM</th>
-		                                            <th class="bg-primary" >Total Freight</th>
-		                                            <th class="bg-primary" >Line level Description</th>
-		                                        </tr>
-		                                    </thead>
+											<tr>
+												<th class="bg-primary">Trip ID</th>
+												<th class="bg-primary">Run Type</th>
+												<th class="bg-primary">Route</th>
+												<th class="bg-primary">Standard KM</th>
+												<th class="bg-primary">Rate per km</th>
+												<th class="bg-primary">Current Fuel Rate</th>
+												<th class="bg-primary">FS Base Rate</th>
+												<th class="bg-primary">Std. Vehicle</th>
+												<th class="bg-primary">FS Diff</th>
+												<th class="bg-primary">Basic Freight</th>
+												<th class="bg-primary">FS</th>
+												<th class="bg-primary">Mileage</th>
+												<th class="bg-primary">Total Freight</th>
+												<th class="bg-primary">Lumpsome Amount</th>
+												<th class="bg-primary">Line level Description</th>
+											</tr>
+										</thead>
 		                                </table>
 									</div>
 								</div>
@@ -521,6 +523,9 @@
                             if (!tripLineArray[i].hasOwnProperty("fsBaseRate")) {
                                 tripLineArray[i].fsBaseRate = "";
                             }
+                            if (!tripLineArray[i].hasOwnProperty("standardVechicleType")) {
+                                tripLineArray[i].standardVechicleType = "";
+                            }
                             if (!tripLineArray[i].hasOwnProperty("fsDiff")) {
                                 tripLineArray[i].fsDiff = "";
                             }
@@ -530,8 +535,8 @@
                             if (!tripLineArray[i].hasOwnProperty("fs")) {
                                 tripLineArray[i].fs = "";
                             }
-                            if (!tripLineArray[i].hasOwnProperty("actualKM")) {
-                                tripLineArray[i].actualKM = "";
+                            if (!tripLineArray[i].hasOwnProperty("mileage")) {
+                                tripLineArray[i].mileage = "";
                             }
                             if (!tripLineArray[i].hasOwnProperty("totalFreight")) {
                                 tripLineArray[i].totalFreight = "";
@@ -542,7 +547,11 @@
                             if (!tripLineArray[i].hasOwnProperty("lineLevelDescription")) {
                                 tripLineArray[i].lineLevelDescription = "";
                             }
-                            $('#prTable').DataTable().row.add([tripLineArray[i].tripID,tripLineArray[i].runType, tripLineArray[i].route, tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, tripLineArray[i].fsBaseRate, tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, tripLineArray[i].fs, tripLineArray[i].actualKM, tripLineArray[i].totalFreight, tripLineArray[i].lineLevelDescription]);
+                            $('#prTable').DataTable().row.add([tripLineArray[i].tripID,tripLineArray[i].runType, tripLineArray[i].route, 
+                            	tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, 
+                            	tripLineArray[i].fsBaseRate, tripLineArray[i].standardVechicleType, tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, 
+                            	tripLineArray[i].fs, tripLineArray[i].mileage, tripLineArray[i].totalFreight, tripLineArray[i].lumpsomeamount,
+                            	tripLineArray[i].lineLevelDescription]);
                         }
                         $("#invoiceNumber").val(result.invoiceNumber);
                         $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);

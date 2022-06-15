@@ -217,12 +217,12 @@ tbody {
 											<div class="col-md-1">
 												<input type="text" name="fromDate"
 													placeholder="Act Dept Start Date" class="form-control"
-													id="fromDate">
+													id="fromDate" readonly>
 											</div>
 											<div class="col-md-1">
 												<input type="text" name="toDate"
 													placeholder="Act Dept End Date" class="form-control"
-													id="toDate">
+													id="toDate" readonly>
 											</div>
 											<div class="col-md-1">
 

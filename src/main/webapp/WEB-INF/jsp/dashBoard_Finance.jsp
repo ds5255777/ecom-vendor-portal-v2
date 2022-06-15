@@ -66,7 +66,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 	<div class="wrapper">
 
 		<!-- Navbar -->
-		<jsp:include page="navbar.jsp?pagename=Finance Dashboard " />
+		<jsp:include page="navbar.jsp?pagename=Finance Dashboard" />
 
 		<!-- Right navbar links -->
 		<jsp:include page="slidebar_Finance.jsp?pagename=dashboard" />
@@ -109,7 +109,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 										<h2>${allInvoice}</h2>
 
 										<p id="iamwatch" data-toggle="tooltip" data-placement="bottom">All
-											Invoice</p>
+											Invoices</p>
 									</div>
 									<div class="icon">
 										<i class="fas fa-file-invoice"
@@ -129,7 +129,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 										<h2>${inReviewInvoice}</h2>
 
 										<p id="UnTickets" data-toggle="tooltip"
-											data-placement="bottom">In-Review Trip Invoice</p>
+											data-placement="bottom">In-Review Trip Invoices</p>
 									</div>
 									<div class="icon">
 
@@ -149,7 +149,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 										<h2>${countForPaymentrelaseInvoice}</h2>
 
 										<p id="UnTickets" data-toggle="tooltip"
-											data-placement="bottom">In-Review PO Invoice</p>
+											data-placement="bottom">In-Review PO Invoices</p>
 									</div>
 									<div class="icon">
 										<i class="fas fa-rupee-sign"
@@ -189,7 +189,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 										<h2>${countForApprovedInvoice }</h2>
 
 										<p id="opeTickets" data-toggle="tooltip"
-											data-placement="bottom">Approved Invoice</p>
+											data-placement="bottom">Approved Invoices</p>
 									</div>
 									<div class="icon">
 
@@ -238,7 +238,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 										<h2>${allInvoice}</h2>
 
 										<p id="iamwatch" data-toggle="tooltip" data-placement="bottom">All
-											Invoice</p>
+											Invoices</p>
 									</div>
 									<div class="icon">
 										<i class="fas fa-file-invoice"
@@ -278,7 +278,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 										<h2>${countForApprovedInvoice }</h2>
 
 										<p id="opeTickets" data-toggle="tooltip"
-											data-placement="bottom">Approved Invoice</p>
+											data-placement="bottom">Approved Invoices</p>
 									</div>
 									<div class="icon">
 
@@ -313,7 +313,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 									<div class="card-header">
 										<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
 											data-placement="bottom">Top
-											50 In-Review Invoice</h3>
+											50 In-Review Invoices</h3>
 									</div>
 									<!-- /.card-header -->
 									<div class="card-body table-responsive p-0"
@@ -362,7 +362,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 									<div class="card-header">
 										<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
 											data-placement="bottom">Top
-											50 Pending For Approval Invoice</h3>
+											50 Pending For Approval Invoices</h3>
 									</div>
 									<!-- /.card-header -->
 									<div class="card-body table-responsive p-0"
@@ -509,16 +509,15 @@ request.setAttribute("financeHeadRole", financeHeadRole);
             var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
             var unresolvedstsData = {
                 labels: [
-                    'All Invoice',
-                    'In-Review Invoice',
+                    'All Invoices',
+                    'In-Review Invoices',
                     'Pending For Approval',
-                    'Approved Invoice',
-                    'Payment Relase Invoice',
+                    'Approved Invoices',
                     'Query'
                 ],
                 datasets: [{
-                        data: [${allInvoice}, ${inReviewInvoice}, ${countForPendingForApprovalInvoice}, ${countForApprovedInvoice},${countForPaymentrelaseInvoice}, ${queryCount}],
-                        backgroundColor: ['#6610f2', 'yellow', '#28a745', '#1F8BFF','red','#fd7e14'],
+                        data: [${allInvoice}, ${inReviewInvoice}, ${countForPendingForApprovalInvoice}, ${countForApprovedInvoice}, ${queryCount}],
+                        backgroundColor: ['#6610f2', 'yellow', '#28a745', '#1F8BFF','#fd7e14'],
                     }]
             }
             var unresolvedstsOptions = {
@@ -536,9 +535,9 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                 var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
                 var unresolvedstsData = {
                     labels: [
-                        'All Invoice',
+                        'All Invoices',
                         'Pending For Approval',
-                        'Approved Invoice'
+                        'Approved Invoices'
                     ],
                     datasets: [{
                             data: [${allInvoice},  ${countForPendingForApprovalInvoice}, ${countForApprovedInvoice}],

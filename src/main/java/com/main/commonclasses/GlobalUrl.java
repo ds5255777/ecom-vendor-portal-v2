@@ -5,8 +5,9 @@ public class GlobalUrl {
 	public static String ajaxController="ajaxController";
 	public static String saveRegistrationQuery=ajaxController+ "/saveRegistrationQuery";
 	public static String getVendorDetailByPid=ajaxController+"/getVendorDetailByPid";
-	public static String getRegistrationQueryData=ajaxController+"/getRegistrationQueryData";
+	public static String getBpcode=ajaxController+"/getBpcode";
 
+	public static String getRegistrationQueryData=ajaxController+"/getRegistrationQueryData";
     public static String userController = "userController";
 
     public static String saveUpdateUserDetails = userController + "/saveUpdateUserDetails";

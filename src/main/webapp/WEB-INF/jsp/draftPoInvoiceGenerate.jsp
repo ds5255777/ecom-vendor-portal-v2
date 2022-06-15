@@ -152,8 +152,8 @@
 											<label class="col-sm-5">Invoice Date <span
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
-												<input type="text" name="invoiceDate" id="invoiceDate"
-													 class="form-control-sm" onchange="invoiceDateValidate()" placeholder="DD-MM-YYYY" style="width: 100%;">
+												<input type="text" name="invoiceDate" id="invoiceDate" readonly="readonly"
+													 class="form-control-sm" onchange="invoiceDateCheck()" placeholder="DD-MM-YYYY" style="width: 100%;">
 											</div>
 										</div>
 									</div>
@@ -239,7 +239,7 @@
 												
 													
 												<input type="text" name="termsDate" id="termsDate"
-													 class="form-control-sm" readonly="readonly" placeholder="DD-MM-YYYY" style="width: 100%;">
+													 class="form-control-sm"  placeholder="DD-MM-YYYY" readonly style="width: 100%;">
 											
 											</div>
 										</div>
@@ -273,9 +273,10 @@
 											
 													<select class="form-control-sm select2" style="width: 100%;"
 													id="paymentMethod" name="paymentMethod" readonly>
-													<option value="NEFT" readonly>NEFT</option>
-													<option value="Cheque" readonly>Cheque</option>
-													<option value="Online" readonly>Online</option>
+													<c:forEach items="${paymentMethod}" var="met">
+
+																<option value="${met}">${met}</option>
+															</c:forEach>
 
 												</select>
 											</div>
@@ -541,36 +542,6 @@
         <!-- /.control-sidebar -->
     </div>
 
-	<!-- jQuery -->
-	<script src="plugins/jquery/jquery.min.js"></script>
-	<!-- Bootstrap 4 -->
-	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- Bootstrap4 Duallistbox -->
-	<script
-		src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-	<!-- InputMask -->
-	<script src="plugins/moment/moment.min.js"></script>
-	<script src="plugins/inputmask/jquery.inputmask.min.js"></script>
-	<!-- date-range-picker -->
-	<script src="plugins/daterangepicker/daterangepicker.js"></script>
-	<!-- bootstrap color picker -->
-	<script
-		src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-	<!-- Tempusdominus Bootstrap 4 -->
-	<script
-		src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-	<!-- Bootstrap Switch -->
-	<script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-	<!-- BS-Stepper -->
-	<script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
-	<!-- dropzonejs -->
-	<script src="plugins/dropzone/min/dropzone.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="dist/js/adminlte.min.js"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="dist/js/demo.js"></script>
-	<!-- Page specific script -->
-	<!-- DataTables  & Plugins -->
 		<script src="plugins/jquery/jquery.min.js"></script>
 		<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -609,8 +580,8 @@
 		<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 		<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 		<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-	<script>
 	
+	<script>	
 	
 	var currentDate="${curentDate}";
 
@@ -649,6 +620,8 @@
     });
     
     var  invoiceNumber='${invoiceNumber}';
+    
+    var needByDate="";
 
     var lineNumberArray=[];
    var lineNum1=[];
@@ -661,6 +634,8 @@
     	$("#terms").val(creidtTerms);
     	
    	 var currentDate='${curentDate}';
+   	 
+     
  	
 	 
   	  var terms =  $("#terms").val();
@@ -669,26 +644,32 @@
   	  if(terms=="Immediate Payments"){
 	    		
 			 var days=30;
-				  var ts = new Date(currentDate);
+				  var ts = new Date();
 				   
 				  ts.setDate(ts.getDate());
-				var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+					var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
             $("#termsDate").val(datestring);
+            
         	
    	 } else if(terms=="NET 30 Days"){
   		
-				 var days=30;
-			   var ts = new Date(currentDate);
-			   
-			  ts.setDate(ts.getDate() + days);
+   		 var days=30;
+		   var ts = new Date();
+		   
+
+		   
+		   
+		   ts.setDate(ts.getDate() + days);
 			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
-			
-           $("#termsDate").val(datestring);
+		
+		     $("#termsDate").val(datestring);
+		  
+		           
        	
   	 }else if(terms=="NET 45 Days"){
   		 
  				 var days=45;
-				   var ts = new Date(currentDate);
+				   var ts = new Date();
 				   
 				  ts.setDate(ts.getDate() + days);
 				var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
@@ -700,7 +681,7 @@
   	 }else if(terms=="NET 60 Days"){
   		 
 				 var days=60;
-			   var ts = new Date(currentDate);
+			   var ts = new Date();
 			   
 			  ts.setDate(ts.getDate() + days);
 			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
@@ -747,8 +728,9 @@
                      $('#remitToBankAccountNumber').val(result[0].remitToBankAccountNumber);
                     $('#invoiceDate').val(result[0].invoiceDate);
                         	
-        					
-        					
+                    if(result[0].hasOwnProperty("glDate")){
+                    needByDate= result[0].glDate;
+                    }
           					  
                      tripLineArray=result[0].poInvoiceLine;
                      
@@ -1598,6 +1580,34 @@
       
 
  }
+
+ function invoiceDateCheck(){	
+ 	var date1=needByDate.split(" ")[0];
+ 	
+ 	var date2 =  $("#invoiceDate").val();
+ 	var check="false";		
+ 	
+ 	if(date1 !="" && date2 !=""){
+ 		
+ 		//date1=moment(date1, 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD');
+ 		
+ 	
+ 		date2=moment(date2, 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD');
+ 			
+ 			if(date2 > date1){
+ 				check="true";
+ 			}else{
+ 				 Toast.fire({
+ 		                type: 'error',
+ 		                title: 'Invoice date should be greater then PO date!'
+
+ 		            });
+ 				 $('#invoiceDate').val("");
+ 			}
+ 			
+ 	}	
+ 		return check;
+   }
 
 
     </script>

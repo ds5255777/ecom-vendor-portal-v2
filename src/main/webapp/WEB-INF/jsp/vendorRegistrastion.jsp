@@ -467,7 +467,7 @@ width: 100% !important;
 
 <body>
 
-
+<jsp:include page="loader.jsp" />
 
 
 	<div class="">
@@ -508,10 +508,10 @@ width: 100% !important;
 										<tbody>
 											<tr class="">
 												<td><label for="name">Introducer Name<span
-														class="required adHocRequired">*</span></label></td>
+														class="required adHocRequired"></span></label></td>
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="introducedByName"
-													name="introducedByName" placeholder="Introducer Name"
+													name="introducedByName" value="${uname}" placeholder="Introducer Name" readonly="readonly"
 													maxlength="50"></td>
 
 												<td><label for="emailId">Introducer Email ID<span
@@ -527,7 +527,8 @@ width: 100% !important;
 												<td colspan='1'><input type="test"
 													class="form-control p-input" id="bpCode" name="bpCode"
 													placeholder="Business Partner Code"
-													onchange="removeValCssByID(this)" disabled></td>
+													onchange="removeValCssByID(this)" 
+													oninput="this.value = this.value.toUpperCase()"></td>
 
 
 											</tr>
@@ -605,7 +606,7 @@ width: 100% !important;
 													oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
 													class="form-control p-input" id="aadharNumber"
 													maxlength="12" name="aadharNumber"
-													placeholder="Aadhar Number" onblur="AadharValidate();"></td>
+													placeholder="Aadhar Number" ></td>
 													
 													
 
@@ -645,23 +646,55 @@ width: 100% !important;
 											</tr>
 
 											<tr>
+	
+													<td><label>Region<span
+														 class="required adHocRequired"></span></label></td>
+
+												<td style="width: auto"><select colspan='1'
+													class="js-example-basic-multiple1 select2" name="region[]"
+													 id="region"  multiple="multiple" onchange="region1();" >
+														<c:forEach items="${region}" var="reg">
+
+															<option value="${reg}">${reg}</option>
+														</c:forEach>
+												</select></td>
+											
+											<td><label>Section Type<span
+														 class="required adHocRequired"></span></label></td>
+
+													<td><select colspan='1' class="form-control p-input"
+													id="sectionType" name="sectionType"
+													placeholder="Aadhar Link Status"
+													onchange="removeValCssByID(this)">
+														<option value="">Select</option>
+														<c:forEach items="${sectionType}" var="type">
+
+															<option value="${type}">${type}</option>
+														</c:forEach>
+
+												</select></td>
+												
+												<td><label>Flag<span
+														 class="required adHocRequired"></span></label></td>
+
+												<td style="width: auto"><select colspan='1'
+													class="js-example-basic-multiple2 select2" name="flag"
+													 id="flag"  multiple="multiple" > <!-- onchange="region1();"  -->
+														<c:forEach items="${flag}" var="flag">
+
+															<option value="${flag}">${flag}</option>
+														</c:forEach>
+												</select></td>
+											
+											</tr>
+											<tr>
 
 											</tr>
 
 											<tr>
 
 
-												<!-- <td colspan='1'><input type="text" class="form-control p-input" id="businessClassification" name="businessClassification" placeholder="Business Classification" 
-                                                
-                                                onchange="removeValCssByID(this)"></td> -->
-
-												<!-- <td><label for="siteDff">SITE DFF</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="siteDff" name="siteDff" placeholder="SITE DFF"></td> -->
-
-												<!-- <td><label for="opeUnitReqMap">Operating Unit
-                                                        required to MAP<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="opeUnitReqMap" name="opeUnitReqMap" placeholder="Operating Unit required to MAP" onchange="removeValCssByID(this)"></td> -->
-
+											
 											</tr>
 
 										</tbody>
@@ -935,32 +968,11 @@ width: 100% !important;
 														class="form-control p-input" id="bankName" name="bankName"
 														placeholder="Bank Name" maxlength="200"></td>
 
-													
-
-
-													<td><label for="accoutNumber">Account Number<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="accoutNumber"
-														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-														name="accoutNumber" placeholder="Account Number" maxlength="16"></td>
-														
-														<td><label for="Confirmed accoutNumber">Confirmed Account Number<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="confirmedAccoutNumber"
-														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-														name="confirmedAccoutNumber"  placeholder="Confirmed Account Number"maxlength="16"></td>
-
-												</tr>
-												<tr class="">
-												
-														
-													<td><label for="ifscCode">RTGS/ IFSC Code<span
+													<td><label for="ifscCode">IFSC Code<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><input type="text"
 														class="form-control p-input" id="ifscCode" name="ifscCode"
-														placeholder="RTGS/ IFSC Code" maxlength="11"oninput="this.value = this.value.toUpperCase()"></td>
+														placeholder="IFSC Code" maxlength="11"oninput="this.value = this.value.toUpperCase()"></td>
 															
 													<td><label for="accoutCurrency">Currency<span
 															class="required adHocRequired">*</span></label></td>
@@ -972,6 +984,27 @@ width: 100% !important;
 															</c:forEach>
 													</select></td>
 													<td></td>
+
+
+												</tr>
+												<tr class="">
+												
+													<td><label for="accoutNumber">Account Number<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="accoutNumber"
+														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+														name="accoutNumber" placeholder="Account Number" maxlength="16"></td>
+														
+														<td><label for="Confirmed accoutNumber">Confirm Account Number<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan='2'><input type="text"
+														class="form-control p-input" id="confirmedAccoutNumber"
+														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+														name="confirmedAccoutNumber"  placeholder="Confirm Account Number"maxlength="16"></td>
+												
+														
+													
 													<td colspan='3'>
 														<button type="Button" id="addBankGridButt"
 															name="addBankGridButt" class="btn btn-primary">Add
@@ -1064,12 +1097,22 @@ width: 100% !important;
 													
 												</tr>
 												<tr class="">
-													<td><label for="paymentMethod">Payment Method<span
+														<td><label for="paymentMethod">Payment Method<span
 															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="paymentMethod"
-														name="paymentMethod" onchange="removeValCssByID(this)"
-														placeholder="Payment Method" maxlength="150"></td>
+													
+													<td colspan='2'>
+													
+														<select id="paymentMethod" name="paymentMethod"
+														class="form-control p-input" colspan='2'
+														placeholder="Payment Method"
+														onchange="removeValCssByID(this)">
+															
+															<c:forEach items="${paymentMethod}" var="met">
+																<option value="${met}">${met}</option>
+															</c:forEach>
+													</select>
+													
+														</td>
 
 													<td><label for="dateBasis">Terms Date Basis</label></td>
 													<td colspan='2'><input type="text"
@@ -1164,16 +1207,11 @@ width: 100% !important;
 									style="border-style: solid; border-width: 1px; border-color: #1991eb;">
 									<div class="card-body" style="margin-bottom: 10px;">
 										<form id="StepEightForm" class="forms-sample">
-											<table class="table center-aligned-table" id="fromTable"
-												name="fromTable">
-												<thead>
-												</thead>
+											<table class="table center-aligned-table table-striped" id="addITRGrid" name="addITRGrid">
 												<tbody>
-													<tr>
-														<td><label class="addressLable" for="tdsApplication">Financial
-																Year</label></td>
-														<td colspan='2'><select id="fyYear"
-															class="form-control p-input ">
+													<tr class="">
+													<td><label>Select Financial Year<span class="required adHocRequired"></span></label> </td>
+														<td><select id="fyYear1" name="fyYear1" class="form-control p-input ">
 																<option value="">Select</option>
 
 																<c:forEach items="${financialYear}" var="fin">
@@ -1182,57 +1220,66 @@ width: 100% !important;
 																</c:forEach>
 
 														</select></td>
-														<td style="width: 150px;"></td>
-														<td><label for="tdsApplication">Acknowledgement
-																Number</label></td>
-
-														<td colspan='2'><input type="text"
-															id="acknowledgementNumber" name="acknowledgementNumber"
-															class="form-control p-input " maxlength="100"></td>
-															
-															 <td><label>ITR Acknowledgment of 3 years<span
-                                                                                      class="required">*</span></label></td>
-                                                                          <td><input type="file" id="ITRAFile" name="ITRAFile"
-															onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
+														<td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
+														<td><input type="text" id="acknowledgementNumber1"
+															name="acknowledgementNumber1"
+															class="form-control p-input "></td>
+														<td><input type="file" id="ITRFile1" name="ITRFile1" placeholder="Fill Acknowledgement Number"
+															onchange="handleFileSelect(event,'ITRFileText1'), onValidateFile('ITRFile1')"
 															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-															<textarea id="ITRAFileText" rows="5"
+															<textarea id="ITRFileText1" rows="5"
 																style="display: none;"></textarea> <label><span
-																style="font-weight: 500; color: #fd7e14;">* File
+																style="font-weight: 500; color: #fd7e14;">File
 																	size Max ${fileSize} MB</span></label></td>
-															
-															
-														<td style="width: 150px;"></td>
-														<td colspan='2'>
-															<button type="Button" id="addITRGridButt"
-																name="addITRGridButt" class="btn btn-primary">Add
-																ITR Details</button>
-														</td>
+													</tr>
+													<tr class="">
+														<td><label>Select Financial Year<span class="required adHocRequired"></span></label> </td>
+														<td><select id="fyYear2" name="fyYear2" class="form-control p-input ">
+																<option value="">Select</option>
 
+																<c:forEach items="${financialYear}" var="fin">
+
+																	<option value="${fin}">${fin}</option>
+																</c:forEach>
+
+														</select></td>
+														<td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
+														<td><input type="text" id="acknowledgementNumber2"
+															name="acknowledgementNumber2"
+															class="form-control p-input "></td>
+														<td><input type="file" id="ITRFile2" name="ITRFile2" placeholder="Fill Acknowledgement Number"
+															onchange="handleFileSelect(event,'ITRFileText2'), onValidateFile('ITRFile2')"
+															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+															<textarea id="ITRFileText2" rows="5"
+																style="display: none;"></textarea> <label><span
+																style="font-weight: 500; color: #fd7e14;">File
+																	size Max ${fileSize} MB</span></label></td>
+													</tr>
+													<tr class="">
+													<td><label>Select Financial Year<span class="required adHocRequired"></span></label> </td>
+														<td><select id="fyYear3" name="fyYear3" class="form-control p-input ">
+																<option value="">Select</option>
+
+																<c:forEach items="${financialYear}" var="fin">
+
+																	<option value="${fin}">${fin}</option>
+																</c:forEach>
+
+														</select></td>
+														<td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
+														<td><input type="text" id="acknowledgementNumber3"
+															name="acknowledgementNumber3"
+															class="form-control p-input "></td>
+														<td><input type="file" id="ITRFile3" name="ITRFile1" placeholder="Fill Acknowledgement Number"
+															onchange="handleFileSelect(event,'ITRFileText3'), onValidateFile('ITRFile1')"
+															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+															<textarea id="ITRFileText3" rows="5"
+																style="display: none;"></textarea> <label><span
+																style="font-weight: 500; color: #fd7e14;">File
+																	size Max ${fileSize} MB</span></label></td>
 													</tr>
 												</tbody>
 											</table>
-											<div class="card-body">
-												<div class="table-responsive"
-													style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-													<table class="table center-aligned-table" id="addITRGrid"
-														name="addITRGrid">
-														<thead>
-															<tr style="background: #1991eb; color: white;">
-																<th>Financial Year</th>
-																<th>Acknowledgement Number</th>
-																 <th>ITR Acknowledgment of 3 years</th>
-																<th>Action</th>
-
-															</tr>
-														</thead>
-														<tbody>
-														</tbody>
-													</table>
-
-
-
-												</div>
-											</div>
 										</form>
 									</div>
 								</div>
@@ -1268,17 +1315,23 @@ width: 100% !important;
 																onchange=" removeValCssByID(this),  handleFileSelect(event,'GSTFileText'), onValidateFile('GSTFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="GSTFileText" rows="5"
-																	style="display: none;"></textarea><label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label> </td>
-															<td><label>Proprietorship declaration<span
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">File
+																		size Max ${fileSize} MB</span></label></td>
+
+															<td><label>Proprietorship Declaration<span
 																	class="required">*</span></label></td>
 															<td><input type="file" id="PDFile" name="PDFile"
 																onchange=" removeValCssByID(this),  handleFileSelect(event,'PDFileText'), onValidateFile('PDFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="PDFileText" rows="5"
-																	style="display: none;"></textarea>
-																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
-																	</td>
-																
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">File
+																		size Max ${fileSize} MB</span></label>
+																		<a href="document/ProprietorshipDeclaration.docx" download>Download Template
+																		</a>
+																		</td>
+
 														</tr>
 
 														<tr>
@@ -1287,9 +1340,9 @@ width: 100% !important;
 																onchange="handleFileSelect(event,'PANFileText'), onValidateFile('PANFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="PANFileText" rows="5"
-																	style="display: none;"></textarea>
-																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
-																	</td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">File
+																		size Max ${fileSize} MB</span></label></td>
 
 															<td><label>Cancelled Cheque/ Passbook/ Bank
 																	Statement<span class="required">*</span>
@@ -1298,9 +1351,9 @@ width: 100% !important;
 																onchange="handleFileSelect(event,'CCFileText'), onValidateFile('CCFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="CCFileText" rows="5"
-																	style="display: none;"></textarea>
-																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
-																	</td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">File
+																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 														<tr>
 															<td><label>Aadhar Card</label></td>
@@ -1308,18 +1361,19 @@ width: 100% !important;
 																onchange="handleFileSelect(event,'ACFileText'), onValidateFile('ACFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="ACFileText" rows="5"
-																	style="display: none;"></textarea>
-																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
-																	</td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">File
+																		size Max ${fileSize} MB</span></label></td>
 															<td><label>Aadhar and PAN Card linking
 																	declaration</label></td>
 															<td><input type="file" id="APLFile" name="APLFile"
 																onchange="handleFileSelect(event,'APLFileText'), onValidateFile('APLFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="APLFileText" rows="5"
-																	style="display: none;"></textarea>
-																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
-																	</td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">File
+																		size Max ${fileSize} MB</span></label><a href="document/139 - Declaration from payees.docx" download>Download Template
+																		</a></td>
 														</tr>
 														<tr>
 															<td><label>ITR Filling Declaration<span
@@ -1328,18 +1382,18 @@ width: 100% !important;
 																onchange="handleFileSelect(event,'ITRFileText'), onValidateFile('ITRFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="ITRFileText" rows="5"
-																	style="display: none;"></textarea>
-																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
-																	</td>
-															<td><label>Filled Updated VRF Form<span
-																	class="required">*</span></label></td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">File
+																		size Max ${fileSize} MB</span></label><a href="document/206AB - Declaration form ITR Filing.docx" download>Download Template
+																		</a></td>
+															<td><label>Filled Updated VRF Form</label></td>
 															<td><input type="file" id="FUVFFile" name="FUVFFile"
 																onchange="handleFileSelect(event,'FUVFFileText'), onValidateFile('FUVFFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="FUVFFileText" rows="5"
-																	style="display: none;"></textarea>
-																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
-																	</td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">File
+																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 														<tr>
 															<td><label>MSME Certificate<span
@@ -1349,32 +1403,26 @@ width: 100% !important;
 																onchange="handleFileSelect(event,'MSMECFileText'), onValidateFile('MSMECFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="MSMECFileText" rows="5"
-																	style="display: none;"></textarea>
-																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
-																	</td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">File
+																		size Max ${fileSize} MB</span></label><a href="document/GST and MSME Annexure.xlsx" download>Download Template
+																		</a></td>
 															<td><label>Approval Mail<span
 																	class="required">*</span></label></td>
 															<td><input type="file" id="AMFile" name="AMFile"
 																onchange="handleFileSelect(event,'AMFileText'), onValidateFile('AMFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="AMFileText" rows="5"
-																	style="display: none;"></textarea>
-																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
-																	</td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">File
+																		size Max ${fileSize} MB</span></label></td>
 														</tr>
 
 														<tr>
-															<td><label>ITR Acknowledgment of 3 years<span
-																	class="required">*</span></label></td>
-															<td><input type="file" id="ITRAFile" name="ITRAFile"
-																onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
-																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-																<textarea id="ITRAFileText" rows="5"
-																	style="display: none;"></textarea>
-																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
-																	</td>
+															
 															<td><label>Name mismatch affidavit or
 																	declaration would be required if name mentioned in all
+
 																	document is not same including spelling error<span
 																	class="required">*</span>
 															</label></td>
@@ -1382,9 +1430,10 @@ width: 100% !important;
 																onchange="handleFileSelect(event,'NMISFileText'), onValidateFile('NMISFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
 																<textarea id="NMISFileText" rows="5"
-																	style="display: none;"></textarea>
-																	<label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
-																	</td>
+																	style="display: none;"></textarea> <label><span
+																	style="font-weight: 500; color: #fd7e14;">File
+																		size Max ${fileSize} MB</span></label><!-- <a href="C:/1.BPAAS/Document/doc.pdf" download="doc.pdf">Download Template
+																		</a> --></td>
 														</tr>
 													</tbody>
 												</table>
@@ -1394,62 +1443,74 @@ width: 100% !important;
 								</div>
 							</div>
 						</div>
-						
-						<div class="card-footer" align="center">
+					</div>
+					
+					
+				<!-- query page -->
+
+					<div id="step-6" class="">
+						<div class="card queryFormUi" style="display: none; margin-bottom: 10px;">
+							<div class="card-header" id="addressBookHead"
+								style="background: #1991eb; color: #ffffff;">
+								<h6 class="mb-0">Query</h6>
+							</div>
+							<div id="queryBookHeadData" aria-labelledby="queryBookHead"
+								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
+
+								<form class="">
+									<table class="table center-aligned-table" id="fromTable">
+											<tbody>
+												<tr class="container">
+													<td style="width: 150px;"><label for="supplierQuery">Remarks</label>
+													
+													<input type="hidden" name="pid" id="pid" value="${pid}">
+													</td>
+													<td style="width: 150px;">
+														<textarea class="form-control" id="comment" name="comment" rows="3" maxlength="250" placeholder="Remarks if Any"></textarea>
+													</td>
+													<td style="width: 150px;"><button type="Button"
+															class="btn btn-primary" id="addSupplierQueryBtn"
+															name="addSupplierQueryBtn" onclick="saveRemarks()">Add Remarks</button></td>
+												</tr>
+											</tbody>
+										</table>
+								</form>
+
+							</div>
+
+							<div class="card-body">
+								<form id="queryForm" class="forms-sample">
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="table table-bordered table-hover"
+												id="tabledataQuery">
+												<thead>
+													<tr>
+														<th class="bg-primary" style="color: white;">S.No</th>
+														<th class="bg-primary" style="color: white;">Raised on</th>
+														<th class="bg-primary" style="color: white;">Remarks</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+
+									<div class="card-footer" align="center">
                                         <button type="submit" id="updateBtn" onclick="sendToServer()" class="btn btn-primary">Save</button>
                                         <button type="button" class="btn btn-primary" id="closePopBtn" onclick="window.close();">Close</button>
                                     </div>
 
-						<!-- Start -->
-
-						<div class="card" hidden style="margin-bottom: 10px;">
-							<div class="card-header" id="changePassword"
-								name="changePassword"
-								style="background: #11aef6; color: #ffffff;">
-								<h6 class="mb-0">Change Password</h6>
-							</div>
-							<div id="passwordBookHeadData" aria-labelledby="passwordBookHead"
-								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
-								<div class="card-body" style="margin-bottom: 10px;">
-									<form id="passwordForm" class="forms-sample">
-										<table class="table center-aligned-table" id="fromTable"
-											name="fromTable">
-											<thead>
-											</thead>
-											<tbody>
-												<tr class="">
-													<td><label for="oldPassword">Old Password</label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="oldPassword"
-														name="oldPassword" placeholder="Old Password"></td>
-
-												</tr>
-												<tr class="">
-													<td><label for="New Password">Enter New
-															Password</label></td>
-													<td colspan='2'><input type="password"
-														class="form-control p-input" id="newPassword"
-														name="newPassword" placeholder="Enter New Password"></td>
-													<td><label for="Re-Type Password">Retype
-															Password</label></td>
-													<td colspan='2'><input type="password"
-														class="form-control p-input" id="reTypePassword"
-														name="reTypePassword" placeholder="Retype Password"></td>
-												</tr>
-											</tbody>
-										</table>
-										<div class="form-group"></div>
-										<div class="form-group"></div>
-									</form>
-								</div>
-							</div>
-						</div>
-						<!-- End -->
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 
 
@@ -1471,19 +1532,23 @@ width: 100% !important;
             });
             
         });
-        //$('#accordionExample').accordion();
-        //$('#accordionExample .next, #accordionExample .previous').click(function(e) {
-        //	e.preventDefault();
-        //	if ( $(this).hasClass('next') ) {
-        //		console.log("Ready Always next");
-        //		$(this).closest('.ui-accordion-content').next('.ui-accordion-header').click();    
-        //	} else if ( $(this).hasClass('previous') ) {
-        //		console.log("Ready Always previous");
-        //		$(this).closest('.ui-accordion-content').prevUntil('.ui-accordion-header:first').prev().click();    
-        //	}
-        //});<input class="btn btn-danger btn-sm" type="button" onClick="$(this).closest(&quot;tr&quot;).remove();">
-        //
-
+        $(document).ready(function() {
+            $('.js-example-basic-multiple1').select2({
+            	zplaceholder: "Select Region",
+                allowClear: true
+    		
+            });
+            
+        });
+        $(document).ready(function() {
+            $('.js-example-basic-multiple2').select2({
+            	zplaceholder: "Select Flag",
+                allowClear: true
+    		
+            });
+            
+        });
+       
         $("#addBookGridButt").click(function() {
             var abc = document.getElementById('city').value;
             var abc2 = document.getElementById('pinCode').value;
@@ -1492,16 +1557,16 @@ width: 100% !important;
             
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "District is mandatory", "warning");
+                swal.fire("Alert", "District is Mandatory", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "Pin Code is mandatory", "warning");
+                swal.fire("Alert", "Pin Code is Mandatory", "warning");
                 return false;
             } else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", "Nature of Transactions is mandatory", "warning");
+                swal.fire("Alert", "Nature of Transactions is Mandatory", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", "Address is mandatory", "warning");
+                swal.fire("Alert", "Address is Mandatory", "warning");
                 return false;
             }else {
 
@@ -1543,10 +1608,10 @@ width: 100% !important;
                 swal.fire("Alert", "Last Name is Mandatory !", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", "Phone Name is Mandatory !", "warning");
+                swal.fire("Alert", "Phone Number is Mandatory !", "warning");
                 return false;
             } else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", "Email is Mandatory !", "warning");
+                swal.fire("Alert", "Email Id is Mandatory !", "warning");
                 return false;
             } else {
                 console.log("Coming Here");
@@ -1572,54 +1637,18 @@ width: 100% !important;
             rowLength = table.rows.length;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
-                swal.fire("Alert", "Fill Mandatory Field ! Bank Name", "warning");
+                swal.fire("Alert", "Bank Name is Mandatory", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "Fill Mandatory Field ! IFSC Code", "warning");
+                swal.fire("Alert", "IFSC Code is Mandatory", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", "Fill Mandatory Field ! Account Number", "warning");
+                swal.fire("Alert", " Account Number is Mandatory", "warning");
                 return false;
             }else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", "Fill Mandatory Field ! Confirmed Account Number", "warning");
+                swal.fire("Alert", " Confirm Account Number is Mandatory", "warning");
                 return false;
+            
             }
            
             else if(rowLength<2) {
@@ -1841,10 +1870,31 @@ width: 100% !important;
 
             var partnerType=document.getElementById("partnerType").value
             
-            if(addressDetailsArray.length==0 && partnerType!="Ad-Hoc"){
+            if(addressDetailsArray.length==0 ){
             	
-            	swal.fire("Alert", "Please Add Address", "warning")
-                //return regex.test(inputvalues);
+            	swal.fire("Alert", "Please Add Address Details", "warning")
+                return false;
+            }
+            var contactDetailsArray = [];
+            table = document.getElementById('contactDetailsGrid');
+            rowLength = table.rows.length;
+
+            for (var i = 1; i < rowLength; i += 1) {
+                var row = table.rows[i];
+
+                var pushContactObj = {
+                    "conFname": row.cells[0].innerHTML,
+                    "conLname": row.cells[1].innerHTML,
+                    "conPhone": row.cells[2].innerHTML,
+                    "conEmail": row.cells[3].innerHTML
+                }
+                contactDetailsArray.push(pushContactObj);
+            }
+            
+            if(contactDetailsArray.length==0  ){
+            	
+				swal.fire("Alert", "Please Add Contact Details", "warning")
+                return false;
             }
             
             var accountDetailsArray = [];
@@ -1864,33 +1914,13 @@ width: 100% !important;
                 accountDetailsArray.push(pushObj);
             }
 
-            if(accountDetailsArray.length==0  && partnerType!="Ad-Hoc"){
+            if(accountDetailsArray.length==0 ){
             	
             	swal.fire("Alert", "Please Add Account Details", "warning")
-                return regex.test(inputvalues);
+                return false;
             }
             
-            var contactDetailsArray = [];
-            table = document.getElementById('contactDetailsGrid');
-            rowLength = table.rows.length;
 
-            for (var i = 1; i < rowLength; i += 1) {
-                var row = table.rows[i];
-
-                var pushContactObj = {
-                    "conFname": row.cells[0].innerHTML,
-                    "conLname": row.cells[1].innerHTML,
-                    "conPhone": row.cells[2].innerHTML,
-                    "conEmail": row.cells[3].innerHTML
-                }
-                contactDetailsArray.push(pushContactObj);
-            }
-            
-            if(contactDetailsArray.length==0  && partnerType!="Ad-Hoc"){
-            	
-				swal.fire("Alert", "Please Add Contact Details", "warning")
-                return regex.test(inputvalues);
-            }
             
             var itrDetailsArray = [];
             table = document.getElementById('addITRGrid');
@@ -1906,11 +1936,30 @@ width: 100% !important;
                 itrDetailsArray.push(pushItrObj);
             }
             
-          
+            var mandFields = "invoiceCurrency,paymentCurrency,creditTerms,paymentMethod";
+            var mandFieldsArr = mandFields.split(",");
+            for (i = 0; i < mandFieldsArr.length; i++) {
+                console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
+                if (document.getElementById(mandFieldsArr[i]).value == '') {
+                    notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                    console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                    return false;
+                }
+            }
+            var mandFields = "tdsSection,tdsRate";
+            var mandFieldsArr = mandFields.split(",");
+            for (i = 0; i < mandFieldsArr.length; i++) {
+                console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
+                if (document.getElementById(mandFieldsArr[i]).value == '') {
+                    notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                    console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                    return false;
+                }
+            }
             
             if ($("#partnerType").val() != "Ad-Hoc") { 
         		  
-        		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,ITRFile,FUVFFile,MSMECFile,AMFile,ITRAFile,NMISFile";
+        		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,ITRFile,FUVFFile,MSMECFile,AMFile,NMISFile";
                   var mandFieldsArr = mandFields.split(",");
 
                   for (i = 0; i < mandFieldsArr.length; i++) {
@@ -1995,15 +2044,25 @@ width: 100% !important;
                 finalObj.amFileName = document.getElementById("AMFile").files.item(0).name;
                 finalObj.amFileText = $("#AMFileText").val();
             }
-            if (document.getElementById("ITRAFile").files.length > 0) {
-                finalObj.itraFileName = document.getElementById("ITRAFile").files.item(0).name;
-                finalObj.itraFileText = $("#ITRAFileText").val();
-            }
+           
             if (document.getElementById("NMISFile").files.length > 0) {
                 finalObj.nmisFileName = document.getElementById("NMISFile").files.item(0).name;
                 finalObj.nmisFileText = $("#NMISFileText").val();
             }
             
+            // last three year ITR file upload
+            if (document.getElementById("ITRFile1").files.length > 0) {
+                finalObj.itraFileName1 = document.getElementById("ITRFile1").files.item(0).name;
+                finalObj.itraFileText1 = $("#ITRFileText1").val();
+            }
+            if (document.getElementById("ITRFile2").files.length > 0) {
+                finalObj.itraFileName2 = document.getElementById("ITRFile2").files.item(0).name;
+                finalObj.itraFileText2 = $("#ITRFileText2").val();
+            }
+            if (document.getElementById("ITRFile3").files.length > 0) {
+                finalObj.itraFileName3 = document.getElementById("ITRFile3").files.item(0).name;
+                finalObj.itraFileText3 = $("#ITRFileText3").val();
+            }
 
             /* var checked = []
             
@@ -2021,9 +2080,92 @@ width: 100% !important;
             
             finalObj.vendorType = values;
             
-            console.log("finalObj");
-            console.log(finalObj);
+            var value =[];
+            $("#region :selected").each(function(){
+           	 value.push($(this).val()); 
+            });
+            if(value.includes("CRO") || value.includes("ERO")){//ERO
+           	 finalObj.ero="Y";
+           	 
+            } if(value.includes("WRO")){
+           	 finalObj.wro="Y";
+            } if(value.includes("NRO")){
+           	 finalObj.nro="Y";
+            } if(value.includes("SRO1") || value.includes("SRO2")){//SRO
+           	 finalObj.sro="Y";
+            } if(value.includes("IHQ") ){
+           	 finalObj.ihq="Y";
+            }
             
+            
+            var value1 =[];
+            $("#flag :selected").each(function(){
+           	 value.push($(this).val()); 
+            });
+            if(value.includes("ADDRESS_PURCHASING")){
+           	 finalObj.addressPurchasingFlag="Y";
+           	 
+            } if(value.includes("ADDRESS_PAYMENT")){
+           	 finalObj.addressPaymentFlag="Y";
+            } if(value.includes("INVOICE_PREVALIDATED")){
+           	 finalObj.invoicePrevalidatedFlag="Y";
+            }
+            
+            
+            var val = document.getElementById("states").value
+				if(val.toLowerCase()=="network"){
+					finalObj.glCode="203101";
+				}else if(val.toLowerCase()=="other expenses"){
+					finalObj.glCode="203104";
+				}else if(val.toLowerCase()=="rent"){
+					finalObj.glCode="203102";
+				}else if(val.toLowerCase()=="fixed assets"){
+					finalObj.glCode="203105";
+				}else if(val.toLowerCase()=="courier"){
+					finalObj.glCode="203103";
+				}else if(val.toLowerCase()=="employee nominee"){
+					finalObj.glCode="203108";
+				}
+				
+            
+         /*    
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(finalObj),
+                url: "ajaxController/getBpcode",
+                dataType: "json",
+                contentType: "application/json",
+                success: function(response) {
+                	//return;
+                    if (response.msg == 'success') {
+                    	  $('.loader').hide();
+                    	
+
+
+                        setTimeout(function(response) {
+                            //location.href = "login";
+                        }, 2000);
+                    } else {
+                        alert("failed");
+                    }
+                },
+                error: function(jqXHR, textStatue, errorThrown) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+                }
+            });
+        }
+
+            
+            
+			var bpco=
+				
+            finalObj.bpCode=
+ */            console.log("finalObj");
+            console.log(finalObj);
 
             $.ajax({
                 type: "POST",
@@ -2034,8 +2176,10 @@ width: 100% !important;
                 success: function(response) {
                 	//return;
                     if (response.msg == 'success') {
+                    	  $('.loader').hide();
                     	swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + response.data, "success", "OK").then(function() {
-                            //window.location = "login";
+                           
+                            
                         	window.close();
                         });
 
@@ -2114,97 +2258,97 @@ width: 100% !important;
              try {
                  if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
  				
-                	 if(controlName=="introducedByName"){
-                		 swal.fire("Alert", "Introducer Name is Mandatory", "warning")
-                         .then((value) => {});
-                		 
-                	 }
-                	 else  if(controlName=="introducedByEmailID"){
-                   	  
-                  	   swal.fire("Alert", "Introducer Email Id is Mandatory", "warning")
-                         .then((value) => {});
-                     }
-                	else  if(controlName=="states"){
-                	  
-                	   swal.fire("Alert", "Business Partner Type is Mandatory", "warning")
-                       .then((value) => {});
-                   }
-                	else  if(controlName=="suppName"){
-                  	  
-                 	   swal.fire("Alert", "Business Partner Name is Mandatory", "warning")
-                        .then((value) => {});
-                    }
-                	
-                	else  if(controlName=="panNumber"){
-                  	  
-                   	   swal.fire("Alert", "PAN Number is Mandatory", "warning")
+                 	 if(controlName=="introducedByName"){
+                 		 swal.fire("Alert", "Introducer Name is Mandatory", "warning")
+                          .then((value) => {});
+                 		 
+                 	 }
+                 	 else  if(controlName=="introducedByEmailID"){
+                    	  
+                   	   swal.fire("Alert", "Introducer Email Id is Mandatory", "warning")
                           .then((value) => {});
                       }
-                	
-                	 else  if(controlName=="creditTerms"){
-                      	  
-                    	   swal.fire("Alert", "Payment / Credit Terms is Mandatory", "warning")
+                 	else  if(controlName=="states"){
+                 	  
+                 	   swal.fire("Alert", "Business Partner Type is Mandatory", "warning")
+                        .then((value) => {});
+                    }
+                 	else  if(controlName=="suppName"){
+                   	  
+                  	   swal.fire("Alert", "Business Partner Name is Mandatory", "warning")
+                         .then((value) => {});
+                     }
+                 	
+                 	else  if(controlName=="panNumber"){
+                   	  
+                    	   swal.fire("Alert", "PAN Number is Mandatory", "warning")
                            .then((value) => {});
                        }
-                	 else  if(controlName=="paymentMethod"){
-                     	  
-                  	   swal.fire("Alert", "Payment Method is Mandatory", "warning")
-                         .then((value) => {});
-                     }
-                	 else  if(controlName=="tdsSection"){
-                   	  
-                  	   swal.fire("Alert", "TDS Section is Mandatory", "warning")
-                         .then((value) => {});
-                     }
-              	 else  if(controlName=="tdsRate"){
-                 	  
-                	   swal.fire("Alert", "TDS Rate is Mandatory", "warning")
+                 	
+                 	 else  if(controlName=="creditTerms"){
+                       	  
+                     	   swal.fire("Alert", "Payment / Credit Terms is Mandatory", "warning")
+                            .then((value) => {});
+                        }
+                 	 else  if(controlName=="paymentMethod"){
+                      	  
+                   	   swal.fire("Alert", "Payment Method is Mandatory", "warning")
+                          .then((value) => {});
+                      }
+                 	 else  if(controlName=="tdsSection"){
+                    	  
+                   	   swal.fire("Alert", "TDS Section is Mandatory", "warning")
+                          .then((value) => {});
+                      }
+               	 else  if(controlName=="tdsRate"){
+                  	  
+                 	   swal.fire("Alert", "TDS Rate is Mandatory", "warning")
+                        .then((value) => {});
+                    }
+                 	 
+              
+                 	 
+               	else  if(controlName=="GSTFile"){
+                	  
+              	   swal.fire("Alert", "GST Certificate is Mandatory", "warning")
+                     .then((value) => {});
+                 }
+               	else  if(controlName=="PDFile"){
+                  	  
+               	   swal.fire("Alert", "Proprietorship Declaration is Mandatory", "warning")
+                      .then((value) => {});
+                  }
+               	else  if(controlName=="PANFile"){
+                  	  
+               	   swal.fire("Alert", "PAN Card is Mandatory", "warning")
+                      .then((value) => {});
+                  }
+               	else  if(controlName=="CCFile"){
+                	  
+                	   swal.fire("Alert", "Cancelled Cheque/ Passbook/ Bank Statemen  is Mandatory", "warning")
                        .then((value) => {});
                    }
-                	 
-             
-              	else  if(controlName=="GSTFile"){
-               	  
-             	   swal.fire("Alert", "GST Certificate is Mandatory", "warning")
-                    .then((value) => {});
-                }
-              	else  if(controlName=="PDFile"){
-                 	  
-              	   swal.fire("Alert", "Proprietorship Declaration is Mandatory", "warning")
-                     .then((value) => {});
-                 }
-              	else  if(controlName=="PANFile"){
-                 	  
-              	   swal.fire("Alert", "PAN Card is Mandatory", "warning")
-                     .then((value) => {});
-                 }
-              	else  if(controlName=="CCFile"){
-               	  
-               	   swal.fire("Alert", "Cancelled Cheque/ Passbook/ Bank Statemen  is Mandatory", "warning")
-                      .then((value) => {});
-                  }
-              	else  if(controlName=="ITRFile"){
-               	  
-               	   swal.fire("Alert", "ITR Filling Declaration is Mandatory", "warning")
-                      .then((value) => {});
-                  }
-             
-              	else  if(controlName=="MSMECFile"){
-               	  
-               	   swal.fire("Alert", "MSME Certificate is Mandatory", "warning")
-                      .then((value) => {});
-                  }
-              	else  if(controlName=="AMFile"){
-               	  
-               	   swal.fire("Alert", "Approval Mail is Mandatory", "warning")
-                      .then((value) => {});
-                  }
-              	else  if(controlName=="NMISFile"){
-               	  
-               	   swal.fire("Alert", "Name Mismatch Affidavit is Mandatory", "warning")
-                      .then((value) => {});
-                  }
-                    
+               	else  if(controlName=="ITRFile"){
+                	  
+                	   swal.fire("Alert", "ITR Filling Declaration is Mandatory", "warning")
+                       .then((value) => {});
+                   }
+               
+               	else  if(controlName=="MSMECFile"){
+                	  
+                	   swal.fire("Alert", "MSME Certificate is Mandatory", "warning")
+                       .then((value) => {});
+                   }
+               	else  if(controlName=="AMFile"){
+                	  
+                	   swal.fire("Alert", "Approval Mail is Mandatory", "warning")
+                       .then((value) => {});
+                   }
+               	else  if(controlName=="NMISFile"){
+                	  
+                	   swal.fire("Alert", "Name Mismatch Affidavit is Mandatory", "warning")
+                       .then((value) => {});
+                   }
                  	
                     // $('#manPara').css('display', '');
                     // addValCss(controlName);
@@ -2216,7 +2360,6 @@ width: 100% !important;
 
              }
          } 
-
  
        
         
@@ -2447,6 +2590,11 @@ width: 100% !important;
 				
 			}
 			
+        	
+			function region1(){
+			
+				
+			}
 			
 			
     </script>

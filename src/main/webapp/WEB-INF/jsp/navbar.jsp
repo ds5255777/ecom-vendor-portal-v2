@@ -140,11 +140,11 @@
 					<form role="form" id="addForm" autocomplete="off">
 						<div class="row">
 							<div class="col-md-4">
-								<input type="text" name="fromDate" placeholder="Start Date"
+								<input type="text" readonly="readonly" name="fromDate" placeholder="Start Date"
 									class="form-control" id="fromDate">
 							</div>
 							<div class="col-md-4">
-								<input type="text" name="toDate" placeholder="End Date"
+								<input type="text" readonly="readonly" name="toDate" placeholder="End Date"
 									class="form-control" id="toDate">
 							</div>
 							<div class="col-md-4">

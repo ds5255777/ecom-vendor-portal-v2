@@ -106,7 +106,7 @@
                                         In-Active Users : <b>${totalInActiveUser}</b></p>
                                 </div>
                                 <div class="icon">
-                                <i class="fa fa-user" style="color: #1F8BFF;font-size: 150px; aria-hidden="true" ></i>
+                                <i class="fa fa-user" style="color: #FAA654;font-size: 150px; aria-hidden="true" ></i>
                                    <!--  <i class="fas fa-file-invoice-dollar" style="color: #1F8BFF; font-size: 50px;"></i> -->
                                 </div>
                                 <a href="addUsers" class="small-box-footer" style="background: #007bffe0; color: white !important;">More

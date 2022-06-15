@@ -935,6 +935,8 @@ label {
     /* border: hidden; */
     display: none;
 }
+
+
 </style>
 
 
@@ -960,7 +962,7 @@ label {
 		<br> <br>
 		<input type="hidden" id="vendorPrimaryKey" />
 		<input type="hidden" id="vendorPid" />
-		<div class="content-wrapper" style="margin-left: 0px; width: 100%;">
+		<div class="content-wrapper" style="margin-left: 0px; width: 100%; ">
 			<div id="smartwizard" style="background: white; padding: 20px;">
 				<ul>
 					<li style="margin-left: 0px; margin-right: auto;"><a
@@ -1131,11 +1133,10 @@ label {
 
 												</select></td>
 											</tr>
-											
-											<tr class="">
+											<tr>
 	
 													<td><label>Region<span
-														 class="required adHocRequired">*</span></label></td>
+														 class="required adHocRequired"></span></label></td>
 
 												<td style="width: auto"><select colspan='1'
 													class="js-example-basic-multiple1 select2" name="region[]"
@@ -1147,7 +1148,7 @@ label {
 												</select></td>
 											
 											<td><label>Section Type<span
-														 class="required adHocRequired">*</span></label></td>
+														 class="required adHocRequired"></span></label></td>
 
 													<td><select colspan='1' class="form-control p-input"
 													id="sectionType" name="sectionType"
@@ -1160,12 +1161,10 @@ label {
 														</c:forEach>
 
 												</select></td>
-												
-												
 											
 											</tr>
-										
-										
+											
+												<tr></tr>									
 										
 										</tbody>
 									</table>
@@ -1173,6 +1172,7 @@ label {
 							</div>
 						</div>
 					</div>
+					
 					<div id="step-2" class="">
 						<div class="card" style="margin-bottom: 10px;">
 							<div class="card-header" id="addressBookHead"
@@ -1530,10 +1530,20 @@ label {
 												<tr class="">
 													<td><label for="paymentMethod">Payment Method<span
 															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="paymentMethod"
-														name="paymentMethod" onchange="removeValCssByID(this)"
-														placeholder="Payment Method"></td>
+													
+													<td colspan='2'>
+													
+														<select id="paymentMethod" name="paymentMethod"
+														class="form-control p-input" colspan='2'
+														placeholder="Payment Method"
+														onchange="removeValCssByID(this)">
+															
+															<c:forEach items="${paymentMethod}" var="met">
+																<option value="${met}">${met}</option>
+															</c:forEach>
+													</select>
+													
+														</td>
 
 													<td><label for="dateBasis">Terms Date Basis</label></td>
 													<td colspan='2'><input type="text"
@@ -1629,7 +1639,7 @@ label {
 											<table class="table center-aligned-table table-striped" id="addITRGrid" name="addITRGrid">
 												<tbody>
 													<tr class="">
-													<td><label>Select Financial Year<span class="required adHocRequired">*</span></label> </td>
+													<td><label>Select Financial Year<span class="required adHocRequired"></span></label> </td>
 														<td><select id="fyYear1" name="fyYear1" class="form-control p-input ">
 																<option value="">Select</option>
 
@@ -1639,7 +1649,7 @@ label {
 																</c:forEach>
 
 														</select></td>
-														<td><label>Fill Acknowledgement Number<span class="required adHocRequired">*</span></label> </td>
+														<td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
 														<td><input type="text" id="acknowledgementNumber1"
 															name="acknowledgementNumber1"
 															class="form-control p-input "></td>
@@ -1652,7 +1662,7 @@ label {
 																	size Max ${fileSize} MB</span></label></td>
 													</tr>
 													<tr class="">
-														<td><label>Select Financial Year<span class="required adHocRequired">*</span></label> </td>
+														<td><label>Select Financial Year<span class="required adHocRequired"></span></label> </td>
 														<td><select id="fyYear2" name="fyYear2" class="form-control p-input ">
 																<option value="">Select</option>
 
@@ -1662,7 +1672,7 @@ label {
 																</c:forEach>
 
 														</select></td>
-														<td><label>Fill Acknowledgement Number<span class="required adHocRequired">*</span></label> </td>
+														<td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
 														<td><input type="text" id="acknowledgementNumber2"
 															name="acknowledgementNumber2"
 															class="form-control p-input "></td>
@@ -1675,7 +1685,7 @@ label {
 																	size Max ${fileSize} MB</span></label></td>
 													</tr>
 													<tr class="">
-													<td><label>Select Financial Year<span class="required adHocRequired">*</span></label> </td>
+													<td><label>Select Financial Year<span class="required adHocRequired"></span></label> </td>
 														<td><select id="fyYear3" name="fyYear3" class="form-control p-input ">
 																<option value="">Select</option>
 
@@ -1685,7 +1695,7 @@ label {
 																</c:forEach>
 
 														</select></td>
-														<td><label>Fill Acknowledgement Number<span class="required adHocRequired">*</span></label> </td>
+														<td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
 														<td><input type="text" id="acknowledgementNumber3"
 															name="acknowledgementNumber3"
 															class="form-control p-input "></td>
@@ -2011,31 +2021,7 @@ label {
             });
             
         });
-        //$('#accordionExample').accordion();
-        //$('#accordionExample .next, #accordionExample .previous').click(function(e) {
-        //	e.preventDefault();
-        //	if ( $(this).hasClass('next') ) {
-        //		console.log("Ready Always next");
-        //		$(this).closest('.ui-accordion-content').next('.ui-accordion-header').click();    
-        //	} else if ( $(this).hasClass('previous') ) {
-        //		console.log("Ready Always previous");
-        //		$(this).closest('.ui-accordion-content').prevUntil('.ui-accordion-header:first').prev().click();    
-        //	}
-        //});<input class="btn btn-danger btn-sm" type="button" onClick="$(this).closest(&quot;tr&quot;).remove();">
-        //
-
-       /*  alert("hii");
-        function ShowAlert() {
-        	  var ab = document.getElementById('introducedByName').value;
-              console.log("ab =>" + ab);
-        	    if (ab == null || ab == "") {
-        	        swal.alert("Alert", "Fill introducer name !", "warning" );
-        	        ab.focus;
-        	        return false;
-        	    }
-        	   
-        	 } */
-        	 
+      
 
         	 
         
@@ -2367,8 +2353,39 @@ label {
              finalObj.id=$("#vendorPrimaryKey").val();
              finalObj.pid=$("#vendorPid").val();
              
-             var region =$("#region").val();
-             finalObj.region=region;
+             var value =[];
+             $("#region :selected").each(function(){
+            	 value.push($(this).val()); 
+             });
+             if(value.includes("CRO") || value.includes("ERO")){//ERO
+            	 finalObj.ero="Y";
+            	 
+             } if(value.includes("WRO")){
+            	 finalObj.wro="Y";
+             } if(value.includes("NRO")){
+            	 finalObj.nro="Y";
+             } if(value.includes("SRO1") || value.includes("SRO2")){//SRO
+            	 finalObj.sro="Y";
+             } if(value.includes("IHQ") ){
+            	 finalObj.ihq="Y";
+             }
+             
+             var val = document.getElementById("states").value
+				if(val.toLowerCase()=="network"){
+					finalObj.glCode="203101";
+				}else if(val.toLowerCase()=="other expenses"){
+					finalObj.glCode="203104";
+				}else if(val.toLowerCase()=="rent"){
+					finalObj.glCode="203102";
+				}else if(val.toLowerCase()=="fixed assets"){
+					finalObj.glCode="203105";
+				}else if(val.toLowerCase()=="courier"){
+					finalObj.glCode="203103";
+				}else if(val.toLowerCase()=="employee nominee"){
+					finalObj.glCode="203108";
+				}
+				
+           
             console.log(finalObj);
              
 
@@ -2806,7 +2823,9 @@ label {
 		
 				
 				var val = document.getElementById("states").value
-				if (val == "Network") {
+				
+				
+				if (val.toLowerCase() == "network") {
 					document.getElementById("partnerType").disabled = false;
 					document.getElementById("partnerType").value = "Scheduled";
 				}else{
@@ -2818,20 +2837,48 @@ label {
 			}
 			function MESMENumber(){
 				var busClassif=$("#businessClassification").val();
-				if (busClassif != "Other") {
+				
+				if (busClassif.toLowerCase() != "other" ) {
 					document.getElementById("mesmeNumber").disabled = false;
 					
-				}else{
+				}
+				else {
 					document.getElementById("mesmeNumber").disabled = true;
 					document.getElementById("mesmeNumber").value = "";
 					
+				} if(busClassif ==""){
+					document.getElementById("mesmeNumber").disabled = true;
+					document.getElementById("mesmeNumber").value = "";
 				}
 				
 			}
 			
+			//$(".sw-container").css("min-height","0px");
+			//$(".tab-content").css("min-height","0px");
+		//	$(".sw-container tab-content").css("min-height","0px");
+			
 			function region1(){
-				var region =$("#region").val();
-				alert(region);
+				/*  var value =[];
+	             $("#region :selected").each(function(){
+	            	 value.push($(this).val()); 
+	             });
+	         
+	            
+	             if(value.includes("CRO") || value.includes("ERO")){//ERO
+	            	 alert("ERO");
+	            	 
+	             }else if(value.includes("WRO")){
+	            	 alert("WRO");
+	             }else if(value.includes("NRO")){
+	            	 alert("NRO");
+	             }else if(value.includes("SRO1") || value.includes("SRO2")){//SRO
+	            	 alert("SRO");
+	             }else if(value.includes("IHQ") ){
+	            	 alert("IHQ");
+	             } */
+	             
+				
+				
 			}
 			
 		

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.main.db.bpaas.entity.Flag;
 import com.main.db.bpaas.repo.AddressDetailsRepo;
 import com.main.db.bpaas.repo.AdharLinkStatusRepo;
 import com.main.db.bpaas.repo.AgreementMasterRepo;
@@ -16,11 +17,13 @@ import com.main.db.bpaas.repo.DocumentRepo;
 import com.main.db.bpaas.repo.EmailAuditLogsRepo;
 import com.main.db.bpaas.repo.EmailConfigurationRepository;
 import com.main.db.bpaas.repo.FinancialYearRepo;
+import com.main.db.bpaas.repo.FlagRepo;
 import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.InvoiceLineItemRepo;
 import com.main.db.bpaas.repo.InvoiceNumberRepo;
 import com.main.db.bpaas.repo.MailContentRepo;
 import com.main.db.bpaas.repo.NatureOfTransactionRepo;
+import com.main.db.bpaas.repo.PaymentMethodRepo;
 import com.main.db.bpaas.repo.PaymentTermRepo;
 import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.PoInvoiceRepo;
@@ -149,10 +152,10 @@ public class ServiceManager {
 	public SectionTypeRepo sectionTypeRepo;
 	
 	@Autowired
-	public StateRepo stateRepo;
+	public PaymentMethodRepo paymentMethodRepo;
 	
 	@Autowired
-	public InvoiceNumberRepo invoiceNumberRepo;
+	public FlagRepo flagRepo;
 
 	/*
 	 * public void insertRecordIntoAuditEntry(HttpServletRequest request, String

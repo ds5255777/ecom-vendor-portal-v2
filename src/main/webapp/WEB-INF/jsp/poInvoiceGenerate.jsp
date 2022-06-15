@@ -156,8 +156,8 @@
 											<label class="col-sm-5">Invoice Date <span
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
-												<input type="text" name="invoiceDate" id="invoiceDate"
-													 class="form-control-sm" onchange="invoiceDateValidate()" placeholder="DD-MM-YYYY" style="width: 100%;">
+												<input type="text" name="invoiceDate" id="invoiceDate" readonly="readonly"
+													 class="form-control-sm" onchange="invoiceDateCheck();" placeholder="DD-MM-YYYY" style="width: 100%;">
 											</div>
 										</div>
 									</div>
@@ -277,9 +277,10 @@
 											
 													<select class="form-control-sm select2" style="width: 100%;"
 													id="paymentMethod" name="paymentMethod" readonly>
-													<option value="NEFT" readonly>NEFT</option>
-													<option value="Cheque" readonly>Cheque</option>
-													<option value="Online" readonly>Online</option>
+												<c:forEach items="${paymentMethod}" var="met">
+
+																<option value="${met}">${met}</option>
+															</c:forEach>
 
 												</select>
 											</div>
@@ -622,6 +623,7 @@
     var  grosstotalamt=0;
   
    var quntityflag=[];
+   var needByDate="";
    
    var prTable = $('#prTable').DataTable({
 		"paging" : false,
@@ -681,6 +683,7 @@
 			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
 			
            $("#termsDate").val(datestring);
+         
        	
   	 }else if(terms=="NET 45 Days"){
   		 
@@ -738,7 +741,10 @@
                     	quntityflag.push("0");
                     }
                   
-                 
+                    if (!result[0].hasOwnProperty("needByDate")) {
+                    	result[0].needByDate = "";
+                    }
+                     needByDate= result[0].needByDate;
                     
                     $('#supplierSite').val(result[0].supplierSite)
                      $('#operatingUnit').val(result[0].supplierSite)
@@ -1332,11 +1338,12 @@
     	        
     	        finalObj.poInvoiceLine=tripLineArray;
     	        
-    	        var invoDate=$("#invoiceDate").val();
+    	        var invoDate= $("#invoiceDate").val();
     	       
     	        var ts = new Date(invoDate);
-    	        
-    	            
+    	        if(needByDate!=""){
+    	        finalObj.glDate= needByDate.split(" ")[0].toString();
+    	        }
 	        console.log(finalObj);
 	
 	        
@@ -1684,7 +1691,31 @@
     	             
 
     	        }
-    	       
+    	        function invoiceDateCheck(){	
+    	        	var date1=needByDate;
+    	        	
+    	        	var date2 =  $("#invoiceDate").val();
+    	        	var check="false";		
+    	        	
+    	        	if(date1 !="" && date2 !=""){
+    	        		
+    	        		date1=moment(date1, 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD');
+    	        	
+    	        		date2=moment(date2, 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD');
+    	        			
+    	        			if(date2 > date1){
+    	        				check="true";
+    	        			}else{
+    	        				 Toast.fire({
+    	        		                type: 'error',
+    	        		                title: 'Invoice date should be greater then PO date!'
+
+    	        		            });
+    	        			}
+    	        			
+    	        	}	
+    	        		return check;
+    	          }
 
     	      
     </script>

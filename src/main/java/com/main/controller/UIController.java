@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.AddressDetails;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
+import com.main.db.bpaas.entity.InvoiceNumber;
 import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoLineDetails;
 import com.main.db.bpaas.entity.RolesEntity;
@@ -88,6 +89,7 @@ public class UIController {
 			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
 			List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
 			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
+			List<String> stateName = serviceManager.stateRepo.getStateName();
 			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
 			List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
 			List<String> country = serviceManager.countryRepo.getCountry();
@@ -102,6 +104,7 @@ public class UIController {
 			model.addAttribute("business", business);
 			model.addAttribute("partner", partner);
 			model.addAttribute("classification", classification);
+			model.addAttribute("stateName",stateName);
 			model.addAttribute("payment", payment);
 			model.addAttribute("nature", nature);
 			model.addAttribute("country", country);
@@ -128,6 +131,7 @@ public class UIController {
 			List<String> currency = serviceManager.currencyRepo.getCurrencyType();
 			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
 			List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
+			List<String> stateName = serviceManager.stateRepo.getStateName();
 			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
 			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
 			List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
@@ -142,6 +146,7 @@ public class UIController {
 			model.addAttribute("currency", currency);
 			model.addAttribute("business", business);
 			model.addAttribute("partner", partner);
+			model.addAttribute("stateName",stateName);
 			model.addAttribute("classification", classification);
 			model.addAttribute("payment", payment);
 			model.addAttribute("nature", nature);
@@ -731,8 +736,8 @@ public class UIController {
 
 	public synchronized String generateInvoiceNumber() {
 
-		long count = serviceManager.invoiceGenerationEntityRepo.count();
-		String invoiceNumberPrefix = "ECOM";
+		long count = serviceManager.invoiceNumberRepo.count();
+		String invoiceNumberPrefix = "ECOM-";
 
 		count = count + 1;
 		String invoiceNumber = invoiceNumberPrefix + String.format("%08d", count); // Filling with zeroes
@@ -747,6 +752,11 @@ public class UIController {
 		String invoiceNumber = "";
 
 		invoiceNumber = generateInvoiceNumber();
+		
+		InvoiceNumber inNumber= new InvoiceNumber();
+		inNumber.setEcomInvoiceNumber(invoiceNumber);
+		inNumber.setStatus("Used_Trip_Invoice");
+		serviceManager.invoiceNumberRepo.save(inNumber);
 
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		request.getSession().setAttribute("invoiceNumber", invoiceNumber);
@@ -810,6 +820,8 @@ public class UIController {
 			listofTrips.add(tripID);
 
 		}
+		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("listofTrips", listofTrips);
 
 		return "draftInvoiceGenerate";
@@ -847,7 +859,8 @@ public class UIController {
 			vendorName = tripDetails.getVendorName();
 		}
 		List<AddressDetails> vendorAddress = serviceManager.addressDetailsRepo.getVendorAddress(vendorName);
-		
+		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("vendorAddress",vendorAddress);
 
 		model.addAttribute("vendorName", vendorName);

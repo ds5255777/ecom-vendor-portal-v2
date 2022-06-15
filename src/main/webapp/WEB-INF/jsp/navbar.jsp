@@ -157,7 +157,7 @@
 					</form>
 				</li>
 			</c:when>
-			<c:when test="${pageName=='Dashboard' || pageName=='PO Dashboard'}">
+			<c:when test="${pageName=='Dashboard' || pageName=='PO Dashboard' || pageName=='Finance Dashboard'}">
                 <li class="nav-item d-none d-sm-inline-block"><b><a class="nav-link"><%=request.getParameter("pagename")%></a></b></li>
 			</c:when>
 

@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "invoice_line_item")
@@ -63,6 +64,9 @@ public class InvoiceLineItem {
 	@Column(name = "line_level_description")
 	private String lineLevelDescription;
 
+	@Transient
+	private String newAdded;
+	
 	public Long getId() {
 		return id;
 	}
@@ -197,6 +201,14 @@ public class InvoiceLineItem {
 
 	public void setMileage(Double mileage) {
 		this.mileage = mileage;
+	}
+
+	public String getNewAdded() {
+		return newAdded;
+	}
+
+	public void setNewAdded(String newAdded) {
+		this.newAdded = newAdded;
 	}
 
 }

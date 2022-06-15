@@ -110,7 +110,7 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <jsp:include page="navbar.jsp?pagename=Approved Invoice" />
+        <jsp:include page="navbar.jsp?pagename=Approved Invoices" />
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->

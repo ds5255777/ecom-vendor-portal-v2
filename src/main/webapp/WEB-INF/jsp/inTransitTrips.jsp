@@ -761,7 +761,6 @@
                     url: "<%=GlobalUrl.getInTransitTripsDetails%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
 
                         $('.loader').hide();
@@ -828,6 +827,7 @@
             }
 
             function setTripStatus(tripId) {
+            	$('.loader').show();
                 console.log("Trip od" + tripId);
                 getQueryData(tripId)
 
@@ -841,9 +841,8 @@
                     url: "<%=GlobalUrl.tripDetailByTripId%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
-
+                    	$('.loader').hide();
                         if (data.msg == 'success') {
                             var result = data.data;
 
@@ -873,7 +872,7 @@
             }
             
             function getQueryData(tripId){
-      			 
+            	$('.loader').show();
       			 var obj ={
       						"referenceid": tripId,
       						"type": "Trip"
@@ -886,6 +885,7 @@
       					dataType : "json",
       					contentType : "application/json",
       					success : function(response) {
+      						$('.loader').hide();
       						if (response.msg == "success") {
       						
       							if("data" in response){

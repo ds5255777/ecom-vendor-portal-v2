@@ -146,7 +146,6 @@ tbody {
 					<div class="row">
 						<div class="col-md-12" style="font-size: 14px;">
 							<!-- general form elements -->
-							<div class="card card-primary ">
 							<div class="card">
 
 								<!-- /.card-header -->
@@ -220,7 +219,6 @@ tbody {
 								</div>
 								<!-- /.card-body -->
 							</div>
-</div>
 </div>
 
 						</div>

@@ -1113,9 +1113,10 @@ tbody {
              type: "GET",
              data: {
              	"actualDeparture": fromDate.concat(" ","00:00:00"),
-                 "actualArrival": toDate.concat(" ","23:59:59")
+                 "actualArrival": toDate.concat(" ","23:59:59"),
+                 "vendorCode": ""
              },
-             url: "<%=GlobalUrl.filterTripDetailsByNetwork%>",
+             url: "<%=GlobalUrl.filterTripDetails%>",
              dataType: "json",
              contentType: "application/json",
 
@@ -1184,7 +1185,7 @@ tbody {
          $('.loader').show();
          $.ajax({
              type: "POST",
-             url: "<%=GlobalUrl.statusNetwork%>",
+             url: "<%=GlobalUrl.status%>",
              dataType: "json",
              contentType: "application/json",
              data: JSON.stringify(obj),

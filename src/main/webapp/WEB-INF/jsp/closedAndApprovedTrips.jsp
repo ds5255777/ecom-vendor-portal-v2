@@ -840,7 +840,6 @@
                     url: "<%=GlobalUrl.getCloseAndApprovedTripsDetails%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
                         $('.loader').hide();
                         if (data.msg == 'success') {
@@ -897,6 +896,7 @@
             }
 
             function setTripStatus(tripId) {
+            	$('.loader').show();
             	getQueryData(tripId);
                 var json = {
                     "tripID": tripId
@@ -910,7 +910,7 @@
                     contentType: "application/json",
                     async: false,
                     success: function(data) {
-
+                    	$('.loader').hide();
                         if (data.msg == 'success') {
                             var result = data.data;
                             var myForm = "";
@@ -940,7 +940,7 @@
             //window.opener.refereshList()
             
             function getQueryData(tripId){
-   			 
+            	$('.loader').show();
    			 var obj ={
    						"referenceid": tripId,
    						"type": "Trip"
@@ -953,6 +953,7 @@
    					dataType : "json",
    					contentType : "application/json",
    					success : function(response) {
+   						$('.loader').hide();
    						if (response.msg == "success") {
    						
    							if("data" in response){
@@ -998,7 +999,7 @@
    				}); 
    		 }
             function selectDropDownValue(){
-            	
+            	$('.loader').show();
             	var columnName= $("#selectLevelValue").val();
             	var columnValue=$("#selectInputValue").val();
             	var vendorCode=$("#vendorCode").val();
@@ -1035,6 +1036,7 @@
     					dataType : "json",
     					contentType : "application/json",
     					success : function(response) {
+    						$('.loader').hide();
     						if (response.msg == "success") {
     							 var result = response.data;
     	                            tabledata.clear();

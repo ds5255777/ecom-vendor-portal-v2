@@ -819,7 +819,6 @@ tbody {
                     url: "<%=GlobalUrl.getPendingApprovelTripsDetails%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
 
                         $('.loader').hide();
@@ -884,9 +883,8 @@ tbody {
       
             //get Trip All Details
             function getTripDataFormDataByTripId(tripId) {
-                console.log("Trip Id : " + tripId);
                 //	 tripId =  $("#tripID").val();
-                
+                $('.loader').show();
                 getQueryData(tripId);
 
                 globalTripId=tripId;
@@ -902,9 +900,8 @@ tbody {
                     url: "<%=GlobalUrl.tripDetailByTripId%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
-
+                    	$('.loader').hide();
                         if (data.msg == 'success') {
                             var result = data.data;
 							
@@ -938,7 +935,7 @@ tbody {
 				/* var tripid={
 						"tripID":$("#roleId").val(),
 				} */
-				
+				$('.loader').show();
 				var queryByVendor = document.getElementById("comment").value;
 				if (queryByVendor === "" || queryByVendor === null || queryByVendor === '') {
                     Toast.fire({
@@ -967,7 +964,7 @@ tbody {
                     contentType: "application/json",
 
                     success: function(response) {
-                    	
+                    	$('.loader').hide();
                         if (response.msg == 'success') {
                         	
                         	
@@ -993,7 +990,6 @@ tbody {
             }
             
 function updateTripData(){
-	
 	if (globalTripId == "") {
         return;
     }
@@ -1042,7 +1038,7 @@ function updateTripData(){
 }
 
 function getQueryData(tripId){
-		 
+	$('.loader').show();
 		 var obj ={
 					"referenceid": tripId,
 					"type": "Trip"
@@ -1056,7 +1052,7 @@ function getQueryData(tripId){
 				contentType : "application/json",
 				success : function(response) {
 					if (response.msg == "success") {
-					
+						$('.loader').hide();
 						if("data" in response){
 						
 							var result = response.data;												

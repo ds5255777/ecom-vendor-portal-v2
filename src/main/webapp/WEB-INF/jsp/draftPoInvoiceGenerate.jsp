@@ -153,7 +153,7 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<input type="text" name="invoiceDate" id="invoiceDate" readonly="readonly"
-													 class="form-control-sm" onchange="invoiceDateValidate()" placeholder="DD-MM-YYYY" style="width: 100%;">
+													 class="form-control-sm" onchange="invoiceDateCheck()" placeholder="DD-MM-YYYY" style="width: 100%;">
 											</div>
 										</div>
 									</div>
@@ -273,9 +273,10 @@
 											
 													<select class="form-control-sm select2" style="width: 100%;"
 													id="paymentMethod" name="paymentMethod" readonly>
-													<option value="NEFT" readonly>NEFT</option>
-													<option value="Cheque" readonly>Cheque</option>
-													<option value="Online" readonly>Online</option>
+													<c:forEach items="${paymentMethod}" var="met">
+
+																<option value="${met}">${met}</option>
+															</c:forEach>
 
 												</select>
 											</div>
@@ -620,7 +621,7 @@
     
     var  invoiceNumber='${invoiceNumber}';
     
-   
+    var needByDate="";
 
     var lineNumberArray=[];
    var lineNum1=[];
@@ -727,8 +728,9 @@
                      $('#remitToBankAccountNumber').val(result[0].remitToBankAccountNumber);
                     $('#invoiceDate').val(result[0].invoiceDate);
                         	
-        					
-        					
+                    if(result[0].hasOwnProperty("glDate")){
+                    needByDate= result[0].glDate;
+                    }
           					  
                      tripLineArray=result[0].poInvoiceLine;
                      
@@ -1578,6 +1580,34 @@
       
 
  }
+
+ function invoiceDateCheck(){	
+ 	var date1=needByDate.split(" ")[0];
+ 	
+ 	var date2 =  $("#invoiceDate").val();
+ 	var check="false";		
+ 	
+ 	if(date1 !="" && date2 !=""){
+ 		
+ 		//date1=moment(date1, 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD');
+ 		
+ 	
+ 		date2=moment(date2, 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD');
+ 			
+ 			if(date2 > date1){
+ 				check="true";
+ 			}else{
+ 				 Toast.fire({
+ 		                type: 'error',
+ 		                title: 'Invoice date should be greater then PO date!'
+
+ 		            });
+ 				 $('#invoiceDate').val("");
+ 			}
+ 			
+ 	}	
+ 		return check;
+   }
 
 
     </script>

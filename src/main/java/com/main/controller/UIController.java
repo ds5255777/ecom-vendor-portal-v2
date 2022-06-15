@@ -598,6 +598,12 @@ public class UIController {
 		List<String> country = serviceManager.countryRepo.getCountry();
 		List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 		List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
+		List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
+		List<String> region = serviceManager.regionRepo.getRegion();
+		List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
+		List<String>  paymentMethod=  serviceManager.paymentMethodRepo.PaymentMethod();
+		List<String>  flag=  serviceManager.flagRepo.getFlag();
+		
 		String uname = principal.getName();
 		model.addAttribute("uname", uname);
 
@@ -615,6 +621,11 @@ public class UIController {
 
 		model.addAttribute("maxFileSize", maxFileSize);
 		model.addAttribute("fileSize", fileSize);
+		model.addAttribute("adharLink", adharLinkStatus);
+		model.addAttribute("region", region);
+		model.addAttribute("sectionType", sectionType);
+		model.addAttribute("paymentMethod", paymentMethod);
+		model.addAttribute("flag", flag);
 
 		if (rolename.equalsIgnoreCase("Admin")) {
 

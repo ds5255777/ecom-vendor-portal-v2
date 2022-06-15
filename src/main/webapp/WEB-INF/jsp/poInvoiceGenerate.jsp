@@ -277,9 +277,10 @@
 											
 													<select class="form-control-sm select2" style="width: 100%;"
 													id="paymentMethod" name="paymentMethod" readonly>
-													<option value="NEFT" readonly>NEFT</option>
-													<option value="Cheque" readonly>Cheque</option>
-													<option value="Online" readonly>Online</option>
+												<c:forEach items="${paymentMethod}" var="met">
+
+																<option value="${met}">${met}</option>
+															</c:forEach>
 
 												</select>
 											</div>
@@ -1340,8 +1341,9 @@
     	        var invoDate= $("#invoiceDate").val();
     	       
     	        var ts = new Date(invoDate);
-    	        
-    	            
+    	        if(needByDate!=""){
+    	        finalObj.glDate= needByDate.split(" ")[0].toString();
+    	        }
 	        console.log(finalObj);
 	
 	        

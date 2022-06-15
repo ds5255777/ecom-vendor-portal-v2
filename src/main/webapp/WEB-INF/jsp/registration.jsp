@@ -1569,21 +1569,17 @@ label {
 															class="required adHocRequired">*</span></label></td>
 													
 													<td colspan='2'>
-														
-														
+													
 														<select id="paymentMethod" name="paymentMethod"
 														class="form-control p-input" colspan='2'
 														placeholder="Payment Method"
 														onchange="removeValCssByID(this)">
 															
 															<c:forEach items="${paymentMethod}" var="met">
-
 																<option value="${met}">${met}</option>
 															</c:forEach>
-
 													</select>
-														
-														
+													
 														</td>
 
 													<td><label for="dateBasis">Terms Date Basis</label></td>
@@ -2062,31 +2058,7 @@ label {
             });
             
         });
-        //$('#accordionExample').accordion();
-        //$('#accordionExample .next, #accordionExample .previous').click(function(e) {
-        //	e.preventDefault();
-        //	if ( $(this).hasClass('next') ) {
-        //		console.log("Ready Always next");
-        //		$(this).closest('.ui-accordion-content').next('.ui-accordion-header').click();    
-        //	} else if ( $(this).hasClass('previous') ) {
-        //		console.log("Ready Always previous");
-        //		$(this).closest('.ui-accordion-content').prevUntil('.ui-accordion-header:first').prev().click();    
-        //	}
-        //});<input class="btn btn-danger btn-sm" type="button" onClick="$(this).closest(&quot;tr&quot;).remove();">
-        //
-
-       /*  alert("hii");
-        function ShowAlert() {
-        	  var ab = document.getElementById('introducedByName').value;
-              console.log("ab =>" + ab);
-        	    if (ab == null || ab == "") {
-        	        swal.alert("Alert", "Fill introducer name !", "warning" );
-        	        ab.focus;
-        	        return false;
-        	    }
-        	   
-        	 } */
-        	 
+      
 
         	 
         

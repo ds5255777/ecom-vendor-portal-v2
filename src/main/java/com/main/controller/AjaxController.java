@@ -33,12 +33,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
+import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.AccountDetails;
 import com.main.db.bpaas.entity.AddressDetails;
 import com.main.db.bpaas.entity.ContactDetails;
 import com.main.db.bpaas.entity.EmailConfiguration;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SupDetails;
+import com.main.db.bpaas.entity.User;
 import com.main.email.CommEmailFunction;
 import com.main.email.WelcomeEmail;
 import com.main.serviceManager.ServiceManager;
@@ -388,6 +390,23 @@ public class AjaxController {
 				e.printStackTrace();
 			}
 			serviceManager.detailsRepo.save(supDetails);
+			
+			User us=new User();
+			us.setBpCode(supDetails.getBpCode());
+			us.setUsername(supDetails.getBpCode());
+			us.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS);
+			us.setRoleId(2);
+			us.setVendorName(supDetails.getSuppName());
+			us.setContactNo(supDetails.getContactDetails().get(0).getConPhone());
+			us.setEmailId(supDetails.getContactDetails().get(0).getConEmail());
+			
+			
+			us.setFirstName(supDetails.getContactDetails().get(0).getConFname());
+			us.setLastName(supDetails.getContactDetails().get(0).getConLname());
+			us.setPassword("vendor@123");
+			
+			serviceManager.userService.save(us);
+			
 			data.setData(processID);
 			new Thread(new Runnable() {
 				@Override
@@ -492,4 +511,24 @@ public class AjaxController {
 		}
 		return gson.toJson(data).toString();
 	}
+	
+	/*
+	 * @RequestMapping({ "/getBpcode" })
+	 * 
+	 * @CrossOrigin("*") public String getBpcode(HttpServletRequest request) {
+	 * 
+	 * DataContainer data = new DataContainer(); Gson gson = new
+	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+	 * 
+	 * try {
+	 * 
+	 * int bpCode = serviceManager.userRepository.getBpCode();V012207 String
+	 * code="V"
+	 * 
+	 * data.setData(bpCode); data.setMsg("success"); } catch (Exception e) {
+	 * data.setMsg("error"); e.printStackTrace(); logger.error("error : " + e); }
+	 * return gson.toJson(data).toString(); }
+	 */
+	
+	
 }

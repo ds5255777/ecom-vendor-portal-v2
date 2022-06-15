@@ -278,12 +278,15 @@ public class PoUiController {
 		String invoiceNumber = userNameIs + String.format("%08d", totalInvoiceCount + 1); // Filling with zeroes
 
 		List<String> exitingInvoiceNo = serviceManager.poinvoiceRepo.getExitingInvoiceNo();
+		
+		List<String>  paymentMethod=  serviceManager.paymentMethodRepo.PaymentMethod();
 
 		String[] arr = new String[exitingInvoiceNo.size()];
 		for (int i = 0; i < exitingInvoiceNo.size(); i++) {
 			arr[i] = exitingInvoiceNo.get(i);
 
 			if (invoiceNumber.equalsIgnoreCase(arr[i])) {
+				
 				invoiceNumber = userNameIs + String.format("%08d", totalInvoiceCount + 3);
 			}
 
@@ -295,6 +298,7 @@ public class PoUiController {
 		String PoNumber = request.getParameter("id");
 		model.addAttribute("PoNumber", PoNumber);
 		model.addAttribute("maxFileSize", maxFileSize);
+		model.addAttribute("paymentMethod", paymentMethod);
 
 		PoDetails findByPoNumber = null;
 		findByPoNumber = serviceManager.podetailsRepo.findByPoNo(PoNumber);
@@ -363,6 +367,7 @@ public class PoUiController {
 		model.addAttribute("invoiceNumber", PoNumber);
 		model.addAttribute("curentDate", new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 		model.addAttribute("curentDate1", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		List<String>  paymentMethod=  serviceManager.paymentMethodRepo.PaymentMethod();
 		model.addAttribute("maxFileSize", maxFileSize);
 		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
 		if ("".equals(bpCode) || bpCode == null) {
@@ -374,6 +379,7 @@ public class PoUiController {
 			creidtTerms = "";
 		}
 		model.addAttribute("creidtTerms", creidtTerms);
+		model.addAttribute("paymentMethod", paymentMethod);
 		
 		List<String> accountNumber= new ArrayList<String>();
 		List<SupDetails> supDetails = serviceManager.supDetailsRepo.findbankAccountNumber(bpCode);

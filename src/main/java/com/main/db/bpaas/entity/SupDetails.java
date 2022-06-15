@@ -115,6 +115,13 @@ public class SupDetails {
 	@Column(name = "IHQ")
 	private String ihq;
 	
+	@Column(name = "ADDRESS_PURCHASING_FLAG")
+	private String addressPurchasingFlag;
+	@Column(name = "ADDRESS_PAYMENT_FLAG")
+	private String addressPaymentFlag;
+	@Column(name = "INVOICE_PREVALIDATED_FLAG")
+	private String invoicePrevalidatedFlag;
+	
 	@Column(name = "gl_code")
 	private String glCode;
 	
@@ -785,6 +792,30 @@ public class SupDetails {
 
 	public void setGlCode(String glCode) {
 		this.glCode = glCode;
+	}
+
+	public String getAddressPurchasingFlag() {
+		return addressPurchasingFlag;
+	}
+
+	public void setAddressPurchasingFlag(String addressPurchasingFlag) {
+		this.addressPurchasingFlag = addressPurchasingFlag;
+	}
+
+	public String getAddressPaymentFlag() {
+		return addressPaymentFlag;
+	}
+
+	public void setAddressPaymentFlag(String addressPaymentFlag) {
+		this.addressPaymentFlag = addressPaymentFlag;
+	}
+
+	public String getInvoicePrevalidatedFlag() {
+		return invoicePrevalidatedFlag;
+	}
+
+	public void setInvoicePrevalidatedFlag(String invoicePrevalidatedFlag) {
+		this.invoicePrevalidatedFlag = invoicePrevalidatedFlag;
 	}
 
 	

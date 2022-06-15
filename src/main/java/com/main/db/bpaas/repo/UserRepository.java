@@ -76,22 +76,22 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	String getemailIdById(@Param("id") Integer id);
 
 	// Manish added
-	@Query(value = "select count(*) from users where role_id !='4'; ", nativeQuery = true)
+	@Query(value = "select count(*) from users where role_id !='2'; ", nativeQuery = true)
 	int getCountForAllUsers();
 
-	@Query(value = "select count(*) from users where status='1' and role_id !='4'; ", nativeQuery = true)
+	@Query(value = "select count(*) from users where status='1' and role_id !='2'; ", nativeQuery = true)
 	int getCountForAllActiveUsers();
 
-	@Query(value = "select count(*) from users where status='0' and role_id !='4'; ", nativeQuery = true)
+	@Query(value = "select count(*) from users where status='0' and role_id !='2'; ", nativeQuery = true)
 	int getCountForAllInActiveUsers();
 
-	@Query(value = "select count(*) from users where  role_id ='4';", nativeQuery = true)
+	@Query(value = "select count(*) from users where  role_id ='2';", nativeQuery = true)
 	int getAllVendorCount();
 
-	@Query(value = "select count(*) from users where status='1' and role_id ='4'; ", nativeQuery = true)
+	@Query(value = "select count(*) from users where status='1' and role_id ='2'; ", nativeQuery = true)
 	int getAllActiveVendorCount();
 
-	@Query(value = "select count(*) from users where status='0' and role_id ='4'; ", nativeQuery = true)
+	@Query(value = "select count(*) from users where status='0' and role_id ='2'; ", nativeQuery = true)
 	int getAllInActiveVendorCount();
 	// End
 
@@ -105,6 +105,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query(value = "select * from users where bp_code=:bpCode ; ", nativeQuery = true)
 	List<User> getAllVendorStatus(@Param("bpCode") String bpCode);
+
+	@Query(value = "select count(*) from supdetails ; ", nativeQuery = true)
+	int getBpCode();
 
 	/*
 	 * @Query(value =

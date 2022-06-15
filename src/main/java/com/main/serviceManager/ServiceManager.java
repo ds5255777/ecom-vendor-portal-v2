@@ -22,6 +22,7 @@ import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.InvoiceLineItemRepo;
 import com.main.db.bpaas.repo.MailContentRepo;
 import com.main.db.bpaas.repo.NatureOfTransactionRepo;
+import com.main.db.bpaas.repo.PaymentMethodRepo;
 import com.main.db.bpaas.repo.PaymentTermRepo;
 import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.PoInvoiceRepo;
@@ -147,6 +148,9 @@ public class ServiceManager {
 	
 	@Autowired
 	public SectionTypeRepo sectionTypeRepo;
+	
+	@Autowired
+	public PaymentMethodRepo paymentMethodRepo;
 
 	/*
 	 * public void insertRecordIntoAuditEntry(HttpServletRequest request, String

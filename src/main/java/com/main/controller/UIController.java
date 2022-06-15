@@ -96,6 +96,7 @@ public class UIController {
 			List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
 			List<String> region = serviceManager.regionRepo.getRegion();
 			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
+			List<String>  paymentMethod=  serviceManager.paymentMethodRepo.PaymentMethod();
 
 			model.addAttribute("currency", currency);
 			model.addAttribute("business", business);
@@ -114,6 +115,7 @@ public class UIController {
 			model.addAttribute("adharLink", adharLinkStatus);
 			model.addAttribute("region", region);
 			model.addAttribute("sectionType", sectionType);
+			model.addAttribute("paymentMethod", paymentMethod);
 			
 
 			// return "registration";
@@ -135,6 +137,7 @@ public class UIController {
 			List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
 			List<String> region = serviceManager.regionRepo.getRegion();
 			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
+			List<String>  paymentMethod=  serviceManager.paymentMethodRepo.PaymentMethod();
 
 			model.addAttribute("currency", currency);
 			model.addAttribute("business", business);
@@ -153,6 +156,8 @@ public class UIController {
 			model.addAttribute("adharLink", adharLinkStatus);
 			model.addAttribute("region", region);
 			model.addAttribute("sectionType", sectionType);
+			model.addAttribute("paymentMethod", paymentMethod);
+			
 			
 		}
 		return "registration";

@@ -104,9 +104,21 @@ public class SupDetails {
 	@Column(name = "section_Type")
 	private String sectionType;
 	
-	@Column(name = "region")
-	private String region;
-
+	@Column(name = "ERO")
+	private String ero;
+	@Column(name = "WRO")
+	private String wro;
+	@Column(name = "NRO")
+	private String nro;
+	@Column(name = "SRO")
+	private String sro;
+	@Column(name = "IHQ")
+	private String ihq;
+	
+	@Column(name = "gl_code")
+	private String glCode;
+	
+	
 	@OneToMany(targetEntity = AccountDetails.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "sa_fk", referencedColumnName = "id")
 	private List<AccountDetails> accountDetails;
@@ -727,13 +739,54 @@ public class SupDetails {
 		this.sectionType = sectionType;
 	}
 
-	public String getRegion() {
-		return region;
+	public String getEro() {
+		return ero;
 	}
 
-	public void setRegion(String region) {
-		this.region = region;
+	public void setEro(String ero) {
+		this.ero = ero;
 	}
 
+	public String getWro() {
+		return wro;
+	}
+
+	public void setWro(String wro) {
+		this.wro = wro;
+	}
+
+	public String getNro() {
+		return nro;
+	}
+
+	public void setNro(String nro) {
+		this.nro = nro;
+	}
+
+	public String getSro() {
+		return sro;
+	}
+
+	public void setSro(String sro) {
+		this.sro = sro;
+	}
+
+	public String getIhq() {
+		return ihq;
+	}
+
+	public void setIhq(String ihq) {
+		this.ihq = ihq;
+	}
+
+	public String getGlCode() {
+		return glCode;
+	}
+
+	public void setGlCode(String glCode) {
+		this.glCode = glCode;
+	}
+
+	
 	
 }

@@ -152,7 +152,7 @@
 											<label class="col-sm-5">Invoice Date <span
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
-												<input type="text" name="invoiceDate" id="invoiceDate"
+												<input type="text" name="invoiceDate" id="invoiceDate" readonly="readonly"
 													 class="form-control-sm" onchange="invoiceDateValidate()" placeholder="DD-MM-YYYY" style="width: 100%;">
 											</div>
 										</div>
@@ -239,7 +239,7 @@
 												
 													
 												<input type="text" name="termsDate" id="termsDate"
-													 class="form-control-sm" readonly="readonly" placeholder="DD-MM-YYYY" style="width: 100%;">
+													 class="form-control-sm"  placeholder="DD-MM-YYYY" readonly style="width: 100%;">
 											
 											</div>
 										</div>
@@ -541,36 +541,6 @@
         <!-- /.control-sidebar -->
     </div>
 
-	<!-- jQuery -->
-	<script src="plugins/jquery/jquery.min.js"></script>
-	<!-- Bootstrap 4 -->
-	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- Bootstrap4 Duallistbox -->
-	<script
-		src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-	<!-- InputMask -->
-	<script src="plugins/moment/moment.min.js"></script>
-	<script src="plugins/inputmask/jquery.inputmask.min.js"></script>
-	<!-- date-range-picker -->
-	<script src="plugins/daterangepicker/daterangepicker.js"></script>
-	<!-- bootstrap color picker -->
-	<script
-		src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-	<!-- Tempusdominus Bootstrap 4 -->
-	<script
-		src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-	<!-- Bootstrap Switch -->
-	<script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-	<!-- BS-Stepper -->
-	<script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
-	<!-- dropzonejs -->
-	<script src="plugins/dropzone/min/dropzone.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="dist/js/adminlte.min.js"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="dist/js/demo.js"></script>
-	<!-- Page specific script -->
-	<!-- DataTables  & Plugins -->
 		<script src="plugins/jquery/jquery.min.js"></script>
 		<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -609,8 +579,8 @@
 		<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 		<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 		<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-	<script>
 	
+	<script>	
 	
 	var currentDate="${curentDate}";
 
@@ -649,6 +619,8 @@
     });
     
     var  invoiceNumber='${invoiceNumber}';
+    
+   
 
     var lineNumberArray=[];
    var lineNum1=[];
@@ -661,6 +633,8 @@
     	$("#terms").val(creidtTerms);
     	
    	 var currentDate='${curentDate}';
+   	 
+     
  	
 	 
   	  var terms =  $("#terms").val();
@@ -669,26 +643,32 @@
   	  if(terms=="Immediate Payments"){
 	    		
 			 var days=30;
-				  var ts = new Date(currentDate);
+				  var ts = new Date();
 				   
 				  ts.setDate(ts.getDate());
-				var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+					var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
             $("#termsDate").val(datestring);
+            
         	
    	 } else if(terms=="NET 30 Days"){
   		
-				 var days=30;
-			   var ts = new Date(currentDate);
-			   
-			  ts.setDate(ts.getDate() + days);
+   		 var days=30;
+		   var ts = new Date();
+		   
+
+		   
+		   
+		   ts.setDate(ts.getDate() + days);
 			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
-			
-           $("#termsDate").val(datestring);
+		
+		     $("#termsDate").val(datestring);
+		  
+		           
        	
   	 }else if(terms=="NET 45 Days"){
   		 
  				 var days=45;
-				   var ts = new Date(currentDate);
+				   var ts = new Date();
 				   
 				  ts.setDate(ts.getDate() + days);
 				var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
@@ -700,7 +680,7 @@
   	 }else if(terms=="NET 60 Days"){
   		 
 				 var days=60;
-			   var ts = new Date(currentDate);
+			   var ts = new Date();
 			   
 			  ts.setDate(ts.getDate() + days);
 			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;

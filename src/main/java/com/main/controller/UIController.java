@@ -99,6 +99,10 @@ public class UIController {
 			List<String> region = serviceManager.regionRepo.getRegion();
 			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
 			List<String>  paymentMethod=  serviceManager.paymentMethodRepo.PaymentMethod();
+			
+			String userEmail = (String) request.getSession().getAttribute("userEmail");
+			
+			model.addAttribute("userEmail", userEmail);
 
 			model.addAttribute("currency", currency);
 			model.addAttribute("business", business);
@@ -300,7 +304,7 @@ public class UIController {
 			
 			
 
-				if (vendorType.equalsIgnoreCase("Fixed Asset")) {
+				if (vendorType.equalsIgnoreCase("Fixed Asset") || vendorType.equalsIgnoreCase("FIXED ASSETS")) {
 					System.out.println("vendor type : " + vendorType);
 
 					 rolename = (String) request.getSession().getAttribute("role");
@@ -608,6 +612,7 @@ public class UIController {
 		List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
 		List<String>  paymentMethod=  serviceManager.paymentMethodRepo.PaymentMethod();
 		List<String>  flag=  serviceManager.flagRepo.getFlag();
+		List<String> stateName = serviceManager.stateRepo.getStateName();
 		
 		String uname = principal.getName();
 		model.addAttribute("uname", uname);
@@ -631,6 +636,7 @@ public class UIController {
 		model.addAttribute("sectionType", sectionType);
 		model.addAttribute("paymentMethod", paymentMethod);
 		model.addAttribute("flag", flag);
+		model.addAttribute("stateName", stateName);
 
 		if (rolename.equalsIgnoreCase("Admin")) {
 

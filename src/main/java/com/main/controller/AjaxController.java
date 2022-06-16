@@ -389,6 +389,17 @@ public class AjaxController {
 				logger.error("error : " + e);
 				e.printStackTrace();
 			}
+			for(int i=0;i<supDetails.getAddressDetails().size();i++) {
+				String state = supDetails.getAddressDetails().get(i).getState();
+				String stCode=serviceManager.stateRepo.findByStateCode(state);
+				
+				String partnerType = supDetails.getVendorType();
+					if(!partnerType.isEmpty()) {
+						String typeCode = serviceManager.businessPartnerTypeRepo.findByTypeCode(partnerType);
+					supDetails.getAddressDetails().get(i).setSupplierSiteCode(stCode.concat("_"+typeCode));
+					}
+			}
+			
 			serviceManager.detailsRepo.save(supDetails);
 			
 			User us=new User();

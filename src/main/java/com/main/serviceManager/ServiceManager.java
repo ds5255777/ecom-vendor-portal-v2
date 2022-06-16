@@ -156,6 +156,12 @@ public class ServiceManager {
 	
 	@Autowired
 	public FlagRepo flagRepo;
+	
+	@Autowired
+	public InvoiceNumberRepo invoiceNumberRepo;
+	
+	@Autowired
+	public StateRepo stateRepo;
 
 	/*
 	 * public void insertRecordIntoAuditEntry(HttpServletRequest request, String

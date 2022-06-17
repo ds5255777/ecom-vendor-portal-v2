@@ -645,7 +645,7 @@
             
             $("#introducedByEmailID").change(function() {
                 var inputvalues = $(this).val();
-                var regex = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@ecomexpress.in$/;
+                var regex = /^[a-zA-Z0-9+_.-]*@ecomexpress.in$/;
                 
                 if (!regex.test(inputvalues)) {
                     $("#introducedByEmailID").val("");
@@ -2385,6 +2385,21 @@ label {
 					finalObj.glCode="203108";
 				}
 				
+         	var acknowledgementNumber1= $('#acknowledgementNumber1').val();
+          	var acknowledgementNumber2= $('#acknowledgementNumber2').val();
+          	var acknowledgementNumber3= $('#acknowledgementNumber3').val();
+       		
+          	var fyYear1= $('#fyYear1').val();
+          	var fyYear2= $('#fyYear2').val();
+          	var fyYear3= $('#fyYear3').val();
+          	
+          	finalObj.fyYear1=fyYear1;
+          	finalObj.fyYear2=fyYear2;
+          	finalObj.fyYear3=fyYear3;
+          	
+          	finalObj.acknowledgementNumber1=acknowledgementNumber1;
+          	finalObj.acknowledgementNumber2=acknowledgementNumber2;
+          	finalObj.acknowledgementNumber3=acknowledgementNumber3;
            
             console.log(finalObj);
              

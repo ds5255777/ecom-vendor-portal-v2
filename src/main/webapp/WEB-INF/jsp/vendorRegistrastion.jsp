@@ -1598,8 +1598,6 @@ width: 100% !important;
             var abc2 = document.getElementById('ifscCode').value;
             var abc3 = document.getElementById('accoutNumber').value;
             var abc4 = document.getElementById('confirmedAccoutNumber').value;
-            table = document.getElementById('addBankGrid');
-            rowLength = table.rows.length;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
                 swal.fire("Alert", "Bank Name is mandatory", "warning");
@@ -1614,10 +1612,7 @@ width: 100% !important;
                 swal.fire("Alert", " Confirm Account Number is mandatory", "warning");
                 return false;
             
-            }
-           
-            else if(rowLength<2) {
-           
+            } else {
                 $("#addBankGrid").append('<tr class=""><td>' +
                     document.getElementById('bankName').value + '</td><td>' +
                     document.getElementById('ifscCode').value + '</td><td>' +
@@ -1628,20 +1623,9 @@ width: 100% !important;
                 document.getElementById('ifscCode').value = "";
                 document.getElementById('accoutNumber').value = "";
                 document.getElementById('confirmedAccoutNumber').value = "";
-                $('#divCheckPasswordMatch').removeAttr( 'style' );
-     		    $('#divCheckPasswordMatch').empty();
-            }else{
-            	 swal.fire("Alert", "only add one bank details", "warning");
-            	 document.getElementById('bankName').value = "";
-                 document.getElementById('ifscCode').value = "";
-                 document.getElementById('accoutNumber').value = "";
-                 document.getElementById('confirmedAccoutNumber').value = "";
-                 $('#divCheckPasswordMatch').removeAttr( 'style' );
-      		    $('#divCheckPasswordMatch').empty();
-                 return false;
             }
         });
-
+        
         $body = $("body");
 
         $(document).on({
@@ -1653,7 +1637,7 @@ width: 100% !important;
             }
         });
 
-        $("#addITRGridButt").click(function() {
+     /*    $("#addITRGridButt").click(function() {
             var abc = document.getElementById('fyYear').value;
             var abc1 = document.getElementById('acknowledgementNumber').value;
             let abc2 = document.getElementById('ITRAFile').value;
@@ -1682,7 +1666,7 @@ width: 100% !important;
             }
         });
 
-        
+ */        
   
         $("#panNumber").change(function() {
             var inputvalues = $(this).val();
@@ -1755,7 +1739,7 @@ width: 100% !important;
             
             $("#introducedByEmailID").change(function() {
                 var inputvalues = $(this).val();
-                var regex = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@ecomexpress.in$/;
+                var regex = /^[a-zA-Z0-9+_.-]*@ecomexpress.in$/;
                 
                 if (!regex.test(inputvalues)) {
                     $("#introducedByEmailID").val("");
@@ -1875,7 +1859,7 @@ width: 100% !important;
                     "ifscCode": row.cells[1].innerHTML,
                     "accoutCurrency": row.cells[2].innerHTML,
                     "accoutNumber": row.cells[3].innerHTML,
-                    "accoutName": row.cells[4].innerHTML,
+                    "accoutName": row.cells[4].innerHTML
                 }
                 accountDetailsArray.push(pushObj);
             }
@@ -2094,43 +2078,25 @@ width: 100% !important;
 				}
 				
             
-         /*    
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(finalObj),
-                url: "ajaxController/getBpcode",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(response) {
-                	//return;
-                    if (response.msg == 'success') {
-                    	  $('.loader').hide();
-                    	
-
-
-                        setTimeout(function(response) {
-                            //location.href = "login";
-                        }, 2000);
-                    } else {
-                        alert("failed");
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    })
-                }
-            });
-        }
-
-            
-            
-			var bpco=
-				
-            finalObj.bpCode=
- */            console.log("finalObj");
+        	var acknowledgementNumber1= $('#acknowledgementNumber1').val();
+          	var acknowledgementNumber2= $('#acknowledgementNumber2').val();
+          	var acknowledgementNumber3= $('#acknowledgementNumber3').val();
+       		
+          	var fyYear1= $('#fyYear1').val();
+          	var fyYear2= $('#fyYear2').val();
+          	var fyYear3= $('#fyYear3').val();
+          	
+          	finalObj.fyYear1=fyYear1;
+          	finalObj.fyYear2=fyYear2;
+          	finalObj.fyYear3=fyYear3;
+          	
+          	finalObj.acknowledgementNumber1=acknowledgementNumber1;
+          	finalObj.acknowledgementNumber2=acknowledgementNumber2;
+          	finalObj.acknowledgementNumber3=acknowledgementNumber3;
+ 
+ 
+ 
+ console.log("finalObj");
             console.log(finalObj);
             $('.loader').show();
             $.ajax({

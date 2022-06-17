@@ -305,28 +305,7 @@ public class TripControllers {
 
 		return gson.toJson(data).toString();
 	}
-
-	/*
-	 * @PostMapping({ "/statusNet" })
-	 * 
-	 * @CrossOrigin("*") public String status(@RequestBody TripDetails obj) throws
-	 * UnsupportedEncodingException, MessagingException { DataContainer data = new
-	 * DataContainer(); Gson gson = new
-	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-	 * 
-	 * try { String runStatus = obj.getRunStatus().toString(); String
-	 * vendortripStatus = obj.getVendorTripStatus().toString(); String paymentStatus
-	 * = obj.getPaymentStatus().toString(); String vendorCode =
-	 * obj.getVendorCode().toString();
-	 * 
-	 * List<TripDetails> obj1 =
-	 * serviceManager.tripService.getTripsByFilters(runStatus, vendortripStatus,
-	 * paymentStatus, vendorCode); data.setData(obj1); data.setMsg("success"); }
-	 * catch (Exception e) { data.setMsg("error"); logger.error("error : " + e); }
-	 * 
-	 * return gson.toJson(data).toString(); }
-	 */
-
+	
 	@PostMapping({ "/tripDetailByTripId" })
 	@CrossOrigin("*")
 	public String getTripsDetailsByTripId(HttpServletRequest request, @RequestBody TripDetails tripObj) {

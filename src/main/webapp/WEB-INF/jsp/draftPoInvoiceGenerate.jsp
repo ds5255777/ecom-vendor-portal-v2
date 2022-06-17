@@ -688,7 +688,50 @@
 			
 			
            $("#termsDate").val(datestring);
-		 }else if(terms==""){
+		 }else if(terms=="NET-7"){
+	  		 
+			 var days=7;
+		   var ts = new Date(currentDate);
+		   
+		  ts.setDate(ts.getDate() + days);
+		var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+		
+
+		$("#termsDate").val(datestring);
+	 }else if(terms=="NET-10"){
+			 
+		 var days=10;
+	   var ts = new Date(currentDate);
+	   
+	  ts.setDate(ts.getDate() + days);
+	var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+	
+	
+	$("#termsDate").val(datestring);
+	}else if(terms=="NET-20"){
+  		 
+		 var days=20;
+	   var ts = new Date(currentDate);
+	   
+	  ts.setDate(ts.getDate() + days);
+	var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+	
+	
+		  $("#termsDate").val(datestring);
+		 }else if(terms=="NET-25"){
+				 
+			 var days=25;
+		   var ts = new Date(currentDate);
+		   
+		  ts.setDate(ts.getDate() + days);
+		var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+		
+		
+		$("#termsDate").val(datestring);
+		}
+
+  	 
+  	 else if(terms==""){
 			 $("#termsDate").val("");
 		 }
 
@@ -1452,7 +1495,51 @@
 		
 		
         $("#termsDate").val(datestring);
-	 }else if(terms==""){
+	 }
+	 
+	 else if(terms=="NET-7"){
+  		 
+		 var days=7;
+	   var ts = new Date(currentDate);
+	   
+	  ts.setDate(ts.getDate() + days);
+	var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+	
+
+	$("#termsDate").val(datestring);
+ }else if(terms=="NET-10"){
+		 
+	 var days=10;
+   var ts = new Date(currentDate);
+   
+  ts.setDate(ts.getDate() + days);
+var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+
+
+$("#termsDate").val(datestring);
+}else if(terms=="NET-20"){
+		 
+	 var days=20;
+   var ts = new Date(currentDate);
+   
+  ts.setDate(ts.getDate() + days);
+var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+
+
+$("#termsDate").val(datestring);
+}else if(terms=="NET-25"){
+	 
+ var days=25;
+var ts = new Date(currentDate);
+
+ts.setDate(ts.getDate() + days);
+var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+
+
+$("#termsDate").val(datestring);
+}
+
+	 else if(terms==""){
 		 $("#termsDate").val("");
 	 }
  }

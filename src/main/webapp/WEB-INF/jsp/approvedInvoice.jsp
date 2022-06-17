@@ -341,9 +341,7 @@
                     url: "<%=GlobalUrl.getAllApproveInvoice%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
-
                         $('.loader').hide();
                         if (data.msg == 'success') {
                             var result = data.data;

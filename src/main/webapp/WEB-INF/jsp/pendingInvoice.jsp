@@ -341,7 +341,6 @@
                     url: "<%=GlobalUrl.getAllPendingInvoice%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
                         $('.loader').hide();
                         if (data.msg == 'success') {

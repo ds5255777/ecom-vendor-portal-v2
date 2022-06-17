@@ -340,9 +340,7 @@
                     url: "<%=GlobalUrl.getAllDraftInvoice%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
-
                         $('.loader').hide();
                         if (data.msg == 'success') {
                             var result = data.data;
@@ -384,7 +382,7 @@
             }
 
             function deleteInvoice(invoiceID, ecomInvoiceNumber) {
-
+            	 $('.loader').show();
                 var json = {
                     "id": invoiceID,
                     "ecomInvoiceNumber": ecomInvoiceNumber,
@@ -395,9 +393,8 @@
                     url: "<%=GlobalUrl.deleteDraftInvoice%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
-
+                    	 $('.loader').hide();
                         if (data.msg == 'success') {
                             Toast.fire({
                                 type: 'success',
@@ -419,7 +416,7 @@
 
             function refereshList() {
                 getData();
-                $('.loader').hide();
+               
             }
         </script>
 </body>

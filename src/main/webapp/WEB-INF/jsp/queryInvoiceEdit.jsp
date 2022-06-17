@@ -232,8 +232,8 @@
 										<th class="bg-primary">Run Type</th>
 										<th class="bg-primary">Route</th>
 										<th class="bg-primary">Standard KM</th>
-										<th class="bg-primary">Rate per km</th>
-										<th class="bg-primary">Current Fuel Rate</th>
+										<th class="bg-primary">Rate/KM</th>
+										<th class="bg-primary">Fuel Rate</th>
 										<th class="bg-primary">FS Base Rate</th>
 										<th class="bg-primary">Std. Vehicle</th>
 										<th class="bg-primary">FS Diff</th>

@@ -297,21 +297,21 @@ tbody {
                                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Type</th>
                                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Zone</th>
                                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">City</th>
-                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Name </th>
-                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vehicle Type</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor&nbsp;Name </th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vehicle&nbsp;Type</th>
                                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
-                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Details</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip&nbsp;Details</th>
                                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Rate</th>
                                                                 
-                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Cost</th>
-                                                               <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Base Rate</th>
-                                                               <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;"> Current Fuel Rate</th>
-                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Std Mileage Per Km</th>
-                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Max Kms</th>
-                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Credit Period in Days</th>
-                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Agreement Made Date</th>
-                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Agreement Expiry Date</th>
-                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Action</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip&nbsp;Cost</th>
+                                                               <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Base&nbsp;Rate</th>
+                                                               <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;"> Fuel&nbsp;Rate</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Mileage/Km</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Max&nbsp;Kms</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Credit&nbsp;Period&nbsp;in&nbsp;Days</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Agreement&nbsp;Made&nbsp;Date</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Agreement&nbsp;Expiry&nbsp;Date</th>
+                                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Agreement&nbsp;Action</th>
                                                                 
                                                            </tr>
                                                      </thead>
@@ -566,7 +566,7 @@ tbody {
                 "lengthChange" : false,
                 "searching" : true,
                 "info" : true,
-                "autoWidth" : false,
+                
                 "aaSorting" : [],
                 "scrollX" : true
            });
@@ -1001,12 +1001,12 @@ tbody {
              							}
 
 
-                               var inactive = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"inactiveActiveDeleteData(" + result[i].id + ")\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-                               var edit = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"   data-original-title=\"Click To Edit\" style=\"width: 43px;\"  onclick=\"editData(" + result[i].id + ")\"><i class=\"nav-icon fas fa-edit\"> </i> </button>";
+                               var inactive = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"inactiveActiveDeleteData("+result[i].id+")\"> <i class=\"nav-icon fas fa-trash\"></i>  </button>";
+                               var edit = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"   data-original-title=\"Click To Edit\" onclick=\"editData("+result[i].id+")\"><i class=\"nav-icon fas fa-edit\"></i> </button>";
                                
                                
                               
-                               tabledata.row.add([result[i].type, result[i].zone, result[i].city, result[i].vendorName, result[i].vehicleType,result[i].route,result[i].tripDetails,result[i].rate,result[i].tripCost,result[i].baseRate,result[i].currentFuelRate,result[i].stdMileagePerKm,result[i].maxKms,result[i].creditPeriodInDays, result[i].agreementMadeDate,result[i].agreementExpiryDate ,edit + " " + inactive]);
+                               tabledata.row.add([result[i].type, result[i].zone, result[i].city, result[i].vendorName, result[i].vehicleType,result[i].route,result[i].tripDetails,result[i].rate,result[i].tripCost,result[i].baseRate,result[i].currentFuelRate,result[i].stdMileagePerKm,result[i].maxKms,result[i].creditPeriodInDays, result[i].agreementMadeDate,result[i].agreementExpiryDate ,edit+"&nbsp;"+inactive]);
                                
                            }
 

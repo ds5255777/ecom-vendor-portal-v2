@@ -205,15 +205,15 @@
                         <!-- /.card-header -->
                         <form id="stepTwoForm" class="forms-sample">
                             <div class="card-body" style="overflow: auto;">
-                                <table id="prTable" class="table table-bordered table-striped">
+                                <table id="prTable" class="display nowrap table table-bordered table-striped" style="width:100%">
                                     <thead>
                                         <tr>
                                         <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip ID</th>
                                         <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
                                         <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
                                         <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Rate per km</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Current Fuel
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Rate/Km</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Fuel
                                             Rate</th>
                                         <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS Base Rate</th>
                                          <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Std. Vehicle</th>
@@ -222,7 +222,7 @@
                                         <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">FS</th>
                                         <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Mileage</th>
                                         <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
-                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Lumpsome Amount</th>
+                                        <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Lump sum Amount</th>
                                         <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Line level
                                             Description</th>
                                         </tr>

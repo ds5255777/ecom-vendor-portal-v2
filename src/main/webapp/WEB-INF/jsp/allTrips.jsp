@@ -154,6 +154,8 @@ tbody {
 	width: 60px !important;
 }
 
+
+
 .tooltip.show p {
 	text-align: left;
 }
@@ -257,8 +259,8 @@ tbody {
 										</div>
 									</form>
 									<table
-										class="table table-head-fixed table-bordered table-hover"
-										id="tabledata">
+										class="display nowrap table table-head-fixed table-bordered table-hover"
+										id="tabledata" style="width:100%">
 										<thead>
 											<tr>
 												<th class="bg-primary">Trip Id</th>

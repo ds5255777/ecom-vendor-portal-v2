@@ -125,6 +125,9 @@ public class SupDetails {
 	@Column(name = "gl_code")
 	private String glCode;
 	
+
+
+	
 	
 	@OneToMany(targetEntity = AccountDetails.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "sa_fk", referencedColumnName = "id")
@@ -817,6 +820,9 @@ public class SupDetails {
 	public void setInvoicePrevalidatedFlag(String invoicePrevalidatedFlag) {
 		this.invoicePrevalidatedFlag = invoicePrevalidatedFlag;
 	}
+
+
+	
 
 	
 	

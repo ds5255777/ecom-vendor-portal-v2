@@ -56,7 +56,7 @@ public class PoUiController {
 		
 		
 
-			if (vendorType.equalsIgnoreCase("Fixed Asset")) {
+			if (vendorType.equalsIgnoreCase("Fixed Asset") || vendorType.equalsIgnoreCase("FIXED ASSETS")) {
 				String rolename = (String) request.getSession().getAttribute("role");
 				String vendorCode = (String) request.getSession().getAttribute("userName");
 				System.out.println("vendor type : " + vendorType);

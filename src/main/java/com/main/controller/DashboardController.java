@@ -28,6 +28,7 @@ import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.AgreementMaster;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.QueryEntity;
+import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.serviceManager.ServiceManager;
 
@@ -40,12 +41,12 @@ public class DashboardController {
 
 	@Value("${tripLimit}")
 	public String tripLimit;
-	
+
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
 	@PostMapping({ "getDashboardDetails" })
-	
+
 	public String getDashBoardDetails(@RequestBody TripDetails reqObj, HttpSession session,
 			HttpServletRequest request) {
 		DataContainer data = new DataContainer();
@@ -59,7 +60,7 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 			data.setMsg("error");
 		}
 
@@ -68,7 +69,8 @@ public class DashboardController {
 
 	@RequestMapping("/updateDetailsforNetwork")
 	@CrossOrigin("*")
-	public String updateDetailsforNetwork(Model model, HttpServletRequest request, Principal principal, @RequestBody String agrn) {
+	public String updateDetailsforNetwork(Model model, HttpServletRequest request, Principal principal,
+			@RequestBody String agrn) {
 
 		logger.info("************************Data is ::" + agrn);
 		String rolename = (String) request.getSession().getAttribute("role");
@@ -92,11 +94,10 @@ public class DashboardController {
 		String vendorName = jsonObject.getString("vendorName").toString();
 		String vendorCode = jsonObject.getString("vendorCode").toString();
 		String type = jsonObject.getString("type").toString();
-		
 
 ///
 		logger.info("fs " + fs + "\ntotalFreight " + totalFreight + "\nbasicFreight " + basicFreight + ""
-				+ "\ncommentsByUSer " + commentsByUSer+"vendorName : "+vendorName);
+				+ "\ncommentsByUSer " + commentsByUSer + "vendorName : " + vendorName);
 
 		if ("".equalsIgnoreCase(LumpSomeAmount)) {
 			LumpSomeCheckBox = "false";
@@ -114,14 +115,13 @@ public class DashboardController {
 		logger.info("AssigenedTo" + AssigenedTo);
 		logger.info("LumpSomeCheckBox" + LumpSomeCheckBox);
 		logger.info("LumpSomeAmount" + LumpSomeAmount);
-		
 
 		String Query = jsonObject.getString("Query").toString();
 		logger.info("Query is :::" + Query);
 		if ("No".equalsIgnoreCase(Query)) {
 			serviceManager.tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon,
 					LumpSomeCheckBox, LumpSomeAmount, "Yet To Be Approved", Double.parseDouble(basicFreight),
-					Double.parseDouble(totalFreight), Double.parseDouble(fs),vendorName,vendorCode);
+					Double.parseDouble(totalFreight), Double.parseDouble(fs), vendorName, vendorCode);
 		} else {
 			String standardKM = jsonObject.getString("standardKM").toString();
 			String milage = jsonObject.getString("milage").toString();
@@ -130,9 +130,6 @@ public class DashboardController {
 			String fsBaseRate = jsonObject.getString("fsBaseRate").toString();
 			String currentFuelRate = jsonObject.getString("currentFuelRate").toString();
 			String fsDiff = jsonObject.getString("fsDiff").toString();
-			
-			
-			
 
 			logger.info("standardKM " + standardKM);
 			logger.info("milage " + milage);
@@ -147,7 +144,8 @@ public class DashboardController {
 						LumpSomeCheckBox, LumpSomeAmount, Double.parseDouble(standardKM), Double.parseDouble(milage),
 						Double.parseDouble(ratePerKm), Double.parseDouble(routeKms), Double.parseDouble(fsBaseRate),
 						Double.parseDouble(currentFuelRate), Double.parseDouble(fsDiff),
-						Double.parseDouble(basicFreight), Double.parseDouble(totalFreight) ,Double.parseDouble(fs),vendorName,vendorCode);
+						Double.parseDouble(basicFreight), Double.parseDouble(totalFreight), Double.parseDouble(fs),
+						vendorName, vendorCode);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -161,15 +159,14 @@ public class DashboardController {
 
 		QueryEntity comm = new QueryEntity();
 		comm.setRaisedBy(userName);
-		
-		
+
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			Date date = new Date();
 			logger.info(formatter.format(date));
 			comm.setRaisedOn(date);
 		} catch (Exception ex) {
-			logger.error("error : "+ex);
+			logger.error("error : " + ex);
 		}
 
 //Find ID on the basic of tripid
@@ -212,7 +209,7 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 			data.setMsg("error");
 		}
 
@@ -239,7 +236,7 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 			data.setMsg("error");
 		}
 
@@ -254,21 +251,44 @@ public class DashboardController {
 		try {
 			JSONObject jsonObject = new JSONObject(reqObj);
 			String vendorName = (String) jsonObject.get("vendorName");//
-			
+
 			logger.info("vendorName ::" + vendorName);
-			String vendorCodeFromSuppDetails =serviceManager.supDetailsRepo.getVendorCode(vendorName);
+			String vendorCodeFromSuppDetails = serviceManager.supDetailsRepo.getVendorCode(vendorName);
 			logger.info("vendor Code ::" + vendorCodeFromSuppDetails);
 			data.setData(vendorCodeFromSuppDetails);
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 			data.setMsg("error");
 		}
 
 		return gson.toJson(data).toString();
 	}
-	
+
+	@RequestMapping({ "getAllVendors" })
+	public List<SupDetails> getAllVendors(Principal principal, HttpServletRequest request) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+
+			//String role = (String) request.getSession().getAttribute("Role");
+
+			//if (role.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
+				//List<SupDetails> findAllVendors = serviceManager.supDetailsRepo.allVendorData();
+
+				//data.setData(findAllVendors);
+			//}
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			logger.error("error : " + e);
+			data.setMsg("error");
+		}
+
+		return serviceManager.supDetailsRepo.allVendorData();
+	}
+
 	/*
 	 * @RequestMapping({ "findVendorCodeAndName" }) public String
 	 * findVendorCodeAndName(Principal principal, @RequestBody String reqObj) {
@@ -283,7 +303,4 @@ public class DashboardController {
 	 * return gson.toJson(data).toString(); }
 	 */
 
-	
-	
-	
 }

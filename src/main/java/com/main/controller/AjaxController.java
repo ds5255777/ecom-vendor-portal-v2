@@ -389,10 +389,37 @@ public class AjaxController {
 				logger.error("error : " + e);
 				e.printStackTrace();
 			}
+			for(int i=0;i<supDetails.getAddressDetails().size();i++) {
+				String state = supDetails.getAddressDetails().get(i).getState();
+				String stCode=serviceManager.stateRepo.findByStateCode(state);
+				
+				String partnerType = supDetails.getVendorType();
+					if(!partnerType.isEmpty()) {
+						String typeCode = serviceManager.businessPartnerTypeRepo.findByTypeCode(partnerType);
+					supDetails.getAddressDetails().get(i).setSupplierSiteCode(stCode.concat("_"+typeCode));
+					}
+			}
+			   String registrationNumber = "TEMP-".concat(new SimpleDateFormat("yyyyHHmmssSSS").format(new Date()));
+			String bpCode=supDetails.getBpCode();
+			
+			if(bpCode==null) {
+				bpCode=registrationNumber;
+				supDetails.setBpCode(bpCode);
+			}
+			
+			
 			serviceManager.detailsRepo.save(supDetails);
 			
+			Integer id= serviceManager.userService.getUserId(supDetails.getBpCode());
+			
+			
 			User us=new User();
+			
+			us.setId(id);
+			
 			us.setBpCode(supDetails.getBpCode());
+			
+			
 			us.setUsername(supDetails.getBpCode());
 			us.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS);
 			us.setRoleId(2);

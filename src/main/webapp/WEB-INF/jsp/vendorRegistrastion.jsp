@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@page import="com.main.commonclasses.GlobalUrl"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -122,9 +123,9 @@
                  for (i = 0; i < mandFieldsArr.length; i++) {
                      console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                      if (document.getElementById(mandFieldsArr[i]).value == '') {
-                         notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                         notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
                         
-                         console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                         console.log("mandatory Check :: " + mandFieldsArr[i]);
                          
                          return false;
                      }
@@ -168,8 +169,8 @@
                 for (i = 0; i < mandFieldsArr.length; i++) {
                     console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                     if (document.getElementById(mandFieldsArr[i]).value == '') {
-                        notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                        console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                        notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+                        console.log("mandatory Check :: " + mandFieldsArr[i]);
                         return false;
                     }
                 }
@@ -183,15 +184,15 @@
                      for (i = 0; i < mandFieldsArr.length; i++) {
                          console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                          if (document.getElementById(mandFieldsArr[i]).value == '') {
-                             notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                             console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                             notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+                             console.log("mandatory Check :: " + mandFieldsArr[i]);
                              return false;
 
 
                     
                         /* if (document.getElementById(mandFieldsArr[i]).value == '') {
-                            notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                            console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                            notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+                            console.log("mandatory Check :: " + mandFieldsArr[i]);
                             return false;
                         } */
                          }
@@ -511,23 +512,23 @@ width: 100% !important;
 														class="required adHocRequired"></span></label></td>
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="introducedByName"
-													name="introducedByName" value="${uname}" placeholder="Introducer Name" readonly="readonly"
+													name="introducedByName" value="${uname}" placeholder="Introducer Name" 
 													maxlength="50"></td>
 
 												<td><label for="emailId">Introducer Email ID<span
 														class="required adHocRequired">*</span></label></td>
 												<td colspan='1'><input type="text"
 													class="form-control p-input" id="introducedByEmailID"
-													name="introducedByEmailID" maxlength="50" placeholder="abc@ecomexpress.in"
+													name="introducedByEmailID" value="${userEmail}" maxlength="50" placeholder="abc@ecomexpress.in"
 													onchange="removeValCssByID(this)"><span
 													id="message"></span></td>
 
 												<td><label for="Supplier Type">Business Partner
-														Code</label></td>
-												<td colspan='1'><input type="test"
+														Code<span class="required adHocRequired">*</span></label></td>
+												<td colspan='1'><input type="text"
 													class="form-control p-input" id="bpCode" name="bpCode"
 													placeholder="Business Partner Code"
-													onchange="removeValCssByID(this)" 
+													onchange="removeValCssByID(this);checkForExistingUserName();" 
 													oninput="this.value = this.value.toUpperCase()"></td>
 
 
@@ -734,48 +735,11 @@ width: 100% !important;
 															class="required adHocRequired">*</span></label></td>
 													<td colspan='2'><select name="state" id="state"
 														class="form-control p-input">
-															<option value="Andhra Pradesh">Andhra Pradesh</option>
-															<option value="Andaman and Nicobar Islands">Andaman
-																and Nicobar Islands</option>
-															<option value="Arunachal Pradesh">Arunachal
-																Pradesh</option>
-															<option value="Assam">Assam</option>
-															<option value="Bihar">Bihar</option>
-															<option value="Chandigarh">Chandigarh</option>
-															<option value="Chhattisgarh">Chhattisgarh</option>
-															<option value="Dadar and Nagar Haveli">Dadar and
-																Nagar Haveli</option>
-															<option value="Daman and Diu">Daman and Diu</option>
-															<option value="Delhi">Delhi</option>
-															<option value="Lakshadweep">Lakshadweep</option>
-															<option value="Puducherry">Puducherry</option>
-															<option value="Goa">Goa</option>
-															<option value="Gujarat">Gujarat</option>
-															<option value="Haryana">Haryana</option>
-															<option value="Himachal Pradesh">Himachal
-																Pradesh</option>
-															<option value="Jammu and Kashmir">Jammu and
-																Kashmir</option>
-															<option value="Jharkhand">Jharkhand</option>
-															<option value="Karnataka">Karnataka</option>
-															<option value="Kerala">Kerala</option>
-															<option value="Madhya Pradesh">Madhya Pradesh</option>
-															<option value="Maharashtra">Maharashtra</option>
-															<option value="Manipur">Manipur</option>
-															<option value="Meghalaya">Meghalaya</option>
-															<option value="Mizoram">Mizoram</option>
-															<option value="Nagaland">Nagaland</option>
-															<option value="Odisha">Odisha</option>
-															<option value="Punjab">Punjab</option>
-															<option value="Rajasthan">Rajasthan</option>
-															<option value="Sikkim">Sikkim</option>
-															<option value="Tamil Nadu">Tamil Nadu</option>
-															<option value="Telangana">Telangana</option>
-															<option value="Tripura">Tripura</option>
-															<option value="Uttar Pradesh">Uttar Pradesh</option>
-															<option value="Uttarakhand">Uttarakhand</option>
-															<option value="West Bengal">West Bengal</option>
-													</select> <!-- <input type="text"
+															<c:forEach items="${stateName}" var="stateNames">
+
+																<option value="${stateNames}">${stateNames}</option>
+															</c:forEach>
+																												</select> <!-- <input type="text"
 														class="form-control p-input" id="state" name="state"
 														placeholder="State"> --></td>
 													<td><label class="addressLable">District<span
@@ -1164,7 +1128,8 @@ width: 100% !important;
 
 
 														<td><label class="addressLable" for="tdsSection">TDS
-                                                                                      Section</label></td>
+                                                                                      Section<span
+															class="required adHocRequired">*</span></label></td>
                                                                     	<td><select id="tdsSection" name="tdsSection"
 															class="form-control p-input" colspan='2'
 															placeholder="TDS Section">
@@ -1310,7 +1275,7 @@ width: 100% !important;
 													<tbody>
 														<tr>
 															<td><label>GST Certificate<span
-																	class="required">*</span></label></td>
+																	class="required"></span></label></td>
 															<td><input type="file" id="GSTFile" name="GSTFile"
 																onchange=" removeValCssByID(this),  handleFileSelect(event,'GSTFileText'), onValidateFile('GSTFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
@@ -1557,16 +1522,16 @@ width: 100% !important;
             
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "District is Mandatory", "warning");
+                swal.fire("Alert", "District is mandatory", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "Pin Code is Mandatory", "warning");
+                swal.fire("Alert", "Pin Code is mandatory", "warning");
                 return false;
             } else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", "Nature of Transactions is Mandatory", "warning");
+                swal.fire("Alert", "Nature of Transactions is mandatory", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", "Address is Mandatory", "warning");
+                swal.fire("Alert", "Address is mandatory", "warning");
                 return false;
             }else {
 
@@ -1602,16 +1567,16 @@ width: 100% !important;
             var abc4 = document.getElementById('conEmail').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "First Name is Mandatory !", "warning");
+                swal.fire("Alert", "First Name is mandatory !", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "Last Name is Mandatory !", "warning");
+                swal.fire("Alert", "Last Name is mandatory !", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", "Phone Number is Mandatory !", "warning");
+                swal.fire("Alert", "Phone Number is mandatory !", "warning");
                 return false;
             } else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", "Email Id is Mandatory !", "warning");
+                swal.fire("Alert", "Email Id is mandatory !", "warning");
                 return false;
             } else {
                 console.log("Coming Here");
@@ -1633,26 +1598,21 @@ width: 100% !important;
             var abc2 = document.getElementById('ifscCode').value;
             var abc3 = document.getElementById('accoutNumber').value;
             var abc4 = document.getElementById('confirmedAccoutNumber').value;
-            table = document.getElementById('addBankGrid');
-            rowLength = table.rows.length;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Bank Name is Mandatory", "warning");
+                swal.fire("Alert", "Bank Name is mandatory", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "IFSC Code is Mandatory", "warning");
+                swal.fire("Alert", "IFSC Code is mandatory", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", " Account Number is Mandatory", "warning");
+                swal.fire("Alert", " Account Number is mandatory", "warning");
                 return false;
             }else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", " Confirm Account Number is Mandatory", "warning");
+                swal.fire("Alert", " Confirm Account Number is mandatory", "warning");
                 return false;
             
-            }
-           
-            else if(rowLength<2) {
-           
+            } else {
                 $("#addBankGrid").append('<tr class=""><td>' +
                     document.getElementById('bankName').value + '</td><td>' +
                     document.getElementById('ifscCode').value + '</td><td>' +
@@ -1663,20 +1623,9 @@ width: 100% !important;
                 document.getElementById('ifscCode').value = "";
                 document.getElementById('accoutNumber').value = "";
                 document.getElementById('confirmedAccoutNumber').value = "";
-                $('#divCheckPasswordMatch').removeAttr( 'style' );
-     		    $('#divCheckPasswordMatch').empty();
-            }else{
-            	 swal.fire("Alert", "only add one bank details", "warning");
-            	 document.getElementById('bankName').value = "";
-                 document.getElementById('ifscCode').value = "";
-                 document.getElementById('accoutNumber').value = "";
-                 document.getElementById('confirmedAccoutNumber').value = "";
-                 $('#divCheckPasswordMatch').removeAttr( 'style' );
-      		    $('#divCheckPasswordMatch').empty();
-                 return false;
             }
         });
-
+        
         $body = $("body");
 
         $(document).on({
@@ -1688,7 +1637,7 @@ width: 100% !important;
             }
         });
 
-        $("#addITRGridButt").click(function() {
+     /*    $("#addITRGridButt").click(function() {
             var abc = document.getElementById('fyYear').value;
             var abc1 = document.getElementById('acknowledgementNumber').value;
             let abc2 = document.getElementById('ITRAFile').value;
@@ -1717,7 +1666,7 @@ width: 100% !important;
             }
         });
 
-        
+ */        
   
         $("#panNumber").change(function() {
             var inputvalues = $(this).val();
@@ -1790,7 +1739,7 @@ width: 100% !important;
             
             $("#introducedByEmailID").change(function() {
                 var inputvalues = $(this).val();
-                var regex = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@ecomexpress.in$/;
+                var regex = /^[a-zA-Z0-9+_.-]*@ecomexpress.in$/;
                 
                 if (!regex.test(inputvalues)) {
                     $("#introducedByEmailID").val("");
@@ -1822,17 +1771,18 @@ width: 100% !important;
         
         
         function sendToServer() {
-        	$('.loader').show();
+        	
+            
         
         	 console.log("Inside Step One");
-             var mandFields = "introducedByName,introducedByEmailID,states,suppName,panNumber";
+             var mandFields = "introducedByName,introducedByEmailID,bpCode,states,suppName,panNumber";
              var mandFieldsArr = mandFields.split(",");
              for (i = 0; i < mandFieldsArr.length; i++) {
                  console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                  if (document.getElementById(mandFieldsArr[i]).value == '') {
-                     notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                     notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
                     
-                     console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                     console.log("mandatory Check :: " + mandFieldsArr[i]);
                      
                      return false;
                  }
@@ -1909,7 +1859,7 @@ width: 100% !important;
                     "ifscCode": row.cells[1].innerHTML,
                     "accoutCurrency": row.cells[2].innerHTML,
                     "accoutNumber": row.cells[3].innerHTML,
-                    "accoutName": row.cells[4].innerHTML,
+                    "accoutName": row.cells[4].innerHTML
                 }
                 accountDetailsArray.push(pushObj);
             }
@@ -1941,8 +1891,8 @@ width: 100% !important;
             for (i = 0; i < mandFieldsArr.length; i++) {
                 console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                 if (document.getElementById(mandFieldsArr[i]).value == '') {
-                    notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                    console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                    notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+                    console.log("mandatory Check :: " + mandFieldsArr[i]);
                     return false;
                 }
             }
@@ -1951,22 +1901,22 @@ width: 100% !important;
             for (i = 0; i < mandFieldsArr.length; i++) {
                 console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                 if (document.getElementById(mandFieldsArr[i]).value == '') {
-                    notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                    console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                    notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+                    console.log("mandatory Check :: " + mandFieldsArr[i]);
                     return false;
                 }
             }
             
             if ($("#partnerType").val() != "Ad-Hoc") { 
         		  
-        		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,ITRFile,FUVFFile,MSMECFile,AMFile,NMISFile";
+        		  var mandFields = "PDFile,PANFile,CCFile,ITRFile,MSMECFile,AMFile,NMISFile";
                   var mandFieldsArr = mandFields.split(",");
 
                   for (i = 0; i < mandFieldsArr.length; i++) {
                       console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                       if (document.getElementById(mandFieldsArr[i]).value == '') {
-                          notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                          console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                          notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+                          console.log("mandatory Check :: " + mandFieldsArr[i]);
                           return false;
                       }
                   }
@@ -1977,8 +1927,8 @@ width: 100% !important;
                   for (i = 0; i < mandFieldsArr.length; i++) {
                       console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                       if (document.getElementById(mandFieldsArr[i]).value == '') {
-                          notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                          console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                          notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+                          console.log("mandatory Check :: " + mandFieldsArr[i]);
                           return false;
                       }
                   }
@@ -2128,45 +2078,27 @@ width: 100% !important;
 				}
 				
             
-         /*    
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(finalObj),
-                url: "ajaxController/getBpcode",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(response) {
-                	//return;
-                    if (response.msg == 'success') {
-                    	  $('.loader').hide();
-                    	
-
-
-                        setTimeout(function(response) {
-                            //location.href = "login";
-                        }, 2000);
-                    } else {
-                        alert("failed");
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    })
-                }
-            });
-        }
-
-            
-            
-			var bpco=
-				
-            finalObj.bpCode=
- */            console.log("finalObj");
+        	var acknowledgementNumber1= $('#acknowledgementNumber1').val();
+          	var acknowledgementNumber2= $('#acknowledgementNumber2').val();
+          	var acknowledgementNumber3= $('#acknowledgementNumber3').val();
+       		
+          	var fyYear1= $('#fyYear1').val();
+          	var fyYear2= $('#fyYear2').val();
+          	var fyYear3= $('#fyYear3').val();
+          	
+          	finalObj.fyYear1=fyYear1;
+          	finalObj.fyYear2=fyYear2;
+          	finalObj.fyYear3=fyYear3;
+          	
+          	finalObj.acknowledgementNumber1=acknowledgementNumber1;
+          	finalObj.acknowledgementNumber2=acknowledgementNumber2;
+          	finalObj.acknowledgementNumber3=acknowledgementNumber3;
+ 
+ 
+ 
+ console.log("finalObj");
             console.log(finalObj);
-
+            $('.loader').show();
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(finalObj),
@@ -2174,7 +2106,7 @@ width: 100% !important;
                 dataType: "json",
                 contentType: "application/json",
                 success: function(response) {
-                	//return;
+                	
                     if (response.msg == 'success') {
                     	  $('.loader').hide();
                     	swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + response.data, "success", "OK").then(function() {
@@ -2259,94 +2191,99 @@ width: 100% !important;
                  if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
  				
                  	 if(controlName=="introducedByName"){
-                 		 swal.fire("Alert", "Introducer Name is Mandatory", "warning")
+                 		 swal.fire("Alert", "Introducer Name is mandatory", "warning")
                           .then((value) => {});
                  		 
                  	 }
                  	 else  if(controlName=="introducedByEmailID"){
                     	  
-                   	   swal.fire("Alert", "Introducer Email Id is Mandatory", "warning")
+                   	   swal.fire("Alert", "Introducer Email Id is mandatory", "warning")
                           .then((value) => {});
-                      }
+                      } 
+                 	 else  if(controlName=="bpCode"){
+                    	  
+                      	   swal.fire("Alert", "Business Partner Code is mandatory", "warning")
+                             .then((value) => {});
+                         }
                  	else  if(controlName=="states"){
                  	  
-                 	   swal.fire("Alert", "Business Partner Type is Mandatory", "warning")
+                 	   swal.fire("Alert", "Business Partner Type is mandatory", "warning")
                         .then((value) => {});
                     }
                  	else  if(controlName=="suppName"){
                    	  
-                  	   swal.fire("Alert", "Business Partner Name is Mandatory", "warning")
+                  	   swal.fire("Alert", "Business Partner Name is mandatory", "warning")
                          .then((value) => {});
                      }
                  	
                  	else  if(controlName=="panNumber"){
                    	  
-                    	   swal.fire("Alert", "PAN Number is Mandatory", "warning")
+                    	   swal.fire("Alert", "PAN Number is mandatory", "warning")
                            .then((value) => {});
                        }
                  	
                  	 else  if(controlName=="creditTerms"){
                        	  
-                     	   swal.fire("Alert", "Payment / Credit Terms is Mandatory", "warning")
+                     	   swal.fire("Alert", "Payment / Credit Terms is mandatory", "warning")
                             .then((value) => {});
                         }
                  	 else  if(controlName=="paymentMethod"){
                       	  
-                   	   swal.fire("Alert", "Payment Method is Mandatory", "warning")
+                   	   swal.fire("Alert", "Payment Method is mandatory", "warning")
                           .then((value) => {});
                       }
                  	 else  if(controlName=="tdsSection"){
                     	  
-                   	   swal.fire("Alert", "TDS Section is Mandatory", "warning")
+                   	   swal.fire("Alert", "TDS Section is mandatory", "warning")
                           .then((value) => {});
                       }
                	 else  if(controlName=="tdsRate"){
                   	  
-                 	   swal.fire("Alert", "TDS Rate is Mandatory", "warning")
+                 	   swal.fire("Alert", "TDS Rate is mandatory", "warning")
                         .then((value) => {});
                     }
                  	 
               
                  	 
-               	else  if(controlName=="GSTFile"){
+               /* 	else  if(controlName=="GSTFile"){
                 	  
-              	   swal.fire("Alert", "GST Certificate is Mandatory", "warning")
+              	   swal.fire("Alert", "GST Certificate is mandatory", "warning")
                      .then((value) => {});
-                 }
+                 } */
                	else  if(controlName=="PDFile"){
                   	  
-               	   swal.fire("Alert", "Proprietorship Declaration is Mandatory", "warning")
+               	   swal.fire("Alert", "Proprietorship Declaration is mandatory", "warning")
                       .then((value) => {});
                   }
                	else  if(controlName=="PANFile"){
                   	  
-               	   swal.fire("Alert", "PAN Card is Mandatory", "warning")
+               	   swal.fire("Alert", "PAN Card is mandatory", "warning")
                       .then((value) => {});
                   }
                	else  if(controlName=="CCFile"){
                 	  
-                	   swal.fire("Alert", "Cancelled Cheque/ Passbook/ Bank Statemen  is Mandatory", "warning")
+                	   swal.fire("Alert", "Cancelled Cheque/ Passbook/ Bank Statement  is mandatory", "warning")
                        .then((value) => {});
                    }
                	else  if(controlName=="ITRFile"){
                 	  
-                	   swal.fire("Alert", "ITR Filling Declaration is Mandatory", "warning")
+                	   swal.fire("Alert", "ITR Filling Declaration is mandatory", "warning")
                        .then((value) => {});
                    }
                
                	else  if(controlName=="MSMECFile"){
                 	  
-                	   swal.fire("Alert", "MSME Certificate is Mandatory", "warning")
+                	   swal.fire("Alert", "MSME Certificate is mandatory", "warning")
                        .then((value) => {});
                    }
                	else  if(controlName=="AMFile"){
                 	  
-                	   swal.fire("Alert", "Approval Mail is Mandatory", "warning")
+                	   swal.fire("Alert", "Approval Mail is mandatory", "warning")
                        .then((value) => {});
                    }
                	else  if(controlName=="NMISFile"){
                 	  
-                	   swal.fire("Alert", "Name Mismatch Affidavit is Mandatory", "warning")
+                	   swal.fire("Alert", "Name Mismatch Affidavit is mandatory", "warning")
                        .then((value) => {});
                    }
                  	
@@ -2475,6 +2412,7 @@ width: 100% !important;
            });
           
            
+           
            $("#conFname").keypress(function(event){
               	var inputValue = event.which;
                   //alert(inputValue);
@@ -2595,7 +2533,56 @@ width: 100% !important;
 			
 				
 			}
-			
+	       
+			function checkForExistingUserName() {
+
+	            var usernameCheckStatus = "false";
+
+	            if ($("#bpCode").val() != "") {
+
+	                var json = {
+	                    "username": $("#bpCode").val(),
+
+	                }
+	                $.ajax({
+	                    type: "POST",
+	                    data: JSON.stringify(json),
+	                    url: "<%=GlobalUrl.checkForExistingUserName%>",
+	                    dataType: "json",
+	                    contentType: "application/json",
+	                    async: false,
+	                    success: function(data) {
+
+	                        if (data.msg == 'exist') {
+
+	                            Toast.fire({
+	                                type: 'warning',
+	                                title: 'UserName Already Exists..'
+	                            })
+
+	                            $("#bpCode").val('');
+	                            return false;
+
+	                        } else if (data.msg == 'success') {
+	                            usernameCheckStatus = "true";
+	                        } else {
+	                            Toast.fire({
+	                                type: 'error',
+	                                title: 'Failed.. Try Again..'
+	                            })
+	                        }
+
+	                    },
+	                    error: function(jqXHR, textStatue, errorThrown) {
+	                        alert("failed, please try again");
+	                    }
+
+	                });
+
+	            }
+
+	            return usernameCheckStatus;
+	        }
 			
     </script>
 

@@ -17,6 +17,13 @@ public class BusinessPartnerType {
 	
 	@Column(name = "name")
 	private String name;
+	
+	@Column(name = "gl_code")
+	private String glCode;
+	
+	@Column(name = "type_code")
+	private String typeCode;
+	
 
 	public Integer getId() {
 		return id;
@@ -33,5 +40,23 @@ public class BusinessPartnerType {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getGlCode() {
+		return glCode;
+	}
+
+	public void setGlCode(String glCode) {
+		this.glCode = glCode;
+	}
+
+	public String getTypeCode() {
+		return typeCode;
+	}
+
+	public void setTypeCode(String typeCode) {
+		this.typeCode = typeCode;
+	}
+	
+	
 
 }

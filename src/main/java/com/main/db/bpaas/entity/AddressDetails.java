@@ -38,6 +38,9 @@ public class AddressDetails {
 	private String natureOfTransactions;
 	@Column(name = "add_details")
 	private String addDetails;
+	
+	@Column(name = "supplier_site_code")
+	private String supplierSiteCode;
 
 	@JsonIgnore
 	@ManyToOne
@@ -116,4 +119,13 @@ public class AddressDetails {
 		this.natureOfTransactions = natureOfTransactions;
 	}
 
+	public String getSupplierSiteCode() {
+		return supplierSiteCode;
+	}
+
+	public void setSupplierSiteCode(String supplierSiteCode) {
+		this.supplierSiteCode = supplierSiteCode;
+	}
+
+	
 }

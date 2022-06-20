@@ -93,94 +93,94 @@
                 if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
 				
                 	 if(controlName=="introducedByName"){
-                		 swal.fire("Alert", "Introducer Name is Mandatory", "warning")
+                		 swal.fire("Alert", "Introducer Name is mandatory", "warning")
                          .then((value) => {});
                 		 
                 	 }
                 	 else  if(controlName=="introducedByEmailID"){
                    	  
-                  	   swal.fire("Alert", "Introducer Email Id is Mandatory", "warning")
+                  	   swal.fire("Alert", "Introducer Email Id is mandatory", "warning")
                          .then((value) => {});
                      }
                 	else  if(controlName=="states"){
                 	  
-                	   swal.fire("Alert", "Business Partner Type is Mandatory", "warning")
+                	   swal.fire("Alert", "Business Partner Type is mandatory", "warning")
                        .then((value) => {});
                    }
                 	else  if(controlName=="suppName"){
                   	  
-                 	   swal.fire("Alert", "Business Partner Name is Mandatory", "warning")
+                 	   swal.fire("Alert", "Business Partner Name is mandatory", "warning")
                         .then((value) => {});
                     }
                 	
                 	else  if(controlName=="panNumber"){
                   	  
-                   	   swal.fire("Alert", "PAN Number is Mandatory", "warning")
+                   	   swal.fire("Alert", "PAN Number is mandatory", "warning")
                           .then((value) => {});
                       }
                 	
                 	 else  if(controlName=="creditTerms"){
                       	  
-                    	   swal.fire("Alert", "Payment / Credit Terms is Mandatory", "warning")
+                    	   swal.fire("Alert", "Payment / Credit Terms is mandatory", "warning")
                            .then((value) => {});
                        }
                 	 else  if(controlName=="paymentMethod"){
                      	  
-                  	   swal.fire("Alert", "Payment Method is Mandatory", "warning")
+                  	   swal.fire("Alert", "Payment Method is mandatory", "warning")
                          .then((value) => {});
                      }
                 	 else  if(controlName=="tdsSection"){
                    	  
-                  	   swal.fire("Alert", "TDS Section is Mandatory", "warning")
+                  	   swal.fire("Alert", "TDS Section is mandatory", "warning")
                          .then((value) => {});
                      }
               	 else  if(controlName=="tdsRate"){
                  	  
-                	   swal.fire("Alert", "TDS Rate is Mandatory", "warning")
+                	   swal.fire("Alert", "TDS Rate is mandatory", "warning")
                        .then((value) => {});
                    }
                 	 
              
                 	 
-              	else  if(controlName=="GSTFile"){
+              	/* else  if(controlName=="GSTFile"){
                	  
-             	   swal.fire("Alert", "GST Certificate is Mandatory", "warning")
+             	   swal.fire("Alert", "GST Certificate is mandatory", "warning")
                     .then((value) => {});
-                }
+                } */
               	else  if(controlName=="PDFile"){
                  	  
-              	   swal.fire("Alert", "Proprietorship Declaration is Mandatory", "warning")
+              	   swal.fire("Alert", "Proprietorship Declaration is mandatory", "warning")
                      .then((value) => {});
                  }
               	else  if(controlName=="PANFile"){
                  	  
-              	   swal.fire("Alert", "PAN Card is Mandatory", "warning")
+              	   swal.fire("Alert", "PAN Card is mandatory", "warning")
                      .then((value) => {});
                  }
               	else  if(controlName=="CCFile"){
                	  
-               	   swal.fire("Alert", "Cancelled Cheque/ Passbook/ Bank Statemen  is Mandatory", "warning")
+               	   swal.fire("Alert", "Cancelled Cheque/ Passbook/ Bank Statement  is mandatory", "warning")
                       .then((value) => {});
                   }
               	else  if(controlName=="ITRFile"){
                	  
-               	   swal.fire("Alert", "ITR Filling Declaration is Mandatory", "warning")
+               	   swal.fire("Alert", "ITR Filling Declaration is mandatory", "warning")
                       .then((value) => {});
                   }
               
               	else  if(controlName=="MSMECFile"){
                	  
-               	   swal.fire("Alert", "MSME Certificate is Mandatory", "warning")
+               	   swal.fire("Alert", "MSME Certificate is mandatory", "warning")
                       .then((value) => {});
                   }
               	else  if(controlName=="AMFile"){
                	  
-               	   swal.fire("Alert", "Approval Mail is Mandatory", "warning")
+               	   swal.fire("Alert", "Approval Mail is mandatory", "warning")
                       .then((value) => {});
                   }
               	else  if(controlName=="NMISFile"){
                	  
-               	   swal.fire("Alert", "Name Mismatch Affidavit is Mandatory", "warning")
+               	   swal.fire("Alert", "Name Mismatch Affidavit is mandatory", "warning")
                       .then((value) => {});
                   }
                 	
@@ -218,14 +218,14 @@
                         	   if ($("#partnerType").val() == "Scheduled") { 
                         		  
                         		 if(pid==""){
-                        		  var mandFields = "GSTFile,PDFile,PANFile,CCFile,MSMECFile,AMFile,NMISFile";
+                        		  var mandFields = "PDFile,PANFile,CCFile,MSMECFile,AMFile,NMISFile";
                                   var mandFieldsArr = mandFields.split(",");
 
                                   for (i = 0; i < mandFieldsArr.length; i++) {
                                       console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                                       if (document.getElementById(mandFieldsArr[i]).value == '') {
-                                          notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                                          console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                                          notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+                                          console.log("mandatory Check :: " + mandFieldsArr[i]);
                                           return false;
                                       }
                                   }
@@ -237,8 +237,8 @@
                                   for (i = 0; i < mandFieldsArr.length; i++) {
                                       console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                                       if (document.getElementById(mandFieldsArr[i]).value == '') {
-                                          notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                                          console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                                          notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+                                          console.log("mandatory Check :: " + mandFieldsArr[i]);
                                           return false;
                                       }
                                   }
@@ -337,9 +337,9 @@
                     for (i = 0; i < mandFieldsArr.length; i++) {
                         console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                         if (document.getElementById(mandFieldsArr[i]).value == '') {
-                            notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+                            notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
                            
-                            console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                            console.log("mandatory Check :: " + mandFieldsArr[i]);
                             
                             return false;
                         }
@@ -356,8 +356,8 @@
                     for (i = 0; i < mandFieldsArr.length; i++) {
                         console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                         if (document.getElementById(mandFieldsArr[i]).value == '') {
-                            notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                            console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                            notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+                            console.log("mandatory Check :: " + mandFieldsArr[i]);
                             return false;
                         }
                     }
@@ -399,8 +399,8 @@
                 for (i = 0; i < mandFieldsArr.length; i++) {
                     console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                     if (document.getElementById(mandFieldsArr[i]).value == '') {
-                        notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                        console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                        notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+                        console.log("mandatory Check :: " + mandFieldsArr[i]);
                         return false;
                     }
                 }
@@ -416,8 +416,8 @@
                     for (i = 0; i < mandFieldsArr.length; i++) {
                         console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                         if (document.getElementById(mandFieldsArr[i]).value == '') {
-                            notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
-                            console.log("Mandatory Check :: " + mandFieldsArr[i]);
+                            notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+                            console.log("mandatory Check :: " + mandFieldsArr[i]);
                             return false;
                         }
                     }
@@ -645,7 +645,7 @@
             
             $("#introducedByEmailID").change(function() {
                 var inputvalues = $(this).val();
-                var regex = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@ecomexpress.in$/;
+                var regex = /^[a-zA-Z0-9+_.-]*@ecomexpress.in$/;
                 
                 if (!regex.test(inputvalues)) {
                     $("#introducedByEmailID").val("");
@@ -1739,7 +1739,7 @@ label {
 													<tbody>
 														<tr>
 															<td><label>GST Certificate<span
-																	class="required">*</span></label></td>
+																	class="required"></span></label></td>
 															<td><input type="file" id="GSTFile" name="GSTFile"
 																onchange=" removeValCssByID(this),  handleFileSelect(event,'GSTFileText'), onValidateFile('GSTFile')"
 																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
@@ -2078,16 +2078,16 @@ label {
             var abc4 = document.getElementById('conEmail').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "First name is mandatory", "warning");
+                swal.fire("Alert", "First Name is mandatory", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "Last name is mandatory", "warning");
+                swal.fire("Alert", "Last Name is mandatory", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", "Phone number is mandatory", "warning");
+                swal.fire("Alert", "Phone Number is mandatory", "warning");
                 return false;
             } else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", "Email id is mandatory", "warning");
+                swal.fire("Alert", "Email Id is mandatory", "warning");
                 return false;
             } else {
                 console.log("Coming Here");
@@ -2111,16 +2111,16 @@ label {
             var abc4 = document.getElementById('confirmedAccoutNumber').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
-                swal.fire("Alert", "Bank Name is Mandatory", "warning");
+                swal.fire("Alert", "Bank Name is mandatory", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", "IFSC Code is Mandatory", "warning");
+                swal.fire("Alert", "IFSC Code is mandatory", "warning");
                 return false;
             } else if (abc3 == null || abc3 == "") {
-                swal.fire("Alert", " Account Number is Mandatory", "warning");
+                swal.fire("Alert", " Account Number is mandatory", "warning");
                 return false;
             }else if (abc4 == null || abc4 == "") {
-                swal.fire("Alert", " Confirm Account Number is Mandatory", "warning");
+                swal.fire("Alert", " Confirm Account Number is mandatory", "warning");
                 return false;
             
             } else {
@@ -2385,6 +2385,21 @@ label {
 					finalObj.glCode="203108";
 				}
 				
+         	var acknowledgementNumber1= $('#acknowledgementNumber1').val();
+          	var acknowledgementNumber2= $('#acknowledgementNumber2').val();
+          	var acknowledgementNumber3= $('#acknowledgementNumber3').val();
+       		
+          	var fyYear1= $('#fyYear1').val();
+          	var fyYear2= $('#fyYear2').val();
+          	var fyYear3= $('#fyYear3').val();
+          	
+          	finalObj.fyYear1=fyYear1;
+          	finalObj.fyYear2=fyYear2;
+          	finalObj.fyYear3=fyYear3;
+          	
+          	finalObj.acknowledgementNumber1=acknowledgementNumber1;
+          	finalObj.acknowledgementNumber2=acknowledgementNumber2;
+          	finalObj.acknowledgementNumber3=acknowledgementNumber3;
            
             console.log(finalObj);
              

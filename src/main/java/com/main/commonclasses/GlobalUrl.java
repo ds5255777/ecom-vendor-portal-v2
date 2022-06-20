@@ -145,6 +145,8 @@ public class GlobalUrl {
 	 
 	 public static String getBpCodeForNetwork = dashboardController + "/getBpCodeForNetwork";
 	// public static String findVendorCodeAndName = dashboardController + "/findVendorCodeAndName";
+	 public static String getAllVendors = dashboardController + "/getAllVendors";
+	 
 	 
 	 
 	 

@@ -410,7 +410,7 @@ public class AjaxController {
 			
 			serviceManager.detailsRepo.save(supDetails);
 			
-			Integer id= serviceManager.userService.getUserId(supDetails.getBpCode());
+			Integer id= serviceManager.userRepository.getUserId(supDetails.getBpCode());
 			
 			
 			User us=new User();

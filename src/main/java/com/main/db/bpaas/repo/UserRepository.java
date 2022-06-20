@@ -115,4 +115,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	 * , nativeQuery = true) List<Object[]> getVendorCodeVendorNameById(String
 	 * vendorName);
 	 */
+	 @Query(value = "select  id from Users where bp_code=:bpCode "  , nativeQuery = true)
+		Integer getUserId(String bpCode);
 }

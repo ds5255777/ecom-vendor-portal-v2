@@ -252,4 +252,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	List<TripDetails> findByVendorTripStatusAndRunStatusAndAssignToAndVendorCode(String vendorTripStatusYetToBeApproved,
 			String runClosed, String roleVendor, String vendorCode);
 
+	List<TripDetails> findByVehicleNumberAndVendorTripStatusAndVendorCode(String columnValue,
+			String vendorTripStatusApproved, String vendorCode);
+
 }

@@ -166,7 +166,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Tax Amount<span class="text-danger"> </span></label>
+                                            <label class="col-sm-5">Tax (%)<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" name="taxAmount" id="taxAmount" type="text" placeholder="Tax Amount"  style="width: 100%;">
                                             </div>
@@ -207,15 +207,15 @@
                             <div class="card-body" style="overflow: auto;">
 								<div class="col-md-12">
 									<div class="table-responsive">
-										<table id="prTable" class="table table-bordered">
+										<table id="prTable" class="display nowrap table table-bordered" style="width:100%">
 		                                    <thead>
 											<tr>
 												<th class="bg-primary">Trip ID</th>
 												<th class="bg-primary">Run Type</th>
 												<th class="bg-primary">Route</th>
 												<th class="bg-primary">Standard KM</th>
-												<th class="bg-primary">Rate per km</th>
-												<th class="bg-primary">Current Fuel Rate</th>
+												<th class="bg-primary">Rate/km</th>
+												<th class="bg-primary">Fuel Rate</th>
 												<th class="bg-primary">FS Base Rate</th>
 												<th class="bg-primary">Std. Vehicle</th>
 												<th class="bg-primary">FS Diff</th>
@@ -223,7 +223,7 @@
 												<th class="bg-primary">FS</th>
 												<th class="bg-primary">Mileage</th>
 												<th class="bg-primary">Total Freight</th>
-												<th class="bg-primary">Lumpsome Amount</th>
+												<th class="bg-primary">Lump sum Amount</th>
 												<th class="bg-primary">Line level Description</th>
 											</tr>
 										</thead>

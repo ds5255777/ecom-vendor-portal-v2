@@ -232,8 +232,8 @@
 										<th class="bg-primary">Run Type</th>
 										<th class="bg-primary">Route</th>
 										<th class="bg-primary">Standard KM</th>
-										<th class="bg-primary">Rate per km</th>
-										<th class="bg-primary">Current Fuel Rate</th>
+										<th class="bg-primary">Rate/KM</th>
+										<th class="bg-primary">Fuel Rate</th>
 										<th class="bg-primary">FS Base Rate</th>
 										<th class="bg-primary">Std. Vehicle</th>
 										<th class="bg-primary">FS Diff</th>
@@ -481,6 +481,7 @@
         setInvoiceDetails();
         
         function setInvoiceDetails() {
+        	 $('.loader').show();
         	var invoiceNumber = $("#ecomInvoiceNumber").val();
             var obj = {
                 "ecomInvoiceNumber": invoiceNumber
@@ -491,9 +492,8 @@
                 url: "<%=GlobalUrl.getQueryInvoice%>",
                 dataType: "json",
                 contentType: "application/json",
-                async: false,
                 success: function(data) {
-
+                	 $('.loader').hide();
                      if (data.msg == 'success') {
                     	 var result = data.data;
                     	 var action = "";
@@ -527,7 +527,7 @@
         getQueryData();
 		 
 		 function getQueryData(){
-			 
+			 $('.loader').show();
 			 var obj ={
 						"referenceid": $('#invoiceNumber').val(),
 						"type": "Invoice"
@@ -540,6 +540,7 @@
 					dataType : "json",
 					contentType : "application/json",
 					success : function(response) {
+						 $('.loader').hide();
 						if (response.msg == "success") {
 						
 							if("data" in response){
@@ -695,7 +696,6 @@
                 url: "<%=GlobalUrl.deleteTripQueryInvoice%>",
                 dataType: "json",
                 contentType: "application/json",
-                async: false,
                 success: function(data) {
 
                     if (data.msg == 'success') {
@@ -733,7 +733,6 @@
                 url: "<%=GlobalUrl.getTripDetailByTripId%>",
                 dataType: "json",
                 contentType: "application/json",
-                async: false,
                 success: function(data) {
 
                     if (data.msg == 'success') {
@@ -782,7 +781,6 @@
                 url: "<%=GlobalUrl.addNewTripInQueryInvoice%>",
                 dataType: "json",
                 contentType: "application/json",
-                async: false,
                 success: function(data) {
 
                     if (data.msg == 'success') {

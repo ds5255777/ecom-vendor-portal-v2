@@ -76,27 +76,12 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-			<div class="content-header">
-				<div class="container-fluid">
-					<div class="row mb-2">
-						<div class="col-sm-6"></div>
-						<!-- /.col -->
-						<div class="col-sm-6">
-							<ol class="breadcrumb float-sm-right">
-							</ol>
-						</div>
-						<!-- /.col -->
-					</div>
-					<!-- /.row -->
-				</div>
-				<!-- /.container-fluid -->
-			</div>
+			
 			<!-- /.content-header -->
 
 			<!-- Main content -->
-			<section class="content">
+			<section class="content" style="padding-top: 15px;">
 				<div class="container-fluid">
-
 
 					<c:if test="${role.equalsIgnoreCase(financeRole) }">
 						<!-- Small boxes (Stat box) -->
@@ -113,7 +98,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 									</div>
 									<div class="icon">
 										<i class="fas fa-file-invoice"
-											style="color: #6610f2; font-size: 50px;"></i>
+											style="color: #FAA654; font-size: 50px;"></i>
 
 									</div>
 									<a href="allInvoices_Finance" class="small-box-footer"
@@ -214,7 +199,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 									<div class="icon">
 
 										<i class="fas fa-question"
-											style="color: #fd7e14; font-size: 50px;"></i>
+											style="color: #3010af; font-size: 50px;"></i>
 									</div>
 									<a href="queryInvoiceFinance" class="small-box-footer"
 										style="background: #007bffe0; color: white !important;">More
@@ -242,7 +227,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 									</div>
 									<div class="icon">
 										<i class="fas fa-file-invoice"
-											style="color: #6610f2; font-size: 75px;"></i>
+											style="color: #FAA654; font-size: 75px;"></i>
 									</div>
 									<a href="allInvoices_Finance" class="small-box-footer"
 										style="background: #007bffe0; color: white !important;">More
@@ -510,14 +495,13 @@ request.setAttribute("financeHeadRole", financeHeadRole);
             var unresolvedstsData = {
                 labels: [
                     'All Invoices',
-                    'In-Review Invoices',
-                    'Pending For Approval',
-                    'Approved Invoices',
+                    'In-Review Trip Invoices',
+                    'In-Review PO Invoices',
                     'Query'
                 ],
                 datasets: [{
-                        data: [${allInvoice}, ${inReviewInvoice}, ${countForPendingForApprovalInvoice}, ${countForApprovedInvoice}, ${queryCount}],
-                        backgroundColor: ['#6610f2', 'yellow', '#28a745', '#1F8BFF','#fd7e14'],
+                        data: [${allInvoice}, ${inReviewInvoice}, ${countForPendingForApprovalInvoice}, ${queryCount}],
+                        backgroundColor: ['#FAA654', '#1F8BFF','#28a745','#3010af'],
                     }]
             }
             var unresolvedstsOptions = {

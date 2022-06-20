@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.main.db.bpaas.entity.Flag;
 import com.main.db.bpaas.repo.AddressDetailsRepo;
 import com.main.db.bpaas.repo.AdharLinkStatusRepo;
 import com.main.db.bpaas.repo.AgreementMasterRepo;
@@ -158,10 +157,11 @@ public class ServiceManager {
 	public FlagRepo flagRepo;
 	
 	@Autowired
-	public InvoiceNumberRepo invoiceNumberRepo;
-	
-	@Autowired
 	public StateRepo stateRepo;
+
+	@Autowired
+	public InvoiceNumberRepo invoiceNumberRepo;
+
 
 	/*
 	 * public void insertRecordIntoAuditEntry(HttpServletRequest request, String

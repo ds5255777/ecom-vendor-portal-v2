@@ -132,14 +132,39 @@ tbody {
 							<div class="card card-primary ">
 								<!-- /.card-header -->
 								<div class="card-body ">
-								<form role="form" id="addForm" autocomplete="off">
+								<foorm role="form" id="addForm" autocomplete="off">
 										<div class="row">
+											<div class="col-md-2">
+												<div class="form-group">
+													<select class="form-control" name="selectLevelValue"
+														id="selectLevelValue" 
+														style="height: auto;">
+														<option value="">Select Type</option>
+														<option value="route">Route</option>
+														<option value="vehicle_number">Vehicle Number</option>
+													</select>
+												</div>
+											</div>
+											
+											<div class="col-md-2">
+												<div class="form-group" style="width: inherit;height: auto;">
+													<input type="text" name="selectInputValue" style="height: auto;"
+													placeholder="Enter Value" class="form-control" 
+													id="selectInputValue">
+												</div>
+											</div>
+											<div class="col-md-2">
+
+												<button type="button" onclick="selectDropDownValue()"
+													style="width: inherit;"
+													class="btn btn-primary">Search</button>
+											</div>
 											
 											<div class="col-md-2">
 												<div class="dropdown">
 													<button type="button"
 														class="btn btn-primary dropdown-toggle"
-														style="  margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
+														style="width: inherit;"
 														data-toggle="dropdown">Export Details</button>
 													<div class="dropdown-menu">
 														<a class="dropdown-item" href="#" id="exportLinkPdf">Download
@@ -148,7 +173,9 @@ tbody {
 													</div>
 												</div>
 											</div>
-											<div class="col-md-8"></div>
+											<div class="col-md-2">
+											</div>
+											
 											<div class="col-md-2">
 												<div class="form-group row">
 													<label class="col-md-4">Search : </label>
@@ -167,11 +194,10 @@ tbody {
 												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
 												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
 												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Mode</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual KM</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Origin Hub</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Destination
-													Hub</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Billable KM</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual Arrival / Departure</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vehicle No. / Size</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Total Freight</th>
 												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Approve</th>
 											</tr>
 										</thead>
@@ -856,9 +882,17 @@ tbody {
                                 var approve = "<button type=\"button\" class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#myModal\" onclick=\"setTripStatus('" + result[i].tripID + "')\" ><i class=\"nav-icon fas fa-pencil-square-o\"> </i> </button>";
                                
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getTripDataFormDataByTripId('" + result[i].tripID + "')\" >" + result[i].tripID + "</a>";
-
-                                tabledata.row.add([view, result[i].route, result[i].runType, result[i].mode, result[i].standardKM, result[i].actualKM, 
-                                	result[i].originHub, result[i].destHub, approve]);
+//debugger;
+                                tabledata.row.add([
+                                	view, 
+                                	result[i].route, 
+                                	result[i].runType, 
+                                	result[i].mode, 
+                                	result[i].standardKM, 
+                                	result[i].actualDeparture+" / "+result[i].actualArrival, 
+                                	result[i].vehicleNumber+" / "+result[i].standardVechicleType, 
+                                	result[i].totalFreight, 
+                                	approve]);
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -1095,6 +1129,111 @@ function getQueryData(tripId){
 				}
 			}); 
 	 }
+	 
+function selectDropDownValue(){
+	$('.loader').show();
+	var columnName= $("#selectLevelValue").val();
+	var columnValue=$("#selectInputValue").val();
+	var vendorCode=$("#vendorCode").val();
+	
+	if (columnName == "" || columnName == null) {
+        Toast.fire({
+            type: 'error',
+            title: 'Select Column Type.'
+        });
+        document.getElementById("selectLevelValue").focus();
+        return;
+    }
+	
+	if (columnValue == "" || columnValue == null) {
+        Toast.fire({
+            type: 'error',
+            title: 'Please Insert Value.'
+        });
+        document.getElementById("selectInputValue").focus();
+        return;
+    }
+	
+	 var json ={
+				"columnName":columnName,
+				"columnValue":columnValue,
+				"tripStatus":'<%=GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED%>',
+				"vendorCode":vendorCode
+		}
+
+	 console.log(json);
+	 $.ajax({
+			type : "GET",
+			url : "<%=GlobalUrl.filterByColumn%>",
+			data :json,
+			dataType : "json",
+			contentType : "application/json",
+			success : function(response) {
+				$('.loader').hide();
+				if (response.msg == "success") {
+					 var result = response.data;
+                        tabledata.clear();
+                        for (var i = 0; i < result.length; i++) {
+                        	if (!result[i].hasOwnProperty("tripID")) {
+                                result[i].tripID = "";
+                            }
+                            if (!result[i].hasOwnProperty("route")) {
+                                result[i].route = "";
+                            }
+                            if (!result[i].hasOwnProperty("originHub")) {
+                                result[i].originHub = "";
+                            }
+                            if (!result[i].hasOwnProperty("destHub")) {
+                                result[i].destHub = "";
+                            }
+                            if (!result[i].hasOwnProperty("runType")) {
+                                result[i].runType = "";
+                            }
+                            if (!result[i].hasOwnProperty("standardKM")) {
+                                result[i].standardKM = "";
+                            }
+                            if (!result[i].hasOwnProperty("mode")) {
+                                result[i].mode = "";
+                            }
+                            if (!result[i].hasOwnProperty("actualDeparture")) {
+                                result[i].actualDeparture = "";
+                            }
+                            if (!result[i].hasOwnProperty("actualArrival")) {
+                                result[i].actualArrival = "";
+                            }
+
+                            var approve = "<button type=\"button\" class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#myModal\" onclick=\"setTripStatus('" + result[i].tripID + "')\" ><i class=\"nav-icon fas fa-pencil-square-o\"> </i> </button>";
+                            
+                            var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getTripDataFormDataByTripId('" + result[i].tripID + "')\" >" + result[i].tripID + "</a>";
+//debugger;
+                            tabledata.row.add([
+                            	view, 
+                            	result[i].route, 
+                            	result[i].runType, 
+                            	result[i].mode, 
+                            	result[i].standardKM, 
+                            	result[i].actualDeparture+" / "+result[i].actualArrival, 
+                            	result[i].vehicleNumber+" / "+result[i].standardVechicleType, 
+                            	result[i].totalFreight, 
+                            	approve]);
+                        }
+                        tabledata.draw();
+                        $("tbody").show();
+				} else {
+					Toast.fire({
+						type : 'error',
+						title : 'Failed ..'
+					})
+				}
+			},
+			error : function(jqXHR, textStatue, errorThrown) {
+				Toast.fire({
+					type : 'error',
+					title : 'Failed Added try again..'
+				})
+			}
+		});
+}
         </script>
 </body>
 

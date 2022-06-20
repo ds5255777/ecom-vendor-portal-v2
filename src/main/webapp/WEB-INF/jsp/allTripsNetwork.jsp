@@ -127,6 +127,11 @@ label {
 	font-size: 14px;
 }
 
+div.dataTables_wrapper {
+        width: 100%;
+        margin: 0 auto;
+    }
+
 tbody {
 	font-size: 12.9px;
 }
@@ -247,7 +252,7 @@ tbody {
 											</div>
 										</div>
 									</form>
-									<table class="table table-bordered table-hover" id="tabledata">
+									<table class="display nowrap table table-bordered table-hover" id="tabledata" style="width:100%">
 										<thead>
 											<tr>
 												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip

@@ -264,16 +264,15 @@ tbody {
 										<thead>
 											<tr>
 												<th class="bg-primary">Trip Id</th>
-												<th class="bg-primary">Invoice Number</th>
 												<th class="bg-primary">Route</th>
 												<th class="bg-primary">Run Type</th>
 												<th class="bg-primary">Run Status</th>
 												<th class="bg-primary">Vendor Status</th>
 												<th class="bg-primary">Act Dept</th>
-												<th class="bg-primary">Act KM</th>
+												<th class="bg-primary" >Vehicle No. / Size</th>
 												<th class="bg-primary">Std. KM</th>
-												<th class="bg-primary">Ori Hub</th>
-												<th class="bg-primary">Dest Hub</th>
+												 <th class="bg-primary" >Total Freight</th>
+												 <th class="bg-primary">Invoice Number</th>
 												<th class="bg-primary">Pay Status</th>
 											</tr>
 										</thead>
@@ -754,7 +753,7 @@ tbody {
                         extend: 'excelHtml5',
 
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                         }
                     },
                     {
@@ -762,7 +761,7 @@ tbody {
                         orientation: 'landscape',
                         pageSize: 'A4',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                         },
                         customize: function(doc) {
 
@@ -934,7 +933,18 @@ tbody {
 
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
                                
-                                tabledata.row.add([view, result[i].invoiceNumber, result[i].route, result[i].runType, result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub,  result[i].paymentStatus]);
+                                tabledata.row.add([
+                                	view, 
+                                	result[i].route,
+                                	result[i].runType, 
+                                	result[i].runStatus,
+                                	result[i].vendorTripStatus,
+                                	result[i].actualDeparture, 
+                                	result[i].vehicleNumber+" / "+result[i].standardVechicleType,  
+                                	result[i].standardKM, 
+                                	result[i].totalFreight,
+                                	result[i].invoiceNumber, 
+                                	result[i].paymentStatus]);
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -1087,8 +1097,17 @@ tbody {
 
                                   var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
                                  
-                                  tabledata.row.add([view, result[i].invoiceNumber, result[i].route, result[i].runType, result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub,  result[i].paymentStatus]);
-                             
+                                  tabledata.row.add([view, 
+                                	result[i].route,
+                                	result[i].runType, 
+                                	result[i].runStatus,
+                                	result[i].vendorTripStatus,
+                                	result[i].actualDeparture, 
+                                	result[i].vehicleNumber+" / "+result[i].standardVechicleType,  
+                                	result[i].standardKM, 
+                                	result[i].totalFreight,
+                                	result[i].invoiceNumber, 
+                                	result[i].paymentStatus]);
                               }
                               tabledata.draw();
                               $("tbody").show();

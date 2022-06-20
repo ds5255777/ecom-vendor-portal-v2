@@ -220,43 +220,58 @@ function GetSelectedTextValue() {
 							result[i].tripID="";
 						}
                     if(!result[i].hasOwnProperty("invoiceNumber")){
-							result[i].invoiceNumber="";
+							result[i].invoiceNumber="-";
 						}
 					if(!result[i].hasOwnProperty("route")){
-							result[i].route="";
+							result[i].route="-";
 						}
                      if(!result[i].hasOwnProperty("runType")){
-							result[i].runType="";
+							result[i].runType="-";
 						}
                      if(!result[i].hasOwnProperty("runStatus")){
-							result[i].runStatus="";
+							result[i].runStatus="-";
 						}
                      if(!result[i].hasOwnProperty("vendorTripStatus")){
-							result[i].vendorTripStatus="";
+							result[i].vendorTripStatus="-";
 						}
                      if(!result[i].hasOwnProperty("actualDeparture")){
-							result[i].actualDeparture="";
+							result[i].actualDeparture="-";
 						}
                      if(!result[i].hasOwnProperty("actualKM")){
-							result[i].actualKM="";
+							result[i].actualKM="-";
 						}
                      if(!result[i].hasOwnProperty("standardKM")){
-							result[i].standardKM="";
+							result[i].standardKM="-";
 						}
                       if(!result[i].hasOwnProperty("originHub")){
-							result[i].originHub="";
+							result[i].originHub="-";
 						}
                       if(!result[i].hasOwnProperty("destHub")){
-							result[i].destHub="";
+							result[i].destHub="-";
 						}
                       if(!result[i].hasOwnProperty("paymentStatus")){
-						result[i].paymentStatus="";
+						result[i].paymentStatus="-";
 					}
+                      if(!result[i].hasOwnProperty("vehicleNumber")){
+  						result[i].vehicleNumber="-";
+  					}
+                      if(!result[i].hasOwnProperty("standardVechicleType")){
+  						result[i].standardVechicleType="-";
+  					}
 
                     var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
                    
-                    tabledata.row.add([view, result[i].invoiceNumber, result[i].route, result[i].runType, result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub,  result[i].paymentStatus]);
-               
+                    tabledata.row.add([view, 
+                    	result[i].route,
+                    	result[i].runType, 
+                    	result[i].runStatus,
+                    	result[i].vendorTripStatus,
+                    	result[i].actualDeparture, 
+                    	result[i].vehicleNumber+" / "+result[i].standardVechicleType,  
+                    	result[i].standardKM, 
+                    	result[i].totalFreight,
+                    	result[i].invoiceNumber, 
+                    	result[i].paymentStatus]);
                 }
                 tabledata.draw();
                 $("tbody").show();

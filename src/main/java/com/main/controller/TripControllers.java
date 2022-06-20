@@ -305,7 +305,7 @@ public class TripControllers {
 
 		return gson.toJson(data).toString();
 	}
-	
+
 	@PostMapping({ "/tripDetailByTripId" })
 	@CrossOrigin("*")
 	public String getTripsDetailsByTripId(HttpServletRequest request, @RequestBody TripDetails tripObj) {
@@ -468,6 +468,7 @@ public class TripControllers {
 	public String filterByColumn(Principal principal, HttpServletRequest request,
 			@RequestParam(name = "columnName") String columnName,
 			@RequestParam(name = "columnValue") String columnValue,
+			@RequestParam(name = "tripStatus") String tripStatus,
 			@RequestParam(name = "vendorCode") String vendorCode) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -475,42 +476,63 @@ public class TripControllers {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
+			if (tripStatus.equals(GlobalConstants.VENDOR_TRIP_STATUS_APPROVED)) {
 
-			if (columnName.equals("trip_id")) {
-				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByTripIDAndVendorTripStatusAndVendorCode(columnValue,
-								GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
-				data.setData(getListByDateFilter);
-			} else if (columnName.equals("route")) {
-				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByRouteAndVendorTripStatusAndVendorCode(columnValue,
-								GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
-				data.setData(getListByDateFilter);
-			} else if (columnName.equals("origin_hub")) {
-				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByOriginHubAndVendorTripStatusAndVendorCode(columnValue,
-								GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
-				data.setData(getListByDateFilter);
-			} else if (columnName.equals("dest_hub")) {
-				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByDestHubAndVendorTripStatusAndVendorCode(columnValue,
-								GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
-				data.setData(getListByDateFilter);
-			} else if (columnName.equals("run_type")) {
-				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByRunTypeAndVendorTripStatusAndVendorCode(columnValue,
-								GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
-				data.setData(getListByDateFilter);
-			} else if (columnName.equals("standard_km")) {
-				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByStandardKMAndVendorTripStatusAndVendorCode(columnValue,
-								GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
-				data.setData(getListByDateFilter);
-			} else if (columnName.equals("mode")) {
-				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByModeAndVendorTripStatusAndVendorCode(columnValue,
-								GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
-				data.setData(getListByDateFilter);
+				if (columnName.equals("trip_id")) {
+					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+							.findByTripIDAndVendorTripStatusAndVendorCode(columnValue,
+									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
+					data.setData(getListByDateFilter);
+				} else if (columnName.equals("route")) {
+					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+							.findByRouteAndVendorTripStatusAndVendorCode(columnValue,
+									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
+					data.setData(getListByDateFilter);
+				} else if (columnName.equals("origin_hub")) {
+					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+							.findByOriginHubAndVendorTripStatusAndVendorCode(columnValue,
+									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
+					data.setData(getListByDateFilter);
+				} else if (columnName.equals("dest_hub")) {
+					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+							.findByDestHubAndVendorTripStatusAndVendorCode(columnValue,
+									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
+					data.setData(getListByDateFilter);
+				} else if (columnName.equals("run_type")) {
+					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+							.findByRunTypeAndVendorTripStatusAndVendorCode(columnValue,
+									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
+					data.setData(getListByDateFilter);
+				} else if (columnName.equals("standard_km")) {
+					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+							.findByStandardKMAndVendorTripStatusAndVendorCode(columnValue,
+									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
+					data.setData(getListByDateFilter);
+				} else if (columnName.equals("mode")) {
+					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+							.findByModeAndVendorTripStatusAndVendorCode(columnValue,
+									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
+					data.setData(getListByDateFilter);
+				} else if (columnName.equals("vehicle_number")) {
+					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+							.findByVehicleNumberAndVendorTripStatusAndVendorCode(columnValue,
+									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
+					data.setData(getListByDateFilter);
+				}
+			} else if (tripStatus.equals(GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED)) {
+
+				if (columnName.equals("route")) {
+					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+							.findByRouteAndVendorTripStatusAndVendorCode(columnValue,
+									GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED, vendorCode);
+					data.setData(getListByDateFilter);
+				} else if (columnName.equals("vehicle_number")) {
+					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
+							.findByVehicleNumberAndVendorTripStatusAndVendorCode(columnValue,
+									GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED, vendorCode);
+					data.setData(getListByDateFilter);
+				}
+
 			}
 			data.setMsg("success");
 

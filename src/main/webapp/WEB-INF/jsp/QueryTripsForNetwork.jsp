@@ -1299,7 +1299,7 @@ tbody {
             "vendorName": vendorName
         }
 
-   .ajax({
+   $.ajax({
       type: "POST",
       data: JSON.stringify(json),
       url: "<%=GlobalUrl.getBpCodeForNetwork%>",

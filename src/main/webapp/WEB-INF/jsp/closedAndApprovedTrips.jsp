@@ -146,15 +146,11 @@
 														id="selectLevelValue" 
 														style="height: auto;">
 														<option value="">Select Type</option>
-														<option value="trip_id">Trip Id</option>
 														<option value="route">Route</option>
 														<option value="origin_hub">Origin Hub</option>
 														<option value="dest_hub">Destination Hub</option>
 														<option value="run_type">Run Type</option>
-														<option value="standard_km">Standard KM</option>
-														<option value="mode">Mode</option>
-														<!-- <option value="actual_departure">Origin Hub</option>
-														<option value="actual_arrival">Actual Arrival</option> -->
+														<option value="vehicle_number">Vehicle Number</option>
 													</select>
 												</div>
 											</div>
@@ -208,13 +204,13 @@
                                                     </button></th>
                                                 <th class="bg-primary" >Trip Id</th>
                                                 <th class="bg-primary" >Route</th>
-                                                <th class="bg-primary" >Origin Hub</th>
-                                                <th class="bg-primary" >Destination Hub</th>
+                                                <th class="bg-primary" >Origin / Destination Hub</th>
+                                                <th class="bg-primary" >Vehicle No. / Size</th>
                                                 <th class="bg-primary" >Run Type</th>
-                                                <th class="bg-primary" >Standard KM</th>
-                                                <th class="bg-primary" >Mode</th>
-                                                <th class="bg-primary" >Actual Departure (ATD)</th>
-                                                <th class="bg-primary" >Actual Arrival (ATA)</th>
+                                                <th class="bg-primary" >Billable KM</th>
+                                                <th class="bg-primary" >Actual Departure</th>
+                                                <th class="bg-primary" >Actual Arrival</th>
+                                                <th class="bg-primary" >Total Freight</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -679,7 +675,7 @@
                         extend: 'excelHtml5',
 
                         exportOptions: {
-                            columns: [ 1, 2, 3, 4, 5, 6, 7,8],
+                            columns: [ 1, 2, 3, 4, 5, 6, 7,8,9],
                         }
                     },
                     {
@@ -687,7 +683,7 @@
                         orientation: 'landscape',
                         pageSize: 'A4',
                         exportOptions: {
-                            columns: [ 1, 2, 3, 4, 5, 6, 7,8],
+                            columns: [ 1, 2, 3, 4, 5, 6, 7,8,9],
                         },
                         customize: function(doc) {
 
@@ -878,7 +874,17 @@
                                 var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\"" + result[i].tripID + "\" ><\div>";
 
 
-                                tabledata.row.add([checkbox, view, result[i].route, result[i].originHub, result[i].destHub, result[i].runType, result[i].standardKM, result[i].mode, result[i].actualDeparture, result[i].actualArrival]);
+                                tabledata.row.add([
+                                	checkbox, 
+                                	view, 
+                                	result[i].route, 
+                                	result[i].originHub+" / "+result[i].destHub, 
+                                	result[i].vehicleNumber+" / "+result[i].standardVechicleType, 
+                                	result[i].runType, 
+                                	result[i].standardKM, 
+                                	result[i].actualDeparture,
+                                	result[i].actualArrival, 
+                                	result[i].totalFreight]);
                             }
                             tabledata.draw();
                             $("tbody").show();
@@ -1025,6 +1031,7 @@
             	 var json ={
     						"columnName":columnName,
     						"columnValue":columnValue,
+    						"tripStatus":'<%=GlobalConstants.VENDOR_TRIP_STATUS_APPROVED%>',
     						"vendorCode":vendorCode
     				}
             
@@ -1073,7 +1080,16 @@
     	                                var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\"" + result[i].tripID + "\" ><\div>";
 
 
-    	                                tabledata.row.add([checkbox, view, result[i].route, result[i].originHub, result[i].destHub, result[i].runType, result[i].standardKM, result[i].mode, result[i].actualDeparture, result[i].actualArrival]);
+    	                                tabledata.row.add([checkbox, 
+    	                                	view, 
+    	                                	result[i].route, 
+    	                                	result[i].originHub+" / "+result[i].destHub, 
+    	                                	result[i].vehicleNumber+" / "+result[i].standardVechicleType, 
+    	                                	result[i].runType, 
+    	                                	result[i].standardKM, 
+    	                                	result[i].actualDeparture,
+    	                                	result[i].actualArrival, 
+    	                                	result[i].totalFreight]);
     	                            }
     	                            tabledata.draw();
     	                            $("tbody").show();

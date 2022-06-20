@@ -11,6 +11,5 @@ public interface UserService {
 
     User findByUsername(String username);
 
-    @Query(value = "select  id from Users where bp_code=:bpCode "  , nativeQuery = true)
-	Integer getUserId(String bpCode);
+   
 }

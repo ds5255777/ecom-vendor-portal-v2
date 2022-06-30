@@ -10,11 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "AddressDetails")
@@ -32,28 +28,19 @@ public class AddressDetails {
 	private String city;
 	@Column(name = "pin_code")
 	private String pinCode;
+	@Column(name = "vendor_type")
+	private String vendorType;// network, fixed Assets
+	@Column(name = "partner_type")
+	private String partnerType;// Adhoc, Schedule
 	@Column(name = "comp_gstn")
 	private String compGstn;
 	@Column(name = "nature_of_transactions")
 	private String natureOfTransactions;
 	@Column(name = "add_details")
 	private String addDetails;
-	
+
 	@Column(name = "supplier_site_code")
 	private String supplierSiteCode;
-
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn
-	private SupDetails supDetails;
-
-	public SupDetails getSupDetails() {
-		return supDetails;
-	}
-
-	public void setSupDetails(SupDetails supDetails) {
-		this.supDetails = supDetails;
-	}
 
 	public Long getId() {
 		return id;
@@ -102,6 +89,24 @@ public class AddressDetails {
 	public void setAddDetails(String addDetails) {
 		this.addDetails = addDetails;
 	}
+	
+	
+
+	public String getVendorType() {
+		return vendorType;
+	}
+
+	public void setVendorType(String vendorType) {
+		this.vendorType = vendorType;
+	}
+
+	public String getPartnerType() {
+		return partnerType;
+	}
+
+	public void setPartnerType(String partnerType) {
+		this.partnerType = partnerType;
+	}
 
 	public String getCompGstn() {
 		return compGstn;
@@ -127,5 +132,4 @@ public class AddressDetails {
 		this.supplierSiteCode = supplierSiteCode;
 	}
 
-	
 }

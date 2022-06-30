@@ -202,6 +202,26 @@
                                 </button>
                             </div>
                         </div>
+                        <form role="form" id="addForm" autocomplete="off">
+										<div class="row" style="padding-top: 5px; padding-left: 5px;">
+											<div class="col-md-2">
+												<div class="dropdown">
+													<button type="button"
+														class="btn btn-primary dropdown-toggle"
+														style="  margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
+														data-toggle="dropdown">Export Details</button>
+													<div class="dropdown-menu">
+													<a class="dropdown-item" href="#" id="exportLink">Download
+															Excel</a>
+														<a class="dropdown-item" href="#" id="exportLinkPdf">Download
+															PDF</a> 
+													</div>
+												</div>
+											</div>
+											<div class="col-md-10"></div>
+											
+										</div>
+									</form>
                         <!-- /.card-header -->
                         <form id="stepTwoForm" class="forms-sample">
                             <div class="card-body" style="overflow: auto;">
@@ -449,6 +469,19 @@
     <!-- Select2 -->
     <script src="plugins/select2/js/select2.full.min.js"></script>
     <script src="plugins/toastr/toastr.min.js"></script>
+    
+    <script src="plugins/datatables/jquery.dataTables.js"></script>
+		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+		<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+		<script src="plugins/jszip/jszip.min.js"></script>
+		<script src="plugins/pdfmake/pdfmake.min.js"></script>
+		<script src="plugins/pdfmake/vfs_fonts.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+		
 
     <script>
     const Toast = Swal.mixin({
@@ -459,15 +492,94 @@
     });
     
         var prTable = $("#prTable").DataTable({
-            "paging": false,
-            "lengthChange": false,
-            "searching": false,
-            "info": true,
-            "autoWidth": false,
-            "aaSorting": [],
-            "scrollX": true,
-            "pageLength": 15,
-        });
+        	  "paging": false,
+              "lengthChange": false,
+              "searching": false,
+              "info": false,
+              "autoWidth": false,
+              "aaSorting": [],
+              "scrollX": true,
+              
+              dom: 'Bfrtip',
+              //buttons: ['excel','pdf','print'],
+              buttons: [
+
+                  {
+                      extend: 'excelHtml5',
+
+                      exportOptions: {
+                          columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                      }
+                  },
+                  {
+                      extend: 'pdfHtml5',
+                      orientation: 'landscape',
+                      pageSize: 'A3',
+                      exportOptions: {
+                          columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                      },
+                      customize: function(doc) {
+
+                          var tblBody = doc.content[1].table.body;
+                          for (var i = 0; i < tblBody[0].length; i++) {
+                              //	 console.log(tblBody[0]);
+                              //	 console.log(tblBody[0][i]);
+                              tblBody[0][i].fillColor = '#FFFFFF';
+                              tblBody[0][i].color = 'black';
+                          }
+
+                          var objLayout = {};
+                          objLayout['hLineWidth'] = function(i) {
+                              return .5;
+                          };
+                          objLayout['vLineWidth'] = function(i) {
+                              return .5;
+                          };
+                          objLayout['hLineColor'] = function(i) {
+                              return '#aaa';
+                          };
+                          objLayout['vLineColor'] = function(i) {
+                              return '#aaa';
+                          };
+                          objLayout['paddingLeft'] = function(i) {
+                              return 4;
+                          };
+                          objLayout['paddingRight'] = function(i) {
+                              return 4;
+                          };
+                          doc.content[1].layout = objLayout;
+                          var obj = {};
+                          obj['hLineWidth'] = function(i) {
+                              return .5;
+                          };
+                          obj['hLineColor'] = function(i) {
+                              return '#aaa';
+                          };
+                          //   doc.content[1].margin = [ 150, 0, 150, 0 ];
+
+                      }
+                  }
+              ],
+              initComplete: function() {
+                  var $buttons = $('.dt-buttons').hide();
+                  $('#exportLink').on('click', function() {
+                      var btnClass = "excel" ?
+                          '.buttons-' + "excel" :
+                          null;
+                      if (btnClass) $buttons.find(btnClass).click();
+                  })
+
+                  $('#exportLinkPdf').on('click', function() {
+                      var btnClass = "pdf" ?
+                          '.buttons-' + "pdf" :
+                          null;
+                      if (btnClass) $buttons.find(btnClass).click();
+                  })
+              }
+          });
+        
+        
+        
         
         var tabledataQuery = $('#tabledataQuery').DataTable({
             "paging": false,

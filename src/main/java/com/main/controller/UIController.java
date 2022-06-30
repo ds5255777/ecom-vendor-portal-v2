@@ -390,6 +390,16 @@ public class UIController {
 			return "dashBoard_Finance";
 		} else if (rolename.equalsIgnoreCase("Audit")) {
 			return "";
+		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
+			Integer pendingRequest = serviceManager.supDetailsRepo.countByVenStatus(GlobalConstants.PENDING_REQUEST_STATUS);
+			Integer approvedRequest = serviceManager.supDetailsRepo.countByVenStatus(GlobalConstants.APPROVED_REQUEST_STATUS);
+			Integer rejectedRequest = serviceManager.supDetailsRepo.countByVenStatus(GlobalConstants.REJECTED_REQUEST_STATUS);
+			Integer queryRequest = serviceManager.supDetailsRepo.countByVenStatus(GlobalConstants.QUERY_REQUEST_STATUS);
+			model.addAttribute("pendingRequest",pendingRequest);
+			model.addAttribute("approvedRequest",approvedRequest);
+			model.addAttribute("rejectedRequest",rejectedRequest);
+			model.addAttribute("queryRequest",queryRequest);
+			return "dashboardRegistration";
 		}
 
 		return "";
@@ -714,6 +724,7 @@ public class UIController {
 		model.addAttribute("vendorNamefortrips", vendorNamefortrips);
 		System.out.println("Size of pending approval trips is ::" + yetTobeApproved.size());
 		model.addAttribute("yetTobeApprovedAllDetails", yetTobeApproved);
+		model.addAttribute("dataLimit", dataLimit);
 		return "pendingApprovalNetwork";
 	}
 
@@ -724,7 +735,7 @@ public class UIController {
 		List<TripDetails> allApprovedTripscount = serviceManager.tripService.findAllTripsByStatus("Yet To Be Approved");
 		System.out.println("allApprovedTripscount  :::::::::::::::::::; " + allApprovedTripscount.size());
 		model.addAttribute("ApprovedAllDetailsForNetwork", allApprovedTripscount);
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "getApprovedAdhocTrips";
 	}
 
@@ -737,7 +748,7 @@ public class UIController {
 		List<String> vendorNamefortripsQuery = serviceManager.tripDetailsRepo.getVendorName();
 		model.addAttribute("vendorNamefortripsQuery", vendorNamefortripsQuery);
 		model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "QueryTripsForNetwork";
 	}
 
@@ -750,7 +761,7 @@ public class UIController {
 		System.out.println(
 				"AllDetailsForNetwork In closed and Adhoc Trips  :::::::::::::::::::; " + AllDetailsForNetwork.size());
 		model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
-
+		model.addAttribute("dataLimit", dataLimit);
 		return "ClosedAdhoc";
 	}
 
@@ -1002,6 +1013,36 @@ public class UIController {
 				logger.error("error : "+e);
 			}
 		}
+	}
+	
+	/* Dashboard Registration Checker */
+	
+	@GetMapping("/dashboardRegistration")
+	public String dashboardRegistration(Model model, HttpServletRequest request, Principal principal) {
+		model.addAttribute("dataLimit", dataLimit);
+		return "dashboardRegistration";
+	}
+	
+	@GetMapping("/vendorView")
+	public String vendorView(Model model, HttpServletRequest request, Principal principal) {
+
+		String pid = request.getParameter("pid");
+		String vendorType = request.getParameter("status");
+		model.addAttribute("vendorType", vendorType);
+		model.addAttribute("pid", pid);
+		return "vendorView";
+	}
+	
+	@GetMapping("/vendorReports")
+	public String vendorReports(Model model, HttpServletRequest request, Principal principal) {
+		model.addAttribute("dataLimit", dataLimit);
+		return "vendorReports";
+	}
+	
+	@GetMapping("/allOnBoardRequest")
+	public String allOnBoardRequest(Model model, HttpServletRequest request, Principal principal) {
+		model.addAttribute("dataLimit", dataLimit);
+		return "allOnBoardRequest";
 	}
 
 }

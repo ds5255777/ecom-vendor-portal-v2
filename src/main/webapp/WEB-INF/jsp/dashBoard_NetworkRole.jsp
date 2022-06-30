@@ -347,7 +347,6 @@
 
         <script>
                             $(document).ready(function () {
-                                console.log(${userStatus});
                                 if (${userStatus} === 3) {
                                     $('#changePassword').modal('show');
                                 }
@@ -423,8 +422,6 @@
            
 
             function changePassword(password) {
-                console.log(document.getElementById('passwordch').value);
-                console.log("my password" + password);
 
                 $.ajax({
                     type: "POST",
@@ -432,7 +429,6 @@
                     url: "<%=GlobalUrl.changePassword%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function (data) {
                         if (data.msg == 'success') {
 

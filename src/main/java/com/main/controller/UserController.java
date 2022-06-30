@@ -279,24 +279,20 @@ public class UserController {
 				}if(null!=objects[1]) {
 					sdt.setSuppName(objects[1].toString());
 				}if(null!=objects[2]) {
-					sdt.setCompEmail(objects[2].toString());
+					sdt.setIntroducedByEmailID(objects[2].toString());
 				}if(null!=objects[3]) {
-					sdt.setIntroducedByEmailID(objects[3].toString());
+					sdt.setPartnerType(objects[3].toString());
 				}if(null!=objects[4]) {
-					sdt.setCompGstn(objects[4].toString());
+					sdt.setVendorType(objects[4].toString());
 				}if(null!=objects[5]) {
-					sdt.setNatureOfTransactions(objects[5].toString());
-				}if(null!=objects[6]) {
-					sdt.setPartnerType(objects[6].toString());
-				}if(null!=objects[7]) {
-					sdt.setVendorType(objects[7].toString());
-				}if(null!=objects[8]) {
-					sdt.setPhoneNumber(objects[8].toString());
-				}if(null!=objects[9]) {
-					sdt.setStatus(objects[9].toString());
-				}if(null!=objects[10]) {
-					sdt.setBpCode(objects[10].toString());
-				}
+					sdt.setPid(objects[5].toString());
+				} /*
+					 * if(null!=objects[7]) { sdt.setVendorType(objects[7].toString()); }
+					 */ /*
+					 * if(null!=objects[8]) { sdt.setPhoneNumber(objects[8].toString());
+					 * }if(null!=objects[9]) { sdt.setStatus(objects[9].toString());
+					 * }if(null!=objects[10]) { sdt.setBpCode(objects[10].toString()); }
+					 */
 				sdtList.add(sdt);
 			}
 			
@@ -306,7 +302,7 @@ public class UserController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-
+e.printStackTrace();
 			logger.error("error : "+e);
 
 		}
@@ -325,7 +321,7 @@ public class UserController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			List<SupDetails> supDetails = serviceManager.supDetailsRepo.findByVendorCode(details.getBpCode());
+			List<SupDetails> supDetails = serviceManager.supDetailsRepo.findBypid(details.getPid());
 
 			data.setData(supDetails);
 			data.setMsg("success");

@@ -345,7 +345,6 @@
                     url: "<%=GlobalUrl.viewAllQueryInvoiceForFinanceTeam%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
 
                         $('.loader').hide();

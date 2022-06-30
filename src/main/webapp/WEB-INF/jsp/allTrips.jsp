@@ -895,40 +895,40 @@ tbody {
                             for (var i = 0; i < result.length; i++) {
                             	
                             	if(!result[i].hasOwnProperty("tripID")){
-     								result[i].tripID="";
+     								result[i].tripID="-";
      							}
-                                if(!result[i].hasOwnProperty("invoiceNumber")){
-          							result[i].invoiceNumber="";
-          						}
 								if(!result[i].hasOwnProperty("route")){
-     								result[i].route="";
+     								result[i].route="-";
      							}
                                  if(!result[i].hasOwnProperty("runType")){
-     								result[i].runType="";
+     								result[i].runType="-";
      							}
                                  if(!result[i].hasOwnProperty("runStatus")){
-      								result[i].runStatus="";
+      								result[i].runStatus="-";
       							}
                                  if(!result[i].hasOwnProperty("vendorTripStatus")){
-     								result[i].vendorTripStatus="";
+     								result[i].vendorTripStatus="-";
      							}
                                  if(!result[i].hasOwnProperty("actualDeparture")){
-      								result[i].actualDeparture="";
+      								result[i].actualDeparture="-";
       							}
-                                 if(!result[i].hasOwnProperty("actualKM")){
-      								result[i].actualKM="";
-      							}
+                                 if(!result[i].hasOwnProperty("vehicleNumber")){
+           							result[i].vehicleNumber="-";
+           						}
+                                 if(!result[i].hasOwnProperty("standardVechicleType")){
+           							result[i].standardVechicleType="-";
+           						}
                                  if(!result[i].hasOwnProperty("standardKM")){
-     								result[i].standardKM="";
+     								result[i].standardKM="-";
      							}
-                                  if(!result[i].hasOwnProperty("originHub")){
-      								result[i].originHub="";
-      							}
-                                  if(!result[i].hasOwnProperty("destHub")){
-      								result[i].destHub="";
-      							}
+                                 if(!result[i].hasOwnProperty("totalFreight")){
+           							result[i].totalFreight="-";
+           						}
+                                   if(!result[i].hasOwnProperty("invoiceNumber")){
+             							result[i].invoiceNumber="-";
+             						}
                                   if(!result[i].hasOwnProperty("paymentStatus")){
-        							result[i].paymentStatus="";
+        							result[i].paymentStatus="-";
         						}
 
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
@@ -1058,41 +1058,41 @@ tbody {
                               tabledata.clear();
 
                               for (var i = 0; i < result.length; i++) {
-                              	if(!result[i].hasOwnProperty("tripID")){
-       								result[i].tripID="";
+                            	  if(!result[i].hasOwnProperty("tripID")){
+       								result[i].tripID="-";
        							}
-                                  if(!result[i].hasOwnProperty("invoiceNumber")){
-            							result[i].invoiceNumber="";
-            						}
   								if(!result[i].hasOwnProperty("route")){
-       								result[i].route="";
+       								result[i].route="-";
        							}
                                    if(!result[i].hasOwnProperty("runType")){
-       								result[i].runType="";
+       								result[i].runType="-";
        							}
                                    if(!result[i].hasOwnProperty("runStatus")){
-        								result[i].runStatus="";
+        								result[i].runStatus="-";
         							}
                                    if(!result[i].hasOwnProperty("vendorTripStatus")){
-       								result[i].vendorTripStatus="";
+       								result[i].vendorTripStatus="-";
        							}
                                    if(!result[i].hasOwnProperty("actualDeparture")){
-        								result[i].actualDeparture="";
+        								result[i].actualDeparture="-";
         							}
-                                   if(!result[i].hasOwnProperty("actualKM")){
-        								result[i].actualKM="";
-        							}
+                                   if(!result[i].hasOwnProperty("vehicleNumber")){
+             							result[i].vehicleNumber="-";
+             						}
+                                   if(!result[i].hasOwnProperty("standardVechicleType")){
+             							result[i].standardVechicleType="-";
+             						}
                                    if(!result[i].hasOwnProperty("standardKM")){
-       								result[i].standardKM="";
+       								result[i].standardKM="-";
        							}
-                                    if(!result[i].hasOwnProperty("originHub")){
-        								result[i].originHub="";
-        							}
-                                    if(!result[i].hasOwnProperty("destHub")){
-        								result[i].destHub="";
-        							}
+                                   if(!result[i].hasOwnProperty("totalFreight")){
+             							result[i].totalFreight="-";
+             						}
+                                     if(!result[i].hasOwnProperty("invoiceNumber")){
+               							result[i].invoiceNumber="-";
+               						}
                                     if(!result[i].hasOwnProperty("paymentStatus")){
-          							result[i].paymentStatus="";
+          							result[i].paymentStatus="-";
           						}
 
                                   var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
@@ -1165,16 +1165,16 @@ tbody {
    							     	var count=0;
    				                        for (var i = 0; i < result.length; i++) {
    				                        	if(!result[i].hasOwnProperty("raisedBy")){
-   			     								result[i].raisedBy="";
+   			     								result[i].raisedBy="-";
    			     							}
    				                        	if(!result[i].hasOwnProperty("role")){
-   			     								result[i].role="";
+   			     								result[i].role="-";
    			     							}
    				                        	if(!result[i].hasOwnProperty("raisedOn")){
-   			     								result[i].raisedOn="";
+   			     								result[i].raisedOn="-";
    			     							}
    				                        	if(!result[i].hasOwnProperty("comment")){
-   			     								result[i].comment="";
+   			     								result[i].comment="-";
    			     							}
    				                        	
    				                        	count++;

@@ -843,31 +843,37 @@
                             tabledata.clear();
                             for (var i = 0; i < result.length; i++) {
                                 if (!result[i].hasOwnProperty("tripID")) {
-                                    result[i].tripID = "";
+                                    result[i].tripID = "-";
                                 }
                                 if (!result[i].hasOwnProperty("route")) {
-                                    result[i].route = "";
+                                    result[i].route = "-";
                                 }
                                 if (!result[i].hasOwnProperty("originHub")) {
-                                    result[i].originHub = "";
+                                    result[i].originHub = "-";
                                 }
                                 if (!result[i].hasOwnProperty("destHub")) {
-                                    result[i].destHub = "";
+                                    result[i].destHub = "-";
                                 }
+                                if(!result[i].hasOwnProperty("vehicleNumber")){
+           							result[i].vehicleNumber="-";
+           						}
+                                 if(!result[i].hasOwnProperty("standardVechicleType")){
+           							result[i].standardVechicleType="-";
+           						}
                                 if (!result[i].hasOwnProperty("runType")) {
-                                    result[i].runType = "";
+                                    result[i].runType = "-";
                                 }
                                 if (!result[i].hasOwnProperty("standardKM")) {
-                                    result[i].standardKM = "";
-                                }
-                                if (!result[i].hasOwnProperty("mode")) {
-                                    result[i].mode = "";
+                                    result[i].standardKM = "-";
                                 }
                                 if (!result[i].hasOwnProperty("actualDeparture")) {
-                                    result[i].actualDeparture = "";
+                                    result[i].actualDeparture = "-";
                                 }
                                 if (!result[i].hasOwnProperty("actualArrival")) {
-                                    result[i].actualArrival = "";
+                                    result[i].actualArrival = "-";
+                                }
+                                if (!result[i].hasOwnProperty("totalFreight")) {
+                                    result[i].totalFreight = "-";
                                 }
 
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
@@ -914,7 +920,6 @@
                     url: "<%=GlobalUrl.tripDetailByTripId%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
                     	$('.loader').hide();
                         if (data.msg == 'success') {
@@ -1005,7 +1010,6 @@
    				}); 
    		 }
             function selectDropDownValue(){
-            	$('.loader').show();
             	var columnName= $("#selectLevelValue").val();
             	var columnValue=$("#selectInputValue").val();
             	var vendorCode=$("#vendorCode").val();
@@ -1034,6 +1038,7 @@
     						"tripStatus":'<%=GlobalConstants.VENDOR_TRIP_STATUS_APPROVED%>',
     						"vendorCode":vendorCode
     				}
+            	 $('.loader').show();
             
             	 console.log(json);
             	 $.ajax({
@@ -1049,32 +1054,38 @@
     	                            tabledata.clear();
     	                            for (var i = 0; i < result.length; i++) {
     	                            	if (!result[i].hasOwnProperty("tripID")) {
-    	                                    result[i].tripID = "";
+    	                                    result[i].tripID = "-";
     	                                }
     	                                if (!result[i].hasOwnProperty("route")) {
-    	                                    result[i].route = "";
+    	                                    result[i].route = "-";
     	                                }
     	                                if (!result[i].hasOwnProperty("originHub")) {
-    	                                    result[i].originHub = "";
+    	                                    result[i].originHub = "-";
     	                                }
     	                                if (!result[i].hasOwnProperty("destHub")) {
-    	                                    result[i].destHub = "";
+    	                                    result[i].destHub = "-";
     	                                }
+    	                                if(!result[i].hasOwnProperty("vehicleNumber")){
+    	           							result[i].vehicleNumber="-";
+    	           						}
+    	                                 if(!result[i].hasOwnProperty("standardVechicleType")){
+    	           							result[i].standardVechicleType="-";
+    	           						}
     	                                if (!result[i].hasOwnProperty("runType")) {
-    	                                    result[i].runType = "";
+    	                                    result[i].runType = "-";
     	                                }
     	                                if (!result[i].hasOwnProperty("standardKM")) {
-    	                                    result[i].standardKM = "";
-    	                                }
-    	                                if (!result[i].hasOwnProperty("mode")) {
-    	                                    result[i].mode = "";
+    	                                    result[i].standardKM = "-";
     	                                }
     	                                if (!result[i].hasOwnProperty("actualDeparture")) {
-    	                                    result[i].actualDeparture = "";
+    	                                    result[i].actualDeparture = "-";
     	                                }
     	                                if (!result[i].hasOwnProperty("actualArrival")) {
-    	                                    result[i].actualArrival = "";
+    	                                    result[i].actualArrival = "-";
     	                                }
+    	                                if(!result[i].hasOwnProperty("totalFreight")){
+    	           							result[i].totalFreight="-";
+    	           						}
 
     	                                var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
     	                                var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\"" + result[i].tripID + "\" ><\div>";

@@ -11,9 +11,12 @@
     <%
 		String financeRole = GlobalConstants.ROLE_FINANCE;
 		String financeHeadRole = GlobalConstants.ROLE_FINANCE_HEAD;
+		String financeRegistrationApproval = GlobalConstants.ROLE_REGISTRATION_APPROVAL;
+		
 		
 		request.setAttribute("financeRole", financeRole);
 		request.setAttribute("financeHeadRole", financeHeadRole);
+		request.setAttribute("financeRegistrationApproval", financeRegistrationApproval);
 	%>
 
     <!-- Sidebar -->
@@ -150,7 +153,24 @@
                     <hr>
                 </li>
                 </c:if>
-                    </ul>
+                <c:if test="${role.equalsIgnoreCase(financeRegistrationApproval) }">
+                        <li class="nav-item"><a href="allOnBoardRequest" class="nav-link
+                                                <%if (request.getParameter("pagename").equalsIgnoreCase("All On-Board Request")) {
+                                    out.print("active");
+                                }%>">
+                                <i class="nav-icon fas fa-receipt"></i>
+                                <p>All On-Board Request</p>
+                            </a></li>
+                        <li class="nav-item"><a href="vendorReports" class="nav-link
+                                                <%if (request.getParameter("pagename").equalsIgnoreCase("vendorReports")) {
+                                    out.print("active");
+                                }%>">
+                                <i class="nav-icon fa fas fa fa-check"></i>
+                                <p>Vendor Details</p>
+                            </a></li>
+                    <hr>
+                </c:if>
+            </ul>
        
         </nav>
     </div>

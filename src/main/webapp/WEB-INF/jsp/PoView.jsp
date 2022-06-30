@@ -706,27 +706,46 @@
 	        			g==""|| g==null || h=="" || h==null  || i==""|| i==null || j=="" || j==null || k==""|| k==null || l=="" || l==null ||
 	        			m==""|| m==null || n=="" || n==null  || o==""|| o==null || p=="" || p==null || q==""|| q==null ){
 	        		
-	        		confirm("Are You Sure To Confirm! : "+a+""+b+""+c+""+d+""+e+""+f+""+g+""+h+""+i+""+j+""+k+""+l+""+m+""+n+""+o+""+p+""+q+" Field(s) Vales Are Blank");
+	        		//confirm("Are You Sure To Confirm! : "+a+""+b+""+c+""+d+""+e+""+f+""+g+""+h+""+i+""+j+""+k+""+l+""+m+""+n+""+o+""+p+""+q+" Field(s) Vales Are Blank");
 	        		//  swal.fire("Are You Sure To Confirm! : ", "+a+""+b+""+c+""+d+""+e+""+f+""+g+""+h+""+i+""+j+""+k+""+l+""+m+""+n+""+o+""+p+""+q+"  , "success", "OK")
 	        		
+	        			 
+	        			 Swal.fire({
+	        				  title: 'Are you sure to Confirm?',
+	        		  		  text: ""+a+""+b+""+c+""+d+""+e+""+f+""+g+""+h+""+i+""+j+""+k+""+l+""+m+""+n+""+o+""+p+""+q+" Field(s) Vales Are Blank",
+	        				  icon: 'warning',
+	        				  showCancelButton: true,
+	        				  confirmButtonColor: '#3085d6',
+	        				  cancelButtonColor: '#d33',
+	        				  confirmButtonText: 'Yes'
+	        				}).then((result) => {
+	        					debugger;
+	        					let test=[1];
+	        					test[0]=result;
+	        					var val=Object.values(test[0])
+	        				  if (val=="true") {
+	        					  
+	        					  $('#flipToInvoice').attr('disabled', false);
+	        			        	
+	        			            var table = document.getElementById('tabledata');
+	        			            
+	        			            $('.loader').hide();
+	        			            var urlOftripsDetail = "poInvoiceGenerate?id=" + poNo;
+	        			            window.open(urlOftripsDetail, "poInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
+	        			      		
+	        			            // window.close();
+	        			            $('#flipToInvoice').attr('disabled', true);
+	        				  }
+	        				
+	        				
+	        			 
+	        		 });
+	        			 
 	        	}
         	
         	
         	
-        	$('#flipToInvoice').attr('disabled', false);
         	
-        	
-        	
-            var table = document.getElementById('tabledata');
-            
-          
-            
-            $('.loader').hide();
-            var urlOftripsDetail = "poInvoiceGenerate?id=" + poNo;
-            window.open(urlOftripsDetail, "poInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
-      		
-            // window.close();
-            $('#flipToInvoice').attr('disabled', true);
             
         }
         

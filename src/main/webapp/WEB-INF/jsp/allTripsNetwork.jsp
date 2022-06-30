@@ -128,9 +128,9 @@ label {
 }
 
 div.dataTables_wrapper {
-        width: 100%;
-        margin: 0 auto;
-    }
+	width: 100%;
+	margin: 0 auto;
+}
 
 tbody {
 	font-size: 12.9px;
@@ -252,7 +252,8 @@ tbody {
 											</div>
 										</div>
 									</form>
-									<table class="display nowrap table table-bordered table-hover" id="tabledata" style="width:100%">
+									<table class="display nowrap table table-bordered table-hover"
+										id="tabledata" style="width:100%;">
 										<thead>
 											<tr>
 												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip
@@ -293,11 +294,6 @@ tbody {
 				</div>
 			</section>
 
-			<!-- Control Sidebar -->
-			<!-- <aside class="control-sidebar control-sidebar-dark">
-                            Control sidebar content goes here
-                    </aside>
-                    /.control-sidebar -->
 		</div>
 		<!-- ./wrapper -->
 
@@ -317,7 +313,8 @@ tbody {
 											<h3 class="card-title" style="font-size: 15px;">Trip
 												Details</h3>
 											<button type="button" class="btn btn-sm" id="closeModal"
-												style="float: right;padding: 0 10px 0 0;" data-dismiss="modal">
+												style="float: right; padding: 0 10px 0 0;"
+												data-dismiss="modal">
 												<i class="nav-icon far fa-window-close"
 													style="font-size: 20px; color: white;"></i>
 											</button>
@@ -413,8 +410,8 @@ tbody {
 													<div class="col-md-3">
 														<!-- text input -->
 														<div class="form-group row">
-															<label class="col-sm-5" title="Standard Vehicle Type">Std. Vehicle
-																</label>
+															<label class="col-sm-5" title="Standard Vehicle Type">Std.
+																Vehicle </label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"
 																	id="standardVechicleType" name="standardVechicleType"
@@ -636,7 +633,8 @@ tbody {
 													<div class="col-md-3">
 														<div class="form-group row">
 															<label class="col-sm-5"
-																title="Lump Sum Amount (Total Trip Cost)">Lump Sum Amt.</label>
+																title="Lump Sum Amount (Total Trip Cost)">Lump
+																Sum Amt.</label>
 															<div class="col-sm-7">
 																<input type="text" class="form-control"
 																	id="lumpsomeamount" name="lumpsomeamount" disabled>
@@ -663,7 +661,7 @@ tbody {
 													Query</h3>
 											</div>
 
-											<div class="card-body" style="padding: inherit;" >
+											<div class="card-body" style="padding: inherit;">
 												<form role="form" id="showQueryDetails"
 													name="showQueryDetails">
 													<div class="col-md-12">
@@ -698,50 +696,52 @@ tbody {
 					</div>
 
 				</div>
-
+</div>
 			</div>
 		</div>
 		<!-- model Start -->
-		 <script src="plugins/jquery/jquery.min.js"></script>
-            <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-            <script src="js/common.js"></script>
-            <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-            <script>
-                                                        $.widget.bridge('uibutton', $.ui.button);
-                                                        $.widget.bridge('uitooltip', $.ui.tooltip);
+		<script src="plugins/jquery/jquery.min.js"></script>
+		<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+		<script src="js/common.js"></script>
+		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+		<script>
+			$.widget.bridge('uibutton', $.ui.button);
+			$.widget.bridge('uitooltip', $.ui.tooltip);
+		</script>
+		<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="js/commonFunctions.js"></script>
+		<script src="plugins/sparklines/sparkline.js"></script>
+		<script src="plugins/moment/moment.min.js"></script>
+		<script src="plugins/daterangepicker/daterangepicker.js"></script>
+		<script
+			src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+		<script
+			src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+		<script src="dist/js/adminlte.js"></script>
+		<script src="dist/js/demo.js"></script>
+		<script src="js/moment.min.js"></script>
+		<script src="plugins/select2/js/select2.full.min.js"></script>
+		<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+		<script src="plugins/jquery-validation/additional-methods.min.js"></script>
+		<script src="plugins/datatables/jquery.dataTables.js"></script>
+		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+		<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+		<script src="plugins/toastr/toastr.min.js"></script>
 
-            </script>
-            <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <script src="js/commonFunctions.js"></script>
-            <script src="plugins/sparklines/sparkline.js"></script>
-            <script src="plugins/moment/moment.min.js"></script>
-            <script src="plugins/daterangepicker/daterangepicker.js"></script>
-            <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-            <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-            <script src="dist/js/adminlte.js"></script>
-            <script src="dist/js/demo.js"></script>
-            <script src="js/moment.min.js"></script>
-            <script src="plugins/select2/js/select2.full.min.js"></script>
-            <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
-            <script src="plugins/jquery-validation/additional-methods.min.js"></script>
-            <script src="plugins/datatables/jquery.dataTables.js"></script>
-            <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-            <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
-            <script src="plugins/toastr/toastr.min.js"></script>
+		<script src="plugins/datatables/jquery.dataTables.js"></script>
+		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+		<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+		<script src="plugins/jszip/jszip.min.js"></script>
+		<script src="plugins/pdfmake/pdfmake.min.js"></script>
+		<script src="plugins/pdfmake/vfs_fonts.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+		<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+</body>
 
-            <script src="plugins/datatables/jquery.dataTables.js"></script>
-            <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-            <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-            <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-            <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-            <script src="plugins/jszip/jszip.min.js"></script>
-            <script src="plugins/pdfmake/pdfmake.min.js"></script>
-            <script src="plugins/pdfmake/vfs_fonts.js"></script>
-            <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-            <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
-            <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
-            <script type="text/javascript">
+ <script type="text/javascript">
             
             var dataLimit='${dataLimit}';
     		dataLimit=parseInt(dataLimit);
@@ -794,8 +794,6 @@ tbody {
 
                       var tblBody = doc.content[1].table.body;
                       for (var i = 0; i < tblBody[0].length; i++) {
-                          //	 console.log(tblBody[0]);
-                          //	 console.log(tblBody[0][i]);
                           tblBody[0][i].fillColor = '#FFFFFF';
                           tblBody[0][i].color = 'black';
                       }
@@ -881,7 +879,6 @@ tbody {
 
              if ($.isNumeric($("#currentFuelRate").val())) {
                  totalFreight = parseFloat($("#currentFuelRate").val());
-                 console.log("Hiiii" + totalFreight);
              }
              var engMarks = document.getElementById('currentFuelRate').value;
              var currentFuelRate = parseFloat($("#currentFuelRate").val());
@@ -893,7 +890,6 @@ tbody {
               } */
              fs = ((currentFuelRate - fsBaseRate / mileage) * routeKms);
 
-             console.log(parseFloat(fs));
          }
 
          $("#refreshDashboardButton").click(function (e) {
@@ -911,6 +907,11 @@ tbody {
          getData();
 
          function getData() {
+        	 $('#selectTripStatus').val('');
+             $('#selectStatus').val('');
+             $('#selectPaymentStatus').val('');
+             $('#fromDate').val('');
+             $('#toDate').val('');
 
              $('.loader').show();
 
@@ -929,10 +930,52 @@ tbody {
                          tabledata.clear();
                          
                          for (var i = 0; i < result.length; i++) {
+                        	 
+                        	 if(!result[i].hasOwnProperty("tripID")){
+  								result[i].tripID="-";
+  							}
+								if(!result[i].hasOwnProperty("route")){
+  								result[i].route="-";
+  							}
+								if(!result[i].hasOwnProperty("runType")){
+	  								result[i].runType="-";
+	  							}
+								if(!result[i].hasOwnProperty("vendorName")){
+	  								result[i].vendorName="-";
+	  							}
+                              if(!result[i].hasOwnProperty("vendorCode")){
+  								result[i].vendorCode="-";
+  							}
+                              if(!result[i].hasOwnProperty("runStatus")){
+   								result[i].runStatus="-";
+   							}
+                              if(!result[i].hasOwnProperty("vendorTripStatus")){
+  								result[i].vendorTripStatus="-";
+  							}
+                              if(!result[i].hasOwnProperty("actualDeparture")){
+   								result[i].actualDeparture="-";
+   							}
+                              if(!result[i].hasOwnProperty("actualKM")){
+        							result[i].actualKM="-";
+        						}
+                              if(!result[i].hasOwnProperty("standardKM")){
+  								result[i].standardKM="-";
+  							}
+                              if(!result[i].hasOwnProperty("originHub")){
+        							result[i].originHub="-";
+        						}
+                                if(!result[i].hasOwnProperty("destHub")){
+          							result[i].destHub="-";
+          						}
+                               if(!result[i].hasOwnProperty("paymentStatus")){
+     							result[i].paymentStatus="-";
+     						}
 
                              var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
-                             var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, result[i].paymentStatus];
+                             var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, 
+                            	 result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, 
+                            	 result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, result[i].paymentStatus];
                            
                              tabledata.row.add(tempString);
                          }
@@ -951,22 +994,12 @@ tbody {
              });
          }
 
-         /* function viewCheckList(id){
-          console.log("id >> "+id );
-          location.href = "tripDetailsView?type="+tripID 
-          var urlOftripsDetail="tripDetailsView?type="+id;
-          window.open(urlOftripsDetail, "TripsDetails", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
-          
-          } */
          function setTripStatus(tripId) {
              globalTripId = "";
              globalTripId = tripId;
-             console.log("tripid : " + globalTripId);
          }
 
          function setTripStatus(tripId) {
-             console.log("Trip od" + tripId);
-             //	 tripId =  $("#tripID").val();		
 
              var json = {
                  "tripID": tripId
@@ -1011,9 +1044,6 @@ tbody {
                  dataType: "json",
                  contentType: "application/json",
                  success: function (data) {
-                     console.log("data.msg" + data.msg);
-                     console.log("data.data " + data.data);
-                     console.log("Actual data.data " + JSON.stringify(data.data));
                      if (data.msg == 'success') {
                     	 if("data" in data){
 								var result = data.data;												
@@ -1043,40 +1073,7 @@ tbody {
              });
          }
 
-         function searchTripData() {
-             var jsArray = [];
-             $('.loader').show();
-             console.log("Status" + status);
-             $.ajax({
-                 type: "POST",
-                 url: "<%=GlobalUrl.status%>?status=" + status,
-             dataType: "json",
-             contentType: "application/json",
-             success: function (data) {
-                 $('.loader').hide();
-                 if (data.msg == "success") {
-                     var result = data.data;
-                     tabledata.clear();
-                     for (var i = 0; i < result.length; i++) {
-
-                         var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
-
-                         var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, result[i].paymentStatus];
-                       
-                         tabledata.row.add(tempString);
-                     }
-                     tabledata.draw();
-                     $("tbody").show();
-                 } else {
-                     alert("failed");
-                 }
-             },
-             error: function (jqXHR, textStatue, errorThrown) {
-                 alert("failed, please try again");
-             }
-         });
-     }
-
+        
      function getFilterData() {
      	$('#selectTripStatus').val('');
          $('#selectStatus').val('');
@@ -1126,16 +1123,53 @@ tbody {
              contentType: "application/json",
 
              success: function (data) {
-             	console.log(data," : data : ");
                  $('.loader').hide();
                  if (data.msg == 'success') {
-                     //alert("Hiii");
-                     console.log(data);
 
                      var result = data.data;
                      tabledata.clear();
 
                      for (var i = 0; i < result.length; i++) {
+                    	 
+                    	 if(!result[i].hasOwnProperty("tripID")){
+								result[i].tripID="-";
+							}
+								if(!result[i].hasOwnProperty("route")){
+								result[i].route="-";
+							}
+								if(!result[i].hasOwnProperty("runType")){
+	  								result[i].runType="-";
+	  							}
+								if(!result[i].hasOwnProperty("vendorName")){
+	  								result[i].vendorName="-";
+	  							}
+                           if(!result[i].hasOwnProperty("vendorCode")){
+								result[i].vendorCode="-";
+							}
+                           if(!result[i].hasOwnProperty("runStatus")){
+								result[i].runStatus="-";
+							}
+                           if(!result[i].hasOwnProperty("vendorTripStatus")){
+								result[i].vendorTripStatus="-";
+							}
+                           if(!result[i].hasOwnProperty("actualDeparture")){
+								result[i].actualDeparture="-";
+							}
+                           if(!result[i].hasOwnProperty("actualKM")){
+     							result[i].actualKM="-";
+     						}
+                           if(!result[i].hasOwnProperty("standardKM")){
+								result[i].standardKM="-";
+							}
+                           if(!result[i].hasOwnProperty("originHub")){
+     							result[i].originHub="-";
+     						}
+                             if(!result[i].hasOwnProperty("destHub")){
+       							result[i].destHub="-";
+       						}
+                            if(!result[i].hasOwnProperty("paymentStatus")){
+  							result[i].paymentStatus="-";
+  						}
 
                          var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
@@ -1177,6 +1211,9 @@ tbody {
 
 
      function GetSelectedTextValue1() {
+    	 
+    	 $('#fromDate').val('');
+         $('#toDate').val('');
          
          var tripStatus = $("#selectTripStatus").val();
          var selectStatus = $("#selectStatus").val();
@@ -1203,6 +1240,46 @@ tbody {
                      tabledata.clear();
 
                      for (var i = 0; i < result.length; i++) {
+                    	 
+                    	 if(!result[i].hasOwnProperty("tripID")){
+								result[i].tripID="-";
+							}
+								if(!result[i].hasOwnProperty("route")){
+								result[i].route="-";
+							}
+								if(!result[i].hasOwnProperty("runType")){
+	  								result[i].runType="-";
+	  							}
+								if(!result[i].hasOwnProperty("vendorName")){
+	  								result[i].vendorName="-";
+	  							}
+                           if(!result[i].hasOwnProperty("vendorCode")){
+								result[i].vendorCode="-";
+							}
+                           if(!result[i].hasOwnProperty("runStatus")){
+								result[i].runStatus="-";
+							}
+                           if(!result[i].hasOwnProperty("vendorTripStatus")){
+								result[i].vendorTripStatus="-";
+							}
+                           if(!result[i].hasOwnProperty("actualDeparture")){
+								result[i].actualDeparture="-";
+							}
+                           if(!result[i].hasOwnProperty("actualKM")){
+     							result[i].actualKM="-";
+     						}
+                           if(!result[i].hasOwnProperty("standardKM")){
+								result[i].standardKM="-";
+							}
+                           if(!result[i].hasOwnProperty("originHub")){
+     							result[i].originHub="-";
+     						}
+                             if(!result[i].hasOwnProperty("destHub")){
+       							result[i].destHub="-";
+       						}
+                            if(!result[i].hasOwnProperty("paymentStatus")){
+  							result[i].paymentStatus="-";
+  						}
 
                          var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
 
@@ -1224,6 +1301,5 @@ tbody {
 
 
             </script>
-</body>
 
 </html>

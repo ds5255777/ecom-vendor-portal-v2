@@ -192,7 +192,7 @@ tbody {
 								</form>
 								<!-- /.card-header -->
 								<div class="card-body table-responsive p-0"
-									style="height: 420px;">
+									style="height: 100%;">
 									<table class="table table-head-fixed" id="tabledata1">
 										<thead>
 											<tr>
@@ -766,6 +766,9 @@ tbody {
   		 theme : 'bootstrap4'
   		 });
          
+         var dataLimit='${dataLimit}';
+ 		dataLimit=parseInt(dataLimit);
+         
          var tabledataQuery = $('#tabledataQuery').DataTable({
              "paging": false,
              "lengthChange": false,
@@ -791,7 +794,7 @@ tbody {
           "autoWidth": false,
           "aaSorting": [],
           "scrollX": true,
-          "pageLength": 10,
+          "pageLength": dataLimit,
           dom: 'Bfrtip',
           //buttons: ['excel','pdf','print'],
           buttons: [
@@ -814,8 +817,6 @@ tbody {
 
                       var tblBody = doc.content[1].table.body;
                       for (var i = 0; i < tblBody[0].length; i++) {
-                          //	 console.log(tblBody[0]);
-                          //	 console.log(tblBody[0][i]);
                           tblBody[0][i].fillColor = '#FFFFFF';
                           tblBody[0][i].color = 'black';
                       }
@@ -890,7 +891,6 @@ tbody {
            dataType: "json",
            contentType: "application/json",
            success: function (data) {
-               console.log("data.msg" + data.msg);
                if (data.msg == 'success') {
                    var result = data.data;
                    var myForm = "";
@@ -923,7 +923,6 @@ tbody {
            url: "<%=GlobalUrl.getRemarksByRefID%>",
            dataType: "json",
            contentType: "application/json",
-           async: false,
            success: function (data) {
                if (data.msg == 'success') {
               	 if("data" in data){
@@ -961,9 +960,6 @@ tbody {
    function lumpsomePropertyChange() {
        var checkedValue = $('.messageCheckbox:checked').val();
        
-       console.log("checkedValue " + checkedValue);
-    
-       
        $("#AmountLumpSum").prop('disabled', true);
        $("#AmountLumpSum").val("");
        $("#fs").prop('disabled', false);
@@ -973,23 +969,14 @@ tbody {
        var currentFuelRate = document.getElementById("currentFuelRate").value;
        var fsBaseRate = document.getElementById("fsBaseRate").value;
 
-       console.log("currentFuelRate " + currentFuelRate);
-       console.log("fsBaseRate " + fsBaseRate);
-
-
        var basicFreight = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
        document.getElementById("basicFreight").value = basicFreight.toFixed(2);
 
 
        var mileage = document.getElementById("mileage").value;
        var routeKms = document.getElementById("routeKms").value;
-       console.log("mileage " + mileage);
-       console.log("routeKms " + routeKms);
        var fs = (parseFloat(basicFreight) / parseFloat(mileage)) * parseFloat(routeKms);
        document.getElementById("fs").value = fs.toFixed(2);
-       ;
-
-
 
        var totalFreight = parseFloat(basicFreight) + parseFloat(fs);
        document.getElementById("totalFreight").value = totalFreight.toFixed(2);
@@ -1052,22 +1039,6 @@ tbody {
        var vendorCode = document.getElementById("vendorCode").value
 
 
-       console.log("routeKms " + routeKms);
-       console.log("fsBaseRate " + fsBaseRate);
-       console.log("currentFuelRate " + currentFuelRate);
-       console.log("fsDiff " + fsDiff);
-       console.log("basicFreight " + basicFreight);
-       console.log("totalFreight " + totalFreight);
-
-       console.log("openingReading " + openingReading);
-       console.log("closingReading " + closingReading);
-       console.log("AmountLumpSum " + AmountLumpSum);
-       console.log("lumpsum " + lumpsum);
-       console.log("Milage ::" + milage);
-       console.log("vendorName ::" + vendorName);
-       console.log("vendorCode ::" + vendorCode);
-
-       console.log("ratePerKm " + ratePerKm);
        if (milage === "" || milage === null || milage === '') {
            Toast.fire({
                type: 'error',
@@ -1138,8 +1109,6 @@ tbody {
        var dateTime = date + ' ' + time;
        var checkedValue = $('.messageCheckbox:checked').val();
 
-       console.log("checkedValue is" + checkedValue);
-
        if (checkedValue != '' || checkedValue != "") {
            checkedValue = 'unchecked';
 
@@ -1174,7 +1143,6 @@ tbody {
 
 
          } else {
-             console.log("lumpsonme amoynt sceneroir "+AmountLumpSum);
              if (AmountLumpSum === '' || AmountLumpSum === null || AmountLumpSum === '0' || AmountLumpSum === '0.0') {
                  Toast.fire({
                      type: 'error',
@@ -1187,7 +1155,6 @@ tbody {
 
              
          }
-         console.log("After Validation ::");
          
          calcualteFormulae();
          
@@ -1200,11 +1167,9 @@ tbody {
 			$("#AmountLumpSum").val("0");
 		}
          var fs = document.getElementById("fs").value;
-         console.log("fs" + fs);
          var totalFreight = document.getElementById("totalFreight").value;
          var basicFreight = document.getElementById("basicFreight").value;
          var comments_by_User = document.getElementById("comment").value;
-         console.log("comments_by_User " + comments_by_User);
          var obj = {
              "tripID": document.getElementById("tripID").value,
              "processedBy": 'NetworkTeam',
@@ -1223,16 +1188,13 @@ tbody {
          }
 
        //  calcualteFormulae();
-         console.log("Commin here before ajax call");
          $.ajax({
              type: "POST",
              data: JSON.stringify(obj),
              url: "<%=GlobalUrl.updateDetailsforNetwork%>",
              dataType: "json",
              contentType: "application/json",
-             async: false,
              success: function (data) {
-                 console.log("data.msg" + data.msg);
                  if (data.msg == 'success') {
                      var result = data.data;
 
@@ -1271,17 +1233,10 @@ tbody {
          var basicFreight=parseFloat(standKMS) * parseFloat(ratePerKm);
          document.getElementById("basicFreight").value = basicFreight.toFixed(2);
          
-         console.log("Fs Cal",fsCal);
-
          var mileage = document.getElementById("mileage").value;
          var routeKms = document.getElementById("routeKms").value;
-         console.log("mileage " + mileage);
-         console.log("routeKms " + routeKms);
          var fs = (parseFloat(fsCal) / parseFloat(mileage)) * parseFloat(routeKms);
          document.getElementById("fs").value = fs.toFixed(2);
-         ;
-
-
 
          var totalFreight = parseFloat(basicFreight) + parseFloat(fs);
          document.getElementById("totalFreight").value = totalFreight.toFixed(2);
@@ -1297,13 +1252,10 @@ tbody {
      
     function getBpCode(){
  	   var vendorName=$("#vendorName").val();
- 	   console.log(vendorName,"vendor name -----");
  	   
  	   var json = {
                 "vendorName": vendorName
             }
-
- 	   console.log("JSON Obj ",json);
 
             $.ajax({
                 type: "POST",
@@ -1311,7 +1263,6 @@ tbody {
                 url: "<%=GlobalUrl.getBpCodeForNetwork%>",
                 dataType: "json",
                 contentType: "application/json",
-                async: false,
                 success: function(data) {
 
                     if (data.msg == 'success') {

@@ -552,7 +552,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                     url: "<%=GlobalUrl.changePassword%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function (data) {
                         if (data.msg == 'success') {
 
@@ -580,7 +579,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                     url: "<%=GlobalUrl.getFinanceDashBoardDetails%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
 
                         if (data.msg == 'success') {

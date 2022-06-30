@@ -231,12 +231,13 @@ public class DashboardController {
 			logger.info("route ::" + route);
 
 			AgreementMaster masterData = serviceManager.agreementMasterRepo.getAllTripsByVendorCode(vendorCode, route);
-			logger.info("masterData ::" + masterData.getVendorName());
+			//logger.info("masterData ::" + masterData.getVendorName());
 			data.setData(masterData);
 			data.setMsg("success");
 
 		} catch (Exception e) {
 			logger.error("error : " + e);
+			e.printStackTrace();
 			data.setMsg("error");
 		}
 

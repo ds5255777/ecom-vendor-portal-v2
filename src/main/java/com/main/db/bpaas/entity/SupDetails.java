@@ -1,5 +1,6 @@
 package com.main.db.bpaas.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -30,8 +31,7 @@ public class SupDetails {
 	/* Stap-1 Entity */
 	@Column(name = "pid")
 	private String pid;
-	@Column(name = "partner_type")
-	private String partnerType;
+
 	@Column(name = "introduced_by_name")
 	private String introducedByName;
 	@Column(name = "introduced_by_email_id")
@@ -39,11 +39,9 @@ public class SupDetails {
 	@Column(name = "bp_code")
 	private String bpCode;
 
-	@Column(name = "vendor_type")
-	private String vendorType;
 	@Column(name = "supp_name")
 	private String suppName;
-	
+
 	@Column(name = "aadhar_number")
 	private String aadharNumber;
 	@Column(name = "pan_number")
@@ -97,13 +95,13 @@ public class SupDetails {
 	private String fyYear3;
 	@Column(name = "acknowledgement_number3")
 	private String acknowledgementNumber3;
-	
+
 	@Column(name = "mesme_Number")
 	private String mesmeNumber;
-	
+
 	@Column(name = "section_Type")
 	private String sectionType;
-	
+
 	@Column(name = "ERO")
 	private String ero;
 	@Column(name = "WRO")
@@ -114,21 +112,20 @@ public class SupDetails {
 	private String sro;
 	@Column(name = "IHQ")
 	private String ihq;
-	
+
+	@Column(name = "create_date")
+	private Date date = new Date();
+
 	@Column(name = "ADDRESS_PURCHASING_FLAG")
 	private String addressPurchasingFlag;
 	@Column(name = "ADDRESS_PAYMENT_FLAG")
 	private String addressPaymentFlag;
 	@Column(name = "INVOICE_PREVALIDATED_FLAG")
 	private String invoicePrevalidatedFlag;
-	
+
 	@Column(name = "gl_code")
 	private String glCode;
-	
 
-
-	
-	
 	@OneToMany(targetEntity = AccountDetails.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "sa_fk", referencedColumnName = "id")
 	private List<AccountDetails> accountDetails;
@@ -140,28 +137,6 @@ public class SupDetails {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn
 	private List<ContactDetails> contactDetails;
-
-	/*
-	 * @OneToMany(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn private List<ItrDetails> itrDetails;
-	 */
-
-	/*
-	 * @OneToMany(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn private List<WIHistory> wIHistory;
-	 */
-
-	/*
-	 * @OneToMany(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn private List<TripDetails> tripDetails;
-	 */
-
-//	@OneToMany(cascade = CascadeType.ALL)
-//	@JoinColumn
-//	private List<OnboardQuery> onboardQuery;
 
 	@Transient
 	String gstFileText;
@@ -251,14 +226,6 @@ public class SupDetails {
 		this.pid = pid;
 	}
 
-	public String getPartnerType() {
-		return partnerType;
-	}
-
-	public void setPartnerType(String partnerType) {
-		this.partnerType = partnerType;
-	}
-
 	public String getBpCode() {
 		return bpCode;
 	}
@@ -291,14 +258,6 @@ public class SupDetails {
 		this.introducedByEmailID = introducedByEmailID;
 	}
 
-	public String getVendorType() {
-		return vendorType;
-	}
-
-	public void setVendorType(String vendorType) {
-		this.vendorType = vendorType;
-	}
-
 	public String getSuppName() {
 		return suppName;
 	}
@@ -306,7 +265,6 @@ public class SupDetails {
 	public void setSuppName(String suppName) {
 		this.suppName = suppName;
 	}
-
 
 	public String getAadharNumber() {
 		return aadharNumber;
@@ -340,7 +298,6 @@ public class SupDetails {
 		this.adharLinkStatus = adharLinkStatus;
 	}
 
-	
 	public String getBusinessClassification() {
 		return businessClassification;
 	}
@@ -821,9 +778,12 @@ public class SupDetails {
 		this.invoicePrevalidatedFlag = invoicePrevalidatedFlag;
 	}
 
+	public Date getDate() {
+		return date;
+	}
 
-	
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
-	
-	
 }

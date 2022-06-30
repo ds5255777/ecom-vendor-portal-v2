@@ -218,7 +218,7 @@ public class FinanceController {
 		try {
 			Integer getid = entity.getId();
 
-			if ("Invoice".equalsIgnoreCase(entity.getType())) {
+			if (GlobalConstants.SET_TYPE_INVOICE.equalsIgnoreCase(entity.getType())) {
 				entity.setType(GlobalConstants.SET_TYPE_INVOICE);
 				if (GlobalConstants.ROLE_VENDOR.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
@@ -242,11 +242,18 @@ public class FinanceController {
 					type=entity.getType();
 				}
 
-			} else {
+			} else if (GlobalConstants.SET_TYPE_TRIP.equalsIgnoreCase(entity.getType())){
 				entity.setType(GlobalConstants.SET_TYPE_TRIP);
 				if (GlobalConstants.ROLE_VENDOR.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateStatusByUserid(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_NETWORK, getid);
+					emailType=GlobalConstants.EMAIL_TYPE_VEN_TRIP_QUERY;
+					type=entity.getType();
+				}
+			} else if (GlobalConstants.SET_TYPE_REGISTRATION.equalsIgnoreCase(entity.getType())) {
+				entity.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				if (GlobalConstants.ROLE_REGISTRATION_APPROVAL.equalsIgnoreCase(rolename)) {
+					serviceManager.supDetailsRepo.updateVendorStatus(GlobalConstants.QUERY_REQUEST_STATUS,getid);
 					emailType=GlobalConstants.EMAIL_TYPE_VEN_TRIP_QUERY;
 					type=entity.getType();
 				}

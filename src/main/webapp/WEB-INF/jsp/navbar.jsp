@@ -108,7 +108,7 @@
 				</div>
 			</c:when>
 			
-			<c:when test="${pageName=='Closed And Approved Trips'}">
+			<c:when test="${pageName=='Closed And Approved Trips' || pageName=='Pending For Approvel Trips'}">
 				<li class="nav-item d-none d-sm-inline-block"><a class="black-text nav-link quickHelp" data-toggle="tooltip" data-placement="bottom" title="Back" href="#" onclick="history.back()" style="padding-right: 0px;"><b style="font-size: 18px;color: #12344dd6;"><i class="fa fa-fast-backward"></i></b></a></li>
                 <li class="nav-item d-none d-sm-inline-block"><b><a class="nav-link"><%=request.getParameter("pagename")%></a></b></li>
                 
@@ -217,10 +217,7 @@ function GetSelectedTextValue() {
                 tabledata.clear();
                 for (var i = 0; i < result.length; i++) {
                 	if(!result[i].hasOwnProperty("tripID")){
-							result[i].tripID="";
-						}
-                    if(!result[i].hasOwnProperty("invoiceNumber")){
-							result[i].invoiceNumber="-";
+							result[i].tripID="-";
 						}
 					if(!result[i].hasOwnProperty("route")){
 							result[i].route="-";
@@ -237,27 +234,24 @@ function GetSelectedTextValue() {
                      if(!result[i].hasOwnProperty("actualDeparture")){
 							result[i].actualDeparture="-";
 						}
-                     if(!result[i].hasOwnProperty("actualKM")){
-							result[i].actualKM="-";
+                     if(!result[i].hasOwnProperty("vehicleNumber")){
+							result[i].vehicleNumber="-";
+						}
+                     if(!result[i].hasOwnProperty("standardVechicleType")){
+							result[i].standardVechicleType="-";
 						}
                      if(!result[i].hasOwnProperty("standardKM")){
 							result[i].standardKM="-";
 						}
-                      if(!result[i].hasOwnProperty("originHub")){
-							result[i].originHub="-";
+                     if(!result[i].hasOwnProperty("totalFreight")){
+							result[i].totalFreight="-";
 						}
-                      if(!result[i].hasOwnProperty("destHub")){
-							result[i].destHub="-";
-						}
+                       if(!result[i].hasOwnProperty("invoiceNumber")){
+ 							result[i].invoiceNumber="-";
+ 						}
                       if(!result[i].hasOwnProperty("paymentStatus")){
 						result[i].paymentStatus="-";
 					}
-                      if(!result[i].hasOwnProperty("vehicleNumber")){
-  						result[i].vehicleNumber="-";
-  					}
-                      if(!result[i].hasOwnProperty("standardVechicleType")){
-  						result[i].standardVechicleType="-";
-  					}
 
                     var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
                    

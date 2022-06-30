@@ -182,7 +182,7 @@
 										</div>
 									</form>
                                     <!-- /.card-header -->
-                                    <div class="card-body table-responsive p-0" style="height: 420px;">
+                                    <div class="card-body table-responsive p-0" style="width:100%;">
                                         <table class="table table-head-fixed" id="tabledata1">
                                             <thead>
                                                 <tr>
@@ -700,6 +700,9 @@
 	        timer: 3000
 	    });
 	    
+	    var dataLimit='${dataLimit}';
+		dataLimit=parseInt(dataLimit);
+	    
 	    var tabledataQuery = $('#tabledataQuery').DataTable({
 	          "paging": false,
 	          "lengthChange": false,
@@ -716,7 +719,7 @@
                                                         "autoWidth": false,
                                                         "aaSorting": [],
                                                         "scrollX": true,
-                                                        "pageLength": 10,
+                                                        "pageLength": dataLimit,
                                                         dom: 'Bfrtip',
                                                         //buttons: ['excel','pdf','print'],
                                                         buttons: [
@@ -739,8 +742,6 @@
 
                                                                     var tblBody = doc.content[1].table.body;
                                                                     for (var i = 0; i < tblBody[0].length; i++) {
-                                                                        //	 console.log(tblBody[0]);
-                                                                        //	 console.log(tblBody[0][i]);
                                                                         tblBody[0][i].fillColor = '#FFFFFF';
                                                                         tblBody[0][i].color = 'black';
                                                                     }
@@ -801,8 +802,6 @@
                                                     
                                                     $('#tabledata1_filter').css("display","none");
                                                     
-                                                    console.log(document.getElementById("mode").value);
-                                                    //alert(document.getElementById("mode").value);
                                                     if (document.getElementById("mode").value === "Line Haul") {
                                                         document.getElementById("openingReading").d = 'true';
                                                         document.getElementById("closingReading").d = 'true';
@@ -831,14 +830,11 @@
                                                             url: "<%=GlobalUrl.tripDetailByTripId%>",
                                                             dataType: "json",
                                                             contentType: "application/json",
-                                                            async: false,
                                                             success: function (data) {
-                                                                console.log("data.msg" + data.msg);
                                                                 if (data.msg == 'success') {
                                                                     var result = data.data;
                                                                     var myForm = "";
                                                                     myForm = document.getElementById("tripForm1");
-                                                                    console.log("result " + result.innerHTML);
                                                                     setData(myForm, result);
                                                                     $('#tripValue').modal('show');
                                                                 } else {
@@ -866,11 +862,7 @@
                                                             url: "<%=GlobalUrl.getRemarksByRefID%>",
                                                             dataType: "json",
                                                             contentType: "application/json",
-                                                            async: false,
                                                             success: function (data) {
-                                                                console.log("data.msg" + data.msg);
-                                                                console.log("data.data " + data.data);
-                                                                console.log("Actual data.data " + JSON.stringify(data.data));
                                                                 if (data.msg == 'success') {
                                                                	 if("data" in data){
                                            								var result = data.data;												
@@ -906,7 +898,6 @@
 
                                                     function lumpsomePropertyChange() {
                                                         var checkedValue = $('.messageCheckbox:checked').val();
-                                                        console.log("checkedValue " + checkedValue);
                                                         $("#AmountLumpSum").prop('disabled', true);
                                                         $("#fs").prop('disabled', false);
                                                         $("#totalFreight").prop('disabled', false);
@@ -915,24 +906,13 @@
                                                         var currentFuelRate = document.getElementById("currentFuelRate").value;
                                                         var fsBaseRate = document.getElementById("fsBaseRate").value;
 
-                                                        console.log("currentFuelRate " + currentFuelRate);
-                                                        console.log("fsBaseRate " + fsBaseRate);
-
-
                                                         var basicFreight = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
                                                         document.getElementById("basicFreight").value = basicFreight.toFixed(2);
-                                                        ;
-
 
                                                         var mileage = document.getElementById("mileage").value;
                                                         var routeKms = document.getElementById("routeKms").value;
-                                                        console.log("mileage " + mileage);
-                                                        console.log("routeKms " + routeKms);
                                                         var fs = (parseFloat(basicFreight) / parseFloat(mileage)) * parseFloat(routeKms);
                                                         document.getElementById("fs").value = fs.toFixed(2);
-                                                        ;
-
-
 
                                                         var totalFreight = parseFloat(basicFreight) + parseFloat(fs);
                                                         document.getElementById("totalFreight").value = totalFreight.toFixed(2);
@@ -974,20 +954,6 @@
                                                         var lumpsum = document.getElementById("lumpsum").value;
                                                         var fs = document.getElementById("fs").value;
 
-
-                                                        console.log("routeKms " + routeKms);
-                                                        console.log("fsBaseRate " + fsBaseRate);
-                                                        console.log("currentFuelRate " + currentFuelRate);
-                                                        console.log("fsDiff " + fsDiff);
-                                                        console.log("basicFreight " + basicFreight);
-                                                        console.log("totalFreight " + totalFreight);
-
-                                                        console.log("openingReading " + openingReading);
-                                                        console.log("closingReading " + closingReading);
-                                                        console.log("AmountLumpSum " + AmountLumpSum);
-                                                        console.log("lumpsum " + lumpsum);
-
-                                                        console.log("ratePerKm " + ratePerKm);
                                                         if (ratePerKm === "" || ratePerKm === null || ratePerKm === '') {
                                                             Toast.fire({
                                                                 type: 'error',
@@ -1025,8 +991,6 @@
                                                         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                                                         var dateTime = date + ' ' + time;
                                                         var checkedValue = $('.messageCheckbox:checked').val();
-
-                                                        console.log("checkedValue " + checkedValue);
 
                                                         if (checkedValue != '' || checkedValue != "") {
                                                             checkedValue = 'unchecked';
@@ -1074,11 +1038,9 @@
                                                         }
 
                                                         var fs = document.getElementById("fs").value;
-                                                        console.log("fs" + fs);
                                                         var totalFreight = document.getElementById("totalFreight").value;
                                                         var basicFreight = document.getElementById("basicFreight").value;
                                                         var comments_by_User = document.getElementById("comment").value;
-                                                        console.log("comments_by_User " + comments_by_User);
                                                         var obj = {
                                                             "tripID": document.getElementById("tripID").value,
                                                             "processedBy": 'NetworkTeam',
@@ -1100,9 +1062,7 @@
                                                             url: "<%=GlobalUrl.updateDetailsforNetwork%>",
                                                             dataType: "json",
                                                             contentType: "application/json",
-                                                            async: false,
                                                             success: function (data) {
-                                                                console.log("data.msg" + data.msg);
                                                                 if (data.msg == 'success') {
                                                                     var result = data.data;
 

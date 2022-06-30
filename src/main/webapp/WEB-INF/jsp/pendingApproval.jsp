@@ -1131,7 +1131,7 @@ function getQueryData(tripId){
 	 }
 	 
 function selectDropDownValue(){
-	$('.loader').show();
+	
 	var columnName= $("#selectLevelValue").val();
 	var columnValue=$("#selectInputValue").val();
 	var vendorCode=$("#vendorCode").val();
@@ -1162,6 +1162,7 @@ function selectDropDownValue(){
 		}
 
 	 console.log(json);
+	 $('.loader').show();
 	 $.ajax({
 			type : "GET",
 			url : "<%=GlobalUrl.filterByColumn%>",

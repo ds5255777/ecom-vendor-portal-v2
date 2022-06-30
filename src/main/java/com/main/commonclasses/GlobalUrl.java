@@ -147,9 +147,22 @@ public class GlobalUrl {
 	// public static String findVendorCodeAndName = dashboardController + "/findVendorCodeAndName";
 	 public static String getAllVendors = dashboardController + "/getAllVendors";
 	 
+	 //getAllRequest
+	 
+	 public static String registrationController="registrationController";
+	 //updateVendorRegistrationStatus
+	 public static String getPendingRequest = registrationController + "/getPendingRequest";
+	 public static String getApprovedRequest = registrationController + "/getApprovedRequest";
+	 public static String getRejectedRequest = registrationController + "/getRejectedRequest";
+	 public static String getQueryRequest = registrationController + "/getQueryRequest";
 	 
 	 
+	 public static String approveRequest = registrationController + "/approveRequest";
+	 public static String rejectedRequest = registrationController + "/rejectedRequest";
 	 
+	 public static String getAllRequest = registrationController + "/getAllRequest";
 	 
+	 public static String updateVendorRegistrationStatus = registrationController + "/updateVendorRegistrationStatus";
+	 public static String getAllApprovedVendor = registrationController + "/getAllApprovedVendor";
 	 
 }

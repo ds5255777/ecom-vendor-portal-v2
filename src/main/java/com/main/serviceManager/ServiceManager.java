@@ -27,6 +27,7 @@ import com.main.db.bpaas.repo.PaymentTermRepo;
 import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.db.bpaas.repo.PoLineItemRepo;
+import com.main.db.bpaas.repo.ProcessMaxLevelRepo;
 import com.main.db.bpaas.repo.QueryRepo;
 import com.main.db.bpaas.repo.RegionRepo;
 import com.main.db.bpaas.repo.RolesRepository;
@@ -36,6 +37,7 @@ import com.main.db.bpaas.repo.StateRepo;
 import com.main.db.bpaas.repo.SupDetailsRepo;
 import com.main.db.bpaas.repo.TDSSectionCodeRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
+import com.main.db.bpaas.repo.UserLevelRepo;
 import com.main.db.bpaas.repo.UserRepository;
 import com.main.service.InvoiceServiceImpl;
 import com.main.service.SecurityService;
@@ -161,6 +163,12 @@ public class ServiceManager {
 
 	@Autowired
 	public InvoiceNumberRepo invoiceNumberRepo;
+	
+	@Autowired
+	public UserLevelRepo userLevelRepo;
+	
+	@Autowired
+	public ProcessMaxLevelRepo processMaxLevelRepo;
 
 
 	/*

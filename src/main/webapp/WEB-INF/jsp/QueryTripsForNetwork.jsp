@@ -183,7 +183,7 @@ tbody {
 									</form>
 									<!-- /.card-header -->
 									<div class="card-body table-responsive p-0"
-										style="height: 420px;">
+										style="width:100%;">
 										<table class="table table-head-fixed" id="tabledata1">
 											<thead>
 												<tr>
@@ -757,6 +757,8 @@ tbody {
 	  $('#vendorName').select2({
 		theme : 'bootstrap4'
 	});
+	  var dataLimit='${dataLimit}';
+		dataLimit=parseInt(dataLimit);
 	  
 	  var tabledataQuery = $('#queryTabledata').DataTable({
           "paging": false,
@@ -784,7 +786,7 @@ tbody {
         "autoWidth": false,
         "aaSorting": [],
         "scrollX": true,
-        "pageLength": 10,
+        "pageLength": dataLimit,
         dom: 'Bfrtip',
         //buttons: ['excel','pdf','print'],
         buttons: [
@@ -867,19 +869,6 @@ tbody {
   
     $('#tabledata1_filter').css("display","none");
     
-    if (document.getElementById("mode").value === "Line Haul") {
-        document.getElementById("openingReading").d = 'true';
-        document.getElementById("closingReading").d = 'true';
-        //    document.getElementById("tdsRate").val()="";
-        //            	    document.getElementById("tdsSection").value()="";
-        $("#tdsSection").val("");
-        $("#tdsRate").val("");
-    } else {
-        document.getElementById("openingReading").d = '';
-        document.getElementById("closingReading").d = '';
-    }
-
-
     var globalTripId = "";
     function setTripStatus(tripId ,vendorNameOfTrip) {
 
@@ -895,7 +884,6 @@ tbody {
             url: "<%=GlobalUrl.tripDetailByTripId%>",
             dataType: "json",
             contentType: "application/json",
-            async: false,
             success: function (data) {
                 if (data.msg == 'success') {
                     var result = data.data;
@@ -929,7 +917,6 @@ tbody {
             url: "<%=GlobalUrl.getRemarksByRefID%>",
             dataType: "json",
             contentType: "application/json",
-            async: false,
             success: function (data) {
                 if (data.msg == 'success') {
                	 if("data" in data){
@@ -973,15 +960,16 @@ tbody {
 
                var currentFuelRate = document.getElementById("currentFuelRate").value;
                var fsBaseRate = document.getElementById("fsBaseRate").value;
+               var standKMS= document.getElementById("standardKM").value;
+               var ratePerKm=document.getElementById("ratePerKm").value;
 
-               var basicFreight = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
+               var fsCal = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
+               var basicFreight=parseFloat(standKMS) * parseFloat(ratePerKm);
                document.getElementById("basicFreight").value = basicFreight.toFixed(2);
-               ;
-
-
+               
                var mileage = document.getElementById("mileage").value;
                var routeKms = document.getElementById("routeKms").value;
-               var fs = (parseFloat(basicFreight) / parseFloat(mileage)) * parseFloat(routeKms);
+               var fs = (parseFloat(fsCal) / parseFloat(mileage)) * parseFloat(routeKms);
                document.getElementById("fs").value = fs.toFixed(2);
 
                var totalFreight = parseFloat(basicFreight) + parseFloat(fs);
@@ -1178,14 +1166,15 @@ tbody {
                "vendorCode" : vendorCode,
                "type":"Trip"
            }
+           console.log(obj);
            //  calcualteFormulae();
+           return;
            $.ajax({
                type: "POST",
                data: JSON.stringify(obj),
                url: "<%=GlobalUrl.updateDetailsforNetwork%>",
                dataType: "json",
                contentType: "application/json",
-               async: false,
                success: function (data) {
                    if (data.msg == 'success') {
                        var result = data.data;
@@ -1218,14 +1207,16 @@ tbody {
        function calcualteFormulae() {
            var currentFuelRate = document.getElementById("currentFuelRate").value;
            var fsBaseRate = document.getElementById("fsBaseRate").value;
+           var standKMS= document.getElementById("standardKM").value;
+           var ratePerKm=document.getElementById("ratePerKm").value;
 
-
-           var basicFreight = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
+           var fsCal = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
+           var basicFreight=parseFloat(standKMS) * parseFloat(ratePerKm);
            document.getElementById("basicFreight").value = basicFreight.toFixed(2);
-
+           
            var mileage = document.getElementById("mileage").value;
            var routeKms = document.getElementById("routeKms").value;
-           var fs = (parseFloat(basicFreight) / parseFloat(mileage)) * parseFloat(routeKms);
+           var fs = (parseFloat(fsCal) / parseFloat(mileage)) * parseFloat(routeKms);
            document.getElementById("fs").value = fs.toFixed(2);
 
            var totalFreight = parseFloat(basicFreight) + parseFloat(fs);
@@ -1236,9 +1227,7 @@ tbody {
        function refreshValues() {
            var route = document.getElementById("route").value;//route
            var vendorCode = document.getElementById("vendorCode").value;
-
            var obj = {
-
                "route": route,
                "vendorCode": vendorCode
            }
@@ -1248,45 +1237,43 @@ tbody {
                type: "POST",
                data: JSON.stringify(obj),
                url: "<%=GlobalUrl.refreshValues%>",
-
-	dataType : "json",
-	contentType : "application/json",
-	async : false,
-	success : function(data) {
-		if (data.msg == 'success') {
-			var resData = data.data;
-			document.getElementById("currentFuelRate").value = resData.currentFuelRate
-					.toFixed(2);
-			document.getElementById("ratePerKm").value = resData.rate
-					.toFixed(2);
-			document.getElementById("mileage").value = resData.stdMileagePerKm
-					.toFixed(2);
-			document.getElementById("standardKM").value = resData.fixedKm;
-			// document.getElementById("resData.currentFuelRate").value = resData.fsDiff.toFixed(2);
-			document.getElementById("fsDiff").value = resData.fsDiff;
-			document.getElementById("fsBaseRate").value = resData.baseRate
-					.toFixed(2);
-
-			//actualKM
-
-			if ("0" == document
-					.getElementById("actualKM")) {
-				document.getElementById("routeKms").value = resData.fixedKm;
-			} else if (parseFloat(document
-					.getElementById("actualKM").value) < parseFloat(document
-					.getElementById("standardKM").value)) {
-				document.getElementById("routeKms").value = document
+				dataType : "json",
+				contentType : "application/json",
+				success : function(data) {
+				if (data.msg == 'success') {
+					var resData = data.data;
+					document.getElementById("currentFuelRate").value = resData.currentFuelRate
+							.toFixed(2);
+					document.getElementById("ratePerKm").value = resData.rate
+							.toFixed(2);
+					document.getElementById("mileage").value = resData.stdMileagePerKm
+							.toFixed(2);
+					document.getElementById("standardKM").value = resData.fixedKm;
+					// document.getElementById("resData.currentFuelRate").value = resData.fsDiff.toFixed(2);
+					document.getElementById("fsDiff").value = resData.fsDiff;
+					document.getElementById("fsBaseRate").value = resData.baseRate
+							.toFixed(2);
+					document.getElementById("routeKms").value = resData.standardKM
+					//actualKM
+		
+					if ("0" == document.getElementById("actualKM")) {
+						document.getElementById("routeKms").value = document
 						.getElementById("standardKM").value;
-			} else {
-				document.getElementById("routeKms").value = document
-						.getElementById("actualKM").value;
+					} else if (parseFloat(document
+							.getElementById("actualKM").value) < parseFloat(document
+							.getElementById("standardKM").value)) {
+						document.getElementById("routeKms").value = document
+								.getElementById("standardKM").value;
+					} else {
+						document.getElementById("routeKms").value = document
+						.getElementById("standardKM").value;
+					}
+		
+					calcualteFormulae();
+					updateTripDataByNetworkTeam('Yes');
+		
+				}
 			}
-
-			calcualteFormulae();
-			updateTripDataByNetworkTeam('Yes');
-
-		}
-	}
 
 });
 
@@ -1305,7 +1292,6 @@ tbody {
       url: "<%=GlobalUrl.getBpCodeForNetwork%>",
       dataType: "json",
       contentType: "application/json",
-      async: false,
       success: function(data) {
 
           if (data.msg == 'success') {

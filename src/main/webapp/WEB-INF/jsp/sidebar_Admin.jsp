@@ -89,6 +89,17 @@
                      <i class="nav-icon fas fa-registered"></i>
                     
                        <p>Vendor Registrastion</p> 
+                    </a></li>
+                    
+                    <li class="nav-item"><a href="vendorReports"  rel="noopener noreferrer" class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("vendorReports")) {
+				out.print("active");
+			}%>                            
+                            ">
+                         
+                      <!-- <i class="fa-solid fa-id-card"></i> -->
+                    <i class="nav-icon fas fa-download"></i>
+                       <p>Vendor Reports</p> 
                     </a></li> 
 
            <li class="nav-item"><a href="vendorDetails" class="nav-link

@@ -146,7 +146,7 @@ tbody {
 					<div class="row">
 						<div class="col-md-12" style="font-size: 14px;">
 							<!-- general form elements -->
-							<div class="card">
+							<div class="card card-primary">
 
 								<!-- /.card-header -->
 								<div class="card-body ">
@@ -179,7 +179,7 @@ tbody {
 									</div>
 								</form>
 								<div class="card-body table-responsive p-0"
-									style="height: 420px;">
+									style="width:100%;">
 									<table class="table table-head-fixed" id="tabledata1">
 										<thead>
 											<tr>
@@ -699,6 +699,9 @@ tbody {
 	
 <script type="text/javascript">
 
+var dataLimit='${dataLimit}';
+dataLimit=parseInt(dataLimit);
+
    $('#tripValue').modal("hide");
    const Toast = Swal.mixin({
        toast: true,
@@ -723,7 +726,7 @@ tbody {
        "autoWidth": false,
        "aaSorting": [],
        "scrollX": true,
-       "pageLength": 10,
+       "pageLength": dataLimit,
        dom: 'Bfrtip',
        //buttons: ['excel','pdf','print'],
        buttons: [
@@ -746,8 +749,6 @@ tbody {
 
                    var tblBody = doc.content[1].table.body;
                    for (var i = 0; i < tblBody[0].length; i++) {
-                       //	 console.log(tblBody[0]);
-                       //	 console.log(tblBody[0][i]);
                        tblBody[0][i].fillColor = '#FFFFFF';
                        tblBody[0][i].color = 'black';
                    }
@@ -825,8 +826,6 @@ tbody {
        var json = {
            "tripID": tripId
        }
-       
-       console.log(json);
 
        $.ajax({
            type: "POST",
@@ -917,7 +916,6 @@ tbody {
 
    function lumpsomePropertyChange() {
        var checkedValue = $('.messageCheckbox:checked').val();
-       console.log("checkedValue " + checkedValue);
        $("#AmountLumpSum").prop('disabled', true);
        $("#fs").prop('disabled', false);
        $("#totalFreight").prop('disabled', false);
@@ -926,24 +924,13 @@ tbody {
        var currentFuelRate = document.getElementById("currentFuelRate").value;
        var fsBaseRate = document.getElementById("fsBaseRate").value;
 
-       console.log("currentFuelRate " + currentFuelRate);
-       console.log("fsBaseRate " + fsBaseRate);
-
-
        var basicFreight = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
        document.getElementById("basicFreight").value = basicFreight.toFixed(2);
-       ;
-
 
        var mileage = document.getElementById("mileage").value;
        var routeKms = document.getElementById("routeKms").value;
-       console.log("mileage " + mileage);
-       console.log("routeKms " + routeKms);
        var fs = (parseFloat(basicFreight) / parseFloat(mileage)) * parseFloat(routeKms);
        document.getElementById("fs").value = fs.toFixed(2);
-       ;
-
-
 
        var totalFreight = parseFloat(basicFreight) + parseFloat(fs);
        document.getElementById("totalFreight").value = totalFreight.toFixed(2);
@@ -1071,11 +1058,9 @@ tbody {
        }
 
        var fs = document.getElementById("fs").value;
-       console.log("fs" + fs);
        var totalFreight = document.getElementById("totalFreight").value;
        var basicFreight = document.getElementById("basicFreight").value;
        var comments_by_User = document.getElementById("comment").value;
-       console.log("comments_by_User " + comments_by_User);
        var obj = {
            "tripID": document.getElementById("tripID").value,
            "processedBy": 'NetworkTeam',

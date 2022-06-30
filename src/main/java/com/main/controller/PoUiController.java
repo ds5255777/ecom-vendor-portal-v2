@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.main.db.bpaas.entity.AccountDetails;
+import com.main.db.bpaas.entity.InvoiceNumber;
 import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoLineDetails;
 import com.main.db.bpaas.entity.SupDetails;
@@ -270,32 +271,50 @@ public class PoUiController {
 	@GetMapping("/poInvoiceGenerate")
 	public String poInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 
-		String userNameIs = "ECOM-";
-
-		String vendorCode = (String) request.getSession().getAttribute("userName");
-
-		int totalInvoiceCount = serviceManager.poinvoiceRepo.getAllInvoiceCountForInvoiceNo(vendorCode);
-		String invoiceNumber = userNameIs + String.format("%08d", totalInvoiceCount + 1); // Filling with zeroes
-
-		List<String> exitingInvoiceNo = serviceManager.poinvoiceRepo.getExitingInvoiceNo();
+		/*
+		 * String userNameIs = "ECOM-";
+		 * 
+		 * String vendorCode = (String) request.getSession().getAttribute("userName");
+		 * 
+		 * int totalInvoiceCount =
+		 * serviceManager.poinvoiceRepo.getAllInvoiceCountForInvoiceNo(vendorCode);
+		 * String invoiceNumber = userNameIs + String.format("%08d", totalInvoiceCount +
+		 * 1); // Filling with zeroes
+		 * 
+		 * List<String> exitingInvoiceNo =
+		 * serviceManager.poinvoiceRepo.getExitingInvoiceNo();
+		 * 
+		 * List<String> paymentMethod= serviceManager.paymentMethodRepo.PaymentMethod();
+		 * 
+		 * String[] arr = new String[exitingInvoiceNo.size()]; for (int i = 0; i <
+		 * exitingInvoiceNo.size(); i++) { arr[i] = exitingInvoiceNo.get(i);
+		 * 
+		 * if (invoiceNumber.equalsIgnoreCase(arr[i])) {
+		 * 
+		 * invoiceNumber = userNameIs + String.format("%08d", totalInvoiceCount + 3); }
+		 * 
+		 * }
+		 */
 		
-		List<String>  paymentMethod=  serviceManager.paymentMethodRepo.PaymentMethod();
+		String invoiceNumber = "";
 
-		String[] arr = new String[exitingInvoiceNo.size()];
-		for (int i = 0; i < exitingInvoiceNo.size(); i++) {
-			arr[i] = exitingInvoiceNo.get(i);
+		invoiceNumber = generateInvoiceNumber();
+		
+		InvoiceNumber inNumber= new InvoiceNumber();
+		inNumber.setEcomInvoiceNumber(invoiceNumber);
+		inNumber.setStatus("Used_PO_Invoice");
+		serviceManager.invoiceNumberRepo.save(inNumber);
 
-			if (invoiceNumber.equalsIgnoreCase(arr[i])) {
-				
-				invoiceNumber = userNameIs + String.format("%08d", totalInvoiceCount + 3);
-			}
-
-		}
+		model.addAttribute("invoiceNumber", invoiceNumber);
+		request.getSession().setAttribute("invoiceNumber", invoiceNumber);
+		
 		model.addAttribute("invoiceDate", new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		request.getSession().setAttribute("invoiceNumber", invoiceNumber);
 
 		String PoNumber = request.getParameter("id");
+		List<String> paymentMethod= serviceManager.paymentMethodRepo.PaymentMethod();
+
 		model.addAttribute("PoNumber", PoNumber);
 		model.addAttribute("maxFileSize", maxFileSize);
 		model.addAttribute("paymentMethod", paymentMethod);
@@ -404,4 +423,14 @@ public class PoUiController {
 		return "draftPoInvoiceGenerate";
 	}
 
+	public synchronized String generateInvoiceNumber() {
+
+		long count = serviceManager.invoiceNumberRepo.count();
+		String invoiceNumberPrefix = "ECOM-";
+
+		count = count + 1;
+		String invoiceNumber = invoiceNumberPrefix + String.format("%08d", count); // Filling with zeroes
+
+		return invoiceNumber;
+	}
 }

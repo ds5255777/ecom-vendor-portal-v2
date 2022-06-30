@@ -5,11 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "AccountDetails")
@@ -20,19 +16,15 @@ public class AccountDetails {
 
 	@Column(name = "bank_name")
 	private String bankName;
+
+	@Column(name = "beneficiary_name")
+	private String beneficiaryName;
 	@Column(name = "ifsc_code")
 	private String ifscCode;
 	@Column(name = "accout_currency")
 	private String accoutCurrency;
 	@Column(name = "accout_number")
 	private String accoutNumber;
-
-	
-
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn
-	private SupDetails supDetails;
 
 	public Integer getId() {
 		return id;
@@ -48,6 +40,14 @@ public class AccountDetails {
 
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
+	}
+
+	public String getBeneficiaryName() {
+		return beneficiaryName;
+	}
+
+	public void setBeneficiaryName(String beneficiaryName) {
+		this.beneficiaryName = beneficiaryName;
 	}
 
 	public String getIfscCode() {
@@ -72,14 +72,6 @@ public class AccountDetails {
 
 	public void setAccoutNumber(String accoutNumber) {
 		this.accoutNumber = accoutNumber;
-	}
-
-	public SupDetails getSupDetails() {
-		return supDetails;
-	}
-
-	public void setSupDetails(SupDetails supDetails) {
-		this.supDetails = supDetails;
 	}
 
 }

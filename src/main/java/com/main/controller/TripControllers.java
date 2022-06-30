@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -478,14 +479,10 @@ public class TripControllers {
 		try {
 			if (tripStatus.equals(GlobalConstants.VENDOR_TRIP_STATUS_APPROVED)) {
 
-				if (columnName.equals("trip_id")) {
+				if (columnName.equals("route")) {
+					List<String> routeList = Arrays.asList(columnValue.split(","));
 					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-							.findByTripIDAndVendorTripStatusAndVendorCode(columnValue,
-									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
-					data.setData(getListByDateFilter);
-				} else if (columnName.equals("route")) {
-					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-							.findByRouteAndVendorTripStatusAndVendorCode(columnValue,
+							.findByRouteInAndVendorTripStatusAndVendorCode(routeList,
 									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
 					data.setData(getListByDateFilter);
 				} else if (columnName.equals("origin_hub")) {
@@ -503,16 +500,6 @@ public class TripControllers {
 							.findByRunTypeAndVendorTripStatusAndVendorCode(columnValue,
 									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
 					data.setData(getListByDateFilter);
-				} else if (columnName.equals("standard_km")) {
-					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-							.findByStandardKMAndVendorTripStatusAndVendorCode(columnValue,
-									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
-					data.setData(getListByDateFilter);
-				} else if (columnName.equals("mode")) {
-					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-							.findByModeAndVendorTripStatusAndVendorCode(columnValue,
-									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
-					data.setData(getListByDateFilter);
 				} else if (columnName.equals("vehicle_number")) {
 					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
 							.findByVehicleNumberAndVendorTripStatusAndVendorCode(columnValue,
@@ -522,8 +509,9 @@ public class TripControllers {
 			} else if (tripStatus.equals(GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED)) {
 
 				if (columnName.equals("route")) {
+					List<String> routeList = Arrays.asList(columnValue.split(","));
 					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-							.findByRouteAndVendorTripStatusAndVendorCode(columnValue,
+							.findByRouteInAndVendorTripStatusAndVendorCode(routeList,
 									GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED, vendorCode);
 					data.setData(getListByDateFilter);
 				} else if (columnName.equals("vehicle_number")) {

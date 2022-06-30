@@ -190,83 +190,14 @@
                                     <table id="tabledata" class="table table-bordered table-hover">
                                         <thead>
                                                            <tr>
-                                                           		<!-- <th >Sr.No</th> -->
                                                            		<th class="bg-primary">Vendor code</th>
                                                            		<th class="bg-primary">Introduced By Name </th>
                                                            		<th class="bg-primary">Business Partner Name</th>
-                                                               <!--  <th class="bg-primary">Company Email ID</th> -->
                                                                 <th class="bg-primary">introduced by email id</th>
-                                                               <!--  <th class="bg-primary">GSTN Number</th> -->
-                                                              <!--   <th class="bg-primary">Nature of Transactions</th> -->
-                                                                
                                                                 <th class="bg-primary">Business Partner Type</th>
                                                                 <th class="bg-primary">Business Partner</th>
-                                                               <!--  <th class="bg-primary">Phone Number</th> -->
-                                                                
-                                                                
-                                                               <!--  <th class="bg-primary">Aadhar Number</th>
-                                                                 <th class="bg-primary">Pan Number</th>
-                                                                 
-                                                                  <th class="bg-primary">Tan Number</th>
-                                                                 <th class="bg-primary">Aadhar Link Status</th>
-                                                                  <th class="bg-primary">Business Classification</th>
-                                                                 <th class="bg-primary">Invoice Currency</th>
-                                                                  <th class="bg-primary">Payment Currency</th>
-                                                                 <th class="bg-primary">Credit Terms</th>
-                                                                  <th class="bg-primary">Payment Method</th>
-                                                                 <th class="bg-primary">Date Basis</th>
-                                                                  <th class="bg-primary">Delivery Terms</th>
-                                                                 <th class="bg-primary">Tds Application</th>
-                                                                  <th class="bg-primary">Tds Section</th>
-                                                                 <th class="bg-primary">Tds Rate</th>
-                                                                  <th class="bg-primary">Acknowledgement Number1</th>
-                                                                 <th class="bg-primary">Acknowledgement Number2</th>
-                                                                   <th class="bg-primary">Acknowledgement Number3</th>
-                                                                 <th class="bg-primary">Fy Year1</th>
-                                                                  <th class="bg-primary">Fy Year2</th>
-                                                                   <th class="bg-primary">Fy Year3</th>
-                                                                   
-                                                                   <th class="bg-primary">MESME Number</th>
-                                                                  <th class="bg-primary">Section Type</th>
-                                                                   <th class="bg-primary">ERO</th>
-                                                                   
-                                                                     <th class="bg-primary">WRO</th>
-                                                                  <th class="bg-primary">NRO</th>
-                                                                   <th class="bg-primary">SRO</th>
-                                                                   
-                                                                     <th class="bg-primary">IHQ</th>
-                                                                  <th class="bg-primary">ADDRESS PURCHASING FLAG</th>
-                                                                   <th class="bg-primary">ADDRESS PAYMENT FLAG</th>
-                                                                   
-                                                                   <th class="bg-primary">INVOICE_PREVALIDATED_FLAG</th>
-                                                                   <th class="bg-primary">GL Code</th>
-                                                                   
-                                                                      <th class="bg-primary">Bank Name</th>
-                                                                  <th class="bg-primary">IFSC Code</th>
-                                                                   <th class="bg-primary">Account Currency</th>
-                                                                   
-                                                                   <th class="bg-primary">Account Number</th>
-                                                                   <th class="bg-primary">Country</th>
-                                                                   
-                                                                      <th class="bg-primary">State</th>
-                                                                  <th class="bg-primary">City</th>
-                                                                   <th class="bg-primary">Pin Code</th>
-                                                                   
-                                                                   <th class="bg-primary">GST IN</th>
-                                                                   <th class="bg-primary">Nature Of Transactions</th>
-                                                                   
-                                                                     <th class="bg-primary">Address Details</th>
-                                                                  <th class="bg-primary">Supplier Site Code</th>
-                                                                   <th class="bg-primary">Pin Code</th>
-                                                                   
-                                                                   <th class="bg-primary">First Name</th>
-                                                                   <th class="bg-primary">Last Name</th>
-                                                                   <th class="bg-primary">Phone Number</th>
-                                                                   <th class="bg-primary">Email ID</th>
- -->                                                         
                                                                 <th class="bg-primary">Status</th>
-                                                                 <th class="bg-primary">Action</th>
-                                                         
+                                                                <th class="bg-primary">Action</th>
                                                            </tr>
                                                      </thead>
                                     </table>
@@ -368,7 +299,9 @@ window.onload = function(){
 												</select></td>
 
 
-												<td><label for="partnerType">Business Partner</label></td>
+												<td><label for="partnerType">Business Partner</label>
+												<input type="hidden" id="pid" name="pid">
+												</td>
 												<td><select id="partnerType" name="partnerType"
 													class="form-control p-input"
 													onchange="showHideRequiredClass();" disabled="disabled">
@@ -1405,7 +1338,7 @@ window.onload = function(){
 
                          for (var i = 0; i < result.length; i++) {
                         	 
-                        	 bpcode=result[i].bpCode;
+                        	/*  bpcode=result[i].bpCode; */
                         	
                         	 if(!result[i].hasOwnProperty("introducedByName")){
      							result[i].introducedByName="";
@@ -1439,7 +1372,7 @@ window.onload = function(){
       						}
                         	 
                         	
-                        	 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#\" onclick=\"editData('" + result[i].bpCode + "')\" >" + result[i].bpCode + "</button>";
+                        	 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#\" onclick=\"editData('" + result[i].pid + "')\" >" + result[i].pid + "</button>";
                         	
                         	 var inactive = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"inactiveActiveDeleteData('"  + result[i].bpCode + "' ,'"  +  result[i].suppName + "' )\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
                           
@@ -1674,13 +1607,13 @@ window.onload = function(){
 
         function editData(bpCode) {
         	
-            bpCode = bpCode;
+            
             
             var json = {
 
-                "bpCode": bpCode
+                "pid":  bpCode
             }
-            
+            console.log(bpCode);
             
             $.ajax({
                 type: "POST",

@@ -221,11 +221,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	@Query(value = "select DISTINCT vendor_name from users where role_id='2' order by vendor_name asc ", nativeQuery = true)
 	List<String> getVendorName();
 
-	List<TripDetails> findByTripIDAndVendorTripStatusAndVendorCode(String columnValue, String vendorTripStatusApproved,
-			String vendorCode);
-
-	List<TripDetails> findByRouteAndVendorTripStatusAndVendorCode(String columnValue, String vendorTripStatusApproved,
-			String vendorCode);
+	List<TripDetails> findByRouteInAndVendorTripStatusAndVendorCode(List<String> columnValue,
+			String vendorTripStatusApproved, String vendorCode);
 
 	List<TripDetails> findByOriginHubAndVendorTripStatusAndVendorCode(String columnValue,
 			String vendorTripStatusApproved, String vendorCode);
@@ -234,12 +231,6 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 			String vendorCode);
 
 	List<TripDetails> findByRunTypeAndVendorTripStatusAndVendorCode(String columnValue, String vendorTripStatusApproved,
-			String vendorCode);
-
-	List<TripDetails> findByStandardKMAndVendorTripStatusAndVendorCode(String columnValue,
-			String vendorTripStatusApproved, String vendorCode);
-
-	List<TripDetails> findByModeAndVendorTripStatusAndVendorCode(String columnValue, String vendorTripStatusApproved,
 			String vendorCode);
 
 	List<TripDetails> findByRunStatusAndVendorCode(String runClosed, String vendorCode);

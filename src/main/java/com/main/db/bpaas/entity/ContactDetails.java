@@ -10,11 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "ContactDetails")
@@ -31,19 +27,6 @@ public class ContactDetails {
 	private String conPhone;
 	@Column(name = "con_email")
 	private String conEmail;
-
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn
-	private SupDetails supDetails;
-
-	public SupDetails getSupDetails() {
-		return supDetails;
-	}
-
-	public void setSupDetails(SupDetails supDetails) {
-		this.supDetails = supDetails;
-	}
 
 	public Long getId() {
 		return id;

@@ -395,7 +395,6 @@
                     url: "<%=GlobalUrl.viewAllInvoiceForFinanceTeam%>",
                     dataType: "json",
                     contentType: "application/json",
-                    async: false,
                     success: function(data) {
 
                     	getSelectTripList();

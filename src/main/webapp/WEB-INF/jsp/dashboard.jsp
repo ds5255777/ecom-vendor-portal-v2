@@ -473,7 +473,6 @@
                 url: "<%=GlobalUrl.getDashboardDetails%>",
                 dataType: "json",
                 contentType: "application/json",
-                async: false,
                 success: function(data) {
 
                     if (data.msg == 'success') {
@@ -536,7 +535,6 @@
                  url: "<%=GlobalUrl.changePassword%>"+"?password="+password,
                  dataType: "json",
                  contentType: "application/json",
-                 async: false,
                  
                  success: function(data) {
                 	 $('.loader').hide();

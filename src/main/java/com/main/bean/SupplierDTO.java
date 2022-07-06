@@ -10,6 +10,7 @@ public class SupplierDTO {
 	private String natureOfTransactions;
 	private String partnerType;
 	private String vendorType;
+	private String businessClassification;
 	private String phoneNumber;
 	private String status;
 	private String bpCode;
@@ -118,6 +119,14 @@ public class SupplierDTO {
 
 	public void setVenStatus(String venStatus) {
 		this.venStatus = venStatus;
+	}
+
+	public String getBusinessClassification() {
+		return businessClassification;
+	}
+
+	public void setBusinessClassification(String businessClassification) {
+		this.businessClassification = businessClassification;
 	}
 
 }

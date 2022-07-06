@@ -34,10 +34,11 @@ public class AddressDetails {
 	private String partnerType;// Adhoc, Schedule
 	@Column(name = "comp_gstn")
 	private String compGstn;
-	@Column(name = "nature_of_transactions")
-	private String natureOfTransactions;
 	@Column(name = "add_details")
 	private String addDetails;
+
+	@Column(name = "gl_code")
+	private String glCode;
 
 	@Column(name = "supplier_site_code")
 	private String supplierSiteCode;
@@ -89,8 +90,6 @@ public class AddressDetails {
 	public void setAddDetails(String addDetails) {
 		this.addDetails = addDetails;
 	}
-	
-	
 
 	public String getVendorType() {
 		return vendorType;
@@ -116,20 +115,20 @@ public class AddressDetails {
 		this.compGstn = compGstn;
 	}
 
-	public String getNatureOfTransactions() {
-		return natureOfTransactions;
-	}
-
-	public void setNatureOfTransactions(String natureOfTransactions) {
-		this.natureOfTransactions = natureOfTransactions;
-	}
-
 	public String getSupplierSiteCode() {
 		return supplierSiteCode;
 	}
 
 	public void setSupplierSiteCode(String supplierSiteCode) {
 		this.supplierSiteCode = supplierSiteCode;
+	}
+
+	public String getGlCode() {
+		return glCode;
+	}
+
+	public void setGlCode(String glCode) {
+		this.glCode = glCode;
 	}
 
 }

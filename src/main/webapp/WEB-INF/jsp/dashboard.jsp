@@ -426,7 +426,7 @@
 	<!-- table Data -->
     <script>
         var tabledata = $('#tabledata').DataTable({
-            "paging": true,
+            "paging": false,
             "lengthChange": false,
             "searching": false,
             "info": true,

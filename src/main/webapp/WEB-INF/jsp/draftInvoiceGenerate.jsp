@@ -292,7 +292,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5 control-label">Upload Invoice<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input type="file" id="InvoiceUpload" name="InvoiceUpload" class="form-control-sm" accept=".jpg, .jpeg, .pdf" onchange="handleFileSelect(event,'InvoiceFileText'), onValidateFile('InvoiceUpload')" class="form-control p-input">
+                                                <input type="file" id="InvoiceUpload" name="InvoiceUpload" class="form-control-sm" accept=".jpg, .jpeg, .pdf" onchange="handleFileSelect(event,'InvoiceFileText','Invoice'), onValidateFile('InvoiceUpload')" class="form-control p-input">
                                                 <textarea id="InvoiceFileText" name="InvoiceFileText" rows="5" style="display: none;"></textarea>
                                                 <label><span style="font-weight: 500; color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
                                             </div>
@@ -302,7 +302,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5 control-label">Summary Sheet<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="file" id="DocumentFileOne" name="DocumentFileOne" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx" onchange="handleFileSelect(event,'DocumentFileOneText'), onValidateFileOne('DocumentFileOne')" class="form-control p-input">
+                                                <input type="file" id="DocumentFileOne" name="DocumentFileOne" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx" onchange="handleFileSelect(event,'DocumentFileOneText','Summary Sheet'), onValidateFileOne('DocumentFileOne')" class="form-control p-input">
                                                 <textarea id="DocumentFileOneText" name="DocumentFileOneText" rows="5" style="display: none;"></textarea>
                                                 <label><span style="font-weight: 500; color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
                                             </div>
@@ -312,7 +312,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5 control-label">FS Calculation Sheet<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="file" id="DocumentFileTwo" name="DocumentFileTwo" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx"  onchange="handleFileSelect(event,'DocumentFileTwoText'), onValidateFileOne('DocumentFileTwo')" class="form-control p-input">
+                                                <input type="file" id="DocumentFileTwo" name="DocumentFileTwo" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx"  onchange="handleFileSelect(event,'DocumentFileTwoText','FS Calculation Sheet'), onValidateFileOne('DocumentFileTwo')" class="form-control p-input">
                                                 <textarea id="DocumentFileTwoText" name="DocumentFileTwoText" rows="5" style="display: none;"></textarea>
                                                 <label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
                                             </div>
@@ -687,7 +687,7 @@
             });
         }
 
-        function handleFileSelect(evt, id) {
+        /* function handleFileSelect(evt, id) {
             var f = evt.target.files[0]; // FileList object
             var reader = new FileReader();
             // Closure to capture the file information.
@@ -701,7 +701,37 @@
                 };
             })(f);
             reader.readAsBinaryString(f);
-        }
+        } */
+        
+        
+        function handleFileSelect(evt,id,hardCodedName) {
+      	  
+    	    var f = evt.target.files[0]; // FileList object
+    	    var reader = new FileReader();
+    	    // Closure to capture the file information.
+    	    reader.onload = (function (theFile) {
+    	        return function (e) {
+    	            var binaryData = e.target.result;		  	            
+    	            var base64String = window.btoa(binaryData);
+    	          
+    	            var fileName = f.name;						
+    				var extension = fileName.substring(fileName.lastIndexOf(".") , fileName.length);
+    				fileName = fileName.substring(0 , fileName.lastIndexOf("."));					
+    				fileName = hardCodedName+extension;	
+    				$("#" + id).val(base64String);
+    	            		  	           
+    	          
+    	        };
+    	    })(f);
+    	    // Read in the image file as a data URL.
+    	    reader.readAsBinaryString(f);		  			  	
+    }
+        
+        
+        
+        
+        
+        
         getTripDetails();
 
         function updateTextData(index, textValue) {

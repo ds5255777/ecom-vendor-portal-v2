@@ -31,7 +31,8 @@ public class SupDetails {
 	/* Stap-1 Entity */
 	@Column(name = "pid")
 	private String pid;
-
+	@Column(name = "vendor_type")
+	private String vendorType;// network, fixed Assets,rent
 	@Column(name = "introduced_by_name")
 	private String introducedByName;
 	@Column(name = "introduced_by_email_id")
@@ -123,9 +124,6 @@ public class SupDetails {
 	@Column(name = "INVOICE_PREVALIDATED_FLAG")
 	private String invoicePrevalidatedFlag;
 
-	@Column(name = "gl_code")
-	private String glCode;
-
 	@OneToMany(targetEntity = AccountDetails.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "sa_fk", referencedColumnName = "id")
 	private List<AccountDetails> accountDetails;
@@ -216,6 +214,14 @@ public class SupDetails {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getVendorType() {
+		return vendorType;
+	}
+
+	public void setVendorType(String vendorType) {
+		this.vendorType = vendorType;
 	}
 
 	public String getPid() {
@@ -744,14 +750,6 @@ public class SupDetails {
 
 	public void setIhq(String ihq) {
 		this.ihq = ihq;
-	}
-
-	public String getGlCode() {
-		return glCode;
-	}
-
-	public void setGlCode(String glCode) {
-		this.glCode = glCode;
 	}
 
 	public String getAddressPurchasingFlag() {

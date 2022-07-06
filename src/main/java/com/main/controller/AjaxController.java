@@ -68,443 +68,6 @@ public class AjaxController {
 		String contents = "";
 		processID = "";
 		try {
-			String filePath = "C:/1.BPAAS/VendorPortal/" + supDetails.getSuppName();
-			String fullFilePathWithName = "";
-			File logFilePathFolder = new File(logFilePath);
-			if (!logFilePathFolder.exists()) {
-				logFilePathFolder.mkdir();
-			}
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-			String currentDateTimeString = sdf.format(new Date());
-			File file = new File(logFilePath + File.separator + currentDateTimeString + ".txt");
-			contents = "Current Date is-" + currentDateTimeString + "\n";
-			JSONArray array = new JSONArray();
-			JSONObject DocumentObj = new JSONObject();
-			String[] documentExtensionArray = null;
-			String filename = null;
-			String documentExtension = null;
-			if (null != supDetails.getGstFileName()) {
-				documentExtensionArray = supDetails.getGstFileName().split("\\.(?=[^\\.]+$)");
-				filename = documentExtensionArray[0];
-				documentExtension = documentExtensionArray[1];
-				DocumentObj = new JSONObject();
-				DocumentObj.put("DocName", "GST_CERTIFICATE");
-				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getGstFileText());
-				array.put(DocumentObj);
-				File file1 = new File(filePath);
-
-				if (!file1.exists()) {
-					file1.mkdirs();
-				}
-				fullFilePathWithName = filePath + File.separator + "GST Certificate-" + supDetails.getGstFileName();
-
-				Document doc = new Document();
-				doc.setDocName(supDetails.getGstFileName());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
-				doc.setForeignKey(supDetails.getGstFileName());
-				serviceManager.documentRepo.save(doc);
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getGstFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != supDetails.getPdFileName()) {
-				documentExtensionArray = supDetails.getPdFileName().split("\\.(?=[^\\.]+$)");
-				filename = documentExtensionArray[0];
-				documentExtension = documentExtensionArray[1];
-				DocumentObj = new JSONObject();
-				DocumentObj.put("DocName", "PROPRIETORSHIP");
-				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getPdFileText());
-				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + "Proprietorship Declaration-"
-						+ supDetails.getPdFileName();
-
-				Document doc = new Document();
-				doc.setDocName(supDetails.getPdFileName());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
-				doc.setForeignKey(supDetails.getGstFileName());
-				serviceManager.documentRepo.save(doc);
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getPdFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != supDetails.getpANFileName()) {
-				documentExtensionArray = supDetails.getpANFileName().split("\\.(?=[^\\.]+$)");
-				filename = documentExtensionArray[0];
-				documentExtension = documentExtensionArray[1];
-				DocumentObj = new JSONObject();
-				DocumentObj.put("DocName", "PANCARD");
-				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getpANFileText());
-				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + "PAN Certificate-" + supDetails.getpANFileName();
-
-				Document doc = new Document();
-				doc.setDocName(supDetails.getpANFileName());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
-				doc.setForeignKey(supDetails.getGstFileName());
-				serviceManager.documentRepo.save(doc);
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getpANFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != supDetails.getCcFileName()) {
-				documentExtensionArray = supDetails.getCcFileName().split("\\.(?=[^\\.]+$)");
-				filename = documentExtensionArray[0];
-				documentExtension = documentExtensionArray[1];
-				DocumentObj = new JSONObject();
-				DocumentObj.put("DocName", "CANCELL_CHQ");
-				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getCcFileText());
-				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + "Cancelled Cheque-" + supDetails.getCcFileName();
-
-				Document doc = new Document();
-				doc.setDocName(supDetails.getCcFileName());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
-				doc.setForeignKey(supDetails.getGstFileName());
-				serviceManager.documentRepo.save(doc);
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getCcFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != supDetails.getAcFileName()) {
-				documentExtensionArray = supDetails.getAcFileName().split("\\.(?=[^\\.]+$)");
-				filename = documentExtensionArray[0];
-				documentExtension = documentExtensionArray[1];
-				DocumentObj = new JSONObject();
-				DocumentObj.put("DocName", "AADHAR");
-				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getAcFileText());
-				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + "Aadhar Card-" + supDetails.getAcFileName();
-
-				Document doc = new Document();
-				doc.setDocName(supDetails.getAcFileName());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
-				doc.setForeignKey(supDetails.getGstFileName());
-				serviceManager.documentRepo.save(doc);
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getAcFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved" + fullFilePathWithName);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != supDetails.getAplFileName()) {
-				documentExtensionArray = supDetails.getAplFileName().split("\\.(?=[^\\.]+$)");
-				filename = documentExtensionArray[0];
-				documentExtension = documentExtensionArray[1];
-				DocumentObj = new JSONObject();
-				DocumentObj.put("DocName", "AADHAR_PAN_LINK");
-				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getAplFileText());
-				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + "Aadhar and PAN Card linking declaration-"
-						+ supDetails.getAplFileName();
-
-				Document doc = new Document();
-				doc.setDocName(supDetails.getAplFileName());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
-				doc.setForeignKey(supDetails.getGstFileName());
-				serviceManager.documentRepo.save(doc);
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getAplFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			// ITR filling declaration
-			if (null != supDetails.getItrFileName()) {
-				documentExtensionArray = supDetails.getItrFileName().split("\\.(?=[^\\.]+$)");
-				filename = documentExtensionArray[0];
-				documentExtension = documentExtensionArray[1];
-				DocumentObj = new JSONObject();
-				DocumentObj.put("DocName", "ITR");
-				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getItrFileText());
-				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + "ITR Filling Declaration-"
-						+ supDetails.getItrFileName();
-
-				Document doc = new Document();
-				doc.setDocName(supDetails.getItrFileName());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
-				doc.setForeignKey(supDetails.getGstFileName());
-				serviceManager.documentRepo.save(doc);
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getItrFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-					fos.write(decoder);
-					System.out.println("File Saved ");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != supDetails.getFuvfFileName()) {
-				documentExtensionArray = supDetails.getFuvfFileName().split("\\.(?=[^\\.]+$)");
-				filename = documentExtensionArray[0];
-				documentExtension = documentExtensionArray[1];
-				DocumentObj = new JSONObject();
-				DocumentObj.put("DocName", "VRF");
-				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getFuvfFileText());
-				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + "Filled Updated VRF Form-"
-						+ supDetails.getFuvfFileName();
-
-				Document doc = new Document();
-				doc.setDocName(supDetails.getFuvfFileName());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
-				doc.setForeignKey(supDetails.getGstFileName());
-				serviceManager.documentRepo.save(doc);
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getFuvfFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != supDetails.getMsmecFileName()) {
-				documentExtensionArray = supDetails.getMsmecFileName().split("\\.(?=[^\\.]+$)");
-				filename = documentExtensionArray[0];
-				documentExtension = documentExtensionArray[1];
-				DocumentObj = new JSONObject();
-				DocumentObj.put("DocName", "MSME");
-				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getMsmecFileText());
-				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + "MSME Certificate-" + supDetails.getMsmecFileName();
-
-				Document doc = new Document();
-				doc.setDocName(supDetails.getMsmecFileName());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
-				doc.setForeignKey(supDetails.getGstFileName());
-				serviceManager.documentRepo.save(doc);
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getMsmecFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != supDetails.getAmFileName()) {
-				documentExtensionArray = supDetails.getAmFileName().split("\\.(?=[^\\.]+$)");
-				filename = documentExtensionArray[0];
-				documentExtension = documentExtensionArray[1];
-				DocumentObj = new JSONObject();
-				DocumentObj.put("DocName", "APPROVER_MAIL");
-				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getAmFileText());
-				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + "Approval Mail-" + supDetails.getAmFileName();
-
-				Document doc = new Document();
-				doc.setDocName(supDetails.getAmFileName());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
-				doc.setForeignKey(supDetails.getGstFileName());
-				serviceManager.documentRepo.save(doc);
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getAmFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			// last three year ITR file
-			if (null != supDetails.getItraFileName1()) {
-				documentExtensionArray = supDetails.getItraFileName1().split("\\.(?=[^\\.]+$)");
-				filename = documentExtensionArray[0];
-				documentExtension = documentExtensionArray[1];
-				DocumentObj = new JSONObject();
-				DocumentObj.put("DocName", "ITR1");
-				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getItraFileText1());
-				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + "ITR Acknowledgment of 3 years-"
-						+ supDetails.getItraFileName1();
-
-				Document doc = new Document();
-				doc.setDocName(supDetails.getItraFileName1());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
-				doc.setForeignKey(supDetails.getGstFileName());
-				serviceManager.documentRepo.save(doc);
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getItraFileText1();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != supDetails.getItraFileName2()) {
-				documentExtensionArray = supDetails.getItraFileName2().split("\\.(?=[^\\.]+$)");
-				filename = documentExtensionArray[0];
-				documentExtension = documentExtensionArray[1];
-				DocumentObj = new JSONObject();
-				DocumentObj.put("DocName", "ITR2");
-				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getItraFileText2());
-				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + "ITR Acknowledgment of 3 years-"
-						+ supDetails.getItraFileName2();
-
-				Document doc = new Document();
-				doc.setDocName(supDetails.getItraFileName2());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
-				doc.setForeignKey(supDetails.getGstFileName());
-				serviceManager.documentRepo.save(doc);
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getItraFileText2();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != supDetails.getItraFileName3()) {
-				documentExtensionArray = supDetails.getItraFileName3().split("\\.(?=[^\\.]+$)");
-				filename = documentExtensionArray[0];
-				documentExtension = documentExtensionArray[1];
-				DocumentObj = new JSONObject();
-				DocumentObj.put("DocName", "ITR3");
-				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getItraFileText3());
-				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + "ITR Acknowledgment of 3 years-"
-						+ supDetails.getItraFileName3();
-
-				Document doc = new Document();
-				doc.setDocName(supDetails.getItraFileName3());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
-				doc.setForeignKey(supDetails.getGstFileName());
-				serviceManager.documentRepo.save(doc);
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getItraFileText3();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != supDetails.getNmisFileName()) {
-				documentExtensionArray = supDetails.getNmisFileName().split("\\.(?=[^\\.]+$)");
-				filename = documentExtensionArray[0];
-				documentExtension = documentExtensionArray[1];
-				DocumentObj = new JSONObject();
-				DocumentObj.put("DocName", "NAME_AFFI");
-				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getNmisFileText());
-				array.put(DocumentObj);
-
-				fullFilePathWithName = filePath + File.separator + "Name mismatch affidavit-"
-						+ supDetails.getNmisFileName();
-
-				Document doc = new Document();
-				doc.setDocName(supDetails.getNmisFileName());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
-				doc.setForeignKey(supDetails.getGstFileName());
-				serviceManager.documentRepo.save(doc);
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getNmisFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					System.out.println("File Saved");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
 			// Vendor API calling
 			/*
 			 * try { //String urldata =
@@ -622,37 +185,466 @@ public class AjaxController {
 				String stCode = serviceManager.stateRepo.findByStateCode(state);
 
 				String partnerType = supDetails.getAddressDetails().get(i).getVendorType();
+				String glCode = serviceManager.businessPartnerTypeRepo.getGlCodeByPartnerType(partnerType);
 				if (!partnerType.isEmpty()) {
 					String typeCode = serviceManager.businessPartnerTypeRepo.findByTypeCode(partnerType);
 					supDetails.getAddressDetails().get(i).setSupplierSiteCode(stCode.concat("_" + typeCode));
+					supDetails.getAddressDetails().get(i).setGlCode(glCode);
 				}
 			}
 			supDetails.setVenStatus(GlobalConstants.PENDING_REQUEST_STATUS);
 			SupDetails supSaved = serviceManager.detailsRepo.save(supDetails);
 			Long id = supSaved.getId();
-			String pid = "Vendor-0000000"+id+"-CreationUAT";
-			serviceManager.detailsRepo.updatePidInSupDetails(id, pid);
-			processID=pid;
-			System.out.println(pid);
-			data.setData(pid);
-			
-			User us=new User();
-			us.setBpCode(supDetails.getBpCode());
-			us.setUsername(supDetails.getBpCode());
-			us.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS);
-			us.setRoleId(2);
-			us.setVendorName(supDetails.getSuppName());
-			us.setContactNo(supDetails.getContactDetails().get(0).getConPhone());
-			us.setEmailId(supDetails.getContactDetails().get(0).getConEmail());
-			
-			
-			us.setFirstName(supDetails.getContactDetails().get(0).getConFname());
-			us.setLastName(supDetails.getContactDetails().get(0).getConLname());
-			us.setPassword("vendor@123");
-			
-			serviceManager.userService.save(us);
+			processID = "Vendor-0000000" + id + "-CreationUAT";
+			serviceManager.detailsRepo.updatePidInSupDetails(id, processID);
+			data.setData(processID);
 
-			//data.setData(processID);
+			String filePath = "C:/1.BPAAS/VendorPortal/" + processID;
+			String fullFilePathWithName = "";
+			File file1 = new File(filePath);
+
+			if (!file1.exists()) {
+				file1.mkdirs();
+			}
+			File logFilePathFolder = new File(logFilePath);
+			if (!logFilePathFolder.exists()) {
+				logFilePathFolder.mkdir();
+			}
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+			String currentDateTimeString = sdf.format(new Date());
+			File file = new File(logFilePath + File.separator + currentDateTimeString + ".txt");
+			contents = "Current Date is-" + currentDateTimeString + "\n";
+			JSONArray array = new JSONArray();
+			JSONObject DocumentObj = new JSONObject();
+			String[] documentExtensionArray = null;
+			String filename = null;
+			String documentExtension = null;
+			if (null != supDetails.getGstFileName()) {
+				documentExtensionArray = supDetails.getGstFileName().split("\\.(?=[^\\.]+$)");
+				filename = documentExtensionArray[0];
+				documentExtension = documentExtensionArray[1];
+				DocumentObj = new JSONObject();
+				DocumentObj.put("DocName", "GST_CERTIFICATE");
+				DocumentObj.put("Extension", documentExtension);
+				DocumentObj.put("Encoded", supDetails.getGstFileText());
+				array.put(DocumentObj);
+
+				fullFilePathWithName = filePath + File.separator + supDetails.getGstFileName();
+
+				Document doc = new Document();
+				doc.setDocName(supDetails.getGstFileName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				doc.setForeignKey(processID);
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = supDetails.getGstFileText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+					System.out.println("File Saved");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != supDetails.getPdFileName()) {
+				documentExtensionArray = supDetails.getPdFileName().split("\\.(?=[^\\.]+$)");
+				filename = documentExtensionArray[0];
+				documentExtension = documentExtensionArray[1];
+				DocumentObj = new JSONObject();
+				DocumentObj.put("DocName", "PROPRIETORSHIP");
+				DocumentObj.put("Extension", documentExtension);
+				DocumentObj.put("Encoded", supDetails.getPdFileText());
+				array.put(DocumentObj);
+				fullFilePathWithName = filePath + File.separator + supDetails.getPdFileName();
+
+				Document doc = new Document();
+				doc.setDocName(supDetails.getPdFileName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				doc.setForeignKey(processID);
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = supDetails.getPdFileText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+					System.out.println("File Saved");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != supDetails.getpANFileName()) {
+				documentExtensionArray = supDetails.getpANFileName().split("\\.(?=[^\\.]+$)");
+				filename = documentExtensionArray[0];
+				documentExtension = documentExtensionArray[1];
+				DocumentObj = new JSONObject();
+				DocumentObj.put("DocName", "PANCARD");
+				DocumentObj.put("Extension", documentExtension);
+				DocumentObj.put("Encoded", supDetails.getpANFileText());
+				array.put(DocumentObj);
+				fullFilePathWithName = filePath + File.separator + supDetails.getpANFileName();
+
+				Document doc = new Document();
+				doc.setDocName(supDetails.getpANFileName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				doc.setForeignKey(processID);
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = supDetails.getpANFileText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+					System.out.println("File Saved");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != supDetails.getCcFileName()) {
+				documentExtensionArray = supDetails.getCcFileName().split("\\.(?=[^\\.]+$)");
+				filename = documentExtensionArray[0];
+				documentExtension = documentExtensionArray[1];
+				DocumentObj = new JSONObject();
+				DocumentObj.put("DocName", "CANCELL_CHQ");
+				DocumentObj.put("Extension", documentExtension);
+				DocumentObj.put("Encoded", supDetails.getCcFileText());
+				array.put(DocumentObj);
+				fullFilePathWithName = filePath + File.separator + supDetails.getCcFileName();
+
+				Document doc = new Document();
+				doc.setDocName(supDetails.getCcFileName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				doc.setForeignKey(processID);
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = supDetails.getCcFileText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+					System.out.println("File Saved");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != supDetails.getAcFileName()) {
+				documentExtensionArray = supDetails.getAcFileName().split("\\.(?=[^\\.]+$)");
+				filename = documentExtensionArray[0];
+				documentExtension = documentExtensionArray[1];
+				DocumentObj = new JSONObject();
+				DocumentObj.put("DocName", "AADHAR");
+				DocumentObj.put("Extension", documentExtension);
+				DocumentObj.put("Encoded", supDetails.getAcFileText());
+				array.put(DocumentObj);
+				fullFilePathWithName = filePath + File.separator + supDetails.getAcFileName();
+
+				Document doc = new Document();
+				doc.setDocName(supDetails.getAcFileName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				doc.setForeignKey(processID);
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = supDetails.getAcFileText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+					System.out.println("File Saved" + fullFilePathWithName);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != supDetails.getAplFileName()) {
+				documentExtensionArray = supDetails.getAplFileName().split("\\.(?=[^\\.]+$)");
+				filename = documentExtensionArray[0];
+				documentExtension = documentExtensionArray[1];
+				DocumentObj = new JSONObject();
+				DocumentObj.put("DocName", "AADHAR_PAN_LINK");
+				DocumentObj.put("Extension", documentExtension);
+				DocumentObj.put("Encoded", supDetails.getAplFileText());
+				array.put(DocumentObj);
+				fullFilePathWithName = filePath + File.separator + supDetails.getAplFileName();
+
+				Document doc = new Document();
+				doc.setDocName(supDetails.getAplFileName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				doc.setForeignKey(processID);
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = supDetails.getAplFileText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+					System.out.println("File Saved");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			// ITR filling declaration
+			if (null != supDetails.getItrFileName()) {
+				documentExtensionArray = supDetails.getItrFileName().split("\\.(?=[^\\.]+$)");
+				filename = documentExtensionArray[0];
+				documentExtension = documentExtensionArray[1];
+				DocumentObj = new JSONObject();
+				DocumentObj.put("DocName", "ITR");
+				DocumentObj.put("Extension", documentExtension);
+				DocumentObj.put("Encoded", supDetails.getItrFileText());
+				array.put(DocumentObj);
+				fullFilePathWithName = filePath + File.separator + supDetails.getItrFileName();
+
+				Document doc = new Document();
+				doc.setDocName(supDetails.getItrFileName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				doc.setForeignKey(processID);
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = supDetails.getItrFileText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+					fos.write(decoder);
+					System.out.println("File Saved ");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != supDetails.getFuvfFileName()) {
+				documentExtensionArray = supDetails.getFuvfFileName().split("\\.(?=[^\\.]+$)");
+				filename = documentExtensionArray[0];
+				documentExtension = documentExtensionArray[1];
+				DocumentObj = new JSONObject();
+				DocumentObj.put("DocName", "VRF");
+				DocumentObj.put("Extension", documentExtension);
+				DocumentObj.put("Encoded", supDetails.getFuvfFileText());
+				array.put(DocumentObj);
+				fullFilePathWithName = filePath + File.separator + supDetails.getFuvfFileName();
+
+				Document doc = new Document();
+				doc.setDocName(supDetails.getFuvfFileName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				doc.setForeignKey(processID);
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = supDetails.getFuvfFileText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+					System.out.println("File Saved");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != supDetails.getMsmecFileName()) {
+				documentExtensionArray = supDetails.getMsmecFileName().split("\\.(?=[^\\.]+$)");
+				filename = documentExtensionArray[0];
+				documentExtension = documentExtensionArray[1];
+				DocumentObj = new JSONObject();
+				DocumentObj.put("DocName", "MSME");
+				DocumentObj.put("Extension", documentExtension);
+				DocumentObj.put("Encoded", supDetails.getMsmecFileText());
+				array.put(DocumentObj);
+				fullFilePathWithName = filePath + File.separator + supDetails.getMsmecFileName();
+
+				Document doc = new Document();
+				doc.setDocName(supDetails.getMsmecFileName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				doc.setForeignKey(processID);
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = supDetails.getMsmecFileText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+					System.out.println("File Saved");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != supDetails.getAmFileName()) {
+				documentExtensionArray = supDetails.getAmFileName().split("\\.(?=[^\\.]+$)");
+				filename = documentExtensionArray[0];
+				documentExtension = documentExtensionArray[1];
+				DocumentObj = new JSONObject();
+				DocumentObj.put("DocName", "APPROVER_MAIL");
+				DocumentObj.put("Extension", documentExtension);
+				DocumentObj.put("Encoded", supDetails.getAmFileText());
+				array.put(DocumentObj);
+				fullFilePathWithName = filePath + File.separator + supDetails.getAmFileName();
+
+				Document doc = new Document();
+				doc.setDocName(supDetails.getAmFileName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				doc.setForeignKey(processID);
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = supDetails.getAmFileText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+					System.out.println("File Saved");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			// last three year ITR file
+			if (null != supDetails.getItraFileName1()) {
+				documentExtensionArray = supDetails.getItraFileName1().split("\\.(?=[^\\.]+$)");
+				filename = documentExtensionArray[0];
+				documentExtension = documentExtensionArray[1];
+				DocumentObj = new JSONObject();
+				DocumentObj.put("DocName", "ITR1");
+				DocumentObj.put("Extension", documentExtension);
+				DocumentObj.put("Encoded", supDetails.getItraFileText1());
+				array.put(DocumentObj);
+				fullFilePathWithName = filePath + File.separator + supDetails.getItraFileName1();
+
+				Document doc = new Document();
+				doc.setDocName(supDetails.getItraFileName1());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				doc.setForeignKey(processID);
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = supDetails.getItraFileText1();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+					System.out.println("File Saved");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != supDetails.getItraFileName2()) {
+				documentExtensionArray = supDetails.getItraFileName2().split("\\.(?=[^\\.]+$)");
+				filename = documentExtensionArray[0];
+				documentExtension = documentExtensionArray[1];
+				DocumentObj = new JSONObject();
+				DocumentObj.put("DocName", "ITR2");
+				DocumentObj.put("Extension", documentExtension);
+				DocumentObj.put("Encoded", supDetails.getItraFileText2());
+				array.put(DocumentObj);
+				fullFilePathWithName = filePath + File.separator + supDetails.getItraFileName2();
+
+				Document doc = new Document();
+				doc.setDocName(supDetails.getItraFileName2());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				doc.setForeignKey(processID);
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = supDetails.getItraFileText2();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+					System.out.println("File Saved");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != supDetails.getItraFileName3()) {
+				documentExtensionArray = supDetails.getItraFileName3().split("\\.(?=[^\\.]+$)");
+				filename = documentExtensionArray[0];
+				documentExtension = documentExtensionArray[1];
+				DocumentObj = new JSONObject();
+				DocumentObj.put("DocName", "ITR3");
+				DocumentObj.put("Extension", documentExtension);
+				DocumentObj.put("Encoded", supDetails.getItraFileText3());
+				array.put(DocumentObj);
+				fullFilePathWithName = filePath + File.separator + supDetails.getItraFileName3();
+
+				Document doc = new Document();
+				doc.setDocName(supDetails.getItraFileName3());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				doc.setForeignKey(processID);
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = supDetails.getItraFileText3();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+					System.out.println("File Saved");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != supDetails.getNmisFileName()) {
+				documentExtensionArray = supDetails.getNmisFileName().split("\\.(?=[^\\.]+$)");
+				filename = documentExtensionArray[0];
+				documentExtension = documentExtensionArray[1];
+				DocumentObj = new JSONObject();
+				DocumentObj.put("DocName", "NAME_AFFI");
+				DocumentObj.put("Extension", documentExtension);
+				DocumentObj.put("Encoded", supDetails.getNmisFileText());
+				array.put(DocumentObj);
+
+				fullFilePathWithName = filePath + File.separator + supDetails.getNmisFileName();
+
+				Document doc = new Document();
+				doc.setDocName(supDetails.getNmisFileName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus("1");
+				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
+				doc.setForeignKey(processID);
+				serviceManager.documentRepo.save(doc);
+
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					String b64 = supDetails.getNmisFileText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
+
+					fos.write(decoder);
+					System.out.println("File Saved");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			/*
+			 * User us = new User(); us.setBpCode(supDetails.getBpCode());
+			 * us.setUsername(supDetails.getBpCode());
+			 * us.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS); us.setRoleId(2);
+			 * us.setVendorName(supDetails.getSuppName());
+			 * us.setContactNo(supDetails.getContactDetails().get(0).getConPhone());
+			 * us.setEmailId(supDetails.getContactDetails().get(0).getConEmail());
+			 * 
+			 * us.setFirstName(supDetails.getContactDetails().get(0).getConFname());
+			 * us.setLastName(supDetails.getContactDetails().get(0).getConLname());
+			 * us.setPassword("vendor@123");
+			 * 
+			 * serviceManager.userService.save(us);
+			 */
+
+			// data.setData(processID);
 			new Thread(new Runnable() {
 				@Override
 				public void run() {

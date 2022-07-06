@@ -53,7 +53,7 @@ public class UIController {
 
 	@Autowired
 	ServiceManager serviceManager;
-	
+
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(MasterController.class);
 
@@ -98,17 +98,17 @@ public class UIController {
 			List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
 			List<String> region = serviceManager.regionRepo.getRegion();
 			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
-			List<String>  paymentMethod=  serviceManager.paymentMethodRepo.PaymentMethod();
-			
+			List<String> paymentMethod = serviceManager.paymentMethodRepo.PaymentMethod();
+
 			String userEmail = (String) request.getSession().getAttribute("userEmail");
-			
+
 			model.addAttribute("userEmail", userEmail);
 
 			model.addAttribute("currency", currency);
 			model.addAttribute("business", business);
 			model.addAttribute("partner", partner);
 			model.addAttribute("classification", classification);
-			model.addAttribute("stateName",stateName);
+			model.addAttribute("stateName", stateName);
 			model.addAttribute("payment", payment);
 			model.addAttribute("nature", nature);
 			model.addAttribute("country", country);
@@ -123,7 +123,6 @@ public class UIController {
 			model.addAttribute("region", region);
 			model.addAttribute("sectionType", sectionType);
 			model.addAttribute("paymentMethod", paymentMethod);
-			
 
 			// return "registration";
 
@@ -145,12 +144,12 @@ public class UIController {
 			List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
 			List<String> region = serviceManager.regionRepo.getRegion();
 			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
-			List<String>  paymentMethod=  serviceManager.paymentMethodRepo.PaymentMethod();
+			List<String> paymentMethod = serviceManager.paymentMethodRepo.PaymentMethod();
 
 			model.addAttribute("currency", currency);
 			model.addAttribute("business", business);
 			model.addAttribute("partner", partner);
-			model.addAttribute("stateName",stateName);
+			model.addAttribute("stateName", stateName);
 			model.addAttribute("classification", classification);
 			model.addAttribute("payment", payment);
 			model.addAttribute("nature", nature);
@@ -166,8 +165,7 @@ public class UIController {
 			model.addAttribute("region", region);
 			model.addAttribute("sectionType", sectionType);
 			model.addAttribute("paymentMethod", paymentMethod);
-			
-			
+
 		}
 		return "registration";
 
@@ -549,7 +547,11 @@ public class UIController {
 
 		String rolename = (String) request.getSession().getAttribute("role");
 
-		if (rolename.equalsIgnoreCase("Admin")) {
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
+
+			return "tripMaster";
+
+		}else if(rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)) {
 
 			return "tripMaster";
 
@@ -572,8 +574,8 @@ public class UIController {
 		List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
 		List<String> region = serviceManager.regionRepo.getRegion();
 		List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
-		List<String>  paymentMethod=  serviceManager.paymentMethodRepo.PaymentMethod();
-		List<String>  flag=  serviceManager.flagRepo.getFlag();
+		List<String> paymentMethod = serviceManager.paymentMethodRepo.PaymentMethod();
+		List<String> flag = serviceManager.flagRepo.getFlag();
 		List<String> stateName = serviceManager.stateRepo.getStateName();
 
 		model.addAttribute("currency", currency);
@@ -634,10 +636,10 @@ public class UIController {
 		List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
 		List<String> region = serviceManager.regionRepo.getRegion();
 		List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
-		List<String>  paymentMethod=  serviceManager.paymentMethodRepo.PaymentMethod();
-		List<String>  flag=  serviceManager.flagRepo.getFlag();
+		List<String> paymentMethod = serviceManager.paymentMethodRepo.PaymentMethod();
+		List<String> flag = serviceManager.flagRepo.getFlag();
 		List<String> stateName = serviceManager.stateRepo.getStateName();
-		
+
 		String uname = principal.getName();
 		model.addAttribute("uname", uname);
 
@@ -783,8 +785,8 @@ public class UIController {
 		String invoiceNumber = "";
 
 		invoiceNumber = generateInvoiceNumber();
-		
-		InvoiceNumber inNumber= new InvoiceNumber();
+
+		InvoiceNumber inNumber = new InvoiceNumber();
 		inNumber.setEcomInvoiceNumber(invoiceNumber);
 		inNumber.setStatus("Used_Trip_Invoice");
 		serviceManager.invoiceNumberRepo.save(inNumber);
@@ -824,12 +826,11 @@ public class UIController {
 			String vendorName = findByTripID.getVendorName();
 			model.addAttribute("vendorName", vendorName);
 			System.out.println(vendorName);
-			
+
 			List<AddressDetails> vendorAddress = serviceManager.addressDetailsRepo.getVendorAddress(vendorName);
-			
-			model.addAttribute("vendorAddress",vendorAddress);
-			
-			
+
+			model.addAttribute("vendorAddress", vendorAddress);
+
 			// heasder
 			InvoiceGenerationEntity invoiceSave = new InvoiceGenerationEntity();
 			invoiceSave.setVendorName(vendorName);
@@ -839,7 +840,7 @@ public class UIController {
 			serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
 			// listof.forEach(System.out::println);
 		} catch (Exception e) {
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 			e.printStackTrace();
 		}
 
@@ -881,8 +882,6 @@ public class UIController {
 		System.out.println(invoiceNumber);
 		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber);
 		List<Object> listofTrips = new ArrayList<>();
-		
-		
 
 		for (TripDetails tripDetails : list) {
 			String tripID = tripDetails.getTripID();
@@ -892,7 +891,7 @@ public class UIController {
 		List<AddressDetails> vendorAddress = serviceManager.addressDetailsRepo.getVendorAddress(vendorName);
 		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 		model.addAttribute("currentDate", currentDate);
-		model.addAttribute("vendorAddress",vendorAddress);
+		model.addAttribute("vendorAddress", vendorAddress);
 
 		model.addAttribute("vendorName", vendorName);
 		model.addAttribute("listofTrips", listofTrips);
@@ -1004,25 +1003,25 @@ public class UIController {
 			FileCopyUtils.copy(inputStream, response.getOutputStream());
 
 		} catch (Exception e) {
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		} finally {
 			try {
 				inputStream.close();
 			} catch (IOException e) {
-				logger.error("error : "+e);
+				logger.error("error : " + e);
 			}
 		}
 	}
-	
+
 	/* Dashboard Registration Checker */
-	
+
 	@GetMapping("/dashboardRegistration")
 	public String dashboardRegistration(Model model, HttpServletRequest request, Principal principal) {
 		model.addAttribute("dataLimit", dataLimit);
 		return "dashboardRegistration";
 	}
-	
+
 	@GetMapping("/vendorView")
 	public String vendorView(Model model, HttpServletRequest request, Principal principal) {
 
@@ -1032,13 +1031,13 @@ public class UIController {
 		model.addAttribute("pid", pid);
 		return "vendorView";
 	}
-	
+
 	@GetMapping("/vendorReports")
 	public String vendorReports(Model model, HttpServletRequest request, Principal principal) {
 		model.addAttribute("dataLimit", dataLimit);
 		return "vendorReports";
 	}
-	
+
 	@GetMapping("/allOnBoardRequest")
 	public String allOnBoardRequest(Model model, HttpServletRequest request, Principal principal) {
 		model.addAttribute("dataLimit", dataLimit);

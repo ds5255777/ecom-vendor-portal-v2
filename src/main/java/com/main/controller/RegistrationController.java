@@ -24,6 +24,17 @@ public class RegistrationController {
 
 	@Autowired
 	private ServiceManager serviceManager;
+	
+	public synchronized String generateVendorCode() {
+
+		long count = serviceManager.supDetailsRepo.count();
+		String invoiceNumberPrefix = "V";
+
+		count = count + 1;
+		String invoiceNumber = invoiceNumberPrefix + String.format("%08d", count); // Filling with zeroes
+
+		return invoiceNumber;
+	}
 
 	@PostMapping({ "/getPendingRequest" })
 	@CrossOrigin("*")
@@ -151,9 +162,11 @@ public class RegistrationController {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String vendorCode = "";
 		try {
-
-			serviceManager.supDetailsRepo.approveRequestByPid(supDetails.getPid(), GlobalConstants.APPROVED_REQUEST_STATUS);
+			vendorCode = generateVendorCode();
+			
+			serviceManager.supDetailsRepo.approveRequestByPid(vendorCode,supDetails.getPid(), GlobalConstants.APPROVED_REQUEST_STATUS);
 			data.setMsg("success");
 
 		} catch (Exception e) {

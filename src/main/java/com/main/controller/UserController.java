@@ -33,7 +33,6 @@ public class UserController {
 
 	@Autowired
 	private ServiceManager serviceManager;
-	
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -41,8 +40,8 @@ public class UserController {
 	@RequestMapping({ "/saveUpdateUserDetails" })
 	@CrossOrigin("*")
 	public String saveUpdateUserDetails(HttpServletRequest request, @RequestBody User user) {
-		
-		logger.info("Log Some Information : "+dateTimeFormatter.format(LocalDateTime.now()));
+
+		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -80,7 +79,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
@@ -90,7 +89,7 @@ public class UserController {
 	@RequestMapping({ "/getActiveUsersData" })
 	@CrossOrigin("*")
 	public String getActiveUsersData(HttpServletRequest request) {
-		
+
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
@@ -113,7 +112,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
@@ -139,7 +138,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
@@ -164,7 +163,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
@@ -174,7 +173,7 @@ public class UserController {
 	@RequestMapping({ "/checkForExistingUserName" })
 	@CrossOrigin("*")
 	public String checkForExistingUserName(HttpServletRequest request, @RequestBody User user) {
-		
+
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
@@ -202,7 +201,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
@@ -212,7 +211,7 @@ public class UserController {
 	@RequestMapping({ "/getUserByRole" })
 	@CrossOrigin("*")
 	public String getUserByRole(HttpServletRequest request, @RequestBody User user) {
-		
+
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
@@ -222,13 +221,13 @@ public class UserController {
 			List<User> users = serviceManager.userRepository.findByRoleIdAndStatus(user.getRoleId(),
 					GlobalConstants.ACTIVE_STATUS);
 
-			logger.info(""+users.size());
+			logger.info("" + users.size());
 			data.setMsg("success");
 			data.setData(users);
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
@@ -237,7 +236,7 @@ public class UserController {
 
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public String changePassword(Principal principal, @RequestParam(name = "password") String password) {
-		
+
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
@@ -252,7 +251,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
@@ -261,8 +260,8 @@ public class UserController {
 
 	@RequestMapping({ "/getActiveVendorData" })
 	@CrossOrigin("*")
-	public String getActiveVendorData(HttpServletRequest request ) {
-		
+	public String getActiveVendorData(HttpServletRequest request) {
+
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
@@ -270,58 +269,59 @@ public class UserController {
 		try {
 
 			List<Object[]> vendorList = serviceManager.supDetailsRepo.getAllInActiveVendor();
-			
-			List<SupplierDTO> sdtList=new ArrayList<>();
+
+			List<SupplierDTO> sdtList = new ArrayList<>();
 			for (Object[] objects : vendorList) {
-				SupplierDTO sdt =new SupplierDTO();
-				if(null!=objects[0]) {
-					sdt.setIntroducedByName(objects[0].toString());
-				}if(null!=objects[1]) {
-					sdt.setSuppName(objects[1].toString());
-				}if(null!=objects[2]) {
-					sdt.setIntroducedByEmailID(objects[2].toString());
-				}if(null!=objects[3]) {
-					sdt.setPartnerType(objects[3].toString());
-				}if(null!=objects[4]) {
-					sdt.setVendorType(objects[4].toString());
-				}if(null!=objects[5]) {
-					sdt.setPid(objects[5].toString());
-				} /*
-					 * if(null!=objects[7]) { sdt.setVendorType(objects[7].toString()); }
-					 */ /*
-					 * if(null!=objects[8]) { sdt.setPhoneNumber(objects[8].toString());
-					 * }if(null!=objects[9]) { sdt.setStatus(objects[9].toString());
-					 * }if(null!=objects[10]) { sdt.setBpCode(objects[10].toString()); }
-					 */
+				SupplierDTO sdt = new SupplierDTO();
+				if (null != objects[0]) {
+					sdt.setSuppName(objects[0].toString());
+				}
+				if (null != objects[1]) {
+					sdt.setBpCode(objects[1].toString());
+				}
+				if (null != objects[2]) {
+					sdt.setBusinessClassification(objects[2].toString());
+				}
+				if (null != objects[3]) {
+					sdt.setVendorType(objects[3].toString());
+				}
+				if (null != objects[4]) {
+					sdt.setVenStatus(objects[4].toString());
+				}
+				if (null != objects[5]) {
+					sdt.setIntroducedByName(objects[5].toString());
+				}
+				if (null != objects[6]) {
+					sdt.setIntroducedByEmailID(objects[6].toString());
+				}
 				sdtList.add(sdt);
 			}
-			
+
 			data.setData(sdtList);
 			data.setMsg("success");
 			logger.info("end  to getActiveVendorData ");
 
 		} catch (Exception e) {
 			data.setMsg("error");
-e.printStackTrace();
-			logger.error("error : "+e);
+			e.printStackTrace();
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	
 	@RequestMapping({ "/getVendorById" })
 	@CrossOrigin("*")
 	public String getVendorById(HttpServletRequest request, @RequestBody SupDetails details) {
-		
+
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			List<SupDetails> supDetails = serviceManager.supDetailsRepo.findBypid(details.getPid());
+			SupDetails supDetails = serviceManager.supDetailsRepo.findBybpCode(details.getBpCode());
 
 			data.setData(supDetails);
 			data.setMsg("success");
@@ -330,24 +330,23 @@ e.printStackTrace();
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
-	
+
 	@RequestMapping({ "/setStatusOfVendorByBpCode" })
 	@CrossOrigin("*")
 	public String setStatusOfVendorByBpCode(HttpServletRequest request, @RequestBody User user) {
-		
+
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-		
 			serviceManager.userRepository.updateStatusOfVendorByBpCode(user.getStatus(), user.getBpCode());
 
 			data.setMsg("success");
@@ -355,25 +354,26 @@ e.printStackTrace();
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
+
 	@RequestMapping({ "/getAllVendorStatus" })
 	@CrossOrigin("*")
-	public String getAllVendorStatus(HttpServletRequest request , @RequestBody User details) {
-		
+	public String getAllVendorStatus(HttpServletRequest request, @RequestBody User details) {
+
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			String bpCode=details.getBpCode();
+			String bpCode = details.getBpCode();
 			List<User> vendorListStatus = serviceManager.userRepository.getAllVendorStatus(bpCode);
-			
+
 			data.setData(vendorListStatus);
 			data.setMsg("success");
 			logger.info("end  to getActiveVendorData ");
@@ -381,40 +381,38 @@ e.printStackTrace();
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
+
 	@RequestMapping({ "/activeVendor" })
 	@CrossOrigin("*")
-	public String activeVendor(HttpServletRequest request , @RequestBody User details) {
-		
+	public String activeVendor(HttpServletRequest request, @RequestBody User details) {
+
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			String bpCode=details.getBpCode();
-			String status=details.getStatus();
-			  serviceManager.userRepository.updateStatusOfVendorByBpCode(status,bpCode);
-			
-			
+			String bpCode = details.getBpCode();
+			String status = details.getStatus();
+			serviceManager.userRepository.updateStatusOfVendorByBpCode(status, bpCode);
+
 			data.setMsg("success");
-			logger.info(" activeVendor status  : "+status);
+			logger.info(" activeVendor status  : " + status);
 
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
-
-	
 
 }

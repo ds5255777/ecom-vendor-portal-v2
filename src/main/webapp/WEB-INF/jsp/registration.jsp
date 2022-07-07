@@ -2194,7 +2194,7 @@ label {
           	finalObj.vendorType=vendorTypeString;
            
             console.log(finalObj);
-            $('.loader').show();
+           /*  $('.loader').show(); */
 
             $.ajax({
                 type: "POST",
@@ -2204,8 +2204,8 @@ label {
                 contentType: "application/json",
                 success: function(response) {
                 	
-                	 $('.loader').hide();
-                	 /* return; */
+                	 /* $('.loader').hide(); */
+                	 return;
                     if (response.msg == 'success') {
                     	swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + response.data, "success", "OK").then(function() {
                             window.location = "login";

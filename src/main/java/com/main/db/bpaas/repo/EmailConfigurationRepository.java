@@ -11,21 +11,13 @@ import org.springframework.data.repository.query.Param;
 
 import com.main.db.bpaas.entity.EmailConfiguration;
 
-
-
-public interface EmailConfigurationRepository extends JpaRepository<EmailConfiguration, Integer>{
+public interface EmailConfigurationRepository extends JpaRepository<EmailConfiguration, Integer> {
 
 	List<EmailConfiguration> findByIsActive(String isActive);
 
 	@Transactional
 	@Modifying
-	@Query(value="update email_configuration set is_active=:isActive where id=:id ; ", nativeQuery=true )
+	@Query(value = "update email_configuration set is_active=:isActive where id=:id ; ", nativeQuery = true)
 	void updateEmailConfigurationSatatusByid(@Param("isActive") String isActive, @Param("id") Integer id);
 
-	
-
-	
-
-	
-	
 }

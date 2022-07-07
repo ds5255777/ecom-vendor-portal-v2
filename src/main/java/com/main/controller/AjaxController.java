@@ -31,10 +31,12 @@ import com.main.bean.DataContainer;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.ContactDetails;
 import com.main.db.bpaas.entity.Document;
+import com.main.db.bpaas.entity.EmailAuditLogs;
 import com.main.db.bpaas.entity.EmailConfiguration;
+import com.main.db.bpaas.entity.MailContent;
 import com.main.db.bpaas.entity.QueryEntity;
+import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.SupDetails;
-import com.main.db.bpaas.entity.User;
 import com.main.email.CommEmailFunction;
 import com.main.email.WelcomeEmail;
 import com.main.serviceManager.ServiceManager;
@@ -59,7 +61,7 @@ public class AjaxController {
 
 	@PostMapping("/SaveRegistration")
 	@Transactional
-	public String SaveRegistration(@RequestBody SupDetails supDetails) {
+	public String SaveRegistration(@RequestBody SupDetails supDetails, HttpServletRequest request) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
@@ -645,33 +647,62 @@ public class AjaxController {
 			 */
 
 			// data.setData(processID);
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
-								.findByIsActive("1");
-						if (!emailList.isEmpty()) {
-							EmailConfiguration emailConfiguration = emailList.get(0);
+			
+			  new Thread(new Runnable() {
+			  
+			  @Override public void run() { try { List<EmailConfiguration> emailList =
+			  serviceManager.emailConfigurationRepository .findByIsActive("1"); if
+			  (!emailList.isEmpty()) { EmailConfiguration emailConfiguration =
+			  emailList.get(0);
+			  
+			  if (!supDetails.getContactDetails().isEmpty()) { List<ContactDetails>
+			  contactDetails = supDetails.getContactDetails(); for (int i = 0; i <
+			  contactDetails.size(); i++) {
+			  CommEmailFunction.sendEmail(contactDetails.get(i).getConEmail(),
+			  "Vendor Portal Req Acknowldgement", new
+			  WelcomeEmail().prepareMailBody(processID), emailConfiguration.getSmtpPort(),
+			  emailConfiguration.getUserName(), emailConfiguration.getPassword(),
+			  emailConfiguration.getServerName()); } } } } catch (Exception e) {
+			  e.printStackTrace(); } Thread.currentThread().interrupt(); } }).start();
+			 
 
-							if (!supDetails.getContactDetails().isEmpty()) {
-								List<ContactDetails> contactDetails = supDetails.getContactDetails();
-								for (int i = 0; i < contactDetails.size(); i++) {
-									CommEmailFunction.sendEmail(contactDetails.get(i).getConEmail(),
-											"Vendor Portal Req Acknowldgement",
-											new WelcomeEmail().prepareMailBody(processID),
-											emailConfiguration.getSmtpPort(), emailConfiguration.getUserName(),
-											emailConfiguration.getPassword(), emailConfiguration.getServerName());
-								}
-							}
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					Thread.currentThread().interrupt();
-				}
-			}).start();
-			data.setMsg("success");
+/*
+ * try { List<EmailConfiguration> emailList =
+ * serviceManager.emailConfigurationRepository.findByIsActive(GlobalConstants.
+ * ACTIVE_STATUS); EmailConfiguration emailConfiguration = emailList.get(0);
+ * 
+ * String toMailIdMatrix = ""; String ccMailIdMatrix = ""; String
+ * bccMailIdMatrix = "";
+ * 
+ * 
+ * String vendorEmail = supDetails.getContactDetails().get(0).getConEmail();
+ * String introducedByEmailID = supDetails.getIntroducedByEmailID();
+ * 
+ * List<MailContent> mailType =
+ * serviceManager.mailContentRepo.findByType("Vendor Portal Req Acknowldgement"
+ * );
+ * 
+ * if (!mailType.isEmpty()) { SendEmail sendEmail = new SendEmail(); MailContent
+ * mailContent = mailType.get(0);
+ * 
+ * sendEmail.setMailfrom(emailConfiguration.getUserName());
+ * sendEmail.setSendTo(vendorEmail); sendEmail.setSendCc(introducedByEmailID);
+ * sendEmail.setSubject(mailContent.getSubject());
+ * sendEmail.setEmailBody(mailContent.getEmailBody());
+ * sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+ * 
+ * serviceManager.sendEmailRepo.save(sendEmail);
+ * 
+ * EmailAuditLogs auditLogs = new EmailAuditLogs();
+ * auditLogs.setMailFrom(emailConfiguration.getUserName());
+ * auditLogs.setMailTo(vendorEmail);
+ * auditLogs.setMailSubject(mailContent.getSubject());
+ * auditLogs.setMailMessage(mailContent.getEmailBody());
+ * 
+ * serviceManager.emailAuditLogsRepo.save(auditLogs); }
+ * 
+ * data.setMsg("success"); } catch (Exception e) { e.printStackTrace(); }
+ */
 		} catch (Exception e) {
 			data.setMsg("error");
 			data.setData(e.toString());

@@ -769,9 +769,15 @@ request.setAttribute("financeRole", financeRole);
            function addFormData(){
 
                $("#submitBtn").prop("disabled",true);               
-                    $('.loader').show();
-               
-                     var json={
+                    /* $('.loader').show(); */
+                    
+                    var fromDate = $("#agreementMadeDate").val();
+                    var toDate = $("#agreementExpiryDate").val();
+                    
+                    fromDate=moment(fromDate, 'YYYY-MM-DD').format('DD-MMM-YY');
+                    toDate=moment(toDate, 'YYYY-MM-DD').format('DD-MMM-YY');
+
+                    var json={
                     		 "route" :$("#route").val(),
                     		 "vendorName" :$("#vendorName").val(),
                     		 "vendorCode" :$("#vendorCode").val(),
@@ -786,8 +792,8 @@ request.setAttribute("financeRole", financeRole);
                              "stdMileagePerKm" :$("#stdMileagePerKm").val(),
                              "maxKms" :$("#maxKms").val(),
                              "fixedKm" :$("#maxKms").val(),
-                             "agreementMadeDate" :$("#agreementMadeDate").val(),
-                             "agreementExpiryDate" :$("#agreementExpiryDate").val(),
+                             "agreementMadeDate" :fromDate,
+                             "agreementExpiryDate" :toDate,
                              "currentFuelRate" :$("#currentFuelRate").val(),
                              "fsDiff" :$("#fsDiff").val()
                      }
@@ -797,7 +803,7 @@ request.setAttribute("financeRole", financeRole);
                                data:  JSON.stringify(json),
                                url: "<%=GlobalUrl.saveTripMaster%>", 
 			                   dataType : "json",
-			                   async: false,
+			                   /* async: false, */
 			                   contentType : "application/json",
                     
 		                    success : function(data) {
@@ -833,7 +839,12 @@ request.setAttribute("financeRole", financeRole);
            
            function updateFormData() {
 
-        	  // alert("Hello! I am an alert box!!");
+        	   var fromDate = $("#agreementMadeDateEdit").val();
+               var toDate = $("#agreementExpiryDateEdit").val();
+               
+               fromDate=moment(fromDate, 'YYYY-MM-DD').format('DD-MMM-YY');
+               toDate=moment(toDate, 'YYYY-MM-DD').format('DD-MMM-YY');
+               
                var json = {
                    "id": id,
                    "route" :$("#routeEdit").val(),
@@ -850,8 +861,8 @@ request.setAttribute("financeRole", financeRole);
                    "stdMileagePerKm" :$("#stdMileagePerKmEdit").val(),
                    "maxKms" :$("#maxKmsEdit").val(),
                    "fixedKm" :$("#maxKmsEdit").val(),
-                   "agreementMadeDate" :$("#agreementMadeDateEdit").val(),
-                   "agreementExpiryDate" :$("#agreementExpiryDateEdit").val(),
+                   "agreementMadeDate" :fromDate,
+                   "agreementExpiryDate" :toDate,
                    "currentFuelRate" :$("#currentFuelRateEdit").val(),
                    "fsDiff" :$("#fsDiffEdit").val()
                }

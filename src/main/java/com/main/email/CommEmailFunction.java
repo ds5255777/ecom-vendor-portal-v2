@@ -9,12 +9,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.main.db.bpaas.entity.EmailAuditLogs;
-import com.main.db.bpaas.repo.EmailAuditLogsRepo;
-import com.main.serviceManager.ServiceManager;
-
 public class CommEmailFunction {
 	
 	public static void sendEmail(String commaSeparatedEamilName, String subject, String content, String smtpPort,

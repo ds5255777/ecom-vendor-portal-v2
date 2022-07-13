@@ -18,4 +18,7 @@ public interface BusinessPartnerTypeRepo extends JpaRepository<BusinessPartnerTy
 	@Query(value = "select type_code from business_partner_type where name=:name ",nativeQuery = true)
 	String findByTypeCode(String name);
 
+	@Query(value = "select gl_code from business_partner_type  where name=:partnerType ;",nativeQuery = true)
+	String getGlCodeByPartnerType(String partnerType);
+
 }

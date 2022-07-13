@@ -24,7 +24,7 @@ public class SendEmail {
 	private String bcc;
 	@Column(name = "subject")
 	private String subject;
-	@Column(name = "email_body")
+	@Column(name = "email_body" , columnDefinition = "TEXT")
 	private String emailBody;
 	@Column(name = "status")
 	private String status;

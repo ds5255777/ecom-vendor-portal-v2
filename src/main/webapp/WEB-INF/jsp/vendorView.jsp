@@ -40,6 +40,56 @@
     <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
     <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
     <style>
+    	 .split {
+                height: 100%;
+                width: 50%;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                overflow-x: hidden;
+            }
+
+            .left {
+                left: 0;
+            }
+
+            .right {
+                right: 0;
+            }
+            
+            div.fixed {
+                position: fixed;
+                bottom: 10px;
+                width:50%;
+                border: 1px solid black;
+            } 
+
+            .modalLoad {
+                display:    none;
+                position:   fixed;
+                z-index:    1000;
+                top:        0;
+                left:       0;
+                height:     100%;
+                width:      100%;
+                background: rgba( 255, 255, 255, .8 ) 
+                    url('http://i.stack.imgur.com/FhHRx.gif') 
+                    50% 50% 
+                    no-repeat;
+            }
+
+            /* When the body has the loading class, we turn
+               the scrollbar off with overflow:hidden */
+            body.loading .modal {
+                overflow: hidden;   
+            }
+
+            /* Anytime the body has the loading class, our
+               modal element will be visible */
+            body.loading .modal {
+                display: block;
+            }
+    
         .table td,
         .table th {
             padding: 1px !important;
@@ -67,7 +117,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse text-sm">
-    <div class="wrapper">
+    <div class="split left wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;"" >
 			<!-- Left navbar links -->
@@ -100,7 +150,7 @@
                         <div class="card-body">
                             <form id="stepOneForm" class="forms-sample">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Introducer Name<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
@@ -108,7 +158,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Introducer Email ID<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
@@ -116,7 +166,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <!-- <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Business Partner Type<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
@@ -124,7 +174,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Business Partner<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
@@ -132,16 +182,16 @@
                                                 <input type="text" name="bpCode" id="bpCode" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
+                                    </div> -->
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Business Partner Name<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Number" name="suppName" id="suppName" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" name="suppName" id="suppName" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Business Classification<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
@@ -149,7 +199,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">MESME Certificate Number</label>
                                             <div class="col-sm-7">
@@ -157,51 +207,51 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Aadhar Number</label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="aadharNumber" id="aadharNumber" type="text" placeholder="Taxable Amount" style="width: 100%;" readonly>
+                                                <input class="form-control-sm" name="aadharNumber" id="aadharNumber" type="text"  style="width: 100%;" readonly>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Pan Number<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="panNumber" id="panNumber" type="text" placeholder="Tax Amount"  style="width: 100%;">
+                                                <input class="form-control-sm" name="panNumber" id="panNumber" type="text"  style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">TAN Number<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="tanNumber" id="tanNumber" placeholder="Invoice Amount" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" name="tanNumber" id="tanNumber" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Aadhar Link Status<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="adharLinkStatus" id="adharLinkStatus" placeholder="Invoice Amount" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" name="adharLinkStatus" id="adharLinkStatus" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <!-- <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Region<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="region" id="region" placeholder="Invoice Amount" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" name="region" id="region" readonly style="width: 100%;">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
+                                    </div> -->
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Section Type<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="sectionType" id="sectionType" placeholder="Invoice Amount" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" name="sectionType" id="sectionType" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -226,14 +276,16 @@
 										<table id="addTable" class="display nowrap table table-bordered" style="width:100%">
 		                                    <thead>
 											<tr>
+												<th class="bg-primary">Vendor Type</th>
+												<th class="bg-primary">Vendor Category</th>
 												<th class="bg-primary">Country</th>
 												<th class="bg-primary">State</th>
 												<th class="bg-primary">District</th>
 												<th class="bg-primary">Postal Code/ ZIP Code</th>
-												<th class="bg-primary">GSTN Number</th>
-												<th class="bg-primary">Nature of Transactions</th>
 												<th class="bg-primary">Address Details</th>
+												<th class="bg-primary">GSTN Number</th>
 												<th class="bg-primary">Supplier Site Code</th>
+												<th class="bg-primary">GL Code</th>
 											</tr>
 										</thead>
 		                                </table>
@@ -295,9 +347,10 @@
 		                                    <thead>
 											<tr>
 												<th class="bg-primary">Bank Name</th>
+												<th class="bg-primary">Account Number</th>
+												<th class="bg-primary">Beneficiary Name</th>
 												<th class="bg-primary">IFSC Code</th>
 												<th class="bg-primary">Currency</th>
-												<th class="bg-primary">Account Number</th>
 											</tr>
 										</thead>
 		                                </table>
@@ -321,7 +374,7 @@
                         <div class="card-body">
                             <form id="stepTwoForm" class="forms-sample">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Currency<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
@@ -329,15 +382,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Payment Currency<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Site Name" name="paymentCurrency" id="paymentCurrency" style="width: 100%;"> 
+                                                <input class="form-control-sm" type="text" name="paymentCurrency" id="paymentCurrency" style="width: 100%;"> 
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Payment / Credit Terms<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
@@ -346,28 +399,28 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Payment Method<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Business Partner Code" name="paymentMethod" id="paymentMethod" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text"  name="paymentMethod" id="paymentMethod" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Terms Date Basis<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Invoice Number" name="dateBasis" id="dateBasis" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text"  name="dateBasis" id="dateBasis" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
                                     
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Delivery Terms<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="deliveryTerms" id="deliveryTerms" placeholder="Invoice Amount" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" name="deliveryTerms" id="deliveryTerms" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -388,7 +441,7 @@
                         <div class="card-body">
                             <form id="stepThreeForm" class="forms-sample">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">TDS Applicable<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
@@ -396,15 +449,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">TDS Section<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Site Name" name="tdsSection" id="tdsSection" style="width: 100%;"> 
+                                                <input class="form-control-sm" type="text" name="tdsSection" id="tdsSection" style="width: 100%;"> 
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-sm-5">TDS Exemption Rate %<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
@@ -430,50 +483,50 @@
                         <div class="card-body">
                             <form id="stepFourForm" class="forms-sample">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Financial Year<span class="text-danger"></span></label>
+                                            <label class="col-sm-5">Financial Year1<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" readonly name="fyYear1" id="fyYear1" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Acknowledgement Number<span class="text-danger"></span></label>
+                                            <label class="col-sm-5">Acknowledgement Number1<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Site Name" name="acknowledgementNumber1" id="acknowledgementNumber1" style="width: 100%;"> 
+                                                <input class="form-control-sm" type="text"  name="acknowledgementNumber1" id="acknowledgementNumber1" style="width: 100%;"> 
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Financial Year<span class="text-danger"></span></label>
+                                            <label class="col-sm-5">Financial Year2<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" readonly name="fyYear2" id="fyYear2" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Acknowledgement Number<span class="text-danger"></span></label>
+                                            <label class="col-sm-5">Acknowledgement Number2<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Site Name" name="acknowledgementNumber2" id="acknowledgementNumber2" style="width: 100%;"> 
+                                                <input class="form-control-sm" type="text" name="acknowledgementNumber2" id="acknowledgementNumber2" style="width: 100%;"> 
                                             </div>
                                         </div>
-                                    </div><div class="col-md-3">
+                                    </div><div class="col-md-4">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Financial Year<span class="text-danger"></span></label>
+                                            <label class="col-sm-5">Financial Year3<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" readonly name="fyYear3" id="fyYear3" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Acknowledgement Number<span class="text-danger"></span></label>
+                                            <label class="col-sm-5">Acknowledgement Number3<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Site Name" name="acknowledgementNumber3" id="acknowledgementNumber3" style="width: 100%;"> 
+                                                <input class="form-control-sm" type="text" name="acknowledgementNumber3" id="acknowledgementNumber3" style="width: 100%;"> 
                                             </div>
                                         </div>
                                     </div>
@@ -508,8 +561,6 @@
 											</div>
 										</div>
 									</div>
-									
-
 								</div>
 							</form>
 						</div>
@@ -517,27 +568,25 @@
 					
 					<!-- /.card -->
                     <div class="row">
-						<div class="col-md-1" ></div>
-                        <div class="col-md-2" style="display: none;" id="prosInvBtn">
+                        <div class="col-md-3" style="display: no	ne;" id="prosInvBtn">
                             <button type="button" id="approve" style="margin-right: 10px; width: inherit" class="btn btn-success btn-lg" >Approve Request</button>
                         </div>
                         
-                        <div class="col-md-2" style="display: none;" id="rejectInvBtn">
+                        <div class="col-md-3" style="display: none;" id="rejectInvBtn">
                             <button type="button" id="rejected" style="margin-right: 10px; width: inherit"  class="btn btn-danger btn-lg" >Rejected Request</button>
                         </div>
 
-                        <div class="col-md-2" style="display: none;" id="raiseQueryDiv">
+                        <div class="col-md-3" style="display: none;" id="raiseQueryDiv">
                             <button type="button" id="raiseQuery" style="margin-right: 10px; width: inherit" value="raiseQuery" onclick="raiseQueryModel()" class="btn btn-warning btn-lg">Raise
                                 Query</button>
                         </div>
 
-                        <div class="col-md-2" style="display: none;" id="viewAttachmentDiv">
+                        <!-- <div class="col-md-2" style="display: none;" id="viewAttachmentDiv">
                             <button type="button" id="viewAttachment" style="margin-right: 10px; width: inherit" onclick="displayAttachmentForPoDetails()" value="viewAttachment" class="btn btn-primary btn-lg">View Attachment</button>
-                        </div>
-                        <div class="col-md-2" >
+                        </div> -->
+                        <div class="col-md-3" >
                             <button type="button" onclick="closeWin()" style="margin-right: 10px; width: inherit" class="btn btn-info btn-lg">Close</button>
                         </div>
-                        <div class="col-md-1" ></div>
                     </div>
                     <!-- /.row -->
 
@@ -594,51 +643,16 @@
     
     <!-- Document  Modal  -->
 		
-		<div class="modal fade" id="viewAttachmentPopUp" role="dialog">
-        <div class="modal-dialog " style="max-width: 1300px;">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="container-fluid panel1">
-                        <div class="row">
-                            <div class="col">
-                                <div class="row innerRow">
-                                    
-                                    
-                                    <div class="col-md-8">
-                                       <div class="form-group">
-                                            <label>Document Name</label>
-                                            <select class="form-control" id="multipleAttachment" style="height: 35px;" >
+		<div class="split right">
+        	 <div class="form-group">
+            <label for="doc">Document Details</label>
+                <select class="form-control" id="multipleAttachment" onclick="displayAttachmentForPoDetails()" style="height: 35px;" >
                                                 
                                             </select>
-                                             
-                                        </div> 
-                                    </div>
-                                    <div class="col-md-3" style="display: none" id="uploadeddateDiv">
-                                        <div class="form-group">
-                                            <label>Uploaded Date</label>
-                                            <input type="text" class="form-control" id="uploadeddate" style="height: 35px;" readonly>                                               
-                                        </div>
-                                    </div> 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-fluid panel2">
-                        <div class="row">                            
-                            <div class="col-lg-12" style="height: 400px;">
-                            <a id="ifrmameHref"   target="_blank">Click Here to open doc in new window</a>
-                                <iframe id="pdfLink" style="height:100%; width:100%"  ></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-            </div>
-        </div>
-    </div>
+                                            </div>
+                <a id="ifrmameHref"   target="_blank">Click Here to open doc in new window</a>
+                <iframe id="pdfLink" style="height:90%; width:100%" ></iframe>
+   		 </div>
 
     <!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
@@ -751,6 +765,7 @@
         showHideButton();
         function showHideButton(){
         	if( vendorType =="Approved Vendor" || vendorType =="Rejected Vendor" || vendorType =="Vendor View"){
+        		$("#prosInvBtn").css("display","none");
         		$("#queryWindow").css("display","none");
         		$("#viewAttachmentDiv").css("display","block");
         		
@@ -810,28 +825,80 @@ console.log(obj);
                         $("#acknowledgementNumber1").val(result.acknowledgementNumber1);
                         addTable.clear();
                         for (var i = 0; i < addressDetails.length; i++) {
+                        	
+                        	if(!addressDetails[i].hasOwnProperty("vendorType")){
+       							addressDetails[i].vendorType="-";
+       						}
+                        	if(!addressDetails[i].hasOwnProperty("partnerType")){
+       							addressDetails[i].partnerType="-";
+       						}
+                        	if(!addressDetails[i].hasOwnProperty("addCountry")){
+       							addressDetails[i].addCountry="-";
+       						}
+                        	if(!addressDetails[i].hasOwnProperty("state")){
+       							addressDetails[i].state="-";
+       						}
+                        	if(!addressDetails[i].hasOwnProperty("city")){
+       							addressDetails[i].city="-";
+       						}
+                        	if(!addressDetails[i].hasOwnProperty("pinCode")){
+       							addressDetails[i].pinCode="-";
+       						}
+                        	if(!addressDetails[i].hasOwnProperty("addDetails")){
+       							addressDetails[i].addDetails="-";
+       						}
+                        	if(!addressDetails[i].hasOwnProperty("compGstn")){
+       							addressDetails[i].compGstn="-";
+       						}
+                        	if(!addressDetails[i].hasOwnProperty("supplierSiteCode")){
+       							addressDetails[i].supplierSiteCode="-";
+       						}
+                        	if(!addressDetails[i].hasOwnProperty("glCode")){
+       							addressDetails[i].glCode="-";
+       						}
                            
                         	addTable.row.add([
+                        		addressDetails[i].vendorType,
+                        		addressDetails[i].partnerType,
                         		addressDetails[i].addCountry,
                         		addressDetails[i].state, 
                         		addressDetails[i].city, 
                         		addressDetails[i].pinCode,
-                        		addressDetails[i].compGstn, 
-                        		addressDetails[i].natureOfTransactions, 
                         		addressDetails[i].addDetails,
-                        		addressDetails[i].supplierSiteCode]);
+                        		addressDetails[i].compGstn,
+                        		addressDetails[i].supplierSiteCode,
+                        		addressDetails[i].glCode 
+                        		]);
                         }
                         addTable.draw();
                         $("tbody").show();
                         
                         bankTable.clear();
                         for (var i = 0; i < accountDetail.length; i++) {
+                        	
+                        	if(!accountDetail[i].hasOwnProperty("bankName")){
+       							accountDetail[i].bankName="-";
+       						}
+                        	if(!accountDetail[i].hasOwnProperty("accoutNumber")){
+       							accountDetail[i].accoutNumber="-";
+       						}
+                        	if(!accountDetail[i].hasOwnProperty("beneficiaryName")){
+       							accountDetail[i].beneficiaryName="-";
+       						}
+                        	if(!accountDetail[i].hasOwnProperty("ifscCode")){
+       							accountDetail[i].ifscCode="-";
+       						}
+                        	if(!accountDetail[i].hasOwnProperty("accoutCurrency")){
+       							accountDetail[i].accoutCurrency="-";
+       						}
                            
                         	bankTable.row.add([
                         		accountDetail[i].bankName,
+                        		accountDetail[i].accoutNumber,
+                        		accountDetail[i].beneficiaryName,
                         		accountDetail[i].ifscCode, 
-                        		accountDetail[i].accoutCurrency, 
-                        		accountDetail[i].accoutNumber]);
+                        		accountDetail[i].accoutCurrency 
+                        		]);
                         }
                         bankTable.draw();
                         $("tbody").show();
@@ -839,6 +906,19 @@ console.log(obj);
                         contactTable.clear();
                         for (var i = 0; i < contactDetails.length; i++) {
                            
+                        	if(!contactDetails[i].hasOwnProperty("conFname")){
+       							contactDetails[i].conFname="-";
+       						}
+                        	if(!contactDetails[i].hasOwnProperty("conLname")){
+       							contactDetails[i].conLname="-";
+       						}
+                        	if(!contactDetails[i].hasOwnProperty("conPhone")){
+       							contactDetails[i].conPhone="-";
+       						}
+                        	if(!contactDetails[i].hasOwnProperty("conEmail")){
+       							contactDetails[i].conEmail="-";
+       						}
+                        	
                         	contactTable.row.add([
                         		contactDetails[i].conFname,
                         		contactDetails[i].conLname, 
@@ -1096,15 +1176,16 @@ console.log(obj);
 			 $('#multipleAttachment').empty();
 			 
 			 var obj ={
-						"foreignKey": "EcomVendorPortalInvoiceView Finance (2).pdf",
+						"foreignKey": processId,
 						"type": "Registration"
 				}
-				
+			console.log(obj);
 				$.ajax({
 					type : "POST",
 					url : "<%=GlobalUrl.getDocumentByTypeAndForeignKey%>",
 					data :JSON.stringify(obj),
 					dataType : "json",
+					async: false,
 					contentType : "application/json",
 					success : function(response) {
 						if (response.msg == "success") {
@@ -1118,7 +1199,7 @@ console.log(obj);
 								for (var i = 0; i < result.length; i++) {																						
 									$('#multipleAttachment').append($('<option/>').attr("value", result[i].docPath).text(result[i].docName));			
 								}
-								$("#viewAttachmentPopUp").modal('show');
+								 $("#viewAttachmentPopUp").modal('show'); 
 								
 							}else{
 								Toast.fire({

@@ -66,7 +66,7 @@ public class WelcomeEmail {
                 + "          <table width=\"70\" align=\"left\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">  "
                 + "            <tr>"
                 + "              <td height=\"70\" style=\"padding: 0 20px 20px 0;\">"
-                + "                <img class=\"fix\" src=\"https://skyglobal.in/wp-content/uploads/2020/05/ecom-express-1.png\" width=\"150\" height=\"50\" border=\"0\" alt=\"\" />"
+                + "                <img class=\"fix\" src=\"dist/img/logo/logo.png\" width=\"150\" height=\"50\" border=\"0\" alt=\"\" />"
                 + "              </td>"
                 + "            </tr>"
                 + "          </table>"

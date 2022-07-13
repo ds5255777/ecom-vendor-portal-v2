@@ -161,6 +161,10 @@ tbody {
 											</div>
 											
 											<div class="col-md-2">
+													 <input id="flipToInvoice" type="button" style="width: inherit;" class="btn btn-primary" onclick="approvedTrips()" value="Approved Trips" />
+											</div>
+											
+											<div class="col-md-2">
 												<div class="dropdown">
 													<button type="button"
 														class="btn btn-primary dropdown-toggle"
@@ -172,8 +176,6 @@ tbody {
 															Excel</a>
 													</div>
 												</div>
-											</div>
-											<div class="col-md-2">
 											</div>
 											
 											<div class="col-md-2">
@@ -190,6 +192,8 @@ tbody {
 									<table class="table table-bordered table-hover" id="tabledata">
 										<thead>
 											<tr>
+												<th class="bg-primary" ><button type="button" id="checkButton" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
+                                                    </button></th>
 												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip Id</th>
 												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
 												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
@@ -725,6 +729,16 @@ tbody {
             
             var dataLimit='${dataLimit}';
     		dataLimit=parseInt(dataLimit);
+    		
+    		$("#refreshDashboardButton").click(function(e) {
+                e.preventDefault();
+                $('#refreshDashboardButton').attr('disabled', 'disabled');
+                getData();
+                $('#refreshDashboardButton').removeAttr('disabled');
+                $('#selectLevelValue').val('');
+                $('#selectInputValue').val('');
+                $('#checkButton').prop( "checked", true );
+            })
 
 
     		var tabledata = $('#tabledata').DataTable({
@@ -830,6 +844,42 @@ tbody {
                 "pageLength": dataLimit
             });
             
+            $(function() {
+                //Enable check and uncheck all functionality
+                $('.checkbox-toggle').click(function() {
+                    var clicks = $(this).data('clicks')
+                    if (clicks) {
+                        //Uncheck all checkboxes
+                        $('.mailbox-messages input[type=\'checkbox\']').prop('checked', false)
+                        $('.checkbox-toggle .far.fa-check-square').removeClass('fa-check-square').addClass('fa-square')
+                    } else {
+                        //Check all checkboxes
+                        $('.mailbox-messages input[type=\'checkbox\']').prop('checked', true)
+                        $('.checkbox-toggle .far.fa-square').removeClass('fa-square').addClass('fa-check-square')
+                    }
+                    $(this).data('clicks', !clicks)
+                })
+                //Handle starring for glyphicon and font awesome
+                $('.mailbox-star').click(function(e) {
+                    e.preventDefault()
+                    //detect type
+                    var $this = $(this).find('a > i')
+                    var glyph = $this.hasClass('glyphicon')
+                    var fa = $this.hasClass('fa')
+
+                    //Switch states
+                    if (glyph) {
+                        $this.toggleClass('glyphicon-star')
+                        $this.toggleClass('glyphicon-star-empty')
+                    }
+
+                    if (fa) {
+                        $this.toggleClass('fa-star')
+                        $this.toggleClass('fa-star-o')
+                    }
+                })
+            })
+            
             
             var globalTripId = "";
 
@@ -882,8 +932,12 @@ tbody {
                                 var approve = "<button type=\"button\" class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#myModal\" onclick=\"setTripStatus('" + result[i].tripID + "')\" ><i class=\"nav-icon fas fa-pencil-square-o\"> </i> </button>";
                                
                                 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getTripDataFormDataByTripId('" + result[i].tripID + "')\" >" + result[i].tripID + "</a>";
-//debugger;
+                                
+                                var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\"" + result[i].tripID + "\" ><\div>";
+
+	
                                 tabledata.row.add([
+                                	checkbox,
                                 	view, 
                                 	result[i].route, 
                                 	result[i].runType, 
@@ -1030,7 +1084,7 @@ function updateTripData(){
 
     var obj = {
         "tripID": globalTripId,
-        "vendorTripStatus": "Approved",
+        "vendorTripStatus": "<%=GlobalConstants.VENDOR_TRIP_STATUS_APPROVED%>",
         "openingReading":$("#openingReading").val(),
         "closingReading":$("#closingReading").val(),
     }
@@ -1206,8 +1260,12 @@ function selectDropDownValue(){
                             var approve = "<button type=\"button\" class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#myModal\" onclick=\"setTripStatus('" + result[i].tripID + "')\" ><i class=\"nav-icon fas fa-pencil-square-o\"> </i> </button>";
                             
                             var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getTripDataFormDataByTripId('" + result[i].tripID + "')\" >" + result[i].tripID + "</a>";
+                            
+                            var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\"" + result[i].tripID + "\" ><\div>";
+
 //debugger;
                             tabledata.row.add([
+                            	checkbox,
                             	view, 
                             	result[i].route, 
                             	result[i].runType, 
@@ -1235,6 +1293,65 @@ function selectDropDownValue(){
 			}
 		});
 }
+
+	function approvedTrips(){
+		var table = document.getElementById('tabledata');
+        var checkflag = [];
+        $("input:checkbox[name='option']:checked").each(function() {
+            checkflag.push($(this).val());
+        });
+
+        let values = checkflag.toString();
+        if (values == "" || values == null) {
+            Toast.fire({
+                type: 'error',
+                title: 'Please select atleast one trip'
+            })
+            return;
+        }
+        console.log(values);
+        
+        json={
+        		"tripID": values,
+        		"vendorTripStatus": "<%=GlobalConstants.VENDOR_TRIP_STATUS_APPROVED%>"
+        }
+        
+        console.log(json);
+        
+        $.ajax({
+            type: "GET",
+            data: json,
+            url: "<%=GlobalUrl.multipleTripApproved%>",
+            dataType: "json",
+            contentType: "application/json",
+            success: function(data) {
+            	$('.loader').hide();
+                 if (data.msg == 'success') {
+                	 swal.fire("", "Trip Approved Sucessfully.", "success", "OK")
+                	 $("#openingReading").val('');
+                	 $("#closingReading").val('');
+                	 $("#selectLevelValue").val('');
+                	 $("#selectInputValue").val('');
+                	 getData();
+                } else {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Failed.. Try Again..'
+                    })
+                } 
+            },
+            error: function(jqXHR, textStatue, errorThrown) {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Failed.. Try Again..'
+                })
+            }
+        });
+        
+        
+        
+        
+	}
         </script>
 </body>
 

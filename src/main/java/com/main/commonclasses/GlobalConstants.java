@@ -6,6 +6,10 @@ public class GlobalConstants {
 
 	@Value("${ipPath}")
 	public static String ipPath;
+	
+	public static final String VENDOR_PID_PREFIX="Vendor-00000000";
+	public static final String VENDOR_PID_SUFFIX="-CreationUAT";
+	
 
 	public static final String APPLICATION_IP = ipPath;
 
@@ -19,6 +23,7 @@ public class GlobalConstants {
 	public static final String APPROVED_REQUEST_STATUS = "Approved";
 	public static final String REJECTED_REQUEST_STATUS = "Rejected";
 	public static final String QUERY_REQUEST_STATUS = "Query";
+	public static final String UPDATE_VENDOR = "Update";
 
 	public static final String ROLE_FINANCE_HEAD = "Finance Head";
 	public static final String ROLE_ADMIN = "Admin";
@@ -62,6 +67,11 @@ public class GlobalConstants {
 	public static final String SET_TYPE_TRIP="Trip";
 	public static final String SET_TYPE_INVOICE="Invoice";
 	public static final String SET_TYPE_REGISTRATION="Registration";
-
-
+	
+	public static final String SET_FLAG_TYPE_ACTIVE="Active";
+	public static final String SET_FLAG_IN_ACTIVE="In-Active";
+	
+	public static final String VENDOR_TYPE_NETWORK="Network";
+	public static final String VENDOR_TYPE_FIXED_ASSETS="FIXED ASSETS";
+	
 }

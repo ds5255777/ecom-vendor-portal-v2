@@ -36,6 +36,16 @@
                 </li>
 				
 				<c:if test="${role.equalsIgnoreCase(financeRole) }">
+				<li class="nav-item"><a href="tripMaster" class="nav-link 
+                       <% if (request.getParameter("pagename").equalsIgnoreCase("masterEvaluationCriteria")) {
+                               out.print("active");
+                           }%>
+                       ">
+                    <i class="nav-icon fas fa fa-tasks highlight-icon"> </i>
+                    <p>Trip Master</p>
+                </a>
+                <hr>
+            </li>
                 <li class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-invoice-dollar"></i>
                         <p>

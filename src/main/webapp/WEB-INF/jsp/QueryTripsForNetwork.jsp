@@ -1168,7 +1168,6 @@ tbody {
            }
            console.log(obj);
            //  calcualteFormulae();
-           return;
            $.ajax({
                type: "POST",
                data: JSON.stringify(obj),

@@ -89,7 +89,7 @@ tbody {
 							<div class="card card-primary  card-outline " >
 								<div class="card-header">
 									<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
-										data-placement="bottom">Pending Request</h3>
+										data-placement="bottom"></h3>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body table-responsive p-0"

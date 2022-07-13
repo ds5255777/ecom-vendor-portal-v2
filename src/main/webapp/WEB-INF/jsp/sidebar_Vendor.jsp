@@ -77,7 +77,7 @@
                            }%>
                        ">
                     <i class="nav-icon fas fa fa-tasks highlight-icon"> </i>
-                    <p>Pending Approval Trips</p>
+                    <p>Pending For Approvel Trips</p>
                 </a>
                 <hr>
             </li>

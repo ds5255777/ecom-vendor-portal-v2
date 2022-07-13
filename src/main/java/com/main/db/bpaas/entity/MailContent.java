@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.itextpdf.layout.element.Text;
+
 @Entity
 @Table(name = "mail_content")
 public class MailContent {
@@ -18,7 +20,7 @@ public class MailContent {
 	private String type;
 	@Column(name = "subject")
 	private String subject;
-	@Column(name = "email_body")
+	@Column(name = "email_body", columnDefinition = "TEXT")
 	private String emailBody;
 
 	public Integer getId() {

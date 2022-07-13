@@ -1,134 +1,110 @@
+<%@page import="com.main.commonclasses.GlobalConstants"%>
 <%@page import="com.main.commonclasses.GlobalUrl"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>${titleName}| Vendor Details</title>
-
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bbootstrap 4 -->
-    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <!-- summernote -->
-    <!-- <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css"> -->
-
-
-    <link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
-
-
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
-    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-
-    <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-    <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-    <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
-
-
-
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>${titleName}|VendorDetails</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Tempusdominus Bbootstrap 4 -->
+<link rel="stylesheet"
+	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- iCheck -->
+<link rel="stylesheet"
+	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!-- JQVMap -->
+<link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="dist/css/adminlte.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet"
+	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<!-- Daterange picker -->
+<link rel="stylesheet"
+	href="plugins/daterangepicker/daterangepicker.css">
+<!-- summernote -->
+<!-- <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css"> -->
+<link rel="stylesheet" type="text/css"
+	href="plugins/jquery-ui/jquery-ui.min.css">
+<!-- Google Font: Source Sans Pro -->
 <link
-	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
-	rel="stylesheet" />
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+	rel="stylesheet">
 <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-        <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-        
-        
-        
+<link rel="stylesheet"
+	href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<link rel="stylesheet"
+	href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+<link rel="stylesheet"
+	href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+<style>
+label {
+	font-weight: 500;
+	margin-bottom: 1px;
+}
 
+.form-control {
+	height: 35px;
+	font-size: 14px;
+}
 
+tbody {
+	font-size: 12.9px;
+}
 
-	<script
-	src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+.table td, .table th {
+	vertical-align: top;
+	border-top: 1px solid #dee2e6;
+	padding: 5px 5px 0px 1.5rem;
+}
 
-    <style>
-        label {
-            font-weight: 500;
-            margin-bottom: 1px;
-        }
+.select2 {
+	width: 100% !important;
+}
 
-        .form-control {
-            height: 35px;
-            font-size: 14px;
-        }
+.PAN {
+	text-transform: uppercase;
+}
 
-        tbody {
-            font-size: 12.9px;
-        }
+.error {
+	color: Red;
+	visibility: hidden;
+}
 
-        .table td,
-        .table th {
-            vertical-align: top;
-            border-top: 1px solid #dee2e6;
-            padding: 5px 5px 0px 1.5rem;
-        }
-        
-        
-        
-        .select2{
-				width: 100% !important;
-				
-			}
-			
-			
-			 .PAN
-		    {
-		        text-transform: uppercase;
-		  }
-		    .error
-		    {
-		        color: Red;
-		        visibility: hidden;
-		  }
+.required {
+	color: red;
+}
 
+.select2-container--default .select2-selection--multiple .select2-selection__choice
+	{
+	color: black;
+}
 
-    </style>
-
-    <style>
-    
-     .required {
-            color: red;
-        }
-    .select2-container--default .select2-selection--multiple .select2-selection__choice{
-    color:black;
-    }
-      
-
-    </style>
+th, td,tr {
+  border-style: hidden;
+}
+ 
+</style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
     <jsp:include page="loader.jsp" />
     <div class="wrapper">
-
         <!-- Navbar -->
         <jsp:include page="navbar.jsp?pagename=Vendor Details" />
         <!-- /.navbar -->
-
         <!-- Main Sidebar Container -->
         <jsp:include page="sidebar_Admin.jsp?pagename=Vendor Details" />
-
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -136,20 +112,11 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <div class="input-group-prepend">
-
-                                <!--   <div class="btn-group">
-                                    <div  style="font-size: 20px;font-weight: 500;" id="shiowStatusOfTicket">Master Bank Name</div>
-                                </div> -->
-
-
-                            </div>
+                            <div class="input-group-prepend"></div>
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li> -->
                             </ol>
                         </div>
                         <!-- /.col -->
@@ -166,66 +133,42 @@
                         <div class="col-md-12">
                             <!-- general form elements -->
                             <div class="card card-primary">
-                                
                                 <!-- /.card-header -->
                                 <!-- form start -->
-                                
-                                
-                                
-                                
-                                
-                              </div>
-
+                            </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-12">
                             <div class="card card-primary">
-                             <!--    <div class="card-header">
-                                    <h3 class="card-title">Vendor Details</h3>
-                                </div> -->
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <table id="tabledata" class="table table-bordered table-hover">
                                         <thead>
-                                                           <tr>
-                                                           		<th class="bg-primary">Vendor code</th>
-                                                           		<th class="bg-primary">Introduced By Name </th>
-                                                           		<th class="bg-primary">Business Partner Name</th>
-                                                                <th class="bg-primary">introduced by email id</th>
-                                                                <th class="bg-primary">Business Partner Type</th>
-                                                                <th class="bg-primary">Business Partner</th>
-                                                                <th class="bg-primary">Status</th>
-                                                                <th class="bg-primary">Action</th>
-                                                           </tr>
-                                                     </thead>
+                                            <tr>
+                                                <th class="bg-primary">Vendor code</th>
+                                                <th class="bg-primary">Business Partner Name</th>
+                                                <th class="bg-primary">Business Partner Type</th>
+                                                <th class="bg-primary">Business Classification</th>
+                                                <th class="bg-primary">Introduced By Name</th>
+                                                <th class="bg-primary">introduced by email id</th>
+                                                <th class="bg-primary">Status</th>
+                                                <th class="bg-primary">In-Active Vendor</th>
+                                                <!-- <th class="bg-primary">Action</th> -->
+                                            </tr>
+                                        </thead>
                                     </table>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
-
                         </div>
                     </div>
-
-
                 </div>
             </section>
         </div>
-
         <aside class="control-sidebar control-sidebar-dark"></aside>
     </div>
     <!-- ./wrapper -->
-
- 
-<!-- <script type = "text/javascript">  
-window.onload = function(){  
-	
-	alert("hii")
-	select();
-}  
-</script> -->
-
 
     <div class="modal fade" id="userModal" role="dialog">
         <div class="modal-dialog " style="max-width: 1800px;">
@@ -235,1019 +178,793 @@ window.onload = function(){
                     <div class="row">
                         <div class="col-md-12">
                             <!-- general form elements -->
-                            <div class="card card-primary">
-                                <!-- <div class="card-header">
-                                    <h3 class="card-title">Update User</h3>
-                                </div> -->
-
-
-
-
-				<div class="card card-primary" style="margin-bottom: 10px;">
-							<div class="card-header" id="addressBookHead"
-								style="background: #11aef6; color: #ffffff;">
-								<h6 class="mb-0">Basic Details</h6>
-							</div>
-						<div id="basicDetailsHeadData" aria-labelledby="basicDetailsHead"
-								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
-                               <form role="form" id="stepOneForm" class="forms-sample" style="padding: 20px;" autocomplete="off" >
-									<table class="table center-aligned-table" id="fromTable" name="fromTable">
-										<thead>
-										</thead>
-										<tbody>
-											<tr class="">
-												<td><label for="name">Introducer Name<span
-														class="required adHocRequired"></span></label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="introducedByName"
-													name="introducedByName" value="${uname}" placeholder="Introducer Name" 
-													maxlength="50"></td>
-
-												<td><label for="emailId">Introducer Email ID<span
-														class="required adHocRequired">*</span></label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="introducedByEmailID"
-													name="introducedByEmailID" value="${userEmail}" maxlength="50" placeholder="abc@ecomexpress.in"
-													onchange="removeValCssByID(this)"><span
-													id="message"></span></td>
-
-												<td><label for="Supplier Type">Business Partner
-														Code<span class="required adHocRequired">*</span></label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="bpCode" name="bpCode"
-													placeholder="Business Partner Code"
-													onchange="removeValCssByID(this);checkForExistingUserName();" 
-													oninput="this.value = this.value.toUpperCase()"></td>
-
-
-											</tr>
-
-
-
-											<tr>
-
-												<td><label>Business Partner Type<span
-														class="required adHocRequired">*</span></label></td>
-
-												<td style="width: auto"><select
-													class="js-example-basic-multiple select2" name="states[]"
-													id="states" onchange="select()" multiple="multiple" >
-														<c:forEach items="${business}" var="bus">
-
-															<option value="${bus}">${bus}</option>
-														</c:forEach>
-												</select></td>
-
-
-												<td><label for="partnerType">Business Partner</label>
-												<input type="hidden" id="pid" name="pid">
-												</td>
-												<td><select id="partnerType" name="partnerType"
-													class="form-control p-input"
-													onchange="showHideRequiredClass();" disabled="disabled">
-														<c:forEach items="${partner}" var="par">
-
-															<option value="${par}">${par}</option>
-														</c:forEach>
-
-												</select></td>
-												<input type="hidden" id="roleId" />
-												
-												
-												<td><label for="suppName">Business Partner Name<span
-														class="required adHocRequired">*</span></label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="suppName" name="suppName"
-													placeholder="Business Partner Name"
-													onchange="removeValCssByID(this)"
-													oninput="this.value = this.value.toUpperCase()"
-													 maxlength="50"></td>
-											</tr>
-
-
-
-										
-
-
-											<tr class="">
-
-												<td><label for="businessClassification">Business
-														Classification</label></td>
-												<td><select id="businessClassification"
-													name="businessClassification" class="form-control p-input"
-													colspan='1' placeholder="Business Classification"
-													onchange="MESMENumber()" >
-														<option value="">Select</option>
-														<c:forEach items="${classification}" var="classi">
-
-															<option value="${classi}">${classi}</option>
-														</c:forEach>
-
-												</select></td>
-												
-												<td><label for="mesmeNumber">MESME Certificate Number</label></td>
-												<td colspan='1'><input type="text"
-												
-													class="form-control p-input" id="mesmeNumber"
-													maxlength="12" name="mesmeNumber"
-													placeholder="MESME Certificate Number"  disabled="disabled"></td>
-													
-												<td><label for="aadharNumber">Aadhar Number</label></td>
-												<td colspan='1'><input type="text"
-													oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
-													class="form-control p-input" id="aadharNumber"
-													maxlength="12" name="aadharNumber"
-													placeholder="Aadhar Number" ></td>
-													
-													
-
-												
-											</tr>
-
-											<tr class="">
-
-												<td><label for="panNumber">Pan Number<span
-														class="required adHocRequired">*</span></label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="panNumber"
-													name="panNumber" placeholder="Pan Number"
-													oninput="this.value = this.value.toUpperCase()"
-													maxlength="10" onchange="removeValCssByID(this)"></td>
-												<td><label for="tanNumber">TAN Number</label></td>
-												<td colspan='1'><input type="text"
-													class="form-control p-input" id="tanNumber"
-													name="tanNumber" placeholder="TAN Number"
-													oninput="this.value = this.value.toUpperCase()"
-													maxlength="10" onkeypress="return isNumberKey(evt);"></td>
-													
-													<td><label for="adharLinkStatus">Aadhar Link
-														Status</label></td>
-												
-													<td><select colspan='1' class="form-control p-input"
-													id="adharLinkStatus" name="adharLinkStatus"
-													placeholder="Aadhar Link Status"
-													onchange="removeValCssByID(this)">
-														<option value="">Select</option>
-														<c:forEach items="${adharLink}" var="link">
-
-															<option value="${link}">${link}</option>
-														</c:forEach>
-
-												</select></td>
-											</tr>
-
-											<tr>
-	
-													<td><label>Region<span
-														 class="required adHocRequired"></span></label></td>
-
-												<td style="width: auto"><select colspan='1'
-													class="js-example-basic-multiple1 select2" name="region[]"
-													 id="region"  multiple="multiple" onchange="region1();" >
-														<c:forEach items="${region}" var="reg">
-
-															<option value="${reg}">${reg}</option>
-														</c:forEach>
-												</select></td>
-											
-											<td><label>Section Type<span
-														 class="required adHocRequired"></span></label></td>
-
-													<td><select colspan='1' class="form-control p-input"
-													id="sectionType" name="sectionType"
-													placeholder="Aadhar Link Status"
-													onchange="removeValCssByID(this)">
-														<option value="">Select</option>
-														<c:forEach items="${sectionType}" var="type">
-
-															<option value="${type}">${type}</option>
-														</c:forEach>
-
-												</select></td>
-												
-												<td><label>Flag<span
-														 class="required adHocRequired"></span></label></td>
-
-												<td style="width: auto"><select colspan='1'
-													class="js-example-basic-multiple2 select2" name="flag"
-													 id="flag"  multiple="multiple" > <!-- onchange="region1();"  -->
-														<c:forEach items="${flag}" var="flag">
-
-															<option value="${flag}">${flag}</option>
-														</c:forEach>
-												</select></td>
-											
-											</tr>
-											<tr>
-
-											</tr>
-
-											<tr>
-
-
-											
-											</tr>
-
-										</tbody>
-									</table>
-								</form>
-								</div>
-								</div>
-								
-								
-								<div id="step-2" class="">
-						<div class="card" style="margin-bottom: 10px;">
-							<div class="card-header" id="addressBookHead"
-								style="background: #11aef6; color: #ffffff;">
-								<h6 class="mb-0">Address Book</h6>
-							</div>
-
-							<div id="addressBookHeadData" aria-labelledby="addressBookHead"
-								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
-								<div class="card-body" style="padding-top: 15px;">
-									<form id="stepTwoForm" class="forms-sample">
-										<table class="table center-aligned-table addTable"
-											id="fromTable" name="fromTable">
-
-											<tbody>
-												<tr class="">
-					 								<td><label class="addressLable" for="country">Country<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><select id="addCountry"
-														name="addCountry" class="form-control p-input">
-															<c:forEach items="${country}" var="count">
-
-																<option value="${count}">${count}</option>
-															</c:forEach>
-
-													</select></td>
-
-													<td><label class="addressLable">State<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><select name="state" id="state"
-														class="form-control p-input">
-															<c:forEach items="${stateName}" var="stateNames">
-
-																<option value="${stateNames}">${stateNames}</option>
-															</c:forEach>
-																												</select> <!-- <input type="text"
-														class="form-control p-input" id="state" name="state"
-														placeholder="State"> --></td>
-													<td><label class="addressLable">District<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="city" name="city"
-														placeholder="District" maxlength="50"></td>
-												</tr>
-												<tr class="">
-
-
-													<td><label>Postal Code/ ZIP Code<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="pinCode" name="pinCode"
-														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-														placeholder="Postal Code/ ZIP Code" maxlength="6"></td>
-
-																								
-
-												<td><label for="compGstn">GSTN Number<span
-														class="required adHocRequired"></span></label></td>
-												<td colspan='2'><input type="test"
-													class="form-control p-input gst" id="compGstn" name="compGstn"													name="compGstn" placeholder="GSTN Number"
-													oninput="this.value = this.value.toUpperCase()"
-													maxlength="15"></td>
-
-												<td><label for="natureOfTransactions">Nature of
-														Transactions<span class="required adHocRequired">*</span>
-												</label></td>
-
-												<td><select colspan='2' class="form-control p-input"
-													id="natureOfTransactions" name="natureOfTransactions"
-													placeholder="Nature of Transactions"
-													onchange="removeValCssByID(this)">
-														<option value="">Select</option>
-														<c:forEach items="${nature}" var="nat">
-
-															<option value="${nat}">${nat}</option>
-														</c:forEach>
-
-												</select></td>												
-												</tr>
-												
-												<tr class="">
-
-
-													<td><label for="addressDetails">Address
-															Details<span class="required adHocRequired">*</span>
-													</label></td>
-													<td colspan='2'><textarea class="form-control"
-															id="addDetails" name="addDetails" maxlength="250"
-															placeholder="Complete Address" rows="3"></textarea></td>
-													<td style="width: 150px;"></td>
-													<td colspan='3'><button type="Button"
-															class="btn btn-primary" id="addBookGridButt"
-															name="addBookGridButt">Add Address</button></td>
-												</tr>
-
-											</tbody>
-										</table>
-									</form>
-									<form class="forms-sample">
-										<div class="card-body">
-											<div class="table-responsive"
-												style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-												<table class="table center-aligned-table" id="addBookGrid"
-													name="addBookGrid">
-													<thead>
-														<tr style="background: #1991eb; color: white;">
-															<th>Country</th>
-															<th>State</th>
-															<th>District</th>
-															<th>Postal Code/ ZIP Code</th>
-															<th>GSTN Number</th>
-															<th>Nature of Transactions</th>
-															<th>Address Details</th>
-															<th>Remove</th>
-														</tr>
-													</thead>
-													<tbody id="addBookGridTbody">
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-						<div class="card" style="margin-bottom: 10px;"
-							style="margin-bottom: 10px;">
-							<div class="card-header" id="contactDir"
-								style="background: #1991eb; color: #ffffff;">
-								<h6 class="mb-0">Contact Details</h6>
-							</div>
-							<div id="contactDirData" aria-labelledby="contactDir"
-								class="collapse show"
-								style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-								<div class="card-body">
-									<form id="Form-3" class="forms-sample">
-										<table class="table center-aligned-table" id="fromTable"
-											name="fromTable">
-											<thead>
-											</thead>
-											<tbody>
-												<tr class="">
-													<td><label for="fnameCon">First Name<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="conFname" name="conFname"
-														placeholder="First Name"></td>
-
-													<td><label for="lnameCon">Last Name<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="conLname" name="conLname"
-														placeholder="Last Name"></td>
-
-													<td><label for="phno">Phone Number<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="conPhone"
-														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-														name="conPhone" placeholder="Phone Number" maxlength="10"></td>
-												<tr>
-												<tr class="">
-
-
-													<td><label for="emailId">Email Id<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="conEmail" name="conEmail"
-														placeholder="Email"></td>
-													<td></td>
-													<td></td>
-													<td>
-														<button type="button" class="btn btn-primary"
-															id="contactDetailsButt" name="contactDetailsButt">Add
-															Contact Details</button>
-													</td>
-												<tr>
-											</tbody>
-										</table>
-										<div class="form-group"></div>
-									</form>
-									<form class="forms-sample">
-										<div class="card-body">
-											<div class="table-responsive"
-												style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-												<table class="table center-aligned-table"
-													id="contactDetailsGrid" name="contactDetailsGrid">
-													<thead>
-														<tr style="background: #1991eb; color: white;">
-															<th>First Name</th>
-															<th>Last Name</th>
-															<th>Phone Number</th>
-															<th>Email Id</th>
-															<th>Remove</th>
-														</tr>
-													</thead>
-													<tbody id="contactDetailsGridTbody">
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-								
-					<div id="step-3" class="">
-						<div class="card" style="margin-bottom: 10px;">
-							<div class="card-header" id="addressBookHead"
-								style="background: #1991eb; color: #ffffff;">
-								<h6 class="mb-0">Bank Details</h6>
-							</div>
-							<div id="addressBookHeadData" aria-labelledby="addressBookHead"
-								style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-								<div class="card-body" style="margin-bottom: 10px;">
-									<form id="Form-4" class="forms-sample">
-										<table class="table center-aligned-table" id="fromTable"
-											name="fromTable">
-											<thead>
-											</thead>
-											<tbody>
-												<tr class="">
-													<td><label for="bankName">Bank Name<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="bankName" name="bankName"
-														placeholder="Bank Name" maxlength="200"></td>
-
-													<td><label for="ifscCode">IFSC Code<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="ifscCode" name="ifscCode"
-														placeholder="IFSC Code" maxlength="11"oninput="this.value = this.value.toUpperCase()"></td>
-															
-													<td><label for="accoutCurrency">Currency<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><select id="accoutCurrency"
-														name="accoutCurrency" class="form-control p-input">
-															<c:forEach items="${currency}" var="cur">
-
-																<option value="${cur}">${cur}</option>
-															</c:forEach>
-													</select></td>
-													<td></td>
-
-
-												</tr>
-												<tr class="">
-												
-													<td><label for="accoutNumber">Account Number<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="accoutNumber"
-														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-														name="accoutNumber" placeholder="Account Number" maxlength="16"></td>
-														
-														<td><label for="Confirmed accoutNumber">Confirm Account Number<span
-															class="required adHocRequired">*</span></label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="confirmedAccoutNumber"
-														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-														name="confirmedAccoutNumber"  placeholder="Confirm Account Number"maxlength="16"></td>
-												
-														
-													
-													<td colspan='3'>
-														<button type="Button" id="addBankGridButt"
-															name="addBankGridButt" class="btn btn-primary">Add
-															Account Details</button>
-													</td>
-													 <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
-													
-												</tr>
-
-											</tbody>
-										</table>
-										<div class="card-body">
-											<div class="table-responsive"
-												style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-												<table class="table center-aligned-table" id="addBankGrid"
-													name="addBankGrid">
-													<thead>
-														<tr style="background: #1991eb; color: white;">
-															<th>Bank Name</th>
-															<th>RTGS/ IFSC Code</th>
-															<th>Currency</th>
-															<th>Account Number</th>
-															
-															<th></th>
-															<th>Action</th>
-														</tr>
-													</thead>
-													<tbody id="addBankGridTbody">
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-
-						<div class="card" style="margin-bottom: 10px;">
-							<div class="card-header" id="addressBookHead"
-								style="background: #1991eb; color: #ffffff;">
-								<h6 class="mb-0">Invoice Payment Terms</h6>
-							</div>
-							<div id="addressBookHeadData" aria-labelledby="addressBookHead"
-								style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-								<div class="card-body" style="margin-bottom: 10px;">
-									<form id="stepSixForm" class="forms-sample">
-										<table class="table center-aligned-table" id="fromTable"
-											name="fromTable">
-											<thead>
-											</thead>
-											<tbody>
-												<tr class="">
-													<td><label for="invoiceCurrency">Invoice
-															Currency<span class="required adHocRequired">*</span>
-													</label></td>
-													<td colspan='2'><select id="invoiceCurrency"
-														name="invoiceCurrency" class="form-control p-input">
-															<c:forEach items="${currency}" var="cur">
-
-																<option value="${cur}">${cur}</option>
-															</c:forEach>
-
-													</select></td>
-
-													<td><label for="paymentCurrency">Payment
-															Currency<span class="required adHocRequired">*</span>
-													</label></td>
-													<td colspan='2'><select id="paymentCurrency"
-														name="paymentCurrency" class="form-control p-input">
-															<c:forEach items="${currency}" var="cur">
-
-																<option value="${cur}">${cur}</option>
-															</c:forEach>
-													</select></td>
-
-													 <td><label for="creditTerms">Payment / Credit
-                                                                                Terms<span class="required adHocRequired">*</span>
-                                                                     </label></td>
-														<td><select id="creditTerms" name="creditTerms"
-														class="form-control p-input" colspan='2'
-														placeholder="Payment / Credit Terms"
-														onchange="removeValCssByID(this)">
-															<option value="">Select</option>
-															<c:forEach items="${payment}" var="pay">
-
-																<option value="${pay}">${pay}</option>
-															</c:forEach>
-
-													</select></td>
-													
-												</tr>
-												<tr class="">
-														<td><label for="paymentMethod">Payment Method<span
-															class="required adHocRequired">*</span></label></td>
-													
-													<td colspan='2'>
-													
-														<select id="paymentMethod" name="paymentMethod"
-														class="form-control p-input" colspan='2'
-														placeholder="Payment Method"
-														onchange="removeValCssByID(this)">
-															
-															<c:forEach items="${paymentMethod}" var="met">
-																<option value="${met}">${met}</option>
-															</c:forEach>
-													</select>
-													
-														</td>
-
-													<td><label for="dateBasis">Terms Date Basis</label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="dateBasis"
-														name="dateBasis" placeholder="Terms Date Basis" maxlength="150"></td>
-													<td><label for="deliveryTerms">Delivery Terms</label></td>
-													<td colspan='2'><input type="text"
-														class="form-control p-input" id="deliveryTerms"
-														name="deliveryTerms" placeholder="Delivery Terms" maxlength="150"></td>
-
-
-												</tr>
-
-											</tbody>
-										</table>
-
-									</form>
-								</div>
-							</div>
-						</div>
-
-
-					</div>
-
-
-
-						<div id="step-4" class="">
-						<div class="card" style="margin-bottom: 10px;">
-
-							<!-- Start -->
-
-							<div class="card" style="margin-bottom: 10px;">
-								<div class="card-header" id="addressBookHead"
-									style="background: #1991eb; color: #ffffff;">
-									<h6 class="mb-0">TDS Details</h6>
-								</div>
-								<div id="addressBookHeadData" aria-labelledby="addressBookHead"
-									style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-									<div class="card-body" style="margin-bottom: 10px;">
-										<form id="stepSevenForm" class="forms-sample">
-											<table class="table center-aligned-table" id="fromTable"
-												name="fromTable">
-												<thead>
-												</thead>
-												<tbody>
-													<tr class="">
-																<td><label class="addressLable" for="tdsApplication">TDS
-                                                                                      Applicable</label></td>
-                                                                           <td colspan='2'><input type="text"
-                                                                                id="tdsApplication" value="Yes" name="tdsApplication"
-                                                                                disabled class="form-control p-input "> </input></td>
-
-
-														<td><label class="addressLable" for="tdsSection">TDS
-                                                                                      Section<span
-															class="required adHocRequired">*</span></label></td>
-                                                                    	<td><select id="tdsSection" name="tdsSection"
-															class="form-control p-input" colspan='2'
-															placeholder="TDS Section">
-																<option value="">Select</option>
-																<c:forEach items="${tdsCode}" var="tds">
-
-																	<option value="${tds}">${tds}</option>
-																</c:forEach>
-
-
-
-														</select></td>
-
-														<td><label for="tdsRate">TDS Exemption Rate
-																(If Any)<span
-															class="required adHocRequired">*</span></label></td>
-														<td colspan='2'><input type="text" maxlength="100"
-															class="form-control p-input" id="tdsRate" name="tdsRate"
-															placeholder="TDS  Exemption Rate" onchange="removeValCssByID(this)"></td>
-													</tr>
-
-												</tbody>
-											</table>
-
-										</form>
-									</div>
-								</div>
-							</div>
-
-							<!-- End -->
-
-							<!-- Start -->
-
-							<div class="card" style="margin-bottom: 10px;">
-								<div class="card-header" id="itrHead"
-									style="background: #1991eb; color: #ffffff;">
-									<h6 class="mb-0">ITR Details</h6>
-								</div>
-								<div id="itrHeadData" aria-labelledby="itrHead"
-									style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-									<div class="card-body" style="margin-bottom: 10px;">
-										<form id="StepEightForm" class="forms-sample">
-											<table class="table center-aligned-table table-striped" id="addITRGrid" name="addITRGrid">
-												<tbody>
-													<tr class="">
-													<td><label>Select Financial Year<span class="required adHocRequired"></span></label> </td>
-														<td><select id="fyYear1" name="fyYear1" class="form-control p-input ">
-																<option value="">Select</option>
-
-																<c:forEach items="${financialYear}" var="fin">
-
-																	<option value="${fin}">${fin}</option>
-																</c:forEach>
-
-														</select></td>
-														<td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
-														<td><input type="text" id="acknowledgementNumber1"
-															name="acknowledgementNumber1"
-															class="form-control p-input "></td>
-														<td><input type="file" id="ITRFile1" name="ITRFile1" placeholder="Fill Acknowledgement Number"
-															onchange="handleFileSelect(event,'ITRFileText1'), onValidateFile('ITRFile1')"
-															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-															<textarea id="ITRFileText1" rows="5"
-																style="display: none;"></textarea> <label><span
-																style="font-weight: 500; color: #fd7e14;">File
-																	size Max ${fileSize} MB</span></label></td>
-													</tr>
-													<tr class="">
-														<td><label>Select Financial Year<span class="required adHocRequired"></span></label> </td>
-														<td><select id="fyYear2" name="fyYear2" class="form-control p-input ">
-																<option value="">Select</option>
-
-																<c:forEach items="${financialYear}" var="fin">
-
-																	<option value="${fin}">${fin}</option>
-																</c:forEach>
-
-														</select></td>
-														<td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
-														<td><input type="text" id="acknowledgementNumber2"
-															name="acknowledgementNumber2"
-															class="form-control p-input "></td>
-														<td><input type="file" id="ITRFile2" name="ITRFile2" placeholder="Fill Acknowledgement Number"
-															onchange="handleFileSelect(event,'ITRFileText2'), onValidateFile('ITRFile2')"
-															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-															<textarea id="ITRFileText2" rows="5"
-																style="display: none;"></textarea> <label><span
-																style="font-weight: 500; color: #fd7e14;">File
-																	size Max ${fileSize} MB</span></label></td>
-													</tr>
-													<tr class="">
-													<td><label>Select Financial Year<span class="required adHocRequired"></span></label> </td>
-														<td><select id="fyYear3" name="fyYear3" class="form-control p-input ">
-																<option value="">Select</option>
-
-																<c:forEach items="${financialYear}" var="fin">
-
-																	<option value="${fin}">${fin}</option>
-																</c:forEach>
-
-														</select></td>
-														<td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
-														<td><input type="text" id="acknowledgementNumber3"
-															name="acknowledgementNumber3"
-															class="form-control p-input "></td>
-														<td><input type="file" id="ITRFile3" name="ITRFile1" placeholder="Fill Acknowledgement Number"
-															onchange="handleFileSelect(event,'ITRFileText3'), onValidateFile('ITRFile1')"
-															class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-															<textarea id="ITRFileText3" rows="5"
-																style="display: none;"></textarea> <label><span
-																style="font-weight: 500; color: #fd7e14;">File
-																	size Max ${fileSize} MB</span></label></td>
-													</tr>
-												</tbody>
-											</table>
-										</form>
-									</div>
-								</div>
-							</div>
-
-							<!-- End -->
-
-						</div>
-
-					</div>
-					<div id="step-5" class="">
-						<div class="card" style="margin-bottom: 10px;">
-							<div class="card-header" id="addressBookHead"
-								style="background: #1991eb; color: #ffffff;">
-								<h6 class="mb-0">Document Upload</h6>
-							</div>
-							<div id="addressBookHeadData" aria-labelledby="addressBookHead"
-								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
-								<div class="card-body">
-									<form class="forms-sample">
-
-										<div class="card-body">
-											<div class="table-responsive"
-												style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-												<table class="table center-aligned-table"
-													id="addDocTypeGrid" name="addDocTypeGrid">
-
-													<tbody>
-														<tr>
-															<td><label>GST Certificate<span
-																	class="required"></span></label></td>
-															<td><input type="file" id="GSTFile" name="GSTFile"
-																onchange=" removeValCssByID(this),  handleFileSelect(event,'GSTFileText'), onValidateFile('GSTFile')"
-																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-																<textarea id="GSTFileText" rows="5"
-																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label></td>
-
-															<td><label>Proprietorship Declaration<span
-																	class="required">*</span></label></td>
-															<td><input type="file" id="PDFile" name="PDFile"
-																onchange=" removeValCssByID(this),  handleFileSelect(event,'PDFileText'), onValidateFile('PDFile')"
-																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-																<textarea id="PDFileText" rows="5"
-																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label>
-																		<a href="document/ProprietorshipDeclaration.docx" download>Download Template
-																		</a>
-																		</td>
-
-														</tr>
-
-														<tr>
-															<td><label>PAN Card<span class="required">*</span></label></td>
-															<td><input type="file" id="PANFile" name="PANFile"
-																onchange="handleFileSelect(event,'PANFileText'), onValidateFile('PANFile')"
-																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-																<textarea id="PANFileText" rows="5"
-																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label></td>
-
-															<td><label>Cancelled Cheque/ Passbook/ Bank
-																	Statement<span class="required">*</span>
-															</label></td>
-															<td><input type="file" id="CCFile" name="CCFile"
-																onchange="handleFileSelect(event,'CCFileText'), onValidateFile('CCFile')"
-																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-																<textarea id="CCFileText" rows="5"
-																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label></td>
-														</tr>
-														<tr>
-															<td><label>Aadhar Card</label></td>
-															<td><input type="file" id="ACFile" name="ACFile"
-																onchange="handleFileSelect(event,'ACFileText'), onValidateFile('ACFile')"
-																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-																<textarea id="ACFileText" rows="5"
-																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label></td>
-															<td><label>Aadhar and PAN Card linking
-																	declaration</label></td>
-															<td><input type="file" id="APLFile" name="APLFile"
-																onchange="handleFileSelect(event,'APLFileText'), onValidateFile('APLFile')"
-																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-																<textarea id="APLFileText" rows="5"
-																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label><a href="document/139 - Declaration from payees.docx" download>Download Template
-																		</a></td>
-														</tr>
-														<tr>
-															<td><label>ITR Filling Declaration<span
-																	class="required">*</span></label></td>
-															<td><input type="file" id="ITRFile" name="ITRFile"
-																onchange="handleFileSelect(event,'ITRFileText'), onValidateFile('ITRFile')"
-																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-																<textarea id="ITRFileText" rows="5"
-																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label><a href="document/206AB - Declaration form ITR Filing.docx" download>Download Template
-																		</a></td>
-															<td><label>Filled Updated VRF Form</label></td>
-															<td><input type="file" id="FUVFFile" name="FUVFFile"
-																onchange="handleFileSelect(event,'FUVFFileText'), onValidateFile('FUVFFile')"
-																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-																<textarea id="FUVFFileText" rows="5"
-																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label></td>
-														</tr>
-														<tr>
-															<td><label>MSME Certificate<span
-																	class="required">*</span></label></td>
-															<td><input type="file" id="MSMECFile"
-																name="MSMECFile"
-																onchange="handleFileSelect(event,'MSMECFileText'), onValidateFile('MSMECFile')"
-																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-																<textarea id="MSMECFileText" rows="5"
-																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label><a href="document/GST and MSME Annexure.xlsx" download>Download Template
-																		</a></td>
-															<td><label>Approval Mail<span
-																	class="required">*</span></label></td>
-															<td><input type="file" id="AMFile" name="AMFile"
-																onchange="handleFileSelect(event,'AMFileText'), onValidateFile('AMFile')"
-																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-																<textarea id="AMFileText" rows="5"
-																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label></td>
-														</tr>
-
-														<tr>
-															
-															<td><label>Name mismatch affidavit or
-																	declaration would be required if name mentioned in all
-
-																	document is not same including spelling error<span
-																	class="required">*</span>
-															</label></td>
-															<td><input type="file" id="NMISFile" name="NMISFile"
-																onchange="handleFileSelect(event,'NMISFileText'), onValidateFile('NMISFile')"
-																class="form-control p-input" accept=".jpg, .jpeg, .pdf">
-																<textarea id="NMISFileText" rows="5"
-																	style="display: none;"></textarea> <label><span
-																	style="font-weight: 500; color: #fd7e14;">File
-																		size Max ${fileSize} MB</span></label><!-- <a href="C:/1.BPAAS/Document/doc.pdf" download="doc.pdf">Download Template
-																		</a> --></td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-							
-								<div class="card-footer" align="center">
-                                        <button type="submit" id="updateBtn" onclick="sendToServer()" class="btn btn-primary">Update</button>
-                                        <button type="button" class="btn btn-primary" id="closePopBtn" data-dismiss="modal">Close</button>
+                            <!--  <div class="card card-primary"> -->
+                            <div class="card card-primary" style="margin-bottom: 10px;">
+                                <div class="card-header" id="addressBookHead" style="background: #11aef6; color: #ffffff;">
+                                    <h6 class="mb-0">Basic Details</h6>
+                                </div>
+                                <div id="basicDetailsHeadData" aria-labelledby="basicDetailsHead" style="border-style: solid; border-width: 1px; border-color: #11aef6;">
+                                    <form id="stepOneForm" class="forms-sample" style="padding: 20px;">
+                                        <table class="table center-aligned-table" id="fromTable">
+                                            <thead>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><label>Process Id</label></td>
+                                                    <td colspan='1'><input type="text" class="form-control p-input" id="pid" name="pid" readonly></td>
+
+                                                    <td><label>Request Status</label></td>
+                                                    <td colspan='1'><input type="text" class="form-control p-input" id="venStatus" name="venStatus" readonly></td>
+                                                    <td><label>Business Partner Type</label></td>
+                                                    <td colspan='1'><input type="text" class="form-control p-input" id="vendorType" name="vendorType" readonly></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td><label for="name">Introducer Name<span class="required adHocRequired">*</span></label></td>
+                                                    <td colspan='1'><input type="text" readonly class="form-control p-input" id="introducedByName" name="introducedByName" placeholder="Introducer Name" maxlength="50"></td>
+
+                                                    <td><label for="emailId">Introducer Email ID<span class="required adHocRequired">*</span></label></td>
+                                                    <td colspan='1'><input type="text" readonly class="form-control p-input" id="introducedByEmailID" name="introducedByEmailID" maxlength="50" placeholder="abc@ecomexpress.in" onchange="removeValCssByID(this)"><span id="message"></span></td>
+
+                                                    <td><label for="Supplier Type">Business Partner
+                                                            Code</label></td>
+                                                    <td colspan='1'>
+                                                        <input type="hidden" id="id" name="id">
+                                                        <input type="text" class="form-control p-input" id="bpCode" name="bpCode" placeholder="Business Partner Code" onchange="removeValCssByID(this);" oninput="this.value = this.value.toUpperCase()">
+                                                    </td>
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+                                                    <%-- <td><label>Business Partner Type<span class="required adHocRequired">*</span></label></td>
+
+                                                <td style="width: auto"><select class="js-example-basic-multiple select2" name="states[]" id="states" onchange="select()" multiple="multiple">
+                                                        <c:forEach items="${business}" var="bus">
+
+                                                            <option value="${bus}">${bus}</option>
+                                                        </c:forEach>
+                                                    </select></td>
+
+
+                                                <td><label for="partnerType">Business Partner</label></td>
+                                                <td><select id="partnerType" name="partnerType" class="form-control p-input" onchange="showHideRequiredClass();" disabled="disabled">
+                                                        <c:forEach items="${partner}" var="par">
+
+                                                            <option value="${par}">${par}</option>
+                                                        </c:forEach>
+
+                                                    </select></td> --%>
+                                                    <input type="hidden" id="roleId">
+
+
+                                                    <td><label for="suppName">Business Partner Name<span class="required adHocRequired">*</span></label></td>
+                                                    <td colspan='1'><input type="text" class="form-control p-input" id="suppName" name="suppName" placeholder="Business Partner Name" onchange="removeValCssByID(this)" oninput="this.value = this.value.toUpperCase()" maxlength="50"></td>
+
+                                                    <td><label for="businessClassification">Business
+                                                            Classification</label></td>
+                                                    <td><select id="businessClassification" name="businessClassification" class="form-control p-input" onchange="MESMENumber()">
+                                                            <option value="">Select</option>
+                                                            <c:forEach items="${classification}" var="classi">
+
+                                                                <option value="${classi}">${classi}</option>
+                                                            </c:forEach>
+
+                                                        </select></td>
+
+                                                    <td><label for="mesmeNumber">MESME Certificate Number</label></td>
+                                                    <td colspan='1'><input type="text" class="form-control p-input" id="mesmeNumber" maxlength="12" name="mesmeNumber" placeholder="MESME Certificate Number" disabled="disabled"></td>
+                                                </tr>
+
+
+
+
+
+                                                <tr class="">
+
+
+                                                    <td><label for="aadharNumber">Aadhar Number</label></td>
+                                                    <td colspan='1'><input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" class="form-control p-input" id="aadharNumber" maxlength="12" name="aadharNumber" placeholder="Aadhar Number" onblur="AadharValidate();"></td>
+
+                                                    <td><label for="adharLinkStatus">Aadhar Link
+                                                            Status</label></td>
+
+                                                    <td><select colspan='1' class="form-control p-input" id="adharLinkStatus" name="adharLinkStatus" placeholder="Aadhar Link Status" onchange="removeValCssByID(this)">
+                                                            <option value="">Select</option>
+                                                            <c:forEach items="${adharLink}" var="link">
+
+                                                                <option value="${link}">${link}</option>
+                                                            </c:forEach>
+
+                                                        </select></td>
+
+                                                    <td><label>Section Type<span class="required adHocRequired"></span></label></td>
+
+                                                    <td><select colspan='1' class="form-control p-input" id="sectionType" name="sectionType" placeholder="Aadhar Link Status" onchange="removeValCssByID(this)">
+                                                            <option value="">Select</option>
+                                                            <c:forEach items="${sectionType}" var="type">
+
+                                                                <option value="${type}">${type}</option>
+                                                            </c:forEach>
+
+                                                        </select></td>
+
+
+
+                                                </tr>
+
+                                                <tr class="">
+
+                                                    <td><label for="panNumber">Pan Number<span class="required adHocRequired"></span></label></td>
+                                                    <td colspan='1'><input type="text" class="form-control p-input" id="panNumber" name="panNumber" placeholder="Pan Number" oninput="this.value = this.value.toUpperCase()" maxlength="10" onchange="removeValCssByID(this)"></td>
+                                                    <td><label for="tanNumber">TAN Number</label></td>
+                                                    <td colspan='1'><input type="text" class="form-control p-input" id="tanNumber" name="tanNumber" placeholder="TAN Number" oninput="this.value = this.value.toUpperCase()" maxlength="10" onkeypress="return isNumberKey(evt);"></td>
+
+                                                    <td><label>Region<span class="required adHocRequired"></span></label></td>
+
+                                                    <td style="width: auto"><select colspan='1' class="js-example-basic-multiple1 select2" name="region[]" id="region" multiple="multiple" onchange="region1();">
+                                                            <c:forEach items="${region}" var="reg">
+
+                                                                <option value="${reg}">${reg}</option>
+                                                            </c:forEach>
+                                                        </select></td>
+
+                                                </tr>
+
+
+
+                                            </tbody>
+                                        </table>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- </div> -->
+
+                            <div id="step-2" class="">
+                                <div class="card" style="margin-bottom: 10px;">
+                                    <div class="card-header" id="addressBookHead" style="background: #11aef6; color: #ffffff;">
+                                        <h6 class="mb-0">Address Book</h6>
                                     </div>
-							
-							<!-- model End -->	
-				
-            		</div>
-				</div>
-			</div>
-		</div>
-	</div>
-            
-      </div></div></div></div></div>
+
+                                    <div id="addressBookHeadData" aria-labelledby="addressBookHead" style="border-style: solid; border-width: 1px; border-color: #11aef6;">
+                                        <div class="card-body" style="padding-top: 15px;">
+                                            <form id="stepTwoForm" class="forms-sample">
+                                                <table class="table center-aligned-table addTable" id="fromTable" name="fromTable">
+
+                                                    <tbody>
+                                                        <tr class="">
+                                                            <td><label class="addressLable" for="country">Country<span class="required adHocRequired">*</span></label></td>
+                                                            <td colspan='2'><select id="addCountry" name="addCountry" class="form-control p-input">
+                                                                    <c:forEach items="${country}" var="count">
+
+                                                                        <option value="${count}">${count}</option>
+                                                                    </c:forEach>
+
+                                                                </select></td>
+
+                                                            <td><label class="addressLable">State<span class="required adHocRequired">*</span></label></td>
+                                                            <td colspan='2'>
+                                                                <select name="state" id="state" class="form-control p-input">
+                                                                    <c:forEach items="${stateName}" var="stateNames">
+
+                                                                        <option value="${stateNames}">${stateNames}</option>
+                                                                    </c:forEach>
+                                                                </select>
+                                                            </td>
+                                                            <td><label class="addressLable">District/City<span class="required adHocRequired">*</span></label></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="city" name="city" placeholder="District" maxlength="50"></td>
+                                                        </tr>
+                                                        <tr class="">
+
+
+                                                            <td><label>Postal/ZIP Code<span class="required adHocRequired">*</span></label></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="pinCode" name="pinCode" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Postal Code/ ZIP Code" maxlength="6"></td>
+
+                                                            <td><label>Business Partner Type<span class="required adHocRequired">*</span></label></td>
+
+                                                            <td colspan="2"><select class="js-example-basic-multiple select2" name="states[]" id="states" onchange="select()" multiple="multiple">
+                                                                    <c:forEach items="${business}" var="bus">
+
+                                                                        <option value="${bus}">${bus}</option>
+                                                                    </c:forEach>
+                                                                </select></td>
+
+
+                                                            <td><label for="partnerType">Business Partner</label></td>
+                                                            <td colspan="2"><select id="partnerType" name="partnerType" class="form-control p-input" disabled="disabled">
+                                                                    <c:forEach items="${partner}" var="par">
+
+                                                                        <option value="${par}">${par}</option>
+                                                                    </c:forEach>
+
+                                                                </select></td>
+
+                                                            <%-- <td><label for="Business Partner Type">Business Partner Type<span class="required adHocRequired">*</span>
+                                                        </label></td>
+
+                                                    <td colspan='2'><select  class="form-control p-input" id="natureOfTransactions" name="natureOfTransactions" placeholder="Nature of Transactions" onchange="removeValCssByID(this)">
+                                                            <option value="">Select</option>
+                                                            <c:forEach items="${business}" var="nat">
+
+                                                                <option value="${nat}">${nat}</option>
+                                                            </c:forEach>
+
+                                                        </select></td>
+                                                        
+                                                     <td><label for="partnerType">Business Partner</label></td>
+                                               		 <td colspan="2"><select id="partnerType" name="partnerType" class="form-control p-input" onchange="showHideRequiredClass();" disabled="disabled">
+                                                        <c:forEach items="${partner}" var="par">
+
+                                                            <option value="${par}">${par}</option>
+                                                        </c:forEach>
+
+                                                    </select></td> --%>
+                                                        </tr>
+
+                                                        <tr class="">
+
+                                                            <td><label for="compGstn">GSTN Number<span class="required adHocRequired"></span></label></td>
+                                                            <td colspan='2'><input type="test" class="form-control p-input gst" id="compGstn" name="compGstn" name="compGstn" placeholder="GSTN Number" oninput="this.value = this.value.toUpperCase()" maxlength="15"></td>
+
+                                                            <td><label for="addressDetails">Address
+                                                                    Details<span class="required adHocRequired">*</span>
+                                                                </label></td>
+                                                            <td colspan='2'><textarea class="form-control" id="addDetails" name="addDetails" maxlength="250" placeholder="Complete Address" rows="2"></textarea></td>
+                                                            <td style="width: 150px;"></td>
+                                                            <td colspan=''><button type="Button" class="btn btn-primary" id="addBookGridButt" name="addBookGridButt">Add Address</button></td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </form>
+                                            <form class="forms-sample">
+                                                <div class="card-body">
+                                                    <div class="table-responsive" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+                                                        <table class="table center-aligned-table" id="addBookGrid" name="addBookGrid">
+                                                            <thead>
+                                                                <tr style="background: #1991eb; color: white;">
+                                                                    <th>Country</th>
+                                                                    <th>State</th>
+                                                                    <th>District/City</th>
+                                                                    <th>Postal/ZIP Code</th>
+                                                                    <th>Business Partner Type</th>
+                                                                    <th>Business Partner</th>
+                                                                    <th>GSTN Number</th>
+                                                                    <th>Address Details</th>
+                                                                    <th>Remove</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="addBookGridTbody">
+                                                            </tbody>
+
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card" style="margin-bottom: 10px;" style="margin-bottom: 10px;">
+                                    <div class="card-header" id="contactDir" style="background: #1991eb; color: #ffffff;">
+                                        <h6 class="mb-0">Contact Details</h6>
+                                    </div>
+                                    <div id="contactDirData" aria-labelledby="contactDir" class="collapse show" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+                                        <div class="card-body">
+                                            <form id="Form-3" class="forms-sample">
+                                                <table class="table center-aligned-table" id="fromTable" name="fromTable">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="">
+                                                            <td><label for="fnameCon">First Name<span class="required adHocRequired">*</span></label></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="conFname" name="conFname" placeholder="First Name"></td>
+
+                                                            <td><label for="lnameCon">Last Name<span class="required adHocRequired">*</span></label></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="conLname" name="conLname" placeholder="Last Name"></td>
+
+                                                            <td><label for="phno">Phone Number<span class="required adHocRequired">*</span></label></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="conPhone" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="conPhone" placeholder="Phone Number" maxlength="10"></td>
+                                                        <tr>
+                                                        <tr class="">
+
+
+                                                            <td><label for="emailId">Email Id<span class="required adHocRequired">*</span></label></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="conEmail" name="conEmail" placeholder="Email"></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary" id="contactDetailsButt" name="contactDetailsButt">Add
+                                                                    Contact Details</button>
+                                                            </td>
+                                                        <tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="form-group"></div>
+                                            </form>
+                                            <form class="forms-sample">
+                                                <div class="card-body">
+                                                    <div class="table-responsive" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+                                                        <table class="table center-aligned-table" id="contactDetailsGrid" name="contactDetailsGrid">
+                                                            <thead>
+                                                                <tr style="background: #1991eb; color: white;">
+                                                                    <th>First Name</th>
+                                                                    <th>Last Name</th>
+                                                                    <th>Phone Number</th>
+                                                                    <th>Email Id</th>
+                                                                    <th>Remove</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="contactDetailsGridTbody">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div id="step-3" class="">
+                                <div class="card" style="margin-bottom: 10px;">
+                                    <div class="card-header" id="addressBookHead" style="background: #1991eb; color: #ffffff;">
+                                        <h6 class="mb-0">Bank Details</h6>
+                                    </div>
+                                    <div id="addressBookHeadData" aria-labelledby="addressBookHead" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+                                        <div class="card-body" style="margin-bottom: 10px;">
+                                            <form id="Form-4" class="forms-sample">
+                                                <table class="table center-aligned-table" id="fromTable" name="fromTable">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="">
+                                                            <td><label for="bankName">Bank Name<span class="required adHocRequired">*</span></label></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="bankName" name="bankName" placeholder="Bank Name" maxlength="200"></td>
+
+                                                            <td><label for="bankName">Beneficiary Name<span class="required adHocRequired">*</span></label></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="beneficiaryName" name="beneficiaryName" placeholder="Beneficiary Name" maxlength="200"></td>
+
+                                                            <td><label for="ifscCode">IFSC Code<span class="required adHocRequired">*</span></label></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="ifscCode" name="ifscCode" placeholder="IFSC Code" oninput="this.value = this.value.toUpperCase()" maxlength="11"></td>
+
+                                                            <td><label for="accoutNumber">Account Number<span class="required adHocRequired">*</span></label></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="accoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="accoutNumber" placeholder="Account Number"></td>
+
+                                                        </tr>
+
+                                                        <tr class="">
+
+                                                            <td><label for="Confirmed accoutNumber">Confirm Account Number<span class="required adHocRequired">*</span></label></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="confirmedAccoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="confirmedAccoutNumber" placeholder="Confirm  Account Number" maxlength="16"></td>
+
+                                                            <td><label for="accoutCurrency">Currency<span class="required adHocRequired">*</span></label></td>
+                                                            <td colspan='2'><select id="accoutCurrency" name="accoutCurrency" class="form-control p-input">
+                                                                    <c:forEach items="${currency}" var="cur">
+
+                                                                        <option value="${cur}">${cur}</option>
+                                                                    </c:forEach>
+                                                                </select></td>
+                                                            <td></td>
+                                                            <td colspan='3'>
+                                                                <button type="Button" id="addBankGridButt" name="addBankGridButt" class="btn btn-primary">Add
+                                                                    Account Details</button>
+                                                            </td>
+
+                                                            <div class="registrationFormAlert" id="divCheckPasswordMatch"> </div>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                                <div class="card-body">
+                                                    <div class="table-responsive" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+                                                        <table class="table center-aligned-table" id="addBankGrid" name="addBankGrid">
+                                                            <thead>
+                                                                <tr style="background: #1991eb; color: white;">
+                                                                    <th>Bank Name</th>
+                                                                    <th>Beneficiary Name</th>
+                                                                    <th>IFSC Code</th>
+                                                                    <th>Currency</th>
+                                                                    <th>Account Number</th>
+                                                                    <th></th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="addBankGridTbody">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card" style="margin-bottom: 10px;">
+                                    <div class="card-header" id="addressBookHead" style="background: #1991eb; color: #ffffff;">
+                                        <h6 class="mb-0">Invoice Payment Terms</h6>
+                                    </div>
+                                    <div id="addressBookHeadData" aria-labelledby="addressBookHead" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+                                        <div class="card-body" style="margin-bottom: 10px;">
+                                            <form id="stepSixForm" class="forms-sample">
+                                                <table class="table center-aligned-table" id="fromTable" name="fromTable">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="">
+                                                            <td><label for="invoiceCurrency">Invoice
+                                                                    Currency<span class="required adHocRequired">*</span>
+                                                                </label></td>
+                                                            <td colspan='2'><select id="invoiceCurrency" name="invoiceCurrency" class="form-control p-input">
+                                                                    <c:forEach items="${currency}" var="cur">
+
+                                                                        <option value="${cur}">${cur}</option>
+                                                                    </c:forEach>
+
+                                                                </select></td>
+
+                                                            <td><label for="paymentCurrency">Payment
+                                                                    Currency<span class="required adHocRequired">*</span>
+                                                                </label></td>
+                                                            <td colspan='2'><select id="paymentCurrency" name="paymentCurrency" class="form-control p-input">
+                                                                    <c:forEach items="${currency}" var="cur">
+
+                                                                        <option value="${cur}">${cur}</option>
+                                                                    </c:forEach>
+                                                                </select></td>
+
+                                                            <td><label for="creditTerms">Payment / Credit
+                                                                    Terms<span class="required adHocRequired">*</span>
+                                                                </label></td>
+                                                            <td colspan='2'><select id="creditTerms" name="creditTerms" class="form-control p-input"  onchange="removeValCssByID(this)">
+                                                                    <option value="">Select</option>
+                                                                    <c:forEach items="${payment}" var="pay">
+
+                                                                        <option value="${pay}">${pay}</option>
+                                                                    </c:forEach>
+
+                                                                </select></td>
+                                                        </tr>
+                                                        <tr class="">
+                                                            <td><label for="paymentMethod">Payment Method<span class="required adHocRequired">*</span></label></td>
+
+                                                            <td colspan='2'>
+
+                                                                <select id="paymentMethod" name="paymentMethod" class="form-control p-input" onchange="removeValCssByID(this)">
+
+                                                                    <c:forEach items="${paymentMethod}" var="met">
+                                                                        <option value="${met}">${met}</option>
+                                                                    </c:forEach>
+                                                                </select>
+
+                                                            </td>
+
+                                                            <td><label for="dateBasis">Terms Date Basis</label></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="dateBasis" name="dateBasis" placeholder="Terms Date Basis"></td>
+                                                            <td><label for="deliveryTerms">Delivery Terms</label></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="deliveryTerms" name="deliveryTerms" placeholder="Delivery Terms"></td>
+
+
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
 
 
 
-    <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-        $.widget.bridge('uitooltip', $.ui.tooltip);
+                            <div id="step-4" class="">
+                                <div class="card" style="margin-bottom: 10px;">
 
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-     <script src="js/commonFunctions.js"></script>
-    <!-- ChartJS -->
+                                    <!-- Start -->
 
-    <!-- Sparkline -->
-    <script src="plugins/sparklines/sparkline.js"></script>
-    <!-- JQVMap -->
+                                    <div class="card" style="margin-bottom: 10px;">
+                                        <div class="card-header" id="addressBookHead" style="background: #1991eb; color: #ffffff;">
+                                            <h6 class="mb-0">TDS Details</h6>
+                                        </div>
+                                        <div id="addressBookHeadData" aria-labelledby="addressBookHead" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+                                            <div class="card-body" style="margin-bottom: 10px;">
+                                                <form id="stepSevenForm" class="forms-sample">
+                                                    <table class="table center-aligned-table" id="fromTable" name="fromTable">
+                                                        <thead>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="">
+                                                                <!-- <td><label class="addressLable" for="tdsApplication">TDS
+                                                                Applicable</label></td>
+                                                        <td colspan='2'><input type="text" id="tdsApplication" value="Yes" name="tdsApplication" readonly class="form-control p-input "> </td> -->
 
-    <!-- daterangepicker -->
-    <script src="plugins/moment/moment.min.js"></script>
-    <script src="plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <!-- Summernote -->
+                                                                <td><label class="addressLable" for="tdsApplication">TDS
+                                                                        Applicable<span class="required">*</span></label></td>
+                                                                <td colspan='2'><select id="tdsApplication" name="tdsApplication" onchange="changetextbox();" class="form-control p-input ">
+                                                                        <option value="Yes">Yes</option>
+                                                                        <option value="No">No</option>
+                                                                    </select></td>
 
-    <!-- overlayScrollbars -->
-    <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+                                                                <td><label class="addressLable" for="tdsSection">TDS
+                                                                        Section<span class="required adHocRequired">*</span></label></td>
+                                                                <td colspan='2'><select id="tdsSection" name="tdsSection" class="form-control p-input">
+                                                                        <option value="">Select</option>
+                                                                        <c:forEach items="${tdsCode}" var="tds">
 
-    <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
-    <script src="js/moment.min.js"></script>
-
-    <script src="plugins/select2/js/select2.full.min.js"></script>
-    
-
-<script
-	src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    
-    
-    
-    
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var bootstrapTooltip = $.fn.tooltip.noConflict();
-            $.fn.bstooltip = bootstrapTooltip;
-            $('.quickHelp').bstooltip();
-        })
-
-    </script>
+                                                                            <option value="${tds}">${tds}</option>
+                                                                        </c:forEach>
 
 
-    <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
-    <script src="plugins/jquery-validation/additional-methods.min.js"></script>
 
-    <script src="plugins/datatables/jquery.dataTables.js"></script>
-    <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
-    <script src="plugins/toastr/toastr.min.js"></script>
+                                                                    </select></td>
 
-    <script>
+                                                                <td><label for="tdsRate">TDS Exemption Rate
+                                                                        %<span class="required adHocRequired">*</span></label></td>
+                                                                <td colspan='2'><input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode <= 46" class="form-control p-input" id="tdsRate" name="tdsRate" placeholder="TDS  Exemption Rate" maxlength="4"></td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- End -->
+
+                                    <!-- Start -->
+
+                                    <div class="card" style="margin-bottom: 10px;">
+                                        <div class="card-header" id="itrHead" style="background: #1991eb; color: #ffffff;">
+                                            <h6 class="mb-0">ITR Details</h6>
+                                        </div>
+                                        <div id="itrHeadData" aria-labelledby="itrHead" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+                                            <div class="card-body" style="margin-bottom: 10px;">
+                                                <form id="StepEightForm" class="forms-sample">
+                                                    <table class="table center-aligned-table table-striped" id="addITRGrid" name="addITRGrid">
+                                                        <tbody>
+                                                            <tr class="">
+                                                                <td><label>Select Financial Year<span class="required adHocRequired"></span></label> </td>
+                                                                <td><select id="fyYear1" name="fyYear1" class="form-control p-input ">
+                                                                        <option value="">Select</option>
+
+                                                                        <c:forEach items="${financialYear}" var="fin">
+
+                                                                            <option value="${fin}">${fin}</option>
+                                                                        </c:forEach>
+
+                                                                    </select></td>
+                                                                <td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
+                                                                <td><input type="text" id="acknowledgementNumber1" name="acknowledgementNumber1" class="form-control p-input "></td>
+                                                                <td><input type="file" id="ITRFile1" name="ITRFile1" placeholder="Fill Acknowledgement Number" onchange="handleFileSelect(event,'ITRFileText1'), onValidateFile('ITRFile1')" class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+                                                                    <textarea id="ITRFileText1" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
+                                                                            size Max ${fileSize} MB</span></label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="">
+                                                                <td><label>Select Financial Year<span class="required adHocRequired"></span></label> </td>
+                                                                <td><select id="fyYear2" name="fyYear2" class="form-control p-input ">
+                                                                        <option value="">Select</option>
+
+                                                                        <c:forEach items="${financialYear}" var="fin">
+
+                                                                            <option value="${fin}">${fin}</option>
+                                                                        </c:forEach>
+
+                                                                    </select></td>
+                                                                <td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
+                                                                <td><input type="text" id="acknowledgementNumber2" name="acknowledgementNumber2" class="form-control p-input "></td>
+                                                                <td><input type="file" id="ITRFile2" name="ITRFile2" placeholder="Fill Acknowledgement Number" onchange="handleFileSelect(event,'ITRFileText2'), onValidateFile('ITRFile2')" class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+                                                                    <textarea id="ITRFileText2" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
+                                                                            size Max ${fileSize} MB</span></label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="">
+                                                                <td><label>Select Financial Year<span class="required adHocRequired"></span></label> </td>
+                                                                <td><select id="fyYear3" name="fyYear3" class="form-control p-input ">
+                                                                        <option value="">Select</option>
+
+                                                                        <c:forEach items="${financialYear}" var="fin">
+
+                                                                            <option value="${fin}">${fin}</option>
+                                                                        </c:forEach>
+
+                                                                    </select></td>
+                                                                <td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
+                                                                <td><input type="text" id="acknowledgementNumber3" name="acknowledgementNumber3" class="form-control p-input "></td>
+                                                                <td><input type="file" id="ITRFile3" name="ITRFile1" placeholder="Fill Acknowledgement Number" onchange="handleFileSelect(event,'ITRFileText3'), onValidateFile('ITRFile1')" class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+                                                                    <textarea id="ITRFileText3" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
+                                                                            size Max ${fileSize} MB</span></label>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- End -->
+
+                                </div>
+
+                            </div>
+                            <div id="step-5" class="">
+                                <div class="card" style="margin-bottom: 10px;">
+                                    <div class="card-header" id="addressBookHead" style="background: #1991eb; color: #ffffff;">
+                                        <h6 class="mb-0">Document Upload</h6>
+                                    </div>
+                                    <div id="addressBookHeadData" aria-labelledby="addressBookHead" style="border-style: solid; border-width: 1px; border-color: #11aef6;">
+                                        <div class="card-body">
+                                            <form class="forms-sample">
+
+                                                <div class="card-body">
+                                                    <div class="table-responsive" style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+                                                        <table class="table center-aligned-table" id="addDocTypeGrid" name="addDocTypeGrid" style="border-spacing: 0px; table-layout: fixed; margin-left: auto; margin-right: auto;">
+
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td><label>GST Certificate<span class="required"></span></label></td>
+                                                                    <td><input type="file" id="GSTFile" name="GSTFile" onchange=" removeValCssByID(this),  handleFileSelect(event,'GSTFileText'), onValidateFile('GSTFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="GSTFileText" rows="5" style="display: none;"></textarea>
+                                                                        <label><span style="font-weight: 500; color: #fd7e14;">File
+                                                                                size Max ${fileSize} MB</span></label>
+                                                                    </td>
+
+                                                                    <td><label>Proprietorship Declaration<span class="required"></span></label></td>
+                                                                    <td><input type="file" id="PDFile" name="PDFile" onchange=" removeValCssByID(this),  handleFileSelect(event,'PDFileText'), onValidateFile('PDFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="PDFileText" rows="5" style="display: none;"></textarea>
+                                                                        <label><span style="font-weight: 500; color: #fd7e14;">File
+                                                                                size Max ${fileSize} MB</span></label>
+                                                                    </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td><label>PAN Card<span class="required"></span></label></td>
+                                                                    <td><input type="file" id="PANFile" name="PANFile" onchange="handleFileSelect(event,'PANFileText'), onValidateFile('PANFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="PANFileText" rows="5" style="display: none;"></textarea>
+                                                                        <label><span style="font-weight: 500; color: #fd7e14;">File
+                                                                                size Max ${fileSize} MB</span></label>
+                                                                    </td>
+
+                                                                    <td><label>Cancelled Cheque/ Passbook/
+                                                                            Bank Statement<span class="required">*</span>
+                                                                        </label></td>
+                                                                    <td><input type="file" id="CCFile" name="CCFile" onchange="handleFileSelect(event,'CCFileText'), onValidateFile('CCFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="CCFileText" rows="5" style="display: none;"></textarea>
+                                                                        <label><span style="font-weight: 500; color: #fd7e14;">File
+                                                                                size Max ${fileSize} MB</span></label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><label>Aadhar Card</label></td>
+                                                                    <td><input type="file" id="ACFile" name="ACFile" onchange="handleFileSelect(event,'ACFileText'), onValidateFile('ACFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="ACFileText" rows="5" style="display: none;"></textarea>
+                                                                        <label><span style="font-weight: 500; color: #fd7e14;">File
+                                                                                size Max ${fileSize} MB</span></label>
+                                                                    </td>
+                                                                    <td><label>Aadhar and PAN Card linking
+                                                                            declaration</label></td>
+                                                                    <td><input type="file" id="APLFile" name="APLFile" onchange="handleFileSelect(event,'APLFileText'), onValidateFile('APLFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="APLFileText" rows="5" style="display: none;"></textarea>
+                                                                        <label><span style="font-weight: 500; color: #fd7e14;">File
+                                                                                size Max ${fileSize} MB</span></label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><label>ITR Filling Declaration<span class="required">*</span></label></td>
+                                                                    <td><input type="file" id="ITRFile" name="ITRFile" onchange="handleFileSelect(event,'ITRFileText'), onValidateFile('ITRFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="ITRFileText" rows="5" style="display: none;"></textarea>
+                                                                        <label><span style="font-weight: 500; color: #fd7e14;">File
+                                                                                size Max ${fileSize} MB</span></label>
+                                                                    </td>
+                                                                    <td><label>Filled Updated VRF Form</label></td>
+                                                                    <td><input type="file" id="FUVFFile" name="FUVFFile" onchange="handleFileSelect(event,'FUVFFileText'), onValidateFile('FUVFFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="FUVFFileText" rows="5" style="display: none;"></textarea>
+                                                                        <label><span style="font-weight: 500; color: #fd7e14;">File
+                                                                                size Max ${fileSize} MB</span></label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><label>MSME Certificate<span class="required">*</span></label></td>
+                                                                    <td><input type="file" id="MSMECFile" name="MSMECFile" onchange="handleFileSelect(event,'MSMECFileText'), onValidateFile('MSMECFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="MSMECFileText" rows="5" style="display: none;"></textarea>
+                                                                        <label><span style="font-weight: 500; color: #fd7e14;">File
+                                                                                size Max ${fileSize} MB</span></label>
+                                                                    </td>
+                                                                    <td><label>Approval Mail<span class="required"></span></label></td>
+                                                                    <td><input type="file" id="AMFile" name="AMFile" onchange="handleFileSelect(event,'AMFileText'), onValidateFile('AMFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="AMFileText" rows="5" style="display: none;"></textarea>
+                                                                        <label><span style="font-weight: 500; color: #fd7e14;">File
+                                                                                size Max ${fileSize} MB</span></label>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+
+                                                                    <td style="word-wrap: break-word;"><label>Name
+                                                                            mismatch affidavit or declaration would be required
+                                                                            if name mentioned in all document is not same
+                                                                            including spelling error<span class="required"></span>
+                                                                        </label></td>
+                                                                    <td><input type="file" id="NMISFile" name="NMISFile" onchange="handleFileSelect(event,'NMISFileText'), onValidateFile('NMISFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="NMISFileText" rows="5" style="display: none;"></textarea>
+                                                                        <label><span style="font-weight: 500; color: #fd7e14;">File
+                                                                                size Max ${fileSize} MB</span></label>
+                                                                        <!-- <a href="C:/1.BPAAS/Document/doc.pdf" download="doc.pdf">Download Template
+																		</a> -->
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer" align="center">
+                                <button type="submit" id="updateBtn" onclick="sendToServer()" class="btn btn-primary">Update</button>
+                                <button type="button" class="btn btn-primary" id="closePopBtn" data-dismiss="modal">Close</button>
+                            </div>
+
+                            <!-- model End -->
+
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    
+                
+
+	<!-- jQuery -->
+	<script src="plugins/jquery/jquery.min.js"></script>
+	<!-- jQuery UI 1.11.4 -->
+	<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	<script>
+		$.widget.bridge('uibutton', $.ui.button);
+		$.widget.bridge('uitooltip', $.ui.tooltip);
+	</script>
+	<!-- Bootstrap 4 -->
+	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="js/commonFunctions.js"></script>
+	<!-- Sparkline -->
+	<script src="plugins/sparklines/sparkline.js"></script>
+	<!-- daterangepicker -->
+	<script src="plugins/moment/moment.min.js"></script>
+	<script src="plugins/daterangepicker/daterangepicker.js"></script>
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script
+		src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
+	<!-- overlayScrollbars -->
+	<script
+		src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="dist/js/adminlte.js"></script>
+	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+	<!-- AdminLTE for demo purposes -->
+	<script src="dist/js/demo.js"></script>
+	<script src="js/moment.min.js"></script>
+	<script src="plugins/select2/js/select2.full.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var bootstrapTooltip = $.fn.tooltip.noConflict();
+			$.fn.bstooltip = bootstrapTooltip;
+			$('.quickHelp').bstooltip();
+		})
+	</script>
+	<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+	<script src="plugins/jquery-validation/additional-methods.min.js"></script>
+	<script src="plugins/datatables/jquery.dataTables.js"></script>
+	<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+	<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+	<script src="plugins/toastr/toastr.min.js"></script>
+	
+	<script>
         /* When the user clicks on the button,
         toggle between hiding and showing the dropdown content */
         function myFunction() {
@@ -1274,7 +991,7 @@ window.onload = function(){
 
 
     <script type="text/javascript">
-        var mappingTableArray = [];
+        var globalVendorCode = "";
 
         var tabledata = $('#tabledata').DataTable({
             "paging": true,
@@ -1310,9 +1027,10 @@ window.onload = function(){
             timer: 3000
         });
 
-       
         getData();
+
         var result;
+        
         function getData() {
         	
         	var bpcode="";
@@ -1325,21 +1043,13 @@ window.onload = function(){
                 contentType: "application/json",
                 async: false,
                 success: function(data) {
-
                 	
                     if (data.msg == 'success') {
-
                         var lastName = "";
-                         result = data.data;
-                        
-                        console.log(result);
-                         
+                        result = data.data;
                         tabledata.clear();
-
                          for (var i = 0; i < result.length; i++) {
-                        	 
                         	/*  bpcode=result[i].bpCode; */
-                        	
                         	 if(!result[i].hasOwnProperty("introducedByName")){
      							result[i].introducedByName="";
      						}
@@ -1355,9 +1065,7 @@ window.onload = function(){
                         	 if(!result[i].hasOwnProperty("compGstn")){
      							result[i].compGstn="";
      						}
-                        	 if(!result[i].hasOwnProperty("natureOfTransactions")){
-     							result[i].natureOfTransactions="";
-     						}
+                        	 
                         	 if(!result[i].hasOwnProperty("partnerType")){
      							result[i].partnerType="";
      						}
@@ -1367,123 +1075,57 @@ window.onload = function(){
                         	 if(!result[i].hasOwnProperty("phoneNumber")){
      							result[i].phoneNumber="";
      						}
-                        	 if(!result[i].hasOwnProperty("status")){
-      							result[i].status="";
+                        	 if(!result[i].hasOwnProperty("flag")){
+      							result[i].flag="";
       						}
                         	 
-                        	
-                        	 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#\" onclick=\"editData('" + result[i].pid + "')\" >" + result[i].pid + "</button>";
-                        	
-                        	 var inactive = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"inactiveActiveDeleteData('"  + result[i].bpCode + "' ,'"  +  result[i].suppName + "' )\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-                          
-                        	 if(result[i].status==0){
-                        		 Status=  "<select  class=\"form-control-sm \" onchange=\"setVendorStatus(this.value,'"+i+"')\" style=\"width: 100px; height: 28px;\" id=\"status_"+i+"\" > <option value=\"0\" \">In-Active</option><option value=\"1\"  \">Active</option> </select > ";
-                        	 }
-                        	 else{
+                        	 /* debugger; */
+                        	 
+                        	 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#\" onclick=\"editData('" + result[i].bpCode + "')\" >" + result[i].bpCode + "</button>";
+                        	 /* var inactive = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"inactiveActiveDeleteData('"  + result[i].bpCode + "' ,'"  +  result[i].suppName + "' )\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>"; */
+                        	 
+                        	 
+                        	<%--  if(result[i].flag=="<%=GlobalConstants.SET_FLAG_TYPE_ACTIVE%>"){
+                        		 Status=  "<select  class=\"form-control-sm \" onchange=\"setVendorStatus(this.value,'"+i+"')\" style=\"width: 100px; height: 28px;\" id=\"status_"+i+"\" > <option value=\"0\" \">In-Active</option><option value=\"1\"  \">In-Active</option> </select > ";
+                        	 } --%>
+                        	 /*  else {
                         		 Status=  "<select  class=\"form-control-sm \" onchange=\"setVendorStatus(this.value,'"+i+"')\" style=\"width: 100px; height: 28px;\" id=\"status_"+i+"\" > <option value=\"1\" \">Active</option><option value=\"0\"  \">In-Active</option> </select > ";		 
-                        	 }
-                        
+                        	 } */ 
+                             var save = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#vendorValue\" onclick=\"inActiveVendor('"  + result[i].bpCode + "' ,'"  + i+ "','"  + result[i].suppName+ "' )\"> <i class=\"fas fa-user-slash\"></i>  </button>";
 
-                             
-                             
-                             var save = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To save\" onclick=\"activeVendor('"  + result[i].bpCode + "' ,'"  + i+ "','"  + result[i].suppName+ "' )\"> <i class=\"nav-icon fas fa-save\"> </i>  </button>";
-                             
-                           // tabledata.row.add([view,result[i].introducedByName, result[i].suppName,result[i].compEmail, result[i].introducedByEmailID,result[i].compGstn, result[i].natureOfTransactions,result[i].partnerType, result[i].vendorType,result[i].phoneNumber,Status ,save]);
-
-                            tabledata.row.add([view,result[i].introducedByName, result[i].suppName, result[i].introducedByEmailID,result[i].partnerType, result[i].vendorType,Status ,save]);
-
+                            tabledata.row.add([view,
+                            	result[i].suppName,
+                            	result[i].vendorType, 
+                            	result[i].businessClassification,
+                            	result[i].introducedByName, 
+                            	result[i].introducedByEmailID,
+                            	result[i].flag,
+                            	save]);
                         } 
-
                         tabledata.draw();
                         $("tbody").show();
-                        
-                        
-
                     } else {
                         Toast.fire({
                             type: 'error',
                             title: 'Failed.. Try Again..'
                         })
                     }
-
                 },
                 error: function(jqXHR, textStatue, errorThrown) {
                     alert("failed, please try again");
                 }
-
             });
-                  }
+        }
         
-        function setVendorStatus(value,index){
-        	
+       /*  function setVendorStatus(value,index){
         	result[index].status=value;
-        	 console.log(result);
+        } */
+        
+        function inActiveVendor(bpcode,index,name){
+        	globalVendorCode = "";
+        	globalVendorCode = bpcode;
         }
         
-        function activeVendor(bpcode,index,name){
-        	
-        	var status1=result[index].status;
-        	let text="";
-        	if(status1==1){
-        	  text="Are You sure to active "+name;
-        	}else{
-        		  text="Are You sure to In-active "+name;
-        	}
-        	 if (confirm(text) != true) {
-        		 
-        		    
-        		    return false;
-        		  } 
-        	 
-        	 
-        	 var json = {
-                     "bpCode": bpcode,
-                     "status": status1
-                    
-
-                 }
-
-
-                
-                 $('.loader').show();
-
-                 $.ajax({
-                     type: "POST",
-                     data: JSON.stringify(json),
-                     url: "<%=GlobalUrl.activeVendor%>",
-                     dataType: "json",
-                     contentType: "application/json",
-                     async: false,
-                     success: function(data) {
-
-                        
-                         $('.loader').hide();
-
-                         if (data.msg == 'success') {
-                        	 Toast.fire({
-                                 type: 'success',
-                                 title: 'Updated Successfully..'
-                             })
-   
-                         } else {
-                           
-                             $('.loader').hide();
-                             Toast.fire({
-                                 type: 'error',
-                                 title: 'Failed.. Try Again..'
-                             })
-                         }
-
-                     },
-                     error: function(jqXHR, textStatue, errorThrown) {
-                       
-                         alert("failed, please try again");
-                     }
-
-                 });
-
-
-        }
         function getVendorStatus(value,bpcode,index){
         	
         	  var json = {
@@ -1606,14 +1248,11 @@ window.onload = function(){
        
 
         function editData(bpCode) {
-        	
-            
             
             var json = {
 
-                "pid":  bpCode
+                "bpCode":  bpCode
             }
-            console.log(bpCode);
             
             $.ajax({
                 type: "POST",
@@ -1626,15 +1265,13 @@ window.onload = function(){
                     //debugger;
                     if (data.msg == 'success') {
                         var result = data.data;
-                    	console.log(result);
-                    
-                    	id=result[0].id;
+                    	id=result.id;
                     
                     	var myForm = "";
                         myForm = document.getElementById("stepOneForm");
-                        setData(myForm, result[0]);
+                        setData(myForm, result);
                         
-                           var vendorType=result[0].vendorType;
+                           var vendorType=result.vendorType;
                         
                            var str = vendorType.split(",");
                            
@@ -1679,11 +1316,11 @@ window.onload = function(){
                         
                            
                         	 select();
-                        	  var ero=result[0].ero;
-                        	  var wro=result[0].wro;
-                        	  var nro=result[0].nro;
-                        	  var sro=result[0].sro;
-                        	  var ihq=result[0].ihq;
+                        	  var ero=result.ero;
+                        	  var wro=result.wro;
+                        	  var nro=result.nro;
+                        	  var sro=result.sro;
+                        	  var ihq=result.ihq;
                         	  
                         	   if(ero == 'Y'){
                    				$('#region').val('ERO').trigger('change');
@@ -1704,9 +1341,9 @@ window.onload = function(){
                    		 		//break;
                    	   		} 
                        	   
-                   	   	 var addressPurchasingFlag=result[0].addressPurchasingFlag;
-                   	  	var addressPaymentFlag=result[0].addressPaymentFlag;
-                   	 	var invoicePrevalidatedFlag=result[0].invoicePrevalidatedFlag;
+                   	   	 var addressPurchasingFlag=result.addressPurchasingFlag;
+                   	  	var addressPaymentFlag=result.addressPaymentFlag;
+                   	 	var invoicePrevalidatedFlag=result.invoicePrevalidatedFlag;
                    	  if(addressPurchasingFlag == 'Y'){
             				$('#flag').val('ADDRESS_PURCHASING').trigger('change');
              		 		//break;
@@ -1718,65 +1355,63 @@ window.onload = function(){
            		 		//break;
            	  		 }
                        	   
-                   	   	$('#acknowledgementNumber1').val(result[0].acknowledgementNumber1);
-                   		$('#acknowledgementNumber2').val(result[0].acknowledgementNumber2);
-                   		$('#acknowledgementNumber3').val(result[0].acknowledgementNumber3);
+                   	   	$('#acknowledgementNumber1').val(result.acknowledgementNumber1);
+                   		$('#acknowledgementNumber2').val(result.acknowledgementNumber2);
+                   		$('#acknowledgementNumber3').val(result.acknowledgementNumber3);
                    		
-                   		$('#fyYear1').val(result[0].fyYear1);
-                   		$('#fyYear2').val(result[0].fyYear2);
-                   		$('#fyYear3').val(result[0].fyYear3);
+                   		$('#fyYear1').val(result.fyYear1);
+                   		$('#fyYear2').val(result.fyYear2);
+                   		$('#fyYear3').val(result.fyYear3);
                    		
                   
-                      // if(result[0].partnerType!="Ad-Hoc"){
+                      // if(result.partnerType!="Ad-Hoc"){
                     	   
                     	
                        // tabledata.clear();
                         $("#addBookGridTbody").html("");
-                         for (var i = 0; i < result[0].addressDetails.length; i++) {
+                         for (var i = 0; i < result.addressDetails.length; i++) {
                       
                         	
                         	 $("#addBookGridTbody").append(' <tr class=""><td>' +
-                        			 result[0].addressDetails[i].addCountry + '</td><td>' +
-                        			 result[0].addressDetails[i].state + '</td><td>' +
-                        			 result[0].addressDetails[i].city + '</td><td>' +
-                        			 result[0].addressDetails[i].pinCode + '</td><td>' +
-                        			 result[0].addressDetails[i].compGstn + '</td><td>' +
-                        			 result[0].addressDetails[i].natureOfTransactions + '</td><td>' +
-                        			 result[0].addressDetails[i].addDetails + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
-
-                        	 
-                        	 
-                        	 
+                        			 result.addressDetails[i].addCountry + '</td><td>' +
+                        			 result.addressDetails[i].state + '</td><td>' +
+                        			 result.addressDetails[i].city + '</td><td>' +
+                        			 result.addressDetails[i].pinCode + '</td><td>' +
+                        			 result.addressDetails[i].vendorType + '</td><td>' +
+                        			 result.addressDetails[i].partnerType + '</td><td>' +
+                        			 result.addressDetails[i].compGstn + '</td><td>' +
+                        			 result.addressDetails[i].addDetails + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
                         } 
                          
                          $("#contactDetailsGridTbody").html("");
                          
-                         for (var i = 0; i < result[0].contactDetails.length; i++) {
+                         for (var i = 0; i < result.contactDetails.length; i++) {
 
                          $("#contactDetailsGridTbody").append('<tr class=""><td>' +
-                        		 result[0].contactDetails[i].conFname + '</td><td>' +
-                        		 result[0].contactDetails[i].conLname + '</td><td>' +
-                        		 result[0].contactDetails[i].conPhone + '</td><td>' +
-                        		 result[0].contactDetails[i].conEmail + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+                        		 result.contactDetails[i].conFname + '</td><td>' +
+                        		 result.contactDetails[i].conLname + '</td><td>' +
+                        		 result.contactDetails[i].conPhone + '</td><td>' +
+                        		 result.contactDetails[i].conEmail + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
                          }
                         
                          $("#addBankGridTbody").html("");
-                         for (var i = 0; i < result[0].accountDetails.length; i++) {
+                         for (var i = 0; i < result.accountDetails.length; i++) {
                          $("#addBankGridTbody").append('<tr class=""><td>' +
-                        		 result[0].accountDetails[i].bankName + '</td><td>' +
-                        		 result[0].accountDetails[i].ifscCode + '</td><td>' +
-                        		 result[0].accountDetails[i].accoutCurrency + '</td><td>' +
-                        		 result[0].accountDetails[i].accoutNumber + '</td><td>' + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+                        		 result.accountDetails[i].bankName + '</td><td>' +
+                        		 result.accountDetails[i].beneficiaryName + '</td><td>' +
+                        		 result.accountDetails[i].ifscCode + '</td><td>' +
+                        		 result.accountDetails[i].accoutCurrency + '</td><td>' +
+                        		 result.accountDetails[i].accoutNumber + '</td><td>' + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
                         
                          }
                         
-                        /*  for (var i = 0; i < result[0].itrDetails.length; i++) {
+                        /*  for (var i = 0; i < result.itrDetails.length; i++) {
                          $("#addITRGrid").append('<tr class=""><td>' +
-                        		 result[0].itrDetails[i].fyYear + '</td><td>' +
+                        		 result.itrDetails[i].fyYear + '</td><td>' +
 
-                        		 result[0].itrDetails[i].acknowledgementNumber + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+                        		 result.itrDetails[i].acknowledgementNumber + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
                          
                         
@@ -1786,15 +1421,15 @@ window.onload = function(){
                        
                         
                         myForm = document.getElementById("stepSixForm");
-                        setData(myForm, result[0]);
+                        setData(myForm, result);
                       
                         
                         myForm = document.getElementById("stepSevenForm");
-                        setData(myForm, result[0]);
+                        setData(myForm, result);
 
                      //  } 
                         
-                       // $("#id").val(result[0].id);
+                       // $("#id").val(result.id);
                         $("#userModal").modal('show');
 
                     } else {
@@ -1837,7 +1472,7 @@ window.onload = function(){
             var abc = document.getElementById('city').value;
             var abc2 = document.getElementById('pinCode').value;
             var abc3 = document.getElementById('addDetails').value;
-            var abc4 = document.getElementById('natureOfTransactions').value;
+            var abc4 = document.getElementById('states').value;
         	 if (abc == null || abc == "") {
                  swal.fire("Alert", "District is mandatory", "warning");
                  return false;
@@ -1845,7 +1480,7 @@ window.onload = function(){
                  swal.fire("Alert", "Pin Code is mandatory", "warning");
                  return false;
              } else if (abc4 == null || abc4 == "") {
-                 swal.fire("Alert", "Nature of Transactions is mandatory", "warning");
+                 swal.fire("Alert", "Business Partner Type is mandatory", "warning");
                  return false;
              } else if (abc3 == null || abc3 == "") {
                  swal.fire("Alert", "Address is mandatory", "warning");
@@ -1853,21 +1488,24 @@ window.onload = function(){
              }else {
 
                 $("#addBookGrid").append(' <tr class=""><td>' +
-                	    document.getElementById('addCountry').value + '</td><td>' +
-                        document.getElementById('state').value + '</td><td>' +
-                        document.getElementById('city').value + '</td><td>' +
-                        document.getElementById('pinCode').value + '</td><td>' +
-                        document.getElementById('compGstn').value + '</td><td>' +
-                        document.getElementById('natureOfTransactions').value + '</td><td>' +
-                    document.getElementById('addDetails').value + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+                		 document.getElementById('addCountry').value + '</td><td>' +
+                         document.getElementById('state').value + '</td><td>' +
+                         document.getElementById('city').value + '</td><td>' +
+                         document.getElementById('pinCode').value + '</td><td>' +
+                         document.getElementById('states').value + '</td><td>' +
+                         document.getElementById('partnerType').value + '</td><td>' +
+                         document.getElementById('compGstn').value + '</td><td>' +
+                         document.getElementById('addDetails').value + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
                 /*  document.getElementById('addCountry').value = "";
                  document.getElementById('state').value = ""; */
                 document.getElementById('city').value = "";
                 document.getElementById('pinCode').value = "";
+                document.getElementById('states').value = "";
+                $("#states").val('').trigger('change');
                 document.getElementById('addDetails').value = "";
                 document.getElementById('compGstn').value="";
-                document.getElementById('natureOfTransactions').value="";
+                
             }
 
         });
@@ -1914,12 +1552,16 @@ window.onload = function(){
 
         $("#addBankGridButt").click(function() {
             var abc = document.getElementById('bankName').value;
+            var abc5 = document.getElementById('beneficiaryName').value;
             var abc2 = document.getElementById('ifscCode').value;
             var abc3 = document.getElementById('accoutNumber').value;
             var abc4 = document.getElementById('confirmedAccoutNumber').value;
             console.log("abc =>" + abc);
             if (abc == null || abc == "") {
                 swal.fire("Alert", "Bank Name is mandatory", "warning");
+                return false;
+            } else if (abc5 == null || abc5 == "") {
+                swal.fire("Alert", "Beneficiary Name is mandatory", "warning");
                 return false;
             } else if (abc2 == null || abc2 == "") {
                 swal.fire("Alert", "IFSC Code is mandatory", "warning");
@@ -1933,15 +1575,18 @@ window.onload = function(){
             
             } else {
                 $("#addBankGrid").append('<tr class=""><td>' +
-                    document.getElementById('bankName').value + '</td><td>' +
-                    document.getElementById('ifscCode').value + '</td><td>' +
-                    document.getElementById('accoutCurrency').value + '</td><td>' +
-                    document.getElementById('accoutNumber').value + '</td><td>' + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+                		document.getElementById('bankName').value + '</td><td>' +
+                        document.getElementById('beneficiaryName').value + '</td><td>' +
+                        document.getElementById('ifscCode').value + '</td><td>' +
+                        document.getElementById('accoutCurrency').value + '</td><td>' +
+                        document.getElementById('accoutNumber').value + '</td><td>' + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
                 document.getElementById('bankName').value = "";
+                document.getElementById('beneficiaryName').value = "";
                 document.getElementById('ifscCode').value = "";
                 document.getElementById('accoutNumber').value = "";
                 document.getElementById('confirmedAccoutNumber').value = "";
+                document.getElementById('divCheckPasswordMatch').innerHTML = "";
             }
         });
         $body = $("body");
@@ -2016,7 +1661,7 @@ window.onload = function(){
             }  */
         	//alert("hii");
         	console.log("Inside Step One");
-            var mandFields = "introducedByName,introducedByEmailID,suppName,panNumber";
+            var mandFields = "introducedByName,introducedByEmailID,suppName";
             var mandFieldsArr = mandFields.split(",");
             for (i = 0; i < mandFieldsArr.length; i++) {
                 console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
@@ -2026,37 +1671,43 @@ window.onload = function(){
                     return false;
                 }
             }
+            
+            
         	
-            var element = document.getElementById('states');
+            /* var element = document.getElementById('states');
         	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
         	var selectedValues = [];    
             $("#states :selected").each(function(){
                 selectedValues.push($(this).val()); 
             });
-            if(selectedValues== ""){
+ 			if(selectedValues== ""){
             	swal.fire("Alert", "please select Business Partner Type....", "warning")
                 return regex.test(inputvalues);
-            }
+            } */
             
             
             var addressDetailsArray = [];
+            var vendorType=[];
             var table = document.getElementById('addBookGrid');
             var rowLength = table.rows.length;
 
             for (var i = 1; i < rowLength; i += 1) {
                 var row = table.rows[i];
                 var objs = {
-                		 "addCountry": row.cells[0].innerHTML,
-                         "state": row.cells[1].innerHTML,
-                         "city": row.cells[2].innerHTML,
-                         "pinCode": row.cells[3].innerHTML,
-                         "compGstn": row.cells[4].innerHTML,
-                         "natureOfTransactions": row.cells[5].innerHTML,
-                         "addDetails": row.cells[6].innerHTML
+                		"addCountry": row.cells[0].innerHTML,
+                        "state": row.cells[1].innerHTML,
+                        "city": row.cells[2].innerHTML,
+                        "pinCode": row.cells[3].innerHTML,
+                        "vendorType": row.cells[4].innerHTML,
+                        "partnerType": row.cells[5].innerHTML,
+                        "compGstn": row.cells[6].innerHTML,
+                        "addDetails": row.cells[7].innerHTML
                 };
                 addressDetailsArray.push(objs);
+                vendorType.push(row.cells[4].innerHTML);
             }
             
+            var vendorTypeString=vendorType.join(",");
             var partnerType=document.getElementById("partnerType").value
             
             if(addressDetailsArray.length==0 && partnerType!="Ad-Hoc"){
@@ -2074,10 +1725,11 @@ window.onload = function(){
 
                 var pushObj = {
                 		"bankName": row.cells[0].innerHTML,
-                        "ifscCode": row.cells[1].innerHTML,
-                        "accoutCurrency": row.cells[2].innerHTML,
-                        "accoutNumber": row.cells[3].innerHTML,
-                        "accoutName": row.cells[4].innerHTML
+                        "beneficiaryName": row.cells[1].innerHTML,
+                        "ifscCode": row.cells[2].innerHTML,
+                        "accoutCurrency": row.cells[3].innerHTML,
+                        "accoutNumber": row.cells[4].innerHTML,
+                        "accoutName": row.cells[5].innerHTML,
                 }
                 accountDetailsArray.push(pushObj);
             }
@@ -2306,6 +1958,7 @@ window.onload = function(){
           	finalObj.acknowledgementNumber1=acknowledgementNumber1;
           	finalObj.acknowledgementNumber2=acknowledgementNumber2;
           	finalObj.acknowledgementNumber3=acknowledgementNumber3;
+          	finalObj.vendorType=vendorTypeString;
             
             console.log("finalObj",finalObj.vendorType);
         
@@ -2705,28 +2358,26 @@ window.onload = function(){
 			}
 			
 		}
-    	function MESMENumber(){
-			var busClassif=$("#businessClassification").val();
-			if (busClassif != "Other") {
-				document.getElementById("mesmeNumber").disabled = false;
-				
-			}else{
-				document.getElementById("mesmeNumber").disabled = true;
-				document.getElementById("mesmeNumber").value = "";
-				
-			}
-			
-		}
-		
-    	
-		function region1(){
-		
-			
-		}
+
+     function MESMENumber(){
+    	 var busClassif=$("#businessClassification").val();
+    	 if (busClassif != "Other") {
+    		 document.getElementById("mesmeNumber").disabled = false;
+    	 }else{
+    		 document.getElementById("mesmeNumber").disabled = true;
+    		 document.getElementById("mesmeNumber").value = "";
+    	 }
+     }
+
+     function region1(){
+
+     }
        
 
         
     </script>
+	
+	
+	
 </body>
-
 </html>

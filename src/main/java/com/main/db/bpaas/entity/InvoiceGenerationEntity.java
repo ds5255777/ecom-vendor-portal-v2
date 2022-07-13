@@ -52,6 +52,12 @@ public class InvoiceGenerationEntity {
 	@Column(name = "processed_By")
 	private String processedBy;//
 
+	@Column(name = "hsn_code")
+	private String hsnCode;//
+
+	@Column(name = "green_tax")
+	private String greenTax;//
+
 	// form Two
 
 	@Column(name = "taxable_amount")
@@ -267,6 +273,22 @@ public class InvoiceGenerationEntity {
 
 	public void setAssignTo(String assignTo) {
 		this.assignTo = assignTo;
+	}
+
+	public String getHsnCode() {
+		return hsnCode;
+	}
+
+	public void setHsnCode(String hsnCode) {
+		this.hsnCode = hsnCode;
+	}
+
+	public String getGreenTax() {
+		return greenTax;
+	}
+
+	public void setGreenTax(String greenTax) {
+		this.greenTax = greenTax;
 	}
 
 }

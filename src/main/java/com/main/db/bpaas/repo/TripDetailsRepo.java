@@ -97,8 +97,11 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	List<TripDetails> findByActualDepartureBetween(@Param("startDate") String startDate,
 			@Param("endDate") String endDate);
 
-	@Query(value = "select  * from trip_details  where trip_id IN(:tripID)", nativeQuery = true)
-	List<TripDetails> findByTripIDIn(@Param("tripID") String[] tripID);
+	/*
+	 * @Query(value = "select  * from trip_details  where trip_id IN(:tripID)",
+	 * nativeQuery = true) List<TripDetails> findByTripIDIn(@Param("tripID")
+	 * String[] tripID);
+	 */
 
 	@Query(value = "select  * from trip_details  where invoice_number=:invoiceNumber ", nativeQuery = true)
 	List<TripDetails> getTripStatusIsDraftInvoicing(String invoiceNumber);
@@ -245,5 +248,14 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
 	List<TripDetails> findByVehicleNumberAndVendorTripStatusAndVendorCode(String columnValue,
 			String vendorTripStatusApproved, String vendorCode);
+
+
+	@Transactional
+	@Modifying
+	@Query(value = "update trip_details set vendor_trip_status=:vendorTripStatus, processed_By=:processedBy, processed_On=:processedOn where trip_id in(:myList) ; ", nativeQuery = true)
+	void getUpdateStatusSelectTrips(@Param("processedBy") String processedBy, 
+			@Param("processedOn") String processedOn, 
+			@Param("vendorTripStatus") String vendorTripStatus, 
+			@Param("myList") List<String> myList);
 
 }

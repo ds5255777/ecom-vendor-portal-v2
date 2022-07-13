@@ -10,10 +10,12 @@ public class SupplierDTO {
 	private String natureOfTransactions;
 	private String partnerType;
 	private String vendorType;
+	private String businessClassification;
 	private String phoneNumber;
 	private String status;
 	private String bpCode;
 	private String venStatus;
+	private String flag;
 	private String pid;
 
 	public String getPid() {
@@ -118,6 +120,22 @@ public class SupplierDTO {
 
 	public void setVenStatus(String venStatus) {
 		this.venStatus = venStatus;
+	}
+
+	public String getBusinessClassification() {
+		return businessClassification;
+	}
+
+	public void setBusinessClassification(String businessClassification) {
+		this.businessClassification = businessClassification;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 
 }

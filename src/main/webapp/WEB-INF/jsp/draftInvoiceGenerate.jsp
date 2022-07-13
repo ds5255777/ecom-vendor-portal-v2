@@ -117,8 +117,28 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Invoice Currency <span class="text-danger">*</span></label>
+                                            <div class="col-sm-7">
+                                                <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency">
+                                                    <option value="INR">INR</option>
+                                                    <!-- <option value="USD">USD</option>
+                                                    <option value="KES">KES</option> -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Invoice Receiving Date</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control-sm" name="invoiceReceivingDate" id="invoiceReceivingDate" readonly value="<%=(new java.util.Date()).toLocaleString()%>" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <%-- <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Site Name <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
@@ -131,7 +151,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --%>
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Date <span class="text-danger">*</span></label>
@@ -153,23 +173,12 @@
                                         </div>
                                     </div>
 
+                                    
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Currency <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">HSN Code<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency">
-                                                    <option value="INR">INR</option>
-                                                    <!-- <option value="USD">USD</option>
-                                                    <option value="KES">KES</option> -->
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Receiving Date</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" class="form-control-sm" name="invoiceReceivingDate" id="invoiceReceivingDate" readonly value="<%=(new java.util.Date()).toLocaleString()%>" style="width: 100%;">
+                                                <input class="form-control-sm" name="hsnCode" id="hsnCode" type="text" placeholder="HSN Code" style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="8">
                                             </div>
                                         </div>
                                     </div>
@@ -183,9 +192,17 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Tax (%)<span class="text-danger"> *</span></label>
+                                            <label class="col-sm-5">Tax (%)<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" readonly name="taxAmount" id="taxAmount" type="number" placeholder="Tax Amount" value="18"  style="width: 100%;" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Green Tax<span class="text-danger"> </span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="greenTax" id="greenTax" type="text" placeholder="Green Tax If Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateInvoice();">
                                             </div>
                                         </div>
                                     </div>
@@ -292,7 +309,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5 control-label">Upload Invoice<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input type="file" id="InvoiceUpload" name="InvoiceUpload" class="form-control-sm" accept=".jpg, .jpeg, .pdf" onchange="handleFileSelect(event,'InvoiceFileText'), onValidateFile('InvoiceUpload')" class="form-control p-input">
+                                                <input type="file" id="InvoiceUpload" name="InvoiceUpload" class="form-control-sm" accept=".jpg, .jpeg, .pdf" onchange="handleFileSelect(event,'InvoiceFileText','Invoice'), onValidateFile(event,'InvoiceUpload')" class="form-control p-input">
                                                 <textarea id="InvoiceFileText" name="InvoiceFileText" rows="5" style="display: none;"></textarea>
                                                 <label><span style="font-weight: 500; color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
                                             </div>
@@ -302,7 +319,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5 control-label">Summary Sheet<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="file" id="DocumentFileOne" name="DocumentFileOne" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx" onchange="handleFileSelect(event,'DocumentFileOneText'), onValidateFileOne('DocumentFileOne')" class="form-control p-input">
+                                                <input type="file" id="DocumentFileOne" name="DocumentFileOne" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx" onchange="handleFileSelect(event,'DocumentFileOneText','Summary Sheet'), onValidateFileOne(event,'DocumentFileOne')" class="form-control p-input">
                                                 <textarea id="DocumentFileOneText" name="DocumentFileOneText" rows="5" style="display: none;"></textarea>
                                                 <label><span style="font-weight: 500; color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
                                             </div>
@@ -312,7 +329,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5 control-label">FS Calculation Sheet<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="file" id="DocumentFileTwo" name="DocumentFileTwo" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx"  onchange="handleFileSelect(event,'DocumentFileTwoText'), onValidateFileOne('DocumentFileTwo')" class="form-control p-input">
+                                                <input type="file" id="DocumentFileTwo" name="DocumentFileTwo" class="form-control-sm" accept=".pdf, .doc, .docx, .xls, .xlsx"  onchange="handleFileSelect(event,'DocumentFileTwoText','FS Calculation Sheet'), onValidateFileOne(event,'DocumentFileTwo')" class="form-control p-input">
                                                 <textarea id="DocumentFileTwoText" name="DocumentFileTwoText" rows="5" style="display: none;"></textarea>
                                                 <label><span  style="font-weight: 500;color: #fd7e14;">(* File size Max  ${fileSize} MB)</span></label>
                                             </div>
@@ -463,10 +480,9 @@
     	}); */
        
 
-        function onValidateFile(id) {
+        function onValidateFile(evt,id) {
             var fileInput3 = document.getElementById(id).value;
             var gst = document.getElementById(id);
-            var allowedExtensions = /(\.jpg|\.jpeg|\.pdf)$/i;
 
             if (typeof(gst.files) != "undefined") {
 
@@ -476,9 +492,11 @@
                     swal.fire("", "File should less than 5 MB.", "warning");
                     $("#" + id).val("");
                 } else {
-                    var ext = fileInput3.split(".")[1];
-                    if (ext == "pdf" || ext == "jpg" || ext == "JPEG" || ext == "JPG" || ext == "jpeg" || ext == "PDF") {} else {
-                        swal.fire("", "Select Only JPEG & PDF File.", "warning");
+                	var f = evt.target.files[0];
+                 	var fileName = f.name;
+                 	var ext=fileName.substring(fileName.lastIndexOf(".") , fileName.length);
+                    if (ext == ".pdf" || ext == ".PDF") {} else {
+                        swal.fire("", "Select Only PDF File.", "warning");
                         $("#" + id).val("");
                         return false;
                     }
@@ -488,10 +506,9 @@
             }
         }
         
-        function onValidateFileOne(id) {
+        function onValidateFileOne(evt,id) {
             var fileInput3 = document.getElementById(id).value;
             var gst = document.getElementById(id);
-            var allowedExtensions = /(\.pdf|\.doc|\.docx|\.xls|\.xlsx)$/i;
 
             if (typeof(gst.files) != "undefined") {
 
@@ -501,8 +518,10 @@
                     swal.fire("", "File should less than 5 MB.", "warning");
                     $("#" + id).val("");
                 } else {
-                    var ext = fileInput3.split(".")[1];
-                    if (ext == "pdf" || ext == "PDF" || ext == "docx" || ext == "DOCX" || ext == "doc" || ext == "DOC" ||  ext == "xls" || ext == "XLS" || ext == "xlsx" || ext == "XLSX") {} else {
+                	var f = evt.target.files[0];
+                 	var fileName = f.name;
+                 	var ext=fileName.substring(fileName.lastIndexOf(".") , fileName.length);
+                    if (ext == ".pdf" || ext == ".PDF" || ext == ".docx" || ext == ".DOCX" || ext == ".doc" || ext == ".DOC" ||  ext == ".xls" || ext == ".XLS" || ext == ".xlsx" || ext == ".XLSX") {} else {
                         swal.fire("", "Select Only DOC, XLSX & PDF File.", "warning");
                         $("#" + id).val("");
                         return false;
@@ -583,6 +602,16 @@
                     title: 'Fill Invoice Number'
                 });
                 document.getElementById("invoiceNumber").focus();
+                return "";
+            }
+            
+            var hsnCode = document.getElementById("hsnCode").value;
+            if (hsnCode === "" || hsnCode === null || hsnCode === '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Fill HSN Code'
+                });
+                document.getElementById("hsnCode").focus();
                 return "";
             }
             
@@ -687,7 +716,7 @@
             });
         }
 
-        function handleFileSelect(evt, id) {
+        /* function handleFileSelect(evt, id) {
             var f = evt.target.files[0]; // FileList object
             var reader = new FileReader();
             // Closure to capture the file information.
@@ -701,7 +730,37 @@
                 };
             })(f);
             reader.readAsBinaryString(f);
-        }
+        } */
+        
+        
+        function handleFileSelect(evt,id,hardCodedName) {
+      	  
+    	    var f = evt.target.files[0]; // FileList object
+    	    var reader = new FileReader();
+    	    // Closure to capture the file information.
+    	    reader.onload = (function (theFile) {
+    	        return function (e) {
+    	            var binaryData = e.target.result;		  	            
+    	            var base64String = window.btoa(binaryData);
+    	          
+    	            var fileName = f.name;						
+    				var extension = fileName.substring(fileName.lastIndexOf(".") , fileName.length);
+    				fileName = fileName.substring(0 , fileName.lastIndexOf("."));					
+    				fileName = hardCodedName+extension;	
+    				$("#" + id).val(base64String);
+    	            		  	           
+    	          
+    	        };
+    	    })(f);
+    	    // Read in the image file as a data URL.
+    	    reader.readAsBinaryString(f);		  			  	
+    }
+        
+        
+        
+        
+        
+        
         getTripDetails();
 
         function updateTextData(index, textValue) {
@@ -943,11 +1002,19 @@
         }
 
         function calculateInvoice() {
+        	debugger;
             var taxAmount = $("#taxAmount").val();
+            var greenTax = $("#greenTax").val();
             var taxableAmount = $("#taxableAmount").val();
-            var taxAmount= parseFloat(taxableAmount) *  (parseFloat(taxAmount) /100);
-            var finalInvoiceAmount = parseFloat(taxableAmount) +  parseFloat(taxAmount) ;
-            $("#invoiceAmount").val(parseFloat(finalInvoiceAmount).toFixed(2));
+            if(greenTax=="" || greenTax=='' || greenTax==null){
+	            var taxAmount= parseFloat(taxableAmount) *  (parseFloat(taxAmount) /100);
+	            var finalInvoiceAmount = parseFloat(taxableAmount) +  parseFloat(taxAmount) ;
+	            $("#invoiceAmount").val(parseFloat(finalInvoiceAmount).toFixed(2));
+            }else{
+            	var taxAmount= parseFloat(taxableAmount) *  (parseFloat(taxAmount) /100);
+	            var finalInvoiceAmount = parseFloat(taxableAmount) +  parseFloat(taxAmount)+ parseFloat(greenTax) ;
+                 $("#invoiceAmount").val(parseFloat(finalInvoiceAmount).toFixed(2));
+            }
         } 
         
         $("#invoiceNumber").focusout(function() {

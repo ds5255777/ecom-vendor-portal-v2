@@ -55,6 +55,8 @@
 
      
  		<jsp:include page="navbar.jsp?pagename=Dashboard" />
+ 		
+ 		
 
         <!-- Right navbar links -->
         <jsp:include page="sidebar_Vendor.jsp?pagename=dashboard" />
@@ -426,7 +428,7 @@
 	<!-- table Data -->
     <script>
         var tabledata = $('#tabledata').DataTable({
-            "paging": true,
+            "paging": false,
             "lengthChange": false,
             "searching": false,
             "info": true,

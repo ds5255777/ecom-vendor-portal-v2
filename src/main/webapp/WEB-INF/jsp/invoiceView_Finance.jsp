@@ -112,12 +112,29 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
+                                            <label class="col-sm-5">Invoice Currency <span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control-sm" id="invoiceCurrency" name="invoiceCurrency" readonly style="width: 100%;">
+                                                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Invoice Receiving Date</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control-sm" name="invoiceReceivingDate" id="invoiceReceivingDate" readonly value="<%=(new java.util.Date()).toLocaleString()%>" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-3">
+                                        <div class="form-group row">
                                             <label class="col-sm-5">Site Name <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> 
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Date <span class="text-danger"></span></label>
@@ -135,26 +152,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Currency <span class="text-danger"></span></label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control-sm select2" disabled style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency">
-                                                    <option value="INR">INR</option>
-                                                    <option value="USD">USD</option>
-                                                    <option value="KES">KES</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Receiving Date</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" class="form-control-sm" name="invoiceReceivingDate" id="invoiceReceivingDate" readonly value="<%=(new java.util.Date()).toLocaleString()%>" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
+                                    
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Taxable Amount</label>
@@ -168,6 +167,14 @@
                                             <label class="col-sm-5">Tax (%)<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" name="taxAmount" id="taxAmount" type="text" placeholder="Tax Amount" style="width: 100%;" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Green Tax<span class="text-danger"> </span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="greenTax" id="greenTax" type="text" placeholder="Green Tax Not Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateInvoice();">
                                             </div>
                                         </div>
                                     </div>

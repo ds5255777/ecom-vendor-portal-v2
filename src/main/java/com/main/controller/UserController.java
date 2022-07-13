@@ -294,6 +294,9 @@ public class UserController {
 				if (null != objects[6]) {
 					sdt.setIntroducedByEmailID(objects[6].toString());
 				}
+				if (null != objects[7]) {
+					sdt.setFlag(objects[7].toString());
+				}
 				sdtList.add(sdt);
 			}
 

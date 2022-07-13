@@ -18,13 +18,13 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 	@Query(value = "select  supp_name from sup_details", nativeQuery = true)
 	SupDetails findByName();
 
-	@Query(value = "select comp_email from sup_details", nativeQuery = true)
-	List<String> checkEmail();
+	@Query(value = "select pan_number from supdetails where pan_number=:panNumber and flag=:flag", nativeQuery = true)
+	String checkPanNumber(String panNumber, String flag);
 
 	@Query(value = "select pid from sup_details", nativeQuery = true)
 	List<String> findByPid();
 
-	@Query(value = "SELECT supp_name,bp_code,businessclassification, vendor_type, ven_status, supdetails.introduced_by_name, supdetails.introduced_by_email_id  FROM supdetails where ven_status='Approved' ", nativeQuery = true)
+	@Query(value = "SELECT supp_name,bp_code,businessclassification, vendor_type, ven_status, supdetails.introduced_by_name, supdetails.introduced_by_email_id, flag FROM supdetails where ven_status in('Approved','Update') ", nativeQuery = true)
 	List<Object[]> getAllInActiveVendor();
 
 	@Query(value = "select * from SupDetails where bp_code=:bpCode  ", nativeQuery = true)
@@ -78,6 +78,9 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 	void approveRequestByPid(String vendorCode, String pid, String approvedRequestStatus);
 
 	SupDetails findBybpCode(String bpCode);
+
+	@Query(value = "select vendor_type from supdetails where bp_code=:vendorCode", nativeQuery = true)
+	String findByVendorType(String vendorCode);
 
 	/*
 	 * @Transactional

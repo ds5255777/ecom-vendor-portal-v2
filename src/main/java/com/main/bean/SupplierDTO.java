@@ -15,6 +15,7 @@ public class SupplierDTO {
 	private String status;
 	private String bpCode;
 	private String venStatus;
+	private String flag;
 	private String pid;
 
 	public String getPid() {
@@ -127,6 +128,14 @@ public class SupplierDTO {
 
 	public void setBusinessClassification(String businessClassification) {
 		this.businessClassification = businessClassification;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 
 }

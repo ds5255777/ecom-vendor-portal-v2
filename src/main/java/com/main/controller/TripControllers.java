@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -527,6 +528,29 @@ public class TripControllers {
 		} catch (Exception e) {
 			data.setMsg("error");
 			logger.error("error : " + e);
+		}
+		return gson.toJson(data).toString();
+	}
+
+	@GetMapping({ "multipleTripApproved" })
+	@CrossOrigin("*")
+	public String multipleTripApproved(Principal principal, @RequestParam("tripID") String obj,
+			@RequestParam("vendorTripStatus") String vendorTripStatus) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String processedBy = principal.getName();
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		String processedOn = dateFormat.format(date);
+		try {
+			List<String> myList = new ArrayList<String>(Arrays.asList(obj.split(",")));
+
+			serviceManager.tripDetailsRepo.getUpdateStatusSelectTrips(processedBy, processedOn, vendorTripStatus, myList);
+			data.setMsg("success");
+
+		} catch (Exception e) {
+			data.setData("error");
+			e.printStackTrace();
 		}
 		return gson.toJson(data).toString();
 	}

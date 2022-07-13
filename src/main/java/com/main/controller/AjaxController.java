@@ -20,25 +20,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.commonclasses.GlobalConstants;
-import com.main.db.bpaas.entity.ContactDetails;
 import com.main.db.bpaas.entity.Document;
-import com.main.db.bpaas.entity.EmailAuditLogs;
-import com.main.db.bpaas.entity.EmailConfiguration;
-import com.main.db.bpaas.entity.MailContent;
 import com.main.db.bpaas.entity.QueryEntity;
-import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.SupDetails;
-import com.main.email.CommEmailFunction;
-import com.main.email.WelcomeEmail;
+import com.main.db.bpaas.entity.User;
+import com.main.service.UserServiceImpl;
 import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/ajaxController")
@@ -182,6 +179,9 @@ public class AjaxController {
 			 * "---Doc Array End"); } } } catch (Exception e) { logger.error("error : " +
 			 * e); e.printStackTrace(); }
 			 */
+
+			// serviceManager.supDetailsRepo.
+
 			for (int i = 0; i < supDetails.getAddressDetails().size(); i++) {
 				String state = supDetails.getAddressDetails().get(i).getState();
 				String stCode = serviceManager.stateRepo.findByStateCode(state);
@@ -194,12 +194,43 @@ public class AjaxController {
 					supDetails.getAddressDetails().get(i).setGlCode(glCode);
 				}
 			}
-			supDetails.setVenStatus(GlobalConstants.PENDING_REQUEST_STATUS);
-			SupDetails supSaved = serviceManager.detailsRepo.save(supDetails);
-			Long id = supSaved.getId();
-			processID = "Vendor-0000000" + id + "-CreationUAT";
-			serviceManager.detailsRepo.updatePidInSupDetails(id, processID);
-			data.setData(processID);
+			if (supDetails.getId() == null) {
+				supDetails.setVenStatus(GlobalConstants.PENDING_REQUEST_STATUS);
+				SupDetails supSaved = serviceManager.detailsRepo.save(supDetails);
+				Long id = supSaved.getId();
+				processID = GlobalConstants.VENDOR_PID_PREFIX + id + GlobalConstants.VENDOR_PID_SUFFIX;
+				serviceManager.detailsRepo.updatePidInSupDetails(id, processID);
+				data.setData(processID);
+			} else {
+
+				if (supDetails.getVenStatus().equals(GlobalConstants.APPROVED_REQUEST_STATUS)) {
+					User us = new User();
+					us.setBpCode(supDetails.getBpCode());
+					us.setUsername(supDetails.getBpCode());
+					us.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS);
+					us.setRoleId(2);
+					us.setVendorName(supDetails.getSuppName());
+					us.setContactNo(supDetails.getContactDetails().get(0).getConPhone());
+					us.setEmailId(supDetails.getContactDetails().get(0).getConEmail());
+
+					us.setFirstName(supDetails.getContactDetails().get(0).getConFname());
+					us.setLastName(supDetails.getContactDetails().get(0).getConLname());
+					us.setPassword(UserServiceImpl.generateRandomPassword());
+					supDetails.setVenStatus(GlobalConstants.UPDATE_VENDOR);
+					serviceManager.userService.save(us);
+
+					supDetails.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
+					serviceManager.detailsRepo.save(supDetails);
+					data.setData(processID);
+					data.setMsg("success");
+				} else if (supDetails.getVenStatus().equals(GlobalConstants.UPDATE_VENDOR)) {
+					supDetails.setVenStatus(GlobalConstants.UPDATE_VENDOR);
+
+					serviceManager.detailsRepo.save(supDetails);
+					data.setData(processID);
+					data.setMsg("success");
+				}
+			}
 
 			String filePath = "C:/1.BPAAS/VendorPortal/" + processID;
 			String fullFilePathWithName = "";
@@ -631,78 +662,6 @@ public class AjaxController {
 				}
 			}
 
-			/*
-			 * User us = new User(); us.setBpCode(supDetails.getBpCode());
-			 * us.setUsername(supDetails.getBpCode());
-			 * us.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS); us.setRoleId(2);
-			 * us.setVendorName(supDetails.getSuppName());
-			 * us.setContactNo(supDetails.getContactDetails().get(0).getConPhone());
-			 * us.setEmailId(supDetails.getContactDetails().get(0).getConEmail());
-			 * 
-			 * us.setFirstName(supDetails.getContactDetails().get(0).getConFname());
-			 * us.setLastName(supDetails.getContactDetails().get(0).getConLname());
-			 * us.setPassword("vendor@123");
-			 * 
-			 * serviceManager.userService.save(us);
-			 */
-
-			// data.setData(processID);
-			
-			  new Thread(new Runnable() {
-			  
-			  @Override public void run() { try { List<EmailConfiguration> emailList =
-			  serviceManager.emailConfigurationRepository .findByIsActive("1"); if
-			  (!emailList.isEmpty()) { EmailConfiguration emailConfiguration =
-			  emailList.get(0);
-			  
-			  if (!supDetails.getContactDetails().isEmpty()) { List<ContactDetails>
-			  contactDetails = supDetails.getContactDetails(); for (int i = 0; i <
-			  contactDetails.size(); i++) {
-			  CommEmailFunction.sendEmail(contactDetails.get(i).getConEmail(),
-			  "Vendor Portal Req Acknowldgement", new
-			  WelcomeEmail().prepareMailBody(processID), emailConfiguration.getSmtpPort(),
-			  emailConfiguration.getUserName(), emailConfiguration.getPassword(),
-			  emailConfiguration.getServerName()); } } } } catch (Exception e) {
-			  e.printStackTrace(); } Thread.currentThread().interrupt(); } }).start();
-			 
-
-/*
- * try { List<EmailConfiguration> emailList =
- * serviceManager.emailConfigurationRepository.findByIsActive(GlobalConstants.
- * ACTIVE_STATUS); EmailConfiguration emailConfiguration = emailList.get(0);
- * 
- * String toMailIdMatrix = ""; String ccMailIdMatrix = ""; String
- * bccMailIdMatrix = "";
- * 
- * 
- * String vendorEmail = supDetails.getContactDetails().get(0).getConEmail();
- * String introducedByEmailID = supDetails.getIntroducedByEmailID();
- * 
- * List<MailContent> mailType =
- * serviceManager.mailContentRepo.findByType("Vendor Portal Req Acknowldgement"
- * );
- * 
- * if (!mailType.isEmpty()) { SendEmail sendEmail = new SendEmail(); MailContent
- * mailContent = mailType.get(0);
- * 
- * sendEmail.setMailfrom(emailConfiguration.getUserName());
- * sendEmail.setSendTo(vendorEmail); sendEmail.setSendCc(introducedByEmailID);
- * sendEmail.setSubject(mailContent.getSubject());
- * sendEmail.setEmailBody(mailContent.getEmailBody());
- * sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
- * 
- * serviceManager.sendEmailRepo.save(sendEmail);
- * 
- * EmailAuditLogs auditLogs = new EmailAuditLogs();
- * auditLogs.setMailFrom(emailConfiguration.getUserName());
- * auditLogs.setMailTo(vendorEmail);
- * auditLogs.setMailSubject(mailContent.getSubject());
- * auditLogs.setMailMessage(mailContent.getEmailBody());
- * 
- * serviceManager.emailAuditLogsRepo.save(auditLogs); }
- * 
- * data.setMsg("success"); } catch (Exception e) { e.printStackTrace(); }
- */
 		} catch (Exception e) {
 			data.setMsg("error");
 			data.setData(e.toString());
@@ -781,22 +740,28 @@ public class AjaxController {
 		return gson.toJson(data).toString();
 	}
 
-	/*
-	 * @RequestMapping({ "/getBpcode" })
-	 * 
-	 * @CrossOrigin("*") public String getBpcode(HttpServletRequest request) {
-	 * 
-	 * DataContainer data = new DataContainer(); Gson gson = new
-	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-	 * 
-	 * try {
-	 * 
-	 * int bpCode = serviceManager.userRepository.getBpCode();V012207 String
-	 * code="V"
-	 * 
-	 * data.setData(bpCode); data.setMsg("success"); } catch (Exception e) {
-	 * data.setMsg("error"); e.printStackTrace(); logger.error("error : " + e); }
-	 * return gson.toJson(data).toString(); }
-	 */
+	@GetMapping({ "/checkExistingPan" })
+	@CrossOrigin("*")
+	public String getBpcode( @RequestParam("panNumber")String panNumber,@RequestParam("flag")String flag) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+		try {
+			
+			String checkEmail = serviceManager.supDetailsRepo.checkPanNumber(panNumber,flag);
+			
+			if (null == checkEmail) {
+				data.setMsg("success");
+			} else {
+				data.setMsg("exist");
+			}
+
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+		return gson.toJson(data).toString();
+	}
 
 }

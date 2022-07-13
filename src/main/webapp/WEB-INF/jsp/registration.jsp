@@ -1,3 +1,4 @@
+<%@page import="com.main.commonclasses.GlobalConstants"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@page import="com.main.commonclasses.GlobalUrl"%>
@@ -689,10 +690,11 @@
         
 
     
-        function onValidateFile(id){
+        function onValidateFile(evt,id){
+        	
         	var fileInput3 = document.getElementById(id).value;
         	var gst = document.getElementById(id);
-        	var allowedExtensions = /(\.jpg|\.jpeg|\.pdf)$/i;
+        	/* var allowedExtensions = /(\.jpg|\.jpeg|\.pdf)$/i; */
         	 /* if (!allowedExtensions.exec(fileInput3)) {
         		 $("#GSTFile").val("");
              	swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File....", "warning");
@@ -712,10 +714,16 @@
                  	swal.fire("Alert", " File size should be less than 5 MB", "warning");
                  	$("#" + id).val("");
                  }else{
-                 	 var ext = fileInput3.split(".")[1];
+                 	 /* var ext = fileInput3.split(".")[1]; */
+                 	 
+                 	var f = evt.target.files[0];
+                 	var fileName = f.name;
+                 	var ext=fileName.substring(fileName.lastIndexOf(".") , fileName.length);
+                 	 
+                 	 
                      // alert("Extension is "+ext);
                       
-                      if( ext=="pdf" || ext=="jpg" || ext=="JPEG" || ext=="JPG" || ext=="jpeg" || ext=="PDF" || ext=="DOCX" || ext=="docx" ){
+                      if( ext==".pdf" || ext==".jpg" || ext==".JPEG" || ext==".JPG" || ext==".jpeg" || ext==".PDF" || ext==".DOCX" || ext==".docx" ){
                       	//Sab valid hai
                       }else{
                       	swal.fire("Alert", "Invalid File Type, Select Only Pdf, Word & Jpeg File", "warning");
@@ -1505,7 +1513,7 @@ label {
                                                             </select></td>
                                                         <td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
                                                         <td><input type="text" id="acknowledgementNumber1" name="acknowledgementNumber1" class="form-control p-input "></td>
-                                                        <td><input type="file" id="ITRFile1" name="ITRFile1" placeholder="Fill Acknowledgement Number" onchange="handleFileSelect(event,'ITRFileText1','ITR1'), onValidateFile('ITRFile1')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
+                                                        <td><input type="file" id="ITRFile1" name="ITRFile1" placeholder="Fill Acknowledgement Number" onchange="handleFileSelect(event,'ITRFileText1','ITR1'), onValidateFile(event,'ITRFile1')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
                                                             <textarea id="ITRFileText1" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                     size Max ${fileSize} MB</span></label>
                                                         </td>
@@ -1523,7 +1531,7 @@ label {
                                                             </select></td>
                                                         <td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
                                                         <td><input type="text" id="acknowledgementNumber2" name="acknowledgementNumber2" class="form-control p-input "></td>
-                                                        <td><input type="file" id="ITRFile2" name="ITRFile2" placeholder="Fill Acknowledgement Number" onchange="handleFileSelect(event,'ITRFileText2','ITR2'), onValidateFile('ITRFile2')" class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+                                                        <td><input type="file" id="ITRFile2" name="ITRFile2" placeholder="Fill Acknowledgement Number" onchange="handleFileSelect(event,'ITRFileText2','ITR2'), onValidateFile(event,'ITRFile2')" class="form-control p-input" accept=".jpg, .jpeg, .pdf">
                                                             <textarea id="ITRFileText2" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                     size Max ${fileSize} MB</span></label>
                                                         </td>
@@ -1541,7 +1549,7 @@ label {
                                                             </select></td>
                                                         <td><label>Fill Acknowledgement Number<span class="required adHocRequired"></span></label> </td>
                                                         <td><input type="text" id="acknowledgementNumber3" name="acknowledgementNumber3" class="form-control p-input "></td>
-                                                        <td><input type="file" id="ITRFile3" name="ITRFile1" placeholder="Fill Acknowledgement Number" onchange="handleFileSelect(event,'ITRFileText3','ITR3'), onValidateFile('ITRFile1')" class="form-control p-input" accept=".jpg, .jpeg, .pdf">
+                                                        <td><input type="file" id="ITRFile3" name="ITRFile1" placeholder="Fill Acknowledgement Number" onchange="handleFileSelect(event,'ITRFileText3','ITR3'), onValidateFile(event,'ITRFile1')" class="form-control p-input" accept=".jpg, .jpeg, .pdf">
                                                             <textarea id="ITRFileText3" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                     size Max ${fileSize} MB</span></label>
                                                         </td>
@@ -1574,7 +1582,7 @@ label {
                                                     <tbody>
                                                         <tr>
                                                             <td><label>GST Certificate<span class="required"></span></label></td>
-                                                            <td><input type="file" id="GSTFile" name="GSTFile" onchange=" removeValCssByID(this),  handleFileSelect(event,'GSTFileText','GSTFile'), onValidateFile('GSTFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
+                                                            <td><input type="file" id="GSTFile" name="GSTFile" onchange=" removeValCssByID(this),  handleFileSelect(event,'GSTFileText','GSTFile'), onValidateFile(event,'GSTFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
                                                                 <textarea id="GSTFileText" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                         size Max ${fileSize} MB</span></label>
                                                                          <a href="document/GST Declaration.zip" download> 
@@ -1583,7 +1591,7 @@ label {
                                                             </td>
 
                                                             <td><label>Proprietorship Declaration<span class="required"></span></label></td>
-                                                            <td><input type="file" id="PDFile" name="PDFile" onchange=" removeValCssByID(this),  handleFileSelect(event,'PDFileText','Proprietorship Declaration'), onValidateFile('PDFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
+                                                            <td><input type="file" id="PDFile" name="PDFile" onchange=" removeValCssByID(this),  handleFileSelect(event,'PDFileText','Proprietorship Declaration'), onValidateFile(event,'PDFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
                                                                 <textarea id="PDFileText" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                         size Max ${fileSize} MB</span></label>
                                                                 <a href="document/ProprietorshipDeclaration.docx" download>Download Template
@@ -1594,7 +1602,7 @@ label {
 
                                                         <tr>
                                                             <td><label>PAN Card<span class="required"></span></label></td>
-                                                            <td><input type="file" id="PANFile" name="PANFile" onchange="handleFileSelect(event,'PANFileText','PAN Card'), onValidateFile('PANFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
+                                                            <td><input type="file" id="PANFile" name="PANFile" onchange="handleFileSelect(event,'PANFileText','PAN Card'), onValidateFile(event,'PANFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
                                                                 <textarea id="PANFileText" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                         size Max ${fileSize} MB</span></label>
                                                             </td>
@@ -1602,20 +1610,20 @@ label {
                                                             <td><label>Cancelled Cheque/ Passbook/ Bank
                                                                     Statement<span class="required">*</span>
                                                                 </label></td>
-                                                            <td><input type="file" id="CCFile" name="CCFile" onchange="handleFileSelect(event,'CCFileText','Cancelle Cheque'), onValidateFile('CCFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
+                                                            <td><input type="file" id="CCFile" name="CCFile" onchange="handleFileSelect(event,'CCFileText','Cancelle Cheque'), onValidateFile(event,'CCFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
                                                                 <textarea id="CCFileText" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                         size Max ${fileSize} MB</span></label>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td><label>Aadhar Card</label></td>
-                                                            <td><input type="file" id="ACFile" name="ACFile" onchange="handleFileSelect(event,'ACFileText','Aadhar Card'), onValidateFile('ACFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
+                                                            <td><input type="file" id="ACFile" name="ACFile" onchange="handleFileSelect(event,'ACFileText','Aadhar Card'), onValidateFile(event,'ACFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
                                                                 <textarea id="ACFileText" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                         size Max ${fileSize} MB</span></label>
                                                             </td>
                                                             <td><label>Aadhar and PAN Card linking
                                                                     declaration</label></td>
-                                                            <td><input type="file" id="APLFile" name="APLFile" onchange="handleFileSelect(event,'APLFileText','Aadhar PAN Linking'), onValidateFile('APLFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
+                                                            <td><input type="file" id="APLFile" name="APLFile" onchange="handleFileSelect(event,'APLFileText','Aadhar PAN Linking'), onValidateFile(event,'APLFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
                                                                 <textarea id="APLFileText" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                         size Max ${fileSize} MB</span></label><a href="document/139 - Declaration from payees.docx" download>Download Template
                                                                 </a>
@@ -1623,26 +1631,26 @@ label {
                                                         </tr>
                                                         <tr>
                                                             <td><label>ITR Filling Declaration<span class="required">*</span></label></td>
-                                                            <td><input type="file" id="ITRFile" name="ITRFile" onchange="handleFileSelect(event,'ITRFileText','ITR Declaratin'), onValidateFile('ITRFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
+                                                            <td><input type="file" id="ITRFile" name="ITRFile" onchange="handleFileSelect(event,'ITRFileText','ITR Declaratin'), onValidateFile(event,'ITRFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
                                                                 <textarea id="ITRFileText" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                         size Max ${fileSize} MB</span></label><a href="document/206AB - Declaration form ITR Filing.docx" download>Download Template
                                                                 </a>
                                                             </td>
                                                             <td><label>Filled Updated VRF Form</label></td>
-                                                            <td><input type="file" id="FUVFFile" name="FUVFFile" onchange="handleFileSelect(event,'FUVFFileText','VRF Form'), onValidateFile('FUVFFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
+                                                            <td><input type="file" id="FUVFFile" name="FUVFFile" onchange="handleFileSelect(event,'FUVFFileText','VRF Form'), onValidateFile(event,'FUVFFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
                                                                 <textarea id="FUVFFileText" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                         size Max ${fileSize} MB</span></label>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td><label>MSME Certificate<span class="required">*</span></label></td>
-                                                            <td><input type="file" id="MSMECFile" name="MSMECFile" onchange="handleFileSelect(event,'MSMECFileText','MSME Certificate'), onValidateFile('MSMECFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
+                                                            <td><input type="file" id="MSMECFile" name="MSMECFile" onchange="handleFileSelect(event,'MSMECFileText','MSME Certificate'), onValidateFile(event,'MSMECFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
                                                                 <textarea id="MSMECFileText" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                         size Max ${fileSize} MB</span></label><a href="document/GST and MSME Annexure.xlsx" download>Download Template
                                                                 </a>
                                                             </td>
                                                             <td><label>Approval Mail<span class="required"></span></label></td>
-                                                            <td><input type="file" id="AMFile" name="AMFile" onchange="handleFileSelect(event,'AMFileText','Approval Mail'), onValidateFile('AMFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
+                                                            <td><input type="file" id="AMFile" name="AMFile" onchange="handleFileSelect(event,'AMFileText','Approval Mail'), onValidateFile(event,'AMFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
                                                                 <textarea id="AMFileText" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                         size Max ${fileSize} MB</span></label>
                                                             </td>
@@ -1661,7 +1669,7 @@ label {
 
                                                                     document is not same including spelling error<span class="required"></span>
                                                                 </label></td>
-                                                            <td><input type="file" id="NMISFile" name="NMISFile" onchange="handleFileSelect(event,'NMISFileText','Name Mismatch Affidavit'), onValidateFile('NMISFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
+                                                            <td><input type="file" id="NMISFile" name="NMISFile" onchange="handleFileSelect(event,'NMISFileText','Name Mismatch Affidavit'), onValidateFile(event,'NMISFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
                                                                 <textarea id="NMISFileText" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                         size Max ${fileSize} MB</span></label>
                                                                 <!-- <a href="C:/1.BPAAS/Document/doc.pdf" download="doc.pdf">Download Template
@@ -1781,7 +1789,7 @@ label {
             }else{
             
             	$("#step6Id").css("display","none");
-            	/* location.href="#step-1" */
+            	location.href="#step-1" 
             }
         
        var tabledataQuery = $('#tabledataQuery').DataTable({
@@ -2011,7 +2019,7 @@ label {
                     "ifscCode": row.cells[2].innerHTML,
                     "accoutCurrency": row.cells[3].innerHTML,
                     "accoutNumber": row.cells[4].innerHTML,
-                    "accoutName": row.cells[5].innerHTML,
+                    "accoutName": row.cells[5].innerHTML
                 }
                 accountDetailsArray.push(pushObj);
             }
@@ -2066,7 +2074,7 @@ label {
             finalObj.addressDetails = addressDetailsArray;
             finalObj.contactDetails = contactDetailsArray;
             /* finalObj.itrDetails = itrDetailsArray; */
-
+debugger;
             if (document.getElementById("GSTFile").files.length > 0) {
             	finalObj.gstFileName=document.getElementById("GSTFile").files.item(0).name;
                 finalObj.gstFileText = $("#GSTFileText").val();
@@ -2262,7 +2270,6 @@ label {
         } */
  
  function handleFileSelect(evt,id,hardCodedName) {
-	  
 	    var f = evt.target.files[0]; // FileList object
 	    var reader = new FileReader();
 	    // Closure to capture the file information.
@@ -2276,16 +2283,11 @@ label {
 				fileName = fileName.substring(0 , fileName.lastIndexOf("."));					
 				fileName = hardCodedName+extension;	
 				$("#" + id).val(base64String);
-	            		  	           
-	          
 	        };
 	    })(f);
 	    // Read in the image file as a data URL.
 	    reader.readAsBinaryString(f);		  			  	
 }
- 
- 
- 
  
      /*    
         function a(event){
@@ -2790,12 +2792,57 @@ label {
 	             }else if(value.includes("IHQ") ){
 	            	 alert("IHQ");
 	             } */
-	             
-				
-				
 			}
 			
-		
+			$("#panNumber").focusout(function() {
+
+				checkForExistingPanNumber();
+
+	        });
+	        
+	
+			
+			
+	function checkForExistingPanNumber(){
+		var PanNumberCheckStatus = "false";
+		var panNumber = $("#panNumber").val();
+		if (panNumber != "") {
+			var json = {
+					"panNumber": panNumber,
+					"flag": "<%=GlobalConstants.SET_FLAG_TYPE_ACTIVE%>"
+			}
+
+			console.log(json);
+			$.ajax({
+				type: "GET",
+				data: json,
+				url: "<%=GlobalUrl.checkExistingPan%>",
+				dataType: "json",
+				contentType: "application/json",
+				async: false,
+				success: function(data) {
+					console.log(data.msg);
+					if (data.msg == 'exist') {
+						swal.fire("Alert","<b>"+ panNumber+"</b> This Pan Number is Already Exists", "warning");
+						 document.getElementById("panNumber").focus();
+						$("#panNumber").val('');
+						 return;
+					} else if (data.msg == 'success') {
+						PanNumberCheckStatus = "true";
+					} else {
+						Toast.fire({
+							type: 'error',
+							title: 'Failed.. Try Again..'
+						})
+					}
+				},
+				error: function(jqXHR, textStatue, errorThrown) {
+					alert("failed, please try again");
+				}
+			});
+		}
+		return PanNumberCheckStatus;
+	}
     </script>
 
 	 <script

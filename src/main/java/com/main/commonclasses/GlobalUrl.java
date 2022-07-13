@@ -6,6 +6,7 @@ public class GlobalUrl {
 	public static String saveRegistrationQuery=ajaxController+ "/saveRegistrationQuery";
 	public static String getVendorDetailByPid=ajaxController+"/getVendorDetailByPid";
 	public static String getBpcode=ajaxController+"/getBpcode";
+	public static String checkExistingPan=ajaxController+"/checkExistingPan";
 
 	public static String getRegistrationQueryData=ajaxController+"/getRegistrationQueryData";
     public static String userController = "userController";
@@ -40,7 +41,7 @@ public class GlobalUrl {
     public static String tripDetailByTripId = tripControllers + "/tripDetailByTripId";
     public static String getRemarksByRefID = tripControllers + "/getRemarksByRefID";
     public static String status = tripControllers + "/status";
-    //public static String statusNetwork = tripControllers + "/statusNetwork";
+    public static String multipleTripApproved = tripControllers + "/multipleTripApproved";
     public static String filterTripDetails = tripControllers + "/filterTripDetails";
    // public static String filterTripDetailsByNetwork = tripControllers + "/filterTripDetailsByNetwork";
     public static String saveTripQuery = tripControllers + "/saveTripQuery";

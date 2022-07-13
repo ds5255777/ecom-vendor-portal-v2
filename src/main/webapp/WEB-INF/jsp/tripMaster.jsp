@@ -297,9 +297,47 @@ request.setAttribute("financeRole", financeRole);
 									</div>
 									<!-- /.card-body -->
 
-									<div class="card-footer" align="center">
+									<!-- <div class="card-footer" align="center">
 										<button type="submit" id="submitBtn" class="btn btn-primary">Add</button>
+									</div> -->
+									<!-- /.card-body -->
+									<div class="card-footer" align="center">
+										<button type="submit" class="btn btn-primary" id="submitBtn" >Submit</button>
+										<!-- <div class="btn btn-default btn-file"
+											style="background-color: #007bff; color: white;">
+											<i class="fas fa-paperclip"></i> Attachment <input
+												type="file"
+												onchange="handleFileSelect(event,'showUploadFilesTata')"
+												name="attachment">
+
+										</div>
+ -->
+										<div class="btn btn-default btn-file"
+											style="background-color: #007bff; color: white;">
+
+											<a href="excel/Equipment.xlsx" download
+												style="color: white;"> <i class="fas fa-download"></i>
+												Download Template
+											</a>
+										</div>
+
+										<div class="btn btn-default btn-file"
+											style="background-color: #007bff; color: white;">
+											<i class="fas fa-paperclip"></i> Upload Excel (New) <input
+												type="file" style="cursor: pointer;" id="readExcel"
+												accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+												name="attachment">
+										</div>
+										
+										<div class="btn btn-default btn-file"
+											style="background-color: #007bff; color: white;">
+											<i class="fas fa-paperclip"></i> Upload Excel (Update) <input
+												type="file" style="cursor: pointer;" id="readExcelUpdate" onchange="handleFileSelectForExcelUpdate(event)"
+												accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+												name="attachmentUpdate">
+										</div>
 									</div>
+									
 								</form>
 							</div>
 						</div>
@@ -586,14 +624,93 @@ request.setAttribute("financeRole", financeRole);
 	<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 	<script src="plugins/toastr/toastr.min.js"></script>
      <script type="text/javascript">
+           
            var tabledata = $('#tabledata').DataTable({
-                "paging" : true,
-                "lengthChange" : false,
-                "searching" : true,
-                "info" : true,
-                "aaSorting" : [],
-                "scrollX" : true,
-                "pageLength":100
+           	
+               "paging": true,
+               "lengthChange": false,
+               "searching": true,
+               "info": true,
+               "autoWidth": false,
+               "aaSorting": [],
+               "scrollX": true,
+               "pageLength": 100,
+               dom: 'Bfrtip',
+               //buttons: ['excel','pdf','print'],
+               buttons: [
+
+                   {
+                       extend: 'excelHtml5',
+
+                       exportOptions: {
+                           columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                       }
+                   },
+                   {
+                       extend: 'pdfHtml5',
+                       orientation: 'landscape',
+                       pageSize: 'A4',
+                       exportOptions: {
+                           columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                       },
+                       customize: function(doc) {
+
+                           var tblBody = doc.content[1].table.body;
+                           for (var i = 0; i < tblBody[0].length; i++) {
+                               //	 console.log(tblBody[0]);
+                               //	 console.log(tblBody[0][i]);
+                               tblBody[0][i].fillColor = '#FFFFFF';
+                               tblBody[0][i].color = 'black';
+                           }
+
+                           var objLayout = {};
+                           objLayout['hLineWidth'] = function(i) {
+                               return .5;
+                           };
+                           objLayout['vLineWidth'] = function(i) {
+                               return .5;
+                           };
+                           objLayout['hLineColor'] = function(i) {
+                               return '#aaa';
+                           };
+                           objLayout['vLineColor'] = function(i) {
+                               return '#aaa';
+                           };
+                           objLayout['paddingLeft'] = function(i) {
+                               return 4;
+                           };
+                           objLayout['paddingRight'] = function(i) {
+                               return 4;
+                           };
+                           doc.content[1].layout = objLayout;
+                           var obj = {};
+                           obj['hLineWidth'] = function(i) {
+                               return .5;
+                           };
+                           obj['hLineColor'] = function(i) {
+                               return '#aaa';
+                           };
+                           //   doc.content[1].margin = [ 150, 0, 150, 0 ];
+
+                       }
+                   }
+               ],
+               initComplete: function() {
+                   var $buttons = $('.dt-buttons').hide();
+                   $('#exportLink').on('click', function() {
+                       var btnClass = "excel" ?
+                           '.buttons-' + "excel" :
+                           null;
+                       if (btnClass) $buttons.find(btnClass).click();
+                   })
+
+                   $('#exportLinkPdf').on('click', function() {
+                       var btnClass = "pdf" ?
+                           '.buttons-' + "pdf" :
+                           null;
+                       if (btnClass) $buttons.find(btnClass).click();
+                   })
+               }
            });
 
            const Toast = Swal.mixin({

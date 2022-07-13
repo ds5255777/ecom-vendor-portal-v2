@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.main.commonclasses.GlobalConstants;
-import com.main.db.bpaas.entity.AddressDetails;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.InvoiceNumber;
 import com.main.db.bpaas.entity.PoDetails;
@@ -55,7 +55,7 @@ public class UIController {
 	ServiceManager serviceManager;
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	private static Logger logger = LoggerFactory.getLogger(MasterController.class);
+	private static Logger logger = LoggerFactory.getLogger(UIController.class);
 
 	@GetMapping({ "/login" })
 	public String login(Model model, String error, String logout) {
@@ -175,6 +175,7 @@ public class UIController {
 	public String dashboard(Model model, Principal principal, String error, String logout, HttpServletRequest request) {
 
 		String rolename = (String) request.getSession().getAttribute("role");
+
 		User us = serviceManager.userService.findByUsername(principal.getName());
 
 		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
@@ -216,7 +217,7 @@ public class UIController {
 			// Changes made for limit and 50 trips only
 			List<TripDetails> findAllTripsLimitFifty = serviceManager.tripService.findAllTripsLimitFifty();
 			model.addAttribute("yetTobeApprovedAllDetails", findAllTripsLimitFifty);
-			model.addAttribute("userStatus", us.getStatus());
+			// model.addAttribute("userStatus", us.getStatus());
 			// changes end
 			return "dashBoard_NetworkRole";
 
@@ -266,8 +267,8 @@ public class UIController {
 			int totalTripCount = serviceManager.tripDetailsRepo.getTripCount(vendorCode);
 			int TotalCloseTripCount = serviceManager.invoiceGenerationEntityRepo.getQueryInvoiceCount(vendorCode);
 			int TotalInTransitTripCount = serviceManager.tripDetailsRepo.getInTransitTripCount(vendorCode);
-			int closedTripCount=serviceManager.tripDetailsRepo.getCloseTripCount(vendorCode);
-			int queryTripCount=serviceManager.tripDetailsRepo.getQueryTripCount(vendorCode);
+			int closedTripCount = serviceManager.tripDetailsRepo.getCloseTripCount(vendorCode);
+			int queryTripCount = serviceManager.tripDetailsRepo.getQueryTripCount(vendorCode);
 
 			long processInvoice = serviceManager.invoiceGenerationEntityRepo.getPendingInvoiceCount(vendorCode);
 			int approveInvoice = serviceManager.invoiceGenerationEntityRepo.getApproveInvoiceCount(vendorCode);
@@ -281,14 +282,14 @@ public class UIController {
 			model.addAttribute("approveInvoice", approveInvoice);
 			model.addAttribute("draftInvoice", draftInvoice);
 			model.addAttribute("userStatus", us.getStatus());
-			model.addAttribute("closedTripCount",closedTripCount);
-			model.addAttribute("queryTripCount",queryTripCount);
-			
+			model.addAttribute("closedTripCount", closedTripCount);
+			model.addAttribute("queryTripCount", queryTripCount);
+
 			request.setAttribute("vendorType", vendorType);
 			model.addAttribute("vendorType", vendorType);
 
 			// po Details
-			
+
 			if (bpCode == "" || bpCode == null) {
 				bpCode = "";
 			}
@@ -298,75 +299,69 @@ public class UIController {
 			}
 			System.out.println("vendorType in dashboard : " + vendorType);
 
-			
-			
-			
+			if (vendorType.equalsIgnoreCase("Fixed Asset") || vendorType.equalsIgnoreCase("FIXED ASSETS")) {
+				System.out.println("vendor type : " + vendorType);
 
-				if (vendorType.equalsIgnoreCase("Fixed Asset") || vendorType.equalsIgnoreCase("FIXED ASSETS")) {
-					System.out.println("vendor type : " + vendorType);
+				rolename = (String) request.getSession().getAttribute("role");
+				vendorCode = (String) request.getSession().getAttribute("userName");
 
-					 rolename = (String) request.getSession().getAttribute("role");
-					 vendorCode = (String) request.getSession().getAttribute("userName");
-					 
-					 List<PoDetails> details1=new ArrayList<PoDetails>();
-						List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
-						
-						for(int i=0;i<details.size();i++) {
-							List<PoLineDetails> podet=details.get(i).getPoline();
-							String pono=details.get(i).getPoNo();
-							float remaningquantity=0;
-							for(int j=0;j<podet.size();j++) {
-								remaningquantity=remaningquantity+Float.parseFloat(podet.get(j).getRemaningQuatity());
-							}
-							if(remaningquantity!=0.0 || remaningquantity!=0.00 ||remaningquantity!=0) {
-								details1.add(details.get(i));
-							}else {
-								serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(pono);
-							}
-							System.out.println("remaningquantity is :::"+remaningquantity +"VendorCode ::"+vendorCode);
-						}
+				List<PoDetails> details1 = new ArrayList<PoDetails>();
+				List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
 
-					// po Details
-					int totalAllPoCount = serviceManager.podetailsRepo.getAllPoCount(vendorCode);
-					model.addAttribute("totalAllPoCount", totalAllPoCount);
-
-					int totalProcessPoCount = serviceManager.podetailsRepo.getAllProcessPoCount(vendorCode);
-					model.addAttribute("totalProcessPoCount", totalProcessPoCount);
-					System.out.println("totalProcessPoCount : " + totalProcessPoCount);
-					int totalUnprocessPOCount = serviceManager.podetailsRepo.getAllUnProcessPoCount(vendorCode);
-					model.addAttribute("totalUnprocessPOCount", totalUnprocessPOCount);
-					// Query
-					int totalQueryCount = serviceManager.podetailsRepo.getAllQueryCount(vendorCode);
-					model.addAttribute("totalQueryCount", totalQueryCount);
-
-					// Query
-					int totalInvoiceCount = serviceManager.poinvoiceRepo.getAllInvoiceCount(vendorCode);
-					model.addAttribute("totalInvoiceCount", totalInvoiceCount);
-
-					int allPOcount = serviceManager.poinvoiceRepo.getAllPOcount(vendorCode);
-					model.addAttribute("allPOcount", allPOcount);
-
-					int totalDraftInvoiceCount = serviceManager.poinvoiceRepo.getTotalDraftInvoiceCount(vendorCode);
-					model.addAttribute("totalDraftInvoiceCount", totalDraftInvoiceCount);
-
-					model.addAttribute("userStatus", us.getStatus());
-					model.addAttribute("dataLimit", dataLimit);
-
-					System.out.println("end of dashboard_Po");
-
-					if (rolename.equalsIgnoreCase("Vendor")) {
-
-						return "dashboard_Po";
-
-					}else {
-						return "";
+				for (int i = 0; i < details.size(); i++) {
+					List<PoLineDetails> podet = details.get(i).getPoline();
+					String pono = details.get(i).getPoNo();
+					float remaningquantity = 0;
+					for (int j = 0; j < podet.size(); j++) {
+						remaningquantity = remaningquantity + Float.parseFloat(podet.get(j).getRemaningQuatity());
 					}
+					if (remaningquantity != 0.0 || remaningquantity != 0.00 || remaningquantity != 0) {
+						details1.add(details.get(i));
+					} else {
+						serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(pono);
+					}
+					System.out.println("remaningquantity is :::" + remaningquantity + "VendorCode ::" + vendorCode);
 				}
-			
-		
 
+				// po Details
+				int totalAllPoCount = serviceManager.podetailsRepo.getAllPoCount(vendorCode);
+				model.addAttribute("totalAllPoCount", totalAllPoCount);
+
+				int totalProcessPoCount = serviceManager.podetailsRepo.getAllProcessPoCount(vendorCode);
+				model.addAttribute("totalProcessPoCount", totalProcessPoCount);
+				System.out.println("totalProcessPoCount : " + totalProcessPoCount);
+				int totalUnprocessPOCount = serviceManager.podetailsRepo.getAllUnProcessPoCount(vendorCode);
+				model.addAttribute("totalUnprocessPOCount", totalUnprocessPOCount);
+				// Query
+				int totalQueryCount = serviceManager.podetailsRepo.getAllQueryCount(vendorCode);
+				model.addAttribute("totalQueryCount", totalQueryCount);
+
+				// Query
+				int totalInvoiceCount = serviceManager.poinvoiceRepo.getAllInvoiceCount(vendorCode);
+				model.addAttribute("totalInvoiceCount", totalInvoiceCount);
+
+				int allPOcount = serviceManager.poinvoiceRepo.getAllPOcount(vendorCode);
+				model.addAttribute("allPOcount", allPOcount);
+
+				int totalDraftInvoiceCount = serviceManager.poinvoiceRepo.getTotalDraftInvoiceCount(vendorCode);
+				model.addAttribute("totalDraftInvoiceCount", totalDraftInvoiceCount);
+
+				model.addAttribute("userStatus", us.getStatus());
+				model.addAttribute("dataLimit", dataLimit);
+
+				System.out.println("end of dashboard_Po");
+
+				if (rolename.equalsIgnoreCase("Vendor")) {
+
+					return "dashboard_Po";
+
+				} else {
+					return "";
+				}
+			}
 
 			return "dashboard";
+
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
 				|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
 			long allInvoice = serviceManager.invoiceGenerationEntityRepo.getCountForAllInvoice();
@@ -389,14 +384,17 @@ public class UIController {
 		} else if (rolename.equalsIgnoreCase("Audit")) {
 			return "";
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
-			Integer pendingRequest = serviceManager.supDetailsRepo.countByVenStatus(GlobalConstants.PENDING_REQUEST_STATUS);
-			Integer approvedRequest = serviceManager.supDetailsRepo.countByVenStatus(GlobalConstants.APPROVED_REQUEST_STATUS);
-			Integer rejectedRequest = serviceManager.supDetailsRepo.countByVenStatus(GlobalConstants.REJECTED_REQUEST_STATUS);
+			Integer pendingRequest = serviceManager.supDetailsRepo
+					.countByVenStatus(GlobalConstants.PENDING_REQUEST_STATUS);
+			Integer approvedRequest = serviceManager.supDetailsRepo
+					.countByVenStatus(GlobalConstants.APPROVED_REQUEST_STATUS);
+			Integer rejectedRequest = serviceManager.supDetailsRepo
+					.countByVenStatus(GlobalConstants.REJECTED_REQUEST_STATUS);
 			Integer queryRequest = serviceManager.supDetailsRepo.countByVenStatus(GlobalConstants.QUERY_REQUEST_STATUS);
-			model.addAttribute("pendingRequest",pendingRequest);
-			model.addAttribute("approvedRequest",approvedRequest);
-			model.addAttribute("rejectedRequest",rejectedRequest);
-			model.addAttribute("queryRequest",queryRequest);
+			model.addAttribute("pendingRequest", pendingRequest);
+			model.addAttribute("approvedRequest", approvedRequest);
+			model.addAttribute("rejectedRequest", rejectedRequest);
+			model.addAttribute("queryRequest", queryRequest);
 			return "dashboardRegistration";
 		}
 
@@ -551,7 +549,7 @@ public class UIController {
 
 			return "tripMaster";
 
-		}else if(rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)) {
+		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)) {
 
 			return "tripMaster";
 
@@ -827,9 +825,12 @@ public class UIController {
 			model.addAttribute("vendorName", vendorName);
 			System.out.println(vendorName);
 
-			List<AddressDetails> vendorAddress = serviceManager.addressDetailsRepo.getVendorAddress(vendorName);
-
-			model.addAttribute("vendorAddress", vendorAddress);
+			/*
+			 * List<AddressDetails> vendorAddress =
+			 * serviceManager.addressDetailsRepo.getVendorAddress(vendorName);
+			 * 
+			 * model.addAttribute("vendorAddress", vendorAddress);
+			 */
 
 			// heasder
 			InvoiceGenerationEntity invoiceSave = new InvoiceGenerationEntity();
@@ -888,10 +889,13 @@ public class UIController {
 			listofTrips.add(tripID);
 			vendorName = tripDetails.getVendorName();
 		}
-		List<AddressDetails> vendorAddress = serviceManager.addressDetailsRepo.getVendorAddress(vendorName);
+		/*
+		 * AddressDetails vendorAddress =
+		 * serviceManager.addressDetailsRepo.getVendorAddress(vendorName);
+		 */
 		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 		model.addAttribute("currentDate", currentDate);
-		model.addAttribute("vendorAddress", vendorAddress);
+		/* model.addAttribute("vendorAddress", vendorAddress); */
 
 		model.addAttribute("vendorName", vendorName);
 		model.addAttribute("listofTrips", listofTrips);

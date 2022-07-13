@@ -28,6 +28,7 @@ public class RegistrationController {
 	public synchronized String generateVendorCode() {
 
 		long count = serviceManager.supDetailsRepo.count();
+		System.out.println(count);
 		String invoiceNumberPrefix = "V";
 
 		count = count + 1;

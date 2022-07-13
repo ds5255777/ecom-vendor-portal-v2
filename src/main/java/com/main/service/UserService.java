@@ -1,5 +1,4 @@
 package com.main.service;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.main.db.bpaas.entity.User;

@@ -55,6 +55,8 @@
 
      
  		<jsp:include page="navbar.jsp?pagename=Dashboard" />
+ 		
+ 		
 
         <!-- Right navbar links -->
         <jsp:include page="sidebar_Vendor.jsp?pagename=dashboard" />

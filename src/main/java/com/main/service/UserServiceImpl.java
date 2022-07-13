@@ -1,5 +1,7 @@
 package com.main.service;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,19 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	public synchronized static String generateRandomPassword() {
+		int password=8;
+		String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
+          +"lmnopqrstuvwxyz!@#$%&";
+		Random rnd = new Random();
+		StringBuilder sb = new StringBuilder(password);
+		
+		for (int i = 0; i < password; i++)
+			sb.append(chars.charAt(rnd.nextInt(chars.length())));
+		System.out.println("Password "+sb);
+		return sb.toString();
+	}
 
 	@Override
 	public void save(User user) {

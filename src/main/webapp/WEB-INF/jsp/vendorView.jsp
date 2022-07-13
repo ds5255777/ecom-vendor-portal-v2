@@ -1185,6 +1185,7 @@ console.log(obj);
 					url : "<%=GlobalUrl.getDocumentByTypeAndForeignKey%>",
 					data :JSON.stringify(obj),
 					dataType : "json",
+					async: false,
 					contentType : "application/json",
 					success : function(response) {
 						if (response.msg == "success") {
@@ -1198,7 +1199,7 @@ console.log(obj);
 								for (var i = 0; i < result.length; i++) {																						
 									$('#multipleAttachment').append($('<option/>').attr("value", result[i].docPath).text(result[i].docName));			
 								}
-								/* $("#viewAttachmentPopUp").modal('show'); */
+								 $("#viewAttachmentPopUp").modal('show'); 
 								
 							}else{
 								Toast.fire({

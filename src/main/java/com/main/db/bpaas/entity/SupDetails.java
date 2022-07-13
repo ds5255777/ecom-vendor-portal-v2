@@ -117,6 +117,9 @@ public class SupDetails {
 	@Column(name = "create_date")
 	private Date date = new Date();
 
+	@Column(name = "flag")
+	private String flag;//Active Inactive
+
 	@Column(name = "ADDRESS_PURCHASING_FLAG")
 	private String addressPurchasingFlag;
 	@Column(name = "ADDRESS_PAYMENT_FLAG")
@@ -782,6 +785,14 @@ public class SupDetails {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 
 }

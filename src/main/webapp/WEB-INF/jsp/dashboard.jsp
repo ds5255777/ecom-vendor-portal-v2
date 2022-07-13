@@ -3,6 +3,7 @@
 <%@page import="com.main.commonclasses.GlobalUrl"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page import="java.util.Arrays,java.util.List" %>
 <html lang="en">
 
 <head>
@@ -52,9 +53,46 @@
 
 	
         <!-- Navbar -->
-
+ 
+        <%
+        String vendorType=(String)request.getAttribute("vendorType");
+        
+        String[] strArray =   null;
+        		
+      strArray = vendorType.split(",");  
+       
+      for (int i = 0; i< strArray.length; i++){  
+      
+      }  
+        
+      
+     	   
+     		   
+     		  if(Arrays.asList(strArray).contains("Network") && Arrays.asList(strArray).contains("FIXED ASSETS")){
+      	    	 System.out.println("vendor type1 : "+strArray); 
+      	    	 %>
+      	    	 
+      	    	 
+      	    	 <jsp:include page="navbar_po.jsp?pagename= Dashboard" />
+      	    	 
+      	    	 <% 
+         		  		
+      	    	 }
+         	
+     	   		else if(Arrays.asList(strArray).contains("Network") ){
+         	    	 System.out.println("vendor type 2: "+strArray); 
+         	    	 %>
+         	    	 <jsp:include page="navbar.jsp?pagename=Vendor Dashboard" />
+         	    	 
+         	    	 
+         	    	 <% 
+            		  	 
+         	     } 
+     	   
+      %>
      
- 		<jsp:include page="navbar.jsp?pagename=Dashboard" />
+
+
  		
  		
 

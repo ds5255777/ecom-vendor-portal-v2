@@ -298,6 +298,8 @@ public class UIController {
 				vendorType = "vendor";
 			}
 			System.out.println("vendorType in dashboard : " + vendorType);
+			
+			
 
 			if (vendorType.equalsIgnoreCase("Fixed Asset") || vendorType.equalsIgnoreCase("FIXED ASSETS")) {
 				System.out.println("vendor type : " + vendorType);

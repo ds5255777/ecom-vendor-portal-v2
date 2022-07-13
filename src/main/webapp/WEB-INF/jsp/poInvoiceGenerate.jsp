@@ -260,7 +260,7 @@
 														placeholder="Payment / Credit Terms" onchange="calTermsDate()"
 														>
 															<option value="">Select</option>
-															<c:forEach items="${payment}" var="pay">
+															<c:forEach items="${creidtTerms}" var="pay">
 
 																<option value="${pay}">${pay}</option>
 															</c:forEach>
@@ -674,7 +674,18 @@
 				var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
             $("#termsDate").val(datestring);
         	
-   	 } else if(terms=="NET 30 Days"){
+   	 }else if(terms=="NET 15 Days"){
+			   		
+					 var days=30;
+				   var ts = new Date(currentDate);
+				   
+				  ts.setDate(ts.getDate() + days);
+				var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+				
+			   $("#termsDate").val(datestring);
+			 
+				
+			} else if(terms=="NET 30 Days"){
   		
 				 var days=30;
 			   var ts = new Date(currentDate);

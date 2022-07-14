@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,9 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
+import com.main.db.bpaas.entity.Document;
 import com.main.db.bpaas.entity.EmailAuditLogs;
 import com.main.db.bpaas.entity.EmailConfiguration;
-import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.MailContent;
 import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoInvoiceDetails;
@@ -33,7 +34,6 @@ import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.serviceManager.ServiceManager;
-import com.main.db.bpaas.entity.Document;
 
 @RequestMapping("/PoInvoiceContoller")
 @RestController
@@ -83,7 +83,7 @@ public class PoInvoiceContoller {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllDraftInvoicePO" })
+	@PostMapping({ "/getAllDraftInvoicePO" })
 	@CrossOrigin("*")
 	public String getAllDraftInvoicePO(HttpServletRequest request ) {
 
@@ -107,7 +107,7 @@ public class PoInvoiceContoller {
 		return gson.toJson(data).toString();
 	}
 	
-	@RequestMapping({ "/savePoInvoice" })
+	@PostMapping({ "/savePoInvoice" })
 	@CrossOrigin("*")
 	public String savePoInvoice(HttpServletRequest request ,@RequestBody PoInvoiceDetails invoiceDetails ) {
 
@@ -239,7 +239,7 @@ public class PoInvoiceContoller {
 	}
 	
 	
-	@RequestMapping({ "/getAllDraftPODetailsByInvoiceNo" })
+	@PostMapping({ "/getAllDraftPODetailsByInvoiceNo" })
 	@CrossOrigin("*")
 	public String getAllDraftPODetailsByInvoiceNo(HttpServletRequest request ,@RequestBody PoInvoiceDetails invoiceDetails ) {
 
@@ -266,7 +266,7 @@ public class PoInvoiceContoller {
 
 	}
 	
-	@RequestMapping({ "/saveDraftInvoice" })
+	@PostMapping({ "/saveDraftInvoice" })
 	@CrossOrigin("*")
 	public String saveDraftInvoice(HttpServletRequest request ,@RequestBody PoInvoiceDetails invoiceDetails ) {
 

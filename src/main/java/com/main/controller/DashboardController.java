@@ -67,7 +67,7 @@ public class DashboardController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping("/updateDetailsforNetwork")
+	@PostMapping("/updateDetailsforNetwork")
 	@CrossOrigin("*")
 	public String updateDetailsforNetwork(Model model, HttpServletRequest request, Principal principal,
 			@RequestBody String agrn) {
@@ -190,7 +190,7 @@ public class DashboardController {
 
 	}
 
-	@RequestMapping({ "getFinanceDashBoardDetails" })
+	@PostMapping({ "getFinanceDashBoardDetails" })
 	@CrossOrigin("*")
 	public String getFinanceDashBoardDetails(HttpSession session, HttpServletRequest request) {
 		DataContainer data = new DataContainer();
@@ -217,7 +217,7 @@ public class DashboardController {
 	}
 
 	// RefreshVaues for Scheduled trips in case of updation in Agreenment Master
-	@RequestMapping({ "refreshValues" })
+	@PostMapping({ "refreshValues" })
 	public String refreshValues(Principal principal, @RequestBody String reqObj) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -244,7 +244,7 @@ public class DashboardController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "getBpCodeForNetwork" })
+	@PostMapping({ "getBpCodeForNetwork" })
 	public String getBpCodeForNetwork(Principal principal, @RequestBody String reqObj) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -260,14 +260,14 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			logger.error("error : " + e);
+			e.printStackTrace();
 			data.setMsg("error");
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "getAllVendors" })
+	@PostMapping({ "getAllVendors" })
 	public List<SupDetails> getAllVendors(Principal principal, HttpServletRequest request) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();

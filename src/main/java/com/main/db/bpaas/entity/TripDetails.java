@@ -105,11 +105,11 @@ public class TripDetails {
 	@Column(name = "closing_reading")
 	private String closingReading;
 
-	@Column(name = "Actual_Shipment")
-	private String ActualShipment;
+	@Column(name = "actual_Shipment")
+	private String actualShipment;
 
-	@Column(name = "Actual_Chargeable_Weight")
-	private String ActualChargeableWeight;
+	@Column(name = "actual_chargeable_weight")
+	private String actualChargeableWeight;
 
 	// Status
 	@Column(name = "vendor_Trip_Status")
@@ -388,19 +388,19 @@ public class TripDetails {
 	}
 
 	public String getActualShipment() {
-		return ActualShipment;
+		return actualShipment;
 	}
 
 	public void setActualShipment(String actualShipment) {
-		ActualShipment = actualShipment;
+		this.actualShipment = actualShipment;
 	}
 
 	public String getActualChargeableWeight() {
-		return ActualChargeableWeight;
+		return actualChargeableWeight;
 	}
 
 	public void setActualChargeableWeight(String actualChargeableWeight) {
-		ActualChargeableWeight = actualChargeableWeight;
+		this.actualChargeableWeight = actualChargeableWeight;
 	}
 
 	public String getVendorTripStatus() {

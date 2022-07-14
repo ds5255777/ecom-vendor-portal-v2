@@ -735,7 +735,7 @@ dataLimit=parseInt(dataLimit);
                extend: 'excelHtml5',
 
                exportOptions: {
-                   columns: [ 0,1, 2, 3, 4],
+                   columns: [ 0,1, 2, 3, 4,5,6],
                }
            },
            {
@@ -743,7 +743,7 @@ dataLimit=parseInt(dataLimit);
                orientation: 'landscape',
                pageSize: 'A4',
                exportOptions: {
-                   columns: [ 0, 1, 2, 3, 4],
+                   columns: [ 0, 1, 2, 3, 4,5,6],
                },
                customize: function(doc) {
 

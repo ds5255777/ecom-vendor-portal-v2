@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,11 +53,11 @@ public class InvoiceController {
 
 	@Autowired
 	private ServiceManager serviceManager;
-	
+
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(MasterController.class);
 
-	@RequestMapping({ "/getAllInvoice" })
+	@PostMapping({ "/getAllInvoice" })
 	@CrossOrigin("*")
 	public String getAllInvoice(Principal principal, HttpServletRequest request) {
 
@@ -80,15 +81,15 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllPendingInvoice" })
+	@PostMapping({ "/getAllPendingInvoice" })
 	@CrossOrigin("*")
-	public String getAllPendingInvoice(Principal principal, HttpServletRequest request) {
+	public String getAllPendingInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
@@ -103,15 +104,15 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllApproveInvoice" })
+	@PostMapping({ "/getAllApproveInvoice" })
 	@CrossOrigin("*")
-	public String getAllApproveInvoice(Principal principal, HttpServletRequest request) {
+	public String getAllApproveInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
@@ -125,13 +126,13 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllQueryInvoiceVendor" })
+	@PostMapping({ "/getAllQueryInvoiceVendor" })
 	@CrossOrigin("*")
 	public String getAllQueryInvoiceVendor(Principal principal, HttpServletRequest request) {
 
@@ -155,16 +156,15 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllRejectInvoice" })
+	@PostMapping({ "/getAllRejectInvoice" })
 	@CrossOrigin("*")
-	public String getAllRejectInvoice(Principal principal, HttpServletRequest request,
-			@RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
+	public String getAllRejectInvoice(Principal principal, @RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
 
 		DataContainer data = new DataContainer();
 
@@ -179,13 +179,13 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllInvoiceToBilling" })
+	@PostMapping({ "/getAllInvoiceToBilling" })
 	@CrossOrigin("*")
 	public String getMonthallyInvoice(Principal principal, HttpServletRequest request) {
 
@@ -202,13 +202,13 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getLineItemDetails" })
+	@PostMapping({ "/getLineItemDetails" })
 	@CrossOrigin("*")
 	public String getLineItemDetails(HttpServletRequest request, @RequestBody TripDetails obj) {
 
@@ -238,13 +238,13 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping("/saveInvoice")
+	@PostMapping("/saveInvoice")
 	public String saveInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
 
 		DataContainer data = new DataContainer();
@@ -278,7 +278,7 @@ public class InvoiceController {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					logger.error("error : " + e);
 				}
 			}
 
@@ -301,7 +301,7 @@ public class InvoiceController {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					logger.error("error : " + e);
 				}
 			}
 
@@ -325,14 +325,14 @@ public class InvoiceController {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					logger.error("error : " + e);
 				}
 			}
 			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
 
 			Long idByinvocienumber = serviceManager.invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
-			logger.info(""+idByinvocienumber);
-			
+			logger.info("" + idByinvocienumber);
+
 			Date date = new Date();
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 			String processedOn = dateFormat.format(date);
@@ -381,15 +381,15 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 
 	}
 
-	@RequestMapping("/updateInvoice")
-	public String updateInvoice(HttpServletRequest request,@RequestBody InvoiceQueryDto obj) {
+	@PostMapping("/updateInvoice")
+	public String updateInvoice(HttpServletRequest request, @RequestBody InvoiceQueryDto obj) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -427,7 +427,7 @@ public class InvoiceController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					logger.error("error : " + e);
 				}
 			}
 
@@ -450,7 +450,7 @@ public class InvoiceController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error("error : "+e);
+					logger.error("error : " + e);
 				}
 			}
 			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
@@ -461,15 +461,17 @@ public class InvoiceController {
 					.findByEcomInvoiceNumber(ecomInvoiceNumber);
 
 			if (null != obj) {
-				
-				List<InvoiceLineItem> artifactsList= invoiceLineItemsList.stream().filter(x -> "1".equalsIgnoreCase(x.getNewAdded())).collect(Collectors.toList());
-				
-				if(!artifactsList.isEmpty()){
+
+				List<InvoiceLineItem> artifactsList = invoiceLineItemsList.stream()
+						.filter(x -> "1".equalsIgnoreCase(x.getNewAdded())).collect(Collectors.toList());
+
+				if (!artifactsList.isEmpty()) {
 					for (InvoiceLineItem invoiceLineItem : artifactsList) {
-						serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsQueryInvoice(invoiceLineItem.getTripID(),ecomInvoiceNumber);
+						serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsQueryInvoice(
+								invoiceLineItem.getTripID(), ecomInvoiceNumber);
 					}
 				}
-				
+
 				invObj.setInvoiceLineItem(invoiceLineItemsList);
 				invObj.setAssignTo(obj.getAssignTo());
 				invObj.setInvoiceStatus(obj.getInvoiceStatus());
@@ -483,8 +485,8 @@ public class InvoiceController {
 				// idByinvocienumber);
 
 				// InvoiceGenerationEntity invoiceEntity = new InvoiceGenerationEntity();
-				
-				serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsQueryInvoice("123",ecomInvoiceNumber);
+
+				serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsQueryInvoice("123", ecomInvoiceNumber);
 
 				QueryEntity queryEntity = new QueryEntity();
 				queryEntity.setComment(obj.getRemarks());
@@ -499,7 +501,7 @@ public class InvoiceController {
 
 				String invoiceNumber = obj.getEcomInvoiceNumber();
 				logger.info(invoiceNumber);
-				
+
 			}
 
 			/*
@@ -543,14 +545,14 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 
 	}
 
-	@RequestMapping({ "/getSelectInvoiceDetails" })
+	@PostMapping({ "/getSelectInvoiceDetails" })
 	@CrossOrigin("*")
 	public String getSelectInvoiceDetails(HttpServletRequest request, @RequestBody InvoiceGenerationEntity inviceObj) {
 
@@ -576,13 +578,13 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllDraftInvoice" })
+	@PostMapping({ "/getAllDraftInvoice" })
 	@CrossOrigin("*")
 	public String getAllDraftInvoice(Principal principal, HttpServletRequest request) {
 
@@ -598,13 +600,13 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/deleteDraftInvoice" })
+	@PostMapping({ "/deleteDraftInvoice" })
 	@CrossOrigin("*")
 	public String deleteDraftInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
 
@@ -623,13 +625,13 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/deleteLineItem" })
+	@PostMapping({ "/deleteLineItem" })
 	@CrossOrigin("*")
 	public String deleteLineItem(HttpServletRequest request, @RequestBody TripDetails obj) {
 
@@ -648,13 +650,13 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/discardDraftInvoice" })
+	@PostMapping({ "/discardDraftInvoice" })
 	@CrossOrigin("*")
 	public String discardDraftInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
 
@@ -673,13 +675,13 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllQueryInvoiceVendorPo" })
+	@PostMapping({ "/getAllQueryInvoiceVendorPo" })
 	@CrossOrigin("*")
 	public String getAllQueryInvoiceVendorPo(Principal principal, HttpServletRequest request) {
 
@@ -694,13 +696,13 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/checkForExistingInvoiceNumber" })
+	@PostMapping({ "/checkForExistingInvoiceNumber" })
 	@CrossOrigin("*")
 	public String checkForExistingInvoiceNumber(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
 
@@ -721,13 +723,13 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping(value = "/getQueryInvoice")
+	@PostMapping(value = "/getQueryInvoice")
 	@CrossOrigin("*")
 	public String getQueryInvoice(@RequestBody InvoiceGenerationEntity obj, Principal principal, HttpSession session,
 			HttpServletRequest request) {
@@ -745,7 +747,7 @@ public class InvoiceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -753,7 +755,7 @@ public class InvoiceController {
 
 	// deleteTripQueryInvoice
 
-	@RequestMapping({ "/deleteTripQueryInvoice" })
+	@PostMapping({ "/deleteTripQueryInvoice" })
 	@CrossOrigin("*")
 	public String deleteTripQueryInvoice(HttpServletRequest request, @RequestBody TripDetails obj) {
 
@@ -769,13 +771,13 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/addNewTripInQueryInvoice" })
+	@PostMapping({ "/addNewTripInQueryInvoice" })
 	@CrossOrigin("*")
 	public String addNewTripInQueryInvoice(HttpServletRequest request, @RequestBody TripDetails obj) {
 
@@ -785,7 +787,7 @@ public class InvoiceController {
 		try {
 
 			String tripID = obj.getTripID();
-			String invoiceNumber = obj.getInvoiceNumber();
+			//String invoiceNumber = obj.getInvoiceNumber();
 
 			TripDetails tripDetails = serviceManager.tripDetailsRepo.findByTripID(tripID);
 
@@ -804,7 +806,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();

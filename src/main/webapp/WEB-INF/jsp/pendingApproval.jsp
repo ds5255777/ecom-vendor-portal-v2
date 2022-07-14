@@ -161,7 +161,7 @@ tbody {
 											</div>
 											
 											<div class="col-md-2">
-													 <input id="flipToInvoice" type="button" style="width: inherit;" class="btn btn-primary" onclick="approvedTrips()" value="Approved Trips" />
+													 <input id="flipToInvoice" type="button" style="width: inherit;" class="btn btn-primary" onclick="approvedTrips()" value="Approve Trips" />
 											</div>
 											
 											<div class="col-md-2">

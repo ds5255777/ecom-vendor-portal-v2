@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,15 +27,15 @@ public class MasterController {
 
 	@Autowired
 	private ServiceManager serviceManager;
-	
+
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(MasterController.class);
 
-	@RequestMapping({ "/saveTripMaster" })
+	@PostMapping({ "/saveTripMaster" })
 	@CrossOrigin("*")
 	public String saveTripMaster(HttpServletRequest request, @RequestBody AgreementMaster master) {
-		
-		logger.info("Log Some Information : "+dateTimeFormatter.format(LocalDateTime.now()));
+
+		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -48,14 +49,14 @@ public class MasterController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getActiveMasterData" })
+	@PostMapping({ "/getActiveMasterData" })
 	@CrossOrigin("*")
 	public String getActiveMasterData(HttpServletRequest request) {
 
@@ -71,14 +72,14 @@ public class MasterController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getMasterById" })
+	@PostMapping({ "/getMasterById" })
 	@CrossOrigin("*")
 	public String getUserById(HttpServletRequest request, @RequestBody AgreementMaster master) {
 
@@ -94,14 +95,14 @@ public class MasterController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/saveUpdateMasterDetails" })
+	@PostMapping({ "/saveUpdateMasterDetails" })
 	@CrossOrigin("*")
 	public String saveUpdateMasterDetails(HttpServletRequest request, @RequestBody AgreementMaster master) {
 
@@ -109,20 +110,20 @@ public class MasterController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			logger.info("in mster update");
-			AgreementMaster agreementMaster = serviceManager.agreementMasterRepo.save(master);
+			serviceManager.agreementMasterRepo.save(master);
 			data.setMsg("success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/deleteMaster" })
+	@PostMapping({ "/deleteMaster" })
 	@CrossOrigin("*")
 	public String deleteMaster(HttpServletRequest request, @RequestBody AgreementMaster master) {
 
@@ -137,7 +138,7 @@ public class MasterController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 

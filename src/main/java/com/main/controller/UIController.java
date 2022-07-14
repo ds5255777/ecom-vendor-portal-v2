@@ -2,14 +2,12 @@ package com.main.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +24,6 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.main.commonclasses.GlobalConstants;
@@ -129,7 +126,6 @@ public class UIController {
 		} else {
 
 			// Query page of registration
-			System.out.println(pid);
 			model.addAttribute("pid", pid);
 			List<String> currency = serviceManager.currencyRepo.getCurrencyType();
 			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
@@ -187,7 +183,6 @@ public class UIController {
 		if ("".equals(vendorType) || vendorType == null) {
 			vendorType = "vendor";
 		}
-		System.out.println("vendorType in dashboard : " + vendorType);
 
 		model.addAttribute("dataLimit", dataLimit);
 
@@ -297,12 +292,8 @@ public class UIController {
 			if (vendorType == "" || vendorType == null) {
 				vendorType = "vendor";
 			}
-			System.out.println("vendorType in dashboard : " + vendorType);
-			
-			
 
 			if (vendorType.equalsIgnoreCase("Fixed Asset") || vendorType.equalsIgnoreCase("FIXED ASSETS")) {
-				System.out.println("vendor type : " + vendorType);
 
 				rolename = (String) request.getSession().getAttribute("role");
 				vendorCode = (String) request.getSession().getAttribute("userName");
@@ -322,7 +313,6 @@ public class UIController {
 					} else {
 						serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(pono);
 					}
-					System.out.println("remaningquantity is :::" + remaningquantity + "VendorCode ::" + vendorCode);
 				}
 
 				// po Details
@@ -331,7 +321,6 @@ public class UIController {
 
 				int totalProcessPoCount = serviceManager.podetailsRepo.getAllProcessPoCount(vendorCode);
 				model.addAttribute("totalProcessPoCount", totalProcessPoCount);
-				System.out.println("totalProcessPoCount : " + totalProcessPoCount);
 				int totalUnprocessPOCount = serviceManager.podetailsRepo.getAllUnProcessPoCount(vendorCode);
 				model.addAttribute("totalUnprocessPOCount", totalUnprocessPOCount);
 				// Query
@@ -350,8 +339,6 @@ public class UIController {
 
 				model.addAttribute("userStatus", us.getStatus());
 				model.addAttribute("dataLimit", dataLimit);
-
-				System.out.println("end of dashboard_Po");
 
 				if (rolename.equalsIgnoreCase("Vendor")) {
 
@@ -464,9 +451,7 @@ public class UIController {
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("dataLimit", dataLimit);
 
-		System.out.println("Role is ::" + rolename);
 		if (rolename.equalsIgnoreCase("Network")) {
-			System.out.println("All trips in network");
 			return "allTripsNetwork";
 		} else if (rolename.equalsIgnoreCase("Vendor")) {
 			return "allTrips";
@@ -679,44 +664,10 @@ public class UIController {
 		String tripId = request.getParameter("id");
 		model.addAttribute("tripId", tripId);
 
-		System.out.println("tripId ........." + tripId);
-
 		int totalTripCount = serviceManager.tripDetailsRepo.getADHocTripCount("Adhoc");
 		model.addAttribute("totalTripCount", totalTripCount);
 
 		return "dashBoard_NetworkRole";
-	}
-
-	@GetMapping("/InsertTrip")
-	public void InsertTrip(Model model, Principal principal, HttpServletRequest request) throws FileNotFoundException {
-		System.out.println("***************************Inside Trip************************************************");
-		TripDetails tripDetails = new TripDetails();
-
-//        tripDetails.setId();
-		tripDetails.setTripID("4027152");
-		tripDetails.setRoute("AGH--DXH");
-		tripDetails.setRunType("Schedule");
-		tripDetails.setMode("Linehaul Run");
-		tripDetails.setVehicleNumber("DL01LW3092");
-		tripDetails.setVendorCode("");
-		tripDetails.setVendorName("Nikhil Transport");
-
-		tripDetails.setActualVechicleType("17 Feet");
-		tripDetails.setStandardShipmentCapacity("3200");
-		tripDetails.setStandardPayloadCapacity("4500");
-		tripDetails.setRunStatus("Closed");
-		tripDetails.setOriginHub("AGH");
-		tripDetails.setOriginRegion("Central");
-		tripDetails.setDestHub("DXH");
-		tripDetails.setActualArrival("2022-02-13 12:20:56");
-		tripDetails.setActualDeparture("2022-02-13 04:21:52");
-		tripDetails.setActualKM(1.00);
-		tripDetails.setStandardKM(236.00);
-		tripDetails.setActualShipment("18");
-		tripDetails.setActualChargeableWeight("109.5");
-
-		serviceManager.tripService.save(tripDetails);
-
 	}
 
 	@GetMapping("/pendingApprovalNetwork")
@@ -724,7 +675,6 @@ public class UIController {
 		List<TripDetails> yetTobeApproved = serviceManager.tripService.findAllTripsByStatus("");
 		List<String> vendorNamefortrips = serviceManager.tripDetailsRepo.getVendorName();
 		model.addAttribute("vendorNamefortrips", vendorNamefortrips);
-		System.out.println("Size of pending approval trips is ::" + yetTobeApproved.size());
 		model.addAttribute("yetTobeApprovedAllDetails", yetTobeApproved);
 		model.addAttribute("dataLimit", dataLimit);
 		return "pendingApprovalNetwork";
@@ -733,9 +683,7 @@ public class UIController {
 //getApprovedAdhocTrips
 	@GetMapping("/getApprovedAdhocTrips")
 	public String getApprovedAdhocTrips(Model model, Principal principal) {
-		System.out.println("In getApprovedAdhocTrips");
 		List<TripDetails> allApprovedTripscount = serviceManager.tripService.findAllTripsByStatus("Yet To Be Approved");
-		System.out.println("allApprovedTripscount  :::::::::::::::::::; " + allApprovedTripscount.size());
 		model.addAttribute("ApprovedAllDetailsForNetwork", allApprovedTripscount);
 		model.addAttribute("dataLimit", dataLimit);
 		return "getApprovedAdhocTrips";
@@ -743,10 +691,7 @@ public class UIController {
 
 	@GetMapping("/QueryTripsForNetwork")
 	public String QueryTripsForNetwork(Model model, Principal principal) {
-		System.out.println("********************In QueryTripsForNetwork**************");
 		List<TripDetails> AllDetailsForNetwork = serviceManager.tripDetailsRepo.getQueryTripsForNetwork("Query");
-		System.out.println(
-				"AllDetailsForNetwork Query and Adhoc Trips  :::::::::::::::::::; " + AllDetailsForNetwork.size());
 		List<String> vendorNamefortripsQuery = serviceManager.tripDetailsRepo.getVendorName();
 		model.addAttribute("vendorNamefortripsQuery", vendorNamefortripsQuery);
 		model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
@@ -757,11 +702,8 @@ public class UIController {
 //ClosedAdhoc
 	@GetMapping("/ClosedAdhoc")
 	public String ClosedAdhoc(Model model, Principal principal) {
-		System.out.println("********************In ClosedAndAdhoc**************");
 		List<TripDetails> AllDetailsForNetwork = serviceManager.tripService
 				.getInTransitTripByRunTypeAndRunStatus("Adhoc", "Closed");
-		System.out.println(
-				"AllDetailsForNetwork In closed and Adhoc Trips  :::::::::::::::::::; " + AllDetailsForNetwork.size());
 		model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
 		model.addAttribute("dataLimit", dataLimit);
 		return "ClosedAdhoc";
@@ -825,7 +767,6 @@ public class UIController {
 			}
 			String vendorName = findByTripID.getVendorName();
 			model.addAttribute("vendorName", vendorName);
-			System.out.println(vendorName);
 
 			/*
 			 * List<AddressDetails> vendorAddress =
@@ -841,7 +782,6 @@ public class UIController {
 			invoiceSave.setVendorCode(userName);
 			invoiceSave.setInvoiceStatus("Draft-Invoicing");
 			serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
-			// listof.forEach(System.out::println);
 		} catch (Exception e) {
 			logger.error("error : " + e);
 			e.printStackTrace();
@@ -850,7 +790,6 @@ public class UIController {
 		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber);
 		List<Object> listofTrips = new ArrayList<>();
 		for (TripDetails tripDetails : list) {
-			System.out.println(tripDetails.getTripID());
 			String tripID = tripDetails.getTripID();
 			listofTrips.add(tripID);
 
@@ -882,7 +821,6 @@ public class UIController {
 		model.addAttribute("fileSize", fileSize);
 		model.addAttribute("invoiceNumber", invoiceNumber);
 
-		System.out.println(invoiceNumber);
 		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber);
 		List<Object> listofTrips = new ArrayList<>();
 
@@ -977,7 +915,7 @@ public class UIController {
 		return "queryInvoiceEdit";
 	}
 
-	@RequestMapping("/getDoc")
+	@GetMapping("/getDoc")
 	@CrossOrigin("*")
 	void getDoc(HttpServletResponse response, HttpServletRequest request, @RequestParam("name") String name,
 			@RequestParam("path") String path) {
@@ -987,17 +925,10 @@ public class UIController {
 		try {
 			String[] docNameExtensionArray = name.split("\\.");
 			String docNameExtension = docNameExtensionArray[docNameExtensionArray.length - 1];
-			System.out.println("docNameExtension.." + docNameExtension);
 			String uri = request.getScheme() + "://" + // "http" + "://
 					request.getServerName() + // "myhost"
 					":" + // ":"
 					request.getServerPort() + "/"; // "8080"
-
-			System.out.println("uri..." + uri);
-
-			System.out.println("uri..." + path);
-
-			System.out.println("uri..." + name);
 
 			file = new File(path);
 			inputStream = new FileInputStream(file);

@@ -208,6 +208,22 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
+                                            <label class="col-sm-5">Extra KM Rate<span class="text-danger"> </span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="extraKmRate" id="extraKmRate" type="text" placeholder="Rate If Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateInvoice();">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Miscellaneous<span class="text-danger"> </span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="miscellaneous" id="miscellaneous" type="text" placeholder="If Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateInvoice();">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
                                             <label class="col-sm-5">Invoice Amount <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="number" name="invoiceAmount" id="invoiceAmount" placeholder="Invoice Amount" readonly style="width: 100%;">
@@ -1006,13 +1022,16 @@
             var taxAmount = $("#taxAmount").val();
             var greenTax = $("#greenTax").val();
             var taxableAmount = $("#taxableAmount").val();
+            var miscellaneous = $("#miscellaneous").val();
+            var extraKmRate = $("#extraKmRate").val();
+            
             if(greenTax=="" || greenTax=='' || greenTax==null){
 	            var taxAmount= parseFloat(taxableAmount) *  (parseFloat(taxAmount) /100);
 	            var finalInvoiceAmount = parseFloat(taxableAmount) +  parseFloat(taxAmount) ;
 	            $("#invoiceAmount").val(parseFloat(finalInvoiceAmount).toFixed(2));
             }else{
             	var taxAmount= parseFloat(taxableAmount) *  (parseFloat(taxAmount) /100);
-	            var finalInvoiceAmount = parseFloat(taxableAmount) +  parseFloat(taxAmount)+ parseFloat(greenTax) ;
+	            var finalInvoiceAmount = parseFloat(taxableAmount) +  parseFloat(taxAmount)+ parseFloat(greenTax)+parseFloat(miscellaneous)+parseFloat(extraKmRate) ;
                  $("#invoiceAmount").val(parseFloat(finalInvoiceAmount).toFixed(2));
             }
         } 

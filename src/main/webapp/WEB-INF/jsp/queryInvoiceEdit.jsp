@@ -147,7 +147,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Number <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm"  type="text"  oninput="this.value = this.value.replace(/[^0-9-_A-Za-z]/g, '').replace(/(\..*)\./g, '$1');this.value = this.value.toUpperCase();" name="invoiceNumber" id="invoiceNumber" style="width: 100%;">
+                                                <input class="form-control-sm"  type="text" name="invoiceNumber" id="invoiceNumber" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -431,7 +431,7 @@
         };
         $(document).on("keydown", disableF5);
         
-        $("input[type=text]").prop('disabled', true);
+        $("input[type=text]").prop('readonly', true);
         var tripLineArray = [];
         var tripIdArray=[];
         var totalFreight = 0;
@@ -524,6 +524,7 @@
                          $("#vendorName").val(result.vendorName);
                          $("#invoiceNumber").val(result.invoiceNumber);
                          $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);
+                         getQueryData(result.invoiceNumber);
                     } else {
                         Toast.fire({
                             type: 'error',
@@ -540,15 +541,15 @@
             });
         }
         
-        getQueryData();
+       
 		 
-		 function getQueryData(){
+		 function getQueryData(invoiceNu){
+			 debugger;
 			 $('.loader').show();
 			 var obj ={
-						"referenceid": $('#invoiceNumber').val(),
+						"referenceid": invoiceNu,
 						"type": "Invoice"
 				}
-				
 				$.ajax({
 					type : "POST",
 					url : "<%=GlobalUrl.getQueryByTypeAndForeignKey%>",
@@ -754,8 +755,6 @@
                     if (data.msg == 'success') {
                         var result = data.data;
                         tripIdArray=result;
-                        console.log("All trip Id is :",tripIdArray);
-                        
                         if (result.length !== 0) {
                             for (var i = 0; i < result.length; i++) {
                                 $('#tripList').append($('<option/>').attr("value", result[i]).text(result[i]));

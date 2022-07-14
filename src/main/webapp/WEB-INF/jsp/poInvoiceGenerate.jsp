@@ -614,6 +614,7 @@
 	  
 	  
   var tripLineArray=[];
+  var lineItemArray1=[];
   var price1=[];
   var quanttty=[];
   var invoiceDate="${invoiceDate}";
@@ -678,6 +679,7 @@
                 if (data.msg == 'success') {
                     var result = data.data;
                     tripLineArray=result[0].poline;
+                    lineItemArray1=result[0].poline;;
                     for(var i=0;i<tripLineArray.length;i++){
                     	quntityflag.push("0");
                     }
@@ -950,6 +952,7 @@
 					 var taxper = $("#taxper_"+index).val();
 					// tripLineArray[index].remaningQuatity=remaningQuantity;
 						tripLineArray[index].lineitemId=reId; 
+						lineItemArray1[index].changeQutty=remaningQuantity;
 					
 					 
 					    
@@ -1128,6 +1131,9 @@
         delete tripLineArray[i].id
         delete tripLineArray[i].amount
         delete tripLineArray[i].price
+        if(tripLineArray[i].remaningQuatity==""){
+        	tripLineArray[i].remaningQuatity=0;	
+        }
        };
         finalObj.poInvoiceLine=tripLineArray;
     
@@ -1156,12 +1162,17 @@
       var poNumber= document.getElementById("poNumber").value;
     
 		        for(var i=0;i<tripLineArray.length;i++){
-		        	
+		        	var remingQuty="";
 		        	var poLineId=tripLineArray[i].poLineId;
-		        	
+		        	 if(!lineItemArray1[i].hasOwnProperty("changeQutty")){
+		        		 remingQuty= tripLineArray[i].remaningQuatity;
+						} else{
+							remingQuty=lineItemArray1[i].changeQutty;
+						}
+		        	 
 		            
 		   		 var obj = {
-		   		            "remaningQuatity" : remaningQuatity1[i],
+		   		            "remaningQuatity" : remingQuty,
 		   		            
 		   		  			"id"  : poLineId,
 		   		  			"poNumber" : poNumber,
@@ -1169,21 +1180,21 @@
 		   		        }
 		   
         
-	  $.ajax({
-           type: "POST",
-           data: JSON.stringify(obj),
-            url: "<%=GlobalUrl.updateRemaningQuantity%>" , 
-           dataType: "json",
-           contentType: "application/json",
-           async: false,
-           success: function(data) {
-
-            
-           }
-	  });
-   
-    }
-    
+					  $.ajax({
+				           type: "POST",
+				           data: JSON.stringify(obj),
+				            url: "<%=GlobalUrl.updateRemaningQuantity%>" , 
+				           dataType: "json",
+				           contentType: "application/json",
+				           async: false,
+				           success: function(data) {
+				
+				            
+				           }
+					  });
+				   
+				    }
+				    
 
 
         
@@ -1198,7 +1209,6 @@
            
            };
            
-           
             finalObj.poInvoiceLine=tripLineArray;
             finalObj.invoiceNumber='${invoiceNumber}';
         	finalObj.matchOption=matchOption;
@@ -1211,10 +1221,6 @@
                    finalObj.documentFileOneName = document.getElementById("DocumentFileOne").files.item(0).name;
                    finalObj.documentFileOneText = $("#DocumentFileOneText").val();
                }
-        
-        
-        
-        
         
         $.ajax({
             type: "POST",

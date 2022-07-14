@@ -101,7 +101,7 @@ public class PoDetails {
     private String typeLookupCode;
     
     @Column(name = "processed_On")
-	private String processedOn;//
+	private Date processedOn;//
 
 	@Column(name = "processed_By")
 	private String processedBy;//
@@ -309,10 +309,10 @@ public class PoDetails {
 	public void setNeedByDate(Date needByDate) {
 		this.needByDate = needByDate;
 	}
-	public String getProcessedOn() {
+	public Date getProcessedOn() {
 		return processedOn;
 	}
-	public void setProcessedOn(String processedOn) {
+	public void setProcessedOn(Date processedOn) {
 		this.processedOn = processedOn;
 	}
 	public String getProcessedBy() {
@@ -321,6 +321,7 @@ public class PoDetails {
 	public void setProcessedBy(String processedBy) {
 		this.processedBy = processedBy;
 	}
+
 	
 	
 

@@ -56,8 +56,8 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long> {
 
 	@Transactional
 	@Modifying
-	@Query(value = "update po_details set status='In-Review' where PO_Number=:poNumber ", nativeQuery = true)
-	void updateVendorPoStatusAgainsInvoiceNumber(@Param("poNumber") String poNumber);
+	@Query(value = "update po_details set status='In-Review',process_on=:processOn ,process_by=:processBy where PO_Number=:poNumber ", nativeQuery = true)
+	void updateVendorPoStatusAgainsInvoiceNumber(@Param("poNumber") String poNumber,@Param("processOn") Date processOn,@Param("processBy") String processBy);
 
 	@Transactional
 	@Modifying
@@ -66,8 +66,8 @@ public interface PoDetailsRepo extends JpaRepository<PoDetails, Long> {
 
 	@Transactional
 	@Modifying
-	@Query(value = "update po_details set status='Partially Invoiced' where PO_Number=:poNumber ", nativeQuery = true)
-	void updateVendorPoStatusUnprocess(@Param("poNumber") String poNumber);
+	@Query(value = "update po_details set status='Partially Invoiced' ,process_on=:processOn ,process_by=:processBy where PO_Number=:poNumber ", nativeQuery = true)
+	void updateVendorPoStatusUnprocess(@Param("poNumber") String poNumber,@Param("processOn") Date processOn,@Param("processBy") String processBy);
 
 	@Transactional
 	@Modifying

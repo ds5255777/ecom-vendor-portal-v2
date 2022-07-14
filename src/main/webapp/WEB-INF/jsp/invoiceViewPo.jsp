@@ -429,19 +429,29 @@
 						</div>
 					</div>
 					
-					 <div class="row" >
+					<!--  <div class="row" >
 						<div class="col-md-3"></div>
-							<div class="col-md-2" 
+							<div class="form-group" 
 								id="viewAttachmentDiv">
 								<button type="button" id="viewAttachment"
 									onclick="displayAttachmentForPoDetails()" value="viewAttachment"
 									class="btn btn-primary btn-lg">View Attachments</button>
 							</div>
-							<div class="col-md-1" style="    margin-left: -102px;">
+							<div class="form-group" style=" "   margin-left: -102px;">
 								<button type="button" onclick="closeWin()"
 									class="btn btn-info btn-lg">Close</button>
 							</div>
-					</div>
+					</div> -->
+					
+					<div class="form-group text-center">
+                            <div class="col-md-3"></div>
+                          <button type="button" id="viewAttachment"
+									onclick="displayAttachmentForPoDetails()" value="viewAttachment"
+									class="btn btn-primary btn-lg">View Attachments</button>
+                            <button type="button" onclick="closeWin()"
+									class="btn btn-info btn-lg">Close</button>
+                        </div>
+                       
 					
 					<div class="modal fade" id="viewAttachmentPopUp" role="dialog">
         <div class="modal-dialog " style="max-width: 1300px;">
@@ -661,6 +671,18 @@
                             }
                             if (!tripLineArray[i].hasOwnProperty("gldate")) {
                                 tripLineArray[i].gldate = "";
+                            }//line item
+                            if (!tripLineArray[i].hasOwnProperty("taxper")) {
+                                tripLineArray[i].taxper = "";
+                            }
+                            if (!tripLineArray[i].hasOwnProperty("baseAmount")) {
+                                tripLineArray[i].baseAmount = "";
+                            }
+                            if (!tripLineArray[i].hasOwnProperty("taxAmount")) {
+                                tripLineArray[i].taxAmount = "";
+                            }
+                            if (!tripLineArray[i].hasOwnProperty("totalAmount")) {
+                                tripLineArray[i].totalAmount = "";
                             }
                             var gldate= tripLineArray[i].gldate.split(" ");
                             tripLineArray[i].gldate=gldate[0];

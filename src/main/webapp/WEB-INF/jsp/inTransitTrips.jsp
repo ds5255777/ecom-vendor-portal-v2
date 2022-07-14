@@ -829,7 +829,6 @@
             function setTripStatus(tripId) {
             	$('.loader').show();
                 console.log("Trip od" + tripId);
-                getQueryData(tripId)
 
                 var json = {
                     "tripID": tripId
@@ -851,6 +850,7 @@
                             setData(myForm, result);
 
                             $("#tripID").val(result.tripID);
+                            getQueryData(result.tripID)
 
 
                         } else {

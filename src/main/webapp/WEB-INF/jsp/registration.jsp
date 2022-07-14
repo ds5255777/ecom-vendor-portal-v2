@@ -206,7 +206,6 @@
                         .on('click', function() {
                         	
                         	  var pid="${pid}";
-                        	//debugger;
                         	  /*  if ($("#partnerType").val() == "Scheduled") {  */
                         		  console.log($("#partnerType").val());
                         		 if(pid==""){
@@ -953,7 +952,7 @@ label {
         <br> <br>
         <input type="hidden" id="vendorPrimaryKey" />
         <input type="hidden" id="vendorPid" />
-        <div class="content-wrapper" style="margin-left: 0px; width: 100%; ">
+        <div class="container-fluid" style="margin-left: 0px; width: 100%; ">
             <div id="smartwizard" style="background: white; padding: 20px;">
                 <ul>
                     <li style="margin-left: 0px; margin-right: auto;"><a href="#step-1">Step-1<br /> <small>Basic Details</small></a></li>
@@ -1020,7 +1019,7 @@ label {
 
 
                                                 <td><label for="suppName">Business Partner Name<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="suppName" name="suppName" placeholder="Business Partner Name" onchange="removeValCssByID(this)" oninput="this.value = this.value.toUpperCase()" maxlength="50"></td>
+                                                <td colspan='1'><input type="text" class="form-control p-input" id="suppName" name="suppName" placeholder="Business Partner Name" onchange="removeValCssByID(this)"  maxlength="50"></td>
                                             
 												<td><label for="businessClassification">Business
                                                         Classification</label></td>
@@ -2074,7 +2073,6 @@ label {
             finalObj.addressDetails = addressDetailsArray;
             finalObj.contactDetails = contactDetailsArray;
             /* finalObj.itrDetails = itrDetailsArray; */
-debugger;
             if (document.getElementById("GSTFile").files.length > 0) {
             	finalObj.gstFileName=document.getElementById("GSTFile").files.item(0).name;
                 finalObj.gstFileText = $("#GSTFileText").val();
@@ -2202,7 +2200,7 @@ debugger;
           	finalObj.vendorType=vendorTypeString;
            
             console.log(finalObj);
-           /*  $('.loader').show(); */
+            $('.loader').show(); 
 
             $.ajax({
                 type: "POST",
@@ -2212,8 +2210,7 @@ debugger;
                 contentType: "application/json",
                 success: function(response) {
                 	
-                	 /* $('.loader').hide(); */
-                	 return;
+                	 $('.loader').hide(); 
                     if (response.msg == 'success') {
                     	swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + response.data, "success", "OK").then(function() {
                             window.location = "login";
@@ -2583,7 +2580,6 @@ debugger;
 	                contentType: "application/json",
 	                async: false,
 	                success: function(data) {
-	                    //debugger;
 	                    if (data.msg == 'success') {
 	                        var result = data.data;
 	                    	console.log(result);
@@ -2826,7 +2822,6 @@ debugger;
 						swal.fire("Alert","<b>"+ panNumber+"</b> This Pan Number is Already Exists", "warning");
 						 document.getElementById("panNumber").focus();
 						$("#panNumber").val('');
-						 return;
 					} else if (data.msg == 'success') {
 						PanNumberCheckStatus = "true";
 					} else {

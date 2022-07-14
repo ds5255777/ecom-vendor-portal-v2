@@ -973,7 +973,6 @@ tbody {
             function getTripDataFormDataByTripId(tripId) {
                 //	 tripId =  $("#tripID").val();
                 $('.loader').show();
-                getQueryData(tripId);
 
                 globalTripId=tripId;
                 var json = {
@@ -987,6 +986,7 @@ tbody {
                     data: JSON.stringify(json),
                     url: "<%=GlobalUrl.tripDetailByTripId%>",
                     dataType: "json",
+                    async: false,
                     contentType: "application/json",
                     success: function(data) {
                     	$('.loader').hide();
@@ -998,7 +998,8 @@ tbody {
                             myForm = document.getElementById("tripForm");
                             setData(myForm, result);
                             $("#tripID").val(result.tripID);
-                           $("tbody").show(); 
+                           /* $("tbody").show();  */
+                            getQueryData(result.tripID);
 
 
                         } else {
@@ -1087,6 +1088,7 @@ function updateTripData(){
         "vendorTripStatus": "<%=GlobalConstants.VENDOR_TRIP_STATUS_APPROVED%>",
         "openingReading":$("#openingReading").val(),
         "closingReading":$("#closingReading").val(),
+        "vendorCode":$("#vendorCode").val()
     }
 	console.log("----------",obj);
     $('.loader').show();

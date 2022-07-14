@@ -170,6 +170,14 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
+                                            <label class="col-sm-5">Tax (%)<span class="text-danger"> </span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm"  name="taxAmount" id="taxAmount" type="text" value="18" style="width: 100%;" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
                                             <label class="col-sm-5">Green Tax<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" name="greenTax" id="greenTax" type="text" placeholder="Green Tax Not Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateInvoice();">
@@ -178,9 +186,23 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Tax (%)<span class="text-danger"> </span></label>
+                                            <label class="col-sm-5">Extra KM<span class="text-danger"> </span></label>
+                                            <div class="col-sm-2">
+                                                <input class="form-control-sm" name="exteraKM" id="exteraKM" type="text" placeholder="Ex KM"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5"  onblur="calculateRateKm();calculateInvoice();">
+                                            </div>
+                                             <div class="col-sm-2">
+                                                <input class="form-control-sm" name="ratePerKm" id="ratePerKm" type="text" placeholder="R/KM"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input class="form-control-sm" name="extraKmRate" id="extraKmRate" type="text" placeholder="Rate KM" style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5"  >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Miscellaneous<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm"  name="taxAmount" id="taxAmount" type="text" value="18" style="width: 100%;" >
+                                                <input class="form-control-sm" name="miscellaneous" id="miscellaneous" type="text" placeholder="Not Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9-.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5"  onblur="calculateInvoice();">
                                             </div>
                                         </div>
                                     </div>

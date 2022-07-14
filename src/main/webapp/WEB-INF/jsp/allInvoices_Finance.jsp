@@ -258,6 +258,7 @@
                 showConfirmButton: false,
                 timer: 3000
             });
+            debugger;
             var currentDate='${currentDate}';
             var dataLimit='${dataLimit}';
     		dataLimit=parseInt(dataLimit);
@@ -369,14 +370,14 @@
             
             
             $('#fromDate').datepicker({
-                dateFormat: 'yy-mm-dd',
+                dateFormat: 'dd-mm-yy',
                 changeMonth: true,
                 changeYear: true,
                 maxDate: currentDate
             });
 
             $('#toDate').datepicker({
-                dateFormat: 'yy-mm-dd',
+                dateFormat: 'dd-mm-yy',
                 changeMonth: true,
                 changeYear: true,
                 maxDate: currentDate

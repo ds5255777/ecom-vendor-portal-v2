@@ -1,7 +1,5 @@
 package com.main.bean;
 
-import javax.persistence.Column;
-
 public class PoAndLineItem {
 
 	private long id;

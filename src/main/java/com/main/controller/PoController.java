@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,22 +35,22 @@ public class PoController {
 
 	@Autowired
 	private ServiceManager serviceManager;
-	
+
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(PoController.class);
 
-	@RequestMapping({ "/getAllPODetails" })
+	@PostMapping({ "/getAllPODetails" })
 	@CrossOrigin("*")
 	public String getActiveMasterData(HttpServletRequest request, Principal principal) {
-		
-		logger.info("Log Some Information : "+dateTimeFormatter.format(LocalDateTime.now()));
+
+		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
 
 		String vendorCode = (String) request.getSession().getAttribute("userName");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			
+
 			List<PoDetails> allPoDetails = serviceManager.podetailsRepo.findByVendorCode(vendorCode);
 
 			data.setData(allPoDetails);
@@ -58,14 +60,14 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/poDetailsByPoNo" })
+	@PostMapping({ "/poDetailsByPoNo" })
 	@CrossOrigin("*")
 	public String poDetailsByPoNo(HttpServletRequest request, @RequestBody PoDetails details) {
 
@@ -81,16 +83,16 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllProcessPo" })
+	@PostMapping({ "/getAllProcessPo" })
 	@CrossOrigin("*")
-	public String getAllProcessPo(HttpServletRequest request ,Principal principal) {
+	public String getAllProcessPo(HttpServletRequest request, Principal principal) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -105,14 +107,14 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error in getAllProcessPo method : "+e);
+			logger.error("error in getAllProcessPo method : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllUnProcessPo" })
+	@PostMapping({ "/getAllUnProcessPo" })
 	@CrossOrigin("*")
 	public String getAllUnProcessPo(HttpServletRequest request) {
 
@@ -130,49 +132,48 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllInvoiceDetails" })
+	@PostMapping({ "/getAllInvoiceDetails" })
 	@CrossOrigin("*")
 	public String getAllInvoiceDetails(HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			
+
 			String vendorCode = (String) request.getSession().getAttribute("userName");
-			
-			if(vendorCode.equals("finance1")) {
+
+			if (vendorCode.equals("finance1")) {
 				logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
 				List<PoInvoiceDetails> details = serviceManager.poinvoiceRepo.getAllInvoiceDetailsForFinance();
 				data.setData(details);
-			
-			}else {
+
+			} else {
 				logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
 				List<PoInvoiceDetails> details = serviceManager.poinvoiceRepo.getAllInvoiceDetails(vendorCode);
 				data.setData(details);
 			}
 
-			
 			data.setMsg("success");
 			logger.info("end of allPoDetails");
 
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getSelectInvoiceDetailsPo" })
+	@PostMapping({ "/getSelectInvoiceDetailsPo" })
 	@CrossOrigin("*")
 	public String getSelectInvoiceDetailsPo(HttpServletRequest request, @RequestBody PoInvoiceDetails details) {
 
@@ -181,11 +182,12 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
-			
-			if(vendorCode.equals("finance1")) {
-			List<PoInvoiceDetails> poInvoiceDetails = serviceManager.poinvoiceRepo.findByInvoiceNumberByFinance(details.getInvoiceNumber());
-			data.setData(poInvoiceDetails);
-			}else {
+
+			if (vendorCode.equals("finance1")) {
+				List<PoInvoiceDetails> poInvoiceDetails = serviceManager.poinvoiceRepo
+						.findByInvoiceNumberByFinance(details.getInvoiceNumber());
+				data.setData(poInvoiceDetails);
+			} else {
 				List<PoInvoiceDetails> poInvoiceDetails = serviceManager.poinvoiceRepo.findByInvoiceNumber(vendorCode,
 						details.getInvoiceNumber());
 				data.setData(poInvoiceDetails);
@@ -196,14 +198,14 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllPODetailsByPoNo" })
+	@PostMapping({ "/getAllPODetailsByPoNo" })
 	@CrossOrigin("*")
 	public String getAllPODetailsByPoNo(HttpServletRequest request, @RequestBody PoDetails details) {
 
@@ -222,14 +224,14 @@ public class PoController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllPODetailsByLineNumber" })
+	@PostMapping({ "/getAllPODetailsByLineNumber" })
 	@CrossOrigin("*")
 	public String getAllPODetailsByLineNumber(HttpServletRequest request, @RequestBody PoLineDetails details) {
 
@@ -248,14 +250,14 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/savePoInvoiceQuery" })
+	@PostMapping({ "/savePoInvoiceQuery" })
 	@CrossOrigin("*")
 	public String savePoInvoiceQuery(HttpServletRequest request, @RequestBody QueryEntity details) {
 
@@ -277,14 +279,14 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getPoQueryData" })
+	@PostMapping({ "/getPoQueryData" })
 	@CrossOrigin("*")
 	public String getPoQueryData(HttpServletRequest request, @RequestBody QueryEntity details) {
 
@@ -306,39 +308,37 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "filterPoDetails" })
+	@GetMapping({ "filterPoDetails" })
 	@CrossOrigin("*")
 	public String filterPoDetails(Principal principal, HttpServletRequest request,
-			@RequestParam(name = "actualDeparture") Date fromDate,
-			@RequestParam(name = "actualArrival") Date toDate) {
+			@RequestParam(name = "actualDeparture") Date fromDate, @RequestParam(name = "actualArrival") Date toDate) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		logger.info("fromDate : " + fromDate + " toDate : " + toDate);
 		String vendorCode = principal.getName();
 		try {
-			
-				List<PoDetails> getListByDateFilter = serviceManager.podetailsRepo
-						.findByActualDepartureBetween(fromDate, toDate, vendorCode);
-				data.setData(getListByDateFilter);
-				data.setMsg("success");
-			
+
+			List<PoDetails> getListByDateFilter = serviceManager.podetailsRepo.findByActualDepartureBetween(fromDate,
+					toDate, vendorCode);
+			data.setData(getListByDateFilter);
+			data.setMsg("success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/updateRemaningQuantity" })
+	@PostMapping({ "/updateRemaningQuantity" })
 	@CrossOrigin("*")
 	public String updateRemaningQuantity(HttpServletRequest request, @RequestBody PoAndLineItem details) {
 
@@ -347,7 +347,8 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			logger.info("getRemaningQuatity in po line :::::::: " + details.getRemaningQuatity() + "poLineId" + details.getId());
+			logger.info("getRemaningQuatity in po line :::::::: " + details.getRemaningQuatity() + "poLineId"
+					+ details.getId());
 
 			serviceManager.podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
 
@@ -363,14 +364,14 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/updateRemaningQuantitydraft" })
+	@PostMapping({ "/updateRemaningQuantitydraft" })
 	@CrossOrigin("*")
 	public String updateRemaningQuantitydraft(HttpServletRequest request, @RequestBody PoAndLineItem details) {
 
@@ -380,11 +381,11 @@ public class PoController {
 		try {
 
 			logger.info("getRemaningQuatity" + details.getRemaningQuatity() + "id" + details.getId());
-			
+
 			serviceManager.podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
 
-			//serviceManager.podetailsRepo.updateRemaningQuantitydraft(details.getRemaningQuatity(),
-				//	details.getLineNumberpo());
+			// serviceManager.podetailsRepo.updateRemaningQuantitydraft(details.getRemaningQuatity(),
+			// details.getLineNumberpo());
 
 			Integer flag = details.getFlag();
 			if (flag == 1) {
@@ -398,14 +399,14 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getCurrentRemaningQty" })
+	@PostMapping({ "/getCurrentRemaningQty" })
 	@CrossOrigin("*")
 	public String getCurrentRemaningQty(HttpServletRequest request, @RequestBody PoAndLineItem details) {
 
@@ -415,16 +416,16 @@ public class PoController {
 		try {
 
 			String getRemaningQuatity = serviceManager.podetailsRepo.getCurrentRemaningQty(details.getPoLineId());
-			if(getRemaningQuatity==null) {
-				
-				getRemaningQuatity= serviceManager.podetailsRepo.getCurrentQty(details.getPoLineId());
+			if (getRemaningQuatity == null) {
+
+				getRemaningQuatity = serviceManager.podetailsRepo.getCurrentQty(details.getPoLineId());
 			}
 			data.setData(getRemaningQuatity);
 			data.setMsg("success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 
 		}
 

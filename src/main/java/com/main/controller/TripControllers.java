@@ -465,7 +465,7 @@ public class TripControllers {
 
 	}
 
-	@RequestMapping({ "/filterByColumn" })
+	@GetMapping({ "/filterByColumn" })
 	@CrossOrigin("*")
 	public String filterByColumn(Principal principal, HttpServletRequest request,
 			@RequestParam(name = "columnName") String columnName,
@@ -545,7 +545,8 @@ public class TripControllers {
 		try {
 			List<String> myList = new ArrayList<String>(Arrays.asList(obj.split(",")));
 
-			serviceManager.tripDetailsRepo.getUpdateStatusSelectTrips(processedBy, processedOn, vendorTripStatus, myList);
+			serviceManager.tripDetailsRepo.getUpdateStatusSelectTrips(processedBy, processedOn, vendorTripStatus,
+					myList);
 			data.setMsg("success");
 
 		} catch (Exception e) {

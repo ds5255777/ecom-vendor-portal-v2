@@ -698,7 +698,7 @@ public class AjaxController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getVendorDetailByPid" })
+	@PostMapping({ "/getVendorDetailByPid" })
 	@CrossOrigin("*")
 	public String getVendorDetailByPid(HttpServletRequest request, @RequestBody SupDetails obj) {
 
@@ -719,7 +719,7 @@ public class AjaxController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getRegistrationQueryData" })
+	@PostMapping({ "/getRegistrationQueryData" })
 	@CrossOrigin("*")
 	public String getRegistrationQueryData(HttpServletRequest request, @RequestBody QueryEntity obj) {
 

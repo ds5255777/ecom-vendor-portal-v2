@@ -14,9 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,13 +40,12 @@ public class FinanceController {
 
 	@Autowired
 	private ServiceManager serviceManager;
-	
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
 	// all invoice
-	@RequestMapping({ "/viewAllInvoiceForFinanceTeam" })
+	@PostMapping({ "/viewAllInvoiceForFinanceTeam" })
 	@CrossOrigin("*")
 	public String getAllInvoice(HttpServletRequest request) {
 
@@ -61,14 +60,14 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
 	// Approved Invoice
-	@RequestMapping({ "/viewAllProcessInvoiceForFinanceTeam" })
+	@PostMapping({ "/viewAllProcessInvoiceForFinanceTeam" })
 	@CrossOrigin("*")
 	public String getAllProcessInvoice(HttpServletRequest request) {
 
@@ -83,14 +82,14 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
 	// Pending For Approval
-	@RequestMapping({ "/viewAllUnProcessInvoiceForFinanceTeam" })
+	@PostMapping({ "/viewAllUnProcessInvoiceForFinanceTeam" })
 	@CrossOrigin("*")
 	public String getAllUnProcessInvoice(HttpServletRequest request) {
 
@@ -105,14 +104,14 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
 	// Pending For Approval
-	@RequestMapping({ "/getAllInReviewInvoice" })
+	@PostMapping({ "/getAllInReviewInvoice" })
 	@CrossOrigin("*")
 	public String getAllInReviewInvoice(HttpServletRequest request) {
 
@@ -127,14 +126,14 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
 	// Payment Release
-	@RequestMapping({ "/getPaymentReleaseInvoice" })
+	@PostMapping({ "/getPaymentReleaseInvoice" })
 	@CrossOrigin("*")
 	public String getPaymentReleaseInvoice(HttpServletRequest request) {
 
@@ -149,13 +148,13 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/viewAllQueryInvoiceForFinanceTeam" })
+	@PostMapping({ "/viewAllQueryInvoiceForFinanceTeam" })
 	@CrossOrigin("*")
 	public String getAllQueryInvoice(HttpServletRequest request) {
 
@@ -170,13 +169,13 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getQueryByTypeAndForeignKey" })
+	@PostMapping({ "/getQueryByTypeAndForeignKey" })
 	@CrossOrigin("*")
 	public String getQueryByTypeAndForeignKey(HttpServletRequest request, @RequestBody QueryEntity obj) {
 
@@ -192,12 +191,12 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/saveQuery" })
+	@PostMapping({ "/saveQuery" })
 	@CrossOrigin("*")
 	public String saveInvoiceQuery(Principal principal, HttpServletRequest request, @RequestBody QueryEntity entity) {
 
@@ -211,9 +210,9 @@ public class FinanceController {
 		List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
 		EmailConfiguration emailConfiguration = emailList.get(0);
 		String vendorEmail = (String) request.getSession().getAttribute("userEmail");
-		
-		String emailType=null;
-		String type="";
+
+		String emailType = null;
+		String type = "";
 
 		try {
 			Integer getid = entity.getId();
@@ -223,39 +222,39 @@ public class FinanceController {
 				if (GlobalConstants.ROLE_VENDOR.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_IN_REVIEW, GlobalConstants.ROLE_FINANCE, getid);
-					emailType=GlobalConstants.EMAIL_TYPE_VEN_INVOICE_UPDATE;
-					type=entity.getType();
+					emailType = GlobalConstants.EMAIL_TYPE_VEN_INVOICE_UPDATE;
+					type = entity.getType();
 				} else if (GlobalConstants.ROLE_FINANCE.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_VENDOR, getid);
-					emailType=GlobalConstants.EMAIL_TYPE_FIN_TEM_INVOICE_QUERY;
-					type=entity.getType();
+					emailType = GlobalConstants.EMAIL_TYPE_FIN_TEM_INVOICE_QUERY;
+					type = entity.getType();
 				} else if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_FINANCE, getid);
-					emailType=GlobalConstants.EMAIL_TYPE_FIN_HED_INVOICE_QUERY;
-					type=entity.getType();
+					emailType = GlobalConstants.EMAIL_TYPE_FIN_HED_INVOICE_QUERY;
+					type = entity.getType();
 				} else if (GlobalConstants.ROLE_NETWORK.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_VENDOR, getid);
-					emailType=GlobalConstants.EMAIL_TYPE_NET_TEM_INVOICE_QUERY;
-					type=entity.getType();
+					emailType = GlobalConstants.EMAIL_TYPE_NET_TEM_INVOICE_QUERY;
+					type = entity.getType();
 				}
 
-			} else if (GlobalConstants.SET_TYPE_TRIP.equalsIgnoreCase(entity.getType())){
+			} else if (GlobalConstants.SET_TYPE_TRIP.equalsIgnoreCase(entity.getType())) {
 				entity.setType(GlobalConstants.SET_TYPE_TRIP);
 				if (GlobalConstants.ROLE_VENDOR.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateStatusByUserid(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_NETWORK, getid);
-					emailType=GlobalConstants.EMAIL_TYPE_VEN_TRIP_QUERY;
-					type=entity.getType();
+					emailType = GlobalConstants.EMAIL_TYPE_VEN_TRIP_QUERY;
+					type = entity.getType();
 				}
 			} else if (GlobalConstants.SET_TYPE_REGISTRATION.equalsIgnoreCase(entity.getType())) {
 				entity.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 				if (GlobalConstants.ROLE_REGISTRATION_APPROVAL.equalsIgnoreCase(rolename)) {
-					serviceManager.supDetailsRepo.updateVendorStatus(GlobalConstants.QUERY_REQUEST_STATUS,getid);
-					emailType=GlobalConstants.EMAIL_TYPE_VEN_TRIP_QUERY;
-					type=entity.getType();
+					serviceManager.supDetailsRepo.updateVendorStatus(GlobalConstants.QUERY_REQUEST_STATUS, getid);
+					emailType = GlobalConstants.EMAIL_TYPE_VEN_TRIP_QUERY;
+					type = entity.getType();
 				}
 			}
 
@@ -268,35 +267,35 @@ public class FinanceController {
 				entity.setReferenceid(entity.getRaisedAgainQuery());
 				serviceManager.queryRepo.save(entity);
 			}
-			
+
 			List<MailContent> queryType = serviceManager.mailContentRepo.findByType(type);
 
 			if (!queryType.isEmpty()) {
 				SendEmail sendEmail = new SendEmail();
 				MailContent mailContent = queryType.get(0);
 				sendEmail.setMailfrom(emailConfiguration.getUserName());
-				
-				if(rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
-					if(GlobalConstants.SET_TYPE_TRIP.equals(type)) {
+
+				if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+					if (GlobalConstants.SET_TYPE_TRIP.equals(type)) {
 						sendEmail.setSendTo("Network Team");
-					}else {
+					} else {
 						sendEmail.setSendTo("Finance Team");
 						sendEmail.setSendCc("Network Team");
 					}
-					
-				}else if(rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
-					
-					if(GlobalConstants.SET_TYPE_TRIP.equals(type)) {
+
+				} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
+
+					if (GlobalConstants.SET_TYPE_TRIP.equals(type)) {
 						sendEmail.setSendTo("vender");
-					}else {
+					} else {
 						sendEmail.setSendTo("Finance Team");
 						sendEmail.setSendCc("vendor ");
 					}
-					
-				}else if(rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)) {
+
+				} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)) {
 					sendEmail.setSendTo("Insert vender email");
 					sendEmail.setSendCc("Network team");
-				}else if(rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
+				} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
 					sendEmail.setSendCc("Finance team");
 				}
 				sendEmail.setSubject(mailContent.getSubject());
@@ -318,14 +317,14 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
 	}
 
 	// getDocumentById
-	@RequestMapping({ "/getDocumentByTypeAndForeignKey" })
+	@PostMapping({ "/getDocumentByTypeAndForeignKey" })
 	@CrossOrigin("*")
 	public String getDocumentByTypeAndForeignKey(HttpServletRequest request, @RequestBody Document entity) {
 
@@ -339,13 +338,13 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
 
 	// getDocumentById
-	@RequestMapping({ "/approveInvoiceFinanceSide" })
+	@PostMapping({ "/approveInvoiceFinanceSide" })
 	@CrossOrigin("*")
 	public String approveInvoiceFinanceSide(Principal principal, HttpServletRequest request,
 			@RequestBody InvoiceGenerationEntity entity) {
@@ -400,7 +399,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -424,12 +423,12 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "getFilterInvoiceByVendorCode" })
+	@PostMapping({ "getFilterInvoiceByVendorCode" })
 	@CrossOrigin("*")
 	public String getFilterInvoiceByVendorCode(HttpServletRequest request) {
 
@@ -441,12 +440,12 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping(value = "/viewInvoiceForFinanceTeam", method = RequestMethod.POST)
+	@PostMapping({ "viewInvoiceForFinanceTeam" })
 	@CrossOrigin("*")
 	public String viewInvoiceForFinanceTeam(@RequestBody InvoiceGenerationEntity obj)
 			throws UnsupportedEncodingException, MessagingException {
@@ -460,7 +459,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : "+e);
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();

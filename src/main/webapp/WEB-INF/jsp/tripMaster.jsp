@@ -118,7 +118,7 @@ request.setAttribute("financeRole", financeRole);
 	<div class="wrapper">
 
 		<!-- Navbar -->
-		<jsp:include page="navbar.jsp?pagename=Modify CheckList" />
+		<jsp:include page="navbar.jsp?pagename=Trip Master" />
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
@@ -133,7 +133,7 @@ request.setAttribute("financeRole", financeRole);
 				</c:when>  
 			    <c:when test='<%=rolename.equalsIgnoreCase(financeRole)%>'>  
 				<!-- Right navbar links -->
-					<jsp:include page="slidebar_Finance.jsp?pagename=dashboard" />
+					<jsp:include page="slidebar_Finance.jsp?pagename=masterEvaluationCriteria" />
 				</c:when>
 		</c:choose>
 		<!-- /.navbar -->	

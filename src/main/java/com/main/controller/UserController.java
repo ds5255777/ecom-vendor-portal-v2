@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,7 +38,7 @@ public class UserController {
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	@RequestMapping({ "/saveUpdateUserDetails" })
+	@PostMapping({ "/saveUpdateUserDetails" })
 	@CrossOrigin("*")
 	public String saveUpdateUserDetails(HttpServletRequest request, @RequestBody User user) {
 
@@ -86,7 +87,7 @@ public class UserController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getActiveUsersData" })
+	@PostMapping({ "/getActiveUsersData" })
 	@CrossOrigin("*")
 	public String getActiveUsersData(HttpServletRequest request) {
 
@@ -119,7 +120,7 @@ public class UserController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getUserById" })
+	@PostMapping({ "/getUserById" })
 	@CrossOrigin("*")
 	public String getUserById(HttpServletRequest request, @RequestBody User user) {
 
@@ -145,7 +146,7 @@ public class UserController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/setStatusOfUserById" })
+	@PostMapping({ "/setStatusOfUserById" })
 	@CrossOrigin("*")
 	public String setStatusOfUserById(HttpServletRequest request, @RequestBody User user) {
 
@@ -170,7 +171,7 @@ public class UserController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/checkForExistingUserName" })
+	@PostMapping({ "/checkForExistingUserName" })
 	@CrossOrigin("*")
 	public String checkForExistingUserName(HttpServletRequest request, @RequestBody User user) {
 
@@ -208,7 +209,7 @@ public class UserController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getUserByRole" })
+	@PostMapping({ "/getUserByRole" })
 	@CrossOrigin("*")
 	public String getUserByRole(HttpServletRequest request, @RequestBody User user) {
 
@@ -234,7 +235,7 @@ public class UserController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	@PostMapping({ "/changePassword" })
 	public String changePassword(Principal principal, @RequestParam(name = "password") String password) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -258,7 +259,7 @@ public class UserController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getActiveVendorData" })
+	@PostMapping({ "/getActiveVendorData" })
 	@CrossOrigin("*")
 	public String getActiveVendorData(HttpServletRequest request) {
 
@@ -314,7 +315,7 @@ public class UserController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getVendorById" })
+	@PostMapping({ "/getVendorById" })
 	@CrossOrigin("*")
 	public String getVendorById(HttpServletRequest request, @RequestBody SupDetails details) {
 
@@ -340,7 +341,7 @@ public class UserController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/setStatusOfVendorByBpCode" })
+	@PostMapping({ "/setStatusOfVendorByBpCode" })
 	@CrossOrigin("*")
 	public String setStatusOfVendorByBpCode(HttpServletRequest request, @RequestBody User user) {
 
@@ -364,7 +365,7 @@ public class UserController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/getAllVendorStatus" })
+	@PostMapping({ "/getAllVendorStatus" })
 	@CrossOrigin("*")
 	public String getAllVendorStatus(HttpServletRequest request, @RequestBody User details) {
 
@@ -391,7 +392,7 @@ public class UserController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/activeVendor" })
+	@PostMapping({ "/activeVendor" })
 	@CrossOrigin("*")
 	public String activeVendor(HttpServletRequest request, @RequestBody User details) {
 

@@ -317,7 +317,7 @@ public class PoUiController {
 
 		String PoNumber = request.getParameter("id");
 		List<String> paymentMethod= serviceManager.paymentMethodRepo.PaymentMethod();
-System.out.println(":::"+paymentMethod);
+		System.out.println(":::"+paymentMethod);
 		model.addAttribute("PoNumber", PoNumber);
 		model.addAttribute("maxFileSize", maxFileSize);
 		model.addAttribute("paymentMethod", paymentMethod);

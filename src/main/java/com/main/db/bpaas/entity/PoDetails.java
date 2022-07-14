@@ -100,7 +100,11 @@ public class PoDetails {
     @Column(name="type_lookup_code")
     private String typeLookupCode;
     
-   
+    @Column(name = "processed_On")
+	private String processedOn;//
+
+	@Column(name = "processed_By")
+	private String processedBy;//
 
 	
 	@OneToMany(cascade = CascadeType.ALL)
@@ -304,6 +308,18 @@ public class PoDetails {
 	}
 	public void setNeedByDate(Date needByDate) {
 		this.needByDate = needByDate;
+	}
+	public String getProcessedOn() {
+		return processedOn;
+	}
+	public void setProcessedOn(String processedOn) {
+		this.processedOn = processedOn;
+	}
+	public String getProcessedBy() {
+		return processedBy;
+	}
+	public void setProcessedBy(String processedBy) {
+		this.processedBy = processedBy;
 	}
 	
 	

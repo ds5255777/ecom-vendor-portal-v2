@@ -52,12 +52,14 @@ public class PoUiController {
 		}
 		System.out.println("vendorType in dashboard : " + vendorType);
 
+		request.setAttribute("vendorType", vendorType);
+		model.addAttribute("vendorType", vendorType);
 
-
+		String vendorType1[]=vendorType.split(",");
 		
 		
 
-			if (vendorType.equalsIgnoreCase("Fixed Asset") || vendorType.equalsIgnoreCase("FIXED ASSETS")) {
+			if (vendorType1.length==2 || vendorType.equalsIgnoreCase("Fixed Asset") || vendorType.equalsIgnoreCase("FIXED ASSETS")) {
 				String rolename = (String) request.getSession().getAttribute("role");
 				String vendorCode = (String) request.getSession().getAttribute("userName");
 				System.out.println("vendor type : " + vendorType);
@@ -284,7 +286,7 @@ public class PoUiController {
 		 * List<String> exitingInvoiceNo =
 		 * serviceManager.poinvoiceRepo.getExitingInvoiceNo();
 		 * 
-		 * List<String> paymentMethod= serviceManager.paymentMethodRepo.PaymentMethod();
+		 * 
 		 * 
 		 * String[] arr = new String[exitingInvoiceNo.size()]; for (int i = 0; i <
 		 * exitingInvoiceNo.size(); i++) { arr[i] = exitingInvoiceNo.get(i);
@@ -295,6 +297,7 @@ public class PoUiController {
 		 * 
 		 * }
 		 */
+		
 		
 		String invoiceNumber = "";
 
@@ -314,7 +317,7 @@ public class PoUiController {
 
 		String PoNumber = request.getParameter("id");
 		List<String> paymentMethod= serviceManager.paymentMethodRepo.PaymentMethod();
-
+		System.out.println(":::"+paymentMethod);
 		model.addAttribute("PoNumber", PoNumber);
 		model.addAttribute("maxFileSize", maxFileSize);
 		model.addAttribute("paymentMethod", paymentMethod);
@@ -324,6 +327,7 @@ public class PoUiController {
 		model.addAttribute("curentDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
 		model.addAttribute("payment", payment);
+		System.out.println("term,m"+payment);
 		
 		
 		

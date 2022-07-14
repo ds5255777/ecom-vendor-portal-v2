@@ -56,8 +56,46 @@ tbody {
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
 	<div class="wrapper">
 
-		<!-- Navbar -->
-		<jsp:include page="navbar.jsp?pagename=PO Dashboard" />
+		        <!-- Navbar -->
+ 
+        <%
+        String vendorType=(String)request.getAttribute("vendorType");
+        
+        String[] strArray =   null;
+        		
+      strArray = vendorType.split(",");  
+       
+      for (int i = 0; i< strArray.length; i++){  
+      
+      }  
+        
+      
+     	   
+     		   
+     		  if(strArray.length ==1  ){
+      	    	 System.out.println("vendor type1 : "+strArray); 
+      	    	 %>
+      	    	 
+      	    	 <jsp:include page="navbar.jsp?pagename=PO Dashboard" />
+      	    	 
+      	    	 <% 
+         		  	 	
+      	    	 }
+         	
+     	   		else if(strArray.length==2){
+         	    	 System.out.println("vendor type 2: "+strArray); 
+         	    	 %>
+         	    	 
+         	    	 <jsp:include page="navbar_po.jsp?pagename= PO Dashboard" />
+         	    	 
+         	    	 <% 
+            		  	 
+         	     } 
+     	   
+      %>
+     
+
+		
 
 
 

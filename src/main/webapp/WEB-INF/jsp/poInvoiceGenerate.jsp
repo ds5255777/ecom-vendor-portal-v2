@@ -157,7 +157,7 @@
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
 												<input type="text" name="invoiceDate" id="invoiceDate" readonly="readonly"
-													 class="form-control-sm" onchange="invoiceDateCheck();" placeholder="DD-MM-YYYY" style="width: 100%;">
+													 class="form-control-sm" onchange="invoiceDateCheck();addtermDate();" placeholder="DD-MM-YYYY" style="width: 100%;">
 											</div>
 										</div>
 									</div>
@@ -260,7 +260,7 @@
 														placeholder="Payment / Credit Terms" onchange="calTermsDate()"
 														>
 															<option value="">Select</option>
-															<c:forEach items="${payment}" var="pay">
+															<c:forEach items="${creidtTerms}" var="pay">
 
 																<option value="${pay}">${pay}</option>
 															</c:forEach>
@@ -659,118 +659,7 @@
     	var creidtTerms="${creidtTerms}"; 
     	$("#terms").val(creidtTerms);
     	
-   	 var currentDate='${curentDate}';
- 	
-	 
-  	  var terms =  $("#terms").val();
-  	  
-  	  
-  	  if(terms=="Immediate Payments"){
-	    		
-			 var days=30;
-				  var ts = new Date(currentDate);
-				   
-				  ts.setDate(ts.getDate());
-				var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
-            $("#termsDate").val(datestring);
-        	
-   	 } else if(terms=="NET 30 Days"){
-  		
-				 var days=30;
-			   var ts = new Date(currentDate);
-			   
-			  ts.setDate(ts.getDate() + days);
-			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
-			
-           $("#termsDate").val(datestring);
-         
-       	
-  	 }else if(terms=="NET 45 Days"){
-  		 
- 				 var days=45;
-				   var ts = new Date(currentDate);
-				   
-				  ts.setDate(ts.getDate() + days);
-				var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
-				
-				
-	             $("#termsDate").val(datestring);
-	         	
-	    	
-  	 }else if(terms=="NET 60 Days"){
-  		 
-				 var days=60;
-			   var ts = new Date(currentDate);
-			   
-			  ts.setDate(ts.getDate() + days);
-			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
-			
-			
-           $("#termsDate").val(datestring);
-		 }else if(terms=="NET-5"){
-	  		 
-			 var days=5;
-		   var ts = new Date(currentDate);
-		   
-		  ts.setDate(ts.getDate() + days);
-		var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
-		
-		
-		       $("#termsDate").val(datestring);
-			 }else if(terms=="NET-7"){
-		  		 
-				 var days=7;
-			   var ts = new Date(currentDate);
-			   
-			  ts.setDate(ts.getDate() + days);
-			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
-			
-	
-   		$("#termsDate").val(datestring);
-		 }else if(terms=="NET-10"){
-				 
-			 var days=10;
-		   var ts = new Date(currentDate);
-		   
-		  ts.setDate(ts.getDate() + days);
-		var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
-		
-		
-		$("#termsDate").val(datestring);
-		}else if(terms=="NET-20"){
-	  		 
-			 var days=20;
-		   var ts = new Date(currentDate);
-		   
-		  ts.setDate(ts.getDate() + days);
-		var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
-		
-		
-      $("#termsDate").val(datestring);
-	 }else if(terms=="NET-25"){
-  		 
-		 var days=25;
-	   var ts = new Date(currentDate);
-	   
-	  ts.setDate(ts.getDate() + days);
-	var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
-	
-	
-   $("#termsDate").val(datestring);
- }
-		  	 
-  	 else if(terms==""){
-			 $("#termsDate").val("");
-		 }
-
-   	
-
-    	
-    	
-    	
-    	
-    	
-    	
+   	    	
     	
     	tripLineArray=[];
         var obj = {
@@ -1788,17 +1677,20 @@
 
     	        }
     	        function invoiceDateCheck(){	
-    	        	var date1=needByDate;
+    	        	var date1=needByDate;//"2022-05-31 00:00:00"
     	        	
-    	        	var date2 =  $("#invoiceDate").val();
+    	        	 date1=date1.split(" ")[0];
+    	        	
+    	        	var date2 =  $("#invoiceDate").val();//"13-07-2022"
     	        	var check="false";		
     	        	
     	        	if(date1 !="" && date2 !=""){
     	        		
-    	        		date1=moment(date1, 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD');
+    	        		//date1=moment(date1, 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD');
     	        	
     	        		date2=moment(date2, 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD');
     	        			
+    	        		
     	        			if(date2 > date1){
     	        				check="true";
     	        			}else{
@@ -1807,11 +1699,127 @@
     	        		                title: 'Invoice date should be greater then PO date!'
 
     	        		            });
+    	        				 $("#invoiceDate").val("");
     	        			}
     	        			
     	        	}	
     	        		return check;
     	          }
+    	 function addtermDate(){
+    	       	 var currentDate=$("#invoiceDate").val();
+    	          	 
+    	       	 currentDate=moment(currentDate, 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD');
+    	       	 
+    	        	  var terms =  $("#terms").val();
+    	        	  
+    	        	  
+    	        	  
+    	        	  if(terms=="Immediate Payments"){
+    	       	    		
+    	       			 var days=30;
+    	       				  var ts = new Date();
+    	       				   
+    	       				  ts.setDate(ts.getDate());
+    	       					var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+    	                  $("#termsDate").val(datestring);
+    	                  
+    	              	
+    	         	 }else if(terms=="NET 15 Days"){
+    	       	   		
+    	       				 var days=15;
+    	       			   var ts = new Date(currentDate);
+    	       			   
+    	       			  ts.setDate(ts.getDate() + days);
+    	       			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+    	       			
+    	       		   $("#termsDate").val(datestring);
+    	       		 
+    	       			
+    	       		} else if(terms=="NET 30 Days"){
+    	        		
+    	         		 var days=30;
+    	       		   var ts = new Date();
+    	       		   
+
+    	       		   
+    	       		   
+    	       		   ts.setDate(ts.getDate() + days);
+    	       			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+    	       		
+    	       		     $("#termsDate").val(datestring);
+    	       		  
+    	       		           
+    	             	
+    	        	 }else if(terms=="NET 45 Days"){
+    	        		 
+    	       				 var days=45;
+    	       				   var ts = new Date();
+    	       				   
+    	       				  ts.setDate(ts.getDate() + days);
+    	       				var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+    	       				
+    	       				
+    	       	             $("#termsDate").val(datestring);
+    	       	         	
+    	       	    	
+    	        	 }else if(terms=="NET 60 Days"){
+    	        		 
+    	       				 var days=60;
+    	       			   var ts = new Date();
+    	       			   
+    	       			  ts.setDate(ts.getDate() + days);
+    	       			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+    	       			
+    	       			
+    	                 $("#termsDate").val(datestring);
+    	       		 }else if(terms=="NET-7"){
+    	       	  		 
+    	       			 var days=7;
+    	       		   var ts = new Date(currentDate);
+    	       		   
+    	       		  ts.setDate(ts.getDate() + days);
+    	       		var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+    	       		
+
+    	       		$("#termsDate").val(datestring);
+    	       	 }else if(terms=="NET-10"){
+    	       			 
+    	       		 var days=10;
+    	       	   var ts = new Date(currentDate);
+    	       	   
+    	       	  ts.setDate(ts.getDate() + days);
+    	       	var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+    	       	
+    	       	
+    	       	$("#termsDate").val(datestring);
+    	       	}else if(terms=="NET-20"){
+    	        		 
+    	       		 var days=20;
+    	       	   var ts = new Date(currentDate);
+    	       	   
+    	       	  ts.setDate(ts.getDate() + days);
+    	       	var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+    	       	
+    	       	
+    	       		  $("#termsDate").val(datestring);
+    	       		 }else if(terms=="NET-25"){
+    	       				 
+    	       			 var days=25;
+    	       		   var ts = new Date(currentDate);
+    	       		   
+    	       		  ts.setDate(ts.getDate() + days);
+    	       		var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
+    	       		
+    	       		
+    	       		$("#termsDate").val(datestring);
+    	       		}
+
+    	        	 
+    	        	 else if(terms==""){
+    	       			 $("#termsDate").val("");
+    	       		 }
+
+    	        }
 
     	      
     </script>

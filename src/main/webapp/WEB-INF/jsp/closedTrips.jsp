@@ -753,7 +753,6 @@
                     success: function(data) {
                         $('.loader').hide();
                         if (data.msg == 'success') {
-
                             var result = data.data;
                             tabledata.clear();
 
@@ -804,12 +803,8 @@
             }
 
             function setTripStatus(tripId) {
+            	debugger;
             	$('.loader').show();
-                getQueryData(tripId)
-                var json = {
-                    "tripID": tripId
-                }
-
                 var json = {
                     "tripID": tripId
                 }
@@ -822,14 +817,17 @@
                     contentType: "application/json",
                     success: function(data) {
                     	$('.loader').hide();
+                    	debugger;
                         if (data.msg == 'success') {
                             var result = data.data;
+                            
 
                             var myForm = "";
                             myForm = document.getElementById("tripForm");
                             setData(myForm, result);
 
                             $("#tripID").val(result.tripID);
+                            getQueryData(result.tripID);
 
 
                         } else {

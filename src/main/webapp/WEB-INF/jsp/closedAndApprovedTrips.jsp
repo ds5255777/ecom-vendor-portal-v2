@@ -909,7 +909,7 @@
 
             function setTripStatus(tripId) {
             	$('.loader').show();
-            	getQueryData(tripId);
+            	
                 var json = {
                     "tripID": tripId
                 }
@@ -928,6 +928,7 @@
                             myForm = document.getElementById("tripForm");
                             setData(myForm, result);
                             $("#tripID").val(result.tripID);
+                            getQueryData(result.tripID);
                         } else {
                             Toast.fire({
                                 type: 'error',

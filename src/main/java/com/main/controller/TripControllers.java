@@ -172,10 +172,11 @@ public class TripControllers {
 
 	@PostMapping(value = "/status")
 	@CrossOrigin("*")
-	public String statusNetwork(HttpServletRequest request, @RequestBody TripDetails obj) {
+	public String statusNetwork(HttpServletRequest request, Principal principal, @RequestBody TripDetails obj) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String rolename = (String) request.getSession().getAttribute("role");
+		String userName = principal.getName();
 		try {
 
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
@@ -187,14 +188,16 @@ public class TripControllers {
 						vendortripStatus, paymentStatus);
 				data.setData(obj1);
 			} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+
 				String runStatus = obj.getRunStatus().toString();
 				String vendortripStatus = obj.getVendorTripStatus().toString();
 				String paymentStatus = obj.getPaymentStatus().toString();
 				String vendorCode = obj.getVendorCode().toString();
-
-				List<TripDetails> obj1 = serviceManager.tripService.getTripsByFilters(runStatus, vendortripStatus,
-						paymentStatus, vendorCode);
-				data.setData(obj1);
+				if (vendorCode.equalsIgnoreCase(userName)) {
+					List<TripDetails> obj1 = serviceManager.tripService.getTripsByFilters(runStatus, vendortripStatus,
+							paymentStatus, vendorCode);
+					data.setData(obj1);
+				}
 			}
 			data.setMsg("success");
 		} catch (Exception e) {
@@ -234,47 +237,46 @@ public class TripControllers {
 
 		String processedBy = principal.getName();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		String vendorTripStatus = tripObj.getVendorTripStatus();
-		String tripID = tripObj.getTripID();
-		String openingReading = tripObj.getOpeningReading();
-		String closingReading = tripObj.getClosingReading();
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String processedOn = dateFormat.format(date);
 
 		try {
+			if (tripObj.getVendorCode().equals(processedBy)) {
 
-			serviceManager.tripDetailsRepo.updateVendorTripStatusByTripId(tripID, vendorTripStatus, openingReading,
-					closingReading, processedBy, processedOn);
-			// call mailing api
+				serviceManager.tripDetailsRepo.updateVendorTripStatusByTripId(tripObj.getTripID(),
+						tripObj.getVendorTripStatus(), tripObj.getOpeningReading(), tripObj.getClosingReading(),
+						processedBy, processedOn);
+				// call mailing api
 
-			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
-			EmailConfiguration emailConfiguration = emailList.get(0);
+				List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+				EmailConfiguration emailConfiguration = emailList.get(0);
 
-			String vendorEmail = (String) request.getSession().getAttribute("userEmail");
+				String vendorEmail = (String) request.getSession().getAttribute("userEmail");
 
-			List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Vendor Trip Approve");
+				List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Vendor Trip Approve");
 
-			if (!queryType.isEmpty()) {
-				SendEmail sendEmail = new SendEmail();
-				MailContent mailContent = queryType.get(0);
-				sendEmail.setMailfrom(emailConfiguration.getUserName());
-				sendEmail.setSendTo(vendorEmail);
-				sendEmail.setSubject(mailContent.getSubject());
-				sendEmail.setEmailBody(mailContent.getEmailBody());
-				sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+				if (!queryType.isEmpty()) {
+					SendEmail sendEmail = new SendEmail();
+					MailContent mailContent = queryType.get(0);
+					sendEmail.setMailfrom(emailConfiguration.getUserName());
+					sendEmail.setSendTo(vendorEmail);
+					sendEmail.setSubject(mailContent.getSubject());
+					sendEmail.setEmailBody(mailContent.getEmailBody());
+					sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
 
-				serviceManager.sendEmailRepo.save(sendEmail);
+					serviceManager.sendEmailRepo.save(sendEmail);
 
-				EmailAuditLogs auditLogs = new EmailAuditLogs();
-				auditLogs.setMailFrom(emailConfiguration.getUserName());
-				auditLogs.setMailTo(vendorEmail);
-				auditLogs.setMailSubject(mailContent.getSubject());
-				auditLogs.setMailMessage(mailContent.getEmailBody());
+					EmailAuditLogs auditLogs = new EmailAuditLogs();
+					auditLogs.setMailFrom(emailConfiguration.getUserName());
+					auditLogs.setMailTo(vendorEmail);
+					auditLogs.setMailSubject(mailContent.getSubject());
+					auditLogs.setMailMessage(mailContent.getEmailBody());
 
-				serviceManager.emailAuditLogsRepo.save(auditLogs);
+					serviceManager.emailAuditLogsRepo.save(auditLogs);
+				}
+				data.setMsg("success");
 			}
-			data.setMsg("success");
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -310,9 +312,10 @@ public class TripControllers {
 
 	@PostMapping({ "/tripDetailByTripId" })
 	@CrossOrigin("*")
-	public String getTripsDetailsByTripId(HttpServletRequest request, @RequestBody TripDetails tripObj) {
+	public String getTripsDetailsByTripId(Principal principal, @RequestBody TripDetails tripObj) {
 
 		DataContainer data = new DataContainer();
+		String vendorCode = principal.getName();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 

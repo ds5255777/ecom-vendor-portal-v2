@@ -97,9 +97,6 @@ public class UserController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-//					String  userName = (String) request.getSession().getAttribute("userName");
-//					Integer  userId = (Integer) request.getSession().getAttribute("userId");
-
 			List<String> userStatusList = new ArrayList<>();
 			userStatusList.add(GlobalConstants.ACTIVE_STATUS);
 			userStatusList.add(GlobalConstants.CHANGE_PASSWORD_STATUS);

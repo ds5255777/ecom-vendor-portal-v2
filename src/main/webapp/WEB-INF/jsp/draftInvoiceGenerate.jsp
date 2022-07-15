@@ -202,15 +202,21 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Green Tax<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="greenTax" id="greenTax" type="text" placeholder="Green Tax If Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateInvoice();">
+                                                <input class="form-control-sm" name="greenTax" id="greenTax" type="text" placeholder="Green Tax If Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9-.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateInvoice();">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Extra KM Rate<span class="text-danger"> </span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm" name="extraKmRate" id="extraKmRate" type="text" placeholder="Rate If Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateInvoice();">
+                                            <label class="col-sm-5">Extra KM<span class="text-danger"> </span></label>
+                                            <div class="col-sm-2">
+                                                <input class="form-control-sm" name="exteraKM" id="exteraKM" type="text" placeholder="Ex KM"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5"  onblur="calculateRateKm();calculateInvoice();">
+                                            </div>
+                                             <div class="col-sm-2">
+                                                <input class="form-control-sm" name="ratePerKm" id="ratePerKm" type="text" readonly  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input class="form-control-sm" name="extraKmRate" id="extraKmRate" type="text" readonly placeholder="Rate KM" style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5"  >
                                             </div>
                                         </div>
                                     </div>
@@ -218,7 +224,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Miscellaneous<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="miscellaneous" id="miscellaneous" type="text" placeholder="If Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateInvoice();">
+                                                <input class="form-control-sm" name="miscellaneous" id="miscellaneous" type="text" placeholder="If Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9-.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5"  onblur="calculateInvoice();">
                                             </div>
                                         </div>
                                     </div>
@@ -782,6 +788,8 @@
         function updateTextData(index, textValue) {
             tripLineArray[index].lineLevelDescription = textValue.trim();
         }
+        
+        var globalratePerKm="";
 
         function getTripDetails() {
             var invoiceNumber = $("#ecomInvoiceNumber").val();
@@ -805,6 +813,7 @@
                         tripLineArray = result;
 
                         $('#prTable').DataTable().clear();
+                       
                         for (var i = 0; i < result.length; i++) {
 
                             if (!result[i].hasOwnProperty("tripID")) {
@@ -877,7 +886,8 @@
                             taxableAmount += parseFloat(result[i].totalFreight)+ parseFloat(result[i].lumpsomeamount);
                         }
                        
-                      
+                        globalratePerKm=result[0].ratePerKm;
+                        $("#ratePerKm").val(globalratePerKm);
 
                         $("#taxableAmount").val(parseFloat(taxableAmount).toFixed(2));
                         $('#prTable').DataTable().draw();
@@ -1019,22 +1029,32 @@
 
         function calculateInvoice() {
         	debugger;
-            var taxAmount = $("#taxAmount").val();
-            var greenTax = $("#greenTax").val();
-            var taxableAmount = $("#taxableAmount").val();
-            var miscellaneous = $("#miscellaneous").val();
-            var extraKmRate = $("#extraKmRate").val();
+            var taxAmount = $("#taxAmount").val(); /* 18 */
+            var greenTax = $("#greenTax").val();  /* Green tax */
+            var taxableAmount = $("#taxableAmount").val(); /* TripCost */
+            var miscellaneous = $("#miscellaneous").val(); /* externalCharge */
+            var extraKmRate = $("#extraKmRate").val();  /* exterKm * ratePerKm */
             
-            if(greenTax=="" || greenTax=='' || greenTax==null){
-	            var taxAmount= parseFloat(taxableAmount) *  (parseFloat(taxAmount) /100);
-	            var finalInvoiceAmount = parseFloat(taxableAmount) +  parseFloat(taxAmount) ;
-	            $("#invoiceAmount").val(parseFloat(finalInvoiceAmount).toFixed(2));
-            }else{
-            	var taxAmount= parseFloat(taxableAmount) *  (parseFloat(taxAmount) /100);
-	            var finalInvoiceAmount = parseFloat(taxableAmount) +  parseFloat(taxAmount)+ parseFloat(greenTax)+parseFloat(miscellaneous)+parseFloat(extraKmRate) ;
-                 $("#invoiceAmount").val(parseFloat(finalInvoiceAmount).toFixed(2));
-            }
+            /* $("#extraKmRate").val( Number(parseFloat(ratePerKm)* parseFloat(exteraKM))); */
+            
+            var totalAmount= Number(taxableAmount) + Number(miscellaneous) + Number(extraKmRate);
+            console.log(totalAmount);
+            var totalFinalAmount = (parseFloat(totalAmount) *  parseFloat(taxAmount)) /100;
+            console.log(totalFinalAmount);
+            var finalInvoiceAmount = parseFloat(totalFinalAmount) + Number(greenTax) + parseFloat(totalAmount);
+            console.log(finalInvoiceAmount);
+            $("#invoiceAmount").val(parseFloat(finalInvoiceAmount).toFixed(2));
+            
         } 
+        
+        function calculateRateKm(){
+        	var exteraKM = $("#exteraKM").val(); /* Exter Km */
+            var ratePerKm = $("#ratePerKm").val(); /* rate Per KM */
+            
+            var extraKmRate = parseFloat(exteraKM) * parseFloat(ratePerKm);
+            console.log(extraKmRate);
+            $("#extraKmRate").val(parseFloat(extraKmRate).toFixed(2));
+        }
         
         $("#invoiceNumber").focusout(function() {
 

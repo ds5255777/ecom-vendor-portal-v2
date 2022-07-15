@@ -171,7 +171,7 @@
     <!-- Right navbar links -->
 	<ul class="navbar-nav ml-auto">
 
-		<li class="nav-item"><a class="nav-link">${userName}</a></li>
+		<li class="nav-item"><a class="nav-link">${vendorName}</a></li>
 
 		<c:if test="${isssoEnable!='yes'}">
 			<li class="nav-item"><a class="nav-link" href="logout"

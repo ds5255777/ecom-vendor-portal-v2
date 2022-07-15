@@ -852,6 +852,7 @@ public class UIController {
 	@GetMapping("/allInvoices_Finance")
 	public String allInvoicesFinance(Model model, HttpServletRequest request, Principal principal) {
 		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		System.out.println(currentDate);
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("dataLimit", dataLimit);
 		return "allInvoices_Finance";

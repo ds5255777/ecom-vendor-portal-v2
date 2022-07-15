@@ -46,13 +46,13 @@
 	var statusObject = {
 		"In-Transit" : {
 			"Yet To Be Approved" : [ "NA" ],
-			"Query" : [ "NA" ],
 		},
 		"Closed" : {
 			"Yet To Be Approved" : [ "NA" ],
+			"Yet To Be Approved By Network Team" : [ "NA" ],
 			"Query" : [ "NA" ],
 			"Approved" : [ "Pending" ],
-			"Draft-Invoicing" : [ "Pending" ],
+			"Draft-Invoicing" : [ "NA" ],
 			"Invoicing" : [ "Pending", "Approved" ],
 		}
 	}
@@ -962,8 +962,6 @@ tbody {
             }
            
             function setTripStatus(tripId) {
-                console.log("Trip ID---" + tripId);
-                getQueryData(tripId)
                 var json = {
                     "tripID": tripId
                 }
@@ -982,6 +980,7 @@ tbody {
                             myForm = document.getElementById("tripForm");
                             setData(myForm, result);
                             $("#tripID").val(result.tripID);
+                            getQueryData(result.tripID)
                         } else {
                             Toast.fire({
                                 type: 'error',

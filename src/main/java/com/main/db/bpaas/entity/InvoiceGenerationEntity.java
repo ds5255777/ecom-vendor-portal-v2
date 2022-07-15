@@ -39,8 +39,9 @@ public class InvoiceGenerationEntity {
 	private String invoiceAmount;
 	@Column(name = "invoice_receiving_date")
 	private String invoiceReceivingDate;
-	@Column(name = "vehicle_number")
-	private String vehicleNumber;
+	/*
+	 * @Column(name = "vehicle_number") private String vehicleNumber;
+	 */
 	@Column(name = "invoice_status")
 	private String invoiceStatus;// Processed, Approved, Rejected
 	@Column(name = "assign_to")
@@ -58,6 +59,17 @@ public class InvoiceGenerationEntity {
 	@Column(name = "green_tax")
 	private String greenTax;//
 
+	@Column(name = "extra_km_rate")
+	private String extraKmRate;//
+
+	@Column(name = "miscellaneous")
+	private String miscellaneous;//
+
+	@Column(name = "extera_km")
+	private String exteraKM;//
+
+	@Column(name = "rate_per_km")
+	private String ratePerKm;//
 	// form Two
 
 	@Column(name = "taxable_amount")
@@ -161,14 +173,6 @@ public class InvoiceGenerationEntity {
 
 	public void setInvoiceReceivingDate(String invoiceReceivingDate) {
 		this.invoiceReceivingDate = invoiceReceivingDate;
-	}
-
-	public String getVehicleNumber() {
-		return vehicleNumber;
-	}
-
-	public void setVehicleNumber(String vehicleNumber) {
-		this.vehicleNumber = vehicleNumber;
 	}
 
 	public String getInvoiceStatus() {
@@ -289,6 +293,38 @@ public class InvoiceGenerationEntity {
 
 	public void setGreenTax(String greenTax) {
 		this.greenTax = greenTax;
+	}
+
+	public String getExtraKmRate() {
+		return extraKmRate;
+	}
+
+	public void setExtraKmRate(String extraKmRate) {
+		this.extraKmRate = extraKmRate;
+	}
+
+	public String getMiscellaneous() {
+		return miscellaneous;
+	}
+
+	public void setMiscellaneous(String miscellaneous) {
+		this.miscellaneous = miscellaneous;
+	}
+
+	public String getExteraKM() {
+		return exteraKM;
+	}
+
+	public void setExteraKM(String exteraKM) {
+		this.exteraKM = exteraKM;
+	}
+
+	public String getRatePerKm() {
+		return ratePerKm;
+	}
+
+	public void setRatePerKm(String ratePerKm) {
+		this.ratePerKm = ratePerKm;
 	}
 
 }

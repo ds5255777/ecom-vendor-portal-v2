@@ -258,6 +258,6 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 			@Param("vendorTripStatus") String vendorTripStatus, 
 			@Param("myList") List<String> myList);
 
-	TripDetails findByTripIDAndVendorCode(String tripID, String vendorCode);
+	/* TripDetails findByTripID(String tripID, String vendorCode); */
 
 }

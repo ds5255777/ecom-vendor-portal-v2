@@ -319,7 +319,7 @@ public class TripControllers {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			tripObj = serviceManager.tripDetailsRepo.findByTripIDAndVendorCode(tripObj.getTripID(), vendorCode);
+			tripObj = serviceManager.tripDetailsRepo.findByTripID(tripObj.getTripID());
 
 			data.setData(tripObj);
 			data.setMsg("success");

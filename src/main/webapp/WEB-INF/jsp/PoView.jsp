@@ -719,7 +719,7 @@
 	        				  cancelButtonColor: '#d33',
 	        				  confirmButtonText: 'Yes'
 	        				}).then((result) => {
-	        					debugger;
+	        					
 	        					let test=[1];
 	        					test[0]=result;
 	        					var val=Object.values(test[0])

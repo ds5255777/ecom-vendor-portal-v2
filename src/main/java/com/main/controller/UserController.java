@@ -349,6 +349,7 @@ public class UserController {
 		try {
 
 			serviceManager.userRepository.updateStatusOfVendorByBpCode(user.getStatus(), user.getBpCode());
+			serviceManager.userRepository.updateFlagOfVendorByBpCode(GlobalConstants.SET_FLAG_IN_ACTIVE, user.getBpCode());
 
 			data.setMsg("success");
 

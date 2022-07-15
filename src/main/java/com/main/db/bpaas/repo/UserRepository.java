@@ -102,6 +102,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Modifying
 	@Query(value = "update users set status=:status where bp_code=:bpCode ; ", nativeQuery = true)
 	void updateStatusOfVendorByBpCode(@Param("status") String status, @Param("bpCode") String bpcode);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "update supdetails set flag=:flag where bp_code=:bpCode ; ", nativeQuery = true)
+	void updateFlagOfVendorByBpCode(@Param("flag") String flag, @Param("bpCode") String bpcode);
 
 	@Query(value = "select * from users where bp_code=:bpCode ; ", nativeQuery = true)
 	List<User> getAllVendorStatus(@Param("bpCode") String bpCode);

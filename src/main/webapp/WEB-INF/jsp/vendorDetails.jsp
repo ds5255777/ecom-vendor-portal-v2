@@ -1117,14 +1117,73 @@ th, td,tr {
             });
         }
         
-       /*  function setVendorStatus(value,index){
-        	result[index].status=value;
-        } */
-        
+      
+       
         function inActiveVendor(bpcode,index,name){
-        	globalVendorCode = "";
-        	globalVendorCode = bpcode;
-        }
+          	 
+          	 
+          	 Swal.fire({
+          		  title: 'Are you sure want to In-Active?',
+          		  text: "Vendor Code : "+bpcode,
+          		  icon: 'warning',
+          		  showCancelButton: true,
+          		  confirmButtonColor: '#3085d6',
+          		  cancelButtonColor: '#d33',
+          		  confirmButtonText: 'Yes'
+          		}).then((result) => {
+          			
+          			let test=[1];
+          			test[0]=result;
+          			var val=Object.values(test[0])
+          		  if (val=="true") {
+          			inactiveVendorFlag(bpcode,index,name);
+          		  }
+          		})
+          		
+             }
+        
+        function inactiveVendorFlag(bpcode,index,name) {
+       	 
+       	 
+       	
+           var json = {
+               "bpCode": bpcode,
+               "status": "0"
+           }
+           $.ajax({
+               type: "POST",
+               data: JSON.stringify(json),
+               url: "<%=GlobalUrl.setStatusOfVendorByBpCode%>",
+               dataType: "json",
+               contentType: "application/json",
+               async: false,
+               success: function(data) {
+
+                   if (data.msg == 'success') {
+
+                   	
+                       Toast.fire({
+                           type: 'success',
+                           title: 'In-Active Successfully..'
+                       })
+
+
+                       getData();
+                   } else {
+                       Toast.fire({
+                           type: 'error',
+                           title: 'Failed.. Try Again..'
+                       })
+                   }
+
+               },
+               error: function(jqXHR, textStatue, errorThrown) {
+                   alert("failed, please try again");
+               }
+
+           });
+
+       }
         
         function getVendorStatus(value,bpcode,index){
         	

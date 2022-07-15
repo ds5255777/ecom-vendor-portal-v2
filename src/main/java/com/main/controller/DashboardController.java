@@ -3,6 +3,7 @@ package com.main.controller;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
+import com.main.bean.SupplierDTO;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.AgreementMaster;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
@@ -40,27 +42,49 @@ public class DashboardController {
 	private ServiceManager serviceManager;
 
 	@Value("${tripLimit}")
-	public String tripLimit;
+	public String invoiceLimit;
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
 	@PostMapping({ "getDashboardDetails" })
 
-	public String getDashBoardDetails(@RequestBody TripDetails reqObj, HttpSession session,
-			HttpServletRequest request) {
+	public String getDashBoardDetails(Principal principal, HttpSession session, HttpServletRequest request) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		String vendorCode = request.getSession().getAttribute("userName").toString();
+		String vendorCode = principal.getName();
 		try {
-			List<TripDetails> topTripRecods = serviceManager.tripDetailsRepo.getTopTripRecods(vendorCode,
-					Integer.parseInt(tripLimit));
+			List<Object[]> topInvoiceRecords = serviceManager.invoiceGenerationEntityRepo
+					.getTopInvoiceRecords(vendorCode, Integer.parseInt(invoiceLimit));
+			
+			List<InvoiceGenerationEntity> invoice = new ArrayList<>();
 
-			data.setData(topTripRecods);
+			for (Object[] objects : topInvoiceRecords) {
+				InvoiceGenerationEntity sdt = new InvoiceGenerationEntity();
+				if (null != objects[0]) {
+					sdt.setEcomInvoiceNumber(objects[0].toString());
+				}
+				if (null != objects[1]) {
+					sdt.setInvoiceReceivingDate(objects[1].toString());
+				}
+				if (null != objects[2]) {
+					sdt.setInvoiceNumber(objects[2].toString());
+				}
+				if (null != objects[3]) {
+					sdt.setInvoiceAmount(objects[3].toString());
+				}
+				if (null != objects[4]) {
+					sdt.setInvoiceStatus(objects[4].toString());
+				}
+
+				invoice.add(sdt);
+			}
+
+			data.setData(invoice);
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			logger.error("error : " + e);
+			e.printStackTrace();
 			data.setMsg("error");
 		}
 
@@ -231,7 +255,7 @@ public class DashboardController {
 			logger.info("route ::" + route);
 
 			AgreementMaster masterData = serviceManager.agreementMasterRepo.getAllTripsByVendorCode(vendorCode, route);
-			//logger.info("masterData ::" + masterData.getVendorName());
+			// logger.info("masterData ::" + masterData.getVendorName());
 			data.setData(masterData);
 			data.setMsg("success");
 
@@ -273,13 +297,14 @@ public class DashboardController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			//String role = (String) request.getSession().getAttribute("Role");
+			// String role = (String) request.getSession().getAttribute("Role");
 
-			//if (role.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
-				//List<SupDetails> findAllVendors = serviceManager.supDetailsRepo.allVendorData();
+			// if (role.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
+			// List<SupDetails> findAllVendors =
+			// serviceManager.supDetailsRepo.allVendorData();
 
-				//data.setData(findAllVendors);
-			//}
+			// data.setData(findAllVendors);
+			// }
 			data.setMsg("success");
 
 		} catch (Exception e) {

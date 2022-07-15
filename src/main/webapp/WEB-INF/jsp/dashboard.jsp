@@ -3,108 +3,89 @@
 <%@page import="com.main.commonclasses.GlobalUrl"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page import="java.util.Arrays,java.util.List" %>
+<%@ page import="java.util.Arrays,java.util.List"%>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>${titleName}|Dashboard</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>${titleName}|Dashboard</title>
 
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="dist/css/ionicons.min.css">
-    <!-- Tempusdominus Bbootstrap 4 -->
-    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <!-- summernote -->
-    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
-    <style>
-    tbody {
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="dist/css/ionicons.min.css">
+<!-- Tempusdominus Bbootstrap 4 -->
+<link rel="stylesheet"
+	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- iCheck -->
+<link rel="stylesheet"
+	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!-- JQVMap -->
+<link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="dist/css/adminlte.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet"
+	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<!-- Daterange picker -->
+<link rel="stylesheet"
+	href="plugins/daterangepicker/daterangepicker.css">
+<!-- summernote -->
+<link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
+<!-- Google Font: Source Sans Pro -->
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+	rel="stylesheet">
+<link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+<style>
+tbody {
 	font-size: 12.9px;
-	}
-	
-	.table td, .table th {
-		padding: 5px;
-		vertical-align: top;
-		border-top: 1px solid #dee2e6;
-	}
-    
-    </style>
+}
+
+.table td, .table th {
+	padding: 5px;
+	vertical-align: top;
+	border-top: 1px solid #dee2e6;
+}
+</style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
 	<div class="wrapper">
 
-	
-        <!-- Navbar -->
- 
-        <%
-        String vendorType=(String)request.getAttribute("vendorType");
-        
-        String[] strArray =   null;
-        		
-      strArray = vendorType.split(",");  
-       
-      for (int i = 0; i< strArray.length; i++){  
-      
-      }  
-        
-      
-     	   
-     		   
-     		  if(Arrays.asList(strArray).contains("Network") && Arrays.asList(strArray).contains("FIXED ASSETS")){
-      	    	 System.out.println("vendor type1 : "+strArray); 
-      	    	 %>
-      	    	 
-      	    	 
-      	    	 <jsp:include page="navbar_po.jsp?pagename= Dashboard" />
-      	    	 
-      	    	 <% 
-         		  		
-      	    	 }
-         	
-     	   		else if(Arrays.asList(strArray).contains("Network") ){
-         	    	 System.out.println("vendor type 2: "+strArray); 
-         	    	 %>
-         	    	 <jsp:include page="navbar.jsp?pagename=Vendor Dashboard" />
-         	    	 
-         	    	 
-         	    	 <% 
-            		  	 
-         	     } 
-     	   
-      %>
-     
+		<!-- Navbar -->
 
+		<%
+		String vendorType = (String) request.getAttribute("vendorType");
+		String[] strArray = null;
+		strArray = vendorType.split(",");
+		for (int i = 0; i < strArray.length; i++) {
+		}
+		if (Arrays.asList(strArray).contains("Network") && Arrays.asList(strArray).contains("FIXED ASSETS")) {
+			System.out.println("vendor type1 : " + strArray);
+		%>
+		<jsp:include page="navbar_po.jsp?pagename= Dashboard" />
+		<%
+		} else if (Arrays.asList(strArray).contains("Network")) {
+		System.out.println("vendor type 2: " + strArray);
+		%>
+		<jsp:include page="navbar.jsp?pagename=Vendor Dashboard" />
+		<%
+		}
+		%>
 
- 		
- 		
+		<!-- Right navbar links -->
+		<jsp:include page="sidebar_Vendor.jsp?pagename=dashboard" />
 
-        <!-- Right navbar links -->
-        <jsp:include page="sidebar_Vendor.jsp?pagename=dashboard" />
-
-        <!-- /.navbar -->
+		<!-- /.navbar -->
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-			
+
 			<!-- Main content -->
 			<section class="content" style="padding-top: 15px;">
 				<div class="container-fluid">
@@ -118,7 +99,7 @@
 									<h2>${totalTripCount}</h2>
 
 									<p id="oveTickets" data-toggle="tooltip"
-										data-placement="bottom" >All Trips</p>
+										data-placement="bottom">All Trips</p>
 								</div>
 								<div class="icon">
 									<i class="fas fa-truck"
@@ -143,7 +124,7 @@
 								</div>
 								<div class="icon">
 									<i class="fas fa-map-marked-alt"
-										style="color: #00a65a; font-size: 50px;"></i>
+										style="color: #ffc107; font-size: 50px;"></i>
 								</div>
 								<a href="inTransitTrips" class="small-box-footer"
 									style="background: #007bffe0; color: white !important;">More
@@ -252,7 +233,7 @@
 							<div class="card card-primary  card-outline ">
 								<div class="card-header">
 									<h3 class="card-title" id="lastInvoice" data-toggle="tooltip"
-										data-placement="bottom" >Top 50 Trips</h3>
+										data-placement="bottom">Top 50 Invoice</h3>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body table-responsive p-0"
@@ -260,11 +241,12 @@
 									<table class="table table-head-fixed" id="tabledata">
 										<thead>
 											<tr>
-												<th class="bg-primary">Trip ID</th>
-												<th class="bg-primary">Route</th>
-												<th class="bg-primary">Run Type</th>
-												<th class="bg-primary">Trip Status</th>
-												<th class="bg-primary">Payment Status</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">ECOM Inv-Num</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Inv-Rec Date</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Ven Inv-Num</th>
+                                                <!-- <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th> -->
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Status</th>
 											</tr>
 										</thead>
 									</table>
@@ -276,9 +258,7 @@
 							<!-- DONUT CHART -->
 							<div class="card card-primary  card-outline ">
 								<div class="card-body">
-									<p>
-										Trips by Status
-									</p>
+									<p>Trips by Status</p>
 									<canvas id="unresolvedsts"
 										style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
 								</div>
@@ -353,7 +333,7 @@
 
 	<!-- Modal -->
 
-	
+
 	<!-- jQuery -->
 
 	<!-- jQuery -->
@@ -464,7 +444,7 @@
 
 
 	<!-- table Data -->
-    <script>
+	<script>
         var tabledata = $('#tabledata').DataTable({
             "paging": false,
             "lengthChange": false,
@@ -474,18 +454,17 @@
             "aaSorting": [],
             "pageLength": dataLimit
         });
-
+        /* ${totalTripCount}, */
         var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
         var unresolvedstsData = {
             labels: [
-                'All Trips',
                 'In-Transit Trip',
                 'Closed Trips',
                 'Query Trips'
             ],
             datasets: [{
-                data: [ ${totalTripCount},${TotalInTransitTripCount},${closedTripCount},${queryTripCount}],
-                backgroundColor: ['#FAA654','#00a65a','#1477B0','#C422F4'],
+                data: [${TotalInTransitTripCount},${closedTripCount},${queryTripCount}],
+                backgroundColor: ['#ffc107','#28a745','#C422F4'],
             }]
         }
         var unresolvedstsOptions = {
@@ -502,19 +481,19 @@
 
         function getDashBoardInformation() {
 
-            var id = "";
+            /* var id = "";
             var obj = {
                 "id": id
-            }
+            } */
 
             $.ajax({
                 type: "POST",
-                data: JSON.stringify(obj),
+                data: "",
                 url: "<%=GlobalUrl.getDashboardDetails%>",
                 dataType: "json",
                 contentType: "application/json",
                 success: function(data) {
-
+debugger;
                     if (data.msg == 'success') {
                         //console.log(data.data);
                         var result = data.data
@@ -524,30 +503,37 @@
                         var count = 0;
                         //var editBtn;
                         for (var i = 0; i < result.length; i++) {
+                            if (!result[i].hasOwnProperty("invoiceNumber")) {
+                                result[i].invoiceNumber = "";
+                            }
+                            if (!result[i].hasOwnProperty("invoiceDate")) {
+                                result[i].invoiceDate = "";
+                            }
+                            if (!result[i].hasOwnProperty("invoiceAmount")) {
+                                result[i].invoiceAmount = "";
+                            }
+                            /* if (!result[i].hasOwnProperty("invoiceReceivingDate")) {
+                                result[i].vehicleNumber = "";
+                            } */
+                            if (!result[i].hasOwnProperty("invoiceStatus")) {
+                                result[i].invoiceStatus = "";
+                            }
+                            if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
+                                result[i].invoiceStatus = "";
+                            }
+                            if (!result[i].hasOwnProperty("vendorName")) {
+                                result[i].vendorName = "";
+                            }
+                            if (!result[i].hasOwnProperty("vendorCode")) {
+                                result[i].vendorCode = "";
+                            }
 
-                            count++;
-                            if(!result[i].hasOwnProperty("tripID")){
-								result[i].tripID="";
-							}
-                            if(!result[i].hasOwnProperty("route")){
-								result[i].route="";
-							}
-                            if(!result[i].hasOwnProperty("runType")){
-								result[i].runType="";
-							}
-                            if(!result[i].hasOwnProperty("vendorTripStatus")){
-								result[i].vendorTripStatus="";
-							}
-                            if(!result[i].hasOwnProperty("paymentStatus")){
-								result[i].paymentStatus="";
-							}
-                            
-                            tabledata.row.add([result[i].tripID,
-                                result[i].route,
-                                result[i].runType,
-                                result[i].vendorTripStatus,
-                                result[i].paymentStatus,
-                            ]);
+                            tabledata.row.add([
+                            	result[i].ecomInvoiceNumber,
+                            	result[i].invoiceReceivingDate, 
+                            	result[i].invoiceNumber, 
+                            	result[i].invoiceAmount, 
+                            	result[i].invoiceStatus]); 
                         }
                         tabledata.draw();
                         $("tbody").show();

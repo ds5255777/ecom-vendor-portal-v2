@@ -200,9 +200,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Green Tax<span class="text-danger"> </span></label>
+                                            <label class="col-sm-5">Cess/Tax<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="greenTax" id="greenTax" type="text" placeholder="Green Tax If Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9-.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateInvoice();">
+                                                <input class="form-control-sm" name="greenTax" id="greenTax" type="text" placeholder="Cess/Tax If Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9-.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateInvoice();">
                                             </div>
                                         </div>
                                     </div>
@@ -222,7 +222,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Miscellaneous<span class="text-danger"> </span></label>
+                                            <label class="col-sm-5">Other Charges<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" name="miscellaneous" id="miscellaneous" type="text" placeholder="If Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9-.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5"  onblur="calculateInvoice();">
                                             </div>

@@ -595,7 +595,7 @@
 	  
 	
     var tripLineArray=[];
-  
+    var lineItemArray1=[];
     var price1=[];
     var quntityflag=[];
     var prTable = $('#prTable').DataTable({
@@ -787,7 +787,7 @@
                     }
           					  
                      tripLineArray=result[0].poInvoiceLine;
-                     
+                     lineItemArray1=result[0].poInvoiceLine;
                      for(var i=0;i<tripLineArray.length;i++){
                      	quntityflag.push("0");
                      }
@@ -1109,6 +1109,7 @@
   					 var taxper = $("#taxper_"+index).val();
   					// tripLineArray[index].remaningQuatity=remaningQuantity;
   						tripLineArray[index].lineitemId=reId; 
+  						lineItemArray1[index].changeQutty=remaningQuantity;
   						if(indx==index){
   					  
   					   remanId1.splice(index);
@@ -1240,9 +1241,14 @@
    for(var i=0;i<tripLineArray.length;i++){
    	
    	var poLineId=tripLineArray[i].poLineId;
+    if(!lineItemArray1[i].hasOwnProperty("changeQutty")){
+		 remingQuty= tripLineArray[i].remaningQuatity;
+		} else{
+			remingQuty=lineItemArray1[i].changeQutty;
+		}
     
 		 var obj = {
-		            "remaningQuatity" : remaningQuatity1[i],
+		            "remaningQuatity" : remingQuty,
 		  			"poNumber" : poNumber,
 		  			"id" : poLineId,
 		  			"flag" : flag

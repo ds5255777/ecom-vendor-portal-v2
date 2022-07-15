@@ -2,6 +2,7 @@ package com.main.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
@@ -85,13 +86,13 @@ public class PoInvoiceContoller {
 
 	@PostMapping({ "/getAllDraftInvoicePO" })
 	@CrossOrigin("*")
-	public String getAllDraftInvoicePO(HttpServletRequest request ) {
+	public String getAllDraftInvoicePO(HttpServletRequest request,Principal principal ) {
 
 		DataContainer data = new DataContainer();
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			String vendorCode = (String) request.getSession().getAttribute("userName");
+			String vendorCode = principal.getName();
 			
 			List<PoInvoiceDetails> details =poInvoiceRepo. getAllDraftPoInvoice(vendorCode);
 			data.setData(details);
@@ -109,7 +110,7 @@ public class PoInvoiceContoller {
 	
 	@PostMapping({ "/savePoInvoice" })
 	@CrossOrigin("*")
-	public String savePoInvoice(HttpServletRequest request ,@RequestBody PoInvoiceDetails invoiceDetails ) {
+	public String savePoInvoice(HttpServletRequest request ,Principal principal,@RequestBody PoInvoiceDetails invoiceDetails ) {
 
 		DataContainer data = new DataContainer();
 		
@@ -168,13 +169,7 @@ public class PoInvoiceContoller {
 					e.printStackTrace();
 				}
 			}
-
-
-			
-			
-			
-			
-			String vendorCode = (String) request.getSession().getAttribute("userName");
+			String vendorCode = principal.getName();
 		
 			String ecomInvoiceNumber = invoiceDetails.getInvoiceNumber();
 
@@ -189,9 +184,7 @@ public class PoInvoiceContoller {
 				logger.info("ecomInvoiceNumber"+ecomInvoiceNumber);
 				if(id!=null ) {
 				poInvoiceRepo.deleteById(id);
-					
 				}
-				
 				serviceManager.poinvoiceRepo.save(invoiceDetails);
 				
 				List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
@@ -241,12 +234,12 @@ public class PoInvoiceContoller {
 	
 	@PostMapping({ "/getAllDraftPODetailsByInvoiceNo" })
 	@CrossOrigin("*")
-	public String getAllDraftPODetailsByInvoiceNo(HttpServletRequest request ,@RequestBody PoInvoiceDetails invoiceDetails ) {
+	public String getAllDraftPODetailsByInvoiceNo(HttpServletRequest request ,Principal principal,@RequestBody PoInvoiceDetails invoiceDetails ) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			String vendorCode = (String) request.getSession().getAttribute("userName");
+			String vendorCode = principal.getName();
 			String invoiceNo=invoiceDetails.getInvoiceNumber();
 			logger.info("vendorCode : "+vendorCode + "invoiceNo : "+invoiceNo);
 			List<PoInvoiceDetails> details = poInvoiceRepo.getAllDraftPODetailsByInvoiceNo(vendorCode,invoiceNo);
@@ -268,13 +261,13 @@ public class PoInvoiceContoller {
 	
 	@PostMapping({ "/saveDraftInvoice" })
 	@CrossOrigin("*")
-	public String saveDraftInvoice(HttpServletRequest request ,@RequestBody PoInvoiceDetails invoiceDetails ) {
+	public String saveDraftInvoice(HttpServletRequest request ,Principal principal,@RequestBody PoInvoiceDetails invoiceDetails ) {
 
 		DataContainer data = new DataContainer();
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			String vendorCode = (String) request.getSession().getAttribute("userName");
+			String vendorCode = principal.getName();
 		
 			String ecomInvoiceNumber = invoiceDetails.getInvoiceNumber();
 

@@ -44,9 +44,7 @@ public class PoController {
 	public String getActiveMasterData(HttpServletRequest request, Principal principal) {
 
 		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
-
-		String vendorCode = (String) request.getSession().getAttribute("userName");
-
+		String vendorCode = principal.getName();
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
@@ -97,7 +95,7 @@ public class PoController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			String vendorCode = (String) request.getSession().getAttribute("userName");
+			String vendorCode = principal.getName();
 			List<PoDetails> details = serviceManager.podetailsRepo.getAllProcessPo(vendorCode);
 
 			data.setData(details);
@@ -116,12 +114,12 @@ public class PoController {
 
 	@PostMapping({ "/getAllUnProcessPo" })
 	@CrossOrigin("*")
-	public String getAllUnProcessPo(HttpServletRequest request) {
+	public String getAllUnProcessPo(HttpServletRequest request,Principal principal) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			String vendorCode = (String) request.getSession().getAttribute("userName");
+			String vendorCode = principal.getName();
 			logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
 			List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
 
@@ -141,13 +139,13 @@ public class PoController {
 
 	@PostMapping({ "/getAllInvoiceDetails" })
 	@CrossOrigin("*")
-	public String getAllInvoiceDetails(HttpServletRequest request) {
+	public String getAllInvoiceDetails(HttpServletRequest request,Principal principal) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			String vendorCode = (String) request.getSession().getAttribute("userName");
+			String vendorCode = principal.getName();
 
 			if (vendorCode.equals("finance1")) {
 				logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
@@ -175,13 +173,13 @@ public class PoController {
 
 	@PostMapping({ "/getSelectInvoiceDetailsPo" })
 	@CrossOrigin("*")
-	public String getSelectInvoiceDetailsPo(HttpServletRequest request, @RequestBody PoInvoiceDetails details) {
+	public String getSelectInvoiceDetailsPo(HttpServletRequest request,Principal principal, @RequestBody PoInvoiceDetails details) {
 
 		DataContainer data = new DataContainer();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			String vendorCode = (String) request.getSession().getAttribute("userName");
+			String vendorCode = principal.getName();
 
 			if (vendorCode.equals("finance1")) {
 				List<PoInvoiceDetails> poInvoiceDetails = serviceManager.poinvoiceRepo
@@ -207,13 +205,13 @@ public class PoController {
 
 	@PostMapping({ "/getAllPODetailsByPoNo" })
 	@CrossOrigin("*")
-	public String getAllPODetailsByPoNo(HttpServletRequest request, @RequestBody PoDetails details) {
+	public String getAllPODetailsByPoNo(HttpServletRequest request,Principal principal, @RequestBody PoDetails details) {
 
 		DataContainer data = new DataContainer();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			String vendorCode = (String) request.getSession().getAttribute("userName");
+			String vendorCode = principal.getName();
 
 			List<PoDetails> poInvoiceDetails = serviceManager.podetailsRepo.getPoDetailsByPoNo(details.getPoNo(),
 					vendorCode);
@@ -259,13 +257,13 @@ public class PoController {
 
 	@PostMapping({ "/savePoInvoiceQuery" })
 	@CrossOrigin("*")
-	public String savePoInvoiceQuery(HttpServletRequest request, @RequestBody QueryEntity details) {
+	public String savePoInvoiceQuery(HttpServletRequest request,Principal principal, @RequestBody QueryEntity details) {
 
 		DataContainer data = new DataContainer();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			String raisedBy = (String) request.getSession().getAttribute("userName");
+			String raisedBy =principal.getName();
 
 			details.setRaisedBy(raisedBy);
 			logger.info("commt : " + details.getComment());
@@ -288,14 +286,14 @@ public class PoController {
 
 	@PostMapping({ "/getPoQueryData" })
 	@CrossOrigin("*")
-	public String getPoQueryData(HttpServletRequest request, @RequestBody QueryEntity details) {
+	public String getPoQueryData(HttpServletRequest request,Principal principal, @RequestBody QueryEntity details) {
 
 		DataContainer data = new DataContainer();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			String raisedBy = (String) request.getSession().getAttribute("userName");
+			String raisedBy = principal.getName();
 			details.setRaisedBy(raisedBy);
 			List<QueryEntity> getPoQueryData = serviceManager.queryRepo.findCommentsByRefIDPo(details.getReferenceid(),
 					details.getRaisedBy());
@@ -340,13 +338,15 @@ public class PoController {
 
 	@PostMapping({ "/updateRemaningQuantity" })
 	@CrossOrigin("*")
-	public String updateRemaningQuantity(HttpServletRequest request, @RequestBody PoAndLineItem details) {
+	public String updateRemaningQuantity(HttpServletRequest request,Principal principal, @RequestBody PoAndLineItem details) {
 
 		DataContainer data = new DataContainer();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-
+			String processBy=principal.getName();
+			Date proceessOn=new Date();
+			
 			logger.info("getRemaningQuatity in po line :::::::: " + details.getRemaningQuatity() + "poLineId"
 					+ details.getId());
 
@@ -354,9 +354,9 @@ public class PoController {
 
 			Integer flag = details.getFlag();
 			if (flag == 1) {
-				serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(details.getPoNumber());
+				serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(details.getPoNumber(),proceessOn,processBy);
 			} else {
-				serviceManager.podetailsRepo.updateVendorPoStatusUnprocess(details.getPoNumber());
+				serviceManager.podetailsRepo.updateVendorPoStatusUnprocess(details.getPoNumber(),proceessOn,processBy);
 			}
 
 			logger.info("end of getPoQueryData success");
@@ -373,7 +373,7 @@ public class PoController {
 
 	@PostMapping({ "/updateRemaningQuantitydraft" })
 	@CrossOrigin("*")
-	public String updateRemaningQuantitydraft(HttpServletRequest request, @RequestBody PoAndLineItem details) {
+	public String updateRemaningQuantitydraft(HttpServletRequest request,Principal principal, @RequestBody PoAndLineItem details) {
 
 		DataContainer data = new DataContainer();
 
@@ -383,15 +383,17 @@ public class PoController {
 			logger.info("getRemaningQuatity" + details.getRemaningQuatity() + "id" + details.getId());
 
 			serviceManager.podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
-
+			String processBy=principal.getName();
+			Date proceessOn=new Date();
+			System.out.println("processBy"+processBy+" :::proceessOn"+proceessOn);
 			// serviceManager.podetailsRepo.updateRemaningQuantitydraft(details.getRemaningQuatity(),
 			// details.getLineNumberpo());
-
+			
 			Integer flag = details.getFlag();
 			if (flag == 1) {
-				serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(details.getPoNumber());
+				serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(details.getPoNumber(),proceessOn,processBy);
 			} else {
-				serviceManager.podetailsRepo.updateVendorPoStatusUnprocess(details.getPoNumber());
+				serviceManager.podetailsRepo.updateVendorPoStatusUnprocess(details.getPoNumber(),proceessOn,processBy);
 			}
 
 			logger.info("end of updateRemaningQuantitydraft ");

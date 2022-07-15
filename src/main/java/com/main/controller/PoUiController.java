@@ -57,19 +57,16 @@ public class PoUiController {
 
 		String vendorType1[]=vendorType.split(",");
 		
-		
-
 			if (vendorType1.length==2 || vendorType.equalsIgnoreCase("Fixed Asset") || vendorType.equalsIgnoreCase("FIXED ASSETS")) {
 				String rolename = (String) request.getSession().getAttribute("role");
 				String vendorCode = (String) request.getSession().getAttribute("userName");
 				System.out.println("vendor type : " + vendorType);
-
-				 rolename = (String) request.getSession().getAttribute("role");
-				 vendorCode = (String) request.getSession().getAttribute("userName");
-
-				 	List<PoDetails> details1=new ArrayList<PoDetails>();
-					List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
-					
+				rolename = (String) request.getSession().getAttribute("role");
+				vendorCode = (String) request.getSession().getAttribute("userName");
+				List<PoDetails> details1=new ArrayList<PoDetails>();
+				List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
+				String processBy=principal.getName();
+				Date proceessOn=new Date();
 					for(int i=0;i<details.size();i++) {
 						List<PoLineDetails> podet=details.get(i).getPoline();
 						String pono=details.get(i).getPoNo();
@@ -80,7 +77,7 @@ public class PoUiController {
 						if(remaningquantity!=0.0 || remaningquantity!=0.00 ||remaningquantity!=0) {
 							details1.add(details.get(i));
 						}else {
-							serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(pono);
+							serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(pono,proceessOn,processBy);
 						}
 						System.out.println("remaningquantity is :::"+remaningquantity +"VendorCode ::"+vendorCode);
 					}
@@ -112,9 +109,6 @@ public class PoUiController {
 				model.addAttribute("dataLimit", dataLimit);
 
 				System.out.println("end of dashboard_Po");
-				
-				
-
 				if (rolename.equalsIgnoreCase("Vendor")) {
 
 					return "dashboard_Po";
@@ -172,35 +166,27 @@ public class PoUiController {
 
 	@GetMapping("/poInvoiceDetails")
 	public String poInvoiceDetails(Model model, Principal principal, HttpServletRequest request) {
-
 		String rolename = (String) request.getSession().getAttribute("role");
 		model.addAttribute("dataLimit", dataLimit);
-
 		if (rolename.equalsIgnoreCase("Vendor")) {
 
 			return "poInvoiceDetails";
-
 		}
 		return "";
 	}
 
 	@GetMapping("/QueryPo")
 	public String QueryPo(Model model, Principal principal, HttpServletRequest request) {
-
 		String rolename = (String) request.getSession().getAttribute("role");
 		model.addAttribute("dataLimit", dataLimit);
-
 		if (rolename.equalsIgnoreCase("Vendor")) {
-
 			return "QueryPo";
-
 		}
 		return "";
 	}
 
 	@GetMapping("/invoiceViewPo")
 	public String invoiceViewPo(Model model, HttpServletRequest request, Principal principal) {
-
 		String obj = request.getParameter("ob");
 		String invoiceNumber = "";
 		String status = "";
@@ -213,7 +199,6 @@ public class PoUiController {
 				status = arrSplit[i];
 			}
 		}
-
 		System.out.println("invoiceNo" + invoiceNumber);
 		model.addAttribute("invoiceNo", invoiceNumber);
 		System.out.println("status" + status);
@@ -261,7 +246,6 @@ public class PoUiController {
 				break;
 			}
 		}
-
 		System.out.println("poNumber" + poNumber);
 		model.addAttribute("poNumber", poNumber);
 
@@ -272,49 +256,17 @@ public class PoUiController {
 
 	@GetMapping("/poInvoiceGenerate")
 	public String poInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
-
-		/*
-		 * String userNameIs = "ECOM-";
-		 * 
-		 * String vendorCode = (String) request.getSession().getAttribute("userName");
-		 * 
-		 * int totalInvoiceCount =
-		 * serviceManager.poinvoiceRepo.getAllInvoiceCountForInvoiceNo(vendorCode);
-		 * String invoiceNumber = userNameIs + String.format("%08d", totalInvoiceCount +
-		 * 1); // Filling with zeroes
-		 * 
-		 * List<String> exitingInvoiceNo =
-		 * serviceManager.poinvoiceRepo.getExitingInvoiceNo();
-		 * 
-		 * 
-		 * 
-		 * String[] arr = new String[exitingInvoiceNo.size()]; for (int i = 0; i <
-		 * exitingInvoiceNo.size(); i++) { arr[i] = exitingInvoiceNo.get(i);
-		 * 
-		 * if (invoiceNumber.equalsIgnoreCase(arr[i])) {
-		 * 
-		 * invoiceNumber = userNameIs + String.format("%08d", totalInvoiceCount + 3); }
-		 * 
-		 * }
-		 */
-		
-		
 		String invoiceNumber = "";
-
 		invoiceNumber = generateInvoiceNumber();
-		
 		InvoiceNumber inNumber= new InvoiceNumber();
 		inNumber.setEcomInvoiceNumber(invoiceNumber);
 		inNumber.setStatus("Used_PO_Invoice");
 		serviceManager.invoiceNumberRepo.save(inNumber);
-
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		request.getSession().setAttribute("invoiceNumber", invoiceNumber);
-		
 		model.addAttribute("invoiceDate", new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		request.getSession().setAttribute("invoiceNumber", invoiceNumber);
-
 		String PoNumber = request.getParameter("id");
 		List<String> paymentMethod= serviceManager.paymentMethodRepo.PaymentMethod();
 		System.out.println(":::"+paymentMethod);
@@ -328,8 +280,6 @@ public class PoUiController {
 		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
 		model.addAttribute("payment", payment);
 		System.out.println("term,m"+payment);
-		
-		
 		
 		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
 		if ("".equals(bpCode) || bpCode == null) {
@@ -345,37 +295,27 @@ public class PoUiController {
 		String accountnumber="";
 		List<AccountDetails> listaccountNumber = supDetails.get(0).getAccountDetails();
 		for(int i=0;i<listaccountNumber.size();i++) {
-			
-		 
 			accountnumber= listaccountNumber.get(i).getAccoutNumber();
 			accountNumber.add(accountnumber);
 		}
-		
 		
 		if ("".equals(accountnumber) || accountnumber == null) {
 			accountnumber = "";
 		}
 		model.addAttribute("accountNumber", accountNumber);
-
-		
 		model.addAttribute("creidtTerms", creidtTerms);
 		System.out.println("creidtTerms : "+creidtTerms);
-		
-		
 		if (null != findByPoNumber.getPoNo()) {
 			// findByPoNumber.setStatus("Draft-Invoicing");
 			// findByPoNumber.setInvoiceNumber(invoiceNumber);
 			// podetailsRepo.save(findByPoNumber);
 		}
-
 		System.out.println("Eom invoiceNumber : " + invoiceNumber);
-
 		return "poInvoiceGenerate";
 	}
 
 	@GetMapping("/draftPO")
 	public String draftPO(Model model, HttpServletRequest request, Principal principal) {
-
 		String PoNumber = request.getParameter("id");
 		model.addAttribute("dataLimit", dataLimit);
 		model.addAttribute("PoNumber", PoNumber);
@@ -384,7 +324,6 @@ public class PoUiController {
 
 	@GetMapping("/draftPoInvoiceGenerate")
 	public String draftPoInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
-
 		String PoNumber = request.getParameter("id");
 		model.addAttribute("PoNumber", PoNumber);
 		model.addAttribute("invoiceNumber", PoNumber);
@@ -409,32 +348,23 @@ public class PoUiController {
 		String accountnumber="";
 		List<AccountDetails> listaccountNumber = supDetails.get(0).getAccountDetails();
 		for(int i=0;i<listaccountNumber.size();i++) {
-			
-		 
 			accountnumber= listaccountNumber.get(i).getAccoutNumber();
 			accountNumber.add(accountnumber);
 		}
-		
-		
 		if ("".equals(accountnumber) || accountnumber == null) {
 			accountnumber = "";
 		}
 		model.addAttribute("accountNumber", accountNumber);
-		
-	
 		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
 		model.addAttribute("payment", payment);
 		return "draftPoInvoiceGenerate";
 	}
 
 	public synchronized String generateInvoiceNumber() {
-
 		long count = serviceManager.invoiceNumberRepo.count();
 		String invoiceNumberPrefix = "ECOM-";
-
 		count = count + 1;
 		String invoiceNumber = invoiceNumberPrefix + String.format("%08d", count); // Filling with zeroes
-
 		return invoiceNumber;
 	}
 }

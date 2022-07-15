@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
+import com.main.db.bpaas.entity.TripDetails;
 
 public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenerationEntity, Long> {
 
@@ -130,6 +131,11 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 
 	@Query(value = "select * from invoice_generation where ecom_invoice_nunmber=? ", nativeQuery = true)
 	InvoiceGenerationEntity getQueryInvoice(String invoiceNumber);
+
+	@Query(value = "select ecom_invoice_nunmber, invoice_receiving_date, invoice_number, invoice_amount,invoice_status \r\n"
+			+ "FROM invoice_generation where vendor_code=? and invoice_status IN ('In-Review','Pending For Approval', 'Approved','Payment Relase', 'Query') "
+			+ "ORDER BY id desc limit ?",nativeQuery = true) 
+	List<Object[]> getTopInvoiceRecords(String vendorCode, int parseInt);
 
 	/*
 	 * @Transactional

@@ -398,7 +398,6 @@
             var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
             var unresolvedstsData = {
                 labels: [
-                    'All Trips',
                     'Approved Trips',
                     'Pending Approval',
                     'Query Trips',
@@ -406,7 +405,7 @@
                 ],
                 datasets: [{
                         data: [${totalTripCount},${ApprovedTripscount}, ${yetTobeApproved}, ${getTripCountForQueryAdhoc},${getInClosedTripCountForAdhoc} ],
-                        backgroundColor: ['#faa654', '#00a65a', '#8d4f55', '#C422F4','#1477B0' ],
+                        backgroundColor: ['#00a65a', '#8d4f55', '#C422F4','#1477B0' ],
                     }]
             }
             var unresolvedstsOptions = {

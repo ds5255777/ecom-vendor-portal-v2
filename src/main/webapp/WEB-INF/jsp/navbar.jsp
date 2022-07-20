@@ -168,11 +168,18 @@
         </c:choose>
     </ul>
     
-    <!-- Right navbar links -->
+    <!-- manish -->
 	<ul class="navbar-nav ml-auto">
-
+	
+	<c:choose>
+		
+		<c:when test="${role eq 'Vendor'}">
 		<li class="nav-item"><a class="nav-link">${vendorName}</a></li>
-
+	</c:when>
+		<c:otherwise>
+			<li class="nav-item"><a class="nav-link">${username}</a></li>
+		</c:otherwise>
+	</c:choose>
 		<c:if test="${isssoEnable!='yes'}">
 			<li class="nav-item"><a class="nav-link" href="logout"
 				id="quickHelp" data-toggle="tooltip" data-placement="bottom"

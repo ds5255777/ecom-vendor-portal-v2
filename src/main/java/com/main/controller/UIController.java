@@ -173,11 +173,11 @@ public class UIController {
 	@GetMapping({ "/", "/dashboard" })
 	public String dashboard(Model model, Principal principal, String error, String logout, HttpServletRequest request) {
 
-		String rolename = (String) request.getSession().getAttribute("role");
-
 		User us = serviceManager.userService.findByUsername(principal.getName());
-
+		String rolename=us.getRolesObj().getRoleName();
 		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
+		model.addAttribute("role", rolename);
+		model.addAttribute("username", principal.getName());
 		if ("".equals(bpCode) || bpCode == null) {
 			bpCode = "";
 		}
@@ -216,6 +216,7 @@ public class UIController {
 			// Changes made for limit and 50 trips only
 			List<TripDetails> findAllTripsLimitFifty = serviceManager.tripService.findAllTripsLimitFifty();
 			model.addAttribute("yetTobeApprovedAllDetails", findAllTripsLimitFifty);
+			model.addAttribute("role", rolename);
 			// model.addAttribute("userStatus", us.getStatus());
 			// changes end
 			return "dashBoard_NetworkRole";
@@ -257,6 +258,7 @@ public class UIController {
 
 			String uname = principal.getName();
 			model.addAttribute("uname", uname);
+			model.addAttribute("role", rolename);
 
 			return "dashBoard_AdminRole";
 
@@ -286,6 +288,7 @@ public class UIController {
 
 			request.setAttribute("vendorType", vendorType);
 			model.addAttribute("vendorType", vendorType);
+			model.addAttribute("role", rolename);
 
 			// po Details
 
@@ -382,6 +385,7 @@ public class UIController {
 			model.addAttribute("countForApprovedInvoice", countForApprovedInvoice);
 			model.addAttribute("countForPaymentrelaseInvoice", countForPaymentrelaseInvoice);
 			model.addAttribute("queryCount", queryCount);
+			model.addAttribute("role", rolename);
 			return "dashBoard_Finance";
 		} else if (rolename.equalsIgnoreCase("Audit")) {
 			return "";
@@ -397,6 +401,7 @@ public class UIController {
 			model.addAttribute("approvedRequest", approvedRequest);
 			model.addAttribute("rejectedRequest", rejectedRequest);
 			model.addAttribute("queryRequest", queryRequest);
+			model.addAttribute("role", rolename);
 			return "dashboardRegistration";
 		}
 

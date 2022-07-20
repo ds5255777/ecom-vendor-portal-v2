@@ -241,12 +241,12 @@ tbody {
 									<table class="table table-head-fixed" id="tabledata">
 										<thead>
 											<tr>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">ECOM Inv-Num</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Inv-Rec Date</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Ven Inv-Num</th>
+												<th class="bg-primary" style="padding: 5px 5px 5px">ECOM Doc-Num</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px;">Inv-Rec Date</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px;">Ven Inv-Num</th>
                                                 <!-- <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th> -->
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Amount</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Status</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px;">Invoice Amount</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px;">Invoice Status</th>
 											</tr>
 										</thead>
 									</table>
@@ -493,7 +493,7 @@ tbody {
                 dataType: "json",
                 contentType: "application/json",
                 success: function(data) {
-debugger;
+
                     if (data.msg == 'success') {
                         //console.log(data.data);
                         var result = data.data
@@ -528,9 +528,11 @@ debugger;
                                 result[i].vendorCode = "";
                             }
 
+							//invoiceReceivingDate=result[i].invoiceReceivingDate.split(",")[0];
+							
                             tabledata.row.add([
                             	result[i].ecomInvoiceNumber,
-                            	result[i].invoiceReceivingDate, 
+                            	invoiceReceivingDate, 
                             	result[i].invoiceNumber, 
                             	result[i].invoiceAmount, 
                             	result[i].invoiceStatus]); 

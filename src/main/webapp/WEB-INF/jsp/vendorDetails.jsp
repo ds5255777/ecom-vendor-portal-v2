@@ -1062,8 +1062,8 @@ th, td,tr {
                         	 if(!result[i].hasOwnProperty("introducedByEmailID")){
      							result[i].introducedByEmailID="";
      						}
-                        	 if(!result[i].hasOwnProperty("compGstn")){
-     							result[i].compGstn="";
+                        	 if(!result[i].hasOwnProperty("businessClassification")){
+     							result[i].businessClassification="";
      						}
                         	 
                         	 if(!result[i].hasOwnProperty("partnerType")){

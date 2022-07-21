@@ -438,21 +438,25 @@ public class TripControllers {
 
 	@PostMapping({ "/getDraftLineTripDetails" })
 	@CrossOrigin("*")
-	public String getDraftLineTripDetails(@RequestBody TripDetails obj, HttpSession session, HttpServletRequest request)
+	public String getDraftLineTripDetails(Principal principal, @RequestBody TripDetails obj)
 			throws UnsupportedEncodingException, MessagingException {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String userName = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
 		try {
-			String invoiceNumber = obj.getInvoiceNumber();
-			logger.info(invoiceNumber);
-			List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber);
-			for (TripDetails tripDetails : list) {
-				logger.info(tripDetails.getTripID());
+			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+
+				String invoiceNumber = obj.getInvoiceNumber();
+				List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber,userName);
+				for (TripDetails tripDetails : list) {
+					logger.info(tripDetails.getTripID());
+				}
+				data.setData(list);
+				data.setMsg("success");
 			}
-			data.setData(list);
-			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
 			logger.error("error : " + e);

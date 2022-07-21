@@ -65,25 +65,23 @@ public class InvoiceController {
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String vendorCode = principal.getName();
-		String rolename = (String) request.getSession().getAttribute("role");
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(vendorCode);
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
 						.getAllInvoice(vendorCode);
 				data.setData(pandingInvoice);
-			} else {
+				data.setMsg("success");
+			} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
 						.getAllNetworkInvoice();
 				data.setData(pandingInvoice);
+				data.setMsg("success");
 			}
-
-			data.setMsg("success");
-
 		} catch (Exception e) {
 			data.setMsg("error");
 			logger.error("error : " + e);
 		}
-
 		return gson.toJson(data).toString();
 	}
 
@@ -93,15 +91,17 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
-
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(vendorCode);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
-					.getAllProcessedInvoice(vendorCode);
+			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
+						.getAllProcessedInvoice(vendorCode);
 
-			data.setData(pandingInvoice);
-			data.setMsg("success");
-
+				data.setData(pandingInvoice);
+				data.setMsg("success");
+			}
+			data.setMsg("error");
 		} catch (Exception e) {
 			data.setMsg("error");
 			logger.error("error : " + e);
@@ -116,13 +116,16 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(vendorCode);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
-					.getAllApproveInvoice(vendorCode);
+			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
+						.getAllApproveInvoice(vendorCode);
 
-			data.setData(pandingInvoice);
-			data.setMsg("success");
+				data.setData(pandingInvoice);
+				data.setMsg("success");
+			}
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -138,7 +141,7 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
-		String rolename = (String) request.getSession().getAttribute("role");
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(vendorCode);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
@@ -554,25 +557,30 @@ public class InvoiceController {
 
 	@PostMapping({ "/getSelectInvoiceDetails" })
 	@CrossOrigin("*")
-	public String getSelectInvoiceDetails(HttpServletRequest request, @RequestBody InvoiceGenerationEntity inviceObj) {
+	public String getSelectInvoiceDetails(Principal principal, @RequestBody InvoiceGenerationEntity inviceObj) {
 
 		DataContainer data = new DataContainer();
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String invoiceNumber = inviceObj.getEcomInvoiceNumber();
-		String rolename = (String) request.getSession().getAttribute("role");
+		String vendorCode = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(vendorCode);
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
-					|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)
-					|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+					|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
 				inviceObj = serviceManager.invoiceGenerationEntityRepo.findByEcomInvoiceNumber(invoiceNumber);
 				data.setData(inviceObj);
-			} else {
+			} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 
-				inviceObj = serviceManager.invoiceGenerationEntityRepo.getQueryInvoice(invoiceNumber);
+				inviceObj = serviceManager.invoiceGenerationEntityRepo
+						.findByEcomInvoiceNumberAndVendorCode(invoiceNumber, vendorCode);
 				data.setData(inviceObj);
 
-			}
+			} /*
+				 * else { inviceObj =
+				 * serviceManager.invoiceGenerationEntityRepo.getQueryInvoice(invoiceNumber);
+				 * data.setData(inviceObj); }
+				 */
 
 			data.setMsg("success");
 
@@ -753,8 +761,6 @@ public class InvoiceController {
 		return gson.toJson(data).toString();
 	}
 
-	// deleteTripQueryInvoice
-
 	@PostMapping({ "/deleteTripQueryInvoice" })
 	@CrossOrigin("*")
 	public String deleteTripQueryInvoice(HttpServletRequest request, @RequestBody TripDetails obj) {
@@ -787,7 +793,7 @@ public class InvoiceController {
 		try {
 
 			String tripID = obj.getTripID();
-			//String invoiceNumber = obj.getInvoiceNumber();
+			// String invoiceNumber = obj.getInvoiceNumber();
 
 			TripDetails tripDetails = serviceManager.tripDetailsRepo.findByTripID(tripID);
 

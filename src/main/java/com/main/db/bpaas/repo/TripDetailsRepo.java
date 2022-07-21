@@ -107,8 +107,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	 * String[] tripID);
 	 */
 
-	@Query(value = "select  * from trip_details  where invoice_number=:invoiceNumber ", nativeQuery = true)
-	List<TripDetails> getTripStatusIsDraftInvoicing(String invoiceNumber);
+	@Query(value = "select  * from trip_details  where invoice_number=:invoiceNumber and vendor_code=:vendorCode ", nativeQuery = true)
+	List<TripDetails> getTripStatusIsDraftInvoicing(String invoiceNumber, String vendorCode);
 
 	@Transactional
 	@Modifying

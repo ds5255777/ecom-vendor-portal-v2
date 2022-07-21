@@ -821,7 +821,7 @@
                     return;
                 }
                 $('.loader').show();
-                var urlOftripsDetail = "tripsInvoiceGenerate?id=" + values;
+                var urlOftripsDetail = "tripsInvoiceGenerate?id=" +btoa(values);
                 window.open(urlOftripsDetail, "tripsInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
                 $('.loader').hide();
             }

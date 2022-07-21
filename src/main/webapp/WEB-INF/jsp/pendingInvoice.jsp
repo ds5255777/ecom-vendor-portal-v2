@@ -383,7 +383,7 @@
 
             function getInvoiceDataFormDataByInvoiceNumber(id, type) {
                 $('.loader').show();
-                var urlOftripsDetail = "invoiceView?id=" + id+"&type="+type;
+                var urlOftripsDetail = "invoiceView?id=" +btoa(id)+"&type="+btoa(type);
                 window.open(urlOftripsDetail, "invoiceView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
                 $('.loader').hide();
             }

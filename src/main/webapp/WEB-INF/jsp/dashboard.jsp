@@ -241,12 +241,12 @@ tbody {
 									<table class="table table-head-fixed" id="tabledata">
 										<thead>
 											<tr>
-												<th class="bg-primary" style="padding: 5px 5px 5px">ECOM Doc-Num</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px;">Inv-Rec Date</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px;">Ven Inv-Num</th>
-                                                <!-- <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th> -->
-                                                <th class="bg-primary" style="padding: 5px 5px 5px;">Invoice Amount</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px;">Invoice Status</th>
+												<th class="bg-primary">ECOM Inv-Num</th>
+                                                <th class="bg-primary">Inv-Rec Date</th>
+                                                <th class="bg-primary">Ven Inv-Num</th>
+                                                <!-- <th class="bg-primary">Invoice Date</th> -->
+                                                <th class="bg-primary">Invoice Amount</th>
+                                                <th class="bg-primary">Invoice Status</th>
 											</tr>
 										</thead>
 									</table>
@@ -493,7 +493,6 @@ tbody {
                 dataType: "json",
                 contentType: "application/json",
                 success: function(data) {
-
                     if (data.msg == 'success') {
                         //console.log(data.data);
                         var result = data.data
@@ -502,6 +501,7 @@ tbody {
                         tabledata.clear();
                         var count = 0;
                         //var editBtn;
+                        var date ="";
                         for (var i = 0; i < result.length; i++) {
                             if (!result[i].hasOwnProperty("invoiceNumber")) {
                                 result[i].invoiceNumber = "";
@@ -527,12 +527,11 @@ tbody {
                             if (!result[i].hasOwnProperty("vendorCode")) {
                                 result[i].vendorCode = "";
                             }
-
-							//invoiceReceivingDate=result[i].invoiceReceivingDate.split(",")[0];
-							
+                            date = result[i].invoiceReceivingDate.split(",");
+                            
                             tabledata.row.add([
                             	result[i].ecomInvoiceNumber,
-                            	invoiceReceivingDate, 
+                            	date[0], 
                             	result[i].invoiceNumber, 
                             	result[i].invoiceAmount, 
                             	result[i].invoiceStatus]); 

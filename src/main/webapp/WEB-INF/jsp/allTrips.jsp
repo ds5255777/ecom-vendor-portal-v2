@@ -741,7 +741,7 @@ tbody {
                 "lengthChange": false,
                 "searching": true,
                 "info": true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "aaSorting": [],
                 "scrollX": true,
                 "pageLength": dataLimit,
@@ -835,7 +835,7 @@ tbody {
                 "lengthChange": false,
                 "searching": false,
                 "info": false,
-                "autoWidth": false,
+                "autoWidth": true,
                 "aaSorting": []
             });
 

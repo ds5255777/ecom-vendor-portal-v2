@@ -52,37 +52,42 @@ public class DashboardController {
 	public String getDashBoardDetails(Principal principal, HttpSession session, HttpServletRequest request) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		String vendorCode = principal.getName();
+		String userName = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+
 		try {
-			List<Object[]> topInvoiceRecords = serviceManager.invoiceGenerationEntityRepo
-					.getTopInvoiceRecords(vendorCode, Integer.parseInt(invoiceLimit));
-			
-			List<InvoiceGenerationEntity> invoice = new ArrayList<>();
 
-			for (Object[] objects : topInvoiceRecords) {
-				InvoiceGenerationEntity sdt = new InvoiceGenerationEntity();
-				if (null != objects[0]) {
-					sdt.setEcomInvoiceNumber(objects[0].toString());
-				}
-				if (null != objects[1]) {
-					sdt.setInvoiceReceivingDate(objects[1].toString());
-				}
-				if (null != objects[2]) {
-					sdt.setInvoiceNumber(objects[2].toString());
-				}
-				if (null != objects[3]) {
-					sdt.setInvoiceAmount(objects[3].toString());
-				}
-				if (null != objects[4]) {
-					sdt.setInvoiceStatus(objects[4].toString());
+			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+
+				List<Object[]> topInvoiceRecords = serviceManager.invoiceGenerationEntityRepo
+						.getTopInvoiceRecords(userName, Integer.parseInt(invoiceLimit));
+
+				List<InvoiceGenerationEntity> invoice = new ArrayList<>();
+
+				for (Object[] objects : topInvoiceRecords) {
+					InvoiceGenerationEntity sdt = new InvoiceGenerationEntity();
+					if (null != objects[0]) {
+						sdt.setEcomInvoiceNumber(objects[0].toString());
+					}
+					if (null != objects[1]) {
+						sdt.setInvoiceReceivingDate(objects[1].toString());
+					}
+					if (null != objects[2]) {
+						sdt.setInvoiceNumber(objects[2].toString());
+					}
+					if (null != objects[3]) {
+						sdt.setInvoiceAmount(objects[3].toString());
+					}
+					if (null != objects[4]) {
+						sdt.setInvoiceStatus(objects[4].toString());
+					}
+
+					invoice.add(sdt);
 				}
 
-				invoice.add(sdt);
+				data.setData(invoice);
+				data.setMsg("success");
 			}
-
-			data.setData(invoice);
-			data.setMsg("success");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			data.setMsg("error");

@@ -19,6 +19,10 @@ public interface RolesRepository extends JpaRepository<RolesEntity, Integer>{
 	Integer findByRoleName(String role);
 	
 	List<RolesEntity> findByIsActiveAndRoleNameNot(String status, String roleName);
+	
+
+	@Query(value = "select role_name from roles where id =(select role_id from users where username=:userName)", nativeQuery = true)
+	String getuserRoleByUserName(String userName);
 
 
 }

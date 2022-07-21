@@ -110,7 +110,7 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <jsp:include page="navbar.jsp?pagename=All Invoices" />
+        <jsp:include page="navbar.jsp?pagename=All Invoices Finance" />
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
@@ -258,7 +258,6 @@
                 showConfirmButton: false,
                 timer: 3000
             });
-            debugger;
             var currentDate='${currentDate}';
             var dataLimit='${dataLimit}';
     		dataLimit=parseInt(dataLimit);

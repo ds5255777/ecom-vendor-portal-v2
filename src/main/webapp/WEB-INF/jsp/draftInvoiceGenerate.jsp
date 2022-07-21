@@ -1028,7 +1028,6 @@
         }
 
         function calculateInvoice() {
-        	debugger;
             var taxAmount = $("#taxAmount").val(); /* 18 */
             var greenTax = $("#greenTax").val();  /* Green tax */
             var taxableAmount = $("#taxableAmount").val(); /* TripCost */

@@ -247,7 +247,7 @@ pendingRequest();
         
         function setVenRegStatus(pid, status) {
             $('.loader').show();
-            var urlOftripsDetail = "vendorView?pid=" + pid+"&status="+status;
+            var urlOftripsDetail = "vendorView?pid=" +btoa(pid)+"&status="+btoa(status);
             window.open(urlOftripsDetail, "vendorView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
             $('.loader').hide();
         }

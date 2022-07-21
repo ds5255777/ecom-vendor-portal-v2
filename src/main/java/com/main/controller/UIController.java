@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -798,8 +799,10 @@ public class UIController {
 
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		request.getSession().setAttribute("invoiceNumber", invoiceNumber);
+		
+		Base64.Decoder decoder = Base64.getDecoder();
 
-		String tripId = request.getParameter("id");
+		String tripId = new String(decoder.decode(request.getParameter("id")));
 		model.addAttribute("maxFileSize", maxFileSize);
 		model.addAttribute("fileSize", fileSize);
 		model.addAttribute("tripId", tripId);
@@ -852,7 +855,7 @@ public class UIController {
 			e.printStackTrace();
 		}
 
-		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber);
+		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber, userName);
 		List<Object> listofTrips = new ArrayList<>();
 		for (TripDetails tripDetails : list) {
 			System.out.println(tripDetails.getTripID());
@@ -870,8 +873,9 @@ public class UIController {
 	@GetMapping("/invoiceView")
 	public String invoiceView(Model model, HttpServletRequest request, Principal principal) {
 
-		String invoiceNumber = request.getParameter("id");
-		String invoiceType = request.getParameter("type");
+		Base64.Decoder decoder = Base64.getDecoder();
+		String invoiceNumber = new String(decoder.decode(request.getParameter("id")));
+		String invoiceType = new String(decoder.decode(request.getParameter("type")));
 		model.addAttribute("type", invoiceType);
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		return "invoiceView";
@@ -881,14 +885,16 @@ public class UIController {
 	public String draftInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 
 		String vendorName = null;
-		String invoiceNumber = request.getParameter("id");
+		Base64.Decoder decoder = Base64.getDecoder();
+		String invoiceNumber = new String(decoder.decode(request.getParameter("id")));
 
 		model.addAttribute("maxFileSize", maxFileSize);
 		model.addAttribute("fileSize", fileSize);
 		model.addAttribute("invoiceNumber", invoiceNumber);
 
 		System.out.println(invoiceNumber);
-		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber);
+		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber, vendorName);
+		
 		List<Object> listofTrips = new ArrayList<>();
 
 		for (TripDetails tripDetails : list) {
@@ -974,9 +980,11 @@ public class UIController {
 
 	@GetMapping("/queryInvoiceEdit")
 	public String queryInvoiceEdit(Model model, HttpServletRequest request, Principal principal) {
+		
+		Base64.Decoder decoder = Base64.getDecoder();
 		model.addAttribute("maxFileSize", maxFileSize);
-		String invoiceNumber = request.getParameter("id");
-		String invoiceType = request.getParameter("type");
+		String invoiceNumber = new String(decoder.decode(request.getParameter("id")));
+		String invoiceType = new String(decoder.decode(request.getParameter("type")));
 		model.addAttribute("fileSize", fileSize);
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		model.addAttribute("type", invoiceType);
@@ -1037,8 +1045,9 @@ public class UIController {
 	@GetMapping("/vendorView")
 	public String vendorView(Model model, HttpServletRequest request, Principal principal) {
 
-		String pid = request.getParameter("pid");
-		String vendorType = request.getParameter("status");
+		Base64.Decoder decoder = Base64.getDecoder();
+		String pid = new String(decoder.decode(request.getParameter("pid")));
+		String vendorType = new String(decoder.decode(request.getParameter("status")));
 		model.addAttribute("vendorType", vendorType);
 		model.addAttribute("pid", pid);
 		return "vendorView";

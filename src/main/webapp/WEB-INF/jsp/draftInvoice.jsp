@@ -376,7 +376,7 @@
 
             function getInvoiceDataFormDataByInvoiceNumber(invoiceNumber) {
                 $('.loader').show();
-                var urlOftripsDetail = "draftInvoiceGenerate?id=" + invoiceNumber;
+                var urlOftripsDetail = "draftInvoiceGenerate?id=" +btoa(invoiceNumber);
                 window.open(urlOftripsDetail, "draftInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
                 $('.loader').hide();
             }

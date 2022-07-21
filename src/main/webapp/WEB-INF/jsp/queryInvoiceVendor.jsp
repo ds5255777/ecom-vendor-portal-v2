@@ -412,7 +412,7 @@ request.setAttribute("networkRole", networkRole);
 	            function getInvoiceDataFormDataByInvoiceNumber(value, type) {
 	                $('.loader').show();
 	
-	                var urlOftripsDetail = "queryInvoiceEdit?id=" + value+"&type="+type;
+	                var urlOftripsDetail = "queryInvoiceEdit?id=" + btoa(value)+"&type="+btoa(type);
 	                window.open(urlOftripsDetail, "queryInvoiceEdit", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
 	                 $('.loader').hide();
 	            }
@@ -421,7 +421,7 @@ request.setAttribute("networkRole", networkRole);
 	            function getInvoiceDataFormDataByInvoiceNumber(value, type) {
 	                $('.loader').show();
 	
-	                var urlOftripsDetail = "invoiceView?id=" + value+"&type="+type;
+	                var urlOftripsDetail = "invoiceView?id=" +btoa(value)+"&type="+btoa(type);
 	                window.open(urlOftripsDetail, "invoiceView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
 	                $('.loader').hide();
 	            }

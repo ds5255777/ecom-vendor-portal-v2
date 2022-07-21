@@ -23,7 +23,7 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 	@Query(value = "select * from invoice_generation where invoice_status='Draft-Invoicing'  and vendor_code=?", nativeQuery = true)
 	List<InvoiceGenerationEntity> getAllRejectInvoice(String vendorCode);
 
-	@Query(value = "select * from invoice_generation where invoice_status IN ('In-Review','Pending For Approval', 'Approved','Payment Relase', 'Query') and vendor_code=? ", nativeQuery = true)
+	@Query(value = "select * from invoice_generation where invoice_status IN ('In-Review','Pending For Approval', 'Approved','Payment Relase', 'Query') and vendor_code=? ORDER BY id DESC", nativeQuery = true)
 	List<InvoiceGenerationEntity> getAllInvoice(String vendorCode);
 
 	@Query(value = "select * from invoice_generation where invoice_status IN ('In-Review','Pending For Approval', 'Approved','Payment Relase', 'Query') ", nativeQuery = true)
@@ -44,7 +44,7 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 	@Query(value = "select ID from invoice_generation where ecom_invoice_nunmber=?", nativeQuery = true)
 	Long getIdByinvocienumber(String invocienumber);
 
-	InvoiceGenerationEntity findByEcomInvoiceNumber(String invoiceNumber);
+	InvoiceGenerationEntity findByEcomInvoiceNumberAndVendorCode(String invoiceNumber, String vendorCode);
 
 	@Query(value = "select count(*) from invoice_generation where invoice_status='Approved' and vendor_code=? ", nativeQuery = true)
 	int getApproveInvoiceCount(String vendorCode);
@@ -136,6 +136,8 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 			+ "FROM invoice_generation where vendor_code=? and invoice_status IN ('In-Review','Pending For Approval', 'Approved','Payment Relase', 'Query') "
 			+ "ORDER BY id desc limit ?",nativeQuery = true) 
 	List<Object[]> getTopInvoiceRecords(String vendorCode, int parseInt);
+
+	InvoiceGenerationEntity findByEcomInvoiceNumber(String invoiceNumber);
 
 	/*
 	 * @Transactional

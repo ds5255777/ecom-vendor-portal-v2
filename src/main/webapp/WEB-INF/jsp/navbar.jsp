@@ -59,7 +59,7 @@
 					</form>
 				</div>
 			</c:when>
-			<c:when test="${pageName=='Vendor Invoice'}">
+			<c:when test="${pageName=='All Invoices Finance'}">
 				<li class="nav-item d-none d-sm-inline-block"><a
 					class="black-text nav-link quickHelp" data-toggle="tooltip"
 					data-placement="bottom" title="Back" href="#"
@@ -365,7 +365,7 @@ function GetSelectedInvoiceValue(){
                     if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
                         result[i].invoiceStatus = "";
                     }
-                    var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "','All Invoices')\" >" + result[i].ecomInvoiceNumber + "</button>";
+                    var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].ecomInvoiceNumber + "','All Invoices')\" >" + result[i].ecomInvoiceNumber + "</button>";
 
                     tabledata.row.add([view, result[i].invoiceNumber, result[i].vendorCode, result[i].vendorName, result[i].invoiceReceivingDate,  result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceStatus]);
                 }

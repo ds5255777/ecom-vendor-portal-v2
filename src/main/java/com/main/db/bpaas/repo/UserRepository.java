@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.main.db.bpaas.entity.RolesEntity;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
 
@@ -102,7 +103,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Modifying
 	@Query(value = "update users set status=:status where bp_code=:bpCode ; ", nativeQuery = true)
 	void updateStatusOfVendorByBpCode(@Param("status") String status, @Param("bpCode") String bpcode);
-	
+
 	@Transactional
 	@Modifying
 	@Query(value = "update supdetails set flag=:flag where bp_code=:bpCode ; ", nativeQuery = true)
@@ -120,6 +121,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	 * , nativeQuery = true) List<Object[]> getVendorCodeVendorNameById(String
 	 * vendorName);
 	 */
-	 @Query(value = "select  id from Users where bp_code=:bpCode "  , nativeQuery = true)
-		Integer getUserId(String bpCode);
+	@Query(value = "select  id from Users where bp_code=:bpCode ", nativeQuery = true)
+	Integer getUserId(String bpCode);
+
 }

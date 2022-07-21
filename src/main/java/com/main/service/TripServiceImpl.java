@@ -35,7 +35,6 @@ public class TripServiceImpl implements TripService {
 
 	@Override
 	public List<TripDetails> getInTransitTripByRunTypeAndRunStatus(String runtype, String runStatus) {
-		System.out.println("*************getInTransitTripByRunTypeAndRunStatus***************");
 		return tripDetailsRepo.getInTransitTripByRunTypeAndRunStatus(runtype, runStatus);
 	}
 
@@ -44,15 +43,12 @@ public class TripServiceImpl implements TripService {
 			String vendorCode) {
 
 		if ("".equalsIgnoreCase(vendorTripStatus) && "".equalsIgnoreCase(paymentStatus) && vendorCode != "") {
-			System.out.println(runStatus + " : " + vendorTripStatus + " : " + paymentStatus + " : " + vendorCode);
 			return tripDetailsRepo.getTripsByFiltersVendorRunStatus(runStatus, vendorCode);
 		}
 		if (runStatus != "" && vendorTripStatus != "" && "".equalsIgnoreCase(paymentStatus) && vendorCode != "") {
-			System.out.println(runStatus + " : " + vendorTripStatus + " : " + paymentStatus + " : " + vendorCode);
 			return tripDetailsRepo.getTripsByFiltersRunStatus_VendorTripStatus(runStatus, vendorTripStatus, vendorCode);
 		}
 		if (runStatus != "" && vendorTripStatus != "" && paymentStatus != "" && vendorCode != "") {
-			System.out.println(runStatus + " : " + vendorTripStatus + " : " + paymentStatus + " : " + vendorCode);
 			return tripDetailsRepo.getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus(runStatus,
 					vendorTripStatus, paymentStatus, vendorCode);
 		}
@@ -61,7 +57,6 @@ public class TripServiceImpl implements TripService {
 
 	@Override
 	public List<TripDetails> findAllTripsLimitFifty() {
-		System.out.println("*******Inside findAllTripsLimitFifty*******");
 		return tripDetailsRepo.findAllTripsLimitFifty();
 	}
 

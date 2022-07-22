@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -36,6 +37,7 @@ import com.main.db.bpaas.entity.MailContent;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.TripDetails;
+import com.main.payloads.TripDetailsDto;
 import com.main.serviceManager.ServiceManager;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
@@ -66,14 +68,20 @@ public class TripControllers {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
 						.findByActualDepartureBetween(fromDate, toDate);
-				data.setData(getListByDateFilter);
+				List<TripDetailsDto> collect = getListByDateFilter.stream()
+						.map((filterList) -> this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
+						.collect(Collectors.toList());
+				data.setData(collect);
 				data.setMsg("success");
 			}
 
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
 						.findByVendorCodeAndActualDepartureBetween(userName, fromDate, toDate);
-				data.setData(getListByDateFilter);
+				List<TripDetailsDto> collect = getListByDateFilter.stream()
+						.map((filterList) -> this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
+						.collect(Collectors.toList());
+				data.setData(collect);
 				data.setMsg("success");
 			}
 
@@ -96,7 +104,10 @@ public class TripControllers {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo
 						.findByRunStatusAndVendorCode(GlobalConstants.RUN_CLOSED, userName);
-				data.setData(allTripDetailsList);
+				List<TripDetailsDto> closeTripList = allTripDetailsList.stream()
+						.map((closeTrip) -> this.serviceManager.modelMapper.map(closeTrip, TripDetailsDto.class))
+						.collect(Collectors.toList());
+				data.setData(closeTripList);
 				data.setMsg("success");
 			}
 		} catch (Exception e) {
@@ -109,7 +120,7 @@ public class TripControllers {
 
 	@PostMapping({ "/getAllTripsDetails" })
 	@CrossOrigin("*")
-	public String getAllTripsDetails(Principal principal, HttpServletRequest request) {
+	public String getAllTripsDetails(Principal principal) {
 		DataContainer data = new DataContainer();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
@@ -118,7 +129,10 @@ public class TripControllers {
 		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 			try {
 				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo.findAll();
-				data.setData(allTripDetailsList);
+				List<TripDetailsDto> listTrip = allTripDetailsList.stream()
+						.map((allTrip) -> this.serviceManager.modelMapper.map(allTrip, TripDetailsDto.class))
+						.collect(Collectors.toList());
+				data.setData(listTrip);
 				data.setMsg("success");
 			} catch (Exception e) {
 				data.setMsg("error");
@@ -128,7 +142,10 @@ public class TripControllers {
 			String vendorCode = principal.getName();
 			try {
 				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo.findByVendorCode(vendorCode);
-				data.setData(allTripDetailsList);
+				List<TripDetailsDto> listTrip = allTripDetailsList.stream()
+						.map((trip) -> this.serviceManager.modelMapper.map(trip, TripDetailsDto.class))
+						.collect(Collectors.toList());
+				data.setData(listTrip);
 				data.setMsg("success");
 			} catch (Exception e) {
 				data.setMsg("error");
@@ -153,7 +170,10 @@ public class TripControllers {
 				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo
 						.findByRunStatusAndVendorTripStatusAndVendorCode(GlobalConstants.RUN_CLOSED,
 								GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, userName);
-				data.setData(allTripDetailsList);
+				List<TripDetailsDto> closeAndTripList = allTripDetailsList.stream()
+						.map((closeAndApproveTrip) -> this.serviceManager.modelMapper.map(closeAndApproveTrip, TripDetailsDto.class))
+						.collect(Collectors.toList());
+				data.setData(closeAndTripList);
 				data.setMsg("success");
 			}
 		} catch (Exception e) {
@@ -450,7 +470,8 @@ public class TripControllers {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 
 				String invoiceNumber = obj.getInvoiceNumber();
-				List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber,userName);
+				List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber,
+						userName);
 				for (TripDetails tripDetails : list) {
 					logger.info(tripDetails.getTripID());
 				}

@@ -175,7 +175,7 @@ public class UIController {
 	public String dashboard(Model model, Principal principal, String error, String logout, HttpServletRequest request) {
 
 		User us = serviceManager.userService.findByUsername(principal.getName());
-		String rolename=us.getRolesObj().getRoleName();
+		String rolename = us.getRolesObj().getRoleName();
 		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
 		model.addAttribute("role", rolename);
 		model.addAttribute("username", principal.getName());
@@ -301,16 +301,14 @@ public class UIController {
 				vendorType = "vendor";
 			}
 			System.out.println("vendorType in dashboard : " + vendorType);
-			
-			
 
 			if (vendorType.equalsIgnoreCase("Fixed Asset") || vendorType.equalsIgnoreCase("FIXED ASSETS")) {
 				System.out.println("vendor type : " + vendorType);
 
 				rolename = (String) request.getSession().getAttribute("role");
 				vendorCode = (String) request.getSession().getAttribute("userName");
-				String processBy=principal.getName();
-				Date proceessOn=new Date();
+				String processBy = principal.getName();
+				Date proceessOn = new Date();
 				List<PoDetails> details1 = new ArrayList<PoDetails>();
 				List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
 
@@ -324,7 +322,8 @@ public class UIController {
 					if (remaningquantity != 0.0 || remaningquantity != 0.00 || remaningquantity != 0) {
 						details1.add(details.get(i));
 					} else {
-						serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(pono,proceessOn,processBy);
+						serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(pono, proceessOn,
+								processBy);
 					}
 					System.out.println("remaningquantity is :::" + remaningquantity + "VendorCode ::" + vendorCode);
 				}
@@ -693,38 +692,6 @@ public class UIController {
 		return "dashBoard_NetworkRole";
 	}
 
-	@GetMapping("/InsertTrip")
-	public void InsertTrip(Model model, Principal principal, HttpServletRequest request) throws FileNotFoundException {
-		System.out.println("***************************Inside Trip************************************************");
-		TripDetails tripDetails = new TripDetails();
-
-//        tripDetails.setId();
-		tripDetails.setTripID("4027152");
-		tripDetails.setRoute("AGH--DXH");
-		tripDetails.setRunType("Schedule");
-		tripDetails.setMode("Linehaul Run");
-		tripDetails.setVehicleNumber("DL01LW3092");
-		tripDetails.setVendorCode("");
-		tripDetails.setVendorName("Nikhil Transport");
-
-		tripDetails.setActualVechicleType("17 Feet");
-		tripDetails.setStandardShipmentCapacity("3200");
-		tripDetails.setStandardPayloadCapacity("4500");
-		tripDetails.setRunStatus("Closed");
-		tripDetails.setOriginHub("AGH");
-		tripDetails.setOriginRegion("Central");
-		tripDetails.setDestHub("DXH");
-		tripDetails.setActualArrival("2022-02-13 12:20:56");
-		tripDetails.setActualDeparture("2022-02-13 04:21:52");
-		tripDetails.setActualKM(1.00);
-		tripDetails.setStandardKM(236.00);
-		tripDetails.setActualShipment("18");
-		tripDetails.setActualChargeableWeight("109.5");
-
-		serviceManager.tripService.save(tripDetails);
-
-	}
-
 	@GetMapping("/pendingApprovalNetwork")
 	public String pendingApprovalNetwork(Model model, Principal principal) {
 		List<TripDetails> yetTobeApproved = serviceManager.tripService.findAllTripsByStatus("");
@@ -799,7 +766,7 @@ public class UIController {
 
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		request.getSession().setAttribute("invoiceNumber", invoiceNumber);
-		
+
 		Base64.Decoder decoder = Base64.getDecoder();
 
 		String tripId = new String(decoder.decode(request.getParameter("id")));
@@ -893,8 +860,9 @@ public class UIController {
 		model.addAttribute("invoiceNumber", invoiceNumber);
 
 		System.out.println(invoiceNumber);
-		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber, vendorName);
-		
+		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber,
+				vendorName);
+
 		List<Object> listofTrips = new ArrayList<>();
 
 		for (TripDetails tripDetails : list) {
@@ -980,7 +948,7 @@ public class UIController {
 
 	@GetMapping("/queryInvoiceEdit")
 	public String queryInvoiceEdit(Model model, HttpServletRequest request, Principal principal) {
-		
+
 		Base64.Decoder decoder = Base64.getDecoder();
 		model.addAttribute("maxFileSize", maxFileSize);
 		String invoiceNumber = new String(decoder.decode(request.getParameter("id")));

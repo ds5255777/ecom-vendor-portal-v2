@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,6 +28,10 @@ import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.entity.PoLineDetails;
 import com.main.db.bpaas.entity.QueryEntity;
+import com.main.payloads.PoDetailsDTO;
+import com.main.payloads.PoInvoiceDetailsDTO;
+import com.main.payloads.PoInvoiceLineDTO;
+import com.main.payloads.QueryEntityDTO;
 import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/poController")
@@ -67,14 +72,15 @@ public class PoController {
 
 	@PostMapping({ "/poDetailsByPoNo" })
 	@CrossOrigin("*")
-	public String poDetailsByPoNo(HttpServletRequest request, @RequestBody PoDetails details) {
+	public String poDetailsByPoNo(HttpServletRequest request, @RequestBody PoDetailsDTO detailsDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			details = serviceManager.podetailsRepo.findByPoNo(details.getPoNo());
+			PoDetails details=new PoDetails();
+			details = serviceManager.podetailsRepo.findByPoNo(detailsDto.getPoNo());
 
-			data.setData(details);
+			data.setData(this.serviceManager.modelMapper.map(details, PoDetailsDTO.class));
 			data.setMsg("success");
 			logger.info("end of allPoDetails");
 
@@ -97,8 +103,10 @@ public class PoController {
 		try {
 			String vendorCode = principal.getName();
 			List<PoDetails> details = serviceManager.podetailsRepo.getAllProcessPo(vendorCode);
-
-			data.setData(details);
+			List<PoDetailsDTO> detailsDto = details.stream()
+					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoDetailsDTO.class))
+					.collect(Collectors.toList());
+			data.setData(detailsDto);
 			data.setMsg("success");
 			logger.info("end of allPoDetails");
 
@@ -122,8 +130,10 @@ public class PoController {
 			String vendorCode = principal.getName();
 			logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
 			List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
-
-			data.setData(details);
+			List<PoDetailsDTO> detailsDto = details.stream()
+					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoDetailsDTO.class))
+					.collect(Collectors.toList());
+			data.setData(detailsDto);
 			data.setMsg("success");
 			logger.info("end of allPoDetails");
 
@@ -150,12 +160,19 @@ public class PoController {
 			if (vendorCode.equals("finance1")) {
 				logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
 				List<PoInvoiceDetails> details = serviceManager.poinvoiceRepo.getAllInvoiceDetailsForFinance();
-				data.setData(details);
+				
+				List<PoInvoiceDetailsDTO> detailsDto = details.stream()
+						.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
+						.collect(Collectors.toList());
+				data.setData(detailsDto);
 
 			} else {
 				logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
 				List<PoInvoiceDetails> details = serviceManager.poinvoiceRepo.getAllInvoiceDetails(vendorCode);
-				data.setData(details);
+				List<PoInvoiceDetailsDTO> detailsDto = details.stream()
+						.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
+						.collect(Collectors.toList());
+				data.setData(detailsDto);
 			}
 
 			data.setMsg("success");
@@ -173,7 +190,7 @@ public class PoController {
 
 	@PostMapping({ "/getSelectInvoiceDetailsPo" })
 	@CrossOrigin("*")
-	public String getSelectInvoiceDetailsPo(HttpServletRequest request,Principal principal, @RequestBody PoInvoiceDetails details) {
+	public String getSelectInvoiceDetailsPo(HttpServletRequest request,Principal principal, @RequestBody PoInvoiceDetailsDTO detailsDto) {
 
 		DataContainer data = new DataContainer();
 
@@ -183,12 +200,19 @@ public class PoController {
 
 			if (vendorCode.equals("finance1")) {
 				List<PoInvoiceDetails> poInvoiceDetails = serviceManager.poinvoiceRepo
-						.findByInvoiceNumberByFinance(details.getInvoiceNumber());
-				data.setData(poInvoiceDetails);
+						.findByInvoiceNumberByFinance(detailsDto.getInvoiceNumber());
+				
+				List<PoInvoiceDetailsDTO> poInvoiceDetailsDto = poInvoiceDetails.stream()
+						.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
+						.collect(Collectors.toList());
+				data.setData(poInvoiceDetailsDto);
 			} else {
 				List<PoInvoiceDetails> poInvoiceDetails = serviceManager.poinvoiceRepo.findByInvoiceNumber(vendorCode,
-						details.getInvoiceNumber());
-				data.setData(poInvoiceDetails);
+						detailsDto.getInvoiceNumber());
+				List<PoInvoiceDetailsDTO> poInvoiceDetailsDto = poInvoiceDetails.stream()
+						.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
+						.collect(Collectors.toList());
+				data.setData(poInvoiceDetailsDto);
 			}
 			data.setMsg("success");
 			logger.info("end of allPoDetails");
@@ -205,7 +229,7 @@ public class PoController {
 
 	@PostMapping({ "/getAllPODetailsByPoNo" })
 	@CrossOrigin("*")
-	public String getAllPODetailsByPoNo(HttpServletRequest request,Principal principal, @RequestBody PoDetails details) {
+	public String getAllPODetailsByPoNo(HttpServletRequest request,Principal principal, @RequestBody PoDetailsDTO detailsDto) {
 
 		DataContainer data = new DataContainer();
 
@@ -213,10 +237,13 @@ public class PoController {
 		try {
 			String vendorCode = principal.getName();
 
-			List<PoDetails> poInvoiceDetails = serviceManager.podetailsRepo.getPoDetailsByPoNo(details.getPoNo(),
+			List<PoDetails> poInvoiceDetails = serviceManager.podetailsRepo.getPoDetailsByPoNo(detailsDto.getPoNo(),
 					vendorCode);
 
-			data.setData(poInvoiceDetails);
+			List<PoDetailsDTO> detailsDtoFromEntity = poInvoiceDetails.stream()
+					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoDetailsDTO.class))
+					.collect(Collectors.toList());
+			data.setData(detailsDtoFromEntity);
 			data.setMsg("success");
 			logger.info("end of allPoDetails success");
 
@@ -231,7 +258,7 @@ public class PoController {
 
 	@PostMapping({ "/getAllPODetailsByLineNumber" })
 	@CrossOrigin("*")
-	public String getAllPODetailsByLineNumber(HttpServletRequest request, @RequestBody PoLineDetails details) {
+	public String getAllPODetailsByLineNumber(HttpServletRequest request, @RequestBody PoInvoiceLineDTO detailsDto) {
 
 		DataContainer data = new DataContainer();
 
@@ -239,9 +266,11 @@ public class PoController {
 		try {
 
 			List<PoLineDetails> poInvoiceDetails = serviceManager.poLineItemRepo
-					.getDataByLineNumber(details.getPoLineId());
-
-			data.setData(poInvoiceDetails.get(0));
+					.getDataByLineNumber(detailsDto.getPoLineId());
+			List<PoInvoiceLineDTO> poInvoiceDetailsDto = poInvoiceDetails.stream()
+					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceLineDTO.class))
+					.collect(Collectors.toList());
+			data.setData(poInvoiceDetailsDto.get(0));
 			data.setMsg("success");
 			logger.info("end of allPoDetails success");
 
@@ -257,7 +286,7 @@ public class PoController {
 
 	@PostMapping({ "/savePoInvoiceQuery" })
 	@CrossOrigin("*")
-	public String savePoInvoiceQuery(HttpServletRequest request,Principal principal, @RequestBody QueryEntity details) {
+	public String savePoInvoiceQuery(HttpServletRequest request,Principal principal, @RequestBody QueryEntityDTO detailsDto) {
 
 		DataContainer data = new DataContainer();
 
@@ -265,11 +294,11 @@ public class PoController {
 		try {
 			String raisedBy =principal.getName();
 
-			details.setRaisedBy(raisedBy);
-			logger.info("commt : " + details.getComment());
-			details.setRaisedOn(new Date());
+			detailsDto.setRaisedBy(raisedBy);
+			logger.info("commt : " + detailsDto.getComment());
+			detailsDto.setRaisedOn(new Date());
 
-			serviceManager.queryRepo.save(details);
+			serviceManager.queryRepo.save(this.serviceManager.modelMapper.map(detailsDto, QueryEntity.class));
 
 			data.setMsg("success");
 			logger.info("end of allPoDetails success");
@@ -286,7 +315,7 @@ public class PoController {
 
 	@PostMapping({ "/getPoQueryData" })
 	@CrossOrigin("*")
-	public String getPoQueryData(HttpServletRequest request,Principal principal, @RequestBody QueryEntity details) {
+	public String getPoQueryData(HttpServletRequest request,Principal principal, @RequestBody QueryEntityDTO detailsDto) {
 
 		DataContainer data = new DataContainer();
 
@@ -294,12 +323,14 @@ public class PoController {
 		try {
 
 			String raisedBy = principal.getName();
-			details.setRaisedBy(raisedBy);
-			List<QueryEntity> getPoQueryData = serviceManager.queryRepo.findCommentsByRefIDPo(details.getReferenceid(),
-					details.getRaisedBy());
+			detailsDto.setRaisedBy(raisedBy);
+			List<QueryEntity> getPoQueryData = serviceManager.queryRepo.findCommentsByRefIDPo(detailsDto.getReferenceid(),
+					detailsDto.getRaisedBy());
 
-			data.setData(getPoQueryData);
-
+			List<QueryEntityDTO> getPoQueryDataDto = getPoQueryData.stream()
+					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, QueryEntityDTO.class))
+					.collect(Collectors.toList());
+			data.setData(getPoQueryDataDto);
 			data.setMsg("success");
 			logger.info("end of getPoQueryData success");
 
@@ -326,7 +357,10 @@ public class PoController {
 
 			List<PoDetails> getListByDateFilter = serviceManager.podetailsRepo.findByActualDepartureBetween(fromDate,
 					toDate, vendorCode);
-			data.setData(getListByDateFilter);
+			List<PoDetailsDTO> getListByDateFilterDto = getListByDateFilter.stream()
+					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoDetailsDTO.class))
+					.collect(Collectors.toList());
+			data.setData(getListByDateFilterDto);
 			data.setMsg("success");
 
 		} catch (Exception e) {

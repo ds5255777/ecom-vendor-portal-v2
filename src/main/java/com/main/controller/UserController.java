@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +26,8 @@ import com.main.bean.SupplierDTO;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
+import com.main.payloads.SupDetailsDTO;
+import com.main.payloads.UserDTO;
 import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/userController")
@@ -40,38 +42,39 @@ public class UserController {
 
 	@PostMapping({ "/saveUpdateUserDetails" })
 	@CrossOrigin("*")
-	public String saveUpdateUserDetails(HttpServletRequest request, @RequestBody User user) {
+	public String saveUpdateUserDetails(HttpServletRequest request, @RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-
+			userDto.getId();
 //					String  userName = (String) request.getSession().getAttribute("userName");
 //					Integer  userId = (Integer) request.getSession().getAttribute("userId");
 
-			if (null == user.getId()) {
-				user.setPassword(serviceManager.bCryptPasswordEncoder.encode(user.getPassword()));
-				User userAfterSave = serviceManager.userRepository.save(user);
+			if (null == userDto.getId()) {
+				userDto.setPassword(serviceManager.bCryptPasswordEncoder.encode(userDto.getPassword()));
+				serviceManager.userRepository.save(this.serviceManager.modelMapper.map(userDto, User.class));
 
 			} else {
 
-				String password = serviceManager.userRepository.getUserPasswordById(user.getId());
+				String password = serviceManager.userRepository.getUserPasswordById(userDto.getId());
 
-				if (user.getPassword() != null) {
+				if (userDto.getPassword() != null) {
 
-					if (!user.getPassword().equalsIgnoreCase("")) {
+					if (!userDto.getPassword().equalsIgnoreCase("")) {
 
-						password = serviceManager.bCryptPasswordEncoder.encode(user.getPassword());
+						password = serviceManager.bCryptPasswordEncoder.encode(userDto.getPassword());
 
 //									user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 					}
 
 				}
-				user.setPassword(password);
+				userDto.setPassword(password);
 
-				User userAfterSave = serviceManager.userRepository.save(user);
+				User userAfterSave = serviceManager.userRepository
+						.save(this.serviceManager.modelMapper.map(userDto, User.class));
 
 			}
 
@@ -101,10 +104,12 @@ public class UserController {
 			userStatusList.add(GlobalConstants.ACTIVE_STATUS);
 			userStatusList.add(GlobalConstants.CHANGE_PASSWORD_STATUS);
 			userStatusList.add(GlobalConstants.INACTIVE_STATUS);
-
 			List<User> userList = serviceManager.userRepository.findByStatusIn(userStatusList);
+			List<UserDTO> usersList = userList.stream()
+					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, UserDTO.class))
+					.collect(Collectors.toList());
 
-			data.setData(userList);
+			data.setData(usersList);
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -119,7 +124,7 @@ public class UserController {
 
 	@PostMapping({ "/getUserById" })
 	@CrossOrigin("*")
-	public String getUserById(HttpServletRequest request, @RequestBody User user) {
+	public String getUserById(@RequestBody UserDTO userDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -127,10 +132,11 @@ public class UserController {
 
 //					String  userName = (String) request.getSession().getAttribute("userName");
 //					Integer  userId = (Integer) request.getSession().getAttribute("userId");
+			User userDtoToEntity = this.serviceManager.modelMapper.map(userDto, User.class);
 
-			User userop = serviceManager.userRepository.findById(user.getId()).get();
+			User userObj = serviceManager.userRepository.findById(userDtoToEntity.getId()).get();
 
-			data.setData(userop);
+			data.setData(this.serviceManager.modelMapper.map(userObj, UserDTO.class));
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -145,17 +151,12 @@ public class UserController {
 
 	@PostMapping({ "/setStatusOfUserById" })
 	@CrossOrigin("*")
-	public String setStatusOfUserById(HttpServletRequest request, @RequestBody User user) {
+	public String setStatusOfUserById(@RequestBody UserDTO userDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-
-			String userName = (String) request.getSession().getAttribute("userName");
-			Integer userId = (Integer) request.getSession().getAttribute("userId");
-
-			serviceManager.userRepository.updateStatusByUserid(user.getStatus(), user.getId());
-
+			serviceManager.userRepository.updateStatusByUserid(userDto.getStatus(), userDto.getId());
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -170,7 +171,7 @@ public class UserController {
 
 	@PostMapping({ "/checkForExistingUserName" })
 	@CrossOrigin("*")
-	public String checkForExistingUserName(HttpServletRequest request, @RequestBody User user) {
+	public String checkForExistingUserName(@RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
@@ -178,17 +179,12 @@ public class UserController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-//					String  userName = (String) request.getSession().getAttribute("userName");
-//					Integer  userId = (Integer) request.getSession().getAttribute("userId");
-
 			List<String> userStatusList = new ArrayList<>();
 			userStatusList.add(GlobalConstants.ACTIVE_STATUS);
 			userStatusList.add(GlobalConstants.CHANGE_PASSWORD_STATUS);
 
-			String username = serviceManager.userRepository.checkForExistingUserName(user.getUsername(),
+			String username = serviceManager.userRepository.checkForExistingUserName(userDto.getUsername(),
 					userStatusList);
-
-//			    	User userObj=serviceManager.userRepository.findByUsernameIgnoreCaseAndStatusIn(user.getUsername(), userStatusList);
 
 			if (null == username) {
 				data.setMsg("success");
@@ -208,7 +204,7 @@ public class UserController {
 
 	@PostMapping({ "/getUserByRole" })
 	@CrossOrigin("*")
-	public String getUserByRole(HttpServletRequest request, @RequestBody User user) {
+	public String getUserByRole(@RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
@@ -216,12 +212,12 @@ public class UserController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			List<User> users = serviceManager.userRepository.findByRoleIdAndStatus(user.getRoleId(),
+			List<User> users = serviceManager.userRepository.findByRoleIdAndStatus(userDto.getRoleId(),
 					GlobalConstants.ACTIVE_STATUS);
 
 			logger.info("" + users.size());
 			data.setMsg("success");
-			data.setData(users);
+			data.setData(this.serviceManager.modelMapper.map(users, UserDTO.class));
 		} catch (Exception e) {
 			data.setMsg("error");
 
@@ -314,19 +310,16 @@ public class UserController {
 
 	@PostMapping({ "/getVendorById" })
 	@CrossOrigin("*")
-	public String getVendorById(HttpServletRequest request, @RequestBody SupDetails details) {
+	public String getVendorById(HttpServletRequest request, @RequestBody SupDetailsDTO details) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-
 			SupDetails supDetails = serviceManager.supDetailsRepo.findBybpCode(details.getBpCode());
-
-			data.setData(supDetails);
+			data.setData(this.serviceManager.modelMapper.map(supDetails, SupDetailsDTO.class));
 			data.setMsg("success");
-
 			logger.info(" end to vendor details method");
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -340,7 +333,7 @@ public class UserController {
 
 	@PostMapping({ "/setStatusOfVendorByBpCode" })
 	@CrossOrigin("*")
-	public String setStatusOfVendorByBpCode(HttpServletRequest request, @RequestBody User user) {
+	public String setStatusOfVendorByBpCode(HttpServletRequest request, @RequestBody UserDTO user) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
@@ -349,7 +342,8 @@ public class UserController {
 		try {
 
 			serviceManager.userRepository.updateStatusOfVendorByBpCode(user.getStatus(), user.getBpCode());
-			serviceManager.userRepository.updateFlagOfVendorByBpCode(GlobalConstants.SET_FLAG_IN_ACTIVE, user.getBpCode());
+			serviceManager.userRepository.updateFlagOfVendorByBpCode(GlobalConstants.SET_FLAG_IN_ACTIVE,
+					user.getBpCode());
 
 			data.setMsg("success");
 
@@ -365,7 +359,7 @@ public class UserController {
 
 	@PostMapping({ "/getAllVendorStatus" })
 	@CrossOrigin("*")
-	public String getAllVendorStatus(HttpServletRequest request, @RequestBody User details) {
+	public String getAllVendorStatus(HttpServletRequest request, @RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
@@ -373,10 +367,15 @@ public class UserController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			String bpCode = details.getBpCode();
+			User userDtoToEntity = this.serviceManager.modelMapper.map(userDto, User.class);
+			String bpCode = userDtoToEntity.getBpCode();
 			List<User> vendorListStatus = serviceManager.userRepository.getAllVendorStatus(bpCode);
+			
+			List<UserDTO> usersList = vendorListStatus.stream()
+					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, UserDTO.class))
+					.collect(Collectors.toList());
 
-			data.setData(vendorListStatus);
+			data.setData(usersList);
 			data.setMsg("success");
 			logger.info("end  to getActiveVendorData ");
 
@@ -392,7 +391,7 @@ public class UserController {
 
 	@PostMapping({ "/activeVendor" })
 	@CrossOrigin("*")
-	public String activeVendor(HttpServletRequest request, @RequestBody User details) {
+	public String activeVendor(HttpServletRequest request, @RequestBody UserDTO details) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 

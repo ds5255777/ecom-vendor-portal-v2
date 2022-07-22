@@ -260,6 +260,7 @@ public class UIController {
 			String uname = principal.getName();
 			model.addAttribute("uname", uname);
 			model.addAttribute("role", rolename);
+			model.addAttribute("userStatus", us.getStatus());
 
 			return "dashBoard_AdminRole";
 

@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
@@ -35,6 +36,9 @@ import com.main.db.bpaas.entity.Document;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
+import com.main.payloads.QueryEntityDTO;
+import com.main.payloads.SupDetailsDTO;
+import com.main.payloads.UserDTO;
 import com.main.service.UserServiceImpl;
 import com.main.serviceManager.ServiceManager;
 
@@ -58,7 +62,7 @@ public class AjaxController {
 
 	@PostMapping("/SaveRegistration")
 	@Transactional
-	public String SaveRegistration(@RequestBody SupDetails supDetails, HttpServletRequest request) {
+	public String SaveRegistration(@RequestBody SupDetailsDTO supDetailsDto, HttpServletRequest request) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
@@ -182,51 +186,51 @@ public class AjaxController {
 
 			// serviceManager.supDetailsRepo.
 
-			for (int i = 0; i < supDetails.getAddressDetails().size(); i++) {
-				String state = supDetails.getAddressDetails().get(i).getState();
+			for (int i = 0; i < supDetailsDto.getAddressDetails().size(); i++) {
+				String state = supDetailsDto.getAddressDetails().get(i).getState();
 				String stCode = serviceManager.stateRepo.findByStateCode(state);
 
-				String partnerType = supDetails.getAddressDetails().get(i).getVendorType();
+				String partnerType = supDetailsDto.getAddressDetails().get(i).getVendorType();
 				String glCode = serviceManager.businessPartnerTypeRepo.getGlCodeByPartnerType(partnerType);
 				if (!partnerType.isEmpty()) {
 					String typeCode = serviceManager.businessPartnerTypeRepo.findByTypeCode(partnerType);
-					supDetails.getAddressDetails().get(i).setSupplierSiteCode(stCode.concat("_" + typeCode));
-					supDetails.getAddressDetails().get(i).setGlCode(glCode);
+					supDetailsDto.getAddressDetails().get(i).setSupplierSiteCode(stCode.concat("_" + typeCode));
+					supDetailsDto.getAddressDetails().get(i).setGlCode(glCode);
 				}
 			}
-			if (supDetails.getId() == null) {
-				supDetails.setVenStatus(GlobalConstants.PENDING_REQUEST_STATUS);
-				SupDetails supSaved = serviceManager.detailsRepo.save(supDetails);
+			if (supDetailsDto.getId() == null) {
+				supDetailsDto.setVenStatus(GlobalConstants.PENDING_REQUEST_STATUS);
+				SupDetails supSaved = serviceManager.detailsRepo.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 				Long id = supSaved.getId();
 				processID = GlobalConstants.VENDOR_PID_PREFIX + id + GlobalConstants.VENDOR_PID_SUFFIX;
 				serviceManager.detailsRepo.updatePidInSupDetails(id, processID);
 				data.setData(processID);
 			} else {
 
-				if (supDetails.getVenStatus().equals(GlobalConstants.APPROVED_REQUEST_STATUS)) {
+				if (supDetailsDto.getVenStatus().equals(GlobalConstants.APPROVED_REQUEST_STATUS)) {
 					User us = new User();
-					us.setBpCode(supDetails.getBpCode());
-					us.setUsername(supDetails.getBpCode());
+					us.setBpCode(supDetailsDto.getBpCode());
+					us.setUsername(supDetailsDto.getBpCode());
 					us.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS);
 					us.setRoleId(2);
-					us.setVendorName(supDetails.getSuppName());
-					us.setContactNo(supDetails.getContactDetails().get(0).getConPhone());
-					us.setEmailId(supDetails.getContactDetails().get(0).getConEmail());
+					us.setVendorName(supDetailsDto.getSuppName());
+					us.setContactNo(supDetailsDto.getContactDetails().get(0).getConPhone());
+					us.setEmailId(supDetailsDto.getContactDetails().get(0).getConEmail());
 
-					us.setFirstName(supDetails.getContactDetails().get(0).getConFname());
-					us.setLastName(supDetails.getContactDetails().get(0).getConLname());
+					us.setFirstName(supDetailsDto.getContactDetails().get(0).getConFname());
+					us.setLastName(supDetailsDto.getContactDetails().get(0).getConLname());
 					us.setPassword(UserServiceImpl.generateRandomPassword());
-					supDetails.setVenStatus(GlobalConstants.UPDATE_VENDOR);
+					supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
 					serviceManager.userService.save(us);
 
-					supDetails.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
-					serviceManager.detailsRepo.save(supDetails);
+					supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
+					serviceManager.detailsRepo.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 					data.setData(processID);
 					data.setMsg("success");
-				} else if (supDetails.getVenStatus().equals(GlobalConstants.UPDATE_VENDOR)) {
-					supDetails.setVenStatus(GlobalConstants.UPDATE_VENDOR);
+				} else if (supDetailsDto.getVenStatus().equals(GlobalConstants.UPDATE_VENDOR)) {
+					supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
 
-					serviceManager.detailsRepo.save(supDetails);
+					serviceManager.detailsRepo.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 					data.setData(processID);
 					data.setMsg("success");
 				}
@@ -252,20 +256,20 @@ public class AjaxController {
 			String[] documentExtensionArray = null;
 			String filename = null;
 			String documentExtension = null;
-			if (null != supDetails.getGstFileName()) {
-				documentExtensionArray = supDetails.getGstFileName().split("\\.(?=[^\\.]+$)");
+			if (null != supDetailsDto.getGstFileName()) {
+				documentExtensionArray = supDetailsDto.getGstFileName().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
 				documentExtension = documentExtensionArray[1];
 				DocumentObj = new JSONObject();
 				DocumentObj.put("DocName", "GST_CERTIFICATE");
 				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getGstFileText());
+				DocumentObj.put("Encoded", supDetailsDto.getGstFileText());
 				array.put(DocumentObj);
 
-				fullFilePathWithName = filePath + File.separator + supDetails.getGstFileName();
+				fullFilePathWithName = filePath + File.separator + supDetailsDto.getGstFileName();
 
 				Document doc = new Document();
-				doc.setDocName(supDetails.getGstFileName());
+				doc.setDocName(supDetailsDto.getGstFileName());
 				doc.setDocPath(fullFilePathWithName);
 				doc.setStatus("1");
 				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -273,7 +277,7 @@ public class AjaxController {
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getGstFileText();
+					String b64 = supDetailsDto.getGstFileText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -282,19 +286,19 @@ public class AjaxController {
 					e.printStackTrace();
 				}
 			}
-			if (null != supDetails.getPdFileName()) {
-				documentExtensionArray = supDetails.getPdFileName().split("\\.(?=[^\\.]+$)");
+			if (null != supDetailsDto.getPdFileName()) {
+				documentExtensionArray = supDetailsDto.getPdFileName().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
 				documentExtension = documentExtensionArray[1];
 				DocumentObj = new JSONObject();
 				DocumentObj.put("DocName", "PROPRIETORSHIP");
 				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getPdFileText());
+				DocumentObj.put("Encoded", supDetailsDto.getPdFileText());
 				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + supDetails.getPdFileName();
+				fullFilePathWithName = filePath + File.separator + supDetailsDto.getPdFileName();
 
 				Document doc = new Document();
-				doc.setDocName(supDetails.getPdFileName());
+				doc.setDocName(supDetailsDto.getPdFileName());
 				doc.setDocPath(fullFilePathWithName);
 				doc.setStatus("1");
 				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -302,7 +306,7 @@ public class AjaxController {
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getPdFileText();
+					String b64 = supDetailsDto.getPdFileText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -311,19 +315,19 @@ public class AjaxController {
 					e.printStackTrace();
 				}
 			}
-			if (null != supDetails.getpANFileName()) {
-				documentExtensionArray = supDetails.getpANFileName().split("\\.(?=[^\\.]+$)");
+			if (null != supDetailsDto.getPANFileName()) {
+				documentExtensionArray = supDetailsDto.getPANFileName().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
 				documentExtension = documentExtensionArray[1];
 				DocumentObj = new JSONObject();
 				DocumentObj.put("DocName", "PANCARD");
 				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getpANFileText());
+				DocumentObj.put("Encoded", supDetailsDto.getPANFileText());
 				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + supDetails.getpANFileName();
+				fullFilePathWithName = filePath + File.separator + supDetailsDto.getPANFileName();
 
 				Document doc = new Document();
-				doc.setDocName(supDetails.getpANFileName());
+				doc.setDocName(supDetailsDto.getPANFileName());
 				doc.setDocPath(fullFilePathWithName);
 				doc.setStatus("1");
 				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -331,7 +335,7 @@ public class AjaxController {
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getpANFileText();
+					String b64 = supDetailsDto.getPANFileName();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -340,19 +344,19 @@ public class AjaxController {
 					e.printStackTrace();
 				}
 			}
-			if (null != supDetails.getCcFileName()) {
-				documentExtensionArray = supDetails.getCcFileName().split("\\.(?=[^\\.]+$)");
+			if (null != supDetailsDto.getCcFileName()) {
+				documentExtensionArray = supDetailsDto.getCcFileName().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
 				documentExtension = documentExtensionArray[1];
 				DocumentObj = new JSONObject();
 				DocumentObj.put("DocName", "CANCELL_CHQ");
 				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getCcFileText());
+				DocumentObj.put("Encoded", supDetailsDto.getCcFileText());
 				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + supDetails.getCcFileName();
+				fullFilePathWithName = filePath + File.separator + supDetailsDto.getCcFileName();
 
 				Document doc = new Document();
-				doc.setDocName(supDetails.getCcFileName());
+				doc.setDocName(supDetailsDto.getCcFileName());
 				doc.setDocPath(fullFilePathWithName);
 				doc.setStatus("1");
 				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -360,7 +364,7 @@ public class AjaxController {
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getCcFileText();
+					String b64 = supDetailsDto.getCcFileText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -369,19 +373,19 @@ public class AjaxController {
 					e.printStackTrace();
 				}
 			}
-			if (null != supDetails.getAcFileName()) {
-				documentExtensionArray = supDetails.getAcFileName().split("\\.(?=[^\\.]+$)");
+			if (null != supDetailsDto.getAcFileName()) {
+				documentExtensionArray = supDetailsDto.getAcFileName().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
 				documentExtension = documentExtensionArray[1];
 				DocumentObj = new JSONObject();
 				DocumentObj.put("DocName", "AADHAR");
 				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getAcFileText());
+				DocumentObj.put("Encoded", supDetailsDto.getAcFileText());
 				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + supDetails.getAcFileName();
+				fullFilePathWithName = filePath + File.separator + supDetailsDto.getAcFileName();
 
 				Document doc = new Document();
-				doc.setDocName(supDetails.getAcFileName());
+				doc.setDocName(supDetailsDto.getAcFileName());
 				doc.setDocPath(fullFilePathWithName);
 				doc.setStatus("1");
 				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -389,7 +393,7 @@ public class AjaxController {
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getAcFileText();
+					String b64 = supDetailsDto.getAcFileText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -398,19 +402,19 @@ public class AjaxController {
 					e.printStackTrace();
 				}
 			}
-			if (null != supDetails.getAplFileName()) {
-				documentExtensionArray = supDetails.getAplFileName().split("\\.(?=[^\\.]+$)");
+			if (null != supDetailsDto.getAplFileName()) {
+				documentExtensionArray = supDetailsDto.getAplFileName().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
 				documentExtension = documentExtensionArray[1];
 				DocumentObj = new JSONObject();
 				DocumentObj.put("DocName", "AADHAR_PAN_LINK");
 				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getAplFileText());
+				DocumentObj.put("Encoded", supDetailsDto.getAplFileText());
 				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + supDetails.getAplFileName();
+				fullFilePathWithName = filePath + File.separator + supDetailsDto.getAplFileName();
 
 				Document doc = new Document();
-				doc.setDocName(supDetails.getAplFileName());
+				doc.setDocName(supDetailsDto.getAplFileName());
 				doc.setDocPath(fullFilePathWithName);
 				doc.setStatus("1");
 				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -418,7 +422,7 @@ public class AjaxController {
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getAplFileText();
+					String b64 = supDetailsDto.getAplFileText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -428,19 +432,19 @@ public class AjaxController {
 				}
 			}
 			// ITR filling declaration
-			if (null != supDetails.getItrFileName()) {
-				documentExtensionArray = supDetails.getItrFileName().split("\\.(?=[^\\.]+$)");
+			if (null != supDetailsDto.getItrFileName()) {
+				documentExtensionArray = supDetailsDto.getItrFileName().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
 				documentExtension = documentExtensionArray[1];
 				DocumentObj = new JSONObject();
 				DocumentObj.put("DocName", "ITR");
 				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getItrFileText());
+				DocumentObj.put("Encoded", supDetailsDto.getItrFileText());
 				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + supDetails.getItrFileName();
+				fullFilePathWithName = filePath + File.separator + supDetailsDto.getItrFileName();
 
 				Document doc = new Document();
-				doc.setDocName(supDetails.getItrFileName());
+				doc.setDocName(supDetailsDto.getItrFileName());
 				doc.setDocPath(fullFilePathWithName);
 				doc.setStatus("1");
 				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -448,7 +452,7 @@ public class AjaxController {
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getItrFileText();
+					String b64 = supDetailsDto.getItrFileText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 					fos.write(decoder);
 					System.out.println("File Saved ");
@@ -456,19 +460,19 @@ public class AjaxController {
 					e.printStackTrace();
 				}
 			}
-			if (null != supDetails.getFuvfFileName()) {
-				documentExtensionArray = supDetails.getFuvfFileName().split("\\.(?=[^\\.]+$)");
+			if (null != supDetailsDto.getFuvfFileName()) {
+				documentExtensionArray = supDetailsDto.getFuvfFileName().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
 				documentExtension = documentExtensionArray[1];
 				DocumentObj = new JSONObject();
 				DocumentObj.put("DocName", "VRF");
 				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getFuvfFileText());
+				DocumentObj.put("Encoded", supDetailsDto.getFuvfFileText());
 				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + supDetails.getFuvfFileName();
+				fullFilePathWithName = filePath + File.separator + supDetailsDto.getFuvfFileName();
 
 				Document doc = new Document();
-				doc.setDocName(supDetails.getFuvfFileName());
+				doc.setDocName(supDetailsDto.getFuvfFileName());
 				doc.setDocPath(fullFilePathWithName);
 				doc.setStatus("1");
 				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -476,7 +480,7 @@ public class AjaxController {
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getFuvfFileText();
+					String b64 = supDetailsDto.getFuvfFileText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -485,19 +489,19 @@ public class AjaxController {
 					e.printStackTrace();
 				}
 			}
-			if (null != supDetails.getMsmecFileName()) {
-				documentExtensionArray = supDetails.getMsmecFileName().split("\\.(?=[^\\.]+$)");
+			if (null != supDetailsDto.getMsmecFileName()) {
+				documentExtensionArray = supDetailsDto.getMsmecFileName().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
 				documentExtension = documentExtensionArray[1];
 				DocumentObj = new JSONObject();
 				DocumentObj.put("DocName", "MSME");
 				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getMsmecFileText());
+				DocumentObj.put("Encoded", supDetailsDto.getMsmecFileText());
 				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + supDetails.getMsmecFileName();
+				fullFilePathWithName = filePath + File.separator + supDetailsDto.getMsmecFileName();
 
 				Document doc = new Document();
-				doc.setDocName(supDetails.getMsmecFileName());
+				doc.setDocName(supDetailsDto.getMsmecFileName());
 				doc.setDocPath(fullFilePathWithName);
 				doc.setStatus("1");
 				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -505,7 +509,7 @@ public class AjaxController {
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getMsmecFileText();
+					String b64 = supDetailsDto.getMsmecFileText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -514,19 +518,19 @@ public class AjaxController {
 					e.printStackTrace();
 				}
 			}
-			if (null != supDetails.getAmFileName()) {
-				documentExtensionArray = supDetails.getAmFileName().split("\\.(?=[^\\.]+$)");
+			if (null != supDetailsDto.getAmFileName()) {
+				documentExtensionArray = supDetailsDto.getAmFileName().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
 				documentExtension = documentExtensionArray[1];
 				DocumentObj = new JSONObject();
 				DocumentObj.put("DocName", "APPROVER_MAIL");
 				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getAmFileText());
+				DocumentObj.put("Encoded", supDetailsDto.getAmFileText());
 				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + supDetails.getAmFileName();
+				fullFilePathWithName = filePath + File.separator + supDetailsDto.getAmFileName();
 
 				Document doc = new Document();
-				doc.setDocName(supDetails.getAmFileName());
+				doc.setDocName(supDetailsDto.getAmFileName());
 				doc.setDocPath(fullFilePathWithName);
 				doc.setStatus("1");
 				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -534,7 +538,7 @@ public class AjaxController {
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getAmFileText();
+					String b64 = supDetailsDto.getAmFileText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -544,19 +548,19 @@ public class AjaxController {
 				}
 			}
 			// last three year ITR file
-			if (null != supDetails.getItraFileName1()) {
-				documentExtensionArray = supDetails.getItraFileName1().split("\\.(?=[^\\.]+$)");
+			if (null != supDetailsDto.getItraFileName1()) {
+				documentExtensionArray = supDetailsDto.getItraFileName1().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
 				documentExtension = documentExtensionArray[1];
 				DocumentObj = new JSONObject();
 				DocumentObj.put("DocName", "ITR1");
 				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getItraFileText1());
+				DocumentObj.put("Encoded", supDetailsDto.getItraFileText1());
 				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + supDetails.getItraFileName1();
+				fullFilePathWithName = filePath + File.separator + supDetailsDto.getItraFileName1();
 
 				Document doc = new Document();
-				doc.setDocName(supDetails.getItraFileName1());
+				doc.setDocName(supDetailsDto.getItraFileName1());
 				doc.setDocPath(fullFilePathWithName);
 				doc.setStatus("1");
 				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -564,7 +568,7 @@ public class AjaxController {
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getItraFileText1();
+					String b64 = supDetailsDto.getItraFileText1();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -573,19 +577,19 @@ public class AjaxController {
 					e.printStackTrace();
 				}
 			}
-			if (null != supDetails.getItraFileName2()) {
-				documentExtensionArray = supDetails.getItraFileName2().split("\\.(?=[^\\.]+$)");
+			if (null != supDetailsDto.getItraFileName2()) {
+				documentExtensionArray = supDetailsDto.getItraFileName2().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
 				documentExtension = documentExtensionArray[1];
 				DocumentObj = new JSONObject();
 				DocumentObj.put("DocName", "ITR2");
 				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getItraFileText2());
+				DocumentObj.put("Encoded", supDetailsDto.getItraFileText2());
 				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + supDetails.getItraFileName2();
+				fullFilePathWithName = filePath + File.separator + supDetailsDto.getItraFileName2();
 
 				Document doc = new Document();
-				doc.setDocName(supDetails.getItraFileName2());
+				doc.setDocName(supDetailsDto.getItraFileName2());
 				doc.setDocPath(fullFilePathWithName);
 				doc.setStatus("1");
 				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -593,7 +597,7 @@ public class AjaxController {
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getItraFileText2();
+					String b64 = supDetailsDto.getItraFileText2();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -602,19 +606,19 @@ public class AjaxController {
 					e.printStackTrace();
 				}
 			}
-			if (null != supDetails.getItraFileName3()) {
-				documentExtensionArray = supDetails.getItraFileName3().split("\\.(?=[^\\.]+$)");
+			if (null != supDetailsDto.getItraFileName3()) {
+				documentExtensionArray = supDetailsDto.getItraFileName3().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
 				documentExtension = documentExtensionArray[1];
 				DocumentObj = new JSONObject();
 				DocumentObj.put("DocName", "ITR3");
 				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getItraFileText3());
+				DocumentObj.put("Encoded", supDetailsDto.getItraFileText3());
 				array.put(DocumentObj);
-				fullFilePathWithName = filePath + File.separator + supDetails.getItraFileName3();
+				fullFilePathWithName = filePath + File.separator + supDetailsDto.getItraFileName3();
 
 				Document doc = new Document();
-				doc.setDocName(supDetails.getItraFileName3());
+				doc.setDocName(supDetailsDto.getItraFileName3());
 				doc.setDocPath(fullFilePathWithName);
 				doc.setStatus("1");
 				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -622,7 +626,7 @@ public class AjaxController {
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getItraFileText3();
+					String b64 = supDetailsDto.getItraFileText3();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -631,20 +635,20 @@ public class AjaxController {
 					e.printStackTrace();
 				}
 			}
-			if (null != supDetails.getNmisFileName()) {
-				documentExtensionArray = supDetails.getNmisFileName().split("\\.(?=[^\\.]+$)");
+			if (null != supDetailsDto.getNmisFileName()) {
+				documentExtensionArray = supDetailsDto.getNmisFileName().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
 				documentExtension = documentExtensionArray[1];
 				DocumentObj = new JSONObject();
 				DocumentObj.put("DocName", "NAME_AFFI");
 				DocumentObj.put("Extension", documentExtension);
-				DocumentObj.put("Encoded", supDetails.getNmisFileText());
+				DocumentObj.put("Encoded", supDetailsDto.getNmisFileText());
 				array.put(DocumentObj);
 
-				fullFilePathWithName = filePath + File.separator + supDetails.getNmisFileName();
+				fullFilePathWithName = filePath + File.separator + supDetailsDto.getNmisFileName();
 
 				Document doc = new Document();
-				doc.setDocName(supDetails.getNmisFileName());
+				doc.setDocName(supDetailsDto.getNmisFileName());
 				doc.setDocPath(fullFilePathWithName);
 				doc.setStatus("1");
 				doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -652,7 +656,7 @@ public class AjaxController {
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = supDetails.getNmisFileText();
+					String b64 = supDetailsDto.getNmisFileText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -674,19 +678,19 @@ public class AjaxController {
 	@RequestMapping({ "/saveRegistrationQuery" })
 	@CrossOrigin("*")
 	public String saveRegistrationQuery(Principal principal, HttpServletRequest request,
-			@RequestBody QueryEntity entity) {
+			@RequestBody QueryEntityDTO entityDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			Integer getid = entity.getId();
+			Integer getid = entityDto.getId();
 
 			if (getid != null) {
-				entity.setId(null);
-				entity.setForeignKey(getid);
-				entity.setRaisedOn(new Date());
-				entity.setReferenceid(entity.getRaisedAgainQuery());
-				serviceManager.queryRepo.save(entity);
+				entityDto.setId(null);
+				entityDto.setForeignKey(getid);
+				entityDto.setRaisedOn(new Date());
+				entityDto.setReferenceid(entityDto.getRaisedAgainQuery());
+				serviceManager.queryRepo.save(this.serviceManager.modelMapper.map(entityDto, QueryEntity.class));
 			}
 			data.setMsg("success");
 
@@ -700,17 +704,21 @@ public class AjaxController {
 
 	@PostMapping({ "/getVendorDetailByPid" })
 	@CrossOrigin("*")
-	public String getVendorDetailByPid(HttpServletRequest request, @RequestBody SupDetails obj) {
+	public String getVendorDetailByPid(HttpServletRequest request, @RequestBody SupDetailsDTO objDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		String pid = obj.getPid();
-		logger.info("pid my : " + obj.getPid());
+		String pid = objDto.getPid();
+		logger.info("pid my : " + objDto.getPid());
 		try {
 			List<SupDetails> supDetails = serviceManager.supDetailsRepo.findBypid(pid);
+			
+			List<SupDetailsDTO> supDetailsToDTO = supDetails.stream()
+					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, SupDetailsDTO.class))
+					.collect(Collectors.toList());
 			boolean empty = supDetails.isEmpty();
 			logger.info("empty :" + empty);
-			data.setData(supDetails);
+			data.setData(supDetailsToDTO);
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -721,7 +729,7 @@ public class AjaxController {
 
 	@PostMapping({ "/getRegistrationQueryData" })
 	@CrossOrigin("*")
-	public String getRegistrationQueryData(HttpServletRequest request, @RequestBody QueryEntity obj) {
+	public String getRegistrationQueryData(HttpServletRequest request, @RequestBody QueryEntityDTO objDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -729,8 +737,12 @@ public class AjaxController {
 		try {
 
 			List<QueryEntity> list = serviceManager.queryRepo
-					.findByReferenceidAndTypeOrderByIdDesc(obj.getReferenceid(), obj.getType());
-			data.setData(list);
+					.findByReferenceidAndTypeOrderByIdDesc(objDto.getReferenceid(), objDto.getType());
+			
+			List<QueryEntityDTO> usersListDto = list.stream()
+					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, QueryEntityDTO.class))
+					.collect(Collectors.toList());
+			data.setData(usersListDto);
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -748,9 +760,7 @@ public class AjaxController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
 		try {
-			
 			String checkEmail = serviceManager.supDetailsRepo.checkPanNumber(panNumber,flag);
-			
 			if (null == checkEmail) {
 				data.setMsg("success");
 			} else {

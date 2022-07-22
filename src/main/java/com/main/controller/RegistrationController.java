@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.SupDetails;
+import com.main.payloads.SupDetailsDTO;
 import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/registrationController")
@@ -145,7 +146,7 @@ public class RegistrationController {
 
 	@PostMapping({ "/updateVendorRegistrationStatus" })
 	@CrossOrigin("*")
-	public String updateVendorRegistrationStatus(Principal principal, @RequestBody SupDetails obj) {
+	public String updateVendorRegistrationStatus(Principal principal, @RequestBody SupDetailsDTO objDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -155,8 +156,8 @@ public class RegistrationController {
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
 
-				obj = serviceManager.supDetailsRepo.findByPid(obj.getPid());
-				data.setData(obj);
+				SupDetails obj = serviceManager.supDetailsRepo.findByPid(objDto.getPid());
+				data.setData(this.serviceManager.modelMapper.map(obj, SupDetailsDTO.class));
 				data.setMsg("success");
 			}
 
@@ -195,7 +196,7 @@ public class RegistrationController {
 
 	@PostMapping({ "/approveRequest" })
 	@CrossOrigin("*")
-	public String approveRequest(Principal principal, @RequestBody SupDetails supDetails) {
+	public String approveRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -208,7 +209,7 @@ public class RegistrationController {
 
 				vendorCode = generateVendorCode();
 
-				serviceManager.supDetailsRepo.approveRequestByPid(vendorCode, supDetails.getPid(),
+				serviceManager.supDetailsRepo.approveRequestByPid(vendorCode, supDetailsDto.getPid(),
 						GlobalConstants.APPROVED_REQUEST_STATUS);
 				data.setMsg("success");
 			}
@@ -222,7 +223,7 @@ public class RegistrationController {
 
 	@PostMapping({ "/rejectedRequest" })
 	@CrossOrigin("*")
-	public String rejectedRequest(Principal principal, @RequestBody SupDetails supDetails) {
+	public String rejectedRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -232,7 +233,7 @@ public class RegistrationController {
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
 
-				serviceManager.supDetailsRepo.approveRequestByPid(supDetails.getPid(),
+				serviceManager.supDetailsRepo.approveRequestByPid(supDetailsDto.getPid(),
 						GlobalConstants.REJECTED_REQUEST_STATUS);
 				data.setMsg("success");
 			}

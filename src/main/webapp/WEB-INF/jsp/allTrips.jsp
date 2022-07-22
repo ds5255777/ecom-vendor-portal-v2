@@ -315,7 +315,7 @@ tbody {
 										</div>
 										<!-- /.card-header -->
 										<div class="card-body" style="padding-bottom: inherit;">
-											<form role="form" id="tripForm">
+											<form role="form" id="tripForm" name="tripForm">
 												<div class="row">
 													<div class="col-md-3">
 														<div class="form-group row">
@@ -965,7 +965,7 @@ tbody {
                 var json = {
                     "tripID": tripId
                 }
-
+                document.tripForm.reset();
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify(json),
@@ -976,7 +976,7 @@ tbody {
 
                         if (data.msg == 'success') {
                             var result = data.data;
-                            var myForm = "";
+                            
                             myForm = document.getElementById("tripForm");
                             setData(myForm, result);
                             $("#tripID").val(result.tripID);

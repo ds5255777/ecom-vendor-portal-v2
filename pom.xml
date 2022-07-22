@@ -19,10 +19,8 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+  		<sonar.qualitygate.wait>true</sonar.qualitygate.wait>
 	</properties>
-<properties>
-  <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
-</properties>
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>

@@ -6,7 +6,6 @@ import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -42,6 +41,8 @@ import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.TripDetails;
+import com.main.payloads.InvoiceGenerationDto;
+import com.main.payloads.TripDetailsDto;
 import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/invoiceController")
@@ -59,7 +60,7 @@ public class InvoiceController {
 
 	@PostMapping({ "/getAllInvoice" })
 	@CrossOrigin("*")
-	public String getAllInvoice(Principal principal, HttpServletRequest request) {
+	public String getAllInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
 
@@ -70,7 +71,10 @@ public class InvoiceController {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
 						.getAllInvoice(vendorCode);
-				data.setData(pandingInvoice);
+				List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream().map(
+						(allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+						.collect(Collectors.toList());
+				data.setData(listOfInvoice);
 				data.setMsg("success");
 			} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
@@ -98,7 +102,10 @@ public class InvoiceController {
 				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
 						.getAllProcessedInvoice(vendorCode);
 
-				data.setData(pandingInvoice);
+				List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream().map(
+						(allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+						.collect(Collectors.toList());
+				data.setData(listOfInvoice);
 				data.setMsg("success");
 			}
 			data.setMsg("error");
@@ -123,7 +130,10 @@ public class InvoiceController {
 				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
 						.getAllApproveInvoice(vendorCode);
 
-				data.setData(pandingInvoice);
+				List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream().map(
+						(allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+						.collect(Collectors.toList());
+				data.setData(listOfInvoice);
 				data.setMsg("success");
 			}
 
@@ -149,11 +159,17 @@ public class InvoiceController {
 				List<InvoiceGenerationEntity> queryInvoice = serviceManager.invoiceGenerationEntityRepo
 						.getAllQueryInvoiceVendor(vendorCode);
 
-				data.setData(queryInvoice);
+				List<InvoiceGenerationDto> listOfInvoice = queryInvoice.stream().map(
+						(allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+						.collect(Collectors.toList());
+				data.setData(listOfInvoice);
 			} else {
 				List<InvoiceGenerationEntity> queryInvoice = serviceManager.invoiceGenerationEntityRepo
 						.getAllQueryInvoiceVendor();
-				data.setData(queryInvoice);
+				List<InvoiceGenerationDto> listOfInvoice = queryInvoice.stream().map(
+						(allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+						.collect(Collectors.toList());
+				data.setData(listOfInvoice);
 			}
 			data.setMsg("success");
 
@@ -177,7 +193,10 @@ public class InvoiceController {
 			List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
 					.getAllRejectInvoice(vendorCode);
 
-			data.setData(pandingInvoice);
+			List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream()
+					.map((allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+					.collect(Collectors.toList());
+			data.setData(listOfInvoice);
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -200,7 +219,10 @@ public class InvoiceController {
 			List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
 					.getAllRejectInvoice(vendorCode);
 
-			data.setData(pandingInvoice);
+			List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream()
+					.map((allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+					.collect(Collectors.toList());
+			data.setData(listOfInvoice);
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -211,71 +233,64 @@ public class InvoiceController {
 		return gson.toJson(data).toString();
 	}
 
-	@PostMapping({ "/getLineItemDetails" })
-	@CrossOrigin("*")
-	public String getLineItemDetails(HttpServletRequest request, @RequestBody TripDetails obj) {
-
-		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		String tripID = obj.getTripID();
-		logger.info(tripID);
-		try {
-
-			tripID = tripID.replaceAll(",", " ");
-
-			logger.info(tripID + "--------");
-
-			String[] split = tripID.split(" ");
-
-			List<Object> listofTrips = new ArrayList<>();
-
-			for (String str : split) {
-				logger.info(str);
-				TripDetails findByTripID = serviceManager.tripDetailsRepo.findByTripID(str);
-				listofTrips.add(findByTripID);
-				logger.info("Trip Details :" + findByTripID);
-			}
-			listofTrips.forEach(m -> logger.info("----" + m + "-----"));
-			data.setData(listofTrips);
-			data.setMsg("success");
-
-		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error("error : " + e);
-		}
-
-		return gson.toJson(data).toString();
-	}
+	/*
+	 * @PostMapping({ "/getLineItemDetails" })
+	 * 
+	 * @CrossOrigin("*") public String getLineItemDetails(HttpServletRequest
+	 * request, @RequestBody TripDetailsDto tripDtoObj) {
+	 * 
+	 * DataContainer data = new DataContainer(); Gson gson = new
+	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create(); String tripID =
+	 * tripDtoObj.getTripID(); logger.info(tripID); try {
+	 * 
+	 * tripID = tripID.replaceAll(",", " ");
+	 * 
+	 * logger.info(tripID + "--------");
+	 * 
+	 * String[] split = tripID.split(" ");
+	 * 
+	 * List<Object> listofTrips = new ArrayList<>();
+	 * 
+	 * for (String str : split) { logger.info(str); TripDetails findByTripID =
+	 * serviceManager.tripDetailsRepo.findByTripID(str);
+	 * listofTrips.add(findByTripID); logger.info("Trip Details :" + findByTripID);
+	 * } listofTrips.forEach(m -> logger.info("----" + m + "-----"));
+	 * data.setData(listofTrips); data.setMsg("success");
+	 * 
+	 * } catch (Exception e) { data.setMsg("error"); logger.error("error : " + e); }
+	 * 
+	 * return gson.toJson(data).toString(); }
+	 */
 
 	@PostMapping("/saveInvoice")
-	public String saveInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
+	public String saveInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationDto invoiceDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
 		try {
-			String filePath = filepath + File.separator + obj.getEcomInvoiceNumber();
+			String filePath = filepath + File.separator + invoiceDto.getEcomInvoiceNumber();
 			String fullFilePathWithName = "";
 
-			if (null != obj.getInvoiceFileName()) {
+			if (null != invoiceDto.getInvoiceFileName()) {
 
 				File file1 = new File(filePath);
 
 				if (!file1.exists()) {
 					file1.mkdirs();
 				}
-				fullFilePathWithName = filePath + File.separator + "Invoice-" + obj.getInvoiceFileName();
+				fullFilePathWithName = filePath + File.separator + invoiceDto.getInvoiceFileName();
 
 				Document doc = new Document();
-				doc.setDocName(obj.getInvoiceFileName());
+				doc.setDocName(invoiceDto.getInvoiceFileName());
 				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType("Invoice");
-				doc.setForeignKey(obj.getEcomInvoiceNumber());
+				doc.setStatus(GlobalConstants.ACTIVE_STATUS);
+				doc.setType(GlobalConstants.SET_TYPE_INVOICE);
+				doc.setForeignKey(invoiceDto.getEcomInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = obj.getInvoiceFileText();
+					String b64 = invoiceDto.getInvoiceFileText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -285,20 +300,20 @@ public class InvoiceController {
 				}
 			}
 
-			if (null != obj.getDocumentFileOneName()) {
+			if (null != invoiceDto.getDocumentFileOneName()) {
 
-				fullFilePathWithName = filePath + File.separator + "Summary Sheet-" + obj.getDocumentFileOneName();
+				fullFilePathWithName = filePath + File.separator + invoiceDto.getDocumentFileOneName();
 
 				Document doc = new Document();
-				doc.setDocName(obj.getDocumentFileOneName());
+				doc.setDocName(invoiceDto.getDocumentFileOneName());
 				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType("Invoice");
-				doc.setForeignKey(obj.getEcomInvoiceNumber());
+				doc.setStatus(GlobalConstants.ACTIVE_STATUS);
+				doc.setType(GlobalConstants.SET_TYPE_INVOICE);
+				doc.setForeignKey(invoiceDto.getEcomInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = obj.getDocumentFileOneText();
+					String b64 = invoiceDto.getDocumentFileOneText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -308,21 +323,20 @@ public class InvoiceController {
 				}
 			}
 
-			if (null != obj.getDocumentFileTwoName()) {
+			if (null != invoiceDto.getDocumentFileTwoName()) {
 
-				fullFilePathWithName = filePath + File.separator + "FS Calculation Sheet-"
-						+ obj.getDocumentFileTwoName();
+				fullFilePathWithName = filePath + File.separator + invoiceDto.getDocumentFileTwoName();
 
 				Document doc = new Document();
-				doc.setDocName(obj.getDocumentFileTwoName());
+				doc.setDocName(invoiceDto.getDocumentFileTwoName());
 				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType("Invoice");
-				doc.setForeignKey(obj.getEcomInvoiceNumber());
+				doc.setStatus(GlobalConstants.ACTIVE_STATUS);
+				doc.setType(GlobalConstants.SET_TYPE_INVOICE);
+				doc.setForeignKey(invoiceDto.getEcomInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
 				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = obj.getDocumentFileTwoText();
+					String b64 = invoiceDto.getDocumentFileTwoText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
@@ -331,30 +345,31 @@ public class InvoiceController {
 					logger.error("error : " + e);
 				}
 			}
-			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
+			String ecomInvoiceNumber = invoiceDto.getEcomInvoiceNumber();
 
 			Long idByinvocienumber = serviceManager.invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
-			logger.info("" + idByinvocienumber);
 
 			Date date = new Date();
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 			String processedOn = dateFormat.format(date);
 
 			if (null != idByinvocienumber) {
-				obj.setInvoiceStatus("In-Review");
-				obj.setId(idByinvocienumber);
-				obj.setProcessedBy(obj.getVendorCode());
-				obj.setProcessedOn(processedOn);
-				obj.setAssignTo("Finance");
-				logger.info(ecomInvoiceNumber);
+				invoiceDto.setInvoiceStatus(GlobalConstants.INVOICE_STATUS_IN_REVIEW);
+				invoiceDto.setId(idByinvocienumber);
+				invoiceDto.setProcessedBy(invoiceDto.getVendorCode());
+				invoiceDto.setProcessedOn(processedOn);
+				invoiceDto.setAssignTo(GlobalConstants.ROLE_FINANCE);
 				serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsInvoiceNumber(ecomInvoiceNumber);
-				obj = serviceManager.invoiceGenerationEntityRepo.save(obj);
+				InvoiceGenerationEntity invoiceSave = this.serviceManager.modelMapper.map(invoiceDto,
+						InvoiceGenerationEntity.class);
+				serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
 			}
 
-			data.setData(obj.getInvoiceNumber());
+			// data.setData(invoiceDto.getInvoiceNumber());
 			// call mailing api
 
-			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
+			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
+					.findByIsActive(GlobalConstants.ACTIVE_STATUS);
 			EmailConfiguration emailConfiguration = emailList.get(0);
 
 			String vendorEmail = (String) request.getSession().getAttribute("userEmail");
@@ -399,7 +414,6 @@ public class InvoiceController {
 		String rolename = (String) request.getSession().getAttribute("role");
 		try {
 			String filePath = filepath + File.separator + obj.getEcomInvoiceNumber();
-			logger.info(filePath);
 			String fullFilePathWithName = "";
 			Date date = new Date();
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
@@ -413,13 +427,13 @@ public class InvoiceController {
 					file1.mkdirs();
 				}
 
-				fullFilePathWithName = filePath + File.separator + "Summary Sheet-" + obj.getDocumentFileOneName();
+				fullFilePathWithName = filePath + File.separator + obj.getDocumentFileOneName();
 
 				Document doc = new Document();
 				doc.setDocName(obj.getDocumentFileOneName());
 				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType("Invoice");
+				doc.setStatus(GlobalConstants.ACTIVE_STATUS);
+				doc.setType(GlobalConstants.SET_TYPE_INVOICE);
 				doc.setForeignKey(obj.getEcomInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 				logger.info(fullFilePathWithName);
@@ -436,14 +450,13 @@ public class InvoiceController {
 
 			if (null != obj.getDocumentFileTwoName()) {
 
-				fullFilePathWithName = filePath + File.separator + "FS Calculation Sheet-"
-						+ obj.getDocumentFileTwoName();
+				fullFilePathWithName = filePath + File.separator + obj.getDocumentFileTwoName();
 
 				Document doc = new Document();
 				doc.setDocName(obj.getDocumentFileTwoName());
 				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus("1");
-				doc.setType("Invoice");
+				doc.setStatus(GlobalConstants.ACTIVE_STATUS);
+				doc.setType(GlobalConstants.SET_TYPE_INVOICE);
 				doc.setForeignKey(obj.getEcomInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
@@ -557,24 +570,26 @@ public class InvoiceController {
 
 	@PostMapping({ "/getSelectInvoiceDetails" })
 	@CrossOrigin("*")
-	public String getSelectInvoiceDetails(Principal principal, @RequestBody InvoiceGenerationEntity inviceObj) {
+	public String getSelectInvoiceDetails(Principal principal, @RequestBody InvoiceGenerationDto invoiceObj) {
 
 		DataContainer data = new DataContainer();
-
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		String invoiceNumber = inviceObj.getEcomInvoiceNumber();
+		String invoiceNumber = invoiceObj.getEcomInvoiceNumber();
 		String vendorCode = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(vendorCode);
+
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
 					|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
-				inviceObj = serviceManager.invoiceGenerationEntityRepo.findByEcomInvoiceNumber(invoiceNumber);
-				data.setData(inviceObj);
+				InvoiceGenerationEntity invoiceObject = serviceManager.invoiceGenerationEntityRepo
+						.findByEcomInvoiceNumber(invoiceNumber);
+
+				data.setData(serviceManager.modelMapper.map(invoiceObject, InvoiceGenerationDto.class));
 			} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 
-				inviceObj = serviceManager.invoiceGenerationEntityRepo
+				InvoiceGenerationEntity invoiceObject = serviceManager.invoiceGenerationEntityRepo
 						.findByEcomInvoiceNumberAndVendorCode(invoiceNumber, vendorCode);
-				data.setData(inviceObj);
+				data.setData(serviceManager.modelMapper.map(invoiceObject, InvoiceGenerationDto.class));
 
 			} /*
 				 * else { inviceObj =
@@ -594,7 +609,7 @@ public class InvoiceController {
 
 	@PostMapping({ "/getAllDraftInvoice" })
 	@CrossOrigin("*")
-	public String getAllDraftInvoice(Principal principal, HttpServletRequest request) {
+	public String getAllDraftInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
@@ -602,8 +617,11 @@ public class InvoiceController {
 		try {
 			List<InvoiceGenerationEntity> draftInvoice = serviceManager.invoiceGenerationEntityRepo
 					.getDraftInvoice(vendorCode);
+			List<InvoiceGenerationDto> listOfInvoice = draftInvoice.stream()
+					.map((allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+					.collect(Collectors.toList());
+			data.setData(listOfInvoice);
 
-			data.setData(draftInvoice);
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -616,7 +634,7 @@ public class InvoiceController {
 
 	@PostMapping({ "/deleteDraftInvoice" })
 	@CrossOrigin("*")
-	public String deleteDraftInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
+	public String deleteDraftInvoice(@RequestBody InvoiceGenerationDto obj) {
 
 		DataContainer data = new DataContainer();
 
@@ -641,7 +659,7 @@ public class InvoiceController {
 
 	@PostMapping({ "/deleteLineItem" })
 	@CrossOrigin("*")
-	public String deleteLineItem(HttpServletRequest request, @RequestBody TripDetails obj) {
+	public String deleteLineItem(HttpServletRequest request, @RequestBody TripDetailsDto obj) {
 
 		DataContainer data = new DataContainer();
 
@@ -666,7 +684,7 @@ public class InvoiceController {
 
 	@PostMapping({ "/discardDraftInvoice" })
 	@CrossOrigin("*")
-	public String discardDraftInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
+	public String discardDraftInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationDto obj) {
 
 		DataContainer data = new DataContainer();
 
@@ -699,7 +717,10 @@ public class InvoiceController {
 		try {
 			List<PoInvoiceDetails> queryInvoice = serviceManager.poinvoiceRepo.getAllQueryInvoiceVendorPo(vendorCode);
 
-			data.setData(queryInvoice);
+			List<InvoiceGenerationDto> listOfInvoice = queryInvoice.stream()
+					.map((allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+					.collect(Collectors.toList());
+			data.setData(listOfInvoice);
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -712,7 +733,7 @@ public class InvoiceController {
 
 	@PostMapping({ "/checkForExistingInvoiceNumber" })
 	@CrossOrigin("*")
-	public String checkForExistingInvoiceNumber(HttpServletRequest request, @RequestBody InvoiceGenerationEntity obj) {
+	public String checkForExistingInvoiceNumber(HttpServletRequest request, @RequestBody InvoiceGenerationDto obj) {
 
 		DataContainer data = new DataContainer();
 
@@ -720,8 +741,6 @@ public class InvoiceController {
 		try {
 			String invoiceNumber = serviceManager.invoiceGenerationEntityRepo
 					.checkForExistingInvoiceNumber(obj.getVendorCode(), obj.getInvoiceNumber());
-
-			logger.info(invoiceNumber);
 
 			if (null == invoiceNumber) {
 				data.setMsg("success");
@@ -739,7 +758,7 @@ public class InvoiceController {
 
 	@PostMapping(value = "/getQueryInvoice")
 	@CrossOrigin("*")
-	public String getQueryInvoice(@RequestBody InvoiceGenerationEntity obj, Principal principal, HttpSession session,
+	public String getQueryInvoice(@RequestBody InvoiceGenerationDto obj, Principal principal, HttpSession session,
 			HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
@@ -748,10 +767,12 @@ public class InvoiceController {
 
 		try {
 			String invoiceNumber = obj.getEcomInvoiceNumber();
-			logger.info(invoiceNumber);
-			obj = serviceManager.invoiceGenerationEntityRepo.getQueryInvoice(vendorCode, invoiceNumber);
+			InvoiceGenerationEntity queryInvoice = serviceManager.invoiceGenerationEntityRepo
+					.getQueryInvoice(vendorCode, invoiceNumber);
+			InvoiceGenerationDto invoiceObj = this.serviceManager.modelMapper.map(queryInvoice,
+					InvoiceGenerationDto.class);
 
-			data.setData(obj);
+			data.setData(invoiceObj);
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -763,7 +784,7 @@ public class InvoiceController {
 
 	@PostMapping({ "/deleteTripQueryInvoice" })
 	@CrossOrigin("*")
-	public String deleteTripQueryInvoice(HttpServletRequest request, @RequestBody TripDetails obj) {
+	public String deleteTripQueryInvoice(HttpServletRequest request, @RequestBody TripDetailsDto obj) {
 
 		DataContainer data = new DataContainer();
 
@@ -785,7 +806,7 @@ public class InvoiceController {
 
 	@PostMapping({ "/addNewTripInQueryInvoice" })
 	@CrossOrigin("*")
-	public String addNewTripInQueryInvoice(HttpServletRequest request, @RequestBody TripDetails obj) {
+	public String addNewTripInQueryInvoice(HttpServletRequest request, @RequestBody TripDetailsDto obj) {
 
 		DataContainer data = new DataContainer();
 

@@ -39,6 +39,7 @@ public class TripDetailsDto {
 	private String openingReading;
 	private String closingReading;
 	private String vendorTripStatus; // Approved, Yet_To_Be_Approved, Invoicing
+	private String paymentStatus;// Oracle(Pending Approved)
 	private String assignTo;// network Team, Vendor
 	private String invoiceNumber;
 	private String processedOn;//

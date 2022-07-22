@@ -191,10 +191,8 @@ public class PoController {
 	@PostMapping({ "/getSelectInvoiceDetailsPo" })
 	@CrossOrigin("*")
 	public String getSelectInvoiceDetailsPo(HttpServletRequest request,Principal principal, @RequestBody PoInvoiceDetailsDTO detailsDto) {
-
-		DataContainer data = new DataContainer();
-
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                DataContainer data = new DataContainer();
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			String vendorCode = principal.getName();
 

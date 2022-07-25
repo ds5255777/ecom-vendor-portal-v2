@@ -408,7 +408,7 @@
 							</table>
 						</div>
 
-</div>
+					</div>
 
 					
 						<div class="card card-primary">
@@ -523,8 +523,8 @@
 						</div>
 					</div>
 
-						<center>
-							<div class="form-group">
+						
+							<div class="form-group" style="text-align: center;">
 								<label style="visibility: hidden;">Select </label>
 								<button type="button" onclick="sendToServer()"
 									class="btn btn-info">Submit Invoice</button>
@@ -537,7 +537,7 @@
 								<button type="button" onclick="window.close()"
 									class="btn btn-info">Close</button>
 							</div>
-						</center>
+						
 						<!-- /.row -->
 					</div>
 					<!-- /.container-fluid -->
@@ -953,8 +953,6 @@
 					// tripLineArray[index].remaningQuatity=remaningQuantity;
 						tripLineArray[index].lineitemId=reId; 
 						lineItemArray1[index].changeQutty=remaningQuantity;
-					
-					 
 					    
 						if(indx==index){
 					  
@@ -1001,14 +999,9 @@
            
            };
            
-           
             finalObj.poInvoiceLine=tripLineArray;
             finalObj.invoiceNumber='${invoiceNumber}';
         	finalObj.matchOption=matchOption;
-
-        
-       		 console.log(finalObj);
-
         
 				        $.ajax({
 				            type: "POST",
@@ -1044,11 +1037,6 @@
 
    
     function sendToServer() {
-    	
-    	
-    	
-    	
-    	console.log("..."+tripLineArray);
     	
     	var invoicedate = document.getElementById("invoiceDate").value;
 		if (invoicedate === "" || invoicedate === null || invoicedate === '') {
@@ -1195,8 +1183,6 @@
 				   
 				    }
 				    
-
-
         
         finalObj.grossTotalAmt=tripLineArray.grossTotalAmt;
         finalObj.invoiceNumber='${invoiceNumber}';
@@ -1376,10 +1362,7 @@
     			 
             }
     		 
-    		  
-    		  
 
-    	      
     		  
     	        function handleFileSelect(evt, id) {
     	            var f = evt.target.files[0]; // FileList object
@@ -1679,7 +1662,6 @@
     	                 }
 
     	             });
-    	             
 
     	        }
     	        function invoiceDateCheck(){	
@@ -1713,13 +1695,8 @@
     	          }
     	 function addtermDate(){
     	       	 var currentDate=$("#invoiceDate").val();
-    	          	 
     	       	 currentDate=moment(currentDate, 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD');
-    	       	 
     	        	  var terms =  $("#terms").val();
-    	        	  
-    	        	  
-    	        	  
     	        	  if(terms=="Immediate Payments"){
     	       	    		
     	       			 var days=30;
@@ -1731,7 +1708,6 @@
     	                  
     	              	
     	         	 }else if(terms=="NET 15 Days"){
-    	       	   		
     	       				 var days=15;
     	       			   var ts = new Date(currentDate);
     	       			   
@@ -1739,47 +1715,28 @@
     	       			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
     	       			
     	       		   $("#termsDate").val(datestring);
-    	       		 
-    	       			
     	       		} else if(terms=="NET 30 Days"){
     	        		
     	         		 var days=30;
     	       		   var ts = new Date();
-    	       		   
-
-    	       		   
-    	       		   
     	       		   ts.setDate(ts.getDate() + days);
     	       			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
     	       		
     	       		     $("#termsDate").val(datestring);
-    	       		  
-    	       		           
-    	             	
     	        	 }else if(terms=="NET 45 Days"){
-    	        		 
     	       				 var days=45;
     	       				   var ts = new Date();
-    	       				   
     	       				  ts.setDate(ts.getDate() + days);
     	       				var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
-    	       				
-    	       				
     	       	             $("#termsDate").val(datestring);
-    	       	         	
-    	       	    	
     	        	 }else if(terms=="NET 60 Days"){
-    	        		 
     	       				 var days=60;
     	       			   var ts = new Date();
     	       			   
     	       			  ts.setDate(ts.getDate() + days);
     	       			var datestring = ts.getDate()  + "-" + (ts.getMonth()+1) + "-" + ts.getFullYear() ;
-    	       			
-    	       			
     	                 $("#termsDate").val(datestring);
     	       		 }else if(terms=="NET-7"){
-    	       	  		 
     	       			 var days=7;
     	       		   var ts = new Date(currentDate);
     	       		   

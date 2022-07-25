@@ -3,6 +3,7 @@ package com.main.controller;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.AgreementMaster;
+import com.main.payloads.AgreementMasterDTO;
 import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/masterController")
@@ -33,26 +35,19 @@ public class MasterController {
 
 	@PostMapping({ "/saveTripMaster" })
 	@CrossOrigin("*")
-	public String saveTripMaster(HttpServletRequest request, @RequestBody AgreementMaster master) {
+	public String saveTripMaster(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
-
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-
-			AgreementMaster save = serviceManager.agreementMasterRepo.save(master);
-
-			data.setData(save);
+			AgreementMaster save = serviceManager.agreementMasterRepo.save(this.serviceManager.modelMapper.map(masterDto, AgreementMaster.class));
+			data.setData(this.serviceManager.modelMapper.map(save, AgreementMasterDTO.class));
 			data.setMsg("success");
-
 		} catch (Exception e) {
 			data.setMsg("error");
-
 			logger.error("error : " + e);
-
 		}
-
 		return gson.toJson(data).toString();
 	}
 
@@ -64,39 +59,33 @@ public class MasterController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			List<AgreementMaster> allAgreementMasters = serviceManager.agreementMasterRepo.findAll();
-
-			data.setData(allAgreementMasters);
+			List<AgreementMasterDTO> allAgreementMastersDto = allAgreementMasters.stream()
+					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, AgreementMasterDTO.class))
+					.collect(Collectors.toList());
+			data.setData(allAgreementMastersDto);
 			data.setMsg("success");
-			logger.info("end of getActiveMasterData" + allAgreementMasters);
-
+			logger.info("end of getActiveMasterData" + allAgreementMastersDto);
 		} catch (Exception e) {
 			data.setMsg("error");
-
 			logger.error("error : " + e);
-
 		}
-
 		return gson.toJson(data).toString();
 	}
 
 	@PostMapping({ "/getMasterById" })
 	@CrossOrigin("*")
-	public String getUserById(HttpServletRequest request, @RequestBody AgreementMaster master) {
+	public String getUserById(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			logger.info("hii master");
-			AgreementMaster agreementMaster = serviceManager.agreementMasterRepo.findById(master.getId()).get();
-
-			data.setData(agreementMaster);
+			AgreementMaster agreementMaster = serviceManager.agreementMasterRepo.findById(masterDto.getId()).get();
+			data.setData(this.serviceManager.modelMapper.map(agreementMaster, AgreementMasterDTO.class));
 			data.setMsg("success");
-
 		} catch (Exception e) {
 			data.setMsg("error");
-
 			logger.error("error : " + e);
-
 		}
 
 		return gson.toJson(data).toString();
@@ -104,20 +93,17 @@ public class MasterController {
 
 	@PostMapping({ "/saveUpdateMasterDetails" })
 	@CrossOrigin("*")
-	public String saveUpdateMasterDetails(HttpServletRequest request, @RequestBody AgreementMaster master) {
+	public String saveUpdateMasterDetails(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			logger.info("in mster update");
-			serviceManager.agreementMasterRepo.save(master);
+			serviceManager.agreementMasterRepo.save(this.serviceManager.modelMapper.map(masterDto, AgreementMaster.class));
 			data.setMsg("success");
-
 		} catch (Exception e) {
 			data.setMsg("error");
-
 			logger.error("error : " + e);
-
 		}
 
 		return gson.toJson(data).toString();
@@ -125,23 +111,17 @@ public class MasterController {
 
 	@PostMapping({ "/deleteMaster" })
 	@CrossOrigin("*")
-	public String deleteMaster(HttpServletRequest request, @RequestBody AgreementMaster master) {
+	public String deleteMaster(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-
-			serviceManager.agreementMasterRepo.deleteById(master.getId());
-
+			serviceManager.agreementMasterRepo.deleteById(masterDto.getId());
 			data.setMsg("success");
-
 		} catch (Exception e) {
 			data.setMsg("error");
-
 			logger.error("error : " + e);
-
 		}
-
 		return gson.toJson(data).toString();
 	}
 

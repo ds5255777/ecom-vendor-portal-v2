@@ -177,7 +177,7 @@
 		<li class="nav-item"><a class="nav-link">${vendorName}</a></li>
 	</c:when>
 		<c:otherwise>
-			<li class="nav-item"><a class="nav-link">${username}</a></li>
+			<li class="nav-item"><a class="nav-link">${userName}</a></li>
 		</c:otherwise>
 	</c:choose>
 		<c:if test="${isssoEnable!='yes'}">

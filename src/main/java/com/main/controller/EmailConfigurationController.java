@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.EmailConfiguration;
+import com.main.payloads.EmailConfigurationDTO;
 import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/emailConfigurationController")
@@ -30,18 +32,18 @@ public class EmailConfigurationController {
 	ServiceManager serviceManager;
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	private static Logger logger = LoggerFactory.getLogger(InvoiceController.class);
+	private static Logger logger = LoggerFactory.getLogger(EmailConfigurationController.class);
 
 	@PostMapping({ "/saveUpdateEmailData" })
 	@CrossOrigin("*")
-	public String saveUpdateEmailData(HttpServletRequest request, @RequestBody EmailConfiguration entity) {
+	public String saveUpdateEmailData(HttpServletRequest request, @RequestBody EmailConfigurationDTO entityDto) {
 
 		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			serviceManager.emailConfigurationRepository.save(entity);
+			serviceManager.emailConfigurationRepository.save(this.serviceManager.modelMapper.map(entityDto, EmailConfiguration.class));
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -56,16 +58,17 @@ public class EmailConfigurationController {
 
 	@PostMapping({ "/getEmailCofigurationDataById" })
 	@CrossOrigin("*")
-	public String getEmailCofigurationDataById(HttpServletRequest request, @RequestBody EmailConfiguration entity) {
+	public String getEmailCofigurationDataById(HttpServletRequest request, @RequestBody EmailConfigurationDTO entityDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			Optional<EmailConfiguration> email = serviceManager.emailConfigurationRepository.findById(entity.getId());
+			Optional<EmailConfiguration> email = serviceManager.emailConfigurationRepository.findById(entityDto.getId());
+			
 			data.setData(email.get());
+			data.setData(this.serviceManager.modelMapper.map(email.get(), EmailConfigurationDTO.class));
 			data.setMsg("success");
-
 		} catch (Exception e) {
 			data.setMsg("error");
 
@@ -78,14 +81,17 @@ public class EmailConfigurationController {
 
 	@PostMapping({ "/getEmailCofigurationDataByStatus" })
 	@CrossOrigin("*")
-	public String getEmailCofigurationDataByStatus(HttpServletRequest request, @RequestBody EmailConfiguration entity) {
+	public String getEmailCofigurationDataByStatus(HttpServletRequest request, @RequestBody EmailConfigurationDTO entityDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
 			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
-			data.setData(emailList);
+			List<EmailConfigurationDTO> emailListDto = emailList.stream()
+					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, EmailConfigurationDTO.class))
+					.collect(Collectors.toList());
+			data.setData(emailListDto);
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -101,14 +107,14 @@ public class EmailConfigurationController {
 	@PostMapping({ "/updateEmailConfigurationSatatusByid" })
 	@CrossOrigin("*")
 	public String updateEmailConfigurationSatatusByid(HttpServletRequest request,
-			@RequestBody EmailConfiguration entity) {
+			@RequestBody EmailConfigurationDTO entityDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			serviceManager.emailConfigurationRepository.updateEmailConfigurationSatatusByid(entity.getIsActive(),
-					entity.getId());
+			serviceManager.emailConfigurationRepository.updateEmailConfigurationSatatusByid(entityDto.getIsActive(),
+					entityDto.getId());
 			data.setMsg("success");
 
 		} catch (Exception e) {

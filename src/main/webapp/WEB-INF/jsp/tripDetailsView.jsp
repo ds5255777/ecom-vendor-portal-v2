@@ -413,7 +413,6 @@ $(document).ready(function() {
             }
 
             function deleteDataVendorOnBoardingDocument(id,spanId){
-            // debugger;
             var objData=arrayAttachment[id].objData;
 
             $(objData).next('.custom-file-label').html("Choose");
@@ -603,7 +602,6 @@ $(document).ready(function() {
                 var generalRequirment = $("#generalRequirmentTable tbody");
                 generalRequirment.find('tr').each(function (i, el) {
                 index++;
-                //debugger;
                 var $tds = $(this).find('td'),
                 //attachment = $(this).find("td:eq(2) input[type='file']").val();
                 attachment = $(this).find('td')[2].innerText;
@@ -633,7 +631,6 @@ $(document).ready(function() {
                 var score = "";
                 certification.find('tr').each(function (i, el) {
 
-                // debugger;
 
                 //if($("#iSOCertificate9001").val())
                 var $tds = $(this).find('td');

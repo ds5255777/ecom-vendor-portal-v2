@@ -2,7 +2,6 @@ package com.main.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.Principal;
 import java.text.DateFormat;
@@ -26,7 +25,6 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.main.commonclasses.GlobalConstants;
@@ -91,7 +89,10 @@ public class UIController {
 			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
 			List<String> stateName = serviceManager.stateRepo.getStateName();
 			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
-			List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+			/*
+			 * List<String> nature =
+			 * serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+			 */
 			List<String> country = serviceManager.countryRepo.getCountry();
 			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
@@ -110,7 +111,7 @@ public class UIController {
 			model.addAttribute("classification", classification);
 			model.addAttribute("stateName", stateName);
 			model.addAttribute("payment", payment);
-			model.addAttribute("nature", nature);
+			/* model.addAttribute("nature", nature); */
 			model.addAttribute("country", country);
 			model.addAttribute("tdsCode", tdsCode);
 			model.addAttribute("financialYear", financialYear);
@@ -137,7 +138,10 @@ public class UIController {
 			List<String> stateName = serviceManager.stateRepo.getStateName();
 			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
 			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
-			List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+			/*
+			 * List<String> nature =
+			 * serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+			 */
 			List<String> country = serviceManager.countryRepo.getCountry();
 			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
@@ -152,7 +156,7 @@ public class UIController {
 			model.addAttribute("stateName", stateName);
 			model.addAttribute("classification", classification);
 			model.addAttribute("payment", payment);
-			model.addAttribute("nature", nature);
+			/* model.addAttribute("nature", nature); */
 			model.addAttribute("country", country);
 			model.addAttribute("tdsCode", tdsCode);
 			model.addAttribute("financialYear", financialYear);
@@ -573,7 +577,10 @@ public class UIController {
 		List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
 		List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
 		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
-		List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+		/*
+		 * List<String> nature =
+		 * serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+		 */
 		List<String> country = serviceManager.countryRepo.getCountry();
 		List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 		List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
@@ -589,7 +596,7 @@ public class UIController {
 		model.addAttribute("partner", partner);
 		model.addAttribute("classification", classification);
 		model.addAttribute("payment", payment);
-		model.addAttribute("nature", nature);
+		/* model.addAttribute("nature", nature); */
 		model.addAttribute("country", country);
 		model.addAttribute("tdsCode", tdsCode);
 		model.addAttribute("financialYear", financialYear);
@@ -635,7 +642,10 @@ public class UIController {
 		List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
 		List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
 		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
-		List<String> nature = serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+		/*
+		 * List<String> nature =
+		 * serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
+		 */
 		List<String> country = serviceManager.countryRepo.getCountry();
 		List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 		List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
@@ -654,7 +664,7 @@ public class UIController {
 		model.addAttribute("partner", partner);
 		model.addAttribute("classification", classification);
 		model.addAttribute("payment", payment);
-		model.addAttribute("nature", nature);
+		/* model.addAttribute("nature", nature); */
 		model.addAttribute("country", country);
 		model.addAttribute("tdsCode", tdsCode);
 		model.addAttribute("financialYear", financialYear);
@@ -852,7 +862,7 @@ public class UIController {
 	@GetMapping("/draftInvoiceGenerate")
 	public String draftInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 
-		String vendorName = null;
+		String vendorName =principal.getName();
 		Base64.Decoder decoder = Base64.getDecoder();
 		String invoiceNumber = new String(decoder.decode(request.getParameter("id")));
 
@@ -960,7 +970,7 @@ public class UIController {
 		return "queryInvoiceEdit";
 	}
 
-	@RequestMapping("/getDoc")
+	@GetMapping("/getDoc")
 	@CrossOrigin("*")
 	void getDoc(HttpServletResponse response, HttpServletRequest request, @RequestParam("name") String name,
 			@RequestParam("path") String path) {

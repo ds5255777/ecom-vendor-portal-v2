@@ -1265,7 +1265,6 @@ function selectDropDownValue(){
                             
                             var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\"" + result[i].tripID + "\" ><\div>";
 
-//debugger;
                             tabledata.row.add([
                             	checkbox,
                             	view, 

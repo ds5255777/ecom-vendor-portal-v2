@@ -566,7 +566,6 @@
        
 		 
 		 function getQueryData(invoiceNu){
-			 debugger;
 			 $('.loader').show();
 			 var obj ={
 						"referenceid": invoiceNu,

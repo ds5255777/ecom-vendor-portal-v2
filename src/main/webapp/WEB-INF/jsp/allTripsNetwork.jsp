@@ -52,7 +52,6 @@
 		},
 		"Closed" : {
 			"Yet To Be Approved" : [ "NA" ],
-			"Approved By Network Team" : [ "NA" ],
 			"Yet To Be Approved By Network Team" : [ "NA" ],
 			"Approved" : [ "Pending" ],
 			"Invoicing" : [ "Pending", "Approved" ],

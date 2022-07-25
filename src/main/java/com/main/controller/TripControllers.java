@@ -37,6 +37,7 @@ import com.main.db.bpaas.entity.MailContent;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.TripDetails;
+import com.main.payloads.InvoiceGenerationDto;
 import com.main.payloads.TripDetailsDto;
 import com.main.serviceManager.ServiceManager;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
@@ -226,7 +227,7 @@ public class TripControllers {
 				List<TripDetails> tripFindByStatus = serviceManager.tripService.getTripsByFiltersNetwork(runStatus,
 						vendortripStatus, paymentStatus);
 				List<TripDetailsDto> tripFilterList = tripFindByStatus.stream().map(
-						(filterTrip) -> this.serviceManager.modelMapper.map(tripFindByStatus, TripDetailsDto.class))
+						(filterTrip) -> this.serviceManager.modelMapper.map(filterTrip, TripDetailsDto.class))
 						.collect(Collectors.toList());
 				data.setData(tripFilterList);
 			} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
@@ -238,8 +239,8 @@ public class TripControllers {
 				if (vendorCode.equalsIgnoreCase(userName)) {
 					List<TripDetails> tripFindByStatus = serviceManager.tripService.getTripsByFilters(runStatus,
 							vendortripStatus, paymentStatus, vendorCode);
-					List<TripDetailsDto> tripFilterList = tripFindByStatus.stream().map(
-							(filterTrip) -> this.serviceManager.modelMapper.map(tripFindByStatus, TripDetailsDto.class))
+					List<TripDetailsDto> tripFilterList = tripFindByStatus.stream()
+							.map((filterTrip) -> this.serviceManager.modelMapper.map(filterTrip, TripDetailsDto.class))
 							.collect(Collectors.toList());
 					data.setData(tripFilterList);
 				}
@@ -502,7 +503,12 @@ public class TripControllers {
 		try {
 
 			List<String> list = serviceManager.tripDetailsRepo.getTripId(vendorCode);
-			data.setData(list);
+
+			List<InvoiceGenerationDto> draftInvoice = list.stream()
+					.map((draftinvoiceList) -> this.serviceManager.modelMapper.map(draftinvoiceList,
+							InvoiceGenerationDto.class))
+					.collect(Collectors.toList());
+			data.setData(draftInvoice);
 			data.setMsg("success");
 
 		} catch (Exception e) {

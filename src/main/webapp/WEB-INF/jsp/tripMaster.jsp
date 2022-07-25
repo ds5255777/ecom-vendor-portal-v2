@@ -1212,12 +1212,9 @@ request.setAttribute("financeRole", financeRole);
                    contentType: "application/json",
                    async: false,
                    success: function(data) {
-                       //debugger;
                        if (data.msg == 'success') {
 
                            var result = data.data;
-                           
-                           debugger;
                            
                            var fromDate = result.agreementMadeDate;
                            var toDate = result.agreementExpiryDate;

@@ -798,7 +798,6 @@ console.log(obj);
                 dataType: "json",
                 contentType: "application/json",
                 success: function(data) {
-//debugger;
                     if (data.msg == 'success') {
                         var result = data.data;
                         var accountDetail=result.accountDetails;
@@ -1062,7 +1061,6 @@ console.log(obj);
 	                      cancelButtonColor: '#d33',
 	                      confirmButtonText: 'Yes'
 	                    }).then((result) => {
-	                          debugger;
 	                          let test=[1];
 	                          test[0]=result;
 	                          var val=Object.values(test[0])
@@ -1086,7 +1084,6 @@ console.log(obj);
 	                      cancelButtonColor: '#d33',
 	                      confirmButtonText: 'Yes'
 	                    }).then((result) => {
-	                          debugger;
 	                          let test=[1];
 	                          test[0]=result;
 	                          var val=Object.values(test[0])

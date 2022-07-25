@@ -803,7 +803,6 @@
             }
 
             function setTripStatus(tripId) {
-            	debugger;
             	$('.loader').show();
                 var json = {
                     "tripID": tripId
@@ -817,7 +816,6 @@
                     contentType: "application/json",
                     success: function(data) {
                     	$('.loader').hide();
-                    	debugger;
                         if (data.msg == 'success') {
                             var result = data.data;
                             

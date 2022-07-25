@@ -1279,7 +1279,6 @@ tbody {
 }
   
   function getBpCode(){
-	  debugger;
   var vendorName=$("#vendorName").val();
   
   var json = {

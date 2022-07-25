@@ -1079,7 +1079,6 @@ th, td,tr {
       							result[i].flag="";
       						}
                         	 
-                        	 /* debugger; */
                         	 
                         	 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#\" onclick=\"editData('" + result[i].bpCode + "')\" >" + result[i].bpCode + "</button>";
                         	 /* var inactive = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"inactiveActiveDeleteData('"  + result[i].bpCode + "' ,'"  +  result[i].suppName + "' )\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>"; */
@@ -1321,7 +1320,6 @@ th, td,tr {
                 contentType: "application/json",
                 async: false,
                 success: function(data) {
-                    //debugger;
                     if (data.msg == 'success') {
                         var result = data.data;
                     	id=result.id;

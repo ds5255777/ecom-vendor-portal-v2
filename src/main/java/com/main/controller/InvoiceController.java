@@ -108,7 +108,6 @@ public class InvoiceController {
 				data.setData(listOfInvoice);
 				data.setMsg("success");
 			}
-			data.setMsg("error");
 		} catch (Exception e) {
 			data.setMsg("error");
 			logger.error("error : " + e);
@@ -580,7 +579,7 @@ public class InvoiceController {
 
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
-					|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
+					|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK) ){
 				InvoiceGenerationEntity invoiceObject = serviceManager.invoiceGenerationEntityRepo
 						.findByEcomInvoiceNumber(invoiceNumber);
 

@@ -2209,7 +2209,6 @@ label {
                 dataType: "json",
                 contentType: "application/json",
                 success: function(response) {
-                	
                 	 $('.loader').hide(); 
                     if (response.msg == 'success') {
                     	swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + response.data, "success", "OK").then(function() {

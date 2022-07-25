@@ -38,7 +38,6 @@ import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.payloads.QueryEntityDTO;
 import com.main.payloads.SupDetailsDTO;
-import com.main.payloads.UserDTO;
 import com.main.service.UserServiceImpl;
 import com.main.serviceManager.ServiceManager;
 
@@ -205,6 +204,7 @@ public class AjaxController {
 				processID = GlobalConstants.VENDOR_PID_PREFIX + id + GlobalConstants.VENDOR_PID_SUFFIX;
 				serviceManager.detailsRepo.updatePidInSupDetails(id, processID);
 				data.setData(processID);
+				data.setMsg("success");
 			} else {
 
 				if (supDetailsDto.getVenStatus().equals(GlobalConstants.APPROVED_REQUEST_STATUS)) {
@@ -675,7 +675,7 @@ public class AjaxController {
 		return gson.toJson(data).toString();
 	}
 
-	@RequestMapping({ "/saveRegistrationQuery" })
+	@PostMapping({ "/saveRegistrationQuery" })
 	@CrossOrigin("*")
 	public String saveRegistrationQuery(Principal principal, HttpServletRequest request,
 			@RequestBody QueryEntityDTO entityDto) {

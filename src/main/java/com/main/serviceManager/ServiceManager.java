@@ -22,7 +22,6 @@ import com.main.db.bpaas.repo.InvoiceGenerationEntityRepo;
 import com.main.db.bpaas.repo.InvoiceLineItemRepo;
 import com.main.db.bpaas.repo.InvoiceNumberRepo;
 import com.main.db.bpaas.repo.MailContentRepo;
-import com.main.db.bpaas.repo.NatureOfTransactionRepo;
 import com.main.db.bpaas.repo.PaymentMethodRepo;
 import com.main.db.bpaas.repo.PaymentTermRepo;
 import com.main.db.bpaas.repo.PoDetailsRepo;
@@ -96,9 +95,9 @@ public class ServiceManager {
 	@Autowired
 	public PaymentTermRepo paymentTermRepo;
 
-	@Autowired
-	public NatureOfTransactionRepo natureOfTransactionRepo;
-
+	/*
+	 * @Autowired public NatureOfTransactionRepo natureOfTransactionRepo;
+	 */
 	@Autowired
 	public CountryRepo countryRepo;
 

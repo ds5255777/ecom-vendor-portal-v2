@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +33,9 @@ import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.MailContent;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SendEmail;
+import com.main.payloads.DocumentDto;
+import com.main.payloads.InvoiceGenerationDto;
+import com.main.payloads.QueryDto;
 import com.main.serviceManager.ServiceManager;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
@@ -47,16 +52,28 @@ public class FinanceController {
 	// all invoice
 	@PostMapping({ "/viewAllInvoiceForFinanceTeam" })
 	@CrossOrigin("*")
-	public String getAllInvoice(HttpServletRequest request) {
+	public String getAllInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
+		String userName = principal.getName();
+		String userRole = this.serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllInvoice();
+			if (userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
+					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
 
-			data.setData(allInvoice);
-			data.setMsg("success");
+				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllInvoice();
+				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream()
+						.map((listOfInvoice) -> this.serviceManager.modelMapper.map(listOfInvoice,
+								InvoiceGenerationDto.class))
+						.collect(Collectors.toList());
+
+				data.setData(listofAllInvoice);
+				data.setMsg("success");
+			} else {
+				data.setMsg("error");
+			}
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -69,16 +86,26 @@ public class FinanceController {
 	// Approved Invoice
 	@PostMapping({ "/viewAllProcessInvoiceForFinanceTeam" })
 	@CrossOrigin("*")
-	public String getAllProcessInvoice(HttpServletRequest request) {
+	public String getAllProcessInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
+		String userName = principal.getName();
+		String userRole = this.serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllProcessInvoice();
+			if (userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
+					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
+				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllProcessInvoice();
 
-			data.setData(allInvoice);
-			data.setMsg("success");
+				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream()
+						.map((listOfInvoice) -> this.serviceManager.modelMapper.map(listOfInvoice,
+								InvoiceGenerationDto.class))
+						.collect(Collectors.toList());
+
+				data.setData(listofAllInvoice);
+				data.setMsg("success");
+			}
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -91,16 +118,25 @@ public class FinanceController {
 	// Pending For Approval
 	@PostMapping({ "/viewAllUnProcessInvoiceForFinanceTeam" })
 	@CrossOrigin("*")
-	public String getAllUnProcessInvoice(HttpServletRequest request) {
+	public String getAllUnProcessInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
+		String userName = principal.getName();
+		String userRole = this.serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllUnProcessInvoice();
+			if (userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
+					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
+				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllUnProcessInvoice();
+				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream()
+						.map((listOfInvoice) -> this.serviceManager.modelMapper.map(listOfInvoice,
+								InvoiceGenerationDto.class))
+						.collect(Collectors.toList());
 
-			data.setData(allInvoice);
-			data.setMsg("success");
+				data.setData(listofAllInvoice);
+				data.setMsg("success");
+			}
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -113,16 +149,25 @@ public class FinanceController {
 	// Pending For Approval
 	@PostMapping({ "/getAllInReviewInvoice" })
 	@CrossOrigin("*")
-	public String getAllInReviewInvoice(HttpServletRequest request) {
+	public String getAllInReviewInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
+		String userName = principal.getName();
+		String userRole = this.serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllInReviewInvoice();
+			if (userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
+					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
+				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllInReviewInvoice();
+				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream()
+						.map((listOfInvoice) -> this.serviceManager.modelMapper.map(listOfInvoice,
+								InvoiceGenerationDto.class))
+						.collect(Collectors.toList());
 
-			data.setData(allInvoice);
-			data.setMsg("success");
+				data.setData(listofAllInvoice);
+				data.setMsg("success");
+			}
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -135,16 +180,21 @@ public class FinanceController {
 	// Payment Release
 	@PostMapping({ "/getPaymentReleaseInvoice" })
 	@CrossOrigin("*")
-	public String getPaymentReleaseInvoice(HttpServletRequest request) {
+	public String getPaymentReleaseInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
+		String userName = principal.getName();
+		String userRole = this.serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getPaymentReleaseInvoice();
+			if (userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
+					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
+				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getPaymentReleaseInvoice();
 
-			data.setData(allInvoice);
-			data.setMsg("success");
+				data.setData(allInvoice);
+				data.setMsg("success");
+			}
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -156,16 +206,21 @@ public class FinanceController {
 
 	@PostMapping({ "/viewAllQueryInvoiceForFinanceTeam" })
 	@CrossOrigin("*")
-	public String getAllQueryInvoice(HttpServletRequest request) {
+	public String getAllQueryInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
+		String userName = principal.getName();
+		String userRole = this.serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllQueryInvoice();
+			if (userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
+					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
+				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllQueryInvoice();
 
-			data.setData(allInvoice);
-			data.setMsg("success");
+				data.setData(allInvoice);
+				data.setMsg("success");
+			}
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -177,17 +232,20 @@ public class FinanceController {
 
 	@PostMapping({ "/getQueryByTypeAndForeignKey" })
 	@CrossOrigin("*")
-	public String getQueryByTypeAndForeignKey(HttpServletRequest request, @RequestBody QueryEntity obj) {
+	public String getQueryByTypeAndForeignKey(HttpServletRequest request, @RequestBody QueryDto obj) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
 		try {
 
-			List<QueryEntity> list = serviceManager.queryRepo
+			List<QueryEntity> queryList = serviceManager.queryRepo
 					.findByReferenceidAndTypeOrderByIdDesc(obj.getReferenceid(), obj.getType());
+			List<QueryDto> listOfQuery = queryList.stream()
+					.map((listQuery) -> this.serviceManager.modelMapper.map(listQuery, QueryDto.class))
+					.collect(Collectors.toList());
 
-			data.setData(list);
+			data.setData(listOfQuery);
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -198,7 +256,7 @@ public class FinanceController {
 
 	@PostMapping({ "/saveQuery" })
 	@CrossOrigin("*")
-	public String saveInvoiceQuery(Principal principal, HttpServletRequest request, @RequestBody QueryEntity entity) {
+	public String saveInvoiceQuery(Principal principal, HttpServletRequest request, @RequestBody QueryDto entity) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -207,7 +265,8 @@ public class FinanceController {
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String processedOn = dateFormat.format(date);
-		List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
+		List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
+				.findByIsActive(GlobalConstants.ACTIVE_STATUS);
 		EmailConfiguration emailConfiguration = emailList.get(0);
 		String vendorEmail = (String) request.getSession().getAttribute("userEmail");
 
@@ -265,7 +324,8 @@ public class FinanceController {
 				entity.setRaisedOn(new Date());
 				entity.setRole(rolename);
 				entity.setReferenceid(entity.getRaisedAgainQuery());
-				serviceManager.queryRepo.save(entity);
+				QueryEntity saveQuery = this.serviceManager.modelMapper.map(entity, QueryEntity.class);
+				serviceManager.queryRepo.save(saveQuery);
 			}
 
 			List<MailContent> queryType = serviceManager.mailContentRepo.findByType(type);
@@ -326,15 +386,19 @@ public class FinanceController {
 	// getDocumentById
 	@PostMapping({ "/getDocumentByTypeAndForeignKey" })
 	@CrossOrigin("*")
-	public String getDocumentByTypeAndForeignKey(HttpServletRequest request, @RequestBody Document entity) {
+	public String getDocumentByTypeAndForeignKey(HttpServletRequest request, @RequestBody DocumentDto entity) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
 		try {
-			List<Document> list = serviceManager.documentRepo.findByTypeAndForeignKeyOrderByIdDesc(entity.getType(),
+			List<Document> listDoc = serviceManager.documentRepo.findByTypeAndForeignKeyOrderByIdDesc(entity.getType(),
 					entity.getForeignKey());
-			data.setData(list);
+			List<DocumentDto> listOfDocument = listDoc.stream()
+					.map((documentList) -> this.serviceManager.modelMapper.map(documentList, DocumentDto.class))
+					.collect(Collectors.toList());
+
+			data.setData(listOfDocument);
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -347,21 +411,19 @@ public class FinanceController {
 	@PostMapping({ "/approveInvoiceFinanceSide" })
 	@CrossOrigin("*")
 	public String approveInvoiceFinanceSide(Principal principal, HttpServletRequest request,
-			@RequestBody InvoiceGenerationEntity entity) {
+			@RequestBody InvoiceGenerationDto entity) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-
 		String userName = principal.getName();
+		String userRole = this.serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
-		String role = (String) request.getSession().getAttribute("role");
-		logger.info(role);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String processedOn = dateFormat.format(date);
 		try {
 
-			if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(role)) {
+			if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(userRole)) {
 				serviceManager.invoiceGenerationEntityRepo.updateInvoiceStatus(processedOn, userName,
 						entity.getEcomInvoiceNumber(), "Approved");
 			} else {
@@ -406,7 +468,7 @@ public class FinanceController {
 
 	// filterInvoiceDetails
 
-	@RequestMapping({ "filterInvoiceDetails" })
+	@GetMapping({ "filterInvoiceDetails" })
 	@CrossOrigin("*")
 	public String filterInvoiceDetails(HttpServletRequest request,
 			@RequestParam(name = "actualDeparture") String fromDate,
@@ -419,7 +481,10 @@ public class FinanceController {
 		try {
 			List<InvoiceGenerationEntity> findByInvoiceDateBetween = serviceManager.invoiceGenerationEntityRepo
 					.findByInvoiceDateBetween(fromDate, toDate);
-			data.setData(findByInvoiceDateBetween);
+			List<InvoiceGenerationDto> filterInvoiceData = findByInvoiceDateBetween.stream()
+					.map((filterData) -> this.serviceManager.modelMapper.map(filterData, InvoiceGenerationDto.class))
+					.collect(Collectors.toList());
+			data.setData(filterInvoiceData);
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -447,15 +512,18 @@ public class FinanceController {
 
 	@PostMapping({ "viewInvoiceForFinanceTeam" })
 	@CrossOrigin("*")
-	public String viewInvoiceForFinanceTeam(@RequestBody InvoiceGenerationEntity obj)
+	public String viewInvoiceForFinanceTeam(@RequestBody InvoiceGenerationDto obj)
 			throws UnsupportedEncodingException, MessagingException {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
 		try {
-			List<InvoiceGenerationEntity> obj1 = serviceManager.invoiceServiceImpl
+			List<InvoiceGenerationEntity> invoiceViewList = serviceManager.invoiceServiceImpl
 					.getTripsByFilters(obj.getVendorCode(), obj.getInvoiceStatus());
-			data.setData(obj1);
+			List<InvoiceGenerationDto> invoiceForFinanceTeam = invoiceViewList.stream()
+					.map((invoiceList) -> this.serviceManager.modelMapper.map(invoiceList, InvoiceGenerationDto.class))
+					.collect(Collectors.toList());
+			data.setData(invoiceForFinanceTeam);
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");

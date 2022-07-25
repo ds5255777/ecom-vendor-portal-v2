@@ -58,7 +58,7 @@ public class PoInvoiceContoller {
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(PoInvoiceContoller.class);
 	
-	@RequestMapping({ "/deleteDraftPoInvoice" })
+	@PostMapping({ "/deleteDraftPoInvoice" })
 	@CrossOrigin("*")
 	public String deleteDraftPoInvoice(HttpServletRequest request, @RequestBody PoDetailsDTO objDto) {
 		

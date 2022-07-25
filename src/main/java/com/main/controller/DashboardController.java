@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,6 +33,7 @@ import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.TripDetails;
+import com.main.payloads.TripDetailsDto;
 import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/dashboardController")
@@ -113,9 +115,6 @@ public class DashboardController {
 		String LumpSomeCheckBox = "";
 		String LumpSomeAmount = jsonObject.getString("LumpSomeAmount").toString();
 
-//fs
-//totalFreight
-//basicFreight
 		String fs = jsonObject.getString("fs").toString();
 		String totalFreight = jsonObject.getString("totalFreight").toString();
 		String basicFreight = jsonObject.getString("basicFreight").toString();
@@ -123,10 +122,6 @@ public class DashboardController {
 		String vendorName = jsonObject.getString("vendorName").toString();
 		String vendorCode = jsonObject.getString("vendorCode").toString();
 		String type = jsonObject.getString("type").toString();
-
-///
-		logger.info("fs " + fs + "\ntotalFreight " + totalFreight + "\nbasicFreight " + basicFreight + ""
-				+ "\ncommentsByUSer " + commentsByUSer + "vendorName : " + vendorName);
 
 		if ("".equalsIgnoreCase(LumpSomeAmount)) {
 			LumpSomeCheckBox = "false";
@@ -138,15 +133,7 @@ public class DashboardController {
 			LumpSomeAmount = "0";
 		}
 
-		logger.info("processedon" + processedon);
-		logger.info("tripid" + tripid);
-		logger.info("processedBy" + processedBy);
-		logger.info("AssigenedTo" + AssigenedTo);
-		logger.info("LumpSomeCheckBox" + LumpSomeCheckBox);
-		logger.info("LumpSomeAmount" + LumpSomeAmount);
-
 		String Query = jsonObject.getString("Query").toString();
-		logger.info("Query is :::" + Query);
 		if ("No".equalsIgnoreCase(Query)) {
 			serviceManager.tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon,
 					LumpSomeCheckBox, LumpSomeAmount, "Yet To Be Approved", Double.parseDouble(basicFreight),
@@ -160,14 +147,6 @@ public class DashboardController {
 			String currentFuelRate = jsonObject.getString("currentFuelRate").toString();
 			String fsDiff = jsonObject.getString("fsDiff").toString();
 
-			logger.info("standardKM " + standardKM);
-			logger.info("milage " + milage);
-			logger.info("ratePerKm " + ratePerKm);
-			logger.info("routeKms " + routeKms);
-			logger.info("fsBaseRate " + fsBaseRate);
-			logger.info("currentFuelRate " + currentFuelRate);
-			logger.info("fsDiff " + standardKM);
-
 			try {
 				serviceManager.tripDetailsRepo.updateDetailsByNetworkInQuery(tripid, processedBy, processedon,
 						LumpSomeCheckBox, LumpSomeAmount, Double.parseDouble(standardKM), Double.parseDouble(milage),
@@ -178,13 +157,11 @@ public class DashboardController {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			logger.info("***************************Query runned*******************");
 		}
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		DataContainer data = new DataContainer();
 		data.setMsg("success");
-		// System.out.println("Value of S si :"+s);
 
 		QueryEntity comm = new QueryEntity();
 		comm.setRaisedBy(userName);
@@ -192,13 +169,11 @@ public class DashboardController {
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			Date date = new Date();
-			logger.info(formatter.format(date));
 			comm.setRaisedOn(date);
 		} catch (Exception ex) {
 			logger.error("error : " + ex);
 		}
 
-//Find ID on the basic of tripid
 		TripDetails obj = serviceManager.tripDetailsRepo.findByTripID(tripid);
 		int id = (int) obj.getId();
 
@@ -229,11 +204,17 @@ public class DashboardController {
 		try {
 			if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(rolename)) {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getTopFiftyInvoice();
-				data.setData(allInvoice);
+				List<TripDetailsDto> listOfTopFiftyInvoice = allInvoice.stream()
+						.map((listofTrip) -> this.serviceManager.modelMapper.map(listofTrip, TripDetailsDto.class))
+						.collect(Collectors.toList());
+				data.setData(listOfTopFiftyInvoice);
 			} else {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceGenerationEntityRepo
 						.topFiftyInProcessedInvoice();
-				data.setData(allInvoice);
+				List<TripDetailsDto> listOfTopFiftyInvoice = allInvoice.stream()
+						.map((listofTrip) -> this.serviceManager.modelMapper.map(listofTrip, TripDetailsDto.class))
+						.collect(Collectors.toList());
+				data.setData(listOfTopFiftyInvoice);
 			}
 			data.setMsg("success");
 
@@ -250,17 +231,12 @@ public class DashboardController {
 	public String refreshValues(Principal principal, @RequestBody String reqObj) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		logger.info("**********Inside refresh values********************");
 		try {
 			JSONObject jsonObject = new JSONObject(reqObj);
 			String vendorCode = (String) jsonObject.get("vendorCode");//
 			String route = (String) jsonObject.get("route");
 
-			logger.info("Vendor code ::" + vendorCode);
-			logger.info("route ::" + route);
-
 			AgreementMaster masterData = serviceManager.agreementMasterRepo.getAllTripsByVendorCode(vendorCode, route);
-			// logger.info("masterData ::" + masterData.getVendorName());
 			data.setData(masterData);
 			data.setMsg("success");
 
@@ -277,15 +253,13 @@ public class DashboardController {
 	public String getBpCodeForNetwork(Principal principal, @RequestBody String reqObj) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		logger.info("**********Inside refresh values********************");
 		try {
 			JSONObject jsonObject = new JSONObject(reqObj);
 			String vendorName = (String) jsonObject.get("vendorName");//
 
-			logger.info("vendorName ::" + vendorName);
 			String vendorCodeFromSuppDetails = serviceManager.supDetailsRepo.getVendorCode(vendorName);
-			logger.info("vendor Code ::" + vendorCodeFromSuppDetails);
-			data.setData(vendorCodeFromSuppDetails);
+			SupplierDTO vendorCode = this.serviceManager.modelMapper.map(vendorCodeFromSuppDetails, SupplierDTO.class);
+			data.setData(vendorCode);
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -296,29 +270,24 @@ public class DashboardController {
 		return gson.toJson(data).toString();
 	}
 
-	@PostMapping({ "getAllVendors" })
-	public List<SupDetails> getAllVendors(Principal principal, HttpServletRequest request) {
-		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		try {
-
-			// String role = (String) request.getSession().getAttribute("Role");
-
-			// if (role.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
-			// List<SupDetails> findAllVendors =
-			// serviceManager.supDetailsRepo.allVendorData();
-
-			// data.setData(findAllVendors);
-			// }
-			data.setMsg("success");
-
-		} catch (Exception e) {
-			logger.error("error : " + e);
-			data.setMsg("error");
-		}
-
-		return serviceManager.supDetailsRepo.allVendorData();
-	}
+	/*
+	 * @PostMapping({ "getAllVendors" }) public List<SupDetails>
+	 * getAllVendors(Principal principal, HttpServletRequest request) {
+	 * DataContainer data = new DataContainer(); Gson gson = new
+	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create(); try {
+	 * 
+	 * // String role = (String) request.getSession().getAttribute("Role");
+	 * 
+	 * // if (role.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) { //
+	 * List<SupDetails> findAllVendors = //
+	 * serviceManager.supDetailsRepo.allVendorData();
+	 * 
+	 * // data.setData(findAllVendors); // } data.setMsg("success");
+	 * 
+	 * } catch (Exception e) { logger.error("error : " + e); data.setMsg("error"); }
+	 * 
+	 * return serviceManager.supDetailsRepo.allVendorData(); }
+	 */
 
 	/*
 	 * @RequestMapping({ "findVendorCodeAndName" }) public String

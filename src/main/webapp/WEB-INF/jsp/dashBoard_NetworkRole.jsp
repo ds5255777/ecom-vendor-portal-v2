@@ -404,7 +404,7 @@
                     'Closed(Adhoc) Trips'
                 ],
                 datasets: [{
-                        data: [${totalTripCount},${ApprovedTripscount}, ${yetTobeApproved}, ${getTripCountForQueryAdhoc},${getInClosedTripCountForAdhoc} ],
+                        data: [${ApprovedTripscount}, ${yetTobeApproved}, ${getTripCountForQueryAdhoc},${getInClosedTripCountForAdhoc} ],
                         backgroundColor: ['#00a65a', '#8d4f55', '#C422F4','#1477B0' ],
                     }]
             }

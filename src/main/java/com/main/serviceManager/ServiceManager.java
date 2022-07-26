@@ -33,6 +33,7 @@ import com.main.db.bpaas.repo.RegionRepo;
 import com.main.db.bpaas.repo.RolesRepository;
 import com.main.db.bpaas.repo.SectionTypeRepo;
 import com.main.db.bpaas.repo.SendEmailRepo;
+import com.main.db.bpaas.repo.SendEmailToVendorRepo;
 import com.main.db.bpaas.repo.StateRepo;
 import com.main.db.bpaas.repo.SupDetailsRepo;
 import com.main.db.bpaas.repo.TDSSectionCodeRepo;
@@ -172,6 +173,9 @@ public class ServiceManager {
 	
 	@Autowired
 	public ModelMapper modelMapper;
+	
+	@Autowired
+	public SendEmailToVendorRepo sendEmailToVendorRepo; 
 
 
 	/*

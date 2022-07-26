@@ -1759,6 +1759,15 @@ label {
             timer: 3000
         });
         
+        var vendorEmail="${vendorEmail}";
+        var vendorType1="${vendorType1}";
+        var region11="${region1}";
+        var vendorAddress="${vendorAddress}";
+ 		if(vendorEmail!=""){
+           
+            setVendorData(vendorEmail,vendorType1,region11,vendorAddress);
+            }
+        
         var pid="${pid}"; 
         let stateCheck = setInterval(() => {
         	  if (document.readyState === 'complete') {
@@ -1790,6 +1799,7 @@ label {
             	$("#step6Id").css("display","none");
             	location.href="#step-1" 
             }
+        
         
        var tabledataQuery = $('#tabledataQuery').DataTable({
             "paging": false,
@@ -2836,6 +2846,20 @@ label {
 			});
 		}
 		return PanNumberCheckStatus;
+	}
+	
+	function setVendorData(vendorEmail,vendorType1,region11,vendorAddress){
+		
+		 $('#parterType').val(vendorType1);
+		 
+		  var str=region11.replace(/,/,'","');
+		  console.log(str);
+		 /* var str1=str.replace('/',''); */ 
+		// $('#region').val(["WRO","ERO"]).change();
+		 $('#region').val([str]).change();
+		 
+	
+		
 	}
     </script>
 

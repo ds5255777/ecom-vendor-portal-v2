@@ -72,6 +72,17 @@ public class UIController {
 
 	@GetMapping("/registration")
 	public String registration(Model model, HttpServletRequest request) {
+		
+		String vendorEmail = request.getParameter("vendorEmail");
+		String vendorType1 = request.getParameter("vendorType");
+		String region1 = request.getParameter("region");
+		String vendorAddress = request.getParameter("vendorAddress");
+		System.out.println(vendorEmail+"  vendorType=  "+vendorType1+"  region= "+region1+" vendorAddress= "+vendorAddress);
+		
+		model.addAttribute("vendorEmail", vendorEmail);
+		model.addAttribute("vendorType1", vendorType1);
+		model.addAttribute("region1", region1);
+		model.addAttribute("vendorAddress", vendorAddress);
 
 		String pid = "";
 		try {
@@ -408,6 +419,13 @@ public class UIController {
 			model.addAttribute("queryRequest", queryRequest);
 			model.addAttribute("role", rolename);
 			return "dashboardRegistration";
+		} else if (rolename.equalsIgnoreCase("Commercial Team")) {
+			List<String> vendorType1 = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+			List<String> region = serviceManager.regionRepo.getRegion();
+			
+			model.addAttribute("region", region);
+			model.addAttribute("vendorType", vendorType1);
+			return "triggerEmail";
 		}
 
 		return "";
@@ -443,6 +461,17 @@ public class UIController {
 
 //		      serviceManager.insertAddUpdateInMaster(request, action, actionType, null, null, null);
 		return "emailConfig";
+
+	}
+	@GetMapping({ "/triggerEmail" })
+	public String triggerEmail(Model model, String error, String logout, HttpServletRequest request) {
+		
+		List<String> vendorType = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+		List<String> region = serviceManager.regionRepo.getRegion();
+		
+		model.addAttribute("region", region);
+		model.addAttribute("vendorType", vendorType);
+		return "triggerEmail";
 
 	}
 

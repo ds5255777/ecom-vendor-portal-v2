@@ -129,7 +129,6 @@ public class UIController {
 		} else {
 
 			// Query page of registration
-			System.out.println(pid);
 			model.addAttribute("pid", pid);
 			List<String> currency = serviceManager.currencyRepo.getCurrencyType();
 			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
@@ -182,15 +181,14 @@ public class UIController {
 		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
 		model.addAttribute("role", rolename);
 		model.addAttribute("username", principal.getName());
-		if ("".equals(bpCode) || bpCode == null) {
+		if (null == bpCode) {
 			bpCode = "";
 		}
 
 		String vendorType = serviceManager.supDetailsRepo.findVendorType(bpCode);
-		if ("".equals(vendorType) || vendorType == null) {
+		if (null == vendorType || "".equals(vendorType)) {
 			vendorType = "vendor";
 		}
-		System.out.println("vendorType in dashboard : " + vendorType);
 
 		model.addAttribute("dataLimit", dataLimit);
 
@@ -297,17 +295,15 @@ public class UIController {
 
 			// po Details
 
-			if (bpCode.isBlank() || bpCode.isEmpty()) {
+			if (null == bpCode || "" == bpCode) {
 				bpCode = "";
 			}
 
-			if (vendorType.equals("") || vendorType.equals(null)) {
+			if ("" == vendorType || null == vendorType) {
 				vendorType = "vendor";
 			}
-			System.out.println("vendorType in dashboard : " + vendorType);
 
 			if (vendorType.equalsIgnoreCase("Fixed Asset") || vendorType.equalsIgnoreCase("FIXED ASSETS")) {
-				System.out.println("vendor type : " + vendorType);
 
 				rolename = (String) request.getSession().getAttribute("role");
 				vendorCode = (String) request.getSession().getAttribute("userName");
@@ -329,7 +325,6 @@ public class UIController {
 						serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(pono, proceessOn,
 								processBy);
 					}
-					System.out.println("remaningquantity is :::" + remaningquantity + "VendorCode ::" + vendorCode);
 				}
 
 				// po Details
@@ -338,7 +333,6 @@ public class UIController {
 
 				int totalProcessPoCount = serviceManager.podetailsRepo.getAllProcessPoCount(vendorCode);
 				model.addAttribute("totalProcessPoCount", totalProcessPoCount);
-				System.out.println("totalProcessPoCount : " + totalProcessPoCount);
 				int totalUnprocessPOCount = serviceManager.podetailsRepo.getAllUnProcessPoCount(vendorCode);
 				model.addAttribute("totalUnprocessPOCount", totalUnprocessPOCount);
 				// Query
@@ -357,8 +351,6 @@ public class UIController {
 
 				model.addAttribute("userStatus", us.getStatus());
 				model.addAttribute("dataLimit", dataLimit);
-
-				System.out.println("end of dashboard_Po");
 
 				if (rolename.equalsIgnoreCase("Vendor")) {
 
@@ -473,9 +465,7 @@ public class UIController {
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("dataLimit", dataLimit);
 
-		System.out.println("Role is ::" + rolename);
 		if (rolename.equalsIgnoreCase("Network")) {
-			System.out.println("All trips in network");
 			return "allTripsNetwork";
 		} else if (rolename.equalsIgnoreCase("Vendor")) {
 			return "allTrips";
@@ -694,8 +684,6 @@ public class UIController {
 		String tripId = request.getParameter("id");
 		model.addAttribute("tripId", tripId);
 
-		System.out.println("tripId ........." + tripId);
-
 		int totalTripCount = serviceManager.tripDetailsRepo.getADHocTripCount("Adhoc");
 		model.addAttribute("totalTripCount", totalTripCount);
 
@@ -707,7 +695,6 @@ public class UIController {
 		List<TripDetails> yetTobeApproved = serviceManager.tripService.findAllTripsByStatus("");
 		List<String> vendorNamefortrips = serviceManager.tripDetailsRepo.getVendorName();
 		model.addAttribute("vendorNamefortrips", vendorNamefortrips);
-		System.out.println("Size of pending approval trips is ::" + yetTobeApproved.size());
 		model.addAttribute("yetTobeApprovedAllDetails", yetTobeApproved);
 		model.addAttribute("dataLimit", dataLimit);
 		return "pendingApprovalNetwork";
@@ -716,9 +703,7 @@ public class UIController {
 //getApprovedAdhocTrips
 	@GetMapping("/getApprovedAdhocTrips")
 	public String getApprovedAdhocTrips(Model model, Principal principal) {
-		System.out.println("In getApprovedAdhocTrips");
 		List<TripDetails> allApprovedTripscount = serviceManager.tripService.findAllTripsByStatus("Yet To Be Approved");
-		System.out.println("allApprovedTripscount  :::::::::::::::::::; " + allApprovedTripscount.size());
 		model.addAttribute("ApprovedAllDetailsForNetwork", allApprovedTripscount);
 		model.addAttribute("dataLimit", dataLimit);
 		return "getApprovedAdhocTrips";
@@ -726,10 +711,7 @@ public class UIController {
 
 	@GetMapping("/QueryTripsForNetwork")
 	public String QueryTripsForNetwork(Model model, Principal principal) {
-		System.out.println("********************In QueryTripsForNetwork**************");
 		List<TripDetails> AllDetailsForNetwork = serviceManager.tripDetailsRepo.getQueryTripsForNetwork("Query");
-		System.out.println(
-				"AllDetailsForNetwork Query and Adhoc Trips  :::::::::::::::::::; " + AllDetailsForNetwork.size());
 		List<String> vendorNamefortripsQuery = serviceManager.tripDetailsRepo.getVendorName();
 		model.addAttribute("vendorNamefortripsQuery", vendorNamefortripsQuery);
 		model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
@@ -740,11 +722,8 @@ public class UIController {
 //ClosedAdhoc
 	@GetMapping("/ClosedAdhoc")
 	public String ClosedAdhoc(Model model, Principal principal) {
-		System.out.println("********************In ClosedAndAdhoc**************");
 		List<TripDetails> AllDetailsForNetwork = serviceManager.tripService
 				.getInTransitTripByRunTypeAndRunStatus("Adhoc", "Closed");
-		System.out.println(
-				"AllDetailsForNetwork In closed and Adhoc Trips  :::::::::::::::::::; " + AllDetailsForNetwork.size());
 		model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
 		model.addAttribute("dataLimit", dataLimit);
 		return "ClosedAdhoc";
@@ -810,15 +789,6 @@ public class UIController {
 			}
 			String vendorName = findByTripID.getVendorName();
 			model.addAttribute("vendorName", vendorName);
-			System.out.println(vendorName);
-
-			/*
-			 * List<AddressDetails> vendorAddress =
-			 * serviceManager.addressDetailsRepo.getVendorAddress(vendorName);
-			 * 
-			 * model.addAttribute("vendorAddress", vendorAddress);
-			 */
-
 			// heasder
 			InvoiceGenerationEntity invoiceSave = new InvoiceGenerationEntity();
 			invoiceSave.setVendorName(vendorName);
@@ -826,7 +796,6 @@ public class UIController {
 			invoiceSave.setVendorCode(userName);
 			invoiceSave.setInvoiceStatus("Draft-Invoicing");
 			serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
-			// listof.forEach(System.out::println);
 		} catch (Exception e) {
 			logger.error("error : " + e);
 			e.printStackTrace();
@@ -835,7 +804,6 @@ public class UIController {
 		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber, userName);
 		List<Object> listofTrips = new ArrayList<>();
 		for (TripDetails tripDetails : list) {
-			System.out.println(tripDetails.getTripID());
 			String tripID = tripDetails.getTripID();
 			listofTrips.add(tripID);
 
@@ -861,7 +829,7 @@ public class UIController {
 	@GetMapping("/draftInvoiceGenerate")
 	public String draftInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 
-		String vendorName =principal.getName();
+		String vendorName = principal.getName();
 		Base64.Decoder decoder = Base64.getDecoder();
 		String invoiceNumber = new String(decoder.decode(request.getParameter("id")));
 
@@ -869,7 +837,6 @@ public class UIController {
 		model.addAttribute("fileSize", fileSize);
 		model.addAttribute("invoiceNumber", invoiceNumber);
 
-		System.out.println(invoiceNumber);
 		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber,
 				vendorName);
 
@@ -903,7 +870,6 @@ public class UIController {
 	@GetMapping("/allInvoices_Finance")
 	public String allInvoicesFinance(Model model, HttpServletRequest request, Principal principal) {
 		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-		System.out.println(currentDate);
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("dataLimit", dataLimit);
 		return "allInvoices_Finance";
@@ -970,7 +936,7 @@ public class UIController {
 	}
 
 	@GetMapping("/getDoc")
-	
+
 	void getDoc(HttpServletResponse response, HttpServletRequest request, @RequestParam("name") String name,
 			@RequestParam("path") String path) {
 
@@ -979,17 +945,10 @@ public class UIController {
 		try {
 			String[] docNameExtensionArray = name.split("\\.");
 			String docNameExtension = docNameExtensionArray[docNameExtensionArray.length - 1];
-			System.out.println("docNameExtension.." + docNameExtension);
 			String uri = request.getScheme() + "://" + // "http" + "://
 					request.getServerName() + // "myhost"
 					":" + // ":"
 					request.getServerPort() + "/"; // "8080"
-
-			System.out.println("uri..." + uri);
-
-			System.out.println("uri..." + path);
-
-			System.out.println("uri..." + name);
 
 			file = new File(path);
 			inputStream = new FileInputStream(file);
@@ -1005,7 +964,8 @@ public class UIController {
 
 		} finally {
 			try {
-				inputStream.close();
+				if (null != inputStream)
+					inputStream.close();
 			} catch (IOException e) {
 				logger.error("error : " + e);
 			}

@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +41,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getPendingRequest" })
-	
+
 	public String getPendingRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -67,7 +66,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getApprovedRequest" })
-	
+
 	public String getApprovedRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -92,7 +91,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getRejectedRequest" })
-	
+
 	public String getRejectedRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -117,7 +116,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getQueryRequest" })
-	
+
 	public String getQueryRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -143,7 +142,7 @@ public class RegistrationController {
 	// updateVendorRegistrationStatus
 
 	@PostMapping({ "/updateVendorRegistrationStatus" })
-	
+
 	public String updateVendorRegistrationStatus(Principal principal, @RequestBody SupDetailsDTO objDto) {
 
 		DataContainer data = new DataContainer();
@@ -167,7 +166,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getAllApprovedVendor" })
-	
+
 	public String getAllApprovedVendor(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -193,7 +192,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/approveRequest" })
-	
+
 	public String approveRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -220,7 +219,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/rejectedRequest" })
-	
+
 	public String rejectedRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -244,7 +243,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getAllRequest" })
-	
+
 	public String getAllRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();

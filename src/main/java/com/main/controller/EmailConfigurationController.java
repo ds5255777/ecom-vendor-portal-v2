@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +34,7 @@ public class EmailConfigurationController {
 	private static Logger logger = LoggerFactory.getLogger(EmailConfigurationController.class);
 
 	@PostMapping({ "/saveUpdateEmailData" })
-	
+
 	public String saveUpdateEmailData(HttpServletRequest request, @RequestBody EmailConfigurationDTO entityDto) {
 
 		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
@@ -43,7 +42,8 @@ public class EmailConfigurationController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			serviceManager.emailConfigurationRepository.save(this.serviceManager.modelMapper.map(entityDto, EmailConfiguration.class));
+			serviceManager.emailConfigurationRepository
+					.save(this.serviceManager.modelMapper.map(entityDto, EmailConfiguration.class));
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -57,15 +57,17 @@ public class EmailConfigurationController {
 	}
 
 	@PostMapping({ "/getEmailCofigurationDataById" })
-	
-	public String getEmailCofigurationDataById(HttpServletRequest request, @RequestBody EmailConfigurationDTO entityDto) {
+
+	public String getEmailCofigurationDataById(HttpServletRequest request,
+			@RequestBody EmailConfigurationDTO entityDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			Optional<EmailConfiguration> email = serviceManager.emailConfigurationRepository.findById(entityDto.getId());
-			
+			Optional<EmailConfiguration> email = serviceManager.emailConfigurationRepository
+					.findById(entityDto.getId());
+
 			data.setData(email.get());
 			data.setData(this.serviceManager.modelMapper.map(email.get(), EmailConfigurationDTO.class));
 			data.setMsg("success");
@@ -80,8 +82,9 @@ public class EmailConfigurationController {
 	}
 
 	@PostMapping({ "/getEmailCofigurationDataByStatus" })
-	
-	public String getEmailCofigurationDataByStatus(HttpServletRequest request, @RequestBody EmailConfigurationDTO entityDto) {
+
+	public String getEmailCofigurationDataByStatus(HttpServletRequest request,
+			@RequestBody EmailConfigurationDTO entityDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -105,7 +108,7 @@ public class EmailConfigurationController {
 	}
 
 	@PostMapping({ "/updateEmailConfigurationSatatusByid" })
-	
+
 	public String updateEmailConfigurationSatatusByid(HttpServletRequest request,
 			@RequestBody EmailConfigurationDTO entityDto) {
 

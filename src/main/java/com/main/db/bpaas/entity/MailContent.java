@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.itextpdf.layout.element.Text;
-
 @Entity
 @Table(name = "mail_content")
 public class MailContent {

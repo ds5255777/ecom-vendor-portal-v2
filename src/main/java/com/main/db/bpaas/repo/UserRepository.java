@@ -10,8 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.main.db.bpaas.entity.RolesEntity;
-import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
 
 @Repository

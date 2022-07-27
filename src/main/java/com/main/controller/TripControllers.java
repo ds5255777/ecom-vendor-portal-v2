@@ -19,7 +19,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,7 +52,7 @@ public class TripControllers {
 	private static Logger logger = LoggerFactory.getLogger(TripControllers.class);
 
 	@GetMapping({ "filterTripDetails" })
-	
+
 	public String filterTripDetails(Principal principal, @RequestParam(name = "actualDeparture") String fromDate,
 			@RequestParam(name = "actualArrival") String toDate, @RequestParam(name = "vendorCode") String vendorCode) {
 
@@ -93,7 +92,7 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/getCloseTripsDetails" })
-	
+
 	public String getCloseTripsDetails(Principal principal) {
 		DataContainer data = new DataContainer();
 		String userName = principal.getName();
@@ -119,7 +118,7 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/getAllTripsDetails" })
-	
+
 	public String getAllTripsDetails(Principal principal) {
 		DataContainer data = new DataContainer();
 		String userName = principal.getName();
@@ -156,7 +155,7 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/getCloseAndApprovedTripsDetails" })
-	
+
 	public String getCloseAndApprovedTripsDetails(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -185,7 +184,7 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/getInTransitTripsDetails" })
-	
+
 	public String getInTransitTripsDetails(Principal principal) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -211,7 +210,7 @@ public class TripControllers {
 	}
 
 	@PostMapping(value = "/status")
-	
+
 	public String statusNetwork(Principal principal, @RequestBody TripDetailsDto obj) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -226,8 +225,8 @@ public class TripControllers {
 
 				List<TripDetails> tripFindByStatus = serviceManager.tripService.getTripsByFiltersNetwork(runStatus,
 						vendortripStatus, paymentStatus);
-				List<TripDetailsDto> tripFilterList = tripFindByStatus.stream().map(
-						(filterTrip) -> this.serviceManager.modelMapper.map(filterTrip, TripDetailsDto.class))
+				List<TripDetailsDto> tripFilterList = tripFindByStatus.stream()
+						.map((filterTrip) -> this.serviceManager.modelMapper.map(filterTrip, TripDetailsDto.class))
 						.collect(Collectors.toList());
 				data.setData(tripFilterList);
 			} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
@@ -257,9 +256,8 @@ public class TripControllers {
 	/*
 	 * @PostMapping({ "/updateVendorTripStatusByTripId" })
 	 * 
-	 *  public String
-	 * getApprovePendingApprovelTripsDetails(Principal principal, @RequestBody
-	 * TripDetailsDto tripObj) {
+	 * public String getApprovePendingApprovelTripsDetails(Principal
+	 * principal, @RequestBody TripDetailsDto tripObj) {
 	 * 
 	 * DataContainer data = new DataContainer(); Gson gson = new
 	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create(); String userName
@@ -277,7 +275,7 @@ public class TripControllers {
 	 */
 
 	@PostMapping({ "/updateVendorTripStatusAndOpenCloseReadingByTripId" })
-	
+
 	public String getApprovTripsDetails(Principal principal, HttpServletRequest request,
 			@RequestBody TripDetailsDto tripDtoObj) {
 
@@ -344,7 +342,7 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/getPendingApprovelTripsDetails" })
-	
+
 	public String getPendingApprovelTripsDetails(Principal principal) {
 
 		String userName = principal.getName();
@@ -377,7 +375,7 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/tripDetailByTripId" })
-	
+
 	public String getTripsDetailsByTripId(Principal principal, @RequestBody TripDetailsDto tripDtoObj) {
 
 		DataContainer data = new DataContainer();
@@ -405,8 +403,8 @@ public class TripControllers {
 	/*
 	 * @PostMapping({ "/updateVendorTripStatusByTrips" })
 	 * 
-	 *  public String updateVendortripStatusByTrips(Principal
-	 * principal, @RequestBody TripDetailsDto tripDtoObj) {
+	 * public String updateVendortripStatusByTrips(Principal principal, @RequestBody
+	 * TripDetailsDto tripDtoObj) {
 	 * 
 	 * DataContainer data = new DataContainer(); Gson gson = new
 	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create(); String userName
@@ -437,7 +435,7 @@ public class TripControllers {
 	 */
 
 	@PostMapping({ "/getRemarksByRefID" })
-	
+
 	public String getRemarksByRefID(Principal principal, @RequestBody String obj) {
 
 		DataContainer data = new DataContainer();
@@ -462,7 +460,7 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/getDraftLineTripDetails" })
-	
+
 	public String getDraftLineTripDetails(Principal principal, @RequestBody TripDetailsDto tripDtoObj)
 			throws UnsupportedEncodingException, MessagingException {
 
@@ -547,7 +545,7 @@ public class TripControllers {
 	}
 
 	@GetMapping({ "/filterByColumn" })
-	
+
 	public String filterByColumn(Principal principal, @RequestParam(name = "columnName") String columnName,
 			@RequestParam(name = "columnValue") String columnValue,
 			@RequestParam(name = "tripStatus") String tripStatus,
@@ -634,7 +632,7 @@ public class TripControllers {
 	}
 
 	@GetMapping({ "multipleTripApproved" })
-	
+
 	public String multipleTripApproved(Principal principal, @RequestParam("tripID") String obj,
 			@RequestParam("vendorTripStatus") String vendorTripStatus) {
 		DataContainer data = new DataContainer();

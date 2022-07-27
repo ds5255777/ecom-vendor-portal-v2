@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,7 +50,7 @@ public class FinanceController {
 
 	// all invoice
 	@PostMapping({ "/viewAllInvoiceForFinanceTeam" })
-	
+
 	public String getAllInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -85,7 +84,7 @@ public class FinanceController {
 
 	// Approved Invoice
 	@PostMapping({ "/viewAllProcessInvoiceForFinanceTeam" })
-	
+
 	public String getAllProcessInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -117,7 +116,7 @@ public class FinanceController {
 
 	// Pending For Approval
 	@PostMapping({ "/viewAllUnProcessInvoiceForFinanceTeam" })
-	
+
 	public String getAllUnProcessInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -148,7 +147,7 @@ public class FinanceController {
 
 	// Pending For Approval
 	@PostMapping({ "/getAllInReviewInvoice" })
-	
+
 	public String getAllInReviewInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -179,7 +178,7 @@ public class FinanceController {
 
 	// Payment Release
 	@PostMapping({ "/getPaymentReleaseInvoice" })
-	
+
 	public String getPaymentReleaseInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -205,7 +204,7 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "/viewAllQueryInvoiceForFinanceTeam" })
-	
+
 	public String getAllQueryInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -231,7 +230,7 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "/getQueryByTypeAndForeignKey" })
-	
+
 	public String getQueryByTypeAndForeignKey(HttpServletRequest request, @RequestBody QueryDto obj) {
 
 		DataContainer data = new DataContainer();
@@ -255,7 +254,7 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "/saveQuery" })
-	
+
 	public String saveInvoiceQuery(Principal principal, HttpServletRequest request, @RequestBody QueryDto entity) {
 
 		DataContainer data = new DataContainer();
@@ -385,7 +384,7 @@ public class FinanceController {
 
 	// getDocumentById
 	@PostMapping({ "/getDocumentByTypeAndForeignKey" })
-	
+
 	public String getDocumentByTypeAndForeignKey(HttpServletRequest request, @RequestBody DocumentDto entity) {
 
 		DataContainer data = new DataContainer();
@@ -409,7 +408,7 @@ public class FinanceController {
 
 	// getDocumentById
 	@PostMapping({ "/approveInvoiceFinanceSide" })
-	
+
 	public String approveInvoiceFinanceSide(Principal principal, HttpServletRequest request,
 			@RequestBody InvoiceGenerationDto entity) {
 
@@ -469,7 +468,7 @@ public class FinanceController {
 	// filterInvoiceDetails
 
 	@GetMapping({ "filterInvoiceDetails" })
-	
+
 	public String filterInvoiceDetails(HttpServletRequest request,
 			@RequestParam(name = "actualDeparture") String fromDate,
 			@RequestParam(name = "actualArrival") String toDate) {
@@ -494,7 +493,7 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "getFilterInvoiceByVendorCode" })
-	
+
 	public String getFilterInvoiceByVendorCode(HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
@@ -511,7 +510,7 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "viewInvoiceForFinanceTeam" })
-	
+
 	public String viewInvoiceForFinanceTeam(@RequestBody InvoiceGenerationDto obj)
 			throws UnsupportedEncodingException, MessagingException {
 		DataContainer data = new DataContainer();

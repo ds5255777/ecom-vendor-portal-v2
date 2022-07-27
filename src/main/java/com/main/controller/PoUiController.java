@@ -42,12 +42,12 @@ public class PoUiController {
 
 		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
 		User us = serviceManager.userService.findByUsername(principal.getName());
-		if (bpCode == "" || bpCode == null) {
+		if (bpCode.equals("") || bpCode.equals(null)) {
 			bpCode = "";
 		}
 
 		String vendorType = serviceManager.supDetailsRepo.findVendorType(bpCode);
-		if (vendorType == "" || vendorType == null) {
+		if (vendorType.equals("") || vendorType.equals(null)) {
 			vendorType = "vendor";
 		}
 		System.out.println("vendorType in dashboard : " + vendorType);

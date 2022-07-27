@@ -45,7 +45,7 @@ public class PoController {
 	private static Logger logger = LoggerFactory.getLogger(PoController.class);
 
 	@PostMapping({ "/getAllPODetails" })
-	@CrossOrigin("*")
+	
 	public String getActiveMasterData(HttpServletRequest request, Principal principal) {
 
 		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
@@ -71,7 +71,7 @@ public class PoController {
 	}
 
 	@PostMapping({ "/poDetailsByPoNo" })
-	@CrossOrigin("*")
+	
 	public String poDetailsByPoNo(HttpServletRequest request, @RequestBody PoDetailsDTO detailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -95,7 +95,7 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getAllProcessPo" })
-	@CrossOrigin("*")
+	
 	public String getAllProcessPo(HttpServletRequest request, Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -121,7 +121,7 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getAllUnProcessPo" })
-	@CrossOrigin("*")
+	
 	public String getAllUnProcessPo(HttpServletRequest request,Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -148,7 +148,7 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getAllInvoiceDetails" })
-	@CrossOrigin("*")
+	
 	public String getAllInvoiceDetails(HttpServletRequest request,Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -189,7 +189,7 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getSelectInvoiceDetailsPo" })
-	@CrossOrigin("*")
+	
 	public String getSelectInvoiceDetailsPo(HttpServletRequest request,Principal principal, @RequestBody PoInvoiceDetailsDTO detailsDto) {
                 DataContainer data = new DataContainer();
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -226,7 +226,7 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getAllPODetailsByPoNo" })
-	@CrossOrigin("*")
+	
 	public String getAllPODetailsByPoNo(HttpServletRequest request,Principal principal, @RequestBody PoDetailsDTO detailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -255,7 +255,7 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getAllPODetailsByLineNumber" })
-	@CrossOrigin("*")
+	
 	public String getAllPODetailsByLineNumber(HttpServletRequest request, @RequestBody PoInvoiceLineDTO detailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -283,7 +283,7 @@ public class PoController {
 	}
 
 	@PostMapping({ "/savePoInvoiceQuery" })
-	@CrossOrigin("*")
+	
 	public String savePoInvoiceQuery(HttpServletRequest request,Principal principal, @RequestBody QueryEntityDTO detailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -312,7 +312,7 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getPoQueryData" })
-	@CrossOrigin("*")
+	
 	public String getPoQueryData(HttpServletRequest request,Principal principal, @RequestBody QueryEntityDTO detailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -343,7 +343,7 @@ public class PoController {
 	}
 
 	@GetMapping({ "filterPoDetails" })
-	@CrossOrigin("*")
+	
 	public String filterPoDetails(Principal principal, HttpServletRequest request,
 			@RequestParam(name = "actualDeparture") Date fromDate, @RequestParam(name = "actualArrival") Date toDate) {
 
@@ -369,7 +369,7 @@ public class PoController {
 	}
 
 	@PostMapping({ "/updateRemaningQuantity" })
-	@CrossOrigin("*")
+	
 	public String updateRemaningQuantity(HttpServletRequest request,Principal principal, @RequestBody PoAndLineItem details) {
 
 		DataContainer data = new DataContainer();
@@ -404,7 +404,7 @@ public class PoController {
 	}
 
 	@PostMapping({ "/updateRemaningQuantitydraft" })
-	@CrossOrigin("*")
+	
 	public String updateRemaningQuantitydraft(HttpServletRequest request,Principal principal, @RequestBody PoAndLineItem details) {
 
 		DataContainer data = new DataContainer();
@@ -441,7 +441,7 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getCurrentRemaningQty" })
-	@CrossOrigin("*")
+	
 	public String getCurrentRemaningQty(HttpServletRequest request, @RequestBody PoAndLineItem details) {
 
 		DataContainer data = new DataContainer();

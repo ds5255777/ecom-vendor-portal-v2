@@ -42,7 +42,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getPendingRequest" })
-	@CrossOrigin("*")
+	
 	public String getPendingRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -67,7 +67,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getApprovedRequest" })
-	@CrossOrigin("*")
+	
 	public String getApprovedRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -92,7 +92,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getRejectedRequest" })
-	@CrossOrigin("*")
+	
 	public String getRejectedRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -117,7 +117,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getQueryRequest" })
-	@CrossOrigin("*")
+	
 	public String getQueryRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -143,7 +143,7 @@ public class RegistrationController {
 	// updateVendorRegistrationStatus
 
 	@PostMapping({ "/updateVendorRegistrationStatus" })
-	@CrossOrigin("*")
+	
 	public String updateVendorRegistrationStatus(Principal principal, @RequestBody SupDetailsDTO objDto) {
 
 		DataContainer data = new DataContainer();
@@ -167,7 +167,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getAllApprovedVendor" })
-	@CrossOrigin("*")
+	
 	public String getAllApprovedVendor(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -193,7 +193,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/approveRequest" })
-	@CrossOrigin("*")
+	
 	public String approveRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -220,7 +220,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/rejectedRequest" })
-	@CrossOrigin("*")
+	
 	public String rejectedRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -244,7 +244,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getAllRequest" })
-	@CrossOrigin("*")
+	
 	public String getAllRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();

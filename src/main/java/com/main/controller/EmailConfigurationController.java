@@ -35,7 +35,7 @@ public class EmailConfigurationController {
 	private static Logger logger = LoggerFactory.getLogger(EmailConfigurationController.class);
 
 	@PostMapping({ "/saveUpdateEmailData" })
-	@CrossOrigin("*")
+	
 	public String saveUpdateEmailData(HttpServletRequest request, @RequestBody EmailConfigurationDTO entityDto) {
 
 		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
@@ -57,7 +57,7 @@ public class EmailConfigurationController {
 	}
 
 	@PostMapping({ "/getEmailCofigurationDataById" })
-	@CrossOrigin("*")
+	
 	public String getEmailCofigurationDataById(HttpServletRequest request, @RequestBody EmailConfigurationDTO entityDto) {
 
 		DataContainer data = new DataContainer();
@@ -80,7 +80,7 @@ public class EmailConfigurationController {
 	}
 
 	@PostMapping({ "/getEmailCofigurationDataByStatus" })
-	@CrossOrigin("*")
+	
 	public String getEmailCofigurationDataByStatus(HttpServletRequest request, @RequestBody EmailConfigurationDTO entityDto) {
 
 		DataContainer data = new DataContainer();
@@ -105,7 +105,7 @@ public class EmailConfigurationController {
 	}
 
 	@PostMapping({ "/updateEmailConfigurationSatatusByid" })
-	@CrossOrigin("*")
+	
 	public String updateEmailConfigurationSatatusByid(HttpServletRequest request,
 			@RequestBody EmailConfigurationDTO entityDto) {
 

@@ -59,7 +59,7 @@ public class PoInvoiceContoller {
 	private static Logger logger = LoggerFactory.getLogger(PoInvoiceContoller.class);
 	
 	@PostMapping({ "/deleteDraftPoInvoice" })
-	@CrossOrigin("*")
+	
 	public String deleteDraftPoInvoice(HttpServletRequest request, @RequestBody PoDetailsDTO objDto) {
 		
 		logger.info("Log Some Information : "+dateTimeFormatter.format(LocalDateTime.now()));
@@ -88,7 +88,7 @@ public class PoInvoiceContoller {
 	}
 
 	@PostMapping({ "/getAllDraftInvoicePO" })
-	@CrossOrigin("*")
+	
 	public String getAllDraftInvoicePO(HttpServletRequest request,Principal principal ) {
 
 		DataContainer data = new DataContainer();
@@ -115,7 +115,7 @@ public class PoInvoiceContoller {
 	}
 	
 	@PostMapping({ "/savePoInvoice" })
-	@CrossOrigin("*")
+	
 	public String savePoInvoice(HttpServletRequest request ,Principal principal,@RequestBody PoInvoiceDetailsDTO invoiceDetailsDto ) {
 
 		DataContainer data = new DataContainer();
@@ -239,7 +239,7 @@ public class PoInvoiceContoller {
 	
 	
 	@PostMapping({ "/getAllDraftPODetailsByInvoiceNo" })
-	@CrossOrigin("*")
+	
 	public String getAllDraftPODetailsByInvoiceNo(HttpServletRequest request ,Principal principal,@RequestBody PoInvoiceDetailsDTO invoiceDetailsDto ) {
 
 		DataContainer data = new DataContainer();
@@ -267,7 +267,7 @@ public class PoInvoiceContoller {
 	}
 	
 	@PostMapping({ "/saveDraftInvoice" })
-	@CrossOrigin("*")
+	
 	public String saveDraftInvoice(HttpServletRequest request ,Principal principal,@RequestBody PoInvoiceDetailsDTO invoiceDetailsDto ) {
 
 		DataContainer data = new DataContainer();

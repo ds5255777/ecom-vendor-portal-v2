@@ -53,7 +53,7 @@ public class TripControllers {
 	private static Logger logger = LoggerFactory.getLogger(TripControllers.class);
 
 	@GetMapping({ "filterTripDetails" })
-	@CrossOrigin("*")
+	
 	public String filterTripDetails(Principal principal, @RequestParam(name = "actualDeparture") String fromDate,
 			@RequestParam(name = "actualArrival") String toDate, @RequestParam(name = "vendorCode") String vendorCode) {
 
@@ -93,7 +93,7 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/getCloseTripsDetails" })
-	@CrossOrigin("*")
+	
 	public String getCloseTripsDetails(Principal principal) {
 		DataContainer data = new DataContainer();
 		String userName = principal.getName();
@@ -119,7 +119,7 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/getAllTripsDetails" })
-	@CrossOrigin("*")
+	
 	public String getAllTripsDetails(Principal principal) {
 		DataContainer data = new DataContainer();
 		String userName = principal.getName();
@@ -156,7 +156,7 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/getCloseAndApprovedTripsDetails" })
-	@CrossOrigin("*")
+	
 	public String getCloseAndApprovedTripsDetails(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -185,7 +185,7 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/getInTransitTripsDetails" })
-	@CrossOrigin("*")
+	
 	public String getInTransitTripsDetails(Principal principal) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -211,7 +211,7 @@ public class TripControllers {
 	}
 
 	@PostMapping(value = "/status")
-	@CrossOrigin("*")
+	
 	public String statusNetwork(Principal principal, @RequestBody TripDetailsDto obj) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -257,7 +257,7 @@ public class TripControllers {
 	/*
 	 * @PostMapping({ "/updateVendorTripStatusByTripId" })
 	 * 
-	 * @CrossOrigin("*") public String
+	 *  public String
 	 * getApprovePendingApprovelTripsDetails(Principal principal, @RequestBody
 	 * TripDetailsDto tripObj) {
 	 * 
@@ -277,7 +277,7 @@ public class TripControllers {
 	 */
 
 	@PostMapping({ "/updateVendorTripStatusAndOpenCloseReadingByTripId" })
-	@CrossOrigin("*")
+	
 	public String getApprovTripsDetails(Principal principal, HttpServletRequest request,
 			@RequestBody TripDetailsDto tripDtoObj) {
 
@@ -344,7 +344,7 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/getPendingApprovelTripsDetails" })
-	@CrossOrigin("*")
+	
 	public String getPendingApprovelTripsDetails(Principal principal) {
 
 		String userName = principal.getName();
@@ -377,7 +377,7 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/tripDetailByTripId" })
-	@CrossOrigin("*")
+	
 	public String getTripsDetailsByTripId(Principal principal, @RequestBody TripDetailsDto tripDtoObj) {
 
 		DataContainer data = new DataContainer();
@@ -405,7 +405,7 @@ public class TripControllers {
 	/*
 	 * @PostMapping({ "/updateVendorTripStatusByTrips" })
 	 * 
-	 * @CrossOrigin("*") public String updateVendortripStatusByTrips(Principal
+	 *  public String updateVendortripStatusByTrips(Principal
 	 * principal, @RequestBody TripDetailsDto tripDtoObj) {
 	 * 
 	 * DataContainer data = new DataContainer(); Gson gson = new
@@ -437,7 +437,7 @@ public class TripControllers {
 	 */
 
 	@PostMapping({ "/getRemarksByRefID" })
-	@CrossOrigin("*")
+	
 	public String getRemarksByRefID(Principal principal, @RequestBody String obj) {
 
 		DataContainer data = new DataContainer();
@@ -462,7 +462,7 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/getDraftLineTripDetails" })
-	@CrossOrigin("*")
+	
 	public String getDraftLineTripDetails(Principal principal, @RequestBody TripDetailsDto tripDtoObj)
 			throws UnsupportedEncodingException, MessagingException {
 
@@ -547,7 +547,7 @@ public class TripControllers {
 	}
 
 	@GetMapping({ "/filterByColumn" })
-	@CrossOrigin("*")
+	
 	public String filterByColumn(Principal principal, @RequestParam(name = "columnName") String columnName,
 			@RequestParam(name = "columnValue") String columnValue,
 			@RequestParam(name = "tripStatus") String tripStatus,
@@ -634,7 +634,7 @@ public class TripControllers {
 	}
 
 	@GetMapping({ "multipleTripApproved" })
-	@CrossOrigin("*")
+	
 	public String multipleTripApproved(Principal principal, @RequestParam("tripID") String obj,
 			@RequestParam("vendorTripStatus") String vendorTripStatus) {
 		DataContainer data = new DataContainer();

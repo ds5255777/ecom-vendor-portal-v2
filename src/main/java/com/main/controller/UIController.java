@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -222,7 +221,7 @@ public class UIController {
 			List<TripDetails> findAllTripsLimitFifty = serviceManager.tripService.findAllTripsLimitFifty();
 			model.addAttribute("yetTobeApprovedAllDetails", findAllTripsLimitFifty);
 			model.addAttribute("role", rolename);
-			// model.addAttribute("userStatus", us.getStatus());
+			model.addAttribute("userStatus", us.getStatus());
 			// changes end
 			return "dashBoard_NetworkRole";
 
@@ -298,11 +297,11 @@ public class UIController {
 
 			// po Details
 
-			if (bpCode == "" || bpCode == null) {
+			if (bpCode.isBlank() || bpCode.isEmpty()) {
 				bpCode = "";
 			}
 
-			if (vendorType == "" || vendorType == null) {
+			if (vendorType.equals("") || vendorType.equals(null)) {
 				vendorType = "vendor";
 			}
 			System.out.println("vendorType in dashboard : " + vendorType);
@@ -971,7 +970,7 @@ public class UIController {
 	}
 
 	@GetMapping("/getDoc")
-	@CrossOrigin("*")
+	
 	void getDoc(HttpServletResponse response, HttpServletRequest request, @RequestParam("name") String name,
 			@RequestParam("path") String path) {
 

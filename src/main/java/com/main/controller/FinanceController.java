@@ -51,7 +51,7 @@ public class FinanceController {
 
 	// all invoice
 	@PostMapping({ "/viewAllInvoiceForFinanceTeam" })
-	@CrossOrigin("*")
+	
 	public String getAllInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -85,7 +85,7 @@ public class FinanceController {
 
 	// Approved Invoice
 	@PostMapping({ "/viewAllProcessInvoiceForFinanceTeam" })
-	@CrossOrigin("*")
+	
 	public String getAllProcessInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -117,7 +117,7 @@ public class FinanceController {
 
 	// Pending For Approval
 	@PostMapping({ "/viewAllUnProcessInvoiceForFinanceTeam" })
-	@CrossOrigin("*")
+	
 	public String getAllUnProcessInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -148,7 +148,7 @@ public class FinanceController {
 
 	// Pending For Approval
 	@PostMapping({ "/getAllInReviewInvoice" })
-	@CrossOrigin("*")
+	
 	public String getAllInReviewInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -179,7 +179,7 @@ public class FinanceController {
 
 	// Payment Release
 	@PostMapping({ "/getPaymentReleaseInvoice" })
-	@CrossOrigin("*")
+	
 	public String getPaymentReleaseInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -205,7 +205,7 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "/viewAllQueryInvoiceForFinanceTeam" })
-	@CrossOrigin("*")
+	
 	public String getAllQueryInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -231,7 +231,7 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "/getQueryByTypeAndForeignKey" })
-	@CrossOrigin("*")
+	
 	public String getQueryByTypeAndForeignKey(HttpServletRequest request, @RequestBody QueryDto obj) {
 
 		DataContainer data = new DataContainer();
@@ -255,7 +255,7 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "/saveQuery" })
-	@CrossOrigin("*")
+	
 	public String saveInvoiceQuery(Principal principal, HttpServletRequest request, @RequestBody QueryDto entity) {
 
 		DataContainer data = new DataContainer();
@@ -385,7 +385,7 @@ public class FinanceController {
 
 	// getDocumentById
 	@PostMapping({ "/getDocumentByTypeAndForeignKey" })
-	@CrossOrigin("*")
+	
 	public String getDocumentByTypeAndForeignKey(HttpServletRequest request, @RequestBody DocumentDto entity) {
 
 		DataContainer data = new DataContainer();
@@ -409,7 +409,7 @@ public class FinanceController {
 
 	// getDocumentById
 	@PostMapping({ "/approveInvoiceFinanceSide" })
-	@CrossOrigin("*")
+	
 	public String approveInvoiceFinanceSide(Principal principal, HttpServletRequest request,
 			@RequestBody InvoiceGenerationDto entity) {
 
@@ -469,7 +469,7 @@ public class FinanceController {
 	// filterInvoiceDetails
 
 	@GetMapping({ "filterInvoiceDetails" })
-	@CrossOrigin("*")
+	
 	public String filterInvoiceDetails(HttpServletRequest request,
 			@RequestParam(name = "actualDeparture") String fromDate,
 			@RequestParam(name = "actualArrival") String toDate) {
@@ -494,7 +494,7 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "getFilterInvoiceByVendorCode" })
-	@CrossOrigin("*")
+	
 	public String getFilterInvoiceByVendorCode(HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
@@ -511,7 +511,7 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "viewInvoiceForFinanceTeam" })
-	@CrossOrigin("*")
+	
 	public String viewInvoiceForFinanceTeam(@RequestBody InvoiceGenerationDto obj)
 			throws UnsupportedEncodingException, MessagingException {
 		DataContainer data = new DataContainer();

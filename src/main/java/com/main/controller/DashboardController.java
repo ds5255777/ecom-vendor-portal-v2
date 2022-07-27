@@ -33,6 +33,7 @@ import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.TripDetails;
+import com.main.payloads.InvoiceGenerationDto;
 import com.main.payloads.TripDetailsDto;
 import com.main.serviceManager.ServiceManager;
 
@@ -50,7 +51,6 @@ public class DashboardController {
 	private static Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
 	@PostMapping({ "getDashboardDetails" })
-
 	public String getDashBoardDetails(Principal principal, HttpSession session, HttpServletRequest request) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -99,7 +99,6 @@ public class DashboardController {
 	}
 
 	@PostMapping("/updateDetailsforNetwork")
-	@CrossOrigin("*")
 	public String updateDetailsforNetwork(Model model, HttpServletRequest request, Principal principal,
 			@RequestBody String agrn) {
 
@@ -195,7 +194,6 @@ public class DashboardController {
 	}
 
 	@PostMapping({ "getFinanceDashBoardDetails" })
-	@CrossOrigin("*")
 	public String getFinanceDashBoardDetails(HttpSession session, HttpServletRequest request) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -204,15 +202,15 @@ public class DashboardController {
 		try {
 			if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(rolename)) {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getTopFiftyInvoice();
-				List<TripDetailsDto> listOfTopFiftyInvoice = allInvoice.stream()
-						.map((listofTrip) -> this.serviceManager.modelMapper.map(listofTrip, TripDetailsDto.class))
+				List<InvoiceGenerationDto> listOfTopFiftyInvoice = allInvoice.stream()
+						.map((listofTrip) -> this.serviceManager.modelMapper.map(listofTrip, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 				data.setData(listOfTopFiftyInvoice);
-			} else {
+			} else if (GlobalConstants.ROLE_FINANCE.equalsIgnoreCase(rolename)){
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceGenerationEntityRepo
 						.topFiftyInProcessedInvoice();
-				List<TripDetailsDto> listOfTopFiftyInvoice = allInvoice.stream()
-						.map((listofTrip) -> this.serviceManager.modelMapper.map(listofTrip, TripDetailsDto.class))
+				List<InvoiceGenerationDto> listOfTopFiftyInvoice = allInvoice.stream()
+						.map((listofTrip) -> this.serviceManager.modelMapper.map(listofTrip, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 				data.setData(listOfTopFiftyInvoice);
 			}

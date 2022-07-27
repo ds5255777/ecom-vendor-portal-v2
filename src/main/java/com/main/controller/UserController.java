@@ -41,7 +41,7 @@ public class UserController {
 	private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@PostMapping({ "/saveUpdateUserDetails" })
-	@CrossOrigin("*")
+	
 	public String saveUpdateUserDetails(HttpServletRequest request, @RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
@@ -91,7 +91,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/getActiveUsersData" })
-	@CrossOrigin("*")
+	
 	public String getActiveUsersData(HttpServletRequest request) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -123,7 +123,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/getUserById" })
-	@CrossOrigin("*")
+	
 	public String getUserById(@RequestBody UserDTO userDto) {
 
 		DataContainer data = new DataContainer();
@@ -150,7 +150,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/setStatusOfUserById" })
-	@CrossOrigin("*")
+	
 	public String setStatusOfUserById(@RequestBody UserDTO userDto) {
 
 		DataContainer data = new DataContainer();
@@ -170,7 +170,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/checkForExistingUserName" })
-	@CrossOrigin("*")
+	
 	public String checkForExistingUserName(@RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -203,7 +203,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/getUserByRole" })
-	@CrossOrigin("*")
+	
 	public String getUserByRole(@RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -253,7 +253,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/getActiveVendorData" })
-	@CrossOrigin("*")
+	
 	public String getActiveVendorData(HttpServletRequest request) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -309,7 +309,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/getVendorById" })
-	@CrossOrigin("*")
+	
 	public String getVendorById(HttpServletRequest request, @RequestBody SupDetailsDTO details) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -332,7 +332,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/setStatusOfVendorByBpCode" })
-	@CrossOrigin("*")
+	
 	public String setStatusOfVendorByBpCode(HttpServletRequest request, @RequestBody UserDTO user) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -358,7 +358,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/getAllVendorStatus" })
-	@CrossOrigin("*")
+	
 	public String getAllVendorStatus(HttpServletRequest request, @RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -390,7 +390,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/activeVendor" })
-	@CrossOrigin("*")
+	
 	public String activeVendor(HttpServletRequest request, @RequestBody UserDTO details) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));

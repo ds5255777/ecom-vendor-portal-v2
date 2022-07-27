@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +58,7 @@ public class InvoiceController {
 	private static Logger logger = LoggerFactory.getLogger(MasterController.class);
 
 	@PostMapping({ "/getAllInvoice" })
-	
+
 	public String getAllInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -90,7 +89,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getAllPendingInvoice" })
-	
+
 	public String getAllPendingInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -117,7 +116,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getAllApproveInvoice" })
-	
+
 	public String getAllApproveInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -145,7 +144,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getAllQueryInvoiceVendor" })
-	
+
 	public String getAllQueryInvoiceVendor(Principal principal, HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
@@ -181,7 +180,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getAllRejectInvoice" })
-	
+
 	public String getAllRejectInvoice(Principal principal, @RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
 
 		DataContainer data = new DataContainer();
@@ -207,7 +206,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getAllInvoiceToBilling" })
-	
+
 	public String getMonthallyInvoice(Principal principal, HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
@@ -235,8 +234,8 @@ public class InvoiceController {
 	/*
 	 * @PostMapping({ "/getLineItemDetails" })
 	 * 
-	 *  public String getLineItemDetails(HttpServletRequest
-	 * request, @RequestBody TripDetailsDto tripDtoObj) {
+	 * public String getLineItemDetails(HttpServletRequest request, @RequestBody
+	 * TripDetailsDto tripDtoObj) {
 	 * 
 	 * DataContainer data = new DataContainer(); Gson gson = new
 	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create(); String tripID =
@@ -568,7 +567,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getSelectInvoiceDetails" })
-	
+
 	public String getSelectInvoiceDetails(Principal principal, @RequestBody InvoiceGenerationDto invoiceObj) {
 
 		DataContainer data = new DataContainer();
@@ -579,7 +578,8 @@ public class InvoiceController {
 
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
-					|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK) ){
+					|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)
+					|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 				InvoiceGenerationEntity invoiceObject = serviceManager.invoiceGenerationEntityRepo
 						.findByEcomInvoiceNumber(invoiceNumber);
 
@@ -607,7 +607,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getAllDraftInvoice" })
-	
+
 	public String getAllDraftInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -632,7 +632,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/deleteDraftInvoice" })
-	
+
 	public String deleteDraftInvoice(@RequestBody InvoiceGenerationDto obj) {
 
 		DataContainer data = new DataContainer();
@@ -657,7 +657,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/deleteLineItem" })
-	
+
 	public String deleteLineItem(HttpServletRequest request, @RequestBody TripDetailsDto obj) {
 
 		DataContainer data = new DataContainer();
@@ -682,7 +682,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/discardDraftInvoice" })
-	
+
 	public String discardDraftInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationDto obj) {
 
 		DataContainer data = new DataContainer();
@@ -707,7 +707,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getAllQueryInvoiceVendorPo" })
-	
+
 	public String getAllQueryInvoiceVendorPo(Principal principal, HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
@@ -731,7 +731,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/checkForExistingInvoiceNumber" })
-	
+
 	public String checkForExistingInvoiceNumber(HttpServletRequest request, @RequestBody InvoiceGenerationDto obj) {
 
 		DataContainer data = new DataContainer();
@@ -756,7 +756,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping(value = "/getQueryInvoice")
-	
+
 	public String getQueryInvoice(@RequestBody InvoiceGenerationDto obj, Principal principal, HttpSession session,
 			HttpServletRequest request) {
 
@@ -782,7 +782,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/deleteTripQueryInvoice" })
-	
+
 	public String deleteTripQueryInvoice(HttpServletRequest request, @RequestBody TripDetailsDto obj) {
 
 		DataContainer data = new DataContainer();
@@ -804,7 +804,7 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/addNewTripInQueryInvoice" })
-	
+
 	public String addNewTripInQueryInvoice(HttpServletRequest request, @RequestBody TripDetailsDto obj) {
 
 		DataContainer data = new DataContainer();

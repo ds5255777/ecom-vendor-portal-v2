@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,14 +33,15 @@ public class MasterController {
 	private static Logger logger = LoggerFactory.getLogger(MasterController.class);
 
 	@PostMapping({ "/saveTripMaster" })
-	
+
 	public String saveTripMaster(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
-			AgreementMaster save = serviceManager.agreementMasterRepo.save(this.serviceManager.modelMapper.map(masterDto, AgreementMaster.class));
+			AgreementMaster save = serviceManager.agreementMasterRepo
+					.save(this.serviceManager.modelMapper.map(masterDto, AgreementMaster.class));
 			data.setData(this.serviceManager.modelMapper.map(save, AgreementMasterDTO.class));
 			data.setMsg("success");
 		} catch (Exception e) {
@@ -52,7 +52,7 @@ public class MasterController {
 	}
 
 	@PostMapping({ "/getActiveMasterData" })
-	
+
 	public String getActiveMasterData(HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
@@ -73,7 +73,7 @@ public class MasterController {
 	}
 
 	@PostMapping({ "/getMasterById" })
-	
+
 	public String getUserById(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		DataContainer data = new DataContainer();
@@ -92,14 +92,15 @@ public class MasterController {
 	}
 
 	@PostMapping({ "/saveUpdateMasterDetails" })
-	
+
 	public String saveUpdateMasterDetails(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			logger.info("in mster update");
-			serviceManager.agreementMasterRepo.save(this.serviceManager.modelMapper.map(masterDto, AgreementMaster.class));
+			serviceManager.agreementMasterRepo
+					.save(this.serviceManager.modelMapper.map(masterDto, AgreementMaster.class));
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -110,7 +111,7 @@ public class MasterController {
 	}
 
 	@PostMapping({ "/deleteMaster" })
-	
+
 	public String deleteMaster(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		DataContainer data = new DataContainer();

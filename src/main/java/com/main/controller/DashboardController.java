@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,10 +30,8 @@ import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.AgreementMaster;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.QueryEntity;
-import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.payloads.InvoiceGenerationDto;
-import com.main.payloads.TripDetailsDto;
 import com.main.serviceManager.ServiceManager;
 
 @RequestMapping("/dashboardController")
@@ -202,15 +199,15 @@ public class DashboardController {
 		try {
 			if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(rolename)) {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getTopFiftyInvoice();
-				List<InvoiceGenerationDto> listOfTopFiftyInvoice = allInvoice.stream()
-						.map((listofTrip) -> this.serviceManager.modelMapper.map(listofTrip, InvoiceGenerationDto.class))
+				List<InvoiceGenerationDto> listOfTopFiftyInvoice = allInvoice.stream().map(
+						(listofTrip) -> this.serviceManager.modelMapper.map(listofTrip, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 				data.setData(listOfTopFiftyInvoice);
-			} else if (GlobalConstants.ROLE_FINANCE.equalsIgnoreCase(rolename)){
+			} else if (GlobalConstants.ROLE_FINANCE.equalsIgnoreCase(rolename)) {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceGenerationEntityRepo
 						.topFiftyInProcessedInvoice();
-				List<InvoiceGenerationDto> listOfTopFiftyInvoice = allInvoice.stream()
-						.map((listofTrip) -> this.serviceManager.modelMapper.map(listofTrip, InvoiceGenerationDto.class))
+				List<InvoiceGenerationDto> listOfTopFiftyInvoice = allInvoice.stream().map(
+						(listofTrip) -> this.serviceManager.modelMapper.map(listofTrip, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 				data.setData(listOfTopFiftyInvoice);
 			}

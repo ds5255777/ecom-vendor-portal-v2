@@ -9,8 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "query_details")
+@Getter
+@Setter
 public class QueryEntity {
 
 	@Id
@@ -31,7 +36,7 @@ public class QueryEntity {
 
 	@Column(name = "raised_again_query")
 	private String raisedAgainQuery;
-	
+
 	@Column(name = "role")
 	private String role;
 
@@ -40,79 +45,5 @@ public class QueryEntity {
 
 	@Column(name = "type")
 	private String type;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Date getRaisedOn() {
-		return raisedOn;
-	}
-
-	public void setRaisedOn(Date raisedOn) {
-		this.raisedOn = raisedOn;
-	}
-
-	public String getRaisedBy() {
-		return raisedBy;
-	}
-
-	public void setRaisedBy(String raisedBy) {
-		this.raisedBy = raisedBy;
-	}
-	
-	public String getReferenceid() {
-		return referenceid;
-	}
-
-	public void setReferenceid(String referenceid) {
-		this.referenceid = referenceid;
-	}
-
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-
-	public String getRaisedAgainQuery() {
-		return raisedAgainQuery;
-	}
-
-	public void setRaisedAgainQuery(String raisedAgainQuery) {
-		this.raisedAgainQuery = raisedAgainQuery;
-	}
-
-	public Integer getForeignKey() {
-		return foreignKey;
-	}
-
-	public void setForeignKey(Integer foreignKey) {
-		this.foreignKey = foreignKey;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-	
 
 }

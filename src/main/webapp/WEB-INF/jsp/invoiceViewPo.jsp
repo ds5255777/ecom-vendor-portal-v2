@@ -23,8 +23,8 @@
 <link rel="stylesheet"
 	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 <!-- Bootstrap Color Picker -->
-<link rel="stylesheet"
-	href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+<!-- <link rel="stylesheet"
+	href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css"> -->
 <!-- Tempusdominus Bootstrap 4 -->
 <link rel="stylesheet"
 	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
@@ -33,12 +33,12 @@
 <link rel="stylesheet"
 	href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 <!-- Bootstrap4 Duallistbox -->
-<link rel="stylesheet"
-	href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+<!-- <link rel="stylesheet"
+	href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css"> -->
 <!-- BS Stepper -->
-<link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css">
+<!-- <link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css"> -->
 <!-- dropzonejs -->
-<link rel="stylesheet" href="plugins/dropzone/min/dropzone.min.css">
+<!-- <link rel="stylesheet" href="plugins/dropzone/min/dropzone.min.css"> -->
 <!-- Theme style -->
 <link rel="stylesheet" href="dist/css/adminlte.min.css">
 <link rel="stylesheet"
@@ -528,22 +528,22 @@
     <!-- Bootstrap 4 -->
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Bootstrap4 Duallistbox -->
-    <script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <!-- <script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script> -->
     <!-- InputMask -->
     <script src="plugins/moment/moment.min.js"></script>
-    <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
+   <!--  <script src="plugins/inputmask/jquery.inputmask.min.js"></script> -->
     <!-- date-range-picker -->
     <script src="plugins/daterangepicker/daterangepicker.js"></script>
     <!-- bootstrap color picker -->
-    <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <!-- <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script> -->
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Bootstrap Switch -->
-    <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <!-- <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script> -->
     <!-- BS-Stepper -->
-    <script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
+    <!-- <script src="plugins/bs-stepper/js/bs-stepper.min.js"></script> -->
     <!-- dropzonejs -->
-    <script src="plugins/dropzone/min/dropzone.min.js"></script>
+    <!-- <script src="plugins/dropzone/min/dropzone.min.js"></script> -->
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->

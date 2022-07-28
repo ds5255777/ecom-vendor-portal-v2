@@ -42,13 +42,16 @@ public class TripServiceImpl implements TripService {
 	public List<TripDetails> getTripsByFilters(String runStatus, String vendorTripStatus, String paymentStatus,
 			String vendorCode) {
 
-		if ("".equalsIgnoreCase(vendorTripStatus) && "".equalsIgnoreCase(paymentStatus) && vendorCode != "") {
+		if ("".equalsIgnoreCase(vendorTripStatus) && "".equalsIgnoreCase(paymentStatus)
+				&& !"".equalsIgnoreCase(vendorCode)) {
 			return tripDetailsRepo.getTripsByFiltersVendorRunStatus(runStatus, vendorCode);
 		}
-		if (runStatus != "" && vendorTripStatus != "" && "".equalsIgnoreCase(paymentStatus) && vendorCode != "") {
+		if (!"".equalsIgnoreCase(runStatus) && !"".equalsIgnoreCase(vendorTripStatus)
+				&& "".equalsIgnoreCase(paymentStatus) && !"".equalsIgnoreCase(vendorCode)) {
 			return tripDetailsRepo.getTripsByFiltersRunStatus_VendorTripStatus(runStatus, vendorTripStatus, vendorCode);
 		}
-		if (runStatus != "" && vendorTripStatus != "" && paymentStatus != "" && vendorCode != "") {
+		if (!"".equalsIgnoreCase(runStatus) && !"".equalsIgnoreCase(vendorTripStatus)
+				&& !"".equalsIgnoreCase(paymentStatus) && !"".equalsIgnoreCase(vendorCode)) {
 			return tripDetailsRepo.getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus(runStatus,
 					vendorTripStatus, paymentStatus, vendorCode);
 		}
@@ -63,19 +66,16 @@ public class TripServiceImpl implements TripService {
 	@Override
 	public List<TripDetails> getTripsByFiltersNetwork(String runStatus, String vendorTripStatus, String PaymentStatus) {
 
-		try {
-			if (runStatus != "" && "".equalsIgnoreCase(vendorTripStatus) && "".equalsIgnoreCase(PaymentStatus)) {
-				return tripDetailsRepo.getTripsByFiltersVendorRunStatus(runStatus);
-			} else if (runStatus != "" && vendorTripStatus != "" && "".equalsIgnoreCase(PaymentStatus)) {
-				return tripDetailsRepo.getTripsByFiltersRunStatus_VendorTripStatus(runStatus, vendorTripStatus);
-			} else {
-				return tripDetailsRepo.getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus(runStatus,
-						vendorTripStatus, PaymentStatus);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (!"".equalsIgnoreCase(runStatus) && "".equalsIgnoreCase(vendorTripStatus)
+				&& "".equalsIgnoreCase(PaymentStatus)) {
+			return tripDetailsRepo.getTripsByFiltersVendorRunStatus(runStatus);
+		} else if (!"".equalsIgnoreCase(runStatus) && !"".equalsIgnoreCase(vendorTripStatus)
+				&& "".equalsIgnoreCase(PaymentStatus)) {
+			return tripDetailsRepo.getTripsByFiltersRunStatus_VendorTripStatus(runStatus, vendorTripStatus);
+		} else {
+			return tripDetailsRepo.getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus(runStatus,
+					vendorTripStatus, PaymentStatus);
 		}
-		return null;
 	}
 
 }

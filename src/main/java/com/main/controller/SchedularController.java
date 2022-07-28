@@ -56,7 +56,7 @@ public class SchedularController {
 					}
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 
 				checkSchedular = "Occupied";
@@ -80,13 +80,13 @@ public class SchedularController {
 					}
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 
 	}

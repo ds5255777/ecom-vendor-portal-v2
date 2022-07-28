@@ -2,11 +2,13 @@ package com.main.controller;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,9 @@ public class RegistrationController {
 
 	@Autowired
 	private ServiceManager serviceManager;
+	
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(SchedularController.class);
 
 	public synchronized String generateVendorCode() {
 
@@ -42,7 +47,7 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getPendingRequest" })
-	@CrossOrigin("*")
+
 	public String getPendingRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -61,13 +66,13 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
 
 	@PostMapping({ "/getApprovedRequest" })
-	@CrossOrigin("*")
+
 	public String getApprovedRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -86,13 +91,13 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
 
 	@PostMapping({ "/getRejectedRequest" })
-	@CrossOrigin("*")
+
 	public String getRejectedRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -111,13 +116,13 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
 
 	@PostMapping({ "/getQueryRequest" })
-	@CrossOrigin("*")
+
 	public String getQueryRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -135,7 +140,7 @@ public class RegistrationController {
 			}
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -143,7 +148,7 @@ public class RegistrationController {
 	// updateVendorRegistrationStatus
 
 	@PostMapping({ "/updateVendorRegistrationStatus" })
-	@CrossOrigin("*")
+
 	public String updateVendorRegistrationStatus(Principal principal, @RequestBody SupDetailsDTO objDto) {
 
 		DataContainer data = new DataContainer();
@@ -161,13 +166,13 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
 
 	@PostMapping({ "/getAllApprovedVendor" })
-	@CrossOrigin("*")
+
 	public String getAllApprovedVendor(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -187,13 +192,13 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
 
 	@PostMapping({ "/approveRequest" })
-	@CrossOrigin("*")
+
 	public String approveRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -214,13 +219,13 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
 
 	@PostMapping({ "/rejectedRequest" })
-	@CrossOrigin("*")
+
 	public String rejectedRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -238,13 +243,13 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
 
 	@PostMapping({ "/getAllRequest" })
-	@CrossOrigin("*")
+
 	public String getAllRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -263,7 +268,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}

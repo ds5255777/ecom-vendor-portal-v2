@@ -62,7 +62,7 @@
 				</div> -->
                 <label for="username" style="font-weight: bolder;">User ID</label> <input class="form-control" id="username" name="username" type="text" data-role="tagsinput" placeholder="User Id"><br> <label for="password" style="font-weight: bolder;">Password</label> <input class="form-control" id="password" name="password" type="password" placeholder="Password"><br> <input type="hidden" name="" value="" />
                 <button type="submit" class="btn " style="color: white; background-color: #204572;">Login</button>
-                <button type="button" class="btn" style="background-color: #c62625 ; color: white" onclick="openRegister()">Register</button>
+                <!-- <button type="button" class="btn" style="background-color: #c62625 ; color: white" onclick="openRegister()">Register</button> -->
             </div>
         </form>
     </div>

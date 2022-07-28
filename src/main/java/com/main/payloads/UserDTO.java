@@ -1,13 +1,12 @@
 package com.main.payloads;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UserDTO {
 
-	
 	private Integer id;
 	private String emailId;
 	private String contactNo;
@@ -21,5 +20,5 @@ public class UserDTO {
 	private String status = "0"; // 1- active , 0- inactive, 2- delete 3-change Password
 	private String bpCode;
 	private String passwordConfirm;
-	
+
 }

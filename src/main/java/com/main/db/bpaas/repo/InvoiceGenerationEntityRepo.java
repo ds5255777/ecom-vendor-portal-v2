@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
-import com.main.db.bpaas.entity.TripDetails;
 
 public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenerationEntity, Long> {
 
@@ -107,7 +106,8 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 	@Transactional
 	@Modifying
 	@Query(value = "update invoice_generation set processed_on=:processedOn , processed_by=:processedBy, invoice_status=:status where ecom_invoice_nunmber=:invoiceNumber ; ", nativeQuery = true)
-	void updateInvoiceStatus(@Param("processedOn")String processedOn, @Param("processedBy") String processedBy,@Param("invoiceNumber") String invoiceNumber, @Param("status") String status);
+	void updateInvoiceStatus(@Param("processedOn") String processedOn, @Param("processedBy") String processedBy,
+			@Param("invoiceNumber") String invoiceNumber, @Param("status") String status);
 
 	@Query(value = "select * from invoice_generation where invoice_status ='Query' And assign_to ='Vendor'  and vendor_code=? ", nativeQuery = true)
 	List<InvoiceGenerationEntity> getAllQueryInvoiceVendor(String vendorCode);
@@ -134,7 +134,7 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 
 	@Query(value = "select ecom_invoice_nunmber, invoice_receiving_date, invoice_number, invoice_amount,invoice_status \r\n"
 			+ "FROM invoice_generation where vendor_code=? and invoice_status IN ('In-Review','Pending For Approval', 'Approved','Payment Relase', 'Query') "
-			+ "ORDER BY id desc limit ?",nativeQuery = true) 
+			+ "ORDER BY id desc limit ?", nativeQuery = true)
 	List<Object[]> getTopInvoiceRecords(String vendorCode, int parseInt);
 
 	InvoiceGenerationEntity findByEcomInvoiceNumber(String invoiceNumber);

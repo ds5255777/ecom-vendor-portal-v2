@@ -8,89 +8,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "email_configuration")
-public class EmailConfiguration implements Serializable{
+@Getter
+@Setter
+public class EmailConfiguration implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	 protected static final String PK = "id";
-	    
-	    
+	protected static final String PK = "id";
 
-		@Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Integer id;
-		
-		@Column(name = "user_name")
-		private String userName;
-		
-		@Column(name = "password")
-		private String password;
-		
-		@Column(name = "server_name")
-		private String serverName;
-		
-		
-		@Column(name = "smtp_port")
-		private String smtpPort;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-		@Column(name = "is_active")
-		private String isActive;
-		
+	@Column(name = "user_name")
+	private String userName;
 
-		
-		public Integer getId() {
-			return id;
-		}
+	@Column(name = "password")
+	private String password;
 
-		public void setId(Integer id) {
-			this.id = id;
-		}
+	@Column(name = "server_name")
+	private String serverName;
 
-		public String getUserName() {
-			return userName;
-		}
+	@Column(name = "smtp_port")
+	private String smtpPort;
 
-		public void setUserName(String userName) {
-			this.userName = userName;
-		}
-
-		public String getPassword() {
-			return password;
-		}
-
-		public void setPassword(String password) {
-			this.password = password;
-		}
-
-		public String getServerName() {
-			return serverName;
-		}
-
-		public void setServerName(String serverName) {
-			this.serverName = serverName;
-		}
-
-		public String getSmtpPort() {
-			return smtpPort;
-		}
-
-		public void setSmtpPort(String smtpPort) {
-			this.smtpPort = smtpPort;
-		}
-
-		public String getIsActive() {
-			return isActive;
-		}
-
-		public void setIsActive(String isActive) {
-			this.isActive = isActive;
-		}
-		
-		
-		
-		
-		
-		
+	@Column(name = "is_active")
+	private String isActive;
 
 }

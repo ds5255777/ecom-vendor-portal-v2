@@ -1,5 +1,6 @@
 package com.main.email;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -9,8 +10,15 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.main.controller.SchedularController;
+
 public class CommEmailFunction {
-	
+
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(SchedularController.class);
 	public static void sendEmail(String commaSeparatedEamilName, String subject, String content, String smtpPort,
 			String username, String password, String host) {
 
@@ -39,12 +47,9 @@ public class CommEmailFunction {
 			message.setContent(content, "text/html");
 			// send the message
 			Transport.send(message);
-			System.out.println("Email Sent successfully...");
-			
-			
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 
 	}

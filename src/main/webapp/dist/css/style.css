@@ -7814,7 +7814,6 @@ pre {
       max-width: 1140px; } }
 
 .container-fluid {
-  width: 100%;
   margin-right: auto;
   margin-left: auto;
   padding-right: 15px;
@@ -12856,7 +12855,7 @@ a.text-dark:focus, a.text-dark:hover {
   color: #868e96 !important; }
 
 .text-hide {
-  font: 0/0 a;
+  /* font: 0/0 a; */
   color: transparent;
   text-shadow: none;
   background-color: transparent;
@@ -13348,7 +13347,7 @@ input[type="search"], input, .form-control {
     line-height: 1.42857143; }
     .form-check label input, .form-radio label input {
       position: absolute;
-      margin-left: -20px;
+      /* margin-left: -20px; */
       margin-top: 4px\9;
       top: 0;
       left: 0;
@@ -13357,7 +13356,7 @@ input[type="search"], input, .form-control {
       cursor: pointer;
       opacity: 0;
       filter: alpha(opacity=0);
-      margin-top: 0; }
+     /*  margin-top: 0; */ }
       .form-check label input:checked + .input-helper:before, .form-radio label input:checked + .input-helper:before {
         background-color: #1991EB;
         border: none; }
@@ -13383,7 +13382,7 @@ input[type="search"], input, .form-control {
       transition: all;
       transition-duration: 0s;
       -webkit-transition-duration: 250ms;
-      transition-duration: 250ms; }
+      /* transition-duration: 250ms; */ }
     .form-check label .input-helper:after, .form-radio label .input-helper:after {
       line-height: 1.5;
       -webkit-transition: all;
@@ -13391,8 +13390,8 @@ input[type="search"], input, .form-control {
       transition: all;
       transition-duration: 0s;
       -webkit-transition-duration: 250ms;
-      transition-duration: 250ms;
-      font-family: FontAwesome;
+      /* transition-duration: 250ms; */
+      /* font-family: FontAwesome; */
       opacity: 0;
       filter: alpha(opacity=0);
       -webkit-transform: scale(0);
@@ -13952,7 +13951,7 @@ input {
     background-image: linear-gradient(to right, #318be3, #04befe); }
 
 .auth-pages .Or-login-with {
-  font-family: Gudea;
+  /* font-family: Gudea; */
   font-size: 15px;
   line-height: 2;
   text-align: center;
@@ -13960,7 +13959,7 @@ input {
 
 .auth-pages a.btn {
   height: 39px;
-  font-family: Gudea; }
+  /* font-family: Gudea; */ }
 
 .auth-pages a.btn-facebook {
   background-color: #3f51b5;
@@ -13969,7 +13968,7 @@ input {
   line-height: 1.88;
   position: relative; }
   .auth-pages a.btn-facebook:before {
-    font: normal normal normal 14px/1 FontAwesome;
+    /* font: normal normal normal 14px/1 FontAwesome; */
     font-size: 14px;
     font-size: inherit;
     text-rendering: auto;
@@ -13978,7 +13977,7 @@ input {
     position: absolute;
     top: 10px;
     left: 16px;
-    font-size: 20px; }
+    /* font-size: 20px; */ }
 
 .auth-pages a.btn-google {
   background-color: #f44336;
@@ -13987,7 +13986,7 @@ input {
   line-height: 1.88;
   position: relative; }
   .auth-pages a.btn-google:before {
-    font: normal normal normal 14px/1 FontAwesome;
+    /* font: normal normal normal 14px/1 FontAwesome; */
     font-size: 14px;
     font-size: inherit;
     text-rendering: auto;
@@ -13996,7 +13995,7 @@ input {
     position: absolute;
     top: 10px;
     left: 16px;
-    font-size: 20px; }
+    /* font-size: 20px; */ }
 
 .auth-pages a.btn-create-account {
   background: #ffffff;

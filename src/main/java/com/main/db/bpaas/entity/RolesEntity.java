@@ -9,49 +9,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "roles")
-public class RolesEntity implements Serializable{
+@Getter
+@Setter
+public class RolesEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	 protected static final String PK = "id";
-	    
-	    
+	protected static final String PK = "id";
 
-		@Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Integer id;
-		
-		@Column(name = "role_name")
-		private String roleName;
-		
-		@Column(name = "is_active")
-		private String isActive;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-		public Integer getId() {
-			return id;
-		}
+	@Column(name = "role_name")
+	private String roleName;
 
-		public void setId(Integer id) {
-			this.id = id;
-		}
+	@Column(name = "is_active")
+	private String isActive;
 
-		public String getRoleName() {
-			return roleName;
-		}
-
-		public void setRoleName(String roleName) {
-			this.roleName = roleName;
-		}
-
-		public String getIsActive() {
-			return isActive;
-		}
-
-		public void setIsActive(String isActive) {
-			this.isActive = isActive;
-		}
-		
-		
-		
 }

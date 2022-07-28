@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +40,7 @@ public class UserController {
 	private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@PostMapping({ "/saveUpdateUserDetails" })
-	@CrossOrigin("*")
+
 	public String saveUpdateUserDetails(HttpServletRequest request, @RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
@@ -73,8 +72,7 @@ public class UserController {
 				}
 				userDto.setPassword(password);
 
-				User userAfterSave = serviceManager.userRepository
-						.save(this.serviceManager.modelMapper.map(userDto, User.class));
+				serviceManager.userRepository.save(this.serviceManager.modelMapper.map(userDto, User.class));
 
 			}
 
@@ -91,7 +89,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/getActiveUsersData" })
-	@CrossOrigin("*")
+
 	public String getActiveUsersData(HttpServletRequest request) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -123,18 +121,16 @@ public class UserController {
 	}
 
 	@PostMapping({ "/getUserById" })
-	@CrossOrigin("*")
+
 	public String getUserById(@RequestBody UserDTO userDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-//					String  userName = (String) request.getSession().getAttribute("userName");
-//					Integer  userId = (Integer) request.getSession().getAttribute("userId");
 			User userDtoToEntity = this.serviceManager.modelMapper.map(userDto, User.class);
 
-			User userObj = serviceManager.userRepository.findById(userDtoToEntity.getId()).get();
+			User userObj = serviceManager.userRepository.findById(userDtoToEntity.getId()).orElseThrow(null);
 
 			data.setData(this.serviceManager.modelMapper.map(userObj, UserDTO.class));
 			data.setMsg("success");
@@ -150,7 +146,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/setStatusOfUserById" })
-	@CrossOrigin("*")
+
 	public String setStatusOfUserById(@RequestBody UserDTO userDto) {
 
 		DataContainer data = new DataContainer();
@@ -170,7 +166,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/checkForExistingUserName" })
-	@CrossOrigin("*")
+
 	public String checkForExistingUserName(@RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -203,7 +199,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/getUserByRole" })
-	@CrossOrigin("*")
+
 	public String getUserByRole(@RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -253,7 +249,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/getActiveVendorData" })
-	@CrossOrigin("*")
+
 	public String getActiveVendorData(HttpServletRequest request) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -300,7 +296,6 @@ public class UserController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
 			logger.error("error : " + e);
 
 		}
@@ -309,7 +304,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/getVendorById" })
-	@CrossOrigin("*")
+
 	public String getVendorById(HttpServletRequest request, @RequestBody SupDetailsDTO details) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -332,7 +327,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/setStatusOfVendorByBpCode" })
-	@CrossOrigin("*")
+
 	public String setStatusOfVendorByBpCode(HttpServletRequest request, @RequestBody UserDTO user) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -358,7 +353,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/getAllVendorStatus" })
-	@CrossOrigin("*")
+
 	public String getAllVendorStatus(HttpServletRequest request, @RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
@@ -370,7 +365,7 @@ public class UserController {
 			User userDtoToEntity = this.serviceManager.modelMapper.map(userDto, User.class);
 			String bpCode = userDtoToEntity.getBpCode();
 			List<User> vendorListStatus = serviceManager.userRepository.getAllVendorStatus(bpCode);
-			
+
 			List<UserDTO> usersList = vendorListStatus.stream()
 					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, UserDTO.class))
 					.collect(Collectors.toList());
@@ -390,7 +385,7 @@ public class UserController {
 	}
 
 	@PostMapping({ "/activeVendor" })
-	@CrossOrigin("*")
+
 	public String activeVendor(HttpServletRequest request, @RequestBody UserDTO details) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));

@@ -163,8 +163,9 @@
                                                       <label for="vendorType">Vendor Type<span class="required">*</span>
                                                             
                                                         </label>
-                                                    <select id="vendorType" name="vendorType" class="form-control p-input">
-                                                     	<option value="">-- select --</option>
+                                                   
+                                                      <select colspan='1' class="js-example-basic-multiple1 select2" name="vendorType" id="vendorType" multiple="multiple" >
+                                            	
                                                             <c:forEach items="${vendorType}" var="type">
 																<option value="${type}">${type}</option>
                                                             </c:forEach>
@@ -528,11 +529,12 @@
         	 var region=$("#region").val().toString();
         	 
         	 
+        	 
 
             var json = {
 
                 "vendorEmail": $("#vendorEmail").val(),
-                "vendorType": $("#vendorType").val(),
+                "vendorType": $("#vendorType").val().toString(),
                 "region": region,
                 "vendorAddress": $("#vendorAddress").val()
                 
@@ -554,6 +556,8 @@
                     	swal.fire("Email sent sucessfully", "", "success", "OK").then(function() {
                     		$('#region').val("");
                    		 $('#region').trigger('change');
+                   		$('#vendorType').val("");
+                  		 $('#vendorType').trigger('change');
                     	});
 
                         getData();

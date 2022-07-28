@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -89,18 +90,22 @@ public class UIController {
 					response.setContentType("text/html");
 				     PrintWriter pwriter=response.getWriter();
 				    
-				     pwriter.println("link Expired!");
-				    
+				     //pwriter.println("Link Expired! Please Contact With Administrator And Try Again");
+				     pwriter.println( "<font color=red>Link Expired! Please Contact With Administrator And Try Again...</font>");
 				     pwriter.close();
 			}
 		}
 		String vendorType1 = new String(decoder.decode(request.getParameter("vendorType")));
+		 String[] strSplit = vendorType1.split(",");
+		  
+	        ArrayList<String> vendorType2 = new ArrayList<String>(
+	            Arrays.asList(strSplit));
 		String region1 = new String(decoder.decode(request.getParameter("region")));
 		String vendorAddress = new String(decoder.decode(request.getParameter("vendorAddress")));
 		String processBy = new String(decoder.decode(request.getParameter("processBy")));
 		String processByEmailId = new String(decoder.decode(request.getParameter("processByEmailId")));
 		model.addAttribute("vendorEmail", vendorEmail);
-		model.addAttribute("vendorType1", vendorType1);
+		model.addAttribute("vendorType2", vendorType2);
 		model.addAttribute("region1", region1);
 		model.addAttribute("vendorAddress", vendorAddress);
 		model.addAttribute("processBy", processBy);

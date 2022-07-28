@@ -1144,7 +1144,7 @@ select[readonly].select2 + .select2-container {
                                                     <td><label>Business Partner Type<span class="required adHocRequired">*</span></label></td>
 
                                                 <td colspan="2"><select class="js-example-basic-multiple select2" name="states" id="states" onchange="select()" multiple="multiple">
-                                                        <c:forEach items="${business}" var="bus">
+                                                        <c:forEach items="${vendorType2}" var="bus">
 
                                                             <option value="${bus}">${bus}</option>
                                                         </c:forEach>
@@ -1818,9 +1818,8 @@ select[readonly].select2 + .select2-container {
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2({
             	zplaceholder: "Select Partner Type",
-                allowClear: true,
-                
-    		maximumSelectionLength: 1
+                allowClear: true
+    		//maximumSelectionLength: 1
     		
             });
             
@@ -1877,8 +1876,8 @@ select[readonly].select2 + .select2-container {
                 document.getElementById('addDetails').value = "";
                 document.getElementById('compGstn').value="";
                 $("#addDetails").prop('readonly', false);
-                var $S2 = $("select[name=states]");
-       			 $S2.attr("readonly", "false");
+               // var $S2 = $("select[name=states]");
+               // $S2.removeAttr("readonly");
             }
 
         });
@@ -2858,9 +2857,9 @@ select[readonly].select2 + .select2-container {
 	}
 	
 	function setVendorData(vendorEmail,vendorType1,region11,vendorAddress,processBy,processByEmailId){
-		var str1=vendorType1.split(",");
-		 $("#states").val(str1);
-		 $("#states").trigger('change');
+		//var str1=vendorType1.split(",");
+		// $("#states").val(str1);
+		// $("#states").trigger('change');
 		 $("#addDetails").val(vendorAddress);
 		 $("#conEmail").val(vendorEmail);
 		 
@@ -2878,8 +2877,8 @@ select[readonly].select2 + .select2-container {
 		 
 		 var $S1 = $("select[name=region]");
 		 $S1.attr("readonly", "readonly");
-		 var $S2 = $("select[name=states]");
-		 $S2.attr("readonly", "readonly");
+		// var $S2 = $("select[name=states]");
+		// $S2.attr("readonly", "readonly");
 		 
 		 
 	}

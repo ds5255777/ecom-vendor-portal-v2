@@ -157,8 +157,8 @@ public class EmailConfigurationController {
 			String introducerEmail=us.getEmailId();
 			serviceManager.sendEmailToVendorRepo.save(this.serviceManager.modelMapper.map(entityDto, SendEmailToVendor.class));
 		
-			 List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByEmailId(introducerEmail);
-			 
+			// List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByEmailId(introducerEmail);
+			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
 
 			 String maillink = registrationLink+"?vendorEmail=" + Base64.getEncoder().encodeToString(entityDto.getVendorEmail().getBytes())+"&vendorType="+Base64.getEncoder().encodeToString(entityDto.getVendorType().getBytes())+"&region="+Base64.getEncoder().encodeToString(entityDto.getRegion().getBytes())+"&vendorAddress="+Base64.getEncoder().encodeToString(entityDto.getVendorAddress().getBytes())+"&processBy="+Base64.getEncoder().encodeToString(entityDto.getProcessBy().getBytes())+"&processByEmailId="+Base64.getEncoder().encodeToString(introducerEmail.getBytes())+"&flag="+rand_int;
 			 String newmailLink=maillink.replaceAll(" ", "%20");

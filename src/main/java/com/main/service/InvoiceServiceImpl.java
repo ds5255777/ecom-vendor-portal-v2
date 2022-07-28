@@ -66,10 +66,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 	public List<InvoiceGenerationEntity> getTripsByFilters(String vendorCode, String invoiceStatus) {
 
 		if ("".equalsIgnoreCase(invoiceStatus)) {
-			System.out.println(vendorCode + " : " + invoiceStatus);
 			return invoiceGenerationEntityRepo.getInvoiceFiltersByVendorcode(vendorCode);
 		}
-		System.out.println(vendorCode + " : " + invoiceStatus);
 		return invoiceGenerationEntityRepo.getInvoiceFiltersByVendorcode(vendorCode, invoiceStatus);
 	}
 

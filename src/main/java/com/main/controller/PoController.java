@@ -424,7 +424,6 @@ public class PoController {
 			serviceManager.podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
 			String processBy = principal.getName();
 			Date proceessOn = new Date();
-			System.out.println("processBy" + processBy + " :::proceessOn" + proceessOn);
 			// serviceManager.podetailsRepo.updateRemaningQuantitydraft(details.getRemaningQuatity(),
 			// details.getLineNumberpo());
 

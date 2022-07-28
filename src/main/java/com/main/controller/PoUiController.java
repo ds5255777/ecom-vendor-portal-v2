@@ -50,7 +50,6 @@ public class PoUiController {
 		if ("".equals(vendorType) || null == vendorType) {
 			vendorType = "vendor";
 		}
-		System.out.println("vendorType in dashboard : " + vendorType);
 
 		request.setAttribute("vendorType", vendorType);
 		model.addAttribute("vendorType", vendorType);
@@ -61,7 +60,6 @@ public class PoUiController {
 				|| vendorType.equalsIgnoreCase("FIXED ASSETS")) {
 			String rolename = (String) request.getSession().getAttribute("role");
 			String vendorCode = (String) request.getSession().getAttribute("userName");
-			System.out.println("vendor type : " + vendorType);
 			rolename = (String) request.getSession().getAttribute("role");
 			vendorCode = (String) request.getSession().getAttribute("userName");
 			List<PoDetails> details1 = new ArrayList<PoDetails>();
@@ -80,7 +78,6 @@ public class PoUiController {
 				} else {
 					serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(pono, proceessOn, processBy);
 				}
-				System.out.println("remaningquantity is :::" + remaningquantity + "VendorCode ::" + vendorCode);
 			}
 
 			// po Details
@@ -89,7 +86,6 @@ public class PoUiController {
 
 			int totalProcessPoCount = serviceManager.podetailsRepo.getAllProcessPoCount(vendorCode);
 			model.addAttribute("totalProcessPoCount", totalProcessPoCount);
-			System.out.println("totalProcessPoCount : " + totalProcessPoCount);
 			int totalUnprocessPOCount = serviceManager.podetailsRepo.getAllUnProcessPoCount(vendorCode);
 			model.addAttribute("totalUnprocessPOCount", totalUnprocessPOCount);
 			// Query
@@ -109,7 +105,6 @@ public class PoUiController {
 			model.addAttribute("userStatus", us.getStatus());
 			model.addAttribute("dataLimit", dataLimit);
 
-			System.out.println("end of dashboard_Po");
 			if (rolename.equalsIgnoreCase("Vendor")) {
 
 				return "dashboard_Po";
@@ -200,9 +195,7 @@ public class PoUiController {
 				status = arrSplit[i];
 			}
 		}
-		System.out.println("invoiceNo" + invoiceNumber);
 		model.addAttribute("invoiceNo", invoiceNumber);
-		System.out.println("status" + status);
 		model.addAttribute("status", status);
 		return "invoiceViewPo";
 	}
@@ -223,9 +216,7 @@ public class PoUiController {
 			}
 		}
 
-		System.out.println("invoiceNo" + invoiceNumber);
 		model.addAttribute("invoiceNo", invoiceNumber);
-		System.out.println("status" + status);
 		model.addAttribute("status", status);
 		return "invoiceViewPo";
 	}
@@ -247,10 +238,8 @@ public class PoUiController {
 				break;
 			}
 		}
-		System.out.println("poNumber" + poNumber);
 		model.addAttribute("poNumber", poNumber);
 
-		System.out.println("viewPage" + viewPage);
 		model.addAttribute("viewPage", viewPage);
 		return "PoView";
 	}
@@ -270,7 +259,6 @@ public class PoUiController {
 		request.getSession().setAttribute("invoiceNumber", invoiceNumber);
 		String PoNumber = request.getParameter("id");
 		List<String> paymentMethod = serviceManager.paymentMethodRepo.PaymentMethod();
-		System.out.println(":::" + paymentMethod);
 		model.addAttribute("PoNumber", PoNumber);
 		model.addAttribute("maxFileSize", maxFileSize);
 		model.addAttribute("paymentMethod", paymentMethod);
@@ -280,7 +268,6 @@ public class PoUiController {
 		model.addAttribute("curentDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
 		model.addAttribute("payment", payment);
-		System.out.println("term,m" + payment);
 
 		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
 		if ("".equals(bpCode) || bpCode == null) {
@@ -305,13 +292,11 @@ public class PoUiController {
 		}
 		model.addAttribute("accountNumber", accountNumber);
 		model.addAttribute("creidtTerms", creidtTerms);
-		System.out.println("creidtTerms : " + creidtTerms);
 		if (null != findByPoNumber.getPoNo()) {
 			// findByPoNumber.setStatus("Draft-Invoicing");
 			// findByPoNumber.setInvoiceNumber(invoiceNumber);
 			// podetailsRepo.save(findByPoNumber);
 		}
-		System.out.println("Eom invoiceNumber : " + invoiceNumber);
 		return "poInvoiceGenerate";
 	}
 

@@ -39,9 +39,6 @@ public class CommEmailFunction {
 			message.setContent(content, "text/html");
 			// send the message
 			Transport.send(message);
-			System.out.println("Email Sent successfully...");
-			
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();

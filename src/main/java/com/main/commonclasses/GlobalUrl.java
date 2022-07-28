@@ -27,6 +27,9 @@ public class GlobalUrl {
     public static String getEmailCofigurationDataById = emailConfigurationController + "/getEmailCofigurationDataById";
     public static String getEmailCofigurationDataByStatus = emailConfigurationController + "/getEmailCofigurationDataByStatus";
     public static String updateEmailConfigurationSatatusByid = emailConfigurationController + "/updateEmailConfigurationSatatusByid";
+    public static String sendEmailToVendor = emailConfigurationController + "/sendEmailToVendor";
+    public static String getAllSentEmail = emailConfigurationController + "/getAllSentEmail";
+    
 
     public static String tripControllers = "tripControllers";
 

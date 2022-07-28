@@ -3,11 +3,14 @@ package com.main.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -70,7 +73,42 @@ public class UIController {
 	}
 
 	@GetMapping("/registration")
-	public String registration(Model model, HttpServletRequest request) {
+	public String registration(Model model, HttpServletRequest request,HttpServletResponse response) throws IOException, ParseException {
+		Base64.Decoder decoder = Base64.getDecoder();
+		String vendorEmail = new String(decoder.decode(request.getParameter("vendorEmail")));
+		if(!"".equalsIgnoreCase(vendorEmail)) {
+		String flag = request.getParameter("flag");
+		Integer flag1=Integer.valueOf(flag);
+		String processOn=serviceManager.sendEmailToVendorRepo.processOn(flag1);
+		
+		Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(processOn); 
+		String dbDate=new SimpleDateFormat("yyyy-MM-dd").format(date1);
+		String currentDate=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+			if (!currentDate.equalsIgnoreCase(dbDate)) {
+			
+					response.setContentType("text/html");
+				     PrintWriter pwriter=response.getWriter();
+				    
+				     //pwriter.println("Link Expired! Please Contact With Administrator And Try Again");
+				     pwriter.println( "<font color=red>Link Expired! Please Contact With Administrator And Try Again...</font>");
+				     pwriter.close();
+			}
+		}
+		String vendorType1 = new String(decoder.decode(request.getParameter("vendorType")));
+		 String[] strSplit = vendorType1.split(",");
+		  
+	        ArrayList<String> vendorType2 = new ArrayList<String>(
+	            Arrays.asList(strSplit));
+		String region1 = new String(decoder.decode(request.getParameter("region")));
+		String vendorAddress = new String(decoder.decode(request.getParameter("vendorAddress")));
+		String processBy = new String(decoder.decode(request.getParameter("processBy")));
+		String processByEmailId = new String(decoder.decode(request.getParameter("processByEmailId")));
+		model.addAttribute("vendorEmail", vendorEmail);
+		model.addAttribute("vendorType2", vendorType2);
+		model.addAttribute("region1", region1);
+		model.addAttribute("vendorAddress", vendorAddress);
+		model.addAttribute("processBy", processBy);
+		model.addAttribute("processByEmailId", processByEmailId);
 
 		String pid = "";
 		try {
@@ -390,6 +428,13 @@ public class UIController {
 			model.addAttribute("queryRequest", queryRequest);
 			model.addAttribute("role", rolename);
 			return "dashboardRegistration";
+		} else if (rolename.equalsIgnoreCase("Commercial Team")) {
+			List<String> vendorType1 = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+			List<String> region = serviceManager.regionRepo.getRegion();
+
+			model.addAttribute("region", region);
+			model.addAttribute("vendorType", vendorType1);
+			return "triggerEmail";
 		}
 
 		return "";
@@ -425,6 +470,18 @@ public class UIController {
 
 //		      serviceManager.insertAddUpdateInMaster(request, action, actionType, null, null, null);
 		return "emailConfig";
+
+	}
+
+	@GetMapping({ "/triggerEmail" })
+	public String triggerEmail(Model model, String error, String logout, HttpServletRequest request) {
+
+		List<String> vendorType = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+		List<String> region = serviceManager.regionRepo.getRegion();
+
+		model.addAttribute("region", region);
+		model.addAttribute("vendorType", vendorType);
+		return "triggerEmail";
 
 	}
 

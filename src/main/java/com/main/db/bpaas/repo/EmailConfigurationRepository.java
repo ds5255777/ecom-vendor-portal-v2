@@ -20,4 +20,7 @@ public interface EmailConfigurationRepository extends JpaRepository<EmailConfigu
 	@Query(value = "update email_configuration set is_active=:isActive where id=:id ; ", nativeQuery = true)
 	void updateEmailConfigurationSatatusByid(@Param("isActive") String isActive, @Param("id") Integer id);
 
+	@Query(value = "select * from email_configuration  where user_name=? ; ", nativeQuery = true)
+	List<EmailConfiguration> findByEmailId(String introducerEmail);
+
 }

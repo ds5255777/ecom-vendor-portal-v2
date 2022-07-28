@@ -1,5 +1,6 @@
 package com.main.commonclasses;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Properties;
 
@@ -17,9 +18,16 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.main.controller.SchedularController;
 import com.main.db.bpaas.entity.EmailConfiguration;
 
 public class CommanFunction {
+	
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(SchedularController.class);
 
 	public static void sendEmail(EmailConfiguration emailObj, String commaSeparatedEamilName,
 			String commaSeparatedCCEamilID, String commaSeparatedBCCEamilID, String subject, String content) {
@@ -68,7 +76,7 @@ public class CommanFunction {
 			Transport.send(message);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 
 	}
@@ -140,7 +148,7 @@ public class CommanFunction {
 			Transport.send(message);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 
 	}

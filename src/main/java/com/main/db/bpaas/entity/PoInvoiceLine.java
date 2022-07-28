@@ -9,8 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "Poinvoice_Line")
+@Getter
+@Setter
 public class PoInvoiceLine {
 
 	@Id
@@ -67,165 +72,5 @@ public class PoInvoiceLine {
 	private String lineNumber;
 	@Column(name = "Po_Line_Id")
 	private Double poLineId;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getLineType() {
-		return lineType;
-	}
-
-	public void setLineType(String lineType) {
-		this.lineType = lineType;
-	}
-
-	public Double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
-
-	public String getPoNumber() {
-		return poNumber;
-	}
-
-	public void setPoNumber(String poNumber) {
-		this.poNumber = poNumber;
-	}
-
-	public String getPoline() {
-		return poline;
-	}
-
-	public void setPoline(String poline) {
-		this.poline = poline;
-	}
-
-	public String getReceiptNumber() {
-		return receiptNumber;
-	}
-
-	public void setReceiptNumber(String receiptNumber) {
-		this.receiptNumber = receiptNumber;
-	}
-
-	public String getReceiptline() {
-		return receiptline;
-	}
-
-	public void setReceiptline(String receiptline) {
-		this.receiptline = receiptline;
-	}
-
-	public String getQuantityInvoiced() {
-		return quantityInvoiced;
-	}
-
-	public void setQuantityInvoiced(String quantityInvoiced) {
-		this.quantityInvoiced = quantityInvoiced;
-	}
-
-	public String getUom() {
-		return uom;
-	}
-
-	public void setUom(String uom) {
-		this.uom = uom;
-	}
-
-	public Double getUnitPrice() {
-		return unitPrice;
-	}
-
-	public void setUnitPrice(Double unitPrice) {
-		this.unitPrice = unitPrice;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Date getGldate() {
-		return gldate;
-	}
-
-	public void setGldate(Date gldate) {
-		this.gldate = gldate;
-	}
-
-	public String getRemaningQuatity() {
-		return remaningQuatity;
-	}
-
-	public void setRemaningQuatity(String remaningQuatity) {
-		this.remaningQuatity = remaningQuatity;
-	}
-
-	public String getBaseAmount() {
-		return baseAmount;
-	}
-
-	public void setBaseAmount(String baseAmount) {
-		this.baseAmount = baseAmount;
-	}
-
-	public String getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(String quantity) {
-		this.quantity = quantity;
-	}
-
-	public String getTaxAmount() {
-		return taxAmount;
-	}
-
-	public void setTaxAmount(String taxAmount) {
-		this.taxAmount = taxAmount;
-	}
-
-	public String getTaxper() {
-		return taxper;
-	}
-
-	public void setTaxper(String taxper) {
-		this.taxper = taxper;
-	}
-
-	public String getTotalAmount() {
-		return totalAmount;
-	}
-
-	public void setTotalAmount(String totalAmount) {
-		this.totalAmount = totalAmount;
-	}
-
-	public String getLineNumber() {
-		return lineNumber;
-	}
-
-	public void setLineNumber(String lineNumber) {
-		this.lineNumber = lineNumber;
-	}
-
-	public Double getPoLineId() {
-		return poLineId;
-	}
-
-	public void setPoLineId(Double poLineId) {
-		this.poLineId = poLineId;
-	}
 
 }

@@ -7,6 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "AccountDetails")
 public class AccountDetails {
@@ -25,53 +30,5 @@ public class AccountDetails {
 	private String accoutCurrency;
 	@Column(name = "accout_number")
 	private String accoutNumber;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getBankName() {
-		return bankName;
-	}
-
-	public void setBankName(String bankName) {
-		this.bankName = bankName;
-	}
-
-	public String getBeneficiaryName() {
-		return beneficiaryName;
-	}
-
-	public void setBeneficiaryName(String beneficiaryName) {
-		this.beneficiaryName = beneficiaryName;
-	}
-
-	public String getIfscCode() {
-		return ifscCode;
-	}
-
-	public void setIfscCode(String ifscCode) {
-		this.ifscCode = ifscCode;
-	}
-
-	public String getAccoutCurrency() {
-		return accoutCurrency;
-	}
-
-	public void setAccoutCurrency(String accoutCurrency) {
-		this.accoutCurrency = accoutCurrency;
-	}
-
-	public String getAccoutNumber() {
-		return accoutNumber;
-	}
-
-	public void setAccoutNumber(String accoutNumber) {
-		this.accoutNumber = accoutNumber;
-	}
 
 }

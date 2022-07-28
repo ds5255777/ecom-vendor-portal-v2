@@ -296,7 +296,6 @@ public class UserController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
 			logger.error("error : " + e);
 
 		}

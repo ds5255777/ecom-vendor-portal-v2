@@ -7,8 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "mail_content")
+@Getter
+@Setter
 public class MailContent {
 
 	@Id
@@ -20,37 +25,5 @@ public class MailContent {
 	private String subject;
 	@Column(name = "email_body", columnDefinition = "TEXT")
 	private String emailBody;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getSubject() {
-		return subject;
-	}
-
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-
-	public String getEmailBody() {
-		return emailBody;
-	}
-
-	public void setEmailBody(String emailBody) {
-		this.emailBody = emailBody;
-	}
 
 }

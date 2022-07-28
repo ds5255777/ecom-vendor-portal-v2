@@ -8,7 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 public class Document {
 
 	@Id
@@ -30,61 +35,5 @@ public class Document {
 
 	@Column(name = "foreign_key")
 	private String foreignKey;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getDocName() {
-		return docName;
-	}
-
-	public void setDocName(String docName) {
-		this.docName = docName;
-	}
-
-	public String getDocPath() {
-		return docPath;
-	}
-
-	public void setDocPath(String docPath) {
-		this.docPath = docPath;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getForeignKey() {
-		return foreignKey;
-	}
-
-	public void setForeignKey(String foreignKey) {
-		this.foreignKey = foreignKey;
-	}
 
 }

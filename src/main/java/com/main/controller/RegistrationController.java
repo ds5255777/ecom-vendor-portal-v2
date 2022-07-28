@@ -2,9 +2,12 @@ package com.main.controller;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +28,9 @@ public class RegistrationController {
 
 	@Autowired
 	private ServiceManager serviceManager;
+	
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static Logger logger = LoggerFactory.getLogger(SchedularController.class);
 
 	public synchronized String generateVendorCode() {
 
@@ -60,7 +66,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -85,7 +91,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -110,7 +116,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -134,7 +140,7 @@ public class RegistrationController {
 			}
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -160,7 +166,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -186,7 +192,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -213,7 +219,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -237,7 +243,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -262,7 +268,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}

@@ -88,8 +88,8 @@ public class DashboardController {
 				data.setMsg("success");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			data.setMsg("error");
+			logger.error("error : " + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -151,7 +151,7 @@ public class DashboardController {
 						Double.parseDouble(basicFreight), Double.parseDouble(totalFreight), Double.parseDouble(fs),
 						vendorName, vendorCode);
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				logger.error("error : " + ex);
 			}
 		}
 
@@ -237,7 +237,6 @@ public class DashboardController {
 
 		} catch (Exception e) {
 			logger.error("error : " + e);
-			e.printStackTrace();
 			data.setMsg("error");
 		}
 
@@ -258,7 +257,7 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("error : " + e);
 			data.setMsg("error");
 		}
 
@@ -293,7 +292,7 @@ public class DashboardController {
 	 * jsonObject.get("vendorName");// Object findByVendorCodeVendorName =
 	 * serviceManager.userRepository.getVendorCodeVendorNameById(vendorName);
 	 * data.setData(findByVendorCodeVendorName); data.setMsg("success"); } catch
-	 * (Exception e) { e.printStackTrace(); data.setMsg("error"); }
+	 * (Exception e) { logger.error("error : " + e); data.setMsg("error"); }
 	 * 
 	 * return gson.toJson(data).toString(); }
 	 */

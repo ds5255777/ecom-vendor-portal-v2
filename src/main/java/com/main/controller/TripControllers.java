@@ -650,7 +650,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setData("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}

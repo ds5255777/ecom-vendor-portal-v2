@@ -18,39 +18,27 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(
-  entityManagerFactoryRef = "entityManagerFactory",
-  basePackages = { "com.main.db.bpaas.repo" }
-)
+@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory", basePackages = { "com.main.db.bpaas.repo" })
 public class BpaasDbconnection {
 
-	  @Primary
-	  @Bean(name = "dataSource")
-	  @ConfigurationProperties(prefix = "spring.datasource")
-	  public DataSource dataSource() {
-	    return DataSourceBuilder.create().build();
-	  }
-	  
-	  @Primary
-	  @Bean(name = "entityManagerFactory")
-	  public LocalContainerEntityManagerFactoryBean 
-	  entityManagerFactory(
-	    EntityManagerFactoryBuilder builder,
-	    @Qualifier("dataSource") DataSource dataSource
-	  ) {
-	    return builder
-	      .dataSource(dataSource)
-	      .packages("com.main.db.bpaas.entity")
-	      .persistenceUnit("db")
-	      .build();
-	  }
-	    
-	  @Primary
-	  @Bean(name = "transactionManager")
-	  public PlatformTransactionManager transactionManager(
-	    @Qualifier("entityManagerFactory") EntityManagerFactory 
-	    entityManagerFactory
-	  ) {
-	    return new JpaTransactionManager(entityManagerFactory);
-	  }
+	@Primary
+	@Bean(name = "dataSource")
+	@ConfigurationProperties(prefix = "spring.datasource")
+	public DataSource dataSource() {
+		return DataSourceBuilder.create().build();
+	}
+
+	@Primary
+	@Bean(name = "entityManagerFactory")
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder,
+			@Qualifier("dataSource") DataSource dataSource) {
+		return builder.dataSource(dataSource).packages("com.main.db.bpaas.entity").persistenceUnit("db").build();
+	}
+
+	@Primary
+	@Bean(name = "transactionManager")
+	public PlatformTransactionManager transactionManager(
+			@Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
+		return new JpaTransactionManager(entityManagerFactory);
+	}
 }

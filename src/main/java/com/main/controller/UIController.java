@@ -294,15 +294,6 @@ public class UIController {
 			model.addAttribute("role", rolename);
 
 			// po Details
-
-			if (null == bpCode || "" == bpCode) {
-				bpCode = "";
-			}
-
-			if ("" == vendorType || null == vendorType) {
-				vendorType = "vendor";
-			}
-
 			if (vendorType.equalsIgnoreCase("Fixed Asset") || vendorType.equalsIgnoreCase("FIXED ASSETS")) {
 
 				rolename = (String) request.getSession().getAttribute("role");

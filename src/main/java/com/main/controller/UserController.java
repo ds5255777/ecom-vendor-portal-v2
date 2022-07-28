@@ -128,11 +128,9 @@ public class UserController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-//					String  userName = (String) request.getSession().getAttribute("userName");
-//					Integer  userId = (Integer) request.getSession().getAttribute("userId");
 			User userDtoToEntity = this.serviceManager.modelMapper.map(userDto, User.class);
 
-			User userObj = serviceManager.userRepository.findById(userDtoToEntity.getId()).get();
+			User userObj = serviceManager.userRepository.findById(userDtoToEntity.getId()).orElseThrow(null);
 
 			data.setData(this.serviceManager.modelMapper.map(userObj, UserDTO.class));
 			data.setMsg("success");

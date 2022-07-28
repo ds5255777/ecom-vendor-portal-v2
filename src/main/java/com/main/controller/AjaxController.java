@@ -169,7 +169,6 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -198,7 +197,6 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -227,7 +225,6 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -256,7 +253,6 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -285,7 +281,6 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved" + fullFilePathWithName);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -314,7 +309,6 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -343,7 +337,6 @@ public class AjaxController {
 					String b64 = supDetailsDto.getItrFileText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 					fos.write(decoder);
-					System.out.println("File Saved ");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -372,7 +365,6 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -401,7 +393,6 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -430,7 +421,6 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -460,7 +450,6 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -489,7 +478,6 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -518,7 +506,6 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -548,7 +535,6 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					System.out.println("File Saved");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

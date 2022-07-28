@@ -67,9 +67,13 @@ public class EmailConfigurationController {
 
 			Optional<EmailConfiguration> email = serviceManager.emailConfigurationRepository
 					.findById(entityDto.getId());
+			if (email.isPresent()) {
+				EmailConfigurationDTO emailObject = this.serviceManager.modelMapper.map(email,
+						EmailConfigurationDTO.class);
 
-			data.setData(email.get());
-			data.setData(this.serviceManager.modelMapper.map(email.get(), EmailConfigurationDTO.class));
+				data.setData(emailObject);
+			}
+
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");

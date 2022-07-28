@@ -66,7 +66,6 @@ public class CommanFunction {
 			message.setContent(content, "text/html");
 			// send the message
 			Transport.send(message);
-			System.out.println("Email Sent successfully...");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -139,7 +138,6 @@ public class CommanFunction {
 			// send the message
 			message.setContent(multipart);
 			Transport.send(message);
-			System.out.println("Email Sent successfully...");
 
 		} catch (Exception e) {
 			e.printStackTrace();

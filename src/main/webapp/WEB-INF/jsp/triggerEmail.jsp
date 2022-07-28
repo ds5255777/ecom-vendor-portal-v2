@@ -552,7 +552,8 @@
 
                        
                     	swal.fire("Email sent sucessfully", "", "success", "OK").then(function() {
-                            window.location = "triggerEmail";
+                    		$('#region').val("");
+                   		 $('#region').trigger('change');
                     	});
 
                         getData();

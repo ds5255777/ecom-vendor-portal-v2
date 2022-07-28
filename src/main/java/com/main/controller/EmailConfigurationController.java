@@ -4,9 +4,11 @@ import java.net.URL;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +29,7 @@ import com.main.bean.DataContainer;
 import com.main.commonclasses.CommanFunction;
 import com.main.db.bpaas.entity.EmailConfiguration;
 import com.main.db.bpaas.entity.SendEmailToVendor;
+import com.main.db.bpaas.entity.User;
 import com.main.payloads.EmailConfigurationDTO;
 import com.main.payloads.SendEmailToVendorDTO;
 import com.main.serviceManager.ServiceManager;
@@ -146,20 +149,34 @@ public class EmailConfigurationController {
 		try {
 			entityDto.setProcessOn(new Date());
 			entityDto.setProcessBy(principal.getName());
+			User us = serviceManager.userService.findByUsername(principal.getName());
+			Random rand = new Random();
+	        int rand_int = rand.nextInt(10000);
+	        entityDto.setFlag(rand_int);
+	        System.out.println("Random Integers: "+rand_int);
+			String introducerEmail=us.getEmailId();
 			serviceManager.sendEmailToVendorRepo.save(this.serviceManager.modelMapper.map(entityDto, SendEmailToVendor.class));
 		
-			 List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
+			 List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByEmailId(introducerEmail);
+			 
 
-			 String maillink = registrationLink+"?vendorEmail=" + entityDto.getVendorEmail()+"&vendorType="+entityDto.getVendorType()+"&region="+entityDto.getRegion()+"&vendorAddress="+entityDto.getVendorAddress();
-			 String newUrlString = maillink.replaceAll(" ", "%20");
+			 String maillink = registrationLink+"?vendorEmail=" + Base64.getEncoder().encodeToString(entityDto.getVendorEmail().getBytes())+"&vendorType="+Base64.getEncoder().encodeToString(entityDto.getVendorType().getBytes())+"&region="+Base64.getEncoder().encodeToString(entityDto.getRegion().getBytes())+"&vendorAddress="+Base64.getEncoder().encodeToString(entityDto.getVendorAddress().getBytes())+"&processBy="+Base64.getEncoder().encodeToString(entityDto.getProcessBy().getBytes())+"&processByEmailId="+Base64.getEncoder().encodeToString(introducerEmail.getBytes())+"&flag="+rand_int;
+			 String newmailLink=maillink.replaceAll(" ", "%20");
+			 
 			
+			 String message = "<b>Dear Vendor,</b><br><br>";
+		        message += "<i> Request you to please click on below link and register yourself!</i><br>";
+		        message += "<font color=blue>Link :- </font>";
+		        String regards="<p>Regards<br>ECOM Team</p>";
+		        
+		        String newUrlString =message+ newmailLink+regards;
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
 						try {
 						if (!emailList.isEmpty()) {
 							for (int i = 0; i < emailList.size(); i++) {
-								CommanFunction.sendEmail(emailList.get(i),entityDto.getVendorEmail(),"", "", "Vendor Portal Request Acknowldgement", "Congratulations! Request for vendor portal is approved ,Registration Link : "+newUrlString);
+								CommanFunction.sendEmail(emailList.get(i),entityDto.getVendorEmail(),"", "", "Vendor Portal Request Acknowldgement", ""+newUrlString);
 							System.out.println("Email sent succesfully");
 							}
 						}
@@ -185,13 +202,13 @@ public class EmailConfigurationController {
 	}
 	@PostMapping({ "/getAllSentEmail" })
 	@CrossOrigin("*")
-	public String getAllSentEmail(HttpServletRequest request, @RequestBody SendEmailToVendorDTO entityDto) {
+	public String getAllSentEmail(HttpServletRequest request,Principal principal, @RequestBody SendEmailToVendorDTO entityDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			List<SendEmailToVendor> emailList = serviceManager.sendEmailToVendorRepo.findAll();
+			List<SendEmailToVendor> emailList = serviceManager.sendEmailToVendorRepo.findByProcessBy(principal.getName());
 			List<SendEmailToVendorDTO> emailListDto = emailList.stream()
 					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, SendEmailToVendorDTO.class))
 					.collect(Collectors.toList());

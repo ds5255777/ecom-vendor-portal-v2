@@ -33,5 +33,7 @@ public class SendEmailToVendor {
 	private Date processOn;
 	@Column(name = "process_by")
 	private String processBy;
+	@Column(name = "flag")
+	private Integer flag;
 
 }

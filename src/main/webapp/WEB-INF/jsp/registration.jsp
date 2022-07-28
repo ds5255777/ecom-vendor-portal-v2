@@ -930,7 +930,10 @@ label {
     /* border: hidden; */
     display: none;
 }
-
+select[readonly].select2 + .select2-container {
+  pointer-events: none;
+  touch-action: none;
+}
 
 </style>
 
@@ -1082,7 +1085,7 @@ label {
 												
 												<td><label>Region<span class="required adHocRequired"></span></label></td>
 
-                                                <td style="width: auto"><select colspan='1' class="js-example-basic-multiple1 select2" name="region[]" id="region" multiple="multiple" onchange="region1();">
+                                                <td style="width: auto"><select colspan='1' class="js-example-basic-multiple1 select2" name="region" id="region" multiple="multiple" onchange="region1();">
                                                         <c:forEach items="${region}" var="reg">
 
                                                             <option value="${reg}">${reg}</option>
@@ -1140,7 +1143,7 @@ label {
                                                     
                                                     <td><label>Business Partner Type<span class="required adHocRequired">*</span></label></td>
 
-                                                <td colspan="2"><select class="js-example-basic-multiple select2" name="states[]" id="states" onchange="select()" multiple="multiple">
+                                                <td colspan="2"><select class="js-example-basic-multiple select2" name="states" id="states" onchange="select()" multiple="multiple">
                                                         <c:forEach items="${business}" var="bus">
 
                                                             <option value="${bus}">${bus}</option>
@@ -1763,9 +1766,11 @@ label {
         var vendorType1="${vendorType1}";
         var region11="${region1}";
         var vendorAddress="${vendorAddress}";
+        var processByEmailId="${processByEmailId}";
+        var processBy="${processBy}";
  		if(vendorEmail!=""){
            
-            setVendorData(vendorEmail,vendorType1,region11,vendorAddress);
+            setVendorData(vendorEmail,vendorType1,region11,vendorAddress,processBy,processByEmailId);
             }
         
         var pid="${pid}"; 
@@ -1871,6 +1876,9 @@ label {
                 $("#states").val('').trigger('change');
                 document.getElementById('addDetails').value = "";
                 document.getElementById('compGstn').value="";
+                $("#addDetails").prop('readonly', false);
+                var $S2 = $("select[name=states]");
+       			 $S2.attr("readonly", "false");
             }
 
         });
@@ -1910,6 +1918,7 @@ label {
                 document.getElementById('conLname').value = "";
                 document.getElementById('conPhone').value = "";
                 document.getElementById('conEmail').value = "";
+       		 	$("#conEmail").prop('readonly', false);
             }
         });
 
@@ -2848,18 +2857,31 @@ label {
 		return PanNumberCheckStatus;
 	}
 	
-	function setVendorData(vendorEmail,vendorType1,region11,vendorAddress){
-		
-		 $('#parterType').val(vendorType1);
+	function setVendorData(vendorEmail,vendorType1,region11,vendorAddress,processBy,processByEmailId){
+		var str1=vendorType1.split(",");
+		 $("#states").val(str1);
+		 $("#states").trigger('change');
+		 $("#addDetails").val(vendorAddress);
+		 $("#conEmail").val(vendorEmail);
 		 
-		  var str=region11.replace(/,/,'","');
+		  var str=region11.split(",");
 		  console.log(str);
-		 /* var str1=str.replace('/',''); */ 
-		// $('#region').val(["WRO","ERO"]).change();
-		 $('#region').val([str]).change();
+		  
+		 $('#region').val(str);
+		 $('#region').trigger('change');
+		 $("#addDetails").prop('readonly', true);
+		 $("#conEmail").prop('readonly', true);
+		 $("#introducedByName").val(processBy);
+		 $("#introducedByEmailID").val(processByEmailId);
+		 $("#introducedByName").prop('readonly', true);
+		 $("#introducedByEmailID").prop('readonly', true);
 		 
-	
-		
+		 var $S1 = $("select[name=region]");
+		 $S1.attr("readonly", "readonly");
+		 var $S2 = $("select[name=states]");
+		 $S2.attr("readonly", "readonly");
+		 
+		 
 	}
     </script>
 

@@ -13,4 +13,5 @@ public class SendEmailToVendorDTO {
 	private String vendorAddress;
 	private Date processOn;
 	private String processBy;
+	private Integer flag;
 }

@@ -76,7 +76,7 @@ public class UIController {
 		try {
 			pid = request.getParameter("pid");
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.error("error : " + ex);
 		}
 
 		if ("".equalsIgnoreCase(pid)) {
@@ -789,7 +789,6 @@ public class UIController {
 			serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
 		} catch (Exception e) {
 			logger.error("error : " + e);
-			e.printStackTrace();
 		}
 
 		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber, userName);

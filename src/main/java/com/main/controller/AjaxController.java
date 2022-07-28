@@ -170,7 +170,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 			if (null != supDetailsDto.getPdFileName()) {
@@ -198,7 +198,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 			if (null != supDetailsDto.getPANFileName()) {
@@ -226,7 +226,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 			if (null != supDetailsDto.getCcFileName()) {
@@ -254,7 +254,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 			if (null != supDetailsDto.getAcFileName()) {
@@ -282,7 +282,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 			if (null != supDetailsDto.getAplFileName()) {
@@ -310,7 +310,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 			// ITR filling declaration
@@ -338,7 +338,7 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 			if (null != supDetailsDto.getFuvfFileName()) {
@@ -366,7 +366,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 			if (null != supDetailsDto.getMsmecFileName()) {
@@ -394,7 +394,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 			if (null != supDetailsDto.getAmFileName()) {
@@ -422,7 +422,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 			// last three year ITR file
@@ -451,7 +451,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 			if (null != supDetailsDto.getItraFileName2()) {
@@ -479,7 +479,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 			if (null != supDetailsDto.getItraFileName3()) {
@@ -507,7 +507,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 			if (null != supDetailsDto.getNmisFileName()) {
@@ -536,14 +536,13 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 
 		} catch (Exception e) {
 			data.setMsg("error");
 			data.setData(e.toString());
-			e.printStackTrace();
 			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
@@ -570,7 +569,6 @@ public class AjaxController {
 		} catch (Exception e) {
 			data.setMsg("error");
 			logger.error("error : " + e);
-			e.printStackTrace();
 		}
 		return gson.toJson(data).toString();
 	}
@@ -594,7 +592,7 @@ public class AjaxController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -617,7 +615,6 @@ public class AjaxController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
 			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
@@ -639,7 +636,7 @@ public class AjaxController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
 	}

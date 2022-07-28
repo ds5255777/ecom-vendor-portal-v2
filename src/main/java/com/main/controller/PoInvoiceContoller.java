@@ -147,7 +147,7 @@ public class PoInvoiceContoller {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 
@@ -171,7 +171,7 @@ public class PoInvoiceContoller {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("error : " + e);
 				}
 			}
 			String vendorCode = principal.getName();

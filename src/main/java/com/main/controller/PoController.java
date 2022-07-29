@@ -31,7 +31,7 @@ import com.main.payloads.PoDetailsDTO;
 import com.main.payloads.PoInvoiceDetailsDTO;
 import com.main.payloads.PoInvoiceLineDTO;
 import com.main.payloads.QueryEntityDTO;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @RequestMapping("/poController")
 @RestController

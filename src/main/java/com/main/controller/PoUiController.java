@@ -20,7 +20,7 @@ import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoLineDetails;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @Controller
 public class PoUiController {

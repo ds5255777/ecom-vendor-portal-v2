@@ -20,7 +20,7 @@ import com.main.bean.DataContainer;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.payloads.SupDetailsDTO;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @RequestMapping("/registrationController")
 @RestController

@@ -26,9 +26,6 @@
 	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 <link rel="stylesheet"
 	href="plugins/daterangepicker/daterangepicker.css">
-<!-- <link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet"> -->
 <link rel="stylesheet" type="text/css"
 	href="plugins/jquery-ui/jquery-ui.min.css">
 <link
@@ -171,22 +168,6 @@ tbody {
 								<div class="card-body ">
 									<form role="form" id="addForm" autocomplete="off">
 										<div class="row">
-											<!-- <div class="col-md-1">
-												<input type="text" name="fromDate"
-													placeholder="Act Dept Start Date" class="form-control"
-													id="fromDate" readonly>
-											</div>
-											<div class="col-md-1">
-												<input type="text" name="toDate"
-													placeholder="Act Dept End Date" class="form-control"
-													id="toDate" readonly>
-											</div>
-											<div class="col-md-1">
-
-												<button type="button" onclick="getFilterData()"
-													style="imargin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
-													class="btn btn-primary">Search</button>
-											</div> -->
 
 											<div class="col-md-1">
 												<div class="dropdown">
@@ -294,17 +275,11 @@ tbody {
 				</div>
 			</section>
 
-			<!-- Control Sidebar -->
-			<!-- <aside class="control-sidebar control-sidebar-dark">
-			Control sidebar content goes here
-		</aside>
-		/.control-sidebar -->
 		</div>
 		<!-- ./wrapper -->
 
 		<script src="plugins/jquery/jquery.min.js"></script>
 		<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 		<script>
 			$.widget.bridge('uibutton', $.ui.button);
 			$.widget.bridge('uitooltip', $.ui.tooltip);
@@ -335,7 +310,6 @@ tbody {
 		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 		<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
 		<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-		<script src="plugins/jszip/jszip.min.js"></script>
 		<script src="plugins/pdfmake/pdfmake.min.js"></script>
 		<script src="plugins/pdfmake/vfs_fonts.js"></script>
 		<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>

@@ -13,7 +13,7 @@ import com.main.commonclasses.CommanFunction;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.EmailConfiguration;
 import com.main.db.bpaas.entity.SendEmail;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @Component
 public class SchedularController {

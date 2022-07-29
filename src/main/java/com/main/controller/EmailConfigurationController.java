@@ -31,7 +31,7 @@ import com.main.db.bpaas.entity.SendEmailToVendor;
 import com.main.db.bpaas.entity.User;
 import com.main.payloads.EmailConfigurationDTO;
 import com.main.payloads.SendEmailToVendorDTO;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @RequestMapping("/emailConfigurationController")
 @RestController

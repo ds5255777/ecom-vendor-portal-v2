@@ -37,7 +37,7 @@ import com.main.db.bpaas.entity.PoLineDetails;
 import com.main.db.bpaas.entity.RolesEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.entity.User;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @Controller
 public class UIController {

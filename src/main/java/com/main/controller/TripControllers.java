@@ -39,7 +39,7 @@ import com.main.db.bpaas.entity.TripDetails;
 import com.main.payloads.InvoiceGenerationDto;
 import com.main.payloads.QueryEntityDTO;
 import com.main.payloads.TripDetailsDto;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
 @RequestMapping("/tripControllers")

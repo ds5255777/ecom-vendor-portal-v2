@@ -25,7 +25,7 @@ public class PoDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	/* Stap-1 Entity */
+
 	@Column(name = "PO_Number")
 	private String poNo;
 	@Column(name = "Type")
@@ -99,10 +99,10 @@ public class PoDetails {
 	private String typeLookupCode;
 
 	@Column(name = "processed_On")
-	private Date processedOn;//
+	private Date processedOn;
 
 	@Column(name = "processed_By")
-	private String processedBy;//
+	private String processedBy;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn

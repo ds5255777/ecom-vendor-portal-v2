@@ -33,11 +33,11 @@ public class SupDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	/* Stap-1 Entity */
+
 	@Column(name = "pid")
 	private String pid;
 	@Column(name = "vendor_type")
-	private String vendorType;// network, fixed Assets,rent
+	private String vendorType;
 	@Column(name = "introduced_by_name")
 	private String introducedByName;
 	@Column(name = "introduced_by_email_id")
@@ -62,9 +62,8 @@ public class SupDetails {
 	@Column(name = "ope_unit_req_map")
 	private String opeUnitReqMap;
 	@Column(name = "ven_status")
-	private String venStatus; // 0-approved, 1-queryRaise, 2- pending
+	private String venStatus; 
 
-	/* payment Terms */
 	@Column(name = "invoice_currency")
 	private String invoiceCurrency;
 	@Column(name = "payment_currency")
@@ -78,7 +77,7 @@ public class SupDetails {
 	@Column(name = "delivery_terms")
 	private String deliveryTerms;
 
-	/* tds terms */
+
 	@Column(name = "tds_application")
 	private String tdsApplication;
 	@Column(name = "tds_section")
@@ -86,7 +85,7 @@ public class SupDetails {
 	@Column(name = "tds_rate")
 	private String tdsRate;
 
-	/* itr last three year */
+
 	@Column(name = "fy_year1")
 	private String fyYear1;
 	@Column(name = "acknowledgement_number1")
@@ -123,7 +122,7 @@ public class SupDetails {
 	private Date date = new Date();
 
 	@Column(name = "flag")
-	private String flag;// Active Inactive
+	private String flag;
 
 	@Column(name = "ADDRESS_PURCHASING_FLAG")
 	private String addressPurchasingFlag;
@@ -198,8 +197,6 @@ public class SupDetails {
 	String nmisFileText;
 	@Transient
 	String nmisFileName;
-
-	// last three year ITR report
 
 	@Transient
 	String itraFileText1;

@@ -1,4 +1,4 @@
-package com.main.serviceManager;
+package com.main.servicemanager;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,69 +131,50 @@ public class ServiceManager {
 
 	@Autowired
 	public PoLineItemRepo poLineItemRepo;
-	
+
 	@Autowired
 	public SendEmailRepo sendEmailRepo;
-	
+
 	@Autowired
 	public EmailAuditLogsRepo emailAuditLogsRepo;
-	
+
 	@Autowired
 	public MailContentRepo mailContentRepo;
-	
+
 	@Autowired
 	public AddressDetailsRepo addressDetailsRepo;
-	
+
 	@Autowired
 	public AdharLinkStatusRepo adharLinkStatusRepo;
-	
+
 	@Autowired
 	public RegionRepo regionRepo;
-	
+
 	@Autowired
 	public SectionTypeRepo sectionTypeRepo;
-	
+
 	@Autowired
 	public PaymentMethodRepo paymentMethodRepo;
-	
+
 	@Autowired
 	public FlagRepo flagRepo;
-	
+
 	@Autowired
 	public StateRepo stateRepo;
 
 	@Autowired
 	public InvoiceNumberRepo invoiceNumberRepo;
-	
+
 	@Autowired
 	public UserLevelRepo userLevelRepo;
-	
+
 	@Autowired
 	public ProcessMaxLevelRepo processMaxLevelRepo;
-	
+
 	@Autowired
 	public ModelMapper modelMapper;
-	
+
 	@Autowired
-	public SendEmailToVendorRepo sendEmailToVendorRepo; 
-
-
-	/*
-	 * public void insertRecordIntoAuditEntry(HttpServletRequest request, String
-	 * action, String actionType, String remarks, String ticketId, Integer
-	 * ticketQueueId) {
-	 * 
-	 * String userName = (String) request.getSession().getAttribute("userName");
-	 * Integer userId = (Integer) request.getSession().getAttribute("userId");
-	 * 
-	 * }
-	 * 
-	 * public void insertAddUpdateInMaster(HttpServletRequest request, String
-	 * action, String actionType, String remarks, String newValue, String oldValue)
-	 * {
-	 * 
-	 * String userName = (String) request.getSession().getAttribute("userName");
-	 * Integer userId = (Integer) request.getSession().getAttribute("userId"); // }
-	 */
+	public SendEmailToVendorRepo sendEmailToVendorRepo;
 
 }

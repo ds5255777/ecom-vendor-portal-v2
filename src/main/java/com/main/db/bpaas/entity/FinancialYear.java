@@ -21,6 +21,6 @@ public class FinancialYear {
 	private Integer id;
 
 	@Column(name = "financial_year")
-	private String financialYear;
+	private String financeYear;
 
 }

@@ -20,7 +20,7 @@ import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoLineDetails;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @Controller
 public class PoUiController {
@@ -80,7 +80,6 @@ public class PoUiController {
 				}
 			}
 
-			// po Details
 			int totalAllPoCount = serviceManager.podetailsRepo.getAllPoCount(vendorCode);
 			model.addAttribute("totalAllPoCount", totalAllPoCount);
 
@@ -88,11 +87,9 @@ public class PoUiController {
 			model.addAttribute("totalProcessPoCount", totalProcessPoCount);
 			int totalUnprocessPOCount = serviceManager.podetailsRepo.getAllUnProcessPoCount(vendorCode);
 			model.addAttribute("totalUnprocessPOCount", totalUnprocessPOCount);
-			// Query
 			int totalQueryCount = serviceManager.podetailsRepo.getAllQueryCount(vendorCode);
 			model.addAttribute("totalQueryCount", totalQueryCount);
 
-			// Query
 			int totalInvoiceCount = serviceManager.poinvoiceRepo.getAllInvoiceCount(vendorCode);
 			model.addAttribute("totalInvoiceCount", totalInvoiceCount);
 
@@ -172,7 +169,7 @@ public class PoUiController {
 	}
 
 	@GetMapping("/QueryPo")
-	public String QueryPo(Model model, Principal principal, HttpServletRequest request) {
+	public String queryPo(Model model, Principal principal, HttpServletRequest request) {
 		String rolename = (String) request.getSession().getAttribute("role");
 		model.addAttribute("dataLimit", dataLimit);
 		if (rolename.equalsIgnoreCase("Vendor")) {
@@ -222,7 +219,7 @@ public class PoUiController {
 	}
 
 	@GetMapping("/PoView")
-	public String PoView(Model model, HttpServletRequest request, Principal principal) {
+	public String poView(Model model, HttpServletRequest request, Principal principal) {
 
 		String id = request.getParameter("id");
 		String arr[] = id.split(",");
@@ -257,14 +254,14 @@ public class PoUiController {
 		model.addAttribute("invoiceDate", new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 		model.addAttribute("invoiceNumber", invoiceNumber);
 		request.getSession().setAttribute("invoiceNumber", invoiceNumber);
-		String PoNumber = request.getParameter("id");
-		List<String> paymentMethod = serviceManager.paymentMethodRepo.PaymentMethod();
-		model.addAttribute("PoNumber", PoNumber);
+		String poNumber = request.getParameter("id");
+		List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
+		model.addAttribute("PoNumber", poNumber);
 		model.addAttribute("maxFileSize", maxFileSize);
 		model.addAttribute("paymentMethod", paymentMethod);
 
 		PoDetails findByPoNumber = null;
-		findByPoNumber = serviceManager.podetailsRepo.findByPoNo(PoNumber);
+		findByPoNumber = serviceManager.podetailsRepo.findByPoNo(poNumber);
 		model.addAttribute("curentDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
 		model.addAttribute("payment", payment);
@@ -278,7 +275,7 @@ public class PoUiController {
 		if ("".equals(creidtTerms) || creidtTerms == null) {
 			creidtTerms = "";
 		}
-		List<String> accountNumber = new ArrayList<String>();
+		List<String> accountNumber = new ArrayList<>();
 		List<SupDetails> supDetails = serviceManager.supDetailsRepo.findbankAccountNumber(bpCode);
 		String accountnumber = "";
 		List<AccountDetails> listaccountNumber = supDetails.get(0).getAccountDetails();
@@ -287,49 +284,44 @@ public class PoUiController {
 			accountNumber.add(accountnumber);
 		}
 
-		if ("".equals(accountnumber) || accountnumber == null) {
+		if (null == accountnumber) {
 			accountnumber = "";
 		}
 		model.addAttribute("accountNumber", accountNumber);
 		model.addAttribute("creidtTerms", creidtTerms);
-		if (null != findByPoNumber.getPoNo()) {
-			// findByPoNumber.setStatus("Draft-Invoicing");
-			// findByPoNumber.setInvoiceNumber(invoiceNumber);
-			// podetailsRepo.save(findByPoNumber);
-		}
 		return "poInvoiceGenerate";
 	}
 
 	@GetMapping("/draftPO")
 	public String draftPO(Model model, HttpServletRequest request, Principal principal) {
-		String PoNumber = request.getParameter("id");
+		String poNumber = request.getParameter("id");
 		model.addAttribute("dataLimit", dataLimit);
-		model.addAttribute("PoNumber", PoNumber);
+		model.addAttribute("PoNumber", poNumber);
 		return "draftPO";
 	}
 
 	@GetMapping("/draftPoInvoiceGenerate")
 	public String draftPoInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
-		String PoNumber = request.getParameter("id");
-		model.addAttribute("PoNumber", PoNumber);
-		model.addAttribute("invoiceNumber", PoNumber);
+		String poNumber = request.getParameter("id");
+		model.addAttribute("PoNumber", poNumber);
+		model.addAttribute("invoiceNumber", poNumber);
 		model.addAttribute("curentDate", new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 		model.addAttribute("curentDate1", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-		List<String> paymentMethod = serviceManager.paymentMethodRepo.PaymentMethod();
+		List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
 		model.addAttribute("maxFileSize", maxFileSize);
 		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
-		if ("".equals(bpCode) || bpCode == null) {
+		if (null == bpCode) {
 			bpCode = "";
 		}
 
 		String creidtTerms = serviceManager.supDetailsRepo.findCreditTerms(bpCode);
-		if ("".equals(creidtTerms) || creidtTerms == null) {
+		if (null == creidtTerms) {
 			creidtTerms = "";
 		}
 		model.addAttribute("creidtTerms", creidtTerms);
 		model.addAttribute("paymentMethod", paymentMethod);
 
-		List<String> accountNumber = new ArrayList<String>();
+		List<String> accountNumber = new ArrayList<>();
 		List<SupDetails> supDetails = serviceManager.supDetailsRepo.findbankAccountNumber(bpCode);
 		String accountnumber = "";
 		List<AccountDetails> listaccountNumber = supDetails.get(0).getAccountDetails();
@@ -337,7 +329,7 @@ public class PoUiController {
 			accountnumber = listaccountNumber.get(i).getAccoutNumber();
 			accountNumber.add(accountnumber);
 		}
-		if ("".equals(accountnumber) || accountnumber == null) {
+		if (null == accountnumber) {
 			accountnumber = "";
 		}
 		model.addAttribute("accountNumber", accountNumber);
@@ -350,7 +342,7 @@ public class PoUiController {
 		long count = serviceManager.invoiceNumberRepo.count();
 		String invoiceNumberPrefix = "ECOM-";
 		count = count + 1;
-		String invoiceNumber = invoiceNumberPrefix + String.format("%08d", count); // Filling with zeroes
+		String invoiceNumber = invoiceNumberPrefix + String.format("%08d", count);
 		return invoiceNumber;
 	}
 }

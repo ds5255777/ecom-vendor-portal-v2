@@ -21,18 +21,17 @@ import javax.mail.internet.MimeMultipart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.main.controller.SchedularController;
 import com.main.db.bpaas.entity.EmailConfiguration;
 
 public class CommanFunction {
-	
+
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	private static Logger logger = LoggerFactory.getLogger(SchedularController.class);
+	private static Logger logger = LoggerFactory.getLogger(CommanFunction.class);
 
 	public static void sendEmail(EmailConfiguration emailObj, String commaSeparatedEamilName,
 			String commaSeparatedCCEamilID, String commaSeparatedBCCEamilID, String subject, String content) {
 
-		try { 
+		try {
 
 			String toEmail = "";
 			String ccEmail = "";
@@ -52,7 +51,6 @@ public class CommanFunction {
 					return new PasswordAuthentication(emailObj.getUserName(), emailObj.getPassword());
 				}
 			});
-			// session.setDebug(true);
 
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(emailObj.getUserName()));
@@ -69,10 +67,8 @@ public class CommanFunction {
 				message.setRecipients(Message.RecipientType.BCC, parseBccEmail);
 			}
 
-			// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd HH:mm");
 			message.setSubject(subject);
 			message.setContent(content, "text/html");
-			// send the message
 			Transport.send(message);
 
 		} catch (Exception e) {
@@ -122,13 +118,10 @@ public class CommanFunction {
 				message.setRecipients(Message.RecipientType.BCC, parseBccEmail);
 			}
 
-			// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd HH:mm");
-
 			message.setSubject(subject);
 			Multipart multipart = new MimeMultipart();
 			BodyPart messageBodyPart = new MimeBodyPart();
 
-			// Now set the actual message
 			messageBodyPart.setContent(content, "text/html");
 			multipart.addBodyPart(messageBodyPart);
 
@@ -142,8 +135,6 @@ public class CommanFunction {
 				multipart.addBodyPart(messageBodyPart);
 
 			}
-
-			// send the message
 			message.setContent(multipart);
 			Transport.send(message);
 

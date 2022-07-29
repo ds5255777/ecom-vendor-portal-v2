@@ -57,8 +57,8 @@ public class User implements Serializable {
 	private RolesEntity rolesObj;
 
 	@Column(name = "status")
-	private String status = "0"; // 1- active , 0- inactive, 2- delete 3-change Password
-
+	private String status = "0"; 
+	
 	@Column(name = "bp_code")
 	private String bpCode;
 

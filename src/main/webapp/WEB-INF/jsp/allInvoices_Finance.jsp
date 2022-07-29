@@ -11,7 +11,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>${titleName}|All Invoice</title>
 
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="dist/css/ionicons.min.css">
@@ -21,7 +20,6 @@
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
@@ -213,6 +211,7 @@
                 </div>
             </section>
         </div>
+        </div>
         <!-- ./wrapper -->
         <script src="plugins/jquery/jquery.min.js"></script>
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -293,8 +292,6 @@
 
                             var tblBody = doc.content[1].table.body;
                             for (var i = 0; i < tblBody[0].length; i++) {
-                                //	 console.log(tblBody[0]);
-                                //	 console.log(tblBody[0][i]);
                                 tblBody[0][i].fillColor = '#FFFFFF';
                                 tblBody[0][i].color = 'black';
                             }
@@ -326,7 +323,6 @@
                             obj['hLineColor'] = function(i) {
                                 return '#aaa';
                             };
-                            //   doc.content[1].margin = [ 150, 0, 150, 0 ];
 
                         }
                     }
@@ -446,7 +442,6 @@
                 });
             }
             
-            //date filter
             
             function getFilterData() {
 

@@ -33,7 +33,7 @@ public class PoInvoiceDetails {
 	private String invoiceType;
 
 	@Column(name = "Trading_partner")
-	private String tradingPartner;// supplier
+	private String tradingPartner;
 	@Column(name = "Supplier_Num")
 	private String supplierNum;
 
@@ -110,7 +110,7 @@ public class PoInvoiceDetails {
 	@Column(name = "raised_on")
 	private Date raisedOn;
 	@Column(name = "raised_by")
-	private String raisedBy;// Vendor Code
+	private String raisedBy;
 
 	@Column(name = "gldatedistribution_date")
 	private Date glDateDistributionDate;

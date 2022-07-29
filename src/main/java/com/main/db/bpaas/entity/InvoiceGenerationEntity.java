@@ -27,7 +27,7 @@ public class InvoiceGenerationEntity {
 	private Long id;
 	@Column(name = "ecom_invoice_nunmber")
 	private String ecomInvoiceNumber;
-// Form one
+
 	@Column(name = "vendor_code")
 	private String vendorCode;
 	@Column(name = "vendor_name")
@@ -44,38 +44,35 @@ public class InvoiceGenerationEntity {
 	private String invoiceAmount;
 	@Column(name = "invoice_receiving_date")
 	private String invoiceReceivingDate;
-	/*
-	 * @Column(name = "vehicle_number") private String vehicleNumber;
-	 */
+
 	@Column(name = "invoice_status")
-	private String invoiceStatus;// Processed, Approved, Rejected
+	private String invoiceStatus;
 	@Column(name = "assign_to")
-	private String assignTo;// network Team, Vendor
+	private String assignTo;
 
 	@Column(name = "processed_On")
-	private String processedOn;//
+	private String processedOn;
 
 	@Column(name = "processed_By")
-	private String processedBy;//
+	private String processedBy;
 
 	@Column(name = "hsn_code")
-	private String hsnCode;//
+	private String hsnCode;
 
 	@Column(name = "green_tax")
-	private String greenTax;//
+	private String greenTax;
 
 	@Column(name = "extra_km_rate")
-	private String extraKmRate;//
+	private String extraKmRate;
 
 	@Column(name = "miscellaneous")
-	private String miscellaneous;//
+	private String miscellaneous;
 
 	@Column(name = "extera_km")
-	private String exteraKM;//
+	private String exteraKM;
 
 	@Column(name = "rate_per_km")
-	private String ratePerKm;//
-	// form Two
+	private String ratePerKm;
 
 	@Column(name = "taxable_amount")
 	private String taxableAmount;
@@ -86,7 +83,6 @@ public class InvoiceGenerationEntity {
 	@JoinColumn
 	private List<InvoiceLineItem> invoiceLineItem;
 
-	// form 3
 	@Transient
 	private String invoiceFileName;
 	@Transient

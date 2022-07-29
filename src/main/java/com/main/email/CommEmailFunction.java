@@ -36,16 +36,13 @@ public class CommEmailFunction {
 					return new PasswordAuthentication(username, password);
 				}
 			});
-			// session.setDebug(true);
 
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(username));
 			message.setRecipients(Message.RecipientType.TO, parse);
 
-			//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd HH:mm");
 			message.setSubject(subject);
 			message.setContent(content, "text/html");
-			// send the message
 			Transport.send(message);
 
 		} catch (Exception e) {

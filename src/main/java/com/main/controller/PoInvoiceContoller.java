@@ -34,7 +34,7 @@ import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.payloads.PoDetailsDTO;
 import com.main.payloads.PoInvoiceDetailsDTO;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @RequestMapping("/PoInvoiceContoller")
 @RestController
@@ -56,7 +56,6 @@ public class PoInvoiceContoller {
 	private static Logger logger = LoggerFactory.getLogger(PoInvoiceContoller.class);
 
 	@PostMapping({ "/deleteDraftPoInvoice" })
-
 	public String deleteDraftPoInvoice(HttpServletRequest request, @RequestBody PoDetailsDTO objDto) {
 
 		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
@@ -71,7 +70,6 @@ public class PoInvoiceContoller {
 			logger.info("ecomInvoiceNumber" + ecomInvoiceNumber);
 
 			poInvoiceRepo.deleteById(id);
-//			poInvoiceRepo.deleteByInvoiceNumber(ecomInvoiceNumber);
 			poDetailsRepo.updatePoStatusagainsInvoiceNumber(ecomInvoiceNumber);
 
 			data.setMsg("success");
@@ -85,7 +83,6 @@ public class PoInvoiceContoller {
 	}
 
 	@PostMapping({ "/getAllDraftInvoicePO" })
-
 	public String getAllDraftInvoicePO(HttpServletRequest request, Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -112,7 +109,6 @@ public class PoInvoiceContoller {
 	}
 
 	@PostMapping({ "/savePoInvoice" })
-
 	public String savePoInvoice(HttpServletRequest request, Principal principal,
 			@RequestBody PoInvoiceDetailsDTO invoiceDetailsDto) {
 
@@ -140,7 +136,7 @@ public class PoInvoiceContoller {
 				doc.setForeignKey(invoiceDetailsDto.getInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName)) {
 					String b64 = invoiceDetailsDto.getInvoiceFileText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
@@ -164,7 +160,7 @@ public class PoInvoiceContoller {
 				doc.setForeignKey(invoiceDetailsDto.getInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName)) {
 					String b64 = invoiceDetailsDto.getDocumentFileOneText();
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
@@ -179,14 +175,12 @@ public class PoInvoiceContoller {
 			String ecomInvoiceNumber = invoiceDetailsDto.getInvoiceNumber();
 
 			logger.info(ecomInvoiceNumber);
-			// List<PoInvoiceLine> poInvoiceLine =invoiceDetails.getPoInvoiceLine();
 			invoiceDetailsDto.setStatus("In-Review");
 			invoiceDetailsDto.setVendorCode(vendorCode);
 			invoiceDetailsDto.setRaisedBy(vendorCode);
 			invoiceDetailsDto.setRaisedOn(new Date());
 
 			Long id = serviceManager.poinvoiceRepo.getId(ecomInvoiceNumber);
-			logger.info("ecomInvoiceNumber" + ecomInvoiceNumber);
 			if (id != null) {
 				poInvoiceRepo.deleteById(id);
 			}
@@ -233,7 +227,6 @@ public class PoInvoiceContoller {
 	}
 
 	@PostMapping({ "/getAllDraftPODetailsByInvoiceNo" })
-
 	public String getAllDraftPODetailsByInvoiceNo(HttpServletRequest request, Principal principal,
 			@RequestBody PoInvoiceDetailsDTO invoiceDetailsDto) {
 
@@ -242,7 +235,6 @@ public class PoInvoiceContoller {
 		try {
 			String vendorCode = principal.getName();
 			String invoiceNo = invoiceDetailsDto.getInvoiceNumber();
-			logger.info("vendorCode : " + vendorCode + "invoiceNo : " + invoiceNo);
 			List<PoInvoiceDetails> details = poInvoiceRepo.getAllDraftPODetailsByInvoiceNo(vendorCode, invoiceNo);
 			List<PoInvoiceDetailsDTO> detailsDto = details.stream()
 					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
@@ -262,7 +254,6 @@ public class PoInvoiceContoller {
 	}
 
 	@PostMapping({ "/saveDraftInvoice" })
-
 	public String saveDraftInvoice(HttpServletRequest request, Principal principal,
 			@RequestBody PoInvoiceDetailsDTO invoiceDetailsDto) {
 
@@ -276,12 +267,9 @@ public class PoInvoiceContoller {
 
 			invoiceDetailsDto.setStatus("Draft-Invoicing");
 			invoiceDetailsDto.setVendorCode(vendorCode);
-			logger.info("save draft invoice , ecomInvoiceNumber : " + ecomInvoiceNumber);
 			Long id = poInvoiceRepo.getId(ecomInvoiceNumber);
-			logger.info("ecomInvoiceNumber" + ecomInvoiceNumber);
 			if (id != null) {
 				poInvoiceRepo.deleteById(id);
-
 			}
 
 			poInvoiceRepo.save(this.serviceManager.modelMapper.map(invoiceDetailsDto, PoInvoiceDetails.class));
@@ -290,12 +278,9 @@ public class PoInvoiceContoller {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-
 			logger.error("error : " + e);
-
 		}
 
 		return gson.toJson(data).toString();
 	}
-
 }

@@ -1,7 +1,6 @@
 package com.main.controller;
 
 import java.security.Principal;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,14 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
-import com.main.bean.SupplierDTO;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.AgreementMaster;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.payloads.InvoiceGenerationDto;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @RequestMapping("/dashboardController")
 @RestController
@@ -99,7 +97,6 @@ public class DashboardController {
 	public String updateDetailsforNetwork(Model model, HttpServletRequest request, Principal principal,
 			@RequestBody String agrn) {
 
-		logger.info("************************Data is ::" + agrn);
 		String rolename = (String) request.getSession().getAttribute("role");
 		String userName = principal.getName();
 
@@ -163,7 +160,6 @@ public class DashboardController {
 		comm.setRaisedBy(userName);
 
 		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			Date date = new Date();
 			comm.setRaisedOn(date);
 		} catch (Exception ex) {
@@ -171,7 +167,7 @@ public class DashboardController {
 		}
 
 		TripDetails obj = serviceManager.tripDetailsRepo.findByTripID(tripid);
-		int id = (int) obj.getId();
+		int id = obj.getId();
 
 		comm.setRaisedAgainQuery(tripid);
 		if ("Yes".equalsIgnoreCase(Query)) {
@@ -221,7 +217,6 @@ public class DashboardController {
 		return gson.toJson(data).toString();
 	}
 
-	// RefreshVaues for Scheduled trips in case of updation in Agreenment Master
 	@PostMapping({ "refreshValues" })
 	public String refreshValues(Principal principal, @RequestBody String reqObj) {
 		DataContainer data = new DataContainer();
@@ -250,10 +245,7 @@ public class DashboardController {
 		try {
 			JSONObject jsonObject = new JSONObject(reqObj);
 			String vendorName = (String) jsonObject.get("vendorName");//
-
-			String vendorCodeFromSuppDetails = serviceManager.supDetailsRepo.getVendorCode(vendorName);
-			SupplierDTO vendorCode = this.serviceManager.modelMapper.map(vendorCodeFromSuppDetails, SupplierDTO.class);
-			data.setData(vendorCode);
+			data.setData(serviceManager.supDetailsRepo.getVendorCode(vendorName));
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -263,38 +255,5 @@ public class DashboardController {
 
 		return gson.toJson(data).toString();
 	}
-
-	/*
-	 * @PostMapping({ "getAllVendors" }) public List<SupDetails>
-	 * getAllVendors(Principal principal, HttpServletRequest request) {
-	 * DataContainer data = new DataContainer(); Gson gson = new
-	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create(); try {
-	 * 
-	 * // String role = (String) request.getSession().getAttribute("Role");
-	 * 
-	 * // if (role.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) { //
-	 * List<SupDetails> findAllVendors = //
-	 * serviceManager.supDetailsRepo.allVendorData();
-	 * 
-	 * // data.setData(findAllVendors); // } data.setMsg("success");
-	 * 
-	 * } catch (Exception e) { logger.error("error : " + e); data.setMsg("error"); }
-	 * 
-	 * return serviceManager.supDetailsRepo.allVendorData(); }
-	 */
-
-	/*
-	 * @RequestMapping({ "findVendorCodeAndName" }) public String
-	 * findVendorCodeAndName(Principal principal, @RequestBody String reqObj) {
-	 * DataContainer data = new DataContainer(); Gson gson = new
-	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create(); try { JSONObject
-	 * jsonObject = new JSONObject(reqObj); String vendorName = (String)
-	 * jsonObject.get("vendorName");// Object findByVendorCodeVendorName =
-	 * serviceManager.userRepository.getVendorCodeVendorNameById(vendorName);
-	 * data.setData(findByVendorCodeVendorName); data.setMsg("success"); } catch
-	 * (Exception e) { logger.error("error : " + e); data.setMsg("error"); }
-	 * 
-	 * return gson.toJson(data).toString(); }
-	 */
 
 }

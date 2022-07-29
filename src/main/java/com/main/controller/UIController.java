@@ -39,7 +39,7 @@ import com.main.db.bpaas.entity.PoLineDetails;
 import com.main.db.bpaas.entity.RolesEntity;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.entity.User;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @Controller
 public class UIController {
@@ -78,7 +78,8 @@ public class UIController {
 	}
 
 	@GetMapping("/registration")
-	public String registration(Model model, HttpServletRequest request,HttpServletResponse response) throws IOException, ParseException {
+	public String registration(Model model, HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ParseException {
 		Base64.Decoder decoder = Base64.getDecoder();
 		String vendorEmail = new String(decoder.decode(request.getParameter("vendorEmail")));
 		if(!"".equalsIgnoreCase(vendorEmail)) {
@@ -120,23 +121,20 @@ public class UIController {
 		}
 
 		if ("".equalsIgnoreCase(pid)) {
+
 			List<String> currency = serviceManager.currencyRepo.getCurrencyType();
 			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
 			List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
 			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
 			List<String> stateName = serviceManager.stateRepo.getStateName();
 			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
-			/*
-			 * List<String> nature =
-			 * serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
-			 */
 			List<String> country = serviceManager.countryRepo.getCountry();
 			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
 			List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
 			List<String> region = serviceManager.regionRepo.getRegion();
 			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
-			List<String> paymentMethod = serviceManager.paymentMethodRepo.PaymentMethod();
+			List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
 
 			String userEmail = (String) request.getSession().getAttribute("userEmail");
 
@@ -148,7 +146,6 @@ public class UIController {
 			model.addAttribute("classification", classification);
 			model.addAttribute("stateName", stateName);
 			model.addAttribute("payment", payment);
-			/* model.addAttribute("nature", nature); */
 			model.addAttribute("country", country);
 			model.addAttribute("tdsCode", tdsCode);
 			model.addAttribute("financialYear", financialYear);
@@ -162,11 +159,10 @@ public class UIController {
 			model.addAttribute("sectionType", sectionType);
 			model.addAttribute("paymentMethod", paymentMethod);
 
-			// return "registration";
+			return "registration";
 
 		} else {
 
-			// Query page of registration
 			model.addAttribute("pid", pid);
 			List<String> currency = serviceManager.currencyRepo.getCurrencyType();
 			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
@@ -174,17 +170,13 @@ public class UIController {
 			List<String> stateName = serviceManager.stateRepo.getStateName();
 			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
 			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
-			/*
-			 * List<String> nature =
-			 * serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
-			 */
 			List<String> country = serviceManager.countryRepo.getCountry();
 			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
 			List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
 			List<String> region = serviceManager.regionRepo.getRegion();
 			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
-			List<String> paymentMethod = serviceManager.paymentMethodRepo.PaymentMethod();
+			List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
 
 			model.addAttribute("currency", currency);
 			model.addAttribute("business", business);
@@ -192,7 +184,6 @@ public class UIController {
 			model.addAttribute("stateName", stateName);
 			model.addAttribute("classification", classification);
 			model.addAttribute("payment", payment);
-			/* model.addAttribute("nature", nature); */
 			model.addAttribute("country", country);
 			model.addAttribute("tdsCode", tdsCode);
 			model.addAttribute("financialYear", financialYear);
@@ -253,17 +244,14 @@ public class UIController {
 			int getAllInvoiceCount = serviceManager.invoiceGenerationEntityRepo.getCountForAllInvoices();
 			model.addAttribute("getAllInvoiceCount", getAllInvoiceCount);
 
-			// Changes made for limit and 50 trips only
 			List<TripDetails> findAllTripsLimitFifty = serviceManager.tripService.findAllTripsLimitFifty();
 			model.addAttribute("yetTobeApprovedAllDetails", findAllTripsLimitFifty);
 			model.addAttribute("role", rolename);
 			model.addAttribute("userStatus", us.getStatus());
-			// changes end
 			return "dashBoard_NetworkRole";
 
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
 
-			// Manish added dashBoard_AdminRole
 			int getAllUserCount = serviceManager.userRepository.getCountForAllUsers();
 			int totalActiveUser = serviceManager.userRepository.getCountForAllActiveUsers();
 			int totalInActiveUser = serviceManager.userRepository.getCountForAllInActiveUsers();
@@ -271,7 +259,6 @@ public class UIController {
 			model.addAttribute("totalActiveUser", totalActiveUser);
 			model.addAttribute("totalInActiveUser", totalInActiveUser);
 
-			// Vendor
 			int getAllVendorCount = serviceManager.userRepository.getAllVendorCount();
 			int allActiveVendorCount = serviceManager.userRepository.getAllActiveVendorCount();
 			int allInActiveVendorCount = serviceManager.userRepository.getAllInActiveVendorCount();
@@ -279,7 +266,6 @@ public class UIController {
 			model.addAttribute("allActiveVendorCount", allActiveVendorCount);
 			model.addAttribute("allInActiveVendorCount", allInActiveVendorCount);
 
-			// Trips
 			int totalTripCount = serviceManager.tripDetailsRepo.getTripCount();
 			int TotalCloseTripCount = serviceManager.tripDetailsRepo.getCloseTripCount();
 			int TotalInTransitTripCount = serviceManager.tripDetailsRepo.getInTransitTripCount();
@@ -287,7 +273,6 @@ public class UIController {
 			model.addAttribute("TotalCloseTripCount", TotalCloseTripCount);
 			model.addAttribute("TotalInTransitTripCount", TotalInTransitTripCount);
 
-			// Invoices
 			int getAllInvoiceCount = serviceManager.invoiceGenerationEntityRepo.getCountForAllInvoices();
 			int countForAllProcessedInvoice = serviceManager.invoiceGenerationEntityRepo
 					.getCountForAllProcessedInvoice();
@@ -331,7 +316,6 @@ public class UIController {
 			model.addAttribute("vendorType", vendorType);
 			model.addAttribute("role", rolename);
 
-			// po Details
 			if (vendorType.equalsIgnoreCase("Fixed Asset") || vendorType.equalsIgnoreCase("FIXED ASSETS")) {
 
 				rolename = (String) request.getSession().getAttribute("role");
@@ -356,7 +340,6 @@ public class UIController {
 					}
 				}
 
-				// po Details
 				int totalAllPoCount = serviceManager.podetailsRepo.getAllPoCount(vendorCode);
 				model.addAttribute("totalAllPoCount", totalAllPoCount);
 
@@ -364,11 +347,9 @@ public class UIController {
 				model.addAttribute("totalProcessPoCount", totalProcessPoCount);
 				int totalUnprocessPOCount = serviceManager.podetailsRepo.getAllUnProcessPoCount(vendorCode);
 				model.addAttribute("totalUnprocessPOCount", totalUnprocessPOCount);
-				// Query
 				int totalQueryCount = serviceManager.podetailsRepo.getAllQueryCount(vendorCode);
 				model.addAttribute("totalQueryCount", totalQueryCount);
 
-				// Query
 				int totalInvoiceCount = serviceManager.poinvoiceRepo.getAllInvoiceCount(vendorCode);
 				model.addAttribute("totalInvoiceCount", totalInvoiceCount);
 
@@ -465,12 +446,7 @@ public class UIController {
 	@GetMapping({ "/emailConfig" })
 	public String emailConfig(Model model, String error, String logout, HttpServletRequest request) {
 
-//		String actionType = "View";
-//		String action = "Viewed Email Configuration";
-
-//		      serviceManager.insertAddUpdateInMaster(request, action, actionType, null, null, null);
 		return "emailConfig";
-
 	}
 
 	@GetMapping({ "/triggerEmail" })
@@ -482,7 +458,6 @@ public class UIController {
 		model.addAttribute("region", region);
 		model.addAttribute("vendorType", vendorType);
 		return "triggerEmail";
-
 	}
 
 	@GetMapping("/logout")
@@ -497,14 +472,10 @@ public class UIController {
 		session.removeAttribute("lastName");
 		session.removeAttribute("role");
 		session.removeAttribute("fullName");
-
 		session.invalidate();
-
 		return "login";
-
 	}
 
-	// vendor ui
 	@GetMapping("/allTrips")
 	public String allTrips(Model model, Principal principal, HttpServletRequest request) {
 		String rolename = (String) request.getSession().getAttribute("role");
@@ -532,7 +503,6 @@ public class UIController {
 
 		model.addAttribute("id", id);
 		model.addAttribute("getTripDetailsById", getTripDetailsById);
-
 		return "tripDetailsView";
 
 	}
@@ -588,7 +558,6 @@ public class UIController {
 		return "pendingInvoice";
 	}
 
-	// Added by Manish
 	@GetMapping("/tripMaster")
 	public String tripMaster(Model model, Principal principal, HttpServletRequest request) {
 
@@ -601,7 +570,6 @@ public class UIController {
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)) {
 
 			return "tripMaster";
-
 		}
 		return "";
 	}
@@ -614,17 +582,13 @@ public class UIController {
 		List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
 		List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
 		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
-		/*
-		 * List<String> nature =
-		 * serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
-		 */
 		List<String> country = serviceManager.countryRepo.getCountry();
 		List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 		List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
 		List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
 		List<String> region = serviceManager.regionRepo.getRegion();
 		List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
-		List<String> paymentMethod = serviceManager.paymentMethodRepo.PaymentMethod();
+		List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
 		List<String> flag = serviceManager.flagRepo.getFlag();
 		List<String> stateName = serviceManager.stateRepo.getStateName();
 
@@ -633,7 +597,6 @@ public class UIController {
 		model.addAttribute("partner", partner);
 		model.addAttribute("classification", classification);
 		model.addAttribute("payment", payment);
-		/* model.addAttribute("nature", nature); */
 		model.addAttribute("country", country);
 		model.addAttribute("tdsCode", tdsCode);
 		model.addAttribute("financialYear", financialYear);
@@ -679,17 +642,13 @@ public class UIController {
 		List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
 		List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
 		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
-		/*
-		 * List<String> nature =
-		 * serviceManager.natureOfTransactionRepo.getNatureOfTransaction();
-		 */
 		List<String> country = serviceManager.countryRepo.getCountry();
 		List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 		List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
 		List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
 		List<String> region = serviceManager.regionRepo.getRegion();
 		List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
-		List<String> paymentMethod = serviceManager.paymentMethodRepo.PaymentMethod();
+		List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
 		List<String> flag = serviceManager.flagRepo.getFlag();
 		List<String> stateName = serviceManager.stateRepo.getStateName();
 
@@ -701,7 +660,6 @@ public class UIController {
 		model.addAttribute("partner", partner);
 		model.addAttribute("classification", classification);
 		model.addAttribute("payment", payment);
-		/* model.addAttribute("nature", nature); */
 		model.addAttribute("country", country);
 		model.addAttribute("tdsCode", tdsCode);
 		model.addAttribute("financialYear", financialYear);
@@ -724,7 +682,6 @@ public class UIController {
 		}
 		return "";
 	}
-	// End
 
 	@GetMapping("/dashbaordNetwork")
 	public String dashbaordNetwork(Model model, Principal principal, HttpServletRequest request) {
@@ -748,7 +705,6 @@ public class UIController {
 		return "pendingApprovalNetwork";
 	}
 
-//getApprovedAdhocTrips
 	@GetMapping("/getApprovedAdhocTrips")
 	public String getApprovedAdhocTrips(Model model, Principal principal) {
 		List<TripDetails> allApprovedTripscount = serviceManager.tripService.findAllTripsByStatus("Yet To Be Approved");
@@ -758,18 +714,17 @@ public class UIController {
 	}
 
 	@GetMapping("/QueryTripsForNetwork")
-	public String QueryTripsForNetwork(Model model, Principal principal) {
-		List<TripDetails> AllDetailsForNetwork = serviceManager.tripDetailsRepo.getQueryTripsForNetwork("Query");
+	public String queryTripsForNetwork(Model model, Principal principal) {
+		List<TripDetails> allDetailsForNetwork = serviceManager.tripDetailsRepo.getQueryTripsForNetwork("Query");
 		List<String> vendorNamefortripsQuery = serviceManager.tripDetailsRepo.getVendorName();
 		model.addAttribute("vendorNamefortripsQuery", vendorNamefortripsQuery);
-		model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
+		model.addAttribute("AllDetailsForNetwork", allDetailsForNetwork);
 		model.addAttribute("dataLimit", dataLimit);
 		return "QueryTripsForNetwork";
 	}
 
-//ClosedAdhoc
 	@GetMapping("/ClosedAdhoc")
-	public String ClosedAdhoc(Model model, Principal principal) {
+	public String closedAdhoc(Model model, Principal principal) {
 		List<TripDetails> AllDetailsForNetwork = serviceManager.tripService
 				.getInTransitTripByRunTypeAndRunStatus("Adhoc", "Closed");
 		model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
@@ -783,8 +738,7 @@ public class UIController {
 		String invoiceNumberPrefix = "ECOM-";
 
 		count = count + 1;
-		String invoiceNumber = invoiceNumberPrefix + String.format("%08d", count); // Filling with zeroes
-
+		String invoiceNumber = invoiceNumberPrefix + String.format("%08d", count); 
 		return invoiceNumber;
 	}
 
@@ -837,7 +791,6 @@ public class UIController {
 			}
 			String vendorName = findByTripID.getVendorName();
 			model.addAttribute("vendorName", vendorName);
-			// heasder
 			InvoiceGenerationEntity invoiceSave = new InvoiceGenerationEntity();
 			invoiceSave.setVendorName(vendorName);
 			invoiceSave.setEcomInvoiceNumber(invoiceNumber);
@@ -894,14 +847,8 @@ public class UIController {
 			listofTrips.add(tripID);
 			vendorName = tripDetails.getVendorName();
 		}
-		/*
-		 * AddressDetails vendorAddress =
-		 * serviceManager.addressDetailsRepo.getVendorAddress(vendorName);
-		 */
 		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 		model.addAttribute("currentDate", currentDate);
-		/* model.addAttribute("vendorAddress", vendorAddress); */
-
 		model.addAttribute("vendorName", vendorName);
 		model.addAttribute("listofTrips", listofTrips);
 		return "draftInvoiceGenerate";
@@ -913,7 +860,6 @@ public class UIController {
 		return "changePassword";
 	}
 
-//allInvoices_Finance
 	@GetMapping("/allInvoices_Finance")
 	public String allInvoicesFinance(Model model, HttpServletRequest request, Principal principal) {
 		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
@@ -992,10 +938,8 @@ public class UIController {
 		try {
 			String[] docNameExtensionArray = name.split("\\.");
 			String docNameExtension = docNameExtensionArray[docNameExtensionArray.length - 1];
-			String uri = request.getScheme() + "://" + // "http" + "://
-					request.getServerName() + // "myhost"
-					":" + // ":"
-					request.getServerPort() + "/"; // "8080"
+			String uri = request.getScheme() + "://" + request.getServerName() + ":" + 
+					request.getServerPort() + "/";
 
 			file = new File(path);
 			inputStream = new FileInputStream(file);
@@ -1018,8 +962,6 @@ public class UIController {
 			}
 		}
 	}
-
-	/* Dashboard Registration Checker */
 
 	@GetMapping("/dashboardRegistration")
 	public String dashboardRegistration(Model model, HttpServletRequest request, Principal principal) {

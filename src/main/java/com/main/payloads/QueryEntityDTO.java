@@ -10,7 +10,7 @@ public class QueryEntityDTO {
 	private Integer id;
 	private Date raisedOn;
 	private String referenceid;
-	private String raisedBy;// Vendor Code
+	private String raisedBy;
 	private String comment;
 	private String raisedAgainQuery;
 	private String role;

@@ -13,7 +13,7 @@ import com.main.commonclasses.CommanFunction;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.EmailConfiguration;
 import com.main.db.bpaas.entity.SendEmail;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @Component
 public class SchedularController {
@@ -26,14 +26,12 @@ public class SchedularController {
 
 	private String checkSchedular = "Completed";
 
-//	@Scheduled(cron="*/5 * * * * *")
-	@Scheduled(fixedDelay = 10000 * 60 * 1000) // scheduled for 1 minutes
-	public void sendAllEmail() {
+	@Scheduled(fixedDelay = 100 * 60 * 1000)
+	public void sendAllEmails() {
 
 		try {
 
 			if ("Completed".equalsIgnoreCase(checkSchedular)) {
-				logger.info("Running only once scheduler ");
 
 				try {
 

@@ -36,15 +36,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value = "select username from users where  LOWER(username)=LOWER(:username) ; ", nativeQuery = true)
 	String checkForExistingUserName(@Param("username") String username);
 
-	/*
-	 * // for sql server
-	 * 
-	 * @Query(
-	 * value="select username from users where username =:username COLLATE SQL_Latin1_General_CP1_CI_AS and status in(:userStatusList) ; "
-	 * , nativeQuery=true) String checkForExistingUserName(@Param("username") String
-	 * username, @Param("userStatusList") List<String> userStatusList);
-	 * 
-	 */
 	User findByUsernameIgnoreCaseAndStatusIn(String username, List<String> userStatusList);
 
 	@Query(value = "select u.id,u.username from users u ,roles r where r.id=u.role_id and r.role_name=:role ; ", nativeQuery = true)
@@ -73,7 +64,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value = "select email_id from users where id=:id ; ", nativeQuery = true)
 	String getemailIdById(@Param("id") Integer id);
 
-	// Manish added
 	@Query(value = "select count(*) from users where role_id !='2'; ", nativeQuery = true)
 	int getCountForAllUsers();
 
@@ -91,7 +81,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query(value = "select count(*) from users where bp_code!='' and status= '0'  and role_id ='2' ", nativeQuery = true)
 	int getAllInActiveVendorCount();
-	// End
 
 	@Query(value = "select bp_code from users where username=:uname ; ", nativeQuery = true)
 	String getBpCode(@Param("uname") String uname);
@@ -112,12 +101,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value = "select count(*) from supdetails ; ", nativeQuery = true)
 	int getBpCode();
 
-	/*
-	 * @Query(value =
-	 * "select id, username, vendor_name from users where role_id='2' order by id asc"
-	 * , nativeQuery = true) List<Object[]> getVendorCodeVendorNameById(String
-	 * vendorName);
-	 */
 	@Query(value = "select  id from Users where bp_code=:bpCode ", nativeQuery = true)
 	Integer getUserId(String bpCode);
 

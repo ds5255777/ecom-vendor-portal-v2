@@ -21,16 +21,16 @@ public class InvoiceGenerationDto {
 	private String invoiceCurrency;
 	private String invoiceAmount;
 	private String invoiceReceivingDate;
-	private String invoiceStatus;// Processed, Approved, Rejected
-	private String assignTo;// network Team, Vendor
-	private String processedOn;//
-	private String processedBy;//
-	private String hsnCode;//
-	private String greenTax;//
-	private String extraKmRate;//
-	private String miscellaneous;//
-	private String exteraKM;//
-	private String ratePerKm;//
+	private String invoiceStatus;
+	private String assignTo;
+	private String processedOn;
+	private String processedBy;
+	private String hsnCode;
+	private String greenTax;
+	private String extraKmRate;
+	private String miscellaneous;
+	private String exteraKM;
+	private String ratePerKm;
 	private String taxableAmount;
 	private String taxAmount;
 	private List<InvoiceLineItem> invoiceLineItem;

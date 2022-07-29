@@ -11,43 +11,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>${titleName}|MasterCheckList</title>
 
-<!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Font Awesome -->
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-<!-- Ionicons -->
 <link rel="stylesheet"
 	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Tempusdominus Bbootstrap 4 -->
 <link rel="stylesheet"
 	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-<!-- iCheck -->
 <link rel="stylesheet"
 	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-<!-- JQVMap -->
 <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-<!-- Theme style -->
 <link rel="stylesheet" href="dist/css/adminlte.min.css">
-<!-- overlayScrollbars -->
 <link rel="stylesheet"
 	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-<!-- Daterange picker -->
 <link rel="stylesheet"
 	href="plugins/daterangepicker/daterangepicker.css">
-<!-- summernote -->
-<!-- <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css"> -->
-
-
-
-<!-- <link rel="stylesheet" type="text/css" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-        <link rel="stylesheet" type="text/css" href="plugins/datatables-buttons/css/buttons.bootstrap4.css">
-        <link rel="stylesheet" type="text/css" href="plugins/datatables-select/css/select.bootstrap4.css">
-        <link rel="stylesheet" type="text/css" href="plugins/datatables-fixedheader/css/fixedHeader.bootstrap4.css"> -->
 <link rel="stylesheet" type="text/css"
 	href="plugins/jquery-ui/jquery-ui.min.css">
-
-
-<!-- Google Font: Source Sans Pro -->
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
@@ -147,9 +126,6 @@ request.setAttribute("financeRole", financeRole);
 						<div class="col-sm-6">
 							<div class="input-group-prepend">
 
-								<!--   <div class="btn-group">
-                                    <div  style="font-size: 20px;font-weight: 500;" id="shiowStatusOfTicket">Master Bank Name</div>
-                                </div> -->
 
 
 							</div>
@@ -157,8 +133,6 @@ request.setAttribute("financeRole", financeRole);
 						<!-- /.col -->
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li> -->
 							</ol>
 						</div>
 						<!-- /.col -->
@@ -183,16 +157,6 @@ request.setAttribute("financeRole", financeRole);
 								<form role="form" id="addForm" autocomplete="off">
 									<div class="card-body">
 										<div class="row">
-											<!-- <div class="col-md-2">
-												<label>Zone</label> <select class="form-control" id="zone"
-													name="zone">
-													<option value="">-- Select --</option>
-													<option value="East">East</option>
-													<option value="West">West</option>
-													<option value="Center">Center</option>
-													<option value="South">South</option>
-												</select>
-											</div> -->
 
 											<div class="col-md-2">
 												<label>Route</label> <input type="text" name="route"
@@ -215,7 +179,6 @@ request.setAttribute("financeRole", financeRole);
 													name="type">
 													<option value="">-- Select --</option>
 													<option value="Line Haul">Line Haul</option>
-													<!-- <option value="Milk Run">Milk Run</option> -->
 												</select>
 											</div>
 
@@ -297,21 +260,9 @@ request.setAttribute("financeRole", financeRole);
 									</div>
 									<!-- /.card-body -->
 
-									<!-- <div class="card-footer" align="center">
-										<button type="submit" id="submitBtn" class="btn btn-primary">Add</button>
-									</div> -->
 									<!-- /.card-body -->
 									<div class="card-footer" align="center">
 										<button type="submit" class="btn btn-primary" id="submitBtn" >Submit</button>
-										<!-- <div class="btn btn-default btn-file"
-											style="background-color: #007bff; color: white;">
-											<i class="fas fa-paperclip"></i> Attachment <input
-												type="file"
-												onchange="handleFileSelect(event,'showUploadFilesTata')"
-												name="attachment">
-
-										</div>
- -->
 										<div class="btn btn-default btn-file"
 											style="background-color: #007bff; color: white;">
 
@@ -320,22 +271,6 @@ request.setAttribute("financeRole", financeRole);
 												Download Template
 											</a>
 										</div>
-
-										<!-- <div class="btn btn-default btn-file"
-											style="background-color: #007bff; color: white;">
-											<i class="fas fa-paperclip"></i> Upload Excel (New) <input
-												type="file" style="cursor: pointer;" id="readExcel"
-												accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-												name="attachment">
-										</div>
-										
-										<div class="btn btn-default btn-file"
-											style="background-color: #007bff; color: white;">
-											<i class="fas fa-paperclip"></i> Upload Excel (Update) <input
-												type="file" style="cursor: pointer;" id="readExcelUpdate" onchange="handleFileSelectForExcelUpdate(event)"
-												accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-												name="attachmentUpdate">
-										</div> -->
 									</div>
 									
 								</form>
@@ -448,7 +383,6 @@ request.setAttribute("financeRole", financeRole);
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-body">
-					<!-- <div class="container-fluid panel1"> -->
 					<div class="row">
 						<div class="col-md-12">
 							<!-- general form elements -->
@@ -462,16 +396,6 @@ request.setAttribute("financeRole", financeRole);
 								<form role="form" id="updateMDMData" autocomplete="off">
 									<div class="card-body">
 										<div class="row">
-											<!-- <div class="col-md-2">
-												<label>Zone</label> <select class="form-control" id="zone"
-													name="zone">
-													<option value="">-- Select --</option>
-													<option value="East">East</option>
-													<option value="West">West</option>
-													<option value="Center">Center</option>
-													<option value="South">South</option>
-												</select>
-											</div> -->
 
 											<div class="col-md-2">
 												<label>Route</label> <input type="text" name="route"
@@ -494,7 +418,7 @@ request.setAttribute("financeRole", financeRole);
 													name="type">
 													<option value="">-- Select --</option>
 													<option value="Line Haul">Line Haul</option>
-													<!-- <option value="Milk Run">Milk Run</option> -->
+													<option value="Milk Run">Milk Run</option> 
 												</select>
 											</div>
 
@@ -589,48 +513,28 @@ request.setAttribute("financeRole", financeRole);
 
 						</div>
 					</div>
-					<!-- </div> -->
-
 				</div>
 
 			</div>
 		</div>
 	</div>
-	<!-- jQuery -->
 	<script src="plugins/jquery/jquery.min.js"></script>
-	<!-- jQuery UI 1.11.4 -->
 	<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 	<script>
 		$.widget.bridge('uibutton', $.ui.button);
 		$.widget.bridge('uitooltip', $.ui.tooltip);
 	</script>
-	<!-- Bootstrap 4 -->
 	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- ChartJS -->
 	<script src="js/commonFunctions.js"></script>
 	<script src="js/common.js"></script>
 
-	<!-- Sparkline -->
-	<script src="plugins/sparklines/sparkline.js"></script>
-	<!-- JQVMap -->
-
-	<!-- daterangepicker -->
 	<script src="plugins/moment/moment.min.js"></script>
 	<script src="plugins/daterangepicker/daterangepicker.js"></script>
-	<!-- Tempusdominus Bootstrap 4 -->
 	<script
 		src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-	<!-- Summernote -->
-
-	<!-- overlayScrollbars -->
 	<script
 		src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-	<!-- AdminLTE App -->
 	<script src="dist/js/adminlte.js"></script>
-	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-
-	<!-- AdminLTE for demo purposes -->
 	<script src="dist/js/demo.js"></script>
 	<script src="js/moment.min.js"></script>
 
@@ -657,7 +561,6 @@ request.setAttribute("financeRole", financeRole);
 		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 		<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
 		<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-		<script src="plugins/jszip/jszip.min.js"></script>
 		<script src="plugins/pdfmake/pdfmake.min.js"></script>
 		<script src="plugins/pdfmake/vfs_fonts.js"></script>
 		<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>

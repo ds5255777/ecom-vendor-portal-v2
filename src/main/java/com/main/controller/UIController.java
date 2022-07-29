@@ -8,10 +8,12 @@ import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +52,9 @@ public class UIController {
 
 	@Value("${dataLimit}")
 	public String dataLimit;
+	
+	@Value("${linkExpireTimeInHours}")
+	public Integer linkExpireTimeInHours;
 
 	@Autowired
 	ServiceManager serviceManager;
@@ -80,25 +85,22 @@ public class UIController {
 		String flag = request.getParameter("flag");
 		Integer flag1=Integer.valueOf(flag);
 		String processOn=serviceManager.sendEmailToVendorRepo.processOn(flag1);
-		
-		Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(processOn); 
-		String dbDate=new SimpleDateFormat("yyyy-MM-dd").format(date1);
-		String currentDate=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-			if (!currentDate.equalsIgnoreCase(dbDate)) {
-			
+		Date date1=new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(processOn); 
+		Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(date1);
+	    calendar.add(Calendar.HOUR_OF_DAY, linkExpireTimeInHours);
+	    Date expiryDate= calendar.getTime();
+			if (expiryDate.before(new Date())) {
 					response.setContentType("text/html");
 				     PrintWriter pwriter=response.getWriter();
-				    
-				     //pwriter.println("Link Expired! Please Contact With Administrator And Try Again");
 				     pwriter.println( "<font color=red>Link Expired! Please Contact With Administrator And Try Again...</font>");
 				     pwriter.close();
 			}
 		}
 		String vendorType1 = new String(decoder.decode(request.getParameter("vendorType")));
-		 String[] strSplit = vendorType1.split(",");
-		  
-	        ArrayList<String> vendorType2 = new ArrayList<String>(
-	            Arrays.asList(strSplit));
+		String[] strSplit = vendorType1.split(",");
+	    ArrayList<String> vendorType2 = new ArrayList<String>(
+	    Arrays.asList(strSplit));
 		String region1 = new String(decoder.decode(request.getParameter("region")));
 		String vendorAddress = new String(decoder.decode(request.getParameter("vendorAddress")));
 		String processBy = new String(decoder.decode(request.getParameter("processBy")));
@@ -118,8 +120,6 @@ public class UIController {
 		}
 
 		if ("".equalsIgnoreCase(pid)) {
-			// normal registartion
-
 			List<String> currency = serviceManager.currencyRepo.getCurrencyType();
 			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
 			List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();

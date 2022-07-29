@@ -166,26 +166,27 @@ public class UserController {
 	}
 
 	@PostMapping({ "/checkForExistingUserName" })
-
-	public String checkForExistingUserName(@RequestBody UserDTO userDto) {
+	public String checkForExistingUserName(Principal principal, @RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String userName = principal.getName();
+		String userRole = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 		try {
+			if (userRole.equals(GlobalConstants.ROLE_ADMIN)) {
+				List<String> userStatusList = new ArrayList<>();
+				userStatusList.add(GlobalConstants.ACTIVE_STATUS);
+				userStatusList.add(GlobalConstants.CHANGE_PASSWORD_STATUS);
 
-			List<String> userStatusList = new ArrayList<>();
-			userStatusList.add(GlobalConstants.ACTIVE_STATUS);
-			userStatusList.add(GlobalConstants.CHANGE_PASSWORD_STATUS);
+				String username = serviceManager.userRepository.checkForExistingUserName(userDto.getUsername());
 
-			String username = serviceManager.userRepository.checkForExistingUserName(userDto.getUsername(),
-					userStatusList);
-
-			if (null == username) {
-				data.setMsg("success");
-			} else {
-				data.setMsg("exist");
+				if (null == username) {
+					data.setMsg("success");
+				} else {
+					data.setMsg("exist");
+				}
 			}
 
 		} catch (Exception e) {

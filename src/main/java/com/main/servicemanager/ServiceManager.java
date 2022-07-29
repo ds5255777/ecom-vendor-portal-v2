@@ -1,4 +1,4 @@
-package com.main.serviceManager;
+package com.main.servicemanager;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

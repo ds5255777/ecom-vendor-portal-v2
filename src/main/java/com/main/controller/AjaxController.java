@@ -38,7 +38,7 @@ import com.main.db.bpaas.entity.User;
 import com.main.payloads.QueryEntityDTO;
 import com.main.payloads.SupDetailsDTO;
 import com.main.service.UserServiceImpl;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @RequestMapping("/ajaxController")
 @RestController

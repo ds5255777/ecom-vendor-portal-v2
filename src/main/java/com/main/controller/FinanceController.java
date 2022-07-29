@@ -35,7 +35,7 @@ import com.main.db.bpaas.entity.SendEmail;
 import com.main.payloads.DocumentDto;
 import com.main.payloads.InvoiceGenerationDto;
 import com.main.payloads.QueryDto;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
 @RestController

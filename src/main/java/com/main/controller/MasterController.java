@@ -20,7 +20,7 @@ import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.db.bpaas.entity.AgreementMaster;
 import com.main.payloads.AgreementMasterDTO;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @RequestMapping("/masterController")
 @RestController

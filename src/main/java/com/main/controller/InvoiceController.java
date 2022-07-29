@@ -42,7 +42,7 @@ import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.payloads.InvoiceGenerationDto;
 import com.main.payloads.TripDetailsDto;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @RequestMapping("/invoiceController")
 @RestController

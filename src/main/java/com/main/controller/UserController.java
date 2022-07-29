@@ -27,7 +27,7 @@ import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.payloads.SupDetailsDTO;
 import com.main.payloads.UserDTO;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @RequestMapping("/userController")
 @RestController

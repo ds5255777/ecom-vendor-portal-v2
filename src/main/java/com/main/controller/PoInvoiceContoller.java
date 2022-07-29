@@ -34,7 +34,7 @@ import com.main.db.bpaas.repo.PoDetailsRepo;
 import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.payloads.PoDetailsDTO;
 import com.main.payloads.PoInvoiceDetailsDTO;
-import com.main.serviceManager.ServiceManager;
+import com.main.servicemanager.ServiceManager;
 
 @RequestMapping("/PoInvoiceContoller")
 @RestController

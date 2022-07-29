@@ -17,7 +17,7 @@ public class UserDTO {
 	private String lastName;
 	private String vendorName;
 	private RoleEntityDTO rolesObj;
-	private String status = "0"; // 1- active , 0- inactive, 2- delete 3-change Password
+	private String status = "0";
 	private String bpCode;
 	private String passwordConfirm;
 

@@ -6,6 +6,7 @@ import com.main.db.bpaas.entity.InvoiceLineItem;
 
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
 public class InvoiceQueryDto {
@@ -21,20 +22,16 @@ public class InvoiceQueryDto {
 	private String invoiceAmount;
 	private String invoiceReceivingDate;
 	private String vehicleNumber;
-	private String invoiceStatus;// Processed, Approved, Rejected
-	private String assignTo;// network Team, Vendor
+	private String invoiceStatus;
+	private String assignTo;
 	private String taxableAmount;
 	private String taxAmount;
-
 	private String invoiceFileName;
 	private String invoiceFileText;
 	private String documentFileOneName;
 	private String documentFileOneText;
 	private String documentFileTwoName;
 	private String documentFileTwoText;
-
 	private String remarks;
-
 	private List<InvoiceLineItem> invoiceLineItems;
-
 }

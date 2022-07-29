@@ -29,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	HttpServletRequest request;
-	
+
 	@Autowired
 	SupDetailsRepo supDetailsRepo;
 
@@ -59,8 +59,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException(username);
 		}
 
-		// Http requst= request.get
-
 		request.getSession().setAttribute("userName", user.getUsername());
 		request.getSession().setAttribute("userEmail", user.getEmailId());
 		request.getSession().setAttribute("userId", user.getId());
@@ -81,9 +79,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		request.getSession().setAttribute("sideLogoName", sideLogoName);
 
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-//        for (Role role : user.getRoles()) {
-//            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-//        }
 
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
 				grantedAuthorities);

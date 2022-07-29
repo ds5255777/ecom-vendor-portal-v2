@@ -3,13 +3,14 @@ package com.main.commonclasses;
 public class GlobalUrl {
 	
 	public static String ajaxController="ajaxController";
+	
 	public static String saveRegistrationQuery=ajaxController+ "/saveRegistrationQuery";
 	public static String getVendorDetailByPid=ajaxController+"/getVendorDetailByPid";
 	public static String getBpcode=ajaxController+"/getBpcode";
 	public static String checkExistingPan=ajaxController+"/checkExistingPan";
-
 	public static String getRegistrationQueryData=ajaxController+"/getRegistrationQueryData";
-    public static String userController = "userController";
+
+	public static String userController = "userController";
 
     public static String saveUpdateUserDetails = userController + "/saveUpdateUserDetails";
     public static String getUserById = userController + "/getUserById";
@@ -38,7 +39,6 @@ public class GlobalUrl {
     public static String getCloseAndApprovedTripsDetails = tripControllers + "/getCloseAndApprovedTripsDetails";
     public static String getInTransitTripsDetails = tripControllers + "/getInTransitTripsDetails";
     public static String getPendingApprovelTripsDetails = tripControllers + "/getPendingApprovelTripsDetails";
-    //public static String updateVendorTripStatusByTripId = tripControllers + "/updateVendorTripStatusByTripId";
     public static String updateVendorTripStatusAndOpenCloseReadingByTripId = tripControllers + "/updateVendorTripStatusAndOpenCloseReadingByTripId";
     public static String updateVendorTripStatusByTrips = tripControllers + "/updateVendorTripStatusByTrips";
     public static String tripDetailByTripId = tripControllers + "/tripDetailByTripId";
@@ -46,7 +46,6 @@ public class GlobalUrl {
     public static String status = tripControllers + "/status";
     public static String multipleTripApproved = tripControllers + "/multipleTripApproved";
     public static String filterTripDetails = tripControllers + "/filterTripDetails";
-   // public static String filterTripDetailsByNetwork = tripControllers + "/filterTripDetailsByNetwork";
     public static String saveTripQuery = tripControllers + "/saveTripQuery";
     public static String getDraftLineTripDetails = tripControllers + "/getDraftLineTripDetails";
     public static String getTripDetailByTripId = tripControllers + "/getTripDetailByTripId";
@@ -102,10 +101,6 @@ public class GlobalUrl {
 	 public static String filterPoDetails=poController+"/filterPoDetails";
 	 public static String updateRemaningQuantity=poController+"/updateRemaningQuantity";
 	 public static String getCurrentRemaningQty = poController + "/getCurrentRemaningQty";
-	 
-	 
-	 
-	 
 	 public static String getAllInvoiceDetails=poController+"/getAllInvoiceDetails";
 	 public static String getSelectInvoiceDetailsPo=poController+"/getSelectInvoiceDetailsPo";
 	 public static String savePoInvoiceQuery=poController+"/savePoInvoiceQuery";
@@ -119,11 +114,6 @@ public class GlobalUrl {
 	 public static String savePoInvoice=PoInvoiceContoller+"/savePoInvoice";
 	 public static String saveDraftInvoice=PoInvoiceContoller+"/saveDraftInvoice";
 	 public static String updateRemaningQuantitydraft=poController+"/updateRemaningQuantitydraft";
-	 
-	 
-	 
-	 
-	 
 	 public static String getAllDraftPODetailsByInvoiceNo=PoInvoiceContoller+"/getAllDraftPODetailsByInvoiceNo"; 
 	
 	public static String financeController="financeController";
@@ -148,13 +138,9 @@ public class GlobalUrl {
 	 public static String activeVendor = userController + "/activeVendor";
 	 
 	 public static String getBpCodeForNetwork = dashboardController + "/getBpCodeForNetwork";
-	// public static String findVendorCodeAndName = dashboardController + "/findVendorCodeAndName";
 	 public static String getAllVendors = dashboardController + "/getAllVendors";
 	 
-	 //getAllRequest
-	 
 	 public static String registrationController="registrationController";
-	 //updateVendorRegistrationStatus
 	 public static String getPendingRequest = registrationController + "/getPendingRequest";
 	 public static String getApprovedRequest = registrationController + "/getApprovedRequest";
 	 public static String getRejectedRequest = registrationController + "/getRejectedRequest";

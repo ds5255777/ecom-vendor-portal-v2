@@ -37,6 +37,7 @@ import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.payloads.InvoiceGenerationDto;
+import com.main.payloads.QueryEntityDTO;
 import com.main.payloads.TripDetailsDto;
 import com.main.serviceManager.ServiceManager;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
@@ -253,35 +254,12 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	/*
-	 * @PostMapping({ "/updateVendorTripStatusByTripId" })
-	 * 
-	 * public String getApprovePendingApprovelTripsDetails(Principal
-	 * principal, @RequestBody TripDetailsDto tripObj) {
-	 * 
-	 * DataContainer data = new DataContainer(); Gson gson = new
-	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create(); String userName
-	 * = principal.getName(); String rolename =
-	 * serviceManager.rolesRepository.getuserRoleByUserName(userName);
-	 * 
-	 * try { if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
-	 * 
-	 * serviceManager.tripDetailsRepo.updateVendorTripStatusByTripId(tripObj.
-	 * getVendorTripStatus(), tripObj.getTripID()); data.setMsg("success"); }
-	 * 
-	 * } catch (Exception e) { data.setMsg("error"); logger.error("error : " + e); }
-	 * 
-	 * return gson.toJson(data).toString(); }
-	 */
-
 	@PostMapping({ "/updateVendorTripStatusAndOpenCloseReadingByTripId" })
-
 	public String getApprovTripsDetails(Principal principal, HttpServletRequest request,
 			@RequestBody TripDetailsDto tripDtoObj) {
 
 		DataContainer data = new DataContainer();
 
-		// String processedBy = principal.getName();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
@@ -300,7 +278,6 @@ public class TripControllers {
 					serviceManager.tripDetailsRepo.updateVendorTripStatusByTripId(tripDtoObj.getTripID(),
 							tripDtoObj.getVendorTripStatus(), tripDtoObj.getOpeningReading(),
 							tripDtoObj.getClosingReading(), userName, processedOn);
-					// call mailing api
 
 					List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
 							.findByIsActive(GlobalConstants.ACTIVE_STATUS);
@@ -375,7 +352,6 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/tripDetailByTripId" })
-
 	public String getTripsDetailsByTripId(Principal principal, @RequestBody TripDetailsDto tripDtoObj) {
 
 		DataContainer data = new DataContainer();
@@ -400,56 +376,21 @@ public class TripControllers {
 		return gson.toJson(data).toString();
 	}
 
-	/*
-	 * @PostMapping({ "/updateVendorTripStatusByTrips" })
-	 * 
-	 * public String updateVendortripStatusByTrips(Principal principal, @RequestBody
-	 * TripDetailsDto tripDtoObj) {
-	 * 
-	 * DataContainer data = new DataContainer(); Gson gson = new
-	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create(); String userName
-	 * = principal.getName(); String rolename =
-	 * serviceManager.rolesRepository.getuserRoleByUserName(userName);
-	 * 
-	 * try { if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
-	 * 
-	 * String tripId = tripDtoObj.getTripID();
-	 * 
-	 * tripId = tripId.replaceAll(",", " ");
-	 * 
-	 * String[] split = tripId.split(" "); TripDetails findByTripID = null;
-	 * 
-	 * for (String str : split) { findByTripID =
-	 * serviceManager.tripDetailsRepo.findByTripID(str);
-	 * 
-	 * if (null != findByTripID.getTripID()) {
-	 * findByTripID.setVendorTripStatus("Draft-Invoicing");
-	 * serviceManager.tripDetailsRepo.updateVendorInvoiceStatusByTripId(
-	 * findByTripID.getVendorTripStatus(), findByTripID.getTripID()); } }
-	 * 
-	 * data.setData(tripDtoObj); data.setMsg("success"); }
-	 * 
-	 * } catch (Exception e) { data.setMsg("error"); logger.error("error : " + e); }
-	 * 
-	 * return gson.toJson(data).toString(); }
-	 */
-
 	@PostMapping({ "/getRemarksByRefID" })
-
 	public String getRemarksByRefID(Principal principal, @RequestBody String obj) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			JSONObject jsonObject = new JSONObject(obj);
-			logger.info("jsonObject " + jsonObject.toString());
 			String tripID = jsonObject.get("tripID").toString();
-			logger.info(" Trip id is ::" + tripID);
 			List<QueryEntity> qe = serviceManager.queryRepo.findCommentsByRefID(tripID);
+			List<QueryEntityDTO> queryList = qe.stream()
+					.map((listQuery) -> this.serviceManager.modelMapper.map(listQuery, QueryEntityDTO.class))
+					.collect(Collectors.toList());
 
-			data.setData(qe);
+			data.setData(queryList);
 			data.setMsg("success");
-			logger.info("Trip id is ::" + tripID);
 
 		} catch (Exception e) {
 			data.setMsg("error");
@@ -473,10 +414,10 @@ public class TripControllers {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 
 				String invoiceNumber = tripDtoObj.getInvoiceNumber();
-				List<TripDetails> TripList = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber,
+				List<TripDetails> tripList = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber,
 						userName);
 
-				List<TripDetailsDto> invoiceTripDetails = TripList.stream()
+				List<TripDetailsDto> invoiceTripDetails = tripList.stream()
 						.map((draftLineTripList) -> this.serviceManager.modelMapper.map(draftLineTripList,
 								TripDetailsDto.class))
 						.collect(Collectors.toList());
@@ -632,7 +573,6 @@ public class TripControllers {
 	}
 
 	@GetMapping({ "multipleTripApproved" })
-
 	public String multipleTripApproved(Principal principal, @RequestParam("tripID") String obj,
 			@RequestParam("vendorTripStatus") String vendorTripStatus) {
 		DataContainer data = new DataContainer();
@@ -642,7 +582,7 @@ public class TripControllers {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String processedOn = dateFormat.format(date);
 		try {
-			List<String> myList = new ArrayList<String>(Arrays.asList(obj.split(",")));
+			List<String> myList = new ArrayList<>(Arrays.asList(obj.split(",")));
 
 			serviceManager.tripDetailsRepo.getUpdateStatusSelectTrips(processedBy, processedOn, vendorTripStatus,
 					myList);

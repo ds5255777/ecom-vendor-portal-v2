@@ -44,7 +44,6 @@ public class PoController {
 	private static Logger logger = LoggerFactory.getLogger(PoController.class);
 
 	@PostMapping({ "/getAllPODetails" })
-
 	public String getActiveMasterData(HttpServletRequest request, Principal principal) {
 
 		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
@@ -70,7 +69,6 @@ public class PoController {
 	}
 
 	@PostMapping({ "/poDetailsByPoNo" })
-
 	public String poDetailsByPoNo(HttpServletRequest request, @RequestBody PoDetailsDTO detailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -94,7 +92,6 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getAllProcessPo" })
-
 	public String getAllProcessPo(HttpServletRequest request, Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -120,7 +117,6 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getAllUnProcessPo" })
-
 	public String getAllUnProcessPo(HttpServletRequest request, Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -147,7 +143,6 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getAllInvoiceDetails" })
-
 	public String getAllInvoiceDetails(HttpServletRequest request, Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -188,7 +183,6 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getSelectInvoiceDetailsPo" })
-
 	public String getSelectInvoiceDetailsPo(HttpServletRequest request, Principal principal,
 			@RequestBody PoInvoiceDetailsDTO detailsDto) {
 		DataContainer data = new DataContainer();
@@ -226,7 +220,6 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getAllPODetailsByPoNo" })
-
 	public String getAllPODetailsByPoNo(HttpServletRequest request, Principal principal,
 			@RequestBody PoDetailsDTO detailsDto) {
 
@@ -256,7 +249,6 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getAllPODetailsByLineNumber" })
-
 	public String getAllPODetailsByLineNumber(HttpServletRequest request, @RequestBody PoInvoiceLineDTO detailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -284,7 +276,6 @@ public class PoController {
 	}
 
 	@PostMapping({ "/savePoInvoiceQuery" })
-
 	public String savePoInvoiceQuery(HttpServletRequest request, Principal principal,
 			@RequestBody QueryEntityDTO detailsDto) {
 
@@ -314,7 +305,6 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getPoQueryData" })
-
 	public String getPoQueryData(HttpServletRequest request, Principal principal,
 			@RequestBody QueryEntityDTO detailsDto) {
 
@@ -346,7 +336,6 @@ public class PoController {
 	}
 
 	@GetMapping({ "filterPoDetails" })
-
 	public String filterPoDetails(Principal principal, HttpServletRequest request,
 			@RequestParam(name = "actualDeparture") Date fromDate, @RequestParam(name = "actualArrival") Date toDate) {
 
@@ -372,7 +361,6 @@ public class PoController {
 	}
 
 	@PostMapping({ "/updateRemaningQuantity" })
-
 	public String updateRemaningQuantity(HttpServletRequest request, Principal principal,
 			@RequestBody PoAndLineItem details) {
 
@@ -410,7 +398,6 @@ public class PoController {
 	}
 
 	@PostMapping({ "/updateRemaningQuantitydraft" })
-
 	public String updateRemaningQuantitydraft(HttpServletRequest request, Principal principal,
 			@RequestBody PoAndLineItem details) {
 
@@ -424,8 +411,6 @@ public class PoController {
 			serviceManager.podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
 			String processBy = principal.getName();
 			Date proceessOn = new Date();
-			// serviceManager.podetailsRepo.updateRemaningQuantitydraft(details.getRemaningQuatity(),
-			// details.getLineNumberpo());
 
 			Integer flag = details.getFlag();
 			if (flag == 1) {
@@ -449,7 +434,6 @@ public class PoController {
 	}
 
 	@PostMapping({ "/getCurrentRemaningQty" })
-
 	public String getCurrentRemaningQty(HttpServletRequest request, @RequestBody PoAndLineItem details) {
 
 		DataContainer data = new DataContainer();

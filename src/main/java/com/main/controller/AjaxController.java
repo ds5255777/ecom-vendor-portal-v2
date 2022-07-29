@@ -425,7 +425,6 @@ public class AjaxController {
 					logger.error("error : " + e);
 				}
 			}
-			// last three year ITR file
 			if (null != supDetailsDto.getItraFileName1()) {
 				documentExtensionArray = supDetailsDto.getItraFileName1().split("\\.(?=[^\\.]+$)");
 				filename = documentExtensionArray[0];
@@ -579,15 +578,12 @@ public class AjaxController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String pid = objDto.getPid();
-		logger.info("pid my : " + objDto.getPid());
 		try {
 			List<SupDetails> supDetails = serviceManager.supDetailsRepo.findBypid(pid);
 
 			List<SupDetailsDTO> supDetailsToDTO = supDetails.stream()
 					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, SupDetailsDTO.class))
 					.collect(Collectors.toList());
-			boolean empty = supDetails.isEmpty();
-			logger.info("empty :" + empty);
 			data.setData(supDetailsToDTO);
 			data.setMsg("success");
 		} catch (Exception e) {

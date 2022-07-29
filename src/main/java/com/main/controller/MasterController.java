@@ -33,7 +33,6 @@ public class MasterController {
 	private static Logger logger = LoggerFactory.getLogger(MasterController.class);
 
 	@PostMapping({ "/saveTripMaster" })
-
 	public String saveTripMaster(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
@@ -52,7 +51,6 @@ public class MasterController {
 	}
 
 	@PostMapping({ "/getActiveMasterData" })
-
 	public String getActiveMasterData(HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
@@ -73,7 +71,6 @@ public class MasterController {
 	}
 
 	@PostMapping({ "/getMasterById" })
-
 	public String getUserById(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		DataContainer data = new DataContainer();
@@ -92,7 +89,6 @@ public class MasterController {
 	}
 
 	@PostMapping({ "/saveUpdateMasterDetails" })
-
 	public String saveUpdateMasterDetails(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		DataContainer data = new DataContainer();
@@ -111,7 +107,6 @@ public class MasterController {
 	}
 
 	@PostMapping({ "/deleteMaster" })
-
 	public String deleteMaster(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		DataContainer data = new DataContainer();

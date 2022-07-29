@@ -42,13 +42,6 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	@Query(value = "select count(*) from trip_details where run_type='Adhoc' and vendor_trip_status='Approved' and vendor_code=?", nativeQuery = true)
 	int getApproveAdHocTripCount(String vendorCode);
 
-	/*
-	 * @Query(value =
-	 * "select * from trip_details where vendor_code=?  ORDER by id desc limit ?",
-	 * nativeQuery = true) List<TripDetails> getTopTripRecods(String vendorCode, int
-	 * limit);
-	 */
-
 	@Query(value = "select * from trip_details  where invoice_number=:invoiceNumber ; ", nativeQuery = true)
 	List<TripDetails> findByTripAgainsInvoiceNumber(String invoiceNumber);
 
@@ -100,12 +93,6 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
 	List<TripDetails> findByActualDepartureBetween(@Param("startDate") String startDate,
 			@Param("endDate") String endDate);
-
-	/*
-	 * @Query(value = "select  * from trip_details  where trip_id IN(:tripID)",
-	 * nativeQuery = true) List<TripDetails> findByTripIDIn(@Param("tripID")
-	 * String[] tripID);
-	 */
 
 	@Query(value = "select  * from trip_details  where invoice_number=:invoiceNumber and vendor_code=:vendorCode ", nativeQuery = true)
 	List<TripDetails> getTripStatusIsDraftInvoicing(String invoiceNumber, String vendorCode);
@@ -262,6 +249,5 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 			@Param("vendorTripStatus") String vendorTripStatus, 
 			@Param("myList") List<String> myList);
 
-	/* TripDetails findByTripID(String tripID, String vendorCode); */
 
 }

@@ -54,7 +54,7 @@ public class TripDetails {
 	private String standardPayloadCapacity;
 
 	@Column(name = "run_status")
-	private String runStatus;// Closed, In-Transit
+	private String runStatus;
 
 	@Column(name = "origin_hub")
 	private String originHub;
@@ -116,26 +116,24 @@ public class TripDetails {
 	@Column(name = "actual_chargeable_weight")
 	private Double actualChargeableWeight;
 
-	// Status
 	@Column(name = "vendor_Trip_Status")
-	private String vendorTripStatus; // Approved, Yet_To_Be_Approved, Invoicing
+	private String vendorTripStatus;
 
 	@Column(name = "payment_status")
-	private String paymentStatus;// Oracle(Pending Approved)
+	private String paymentStatus;
 
 	@Column(name = "assign_to")
-	private String assignTo;// network Team, Vendor
+	private String assignTo;
 
 	@Column(name = "invoice_number")
 	private String invoiceNumber;
 
 	@Column(name = "processed_On")
-	private String processedOn;//
+	private String processedOn;
 
 	@Column(name = "processed_By")
-	private String processedBy;//
+	private String processedBy;
 
-//lumpsome_amount
 	@Column(name = "lumpsome_amount")
 	private String lumpsomeamount;
 

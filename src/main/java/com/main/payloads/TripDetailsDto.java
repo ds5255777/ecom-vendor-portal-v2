@@ -19,7 +19,7 @@ public class TripDetailsDto {
 	private String standardVechicleType;
 	private String standardShipmentCapacity;
 	private String standardPayloadCapacity;
-	private String runStatus;// Closed, In-Transit
+	private String runStatus;
 	private String originHub;
 	private String originRegion;
 	private String destHub;
@@ -38,12 +38,12 @@ public class TripDetailsDto {
 	private Double totalFreight;
 	private String openingReading;
 	private String closingReading;
-	private String vendorTripStatus; // Approved, Yet_To_Be_Approved, Invoicing
-	private String paymentStatus;// Oracle(Pending Approved)
-	private String assignTo;// network Team, Vendor
+	private String vendorTripStatus; 
+	private String paymentStatus;
+	private String assignTo;
 	private String invoiceNumber;
-	private String processedOn;//
-	private String processedBy;//
+	private String processedOn;
+	private String processedBy;
 	private String lumpsomeamount;
 	private String lumpsomecheckbox;
 }

@@ -1,5 +1,7 @@
 package com.main.service;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +18,17 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	static Random rnd = new Random();
 
-	public synchronized static String generateRandomPassword() {
+	public synchronized static String generateRandomPassword() throws NoSuchAlgorithmException {
+
+		final Random rand = SecureRandom.getInstanceStrong();
 		int password = 8;
 		String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%&";
 
 		StringBuilder sb = new StringBuilder(password);
 
 		for (int i = 0; i < password; i++)
-			sb.append(chars.charAt(rnd.nextInt(chars.length())));
+			sb.append(chars.charAt(rand.nextInt(chars.length())));
 		System.out.println("Password " + sb);
 		return sb.toString();
 	}

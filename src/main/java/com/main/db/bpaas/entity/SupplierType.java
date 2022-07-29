@@ -20,7 +20,7 @@ public class SupplierType {
 	private Integer id;
 
 	@Column(name = "supplier_type")
-	private String supplierType;
+	private String suppType;
 
 	@Column(name = "type")
 	private String type;

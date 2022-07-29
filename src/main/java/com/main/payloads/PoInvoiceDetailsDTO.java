@@ -11,7 +11,7 @@ public class PoInvoiceDetailsDTO {
 	private Long id;
 	private String operatingUnit;
 	private String invoiceType;
-	private String tradingPartner;// supplier
+	private String tradingPartner;
 	private String supplierNum;
 	private String supplierSite;
 	private String invoiceDate;
@@ -40,7 +40,7 @@ public class PoInvoiceDetailsDTO {
 	private String grossTotalAmt;
 	private String assignTo;
 	private Date raisedOn;
-	private String raisedBy;// Vendor Code
+	private String raisedBy;
 	private Date glDateDistributionDate;
 	private List<PoInvoiceLineDTO> poInvoiceLine;
 	private String invoiceFileName;

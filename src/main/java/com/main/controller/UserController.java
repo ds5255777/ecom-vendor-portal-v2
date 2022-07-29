@@ -49,8 +49,6 @@ public class UserController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			userDto.getId();
-//					String  userName = (String) request.getSession().getAttribute("userName");
-//					Integer  userId = (Integer) request.getSession().getAttribute("userId");
 
 			if (null == userDto.getId()) {
 				userDto.setPassword(serviceManager.bCryptPasswordEncoder.encode(userDto.getPassword()));
@@ -66,7 +64,6 @@ public class UserController {
 
 						password = serviceManager.bCryptPasswordEncoder.encode(userDto.getPassword());
 
-//									user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 					}
 
 				}

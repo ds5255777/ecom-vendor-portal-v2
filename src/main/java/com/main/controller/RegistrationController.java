@@ -28,26 +28,17 @@ public class RegistrationController {
 
 	@Autowired
 	private ServiceManager serviceManager;
-	
+
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	private static Logger logger = LoggerFactory.getLogger(SchedularController.class);
+	private static Logger logger = LoggerFactory.getLogger(RegistrationController.class);
 
 	public synchronized String generateVendorCode() {
 
-		/*
-		 * long count = serviceManager.supDetailsRepo.count();
-		 * System.out.println(count);
-		 */
 		String invoiceNumberPrefix = "Temp-";
-
-		/* count = count + 1; */
-		String invoiceNumber = invoiceNumberPrefix.concat(new SimpleDateFormat("yyyyHHmmssSSS").format(new Date()));
-
-		return invoiceNumber;
+		return invoiceNumberPrefix.concat(new SimpleDateFormat("yyyyHHmmssSSS").format(new Date()));
 	}
 
 	@PostMapping({ "/getPendingRequest" })
-
 	public String getPendingRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -72,7 +63,6 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getApprovedRequest" })
-
 	public String getApprovedRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -97,7 +87,6 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getRejectedRequest" })
-
 	public String getRejectedRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -122,7 +111,6 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getQueryRequest" })
-
 	public String getQueryRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -145,10 +133,7 @@ public class RegistrationController {
 		return gson.toJson(data).toString();
 	}
 
-	// updateVendorRegistrationStatus
-
 	@PostMapping({ "/updateVendorRegistrationStatus" })
-
 	public String updateVendorRegistrationStatus(Principal principal, @RequestBody SupDetailsDTO objDto) {
 
 		DataContainer data = new DataContainer();
@@ -198,7 +183,6 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/approveRequest" })
-
 	public String approveRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -225,7 +209,6 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/rejectedRequest" })
-
 	public String rejectedRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
 
 		DataContainer data = new DataContainer();
@@ -249,7 +232,6 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/getAllRequest" })
-
 	public String getAllRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class WelcomeEmail {
-	/*Show Current Date*/
 	LocalDateTime localDateTime = LocalDateTime.now();
 	LocalDate localDate = localDateTime.toLocalDate();
 

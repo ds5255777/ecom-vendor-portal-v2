@@ -55,7 +55,7 @@ public class InvoiceController {
 	private ServiceManager serviceManager;
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	private static Logger logger = LoggerFactory.getLogger(MasterController.class);
+	private static Logger logger = LoggerFactory.getLogger(InvoiceController.class);
 
 	@PostMapping({ "/getAllInvoice" })
 
@@ -89,7 +89,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getAllPendingInvoice" })
-
 	public String getAllPendingInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -116,7 +115,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getAllApproveInvoice" })
-
 	public String getAllApproveInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -144,7 +142,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getAllQueryInvoiceVendor" })
-
 	public String getAllQueryInvoiceVendor(Principal principal, HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
@@ -180,7 +177,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getAllRejectInvoice" })
-
 	public String getAllRejectInvoice(Principal principal, @RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
 
 		DataContainer data = new DataContainer();
@@ -206,7 +202,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getAllInvoiceToBilling" })
-
 	public String getMonthallyInvoice(Principal principal, HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
@@ -230,35 +225,6 @@ public class InvoiceController {
 
 		return gson.toJson(data).toString();
 	}
-
-	/*
-	 * @PostMapping({ "/getLineItemDetails" })
-	 * 
-	 * public String getLineItemDetails(HttpServletRequest request, @RequestBody
-	 * TripDetailsDto tripDtoObj) {
-	 * 
-	 * DataContainer data = new DataContainer(); Gson gson = new
-	 * GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create(); String tripID =
-	 * tripDtoObj.getTripID(); logger.info(tripID); try {
-	 * 
-	 * tripID = tripID.replaceAll(",", " ");
-	 * 
-	 * logger.info(tripID + "--------");
-	 * 
-	 * String[] split = tripID.split(" ");
-	 * 
-	 * List<Object> listofTrips = new ArrayList<>();
-	 * 
-	 * for (String str : split) { logger.info(str); TripDetails findByTripID =
-	 * serviceManager.tripDetailsRepo.findByTripID(str);
-	 * listofTrips.add(findByTripID); logger.info("Trip Details :" + findByTripID);
-	 * } listofTrips.forEach(m -> logger.info("----" + m + "-----"));
-	 * data.setData(listofTrips); data.setMsg("success");
-	 * 
-	 * } catch (Exception e) { data.setMsg("error"); logger.error("error : " + e); }
-	 * 
-	 * return gson.toJson(data).toString(); }
-	 */
 
 	@PostMapping("/saveInvoice")
 	public String saveInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationDto invoiceDto) {
@@ -362,9 +328,6 @@ public class InvoiceController {
 						InvoiceGenerationEntity.class);
 				serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
 			}
-
-			// data.setData(invoiceDto.getInvoiceNumber());
-			// call mailing api
 
 			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
 					.findByIsActive(GlobalConstants.ACTIVE_STATUS);
@@ -495,11 +458,6 @@ public class InvoiceController {
 				invObj.setProcessedOn(processedOn);
 
 				serviceManager.invoiceGenerationEntityRepo.save(invObj);
-				// serviceManager.invoiceGenerationEntityRepo.updateInvoiceStatusAndAssingTo(obj.getAssignTo(),obj.getInvoiceStatus(),obj.getInvoiceAmount(),obj.getTaxableAmount(),
-				// idByinvocienumber);
-
-				// InvoiceGenerationEntity invoiceEntity = new InvoiceGenerationEntity();
-
 				serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsQueryInvoice("123", ecomInvoiceNumber);
 
 				QueryEntity queryEntity = new QueryEntity();
@@ -517,16 +475,6 @@ public class InvoiceController {
 				logger.info(invoiceNumber);
 
 			}
-
-			/*
-			 * InvoiceLineItem invoiceLineItem = new InvoiceLineItem();
-			 * invoiceLineItemsList.size();
-			 */
-
-			// obj =
-			// serviceManager.invoiceGenerationEntityRepo.getQueryInvoice(obj.getVendorCode(),
-			// invoiceNumber);
-
 			data.setData(obj);
 			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
 			EmailConfiguration emailConfiguration = emailList.get(0);
@@ -567,7 +515,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getSelectInvoiceDetails" })
-
 	public String getSelectInvoiceDetails(Principal principal, @RequestBody InvoiceGenerationDto invoiceObj) {
 
 		DataContainer data = new DataContainer();
@@ -590,12 +537,7 @@ public class InvoiceController {
 						.findByEcomInvoiceNumberAndVendorCode(invoiceNumber, vendorCode);
 				data.setData(serviceManager.modelMapper.map(invoiceObject, InvoiceGenerationDto.class));
 
-			} /*
-				 * else { inviceObj =
-				 * serviceManager.invoiceGenerationEntityRepo.getQueryInvoice(invoiceNumber);
-				 * data.setData(inviceObj); }
-				 */
-
+			}
 			data.setMsg("success");
 
 		} catch (Exception e) {
@@ -607,7 +549,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getAllDraftInvoice" })
-
 	public String getAllDraftInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -632,7 +573,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/deleteDraftInvoice" })
-
 	public String deleteDraftInvoice(@RequestBody InvoiceGenerationDto obj) {
 
 		DataContainer data = new DataContainer();
@@ -657,7 +597,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/deleteLineItem" })
-
 	public String deleteLineItem(HttpServletRequest request, @RequestBody TripDetailsDto obj) {
 
 		DataContainer data = new DataContainer();
@@ -668,8 +607,6 @@ public class InvoiceController {
 			String tripID = obj.getTripID();
 
 			serviceManager.tripDetailsRepo.updateVendorTripStatus(tripID);
-
-			// serviceManager.invoiceLineItemRepo.updateTrip(tripID);
 
 			data.setMsg("success");
 
@@ -682,7 +619,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/discardDraftInvoice" })
-
 	public String discardDraftInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationDto obj) {
 
 		DataContainer data = new DataContainer();
@@ -707,7 +643,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/getAllQueryInvoiceVendorPo" })
-
 	public String getAllQueryInvoiceVendorPo(Principal principal, HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
@@ -731,7 +666,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/checkForExistingInvoiceNumber" })
-
 	public String checkForExistingInvoiceNumber(HttpServletRequest request, @RequestBody InvoiceGenerationDto obj) {
 
 		DataContainer data = new DataContainer();
@@ -756,7 +690,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping(value = "/getQueryInvoice")
-
 	public String getQueryInvoice(@RequestBody InvoiceGenerationDto obj, Principal principal, HttpSession session,
 			HttpServletRequest request) {
 
@@ -782,7 +715,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/deleteTripQueryInvoice" })
-
 	public String deleteTripQueryInvoice(HttpServletRequest request, @RequestBody TripDetailsDto obj) {
 
 		DataContainer data = new DataContainer();
@@ -804,7 +736,6 @@ public class InvoiceController {
 	}
 
 	@PostMapping({ "/addNewTripInQueryInvoice" })
-
 	public String addNewTripInQueryInvoice(HttpServletRequest request, @RequestBody TripDetailsDto obj) {
 
 		DataContainer data = new DataContainer();
@@ -813,17 +744,12 @@ public class InvoiceController {
 		try {
 
 			String tripID = obj.getTripID();
-			// String invoiceNumber = obj.getInvoiceNumber();
-
 			TripDetails tripDetails = serviceManager.tripDetailsRepo.findByTripID(tripID);
-
 			if (null != tripDetails) {
 				Mapper mapper = new DozerBeanMapper();
-
 				InvoiceLineItem lineItem = mapper.map(tripDetails, InvoiceLineItem.class);
 				lineItem.setId(null);
 				data.setData(lineItem);
-				// serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsQueryInvoice(tripID,invoiceNumber);
 				data.setMsg("success");
 			} else {
 				data.setData("data Not found");

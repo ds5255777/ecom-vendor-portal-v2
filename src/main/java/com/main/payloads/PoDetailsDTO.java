@@ -37,8 +37,8 @@ public class PoDetailsDTO {
     private String shortCode;
     private String organizationId;
     private String typeLookupCode;
-	private Date processedOn;//
-	private String processedBy;//
+	private Date processedOn;
+	private String processedBy;
 	private List<PoLineDetailsDTO> poline;
 
 	

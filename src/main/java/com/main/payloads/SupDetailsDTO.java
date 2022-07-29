@@ -10,7 +10,7 @@ public class SupDetailsDTO {
 	
 	private Long id;
 	private String pid;
-	private String vendorType;// network, fixed Assets,rent
+	private String vendorType;
 	private String introducedByName;
 	private String introducedByEmailID;
 	private String bpCode;
@@ -22,7 +22,7 @@ public class SupDetailsDTO {
 	private String businessClassification;
 	private String siteDff;
 	private String opeUnitReqMap;
-	private String venStatus; // 0-approved, 1-queryRaise, 2- pending
+	private String venStatus; 
 	private String invoiceCurrency;
 	private String paymentCurrency;
 	private String creditTerms;
@@ -46,7 +46,7 @@ public class SupDetailsDTO {
 	private String sro;
 	private String ihq;
 	private Date date = new Date();
-	private String flag;//Active Inactive
+	private String flag;
 	private String addressPurchasingFlag;
 	private String addressPaymentFlag;
 	private String invoicePrevalidatedFlag;

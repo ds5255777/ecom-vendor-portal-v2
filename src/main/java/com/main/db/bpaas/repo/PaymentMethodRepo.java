@@ -10,6 +10,6 @@ import com.main.db.bpaas.entity.PaymentMethod;
 public interface PaymentMethodRepo extends JpaRepository<PaymentMethod, Integer> {
 	
 	@Query(value = "select name from payment_method ",nativeQuery = true)
-	List<String> PaymentMethod();
+	List<String> paymentMethod();
 
 }

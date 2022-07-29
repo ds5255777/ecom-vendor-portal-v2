@@ -29,7 +29,7 @@ public class QueryEntity {
 	private String referenceid;
 
 	@Column(name = "raised_by")
-	private String raisedBy;// Vendor Code
+	private String raisedBy;
 
 	@Column(name = "comment", columnDefinition = "TEXT")
 	private String comment;

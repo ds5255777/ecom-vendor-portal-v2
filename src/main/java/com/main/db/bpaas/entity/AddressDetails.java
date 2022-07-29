@@ -28,9 +28,9 @@ public class AddressDetails {
 	@Column(name = "pin_code")
 	private String pinCode;
 	@Column(name = "vendor_type")
-	private String vendorType;// network, fixed Assets
+	private String vendorType;
 	@Column(name = "partner_type")
-	private String partnerType;// Adhoc, Schedule
+	private String partnerType;
 	@Column(name = "comp_gstn")
 	private String compGstn;
 	@Column(name = "add_details")

@@ -82,14 +82,4 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 	@Query(value = "select vendor_type from supdetails where bp_code=:vendorCode", nativeQuery = true)
 	String findByVendorType(String vendorCode);
 
-	/*
-	 * @Transactional
-	 * 
-	 * @Modifying
-	 * 
-	 * @Query(value =
-	 * "update supdetails set ven_status=:approvedRequestStatus where pid=:parameter ; "
-	 * , nativeQuery = true) void updateVendorFormStatus(String
-	 * approvedRequestStatus, String parameter);
-	 */
 }

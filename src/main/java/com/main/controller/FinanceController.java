@@ -46,11 +46,9 @@ public class FinanceController {
 	private ServiceManager serviceManager;
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	private static Logger logger = LoggerFactory.getLogger(DashboardController.class);
+	private static Logger logger = LoggerFactory.getLogger(FinanceController.class);
 
-	// all invoice
 	@PostMapping({ "/viewAllInvoiceForFinanceTeam" })
-
 	public String getAllInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -82,9 +80,7 @@ public class FinanceController {
 		return gson.toJson(data).toString();
 	}
 
-	// Approved Invoice
 	@PostMapping({ "/viewAllProcessInvoiceForFinanceTeam" })
-
 	public String getAllProcessInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -114,9 +110,7 @@ public class FinanceController {
 		return gson.toJson(data).toString();
 	}
 
-	// Pending For Approval
 	@PostMapping({ "/viewAllUnProcessInvoiceForFinanceTeam" })
-
 	public String getAllUnProcessInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -145,9 +139,7 @@ public class FinanceController {
 		return gson.toJson(data).toString();
 	}
 
-	// Pending For Approval
 	@PostMapping({ "/getAllInReviewInvoice" })
-
 	public String getAllInReviewInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -176,9 +168,7 @@ public class FinanceController {
 		return gson.toJson(data).toString();
 	}
 
-	// Payment Release
 	@PostMapping({ "/getPaymentReleaseInvoice" })
-
 	public String getPaymentReleaseInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -204,7 +194,6 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "/viewAllQueryInvoiceForFinanceTeam" })
-
 	public String getAllQueryInvoice(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -230,7 +219,6 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "/getQueryByTypeAndForeignKey" })
-
 	public String getQueryByTypeAndForeignKey(HttpServletRequest request, @RequestBody QueryDto obj) {
 
 		DataContainer data = new DataContainer();
@@ -254,7 +242,6 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "/saveQuery" })
-
 	public String saveInvoiceQuery(Principal principal, HttpServletRequest request, @RequestBody QueryDto entity) {
 
 		DataContainer data = new DataContainer();
@@ -382,9 +369,7 @@ public class FinanceController {
 		return gson.toJson(data).toString();
 	}
 
-	// getDocumentById
 	@PostMapping({ "/getDocumentByTypeAndForeignKey" })
-
 	public String getDocumentByTypeAndForeignKey(HttpServletRequest request, @RequestBody DocumentDto entity) {
 
 		DataContainer data = new DataContainer();
@@ -406,9 +391,7 @@ public class FinanceController {
 		return gson.toJson(data).toString();
 	}
 
-	// getDocumentById
 	@PostMapping({ "/approveInvoiceFinanceSide" })
-
 	public String approveInvoiceFinanceSide(Principal principal, HttpServletRequest request,
 			@RequestBody InvoiceGenerationDto entity) {
 
@@ -465,10 +448,7 @@ public class FinanceController {
 		return gson.toJson(data).toString();
 	}
 
-	// filterInvoiceDetails
-
 	@GetMapping({ "filterInvoiceDetails" })
-
 	public String filterInvoiceDetails(HttpServletRequest request,
 			@RequestParam(name = "actualDeparture") String fromDate,
 			@RequestParam(name = "actualArrival") String toDate) {
@@ -493,7 +473,6 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "getFilterInvoiceByVendorCode" })
-
 	public String getFilterInvoiceByVendorCode(HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
@@ -510,7 +489,6 @@ public class FinanceController {
 	}
 
 	@PostMapping({ "viewInvoiceForFinanceTeam" })
-
 	public String viewInvoiceForFinanceTeam(@RequestBody InvoiceGenerationDto obj)
 			throws UnsupportedEncodingException, MessagingException {
 		DataContainer data = new DataContainer();

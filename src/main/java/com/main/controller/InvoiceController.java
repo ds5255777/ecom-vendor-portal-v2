@@ -83,7 +83,7 @@ public class InvoiceController {
 			}
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -108,7 +108,7 @@ public class InvoiceController {
 			}
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -135,7 +135,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -170,7 +170,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -195,7 +195,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -220,7 +220,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -260,7 +260,7 @@ public class InvoiceController {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					logger.error("error : " + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + e);
 				}
 			}
 
@@ -283,7 +283,7 @@ public class InvoiceController {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					logger.error("error : " + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + e);
 				}
 			}
 
@@ -306,7 +306,7 @@ public class InvoiceController {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					logger.error("error : " + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + e);
 				}
 			}
 			String ecomInvoiceNumber = invoiceDto.getEcomInvoiceNumber();
@@ -360,7 +360,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -405,7 +405,7 @@ public class InvoiceController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error("error : " + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + e);
 				}
 			}
 
@@ -427,7 +427,7 @@ public class InvoiceController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error("error : " + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + e);
 				}
 			}
 			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
@@ -507,7 +507,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -542,7 +542,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -566,7 +566,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -590,7 +590,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -612,7 +612,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -636,7 +636,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -659,7 +659,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -683,7 +683,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -708,7 +708,7 @@ public class InvoiceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -729,7 +729,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -758,7 +758,7 @@ public class InvoiceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();

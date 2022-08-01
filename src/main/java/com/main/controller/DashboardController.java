@@ -87,7 +87,7 @@ public class DashboardController {
 			}
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -210,7 +210,7 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 			data.setMsg("error");
 		}
 
@@ -231,7 +231,7 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 			data.setMsg("error");
 		}
 
@@ -249,7 +249,7 @@ public class DashboardController {
 			data.setMsg("success");
 
 		} catch (Exception e) {
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 			data.setMsg("error");
 		}
 

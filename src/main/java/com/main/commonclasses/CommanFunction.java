@@ -139,7 +139,7 @@ public class CommanFunction {
 			Transport.send(message);
 
 		} catch (Exception e) {
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 	}

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
+import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.AgreementMaster;
 import com.main.payloads.AgreementMasterDTO;
 import com.main.servicemanager.ServiceManager;
@@ -45,7 +46,7 @@ public class MasterController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -65,7 +66,7 @@ public class MasterController {
 			logger.info("end of getActiveMasterData" + allAgreementMastersDto);
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -82,7 +83,7 @@ public class MasterController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -100,7 +101,7 @@ public class MasterController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -116,7 +117,7 @@ public class MasterController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}

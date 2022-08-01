@@ -10,6 +10,7 @@ public class GlobalConstants {
 	public static final String VENDOR_PID_PREFIX="Vendor-00000000";
 	public static final String VENDOR_PID_SUFFIX="-CreationUAT";
 	
+	public static final String ERROR_MESSAGE = "Error : ";
 
 	public static final String APPLICATION_IP = ipPath;
 

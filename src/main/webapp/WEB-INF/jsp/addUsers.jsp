@@ -73,16 +73,11 @@
     <jsp:include page="loader.jsp" />
     <div class="wrapper">
 
-        <!-- Navbar -->
         <jsp:include page="navbar.jsp?pagename=Users" />
-        <!-- /.navbar -->
 
-        <!-- Main Sidebar Container -->
         <jsp:include page="sidebar_Admin.jsp?pagename=addUsers" />
-
-        <!-- Content Wrapper. Contains page content -->
        
-			<input type="hidden" id =uname  value=${uname} />
+		<input type="hidden" id =uname value=${uname } />
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header" style="padding: 0px;">
@@ -93,12 +88,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /.row -->
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- /.content-header -->
-            <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -108,58 +99,42 @@
                                 <div class="card-header">
                                     <h3 class="card-title">Add User, Not Applicable For Vendor</h3>
                                 </div>
-                                <!-- /.card-header -->
-                                <!-- form start -->
                                 <form role="form" id="addForm" autocomplete="off">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">User Name</label> <input type="text" name="username" class="form-control" id="username" maxlength="70" pattern="[a-zA-Z][a-zA-Z0-9]+">
-
                                                 </div>
-
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Password</label> <input type="password" name="password" class="form-control" id="password" maxlength="70" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter">
                                                 </div>
-
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">First Name</label> <input type="text" name="firstName" class="form-control" id="firstName" maxlength="70" pattern="[a-zA-Z]+">
-
                                                 </div>
-
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Last Name</label> <input type="text" name="lastName" class="form-control" id="lastName" maxlength="70" pattern="[a-zA-Z]+">
                                                 </div>
-
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleId" style="height: 34px;">
-                                                       
                                                           <c:forEach items="${role}" var="roleName">
-
 															<option value="${roleName.id}">${roleName.roleName}</option>
 														</c:forEach>
-                                                       
                                                     </select>
                                                 </div>
-
                                             </div>
-                                            
-                                            
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" class="form-control" maxlength="70" id="emailId">
-
                                                 </div>
-
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
@@ -172,13 +147,11 @@
                                         </div>
                                         <br>
                                     </div>
-                                    <!-- /.card-body -->
                                     <div class="card-footer" align="center">
                                         <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
                                     </div>
                                 </form>
                             </div>
-
                         </div>
                     </div>
 
@@ -188,7 +161,6 @@
                                 <div class="card-header">
                                     <h3 class="card-title">Active Users</h3>
                                 </div>
-                                <!-- /.card-header -->
                                 <div class="card-body">
                                     <table id="tabledata" class="table table-bordered table-hover">
                                         <thead>
@@ -205,36 +177,26 @@
                                         </thead>
                                     </table>
                                 </div>
-                                <!-- /.card-body -->
                             </div>
-
                         </div>
                     </div>
-
-
                 </div>
             </section>
         </div>
 
         <aside class="control-sidebar control-sidebar-dark"></aside>
     </div>
-    <!-- ./wrapper -->
-
-
 
     <div class="modal fade" id="userModal" role="dialog">
         <div class="modal-dialog " style="max-width: 1300px;">
-            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <!-- general form elements -->
                             <div class="card card-primary">
                                 <div class="card-header">
                                     <h3 class="card-title">Update User</h3>
                                 </div>
-
                                 <form role="form" id="updateForm" autocomplete="off">
                                     <div class="card-body">
                                         <div class="row">
@@ -251,7 +213,6 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">First Name</label> <input type="text"maxlength="70" name="firstName" class="form-control" id="firstNameEdit" pattern="[a-zA-Z]+">
-
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -269,35 +230,27 @@
                                                        
                                                     </select>
                                                 </div>
-
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" maxlength="70"class="form-control" id="emailIdEdit">
                                                 </div>
-
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Contact No</label> <input type="text" name="contactNo" maxlength="10"  class="form-control" id="contactNoEdit" pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$" title="Enter Valid mobile number ex.9811111111">
                                                 </div>
                                             </div>
-                                            
-                                            
                                              <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Status</label> <select class="form-control" id="statusEdit" style="height: 34px;">
-                                                        
                                                             <option value="1">Active</option>
                                                         	<option value="0">In-Active</option>
                                                     </select>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
-                                    <!-- /.card-body -->
-
                                     <div class="card-footer" align="center">
                                         <button type="submit" id="updateBtn" class="btn btn-primary">Update</button>
                                         <button type="button" class="btn btn-primary" id="closePopBtn" data-dismiss="modal">Close</button>
@@ -306,14 +259,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
-
-
 
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -369,7 +318,6 @@
 
     </script>
 
-
     <script type="text/javascript">
         var mappingTableArray = [];
 
@@ -402,8 +350,6 @@
             "aaSorting": []
 
         });
-
-
 
         const Toast = Swal.mixin({
             toast: true,
@@ -506,9 +452,7 @@
                 },
                 licenseTypeEdit: {
                     required: true
-
                 }
-
             },
 
             errorElement: 'span',

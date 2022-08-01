@@ -632,7 +632,7 @@ public class AjaxController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE,e);
 		}
 		return gson.toJson(data).toString();
 	}

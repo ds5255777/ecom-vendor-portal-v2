@@ -32,9 +32,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value = "select * from users where role_id !='2' and status in(:userStatusList) ; ", nativeQuery = true)
 	List<User> findByStatusIn(List<String> userStatusList);
 
-	@Query(value = "select username from users where username ~*:username and status in(:userStatusList) ; ", nativeQuery = true)
-	String checkForExistingUserName(@Param("username") String username,
-			@Param("userStatusList") List<String> userStatusList);
+	// for postgress
+	@Query(value = "select username from users where  LOWER(username)=LOWER(:username) ; ", nativeQuery = true)
+	String checkForExistingUserName(@Param("username") String username);
 
 	User findByUsernameIgnoreCaseAndStatusIn(String username, List<String> userStatusList);
 

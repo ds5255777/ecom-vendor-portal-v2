@@ -1307,7 +1307,7 @@ select[readonly].select2 + .select2-container {
                                                     <td colspan='2'><input type="text" class="form-control p-input" id="ifscCode" name="ifscCode" placeholder="IFSC Code" oninput="this.value = this.value.toUpperCase()" maxlength="11"></td>
 
                                                     <td><label for="accoutNumber">Account Number<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="accoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="accoutNumber" placeholder="Account Number"></td>
+                                                    <td colspan='2'><input type="text" class="form-control p-input" id="accoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="accoutNumber" placeholder="Account Number" maxlength="16"></td>
 
                                                 </tr>
 
@@ -1692,6 +1692,9 @@ select[readonly].select2 + .select2-container {
                     <!-- query page -->
 
                     <div id="step-6" class="">
+                    <div class="card queryFormUiText">
+                    	<p style="font-size: 40px;color: green;text-align: center;margin-top: 100px;margin-bottom: 100px;">Thanks for registration! Click the Finish button for complete</p>
+                    </div>
                         <div class="card queryFormUi" style="display: none; margin-bottom: 10px;">
                             <div class="card-header" id="addressBookHead" style="background: #1991eb; color: #ffffff;">
                                 <h6 class="mb-0">Query</h6>
@@ -1795,6 +1798,7 @@ select[readonly].select2 + .select2-container {
     	        $(".queryFormViews").css("display","block");
     	        $("#queryBookHeadData").css("display","block");
     	        $(".queryFormUi").css("display","block");
+    	        $(".queryFormUiText").css("display","none");
             console.log(pid);
            
             getQueryData();

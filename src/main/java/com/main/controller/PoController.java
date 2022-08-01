@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.bean.PoAndLineItem;
+import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.entity.PoLineDetails;
@@ -61,7 +62,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -84,7 +85,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -135,7 +136,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -175,7 +176,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -212,7 +213,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -241,7 +242,7 @@ public class PoController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -268,7 +269,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -297,7 +298,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -328,7 +329,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -355,7 +356,7 @@ public class PoController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -390,7 +391,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -426,7 +427,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -451,7 +452,7 @@ public class PoController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 

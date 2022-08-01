@@ -74,7 +74,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -104,7 +104,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -133,7 +133,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -162,7 +162,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -187,7 +187,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -212,7 +212,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -236,7 +236,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -363,7 +363,7 @@ public class FinanceController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -386,7 +386,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -443,7 +443,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -467,7 +467,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -483,7 +483,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -504,7 +504,7 @@ public class FinanceController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();

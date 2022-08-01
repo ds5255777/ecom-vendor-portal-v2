@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
+import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.Document;
 import com.main.db.bpaas.entity.EmailAuditLogs;
 import com.main.db.bpaas.entity.EmailConfiguration;
@@ -76,7 +77,7 @@ public class PoInvoiceContoller {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -101,7 +102,7 @@ public class PoInvoiceContoller {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -143,7 +144,7 @@ public class PoInvoiceContoller {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					logger.error("error : " + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + e);
 				}
 			}
 
@@ -167,7 +168,7 @@ public class PoInvoiceContoller {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					logger.error("error : " + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + e);
 				}
 			}
 			String vendorCode = principal.getName();
@@ -219,7 +220,7 @@ public class PoInvoiceContoller {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -245,7 +246,7 @@ public class PoInvoiceContoller {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -278,7 +279,7 @@ public class PoInvoiceContoller {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();

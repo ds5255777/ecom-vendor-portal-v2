@@ -87,7 +87,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -112,7 +112,7 @@ public class TripControllers {
 			}
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -136,7 +136,7 @@ public class TripControllers {
 				data.setMsg("success");
 			} catch (Exception e) {
 				data.setMsg("error");
-				logger.error("error : " + e);
+				logger.error(GlobalConstants.ERROR_MESSAGE + e);
 			}
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 			String vendorCode = principal.getName();
@@ -149,7 +149,7 @@ public class TripControllers {
 				data.setMsg("success");
 			} catch (Exception e) {
 				data.setMsg("error");
-				logger.error("error : " + e);
+				logger.error(GlobalConstants.ERROR_MESSAGE + e);
 			}
 		}
 		return gson.toJson(data).toString();
@@ -179,7 +179,7 @@ public class TripControllers {
 			}
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -205,7 +205,7 @@ public class TripControllers {
 			}
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -248,7 +248,7 @@ public class TripControllers {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -312,7 +312,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -345,7 +345,7 @@ public class TripControllers {
 			}
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -370,7 +370,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -394,7 +394,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -427,7 +427,7 @@ public class TripControllers {
 			}
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 		return gson.toJson(data).toString();
@@ -453,7 +453,7 @@ public class TripControllers {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -477,7 +477,7 @@ public class TripControllers {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -567,7 +567,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -590,7 +590,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setData("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 		return gson.toJson(data).toString();
 	}

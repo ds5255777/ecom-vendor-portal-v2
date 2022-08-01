@@ -54,7 +54,7 @@ public class SchedularController {
 					}
 
 				} catch (Exception e) {
-					logger.error("error : " + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + e);
 				}
 
 				checkSchedular = "Occupied";
@@ -78,13 +78,13 @@ public class SchedularController {
 					}
 
 				} catch (Exception e) {
-					logger.error("error : " + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + e);
 				}
 			}
 
 		} catch (Exception e) {
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 		}
 
 	}

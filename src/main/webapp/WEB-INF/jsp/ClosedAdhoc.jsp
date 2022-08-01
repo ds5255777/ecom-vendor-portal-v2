@@ -1,7 +1,6 @@
 <%@page import="com.main.commonclasses.GlobalConstants"%>
 <%@page import="com.main.commonclasses.GlobalUrl"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
@@ -114,48 +113,29 @@
         <jsp:include page="loader.jsp" />
         <div class="wrapper">
 
-            <!-- Navbar -->
             <jsp:include page="navbar.jsp?pagename=Closed (Adhoc) Trips" />
-            <!-- /.navbar -->
 
-            <!-- Main Sidebar Container -->
             <jsp:include page="slidebar.jsp?pagename=Closed (Adhoc) Trips" />
 
-            <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="content-header" style="padding: 0px;">
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6"></div>
                             <div class="col-sm-6">
-                                <!-- <ol class="breadcrumb float-sm-right">
-                                                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard v1</li>
-                                                    </ol> -->
                             </div>
-
                         </div>
                     </div>
                 </div>
 
-                <!-- /.content-header -->
-
-
-                <!-- Main content -->
                 <section class="content mt-2">
                     <div class="container-fluid">
-
                         <div class="row">
                             <div class="col-md-12" style="font-size: 14px;">
-                                <!-- general form elements -->
                                 <div class="card card-primary ">
-                                <!-- <div class="card"> -->
-
-								<!-- /.card-header -->
 								<div class="card-body ">
                                     <form role="form" id="addForm" autocomplete="off">
 										<div class="row">
-											
 											<div class="col-md-2">
 												<div class="dropdown">
 													<button type="button"
@@ -172,7 +152,7 @@
 											<div class="col-md-8"></div>
 											<div class="col-md-2">
 												<div class="form-group row">
-													<label class="col-md-4">Search : </label>
+													<label for="searchData" class="col-md-4">Search : </label>
 													<div class="col-md-8">
 														<input type="text" name="searchData" placeholder="Search"
 															class="form-control" id="searchData">
@@ -181,23 +161,19 @@
 											</div>
 										</div>
 									</form>
-                                    <!-- /.card-header -->
                                     <div class="card-body table-responsive p-0" style="width:100%;">
                                         <table class="table table-head-fixed" id="tabledata1">
                                             <thead>
                                                 <tr>
-
-                                                    <th class="bg-primary" >Trip ID</th>
-                                                    <th class="bg-primary" >Route</th>
-                                                    <th class="bg-primary" >Vendor Name</th>
-                                                    <th class="bg-primary" >Vendor Code</th>
-                                                    <th class="bg-primary" >Run Type</th>
-                                                    <th class="bg-primary" >Trip Status</th>
-                                                    <th class="bg-primary" >Vehicle Number</th>
-
+                                                    <th class="bg-primary">Trip ID</th>
+                                                    <th class="bg-primary">Route</th>
+                                                    <th class="bg-primary">Vendor Name</th>
+                                                    <th class="bg-primary">Vendor Code</th>
+                                                    <th class="bg-primary">Run Type</th>
+                                                    <th class="bg-primary">Trip Status</th>
+                                                    <th class="bg-primary">Vehicle Number</th>
                                                 </tr>
                                             </thead>
-
                                             <tbody>
                                                 <c:forEach var="ApprovedAllDetails" items="${AllDetailsForNetwork}">
                                                     <tr>
@@ -208,30 +184,19 @@
                                                         <td>${ApprovedAllDetails.runType}</td>
                                                         <td>${ApprovedAllDetails.runStatus}</td>
                                                         <td>${ApprovedAllDetails.vehicleNumber}</td>
-
-
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>
-
-
                                         </table>
                                     </div>
-                                    <!-- /.card-body -->
                                 </div>
-</div>
-
+							</div>
                             </div>
                         </div>
                     </div>
                 </section>
-
-
-
-               <!-- Model Start -->
 		<div class="modal fade" id="tripValue" role="dialog">
 			<div class="modal-dialog " style="max-width: 1400px;">
-				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-body" style="overflow-y: auto;">
 						<div class="container-fluid panel2" id="headerLineItemForm">
@@ -249,7 +214,6 @@
 													style="font-size: 20px; color: white;"></i>
 											</button>
 										</div>
-										<!-- /.card-header -->
 										<div class="card-body" style="padding-bottom: inherit;">
 											<form role="form" id="tripForm1">
 												<div class="row">
@@ -289,9 +253,6 @@
 															</div>
 														</div>
 													</div>
-
-
-
 													<div class="col-md-3">
 														<div class="form-group row">
 															<label class="col-sm-5" title="Vehicle Number">Vehicle
@@ -325,20 +286,7 @@
 															</div>
 														</div>
 													</div>
-													<!-- <div class="col-md-3">
-														text input
-														<div class="form-group row">
-															<label class="col-sm-5" title="Actual Vehicle Type">Act Vehicle
-																</label>
-															<div class="col-sm-7">
-																<input type="text" class="form-control"
-																	id="actualVechicleType" name="actualVechicleType"
-																	autocomplete="off" disabled>
-															</div>
-														</div>
-													</div> -->
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5" title="Standard Vehicle Type">Std. Vehicle
 																</label>
@@ -350,7 +298,6 @@
 														</div>
 													</div>
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5" title="Standard Payload Capacity">Payload
 																Cap.</label>
@@ -362,9 +309,7 @@
 															</div>
 														</div>
 													</div>
-
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5"
 																title="Standard Shipment Capacity">Shipment Cap.</label>
@@ -408,7 +353,6 @@
 															</div>
 														</div>
 													</div>
-
 													<div class="col-md-3">
 														<div class="form-group row">
 															<label class="col-sm-5" title="Destination Hub">Dest
@@ -601,21 +545,17 @@
 												</div>
 											</form>
 										</div>
-										<!-- /.card-body -->
 									</div>
-									<!-- /.card -->
 									<div class=" card-primary">
 										<div class="card card-primary ">
 											<div class="card-header" style="padding: 4px 0px 4px 4px;">
 												<h3 class="card-title" style="font-size: 15px;">Trips
 													Query</h3>
 											</div>
-
 											<div class="card-body " style="padding: inherit;">
 												<form role="form" id="showQueryDetails"
 													name="showQueryDetails">
 													<div class="col-md-12">
-
 														<div class="table-responsive">
 															<table class="table table-bordered table-hover"
 																id="tabledataQuery">
@@ -626,11 +566,9 @@
 																		<th class="bg-primary">Role/Department</th>
 																		<th class="bg-primary">Raised On</th>
 																		<th class="bg-primary">Remarks</th>
-
 																	</tr>
 																</thead>
 																<tbody>
-
 																</tbody>
 															</table>
 														</div>
@@ -649,13 +587,9 @@
 
 			</div>
 		</div></div></div>
-		<!-- model Start -->
-
-
 
                 <script src="plugins/jquery/jquery.min.js"></script>
                 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-                <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
                 <script>
                                                     $.widget.bridge('uibutton', $.ui.button);
                                                     $.widget.bridge('uitooltip', $.ui.tooltip);
@@ -678,7 +612,6 @@
                 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
                 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
                 <script src="plugins/toastr/toastr.min.js"></script>
-                
                 <script src="plugins/datatables/jquery.dataTables.js"></script>
 		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -721,7 +654,6 @@
                                                         "scrollX": true,
                                                         "pageLength": dataLimit,
                                                         dom: 'Bfrtip',
-                                                        //buttons: ['excel','pdf','print'],
                                                         buttons: [
 
                                                             {
@@ -773,8 +705,6 @@
                                                                     obj['hLineColor'] = function(i) {
                                                                         return '#aaa';
                                                                     };
-                                                                    //   doc.content[1].margin = [ 150, 0, 150, 0 ];
-
                                                                 }
                                                             }
                                                         ],
@@ -805,8 +735,6 @@
                                                     if (document.getElementById("mode").value === "Line Haul") {
                                                         document.getElementById("openingReading").d = 'true';
                                                         document.getElementById("closingReading").d = 'true';
-                                                        //    document.getElementById("tdsRate").val()="";
-                                                        //            	    document.getElementById("tdsSection").value()="";
                                                         $("#tdsSection").val("");
                                                         $("#tdsRate").val("");
                                                     } else {
@@ -817,8 +745,6 @@
 
                                                     var globalTripId = "";
                                                     function setTripStatus(tripId) {
-
-                                                        //	 tripId =  $("#tripID").val();		
 
                                                         var json = {
                                                             "tripID": tripId
@@ -845,7 +771,6 @@
                                                                 }
                                                             },
                                                             error: function (jqXHR, textStatue, errorThrown) {
-                                                                //alert("failed, please try again");
                                                                 Toast.fire({
                                                                     type: 'error',
                                                                     title: 'Failed.. Try Again..'
@@ -854,8 +779,6 @@
 
                                                         });
 
-
-                                                      //Ajax to get remarks
                                                         $.ajax({
                                                             type: "POST",
                                                             data: JSON.stringify(json),
@@ -926,21 +849,10 @@
                                                             $("#totalFreight").prop('disabled', true);
                                                             $("#basicFreight").prop('disabled', true);
 
-                                                            //Recalcluate
-
-
                                                         }
-
-
-
                                                     }
 
-
-
                                                     function updateTripDataByNetworkTeam() {
-
-
-                                                        //Validations
                                                         var ratePerKm = document.getElementById("ratePerKm").value;
                                                         var routeKms = document.getElementById("routeKms").value;
                                                         var fsBaseRate = document.getElementById("fsBaseRate").value;
@@ -981,11 +893,6 @@
                                                             return "";
                                                         }
 
-
-
-
-
-
                                                         var today = new Date();
                                                         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
                                                         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -1012,8 +919,6 @@
                                                                 document.getElementById("totalFreight").focus();
                                                                 return "";
                                                             }
-
-                                                            //fs
 
                                                             if (fs === "" || fs === null || fs === '') {
                                                                 Toast.fire({
@@ -1054,8 +959,6 @@
 
                                                         }
 
-
-
                                                         $.ajax({
                                                             type: "POST",
                                                             data: JSON.stringify(obj),
@@ -1074,7 +977,6 @@
                                                                 }
                                                             },
                                                             error: function (jqXHR, textStatue, errorThrown) {
-                                                                //alert("failed, please try again");
                                                                 Toast.fire({
                                                                     type: 'error',
                                                                     title: 'Action Performed'
@@ -1088,7 +990,6 @@
 
 
                                                     }
-
                 </script>
                 </body>
 

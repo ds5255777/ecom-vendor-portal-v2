@@ -78,7 +78,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -110,7 +110,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -135,7 +135,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -155,7 +155,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -189,7 +189,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -215,7 +215,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -239,7 +239,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -294,7 +294,7 @@ public class UserController {
 
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -317,7 +317,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -343,7 +343,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -375,7 +375,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 
@@ -402,7 +402,7 @@ public class UserController {
 		} catch (Exception e) {
 			data.setMsg("error");
 
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + e);
 
 		}
 

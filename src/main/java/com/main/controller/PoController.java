@@ -1,7 +1,6 @@
 package com.main.controller;
 
 import java.security.Principal;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -47,7 +46,7 @@ public class PoController {
 	@PostMapping({ "/getAllPODetails" })
 	public String getActiveMasterData(HttpServletRequest request, Principal principal) {
 
-		logger.info("Log Some Information getActiveMasterData {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information getActiveMasterData {} ");
 		String vendorCode = principal.getName();
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -324,7 +323,6 @@ public class PoController {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
-		logger.info("fromDate {} ", fromDate, " toDate {} ", toDate);
 		String vendorCode = principal.getName();
 		try {
 

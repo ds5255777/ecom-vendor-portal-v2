@@ -2,7 +2,6 @@ package com.main.controller;
 
 import java.security.Principal;
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Date;
@@ -51,7 +50,7 @@ public class EmailConfigurationController {
 
 	public String saveUpdateEmailData(HttpServletRequest request, @RequestBody EmailConfigurationDTO entityDto) {
 
-		logger.info("Log Some Information : {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information : {} ");
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {

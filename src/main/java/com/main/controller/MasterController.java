@@ -1,6 +1,5 @@
 package com.main.controller;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +35,7 @@ public class MasterController {
 	@PostMapping({ "/saveTripMaster" })
 	public String saveTripMaster(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
-		logger.info("Log Some Information saveTripMaster {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information saveTripMaster {} ");
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {

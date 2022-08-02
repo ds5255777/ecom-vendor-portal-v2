@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Date;
@@ -60,7 +59,7 @@ public class PoInvoiceContoller {
 	@PostMapping({ "/deleteDraftPoInvoice" })
 	public String deleteDraftPoInvoice(HttpServletRequest request, @RequestBody PoDetailsDTO objDto) {
 
-		logger.info("Log Some Information deleteDraftPoInvoice {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information deleteDraftPoInvoice {} ");
 
 		DataContainer data = new DataContainer();
 
@@ -115,22 +114,17 @@ public class PoInvoiceContoller {
 			@RequestBody PoInvoiceDetailsDTO invoiceDetailsDto) throws IOException {
 
 		DataContainer data = new DataContainer();
-		FileOutputStream fos=null;
+
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
-		try {
-			String filePath = filepath + File.separator + invoiceDetailsDto.getInvoiceNumber();
-			String fullFilePathWithName = "";
-			
+		String filePath = filepath + File.separator + invoiceDetailsDto.getInvoiceNumber();
+		File file1 = new File(filePath);
 
-			if (null != invoiceDetailsDto.getInvoiceFileName()) {
-
-				File file1 = new File(filePath);
-
-				if (!file1.exists()) {
-					file1.mkdirs();
-				}
-				fullFilePathWithName = filePath + File.separator + "Invoice-" + invoiceDetailsDto.getInvoiceFileName();
-
+		if (!file1.exists()) {
+			file1.mkdirs();
+		}
+		if (null != invoiceDetailsDto.getInvoiceFileName()) {
+			String fullFilePathWithName = filePath + File.separator + invoiceDetailsDto.getInvoiceFileName();
+			try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName)) {
 				Document doc = new Document();
 				doc.setDocName(invoiceDetailsDto.getInvoiceFileName());
 				doc.setDocPath(fullFilePathWithName);
@@ -139,18 +133,19 @@ public class PoInvoiceContoller {
 				doc.setForeignKey(invoiceDetailsDto.getInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				fos = new FileOutputStream(fullFilePathWithName);
 				String b64 = invoiceDetailsDto.getInvoiceFileText();
 				byte[] decoder = Base64.getDecoder().decode(b64);
 				fos.write(decoder);
 				fos.close();
-
+			} catch (Exception e) {
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			}
+		}
 
-			if (null != invoiceDetailsDto.getDocumentFileOneName()) {
-
-				fullFilePathWithName = filePath + File.separator + "Summary Sheet-"
-						+ invoiceDetailsDto.getDocumentFileOneName();
+		if (null != invoiceDetailsDto.getDocumentFileOneName()) {
+			String fullFilePathWithName = filePath + File.separator + invoiceDetailsDto.getDocumentFileOneName();
+			try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName)) {
 
 				Document doc = new Document();
 				doc.setDocName(invoiceDetailsDto.getDocumentFileOneName());
@@ -160,66 +155,62 @@ public class PoInvoiceContoller {
 				doc.setForeignKey(invoiceDetailsDto.getInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				fos = new FileOutputStream(fullFilePathWithName);
 				String b64 = invoiceDetailsDto.getDocumentFileOneText();
 				byte[] decoder = Base64.getDecoder().decode(b64);
 
 				fos.write(decoder);
 				fos.close();
-
-			}
-			String vendorCode = principal.getName();
-
-			String ecomInvoiceNumber = invoiceDetailsDto.getInvoiceNumber();
-
-			logger.info(ecomInvoiceNumber);
-			invoiceDetailsDto.setStatus(GlobalConstants.INVOICE_STATUS_IN_REVIEW);
-			invoiceDetailsDto.setVendorCode(vendorCode);
-			invoiceDetailsDto.setRaisedBy(vendorCode);
-			invoiceDetailsDto.setRaisedOn(new Date());
-
-			Long id = serviceManager.poinvoiceRepo.getId(ecomInvoiceNumber);
-			if (id != null) {
-				poInvoiceRepo.deleteById(id);
-			}
-			serviceManager.poinvoiceRepo
-					.save(this.serviceManager.modelMapper.map(invoiceDetailsDto, PoInvoiceDetails.class));
-
-			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
-			EmailConfiguration emailConfiguration = emailList.get(0);
-
-			String vendorEmail = (String) request.getSession().getAttribute("userEmail");
-
-			List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Vendor Trip Query");
-
-			if (!queryType.isEmpty()) {
-				SendEmail sendEmail = new SendEmail();
-				MailContent mailContent = queryType.get(0);
-				sendEmail.setMailfrom(emailConfiguration.getUserName());
-				sendEmail.setSendTo(vendorEmail);
-				sendEmail.setSubject(mailContent.getSubject());
-				sendEmail.setEmailBody(mailContent.getEmailBody());
-				sendEmail.setStatus("Y");
-
-				serviceManager.sendEmailRepo.save(sendEmail);
-
-				EmailAuditLogs auditLogs = new EmailAuditLogs();
-				auditLogs.setMailFrom(emailConfiguration.getUserName());
-				auditLogs.setMailTo(vendorEmail);
-				auditLogs.setMailSubject(mailContent.getSubject());
-				auditLogs.setMailMessage(mailContent.getEmailBody());
-
-				serviceManager.emailAuditLogsRepo.save(auditLogs);
+			} catch (Exception e) {
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			}
 
-			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
-
-		} catch (Exception e) {
-			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
-		}finally{
-		 fos.close();
 		}
+
+		String vendorCode = principal.getName();
+
+		String ecomInvoiceNumber = invoiceDetailsDto.getInvoiceNumber();
+
+		invoiceDetailsDto.setStatus(GlobalConstants.INVOICE_STATUS_IN_REVIEW);
+		invoiceDetailsDto.setVendorCode(vendorCode);
+		invoiceDetailsDto.setRaisedBy(vendorCode);
+		invoiceDetailsDto.setRaisedOn(new Date());
+
+		Long id = serviceManager.poinvoiceRepo.getId(ecomInvoiceNumber);
+		if (id != null) {
+			poInvoiceRepo.deleteById(id);
+		}
+		serviceManager.poinvoiceRepo
+				.save(this.serviceManager.modelMapper.map(invoiceDetailsDto, PoInvoiceDetails.class));
+
+		List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
+		EmailConfiguration emailConfiguration = emailList.get(0);
+
+		String vendorEmail = (String) request.getSession().getAttribute("userEmail");
+
+		List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Vendor Trip Query");
+
+		if (!queryType.isEmpty()) {
+			SendEmail sendEmail = new SendEmail();
+			MailContent mailContent = queryType.get(0);
+			sendEmail.setMailfrom(emailConfiguration.getUserName());
+			sendEmail.setSendTo(vendorEmail);
+			sendEmail.setSubject(mailContent.getSubject());
+			sendEmail.setEmailBody(mailContent.getEmailBody());
+			sendEmail.setStatus("Y");
+
+			serviceManager.sendEmailRepo.save(sendEmail);
+
+			EmailAuditLogs auditLogs = new EmailAuditLogs();
+			auditLogs.setMailFrom(emailConfiguration.getUserName());
+			auditLogs.setMailTo(vendorEmail);
+			auditLogs.setMailSubject(mailContent.getSubject());
+			auditLogs.setMailMessage(mailContent.getEmailBody());
+
+			serviceManager.emailAuditLogsRepo.save(auditLogs);
+		}
+
+		data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		return gson.toJson(data);
 	}

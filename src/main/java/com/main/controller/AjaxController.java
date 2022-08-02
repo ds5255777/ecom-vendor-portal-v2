@@ -58,7 +58,7 @@ public class AjaxController {
 	@Transactional
 	public String saveRegistration(@RequestBody SupDetailsDTO supDetailsDto, HttpServletRequest request) {
 
-		logger.info("Log Some Information {} ");
+		logger.info("Log Some Information ");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();

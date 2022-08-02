@@ -54,7 +54,7 @@ public class TripControllers {
 	public String filterTripDetails(Principal principal, @RequestParam(name = "actualDeparture") String fromDate,
 			@RequestParam(name = "actualArrival") String toDate, @RequestParam(name = "vendorCode") String vendorCode) {
 
-		logger.info("Log Some Information filterTripDetails {} ");
+		logger.info("Log Some Information filterTripDetails ");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -487,7 +487,7 @@ public class TripControllers {
 			@RequestParam(name = "tripStatus") String tripStatus,
 			@RequestParam(name = "vendorCode") String vendorCode) {
 
-		logger.info("Log Some Information filterByColumn {} ");
+		logger.info("Log Some Information filterByColumn ");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();

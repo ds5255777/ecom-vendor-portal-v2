@@ -59,7 +59,7 @@ public class PoInvoiceContoller {
 	@PostMapping({ "/deleteDraftPoInvoice" })
 	public String deleteDraftPoInvoice(HttpServletRequest request, @RequestBody PoDetailsDTO objDto) {
 
-		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information : ", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 
@@ -68,16 +68,16 @@ public class PoInvoiceContoller {
 
 			String ecomInvoiceNumber = objDto.getInvoiceNumber();
 			Long id = poInvoiceRepo.getId(ecomInvoiceNumber);
-			logger.info("ecomInvoiceNumber" + ecomInvoiceNumber);
+			logger.info("ecomInvoiceNumber", ecomInvoiceNumber);
 
 			poInvoiceRepo.deleteById(id);
 			poDetailsRepo.updatePoStatusagainsInvoiceNumber(ecomInvoiceNumber);
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
 		return gson.toJson(data).toString();
@@ -94,15 +94,15 @@ public class PoInvoiceContoller {
 
 			List<PoInvoiceDetails> details = poInvoiceRepo.getAllDraftPoInvoice(vendorCode);
 			List<PoInvoiceDetailsDTO> detailsDto = details.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
 					.collect(Collectors.toList());
 			data.setData(detailsDto);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -144,7 +144,7 @@ public class PoInvoiceContoller {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 
@@ -168,7 +168,7 @@ public class PoInvoiceContoller {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 			String vendorCode = principal.getName();
@@ -176,7 +176,7 @@ public class PoInvoiceContoller {
 			String ecomInvoiceNumber = invoiceDetailsDto.getInvoiceNumber();
 
 			logger.info(ecomInvoiceNumber);
-			invoiceDetailsDto.setStatus("In-Review");
+			invoiceDetailsDto.setStatus(GlobalConstants.INVOICE_STATUS_IN_REVIEW);
 			invoiceDetailsDto.setVendorCode(vendorCode);
 			invoiceDetailsDto.setRaisedBy(vendorCode);
 			invoiceDetailsDto.setRaisedOn(new Date());
@@ -215,12 +215,12 @@ public class PoInvoiceContoller {
 				serviceManager.emailAuditLogsRepo.save(auditLogs);
 			}
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -238,15 +238,15 @@ public class PoInvoiceContoller {
 			String invoiceNo = invoiceDetailsDto.getInvoiceNumber();
 			List<PoInvoiceDetails> details = poInvoiceRepo.getAllDraftPODetailsByInvoiceNo(vendorCode, invoiceNo);
 			List<PoInvoiceDetailsDTO> detailsDto = details.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
 					.collect(Collectors.toList());
 			data.setData(detailsDto);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -275,11 +275,11 @@ public class PoInvoiceContoller {
 
 			poInvoiceRepo.save(this.serviceManager.modelMapper.map(invoiceDetailsDto, PoInvoiceDetails.class));
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
 		return gson.toJson(data).toString();

@@ -70,20 +70,20 @@ public class InvoiceController {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
 						.getAllInvoice(vendorCode);
-				List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream().map(
-						(allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+				List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream()
+						.map(allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 				data.setData(listOfInvoice);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
 						.getAllNetworkInvoice();
 				data.setData(pandingInvoice);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -100,15 +100,15 @@ public class InvoiceController {
 				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
 						.getAllProcessedInvoice(vendorCode);
 
-				List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream().map(
-						(allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+				List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream()
+						.map(allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 				data.setData(listOfInvoice);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -126,16 +126,16 @@ public class InvoiceController {
 				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
 						.getAllApproveInvoice(vendorCode);
 
-				List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream().map(
-						(allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+				List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream()
+						.map(allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 				data.setData(listOfInvoice);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -155,22 +155,22 @@ public class InvoiceController {
 						.getAllQueryInvoiceVendor(vendorCode);
 
 				List<InvoiceGenerationDto> listOfInvoice = queryInvoice.stream().map(
-						(allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+						allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 				data.setData(listOfInvoice);
 			} else {
 				List<InvoiceGenerationEntity> queryInvoice = serviceManager.invoiceGenerationEntityRepo
 						.getAllQueryInvoiceVendor();
 				List<InvoiceGenerationDto> listOfInvoice = queryInvoice.stream().map(
-						(allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+						allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 				data.setData(listOfInvoice);
 			}
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -188,14 +188,14 @@ public class InvoiceController {
 					.getAllRejectInvoice(vendorCode);
 
 			List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream()
-					.map((allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+					.map(allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
 					.collect(Collectors.toList());
 			data.setData(listOfInvoice);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -213,14 +213,14 @@ public class InvoiceController {
 					.getAllRejectInvoice(vendorCode);
 
 			List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream()
-					.map((allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+					.map(allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
 					.collect(Collectors.toList());
 			data.setData(listOfInvoice);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -260,7 +260,7 @@ public class InvoiceController {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE, e);
 				}
 			}
 
@@ -283,7 +283,7 @@ public class InvoiceController {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE, e);
 				}
 			}
 
@@ -306,7 +306,7 @@ public class InvoiceController {
 					fos.write(decoder);
 
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE, e);
 				}
 			}
 			String ecomInvoiceNumber = invoiceDto.getEcomInvoiceNumber();
@@ -356,11 +356,11 @@ public class InvoiceController {
 
 				serviceManager.emailAuditLogsRepo.save(auditLogs);
 			}
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -405,7 +405,7 @@ public class InvoiceController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE, e);
 				}
 			}
 
@@ -427,7 +427,7 @@ public class InvoiceController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE, e);
 				}
 			}
 			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
@@ -503,11 +503,11 @@ public class InvoiceController {
 				serviceManager.emailAuditLogsRepo.save(auditLogs);
 			}
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -538,11 +538,11 @@ public class InvoiceController {
 				data.setData(serviceManager.modelMapper.map(invoiceObject, InvoiceGenerationDto.class));
 
 			}
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -558,15 +558,15 @@ public class InvoiceController {
 			List<InvoiceGenerationEntity> draftInvoice = serviceManager.invoiceGenerationEntityRepo
 					.getDraftInvoice(vendorCode);
 			List<InvoiceGenerationDto> listOfInvoice = draftInvoice.stream()
-					.map((allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+					.map(allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
 					.collect(Collectors.toList());
 			data.setData(listOfInvoice);
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -586,11 +586,11 @@ public class InvoiceController {
 			serviceManager.invoiceNumberRepo.removeInvoice(ecomInvoiceNumber);
 			serviceManager.tripDetailsRepo.updatetripStatusagainsInvoiceNumber(ecomInvoiceNumber);
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -608,11 +608,11 @@ public class InvoiceController {
 
 			serviceManager.tripDetailsRepo.updateVendorTripStatus(tripID);
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -632,11 +632,11 @@ public class InvoiceController {
 			serviceManager.invoiceNumberRepo.removeInvoice(invoiceNumber);
 			serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsInvoice(invoiceNumber);
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -652,14 +652,14 @@ public class InvoiceController {
 			List<PoInvoiceDetails> queryInvoice = serviceManager.poinvoiceRepo.getAllQueryInvoiceVendorPo(vendorCode);
 
 			List<InvoiceGenerationDto> listOfInvoice = queryInvoice.stream()
-					.map((allInvoice) -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+					.map(allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
 					.collect(Collectors.toList());
 			data.setData(listOfInvoice);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -676,14 +676,14 @@ public class InvoiceController {
 					.checkForExistingInvoiceNumber(obj.getVendorCode(), obj.getInvoiceNumber());
 
 			if (null == invoiceNumber) {
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} else {
 				data.setMsg("exist");
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -705,10 +705,10 @@ public class InvoiceController {
 					InvoiceGenerationDto.class);
 
 			data.setData(invoiceObj);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -725,11 +725,11 @@ public class InvoiceController {
 			String tripID = obj.getTripID();
 			serviceManager.tripDetailsRepo.updateVendorTripStatus(tripID);
 			serviceManager.invoiceLineItemRepo.updateTrip(tripID);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -750,15 +750,15 @@ public class InvoiceController {
 				InvoiceLineItem lineItem = mapper.map(tripDetails, InvoiceLineItem.class);
 				lineItem.setId(null);
 				data.setData(lineItem);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} else {
 				data.setData("data Not found");
 				data.setMsg("Failed");
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();

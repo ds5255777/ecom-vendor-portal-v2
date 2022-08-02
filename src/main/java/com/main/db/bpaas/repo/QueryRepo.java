@@ -19,7 +19,7 @@ public interface QueryRepo extends JpaRepository<QueryEntity, Integer> {
 	void updateStatusByUserid( @Param("date") String date,@Param("userName") String userName, @Param("status") String status,@Param("assign") String assign, @Param("id") Integer id);
 
 	@Query(value = "SELECT * FROM query_details where reference_id=? ORDER BY id DESC;", nativeQuery = true)
-	List<QueryEntity> findCommentsByRefID(String reference_id);
+	List<QueryEntity> findCommentsByRefID(String referenceId);
 	
 	@Transactional
 	@Modifying
@@ -27,12 +27,12 @@ public interface QueryRepo extends JpaRepository<QueryEntity, Integer> {
 	void updateInvoiceStatus( @Param("date") String date,@Param("userName") String userName,  @Param("status") String status,@Param("assign") String assign, @Param("id") Integer id);
 
 	@Query(value = "SELECT * FROM query_details where reference_id=? ORDER BY id DESC ;", nativeQuery = true)
-	List<QueryEntity> findByReferenceId(String invoiceNumber);
+	List<QueryEntity> findByReferenceId(String refereneId);
 
 	List<QueryEntity> findByReferenceidAndTypeOrderByIdDesc(String referenceid, String type);
 	
 	@Query(value = "SELECT * FROM query_details where reference_id=? and raised_By=? ;", nativeQuery = true)
-	List<QueryEntity> findCommentsByRefIDPo(String reference_id ,String raisedBy);
+	List<QueryEntity> findCommentsByRefIDPo(String referenceId ,String raisedBy);
 
 
 }

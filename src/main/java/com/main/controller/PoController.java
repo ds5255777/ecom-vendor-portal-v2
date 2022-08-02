@@ -47,7 +47,7 @@ public class PoController {
 	@PostMapping({ "/getAllPODetails" })
 	public String getActiveMasterData(HttpServletRequest request, Principal principal) {
 
-		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information : ", dateTimeFormatter.format(LocalDateTime.now()));
 		String vendorCode = principal.getName();
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -56,13 +56,11 @@ public class PoController {
 			List<PoDetails> allPoDetails = serviceManager.podetailsRepo.findByVendorCode(vendorCode);
 
 			data.setData(allPoDetails);
-			data.setMsg("success");
-			logger.info("end of allPoDetails");
-
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -79,13 +77,11 @@ public class PoController {
 			details = serviceManager.podetailsRepo.findByPoNo(detailsDto.getPoNo());
 
 			data.setData(this.serviceManager.modelMapper.map(details, PoDetailsDTO.class));
-			data.setMsg("success");
-			logger.info("end of allPoDetails");
-
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -101,14 +97,12 @@ public class PoController {
 			String vendorCode = principal.getName();
 			List<PoDetails> details = serviceManager.podetailsRepo.getAllProcessPo(vendorCode);
 			List<PoDetailsDTO> detailsDto = details.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoDetailsDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, PoDetailsDTO.class))
 					.collect(Collectors.toList());
 			data.setData(detailsDto);
-			data.setMsg("success");
-			logger.info("end of allPoDetails");
-
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
 			logger.error("error in getAllProcessPo method : " + e);
 
@@ -124,19 +118,17 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			String vendorCode = principal.getName();
-			logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
 			List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
 			List<PoDetailsDTO> detailsDto = details.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoDetailsDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, PoDetailsDTO.class))
 					.collect(Collectors.toList());
 			data.setData(detailsDto);
-			data.setMsg("success");
-			logger.info("end of allPoDetails");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -153,30 +145,27 @@ public class PoController {
 			String vendorCode = principal.getName();
 
 			if (vendorCode.equals("finance1")) {
-				logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
 				List<PoInvoiceDetails> details = serviceManager.poinvoiceRepo.getAllInvoiceDetailsForFinance();
 
 				List<PoInvoiceDetailsDTO> detailsDto = details.stream()
-						.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
+						.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
 						.collect(Collectors.toList());
 				data.setData(detailsDto);
 
 			} else {
-				logger.info("vendorCode in getAllUnProcessPo : " + vendorCode);
 				List<PoInvoiceDetails> details = serviceManager.poinvoiceRepo.getAllInvoiceDetails(vendorCode);
 				List<PoInvoiceDetailsDTO> detailsDto = details.stream()
-						.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
+						.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
 						.collect(Collectors.toList());
 				data.setData(detailsDto);
 			}
 
-			data.setMsg("success");
-			logger.info("end of allPoDetails");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -196,24 +185,23 @@ public class PoController {
 						.findByInvoiceNumberByFinance(detailsDto.getInvoiceNumber());
 
 				List<PoInvoiceDetailsDTO> poInvoiceDetailsDto = poInvoiceDetails.stream()
-						.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
+						.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
 						.collect(Collectors.toList());
 				data.setData(poInvoiceDetailsDto);
 			} else {
 				List<PoInvoiceDetails> poInvoiceDetails = serviceManager.poinvoiceRepo.findByInvoiceNumber(vendorCode,
 						detailsDto.getInvoiceNumber());
 				List<PoInvoiceDetailsDTO> poInvoiceDetailsDto = poInvoiceDetails.stream()
-						.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
+						.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceDetailsDTO.class))
 						.collect(Collectors.toList());
 				data.setData(poInvoiceDetailsDto);
 			}
-			data.setMsg("success");
-			logger.info("end of allPoDetails");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -234,15 +222,14 @@ public class PoController {
 					vendorCode);
 
 			List<PoDetailsDTO> detailsDtoFromEntity = poInvoiceDetails.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoDetailsDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, PoDetailsDTO.class))
 					.collect(Collectors.toList());
 			data.setData(detailsDtoFromEntity);
-			data.setMsg("success");
-			logger.info("end of allPoDetails success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -260,16 +247,15 @@ public class PoController {
 			List<PoLineDetails> poInvoiceDetails = serviceManager.poLineItemRepo
 					.getDataByLineNumber(detailsDto.getPoLineId());
 			List<PoInvoiceLineDTO> poInvoiceDetailsDto = poInvoiceDetails.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceLineDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, PoInvoiceLineDTO.class))
 					.collect(Collectors.toList());
 			data.setData(poInvoiceDetailsDto.get(0));
-			data.setMsg("success");
-			logger.info("end of allPoDetails success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -287,18 +273,16 @@ public class PoController {
 			String raisedBy = principal.getName();
 
 			detailsDto.setRaisedBy(raisedBy);
-			logger.info("commt : " + detailsDto.getComment());
 			detailsDto.setRaisedOn(new Date());
 
 			serviceManager.queryRepo.save(this.serviceManager.modelMapper.map(detailsDto, QueryEntity.class));
 
-			data.setMsg("success");
-			logger.info("end of allPoDetails success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -320,16 +304,15 @@ public class PoController {
 					.findCommentsByRefIDPo(detailsDto.getReferenceid(), detailsDto.getRaisedBy());
 
 			List<QueryEntityDTO> getPoQueryDataDto = getPoQueryData.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, QueryEntityDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, QueryEntityDTO.class))
 					.collect(Collectors.toList());
 			data.setData(getPoQueryDataDto);
-			data.setMsg("success");
-			logger.info("end of getPoQueryData success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -342,21 +325,21 @@ public class PoController {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		logger.info("fromDate : " + fromDate + " toDate : " + toDate);
+		logger.info("fromDate : ", fromDate, " toDate : ", toDate);
 		String vendorCode = principal.getName();
 		try {
 
 			List<PoDetails> getListByDateFilter = serviceManager.podetailsRepo.findByActualDepartureBetween(fromDate,
 					toDate, vendorCode);
 			List<PoDetailsDTO> getListByDateFilterDto = getListByDateFilter.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, PoDetailsDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, PoDetailsDTO.class))
 					.collect(Collectors.toList());
 			data.setData(getListByDateFilterDto);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -372,8 +355,8 @@ public class PoController {
 			String processBy = principal.getName();
 			Date proceessOn = new Date();
 
-			logger.info("getRemaningQuatity in po line :::::::: " + details.getRemaningQuatity() + "poLineId"
-					+ details.getId());
+			logger.info("getRemaningQuatity in po line :::::::: ", details.getRemaningQuatity() , "poLineId"
+					, details.getId());
 
 			serviceManager.podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
 
@@ -386,12 +369,11 @@ public class PoController {
 						processBy);
 			}
 
-			logger.info("end of getPoQueryData success");
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -407,7 +389,7 @@ public class PoController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
-			logger.info("getRemaningQuatity" + details.getRemaningQuatity() + "id" + details.getId());
+			logger.info("getRemaningQuatity" , details.getRemaningQuatity() , "id" , details.getId());
 
 			serviceManager.podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
 			String processBy = principal.getName();
@@ -422,12 +404,10 @@ public class PoController {
 						processBy);
 			}
 
-			logger.info("end of updateRemaningQuantitydraft ");
-
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -448,11 +428,11 @@ public class PoController {
 				getRemaningQuatity = serviceManager.podetailsRepo.getCurrentQty(details.getPoLineId());
 			}
 			data.setData(getRemaningQuatity);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 

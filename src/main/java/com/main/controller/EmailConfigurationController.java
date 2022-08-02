@@ -51,19 +51,19 @@ public class EmailConfigurationController {
 
 	public String saveUpdateEmailData(HttpServletRequest request, @RequestBody EmailConfigurationDTO entityDto) {
 
-		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information : ", dateTimeFormatter.format(LocalDateTime.now()));
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
 			serviceManager.emailConfigurationRepository
 					.save(this.serviceManager.modelMapper.map(entityDto, EmailConfiguration.class));
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -88,10 +88,10 @@ public class EmailConfigurationController {
 				data.setData(emailObject);
 			}
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
 		return gson.toJson(data).toString();
@@ -108,14 +108,14 @@ public class EmailConfigurationController {
 
 			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
 			List<EmailConfigurationDTO> emailListDto = emailList.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, EmailConfigurationDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, EmailConfigurationDTO.class))
 					.collect(Collectors.toList());
 			data.setData(emailListDto);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
 		return gson.toJson(data).toString();
@@ -132,11 +132,11 @@ public class EmailConfigurationController {
 
 			serviceManager.emailConfigurationRepository.updateEmailConfigurationSatatusByid(entityDto.getIsActive(),
 					entityDto.getId());
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
 		return gson.toJson(data).toString();
@@ -156,7 +156,6 @@ public class EmailConfigurationController {
 			User us = serviceManager.userService.findByUsername(principal.getName());
 			int randInt = rand.nextInt();
 			entityDto.setFlag(randInt);
-			System.out.println("Random Integers: " + randInt);
 			String introducerEmail = us.getEmailId();
 			serviceManager.sendEmailToVendorRepo
 					.save(this.serviceManager.modelMapper.map(entityDto, SendEmailToVendor.class));
@@ -189,17 +188,17 @@ public class EmailConfigurationController {
 							}
 						}
 					} catch (Exception e) {
-						logger.error(GlobalConstants.ERROR_MESSAGE + e);
+						logger.error(GlobalConstants.ERROR_MESSAGE , e);
 					}
 					Thread.currentThread().interrupt();
 				}
 			}).start();
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
 		return gson.toJson(data).toString();
@@ -216,14 +215,14 @@ public class EmailConfigurationController {
 			List<SendEmailToVendor> emailList = serviceManager.sendEmailToVendorRepo
 					.findByProcessBy(principal.getName());
 			List<SendEmailToVendorDTO> emailListDto = emailList.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, SendEmailToVendorDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, SendEmailToVendorDTO.class))
 					.collect(Collectors.toList());
 			data.setData(emailListDto);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
 		return gson.toJson(data).toString();

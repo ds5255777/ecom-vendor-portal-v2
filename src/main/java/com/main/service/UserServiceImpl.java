@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	public synchronized static String generateRandomPassword() throws NoSuchAlgorithmException {
+	public static synchronized String generateRandomPassword() throws NoSuchAlgorithmException {
 
 		final Random rand = SecureRandom.getInstanceStrong();
 		int password = 8;
@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
 
 		for (int i = 0; i < password; i++)
 			sb.append(chars.charAt(rand.nextInt(chars.length())));
-		System.out.println("Password " + sb);
 		return sb.toString();
 	}
 

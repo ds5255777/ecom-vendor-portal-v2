@@ -1,6 +1,5 @@
 package com.main.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -40,7 +39,6 @@ import com.main.payloads.InvoiceGenerationDto;
 import com.main.payloads.QueryEntityDTO;
 import com.main.payloads.TripDetailsDto;
 import com.main.servicemanager.ServiceManager;
-import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
 @RequestMapping("/tripControllers")
 @RestController
@@ -69,25 +67,25 @@ public class TripControllers {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
 						.findByActualDepartureBetween(fromDate, toDate);
 				List<TripDetailsDto> collect = getListByDateFilter.stream()
-						.map((filterList) -> this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
+						.map(filterList -> this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
 						.collect(Collectors.toList());
 				data.setData(collect);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
 						.findByVendorCodeAndActualDepartureBetween(userName, fromDate, toDate);
 				List<TripDetailsDto> collect = getListByDateFilter.stream()
-						.map((filterList) -> this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
+						.map(filterList -> this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
 						.collect(Collectors.toList());
 				data.setData(collect);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -105,14 +103,14 @@ public class TripControllers {
 				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo
 						.findByRunStatusAndVendorCode(GlobalConstants.RUN_CLOSED, userName);
 				List<TripDetailsDto> closeTripList = allTripDetailsList.stream()
-						.map((closeTrip) -> this.serviceManager.modelMapper.map(closeTrip, TripDetailsDto.class))
+						.map(closeTrip -> this.serviceManager.modelMapper.map(closeTrip, TripDetailsDto.class))
 						.collect(Collectors.toList());
 				data.setData(closeTripList);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -130,26 +128,26 @@ public class TripControllers {
 			try {
 				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo.findAll();
 				List<TripDetailsDto> listTrip = allTripDetailsList.stream()
-						.map((allTrip) -> this.serviceManager.modelMapper.map(allTrip, TripDetailsDto.class))
+						.map(allTrip -> this.serviceManager.modelMapper.map(allTrip, TripDetailsDto.class))
 						.collect(Collectors.toList());
 				data.setData(listTrip);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} catch (Exception e) {
-				data.setMsg("error");
-				logger.error(GlobalConstants.ERROR_MESSAGE + e);
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+				logger.error(GlobalConstants.ERROR_MESSAGE, e);
 			}
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 			String vendorCode = principal.getName();
 			try {
 				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo.findByVendorCode(vendorCode);
 				List<TripDetailsDto> listTrip = allTripDetailsList.stream()
-						.map((trip) -> this.serviceManager.modelMapper.map(trip, TripDetailsDto.class))
+						.map(trip -> this.serviceManager.modelMapper.map(trip, TripDetailsDto.class))
 						.collect(Collectors.toList());
 				data.setData(listTrip);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} catch (Exception e) {
-				data.setMsg("error");
-				logger.error(GlobalConstants.ERROR_MESSAGE + e);
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+				logger.error(GlobalConstants.ERROR_MESSAGE, e);
 			}
 		}
 		return gson.toJson(data).toString();
@@ -171,15 +169,15 @@ public class TripControllers {
 						.findByRunStatusAndVendorTripStatusAndVendorCode(GlobalConstants.RUN_CLOSED,
 								GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, userName);
 				List<TripDetailsDto> closeAndTripList = allTripDetailsList.stream()
-						.map((closeAndApproveTrip) -> this.serviceManager.modelMapper.map(closeAndApproveTrip,
+						.map(closeAndApproveTrip -> this.serviceManager.modelMapper.map(closeAndApproveTrip,
 								TripDetailsDto.class))
 						.collect(Collectors.toList());
 				data.setData(closeAndTripList);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -197,15 +195,15 @@ public class TripControllers {
 
 				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo
 						.findByRunStatusAndVendorCode(GlobalConstants.RUN_IN_TRANSIT, userName);
-				List<TripDetailsDto> inTransitTripList = allTripDetailsList.stream().map(
-						(inTransitTrip) -> this.serviceManager.modelMapper.map(inTransitTrip, TripDetailsDto.class))
+				List<TripDetailsDto> inTransitTripList = allTripDetailsList.stream()
+						.map(inTransitTrip -> this.serviceManager.modelMapper.map(inTransitTrip, TripDetailsDto.class))
 						.collect(Collectors.toList());
 				data.setData(inTransitTripList);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -227,7 +225,7 @@ public class TripControllers {
 				List<TripDetails> tripFindByStatus = serviceManager.tripService.getTripsByFiltersNetwork(runStatus,
 						vendortripStatus, paymentStatus);
 				List<TripDetailsDto> tripFilterList = tripFindByStatus.stream()
-						.map((filterTrip) -> this.serviceManager.modelMapper.map(filterTrip, TripDetailsDto.class))
+						.map(filterTrip -> this.serviceManager.modelMapper.map(filterTrip, TripDetailsDto.class))
 						.collect(Collectors.toList());
 				data.setData(tripFilterList);
 			} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
@@ -240,15 +238,15 @@ public class TripControllers {
 					List<TripDetails> tripFindByStatus = serviceManager.tripService.getTripsByFilters(runStatus,
 							vendortripStatus, paymentStatus, vendorCode);
 					List<TripDetailsDto> tripFilterList = tripFindByStatus.stream()
-							.map((filterTrip) -> this.serviceManager.modelMapper.map(filterTrip, TripDetailsDto.class))
+							.map(filterTrip -> this.serviceManager.modelMapper.map(filterTrip, TripDetailsDto.class))
 							.collect(Collectors.toList());
 					data.setData(tripFilterList);
 				}
 			}
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -306,13 +304,13 @@ public class TripControllers {
 
 						serviceManager.emailAuditLogsRepo.save(auditLogs);
 					}
-					data.setMsg("success");
+					data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 				}
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -336,16 +334,16 @@ public class TripControllers {
 								GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED, GlobalConstants.RUN_CLOSED,
 								GlobalConstants.ROLE_VENDOR, userName);
 				List<TripDetailsDto> pendingApprovalTripList = pendingApprovalTrip.stream()
-						.map((pendingApprovalList) -> this.serviceManager.modelMapper.map(pendingApprovalList,
+						.map(pendingApprovalList -> this.serviceManager.modelMapper.map(pendingApprovalList,
 								TripDetailsDto.class))
 						.collect(Collectors.toList());
 
 				data.setData(pendingApprovalTripList);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -365,12 +363,12 @@ public class TripControllers {
 				TripDetails tripDtoToEntity = this.serviceManager.modelMapper.map(tripDtoObj, TripDetails.class);
 
 				data.setData(serviceManager.tripDetailsRepo.findByTripID(tripDtoToEntity.getTripID()));
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -386,15 +384,15 @@ public class TripControllers {
 			String tripID = jsonObject.get("tripID").toString();
 			List<QueryEntity> qe = serviceManager.queryRepo.findCommentsByRefID(tripID);
 			List<QueryEntityDTO> queryList = qe.stream()
-					.map((listQuery) -> this.serviceManager.modelMapper.map(listQuery, QueryEntityDTO.class))
+					.map(listQuery -> this.serviceManager.modelMapper.map(listQuery, QueryEntityDTO.class))
 					.collect(Collectors.toList());
 
 			data.setData(queryList);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -402,8 +400,7 @@ public class TripControllers {
 
 	@PostMapping({ "/getDraftLineTripDetails" })
 
-	public String getDraftLineTripDetails(Principal principal, @RequestBody TripDetailsDto tripDtoObj)
-			throws UnsupportedEncodingException, MessagingException {
+	public String getDraftLineTripDetails(Principal principal, @RequestBody TripDetailsDto tripDtoObj) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -418,16 +415,16 @@ public class TripControllers {
 						userName);
 
 				List<TripDetailsDto> invoiceTripDetails = tripList.stream()
-						.map((draftLineTripList) -> this.serviceManager.modelMapper.map(draftLineTripList,
+						.map(draftLineTripList -> this.serviceManager.modelMapper.map(draftLineTripList,
 								TripDetailsDto.class))
 						.collect(Collectors.toList());
 
 				data.setData(invoiceTripDetails);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -444,16 +441,16 @@ public class TripControllers {
 			List<String> list = serviceManager.tripDetailsRepo.getTripId(vendorCode);
 
 			List<InvoiceGenerationDto> draftInvoice = list.stream()
-					.map((draftinvoiceList) -> this.serviceManager.modelMapper.map(draftinvoiceList,
+					.map(draftinvoiceList -> this.serviceManager.modelMapper.map(draftinvoiceList,
 							InvoiceGenerationDto.class))
 					.collect(Collectors.toList());
 			data.setData(draftInvoice);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
@@ -472,12 +469,12 @@ public class TripControllers {
 
 			serviceManager.tripDetailsRepo.findTripDetailAgainTripID(invoiceNumber, tripID);
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
@@ -505,7 +502,7 @@ public class TripControllers {
 							.findByRouteInAndVendorTripStatusAndVendorCode(routeList,
 									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
 					List<TripDetailsDto> filterByRoute = getListByDateFilter.stream().map(
-							(filterInRoot) -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
+							filterInRoot -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
 							.collect(Collectors.toList());
 					data.setData(filterByRoute);
 				} else if (columnName.equals("origin_hub")) {
@@ -513,7 +510,7 @@ public class TripControllers {
 							.findByOriginHubAndVendorTripStatusAndVendorCode(columnValue,
 									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
 					List<TripDetailsDto> filterByRoute = getListByDateFilter.stream().map(
-							(filterInRoot) -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
+							filterInRoot -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
 							.collect(Collectors.toList());
 					data.setData(filterByRoute);
 				} else if (columnName.equals("dest_hub")) {
@@ -521,7 +518,7 @@ public class TripControllers {
 							.findByDestHubAndVendorTripStatusAndVendorCode(columnValue,
 									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
 					List<TripDetailsDto> filterByRoute = getListByDateFilter.stream().map(
-							(filterInRoot) -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
+							filterInRoot -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
 							.collect(Collectors.toList());
 					data.setData(filterByRoute);
 				} else if (columnName.equals("run_type")) {
@@ -529,7 +526,7 @@ public class TripControllers {
 							.findByRunTypeAndVendorTripStatusAndVendorCode(columnValue,
 									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
 					List<TripDetailsDto> filterByRoute = getListByDateFilter.stream().map(
-							(filterInRoot) -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
+							filterInRoot -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
 							.collect(Collectors.toList());
 					data.setData(filterByRoute);
 				} else if (columnName.equals("vehicle_number")) {
@@ -537,7 +534,7 @@ public class TripControllers {
 							.findByVehicleNumberAndVendorTripStatusAndVendorCode(columnValue,
 									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
 					List<TripDetailsDto> filterByRoute = getListByDateFilter.stream().map(
-							(filterInRoot) -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
+							filterInRoot -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
 							.collect(Collectors.toList());
 					data.setData(filterByRoute);
 				}
@@ -549,7 +546,7 @@ public class TripControllers {
 							.findByRouteInAndVendorTripStatusAndVendorCode(routeList,
 									GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED, vendorCode);
 					List<TripDetailsDto> filterByRoute = getListByDateFilter.stream().map(
-							(filterInRoot) -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
+							filterInRoot -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
 							.collect(Collectors.toList());
 					data.setData(filterByRoute);
 				} else if (columnName.equals("vehicle_number")) {
@@ -557,17 +554,18 @@ public class TripControllers {
 							.findByVehicleNumberAndVendorTripStatusAndVendorCode(columnValue,
 									GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED, vendorCode);
 					List<TripDetailsDto> filterByRoute = getListByDateFilter.stream().map(
-							(filterInRoot) -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
+							filterInRoot -> this.serviceManager.modelMapper
+									.map(filterInRoot, TripDetailsDto.class))
 							.collect(Collectors.toList());
 					data.setData(filterByRoute);
 				}
 
 			}
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -586,11 +584,11 @@ public class TripControllers {
 
 			serviceManager.tripDetailsRepo.getUpdateStatusSelectTrips(processedBy, processedOn, vendorTripStatus,
 					myList);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setData("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setData(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 		return gson.toJson(data).toString();
 	}

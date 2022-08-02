@@ -15,9 +15,9 @@ public interface TripService {
 
 	List<TripDetails> getInTransitTripByRunTypeAndRunStatus(String runtype, String runStatus);
 
-	List<TripDetails> getTripsByFilters(String vendorTripStatus, String runStatus, String PaymentStatus, String vendorCode);
+	List<TripDetails> getTripsByFilters(String vendorTripStatus, String runStatus, String paymentStatus, String vendorCode);
 
-	List<TripDetails> getTripsByFiltersNetwork(String vendorTripStatus, String runStatus, String PaymentStatus);
+	List<TripDetails> getTripsByFiltersNetwork(String vendorTripStatus, String runStatus, String paymentStatus);
 	
 	List<TripDetails> findAllTripsLimitFifty();
 

@@ -1,6 +1,5 @@
 package com.main.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -36,7 +35,6 @@ import com.main.payloads.DocumentDto;
 import com.main.payloads.InvoiceGenerationDto;
 import com.main.payloads.QueryDto;
 import com.main.servicemanager.ServiceManager;
-import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
 @RestController
 @RequestMapping("/financeController")
@@ -62,19 +60,19 @@ public class FinanceController {
 
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllInvoice();
 				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream()
-						.map((listOfInvoice) -> this.serviceManager.modelMapper.map(listOfInvoice,
+						.map(listOfInvoice -> this.serviceManager.modelMapper.map(listOfInvoice,
 								InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 
 				data.setData(listofAllInvoice);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} else {
-				data.setMsg("error");
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -94,17 +92,17 @@ public class FinanceController {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllProcessInvoice();
 
 				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream()
-						.map((listOfInvoice) -> this.serviceManager.modelMapper.map(listOfInvoice,
+						.map(listOfInvoice -> this.serviceManager.modelMapper.map(listOfInvoice,
 								InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 
 				data.setData(listofAllInvoice);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -123,17 +121,17 @@ public class FinanceController {
 					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllUnProcessInvoice();
 				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream()
-						.map((listOfInvoice) -> this.serviceManager.modelMapper.map(listOfInvoice,
+						.map(listOfInvoice -> this.serviceManager.modelMapper.map(listOfInvoice,
 								InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 
 				data.setData(listofAllInvoice);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -152,17 +150,17 @@ public class FinanceController {
 					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllInReviewInvoice();
 				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream()
-						.map((listOfInvoice) -> this.serviceManager.modelMapper.map(listOfInvoice,
+						.map(listOfInvoice -> this.serviceManager.modelMapper.map(listOfInvoice,
 								InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 
 				data.setData(listofAllInvoice);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -182,12 +180,12 @@ public class FinanceController {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getPaymentReleaseInvoice();
 
 				data.setData(allInvoice);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -207,12 +205,12 @@ public class FinanceController {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllQueryInvoice();
 
 				data.setData(allInvoice);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -229,14 +227,14 @@ public class FinanceController {
 			List<QueryEntity> queryList = serviceManager.queryRepo
 					.findByReferenceidAndTypeOrderByIdDesc(obj.getReferenceid(), obj.getType());
 			List<QueryDto> listOfQuery = queryList.stream()
-					.map((listQuery) -> this.serviceManager.modelMapper.map(listQuery, QueryDto.class))
+					.map(listQuery -> this.serviceManager.modelMapper.map(listQuery, QueryDto.class))
 					.collect(Collectors.toList());
 
 			data.setData(listOfQuery);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -359,11 +357,11 @@ public class FinanceController {
 				serviceManager.emailAuditLogsRepo.save(auditLogs);
 			}
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -379,14 +377,14 @@ public class FinanceController {
 			List<Document> listDoc = serviceManager.documentRepo.findByTypeAndForeignKeyOrderByIdDesc(entity.getType(),
 					entity.getForeignKey());
 			List<DocumentDto> listOfDocument = listDoc.stream()
-					.map((documentList) -> this.serviceManager.modelMapper.map(documentList, DocumentDto.class))
+					.map(documentList -> this.serviceManager.modelMapper.map(documentList, DocumentDto.class))
 					.collect(Collectors.toList());
 
 			data.setData(listOfDocument);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -440,10 +438,10 @@ public class FinanceController {
 				serviceManager.emailAuditLogsRepo.save(auditLogs);
 			}
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -461,13 +459,13 @@ public class FinanceController {
 			List<InvoiceGenerationEntity> findByInvoiceDateBetween = serviceManager.invoiceGenerationEntityRepo
 					.findByInvoiceDateBetween(fromDate, toDate);
 			List<InvoiceGenerationDto> filterInvoiceData = findByInvoiceDateBetween.stream()
-					.map((filterData) -> this.serviceManager.modelMapper.map(filterData, InvoiceGenerationDto.class))
+					.map(filterData -> this.serviceManager.modelMapper.map(filterData, InvoiceGenerationDto.class))
 					.collect(Collectors.toList());
 			data.setData(filterInvoiceData);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -480,17 +478,16 @@ public class FinanceController {
 		try {
 			List<String> vendorList = serviceManager.invoiceGenerationEntityRepo.getDistnictVendorList();
 			data.setData(vendorList);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 		return gson.toJson(data).toString();
 	}
 
 	@PostMapping({ "viewInvoiceForFinanceTeam" })
-	public String viewInvoiceForFinanceTeam(@RequestBody InvoiceGenerationDto obj)
-			throws UnsupportedEncodingException, MessagingException {
+	public String viewInvoiceForFinanceTeam(@RequestBody InvoiceGenerationDto obj) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
@@ -498,13 +495,13 @@ public class FinanceController {
 			List<InvoiceGenerationEntity> invoiceViewList = serviceManager.invoiceServiceImpl
 					.getTripsByFilters(obj.getVendorCode(), obj.getInvoiceStatus());
 			List<InvoiceGenerationDto> invoiceForFinanceTeam = invoiceViewList.stream()
-					.map((invoiceList) -> this.serviceManager.modelMapper.map(invoiceList, InvoiceGenerationDto.class))
+					.map(invoiceList -> this.serviceManager.modelMapper.map(invoiceList, InvoiceGenerationDto.class))
 					.collect(Collectors.toList());
 			data.setData(invoiceForFinanceTeam);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();

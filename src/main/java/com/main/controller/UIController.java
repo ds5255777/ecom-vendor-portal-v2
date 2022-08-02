@@ -8,7 +8,6 @@ import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,7 +51,7 @@ public class UIController {
 
 	@Value("${dataLimit}")
 	public String dataLimit;
-	
+
 	@Value("${linkExpireTimeInHours}")
 	public Integer linkExpireTimeInHours;
 
@@ -82,26 +81,26 @@ public class UIController {
 			throws IOException, ParseException {
 		Base64.Decoder decoder = Base64.getDecoder();
 		String vendorEmail = new String(decoder.decode(request.getParameter("vendorEmail")));
-		if(!"".equalsIgnoreCase(vendorEmail)) {
-		String flag = request.getParameter("flag");
-		Integer flag1=Integer.valueOf(flag);
-		String processOn=serviceManager.sendEmailToVendorRepo.processOn(flag1);
-		Date date1=new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(processOn); 
-		Calendar calendar = Calendar.getInstance();
-	    calendar.setTime(date1);
-	    calendar.add(Calendar.HOUR_OF_DAY, linkExpireTimeInHours);
-	    Date expiryDate= calendar.getTime();
+		if (!"".equalsIgnoreCase(vendorEmail)) {
+			String flag = request.getParameter("flag");
+			Integer flag1 = Integer.valueOf(flag);
+			String processOn = serviceManager.sendEmailToVendorRepo.processOn(flag1);
+			Date date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(processOn);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date1);
+			calendar.add(Calendar.HOUR_OF_DAY, linkExpireTimeInHours);
+			Date expiryDate = calendar.getTime();
 			if (expiryDate.before(new Date())) {
-					response.setContentType("text/html");
-				     PrintWriter pwriter=response.getWriter();
-				     pwriter.println( "<font color=red>Link Expired! Please Contact With Administrator And Try Again...</font>");
-				     pwriter.close();
+				response.setContentType("text/html");
+				PrintWriter pwriter = response.getWriter();
+				pwriter.println(
+						"<font color=red>Link Expired! Please Contact With Administrator And Try Again...</font>");
+				pwriter.close();
 			}
 		}
 		String vendorType1 = new String(decoder.decode(request.getParameter("vendorType")));
 		String[] strSplit = vendorType1.split(",");
-	    ArrayList<String> vendorType2 = new ArrayList<String>(
-	    Arrays.asList(strSplit));
+		ArrayList<String> vendorType2 = new ArrayList<>(Arrays.asList(strSplit));
 		String region1 = new String(decoder.decode(request.getParameter("region")));
 		String vendorAddress = new String(decoder.decode(request.getParameter("vendorAddress")));
 		String processBy = new String(decoder.decode(request.getParameter("processBy")));
@@ -267,10 +266,10 @@ public class UIController {
 			model.addAttribute("allInActiveVendorCount", allInActiveVendorCount);
 
 			int totalTripCount = serviceManager.tripDetailsRepo.getTripCount();
-			int TotalCloseTripCount = serviceManager.tripDetailsRepo.getCloseTripCount();
+			int totalCloseTripCount = serviceManager.tripDetailsRepo.getCloseTripCount();
 			int TotalInTransitTripCount = serviceManager.tripDetailsRepo.getInTransitTripCount();
 			model.addAttribute("totalTripCount", totalTripCount);
-			model.addAttribute("TotalCloseTripCount", TotalCloseTripCount);
+			model.addAttribute("TotalCloseTripCount", totalCloseTripCount);
 			model.addAttribute("TotalInTransitTripCount", TotalInTransitTripCount);
 
 			int getAllInvoiceCount = serviceManager.invoiceGenerationEntityRepo.getCountForAllInvoices();
@@ -292,7 +291,7 @@ public class UIController {
 
 			String vendorCode = principal.getName();
 			int totalTripCount = serviceManager.tripDetailsRepo.getTripCount(vendorCode);
-			int TotalCloseTripCount = serviceManager.invoiceGenerationEntityRepo.getQueryInvoiceCount(vendorCode);
+			int totalCloseTripCount = serviceManager.invoiceGenerationEntityRepo.getQueryInvoiceCount(vendorCode);
 			int TotalInTransitTripCount = serviceManager.tripDetailsRepo.getInTransitTripCount(vendorCode);
 			int closedTripCount = serviceManager.tripDetailsRepo.getCloseTripCount(vendorCode);
 			int queryTripCount = serviceManager.tripDetailsRepo.getQueryTripCount(vendorCode);
@@ -303,7 +302,7 @@ public class UIController {
 
 			model.addAttribute("role", rolename);
 			model.addAttribute("totalTripCount", totalTripCount);
-			model.addAttribute("TotalCloseTripCount", TotalCloseTripCount);
+			model.addAttribute("TotalCloseTripCount", totalCloseTripCount);
 			model.addAttribute("TotalInTransitTripCount", TotalInTransitTripCount);
 			model.addAttribute("pendingInvoice", processInvoice);
 			model.addAttribute("approveInvoice", approveInvoice);
@@ -322,7 +321,7 @@ public class UIController {
 				vendorCode = (String) request.getSession().getAttribute("userName");
 				String processBy = principal.getName();
 				Date proceessOn = new Date();
-				List<PoDetails> details1 = new ArrayList<PoDetails>();
+				List<PoDetails> details1 = new ArrayList<>();
 				List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
 
 				for (int i = 0; i < details.size(); i++) {
@@ -563,12 +562,8 @@ public class UIController {
 
 		String rolename = (String) request.getSession().getAttribute("role");
 
-		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
-
-			return "tripMaster";
-
-		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)) {
-
+		if ((rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN))
+				|| (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE))) {
 			return "tripMaster";
 		}
 		return "";
@@ -725,9 +720,9 @@ public class UIController {
 
 	@GetMapping("/ClosedAdhoc")
 	public String closedAdhoc(Model model, Principal principal) {
-		List<TripDetails> AllDetailsForNetwork = serviceManager.tripService
+		List<TripDetails> allDetailsForNetwork = serviceManager.tripService
 				.getInTransitTripByRunTypeAndRunStatus("Adhoc", "Closed");
-		model.addAttribute("AllDetailsForNetwork", AllDetailsForNetwork);
+		model.addAttribute("AllDetailsForNetwork", allDetailsForNetwork);
 		model.addAttribute("dataLimit", dataLimit);
 		return "ClosedAdhoc";
 	}
@@ -736,10 +731,8 @@ public class UIController {
 
 		long count = serviceManager.invoiceNumberRepo.count();
 		String invoiceNumberPrefix = "ECOM-";
-
 		count = count + 1;
-		String invoiceNumber = invoiceNumberPrefix + String.format("%08d", count); 
-		return invoiceNumber;
+		return invoiceNumberPrefix + String.format("%08d", count);
 	}
 
 	@GetMapping("/tripsInvoiceGenerate")
@@ -767,7 +760,7 @@ public class UIController {
 		model.addAttribute("userName", userName);
 
 		String tripUpdateId = tripId;
-		tripUpdateId = tripUpdateId.replaceAll(",", " ");
+		tripUpdateId = tripUpdateId.replace(",", " ");
 
 		String[] split = tripUpdateId.split(" ");
 		TripDetails findByTripID = null;
@@ -798,7 +791,7 @@ public class UIController {
 			invoiceSave.setInvoiceStatus("Draft-Invoicing");
 			serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
 		} catch (Exception e) {
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber, userName);
@@ -868,13 +861,13 @@ public class UIController {
 		return "allInvoices_Finance";
 	}
 
-	@GetMapping("/invoiceView_Finance")
-	public String invoiceView_Finance(Model model, HttpServletRequest request, Principal principal) {
+	@GetMapping("/invoiceViewFinance")
+	public String invoiceViewFinance(Model model, HttpServletRequest request, Principal principal) {
 		String ecomInvoiceNumber = request.getParameter("id");
 		String invoiceType = request.getParameter("type");
 		model.addAttribute("ecomInvoiceNumber", ecomInvoiceNumber);
 		model.addAttribute("type", invoiceType);
-		return "invoiceView_Finance";
+		return "invoiceViewFinance";
 	}
 
 	@GetMapping("/processInvoiceFinance")
@@ -884,7 +877,7 @@ public class UIController {
 	}
 
 	@GetMapping("/InProcessInvoiceFinance")
-	public String InProcessInvoiceFinance(Model model, HttpServletRequest request, Principal principal) {
+	public String inProcessInvoiceFinance(Model model, HttpServletRequest request, Principal principal) {
 		model.addAttribute("dataLimit", dataLimit);
 		return "InProcessInvoiceFinance";
 	}
@@ -938,8 +931,7 @@ public class UIController {
 		try {
 			String[] docNameExtensionArray = name.split("\\.");
 			String docNameExtension = docNameExtensionArray[docNameExtensionArray.length - 1];
-			String uri = request.getScheme() + "://" + request.getServerName() + ":" + 
-					request.getServerPort() + "/";
+			String uri = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/";
 
 			file = new File(path);
 			inputStream = new FileInputStream(file);
@@ -949,17 +941,11 @@ public class UIController {
 			response.setHeader("Content-Disposition", "inline;filename=\"" + name + "\"");
 			response.setHeader("Content-Security-Policy", "frame-ancestors " + uri + " ");
 			FileCopyUtils.copy(inputStream, response.getOutputStream());
+			inputStream.close();
 
 		} catch (Exception e) {
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
-		} finally {
-			try {
-				if (null != inputStream)
-					inputStream.close();
-			} catch (IOException e) {
-				logger.error("error : " + e);
-			}
 		}
 	}
 

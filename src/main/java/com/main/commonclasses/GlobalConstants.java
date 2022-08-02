@@ -1,18 +1,14 @@
 package com.main.commonclasses;
 
-import org.springframework.beans.factory.annotation.Value;
-
 public class GlobalConstants {
 
-	@Value("${ipPath}")
-	public static String ipPath;
 	
 	public static final String VENDOR_PID_PREFIX="Vendor-00000000";
 	public static final String VENDOR_PID_SUFFIX="-CreationUAT";
 	
-	public static final String ERROR_MESSAGE = "Error : ";
+	public static final String ERROR_MESSAGE = "error";
+	public static final String SUCCESS_MESSAGE = "success";
 
-	public static final String APPLICATION_IP = ipPath;
 
 	public static final String INACTIVE_STATUS = "0";
 	public static final String ACTIVE_STATUS = "1";

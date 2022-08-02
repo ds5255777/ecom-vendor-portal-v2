@@ -73,5 +73,6 @@ public class GlobalConstants {
 	
 	public static final String DATE_FORMATTER="yyyy-MM-dd HH:mm:ss";
 	public static final String DATE_FORMATTER_DD_MM_YYYY="dd-MM-yyyy";
+	public static final String DATE_FORMATTER_YYYY_MM_DD="yyyy-MM-dd";
 	
 }

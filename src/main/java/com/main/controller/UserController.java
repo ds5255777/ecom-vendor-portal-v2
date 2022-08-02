@@ -58,13 +58,9 @@ public class UserController {
 
 				String password = serviceManager.userRepository.getUserPasswordById(userDto.getId());
 
-				if (userDto.getPassword() != null) {
+				if ((null != userDto.getPassword()) && !userDto.getPassword().equalsIgnoreCase("")) {
 
-					if (!userDto.getPassword().equalsIgnoreCase("")) {
-
-						password = serviceManager.bCryptPasswordEncoder.encode(userDto.getPassword());
-
-					}
+					password = serviceManager.bCryptPasswordEncoder.encode(userDto.getPassword());
 
 				}
 				userDto.setPassword(password);
@@ -82,7 +78,7 @@ public class UserController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getActiveUsersData" })
@@ -114,7 +110,7 @@ public class UserController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getUserById" })
@@ -139,7 +135,7 @@ public class UserController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/setStatusOfUserById" })
@@ -159,7 +155,7 @@ public class UserController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/checkForExistingUserName" })
@@ -193,7 +189,7 @@ public class UserController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getUserByRole" })
@@ -218,7 +214,7 @@ public class UserController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/changePassword" })
@@ -241,7 +237,7 @@ public class UserController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getActiveVendorData" })
@@ -296,7 +292,7 @@ public class UserController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getVendorById" })
@@ -319,7 +315,7 @@ public class UserController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/setStatusOfVendorByBpCode" })
@@ -345,7 +341,7 @@ public class UserController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllVendorStatus" })
@@ -377,7 +373,7 @@ public class UserController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/activeVendor" })
@@ -403,7 +399,7 @@ public class UserController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 }

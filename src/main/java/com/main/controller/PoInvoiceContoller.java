@@ -77,10 +77,10 @@ public class PoInvoiceContoller {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllDraftInvoicePO" })
@@ -102,11 +102,11 @@ public class PoInvoiceContoller {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/savePoInvoice" })
@@ -137,15 +137,12 @@ public class PoInvoiceContoller {
 				doc.setForeignKey(invoiceDetailsDto.getInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName)) {
-					String b64 = invoiceDetailsDto.getInvoiceFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
+				FileOutputStream fos = new FileOutputStream(fullFilePathWithName);
+				String b64 = invoiceDetailsDto.getInvoiceFileText();
+				byte[] decoder = Base64.getDecoder().decode(b64);
+				fos.write(decoder);
+				fos.close();
 
-					fos.write(decoder);
-
-				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
-				}
 			}
 
 			if (null != invoiceDetailsDto.getDocumentFileOneName()) {
@@ -161,15 +158,13 @@ public class PoInvoiceContoller {
 				doc.setForeignKey(invoiceDetailsDto.getInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName)) {
-					String b64 = invoiceDetailsDto.getDocumentFileOneText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
+				FileOutputStream fos = new FileOutputStream(fullFilePathWithName);
+				String b64 = invoiceDetailsDto.getDocumentFileOneText();
+				byte[] decoder = Base64.getDecoder().decode(b64);
 
-					fos.write(decoder);
+				fos.write(decoder);
+				fos.close();
 
-				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
-				}
 			}
 			String vendorCode = principal.getName();
 
@@ -219,12 +214,10 @@ public class PoInvoiceContoller {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
-
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllDraftPODetailsByInvoiceNo" })
@@ -246,11 +239,11 @@ public class PoInvoiceContoller {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 
 	}
 
@@ -279,9 +272,9 @@ public class PoInvoiceContoller {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 }

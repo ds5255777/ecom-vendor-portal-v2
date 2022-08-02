@@ -168,7 +168,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 				}
 			}
 			if (null != supDetailsDto.getPdFileName()) {
@@ -196,7 +196,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 				}
 			}
 			if (null != supDetailsDto.getPANFileName()) {
@@ -224,7 +224,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 				}
 			}
 			if (null != supDetailsDto.getCcFileName()) {
@@ -252,7 +252,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 				}
 			}
 			if (null != supDetailsDto.getAcFileName()) {
@@ -280,7 +280,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 				}
 			}
 			if (null != supDetailsDto.getAplFileName()) {
@@ -308,7 +308,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 				}
 			}
 			// ITR filling declaration
@@ -336,7 +336,7 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 				}
 			}
 			if (null != supDetailsDto.getFuvfFileName()) {
@@ -364,7 +364,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 				}
 			}
 			if (null != supDetailsDto.getMsmecFileName()) {
@@ -392,7 +392,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 				}
 			}
 			if (null != supDetailsDto.getAmFileName()) {
@@ -420,7 +420,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 				}
 			}
 			if (null != supDetailsDto.getItraFileName1()) {
@@ -448,7 +448,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 				}
 			}
 			if (null != supDetailsDto.getItraFileName2()) {
@@ -476,7 +476,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 				}
 			}
 			if (null != supDetailsDto.getItraFileName3()) {
@@ -504,7 +504,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 				}
 			}
 			if (null != supDetailsDto.getNmisFileName()) {
@@ -533,14 +533,14 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 				}
 			}
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			data.setData(e.toString());
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data);
 	}
@@ -565,7 +565,7 @@ public class AjaxController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data);
 	}
@@ -586,7 +586,7 @@ public class AjaxController {
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data);
 	}
@@ -609,7 +609,7 @@ public class AjaxController {
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data);
 	}
@@ -630,7 +630,7 @@ public class AjaxController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data);
 	}

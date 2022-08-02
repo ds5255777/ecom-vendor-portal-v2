@@ -47,7 +47,7 @@ public class PoController {
 	@PostMapping({ "/getAllPODetails" })
 	public String getActiveMasterData(HttpServletRequest request, Principal principal) {
 
-		logger.info("Log Some Information : ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information getActiveMasterData {} ", dateTimeFormatter.format(LocalDateTime.now()));
 		String vendorCode = principal.getName();
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -60,7 +60,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -80,7 +80,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -103,7 +103,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -127,7 +127,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -164,7 +164,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -200,7 +200,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -228,7 +228,7 @@ public class PoController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -254,7 +254,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -281,7 +281,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -311,7 +311,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -324,7 +324,7 @@ public class PoController {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
-		logger.info("fromDate : ", fromDate, " toDate : ", toDate);
+		logger.info("fromDate {} ", fromDate, " toDate {} ", toDate);
 		String vendorCode = principal.getName();
 		try {
 
@@ -338,7 +338,7 @@ public class PoController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data);
 	}
@@ -372,7 +372,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -406,7 +406,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -431,7 +431,7 @@ public class PoController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 

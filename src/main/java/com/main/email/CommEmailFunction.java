@@ -13,6 +13,8 @@ import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.main.commonclasses.GlobalConstants;
+
 public class CommEmailFunction {
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -45,7 +47,7 @@ public class CommEmailFunction {
 			Transport.send(message);
 
 		} catch (Exception e) {
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 	}

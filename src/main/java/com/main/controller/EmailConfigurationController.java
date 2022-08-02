@@ -51,7 +51,7 @@ public class EmailConfigurationController {
 
 	public String saveUpdateEmailData(HttpServletRequest request, @RequestBody EmailConfigurationDTO entityDto) {
 
-		logger.info("Log Some Information : ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information : {} ", dateTimeFormatter.format(LocalDateTime.now()));
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
@@ -63,7 +63,7 @@ public class EmailConfigurationController {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -91,7 +91,7 @@ public class EmailConfigurationController {
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -115,7 +115,7 @@ public class EmailConfigurationController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -136,7 +136,7 @@ public class EmailConfigurationController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -188,7 +188,7 @@ public class EmailConfigurationController {
 							}
 						}
 					} catch (Exception e) {
-						logger.error(GlobalConstants.ERROR_MESSAGE , e);
+						logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 					}
 					Thread.currentThread().interrupt();
 				}
@@ -198,7 +198,7 @@ public class EmailConfigurationController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -222,7 +222,7 @@ public class EmailConfigurationController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);

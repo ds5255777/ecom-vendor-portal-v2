@@ -1,6 +1,6 @@
 package com.main.email;
 
-
+@java.lang.SuppressWarnings("squid:S00112")
 public class PasswordEmail {
 
     public String prepareMailBody(String username, String passowrd) {

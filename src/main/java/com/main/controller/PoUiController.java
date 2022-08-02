@@ -23,8 +23,6 @@ import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.servicemanager.ServiceManager;
 
-import net.bytebuddy.agent.builder.AgentBuilder.CircularityLock.Global;
-
 @Controller
 public class PoUiController {
 
@@ -137,7 +135,7 @@ public class PoUiController {
 		String rolename = (String) request.getSession().getAttribute("role");
 		model.addAttribute("dataLimit", dataLimit);
 
-		if (rolename.equalsIgnoreCase("Vendor")) {
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 
 			return "processPO";
 
@@ -217,7 +215,7 @@ public class PoUiController {
 
 		model.addAttribute("invoiceNo", invoiceNumber);
 		model.addAttribute("status", status);
-		return "invoiceViewPo";
+		return "invoiceQueryPo";
 	}
 
 	@GetMapping("/PoView")

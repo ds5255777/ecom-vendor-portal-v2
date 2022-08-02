@@ -2,6 +2,7 @@ package com.main.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -59,7 +60,7 @@ public class PoInvoiceContoller {
 	@PostMapping({ "/deleteDraftPoInvoice" })
 	public String deleteDraftPoInvoice(HttpServletRequest request, @RequestBody PoDetailsDTO objDto) {
 
-		logger.info("Log Some Information : ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information deleteDraftPoInvoice {} ", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 
@@ -68,7 +69,7 @@ public class PoInvoiceContoller {
 
 			String ecomInvoiceNumber = objDto.getInvoiceNumber();
 			Long id = poInvoiceRepo.getId(ecomInvoiceNumber);
-			logger.info("ecomInvoiceNumber", ecomInvoiceNumber);
+			logger.info("ecomInvoiceNumber {} ", ecomInvoiceNumber);
 
 			poInvoiceRepo.deleteById(id);
 			poDetailsRepo.updatePoStatusagainsInvoiceNumber(ecomInvoiceNumber);
@@ -77,7 +78,7 @@ public class PoInvoiceContoller {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -102,7 +103,7 @@ public class PoInvoiceContoller {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -111,14 +112,15 @@ public class PoInvoiceContoller {
 
 	@PostMapping({ "/savePoInvoice" })
 	public String savePoInvoice(HttpServletRequest request, Principal principal,
-			@RequestBody PoInvoiceDetailsDTO invoiceDetailsDto) {
+			@RequestBody PoInvoiceDetailsDTO invoiceDetailsDto) throws IOException {
 
 		DataContainer data = new DataContainer();
-
+		FileOutputStream fos=null;
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			String filePath = filepath + File.separator + invoiceDetailsDto.getInvoiceNumber();
 			String fullFilePathWithName = "";
+			
 
 			if (null != invoiceDetailsDto.getInvoiceFileName()) {
 
@@ -137,7 +139,7 @@ public class PoInvoiceContoller {
 				doc.setForeignKey(invoiceDetailsDto.getInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				FileOutputStream fos = new FileOutputStream(fullFilePathWithName);
+				fos = new FileOutputStream(fullFilePathWithName);
 				String b64 = invoiceDetailsDto.getInvoiceFileText();
 				byte[] decoder = Base64.getDecoder().decode(b64);
 				fos.write(decoder);
@@ -158,7 +160,7 @@ public class PoInvoiceContoller {
 				doc.setForeignKey(invoiceDetailsDto.getInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				FileOutputStream fos = new FileOutputStream(fullFilePathWithName);
+				fos = new FileOutputStream(fullFilePathWithName);
 				String b64 = invoiceDetailsDto.getDocumentFileOneText();
 				byte[] decoder = Base64.getDecoder().decode(b64);
 
@@ -214,7 +216,9 @@ public class PoInvoiceContoller {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+		}finally{
+		 fos.close();
 		}
 
 		return gson.toJson(data);
@@ -239,7 +243,7 @@ public class PoInvoiceContoller {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -272,7 +276,7 @@ public class PoInvoiceContoller {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);

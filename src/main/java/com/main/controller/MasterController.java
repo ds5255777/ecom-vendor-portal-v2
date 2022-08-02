@@ -36,7 +36,7 @@ public class MasterController {
 	@PostMapping({ "/saveTripMaster" })
 	public String saveTripMaster(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
-		logger.info("Log Some Information : ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information saveTripMaster {} ", dateTimeFormatter.format(LocalDateTime.now()));
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
@@ -46,7 +46,7 @@ public class MasterController {
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data);
 	}
@@ -65,7 +65,7 @@ public class MasterController {
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data);
 	}
@@ -82,7 +82,7 @@ public class MasterController {
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -100,7 +100,7 @@ public class MasterController {
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -116,7 +116,7 @@ public class MasterController {
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data);
 	}

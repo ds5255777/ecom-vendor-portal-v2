@@ -46,7 +46,7 @@ public class DashboardController {
 	private static Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
 	@PostMapping({ "getDashboardDetails" })
-	public String getDashBoardDetails(Principal principal, HttpSession session, HttpServletRequest request) {
+	public String getDetails(Principal principal, HttpSession session, HttpServletRequest request) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
@@ -87,7 +87,7 @@ public class DashboardController {
 			}
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -148,7 +148,7 @@ public class DashboardController {
 						Double.parseDouble(basicFreight), Double.parseDouble(totalFreight), Double.parseDouble(fs),
 						vendorName, vendorCode);
 			} catch (Exception e) {
-				logger.error(GlobalConstants.ERROR_MESSAGE, e);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			}
 		}
 
@@ -163,7 +163,7 @@ public class DashboardController {
 			Date date = new Date();
 			comm.setRaisedOn(date);
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		TripDetails obj = serviceManager.tripDetailsRepo.findByTripID(tripid);
@@ -210,7 +210,7 @@ public class DashboardController {
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 		}
 
@@ -223,15 +223,15 @@ public class DashboardController {
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			JSONObject jsonObject = new JSONObject(reqObj);
-			String vendorCode = (String) jsonObject.optString("vendorCode");//
-			String route = (String) jsonObject.optString("route");
+			String vendorCode =  jsonObject.optString("vendorCode");
+			String route =  jsonObject.optString("route");
 
 			AgreementMaster masterData = serviceManager.agreementMasterRepo.getAllTripsByVendorCode(vendorCode, route);
 			data.setData(masterData);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 		}
 
@@ -249,7 +249,7 @@ public class DashboardController {
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 		}
 

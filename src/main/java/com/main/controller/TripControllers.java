@@ -55,7 +55,7 @@ public class TripControllers {
 	public String filterTripDetails(Principal principal, @RequestParam(name = "actualDeparture") String fromDate,
 			@RequestParam(name = "actualArrival") String toDate, @RequestParam(name = "vendorCode") String vendorCode) {
 
-		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information filterTripDetails {} ", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -85,7 +85,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data);
 	}
@@ -110,7 +110,7 @@ public class TripControllers {
 			}
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -134,7 +134,7 @@ public class TripControllers {
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} catch (Exception e) {
 				data.setMsg(GlobalConstants.ERROR_MESSAGE);
-				logger.error(GlobalConstants.ERROR_MESSAGE, e);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			}
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 			String vendorCode = principal.getName();
@@ -147,7 +147,7 @@ public class TripControllers {
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} catch (Exception e) {
 				data.setMsg(GlobalConstants.ERROR_MESSAGE);
-				logger.error(GlobalConstants.ERROR_MESSAGE, e);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			}
 		}
 		return gson.toJson(data);
@@ -177,7 +177,7 @@ public class TripControllers {
 			}
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data);
 	}
@@ -203,7 +203,7 @@ public class TripControllers {
 			}
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data);
 	}
@@ -246,7 +246,7 @@ public class TripControllers {
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -309,7 +309,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -342,7 +342,7 @@ public class TripControllers {
 			}
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -367,7 +367,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -391,7 +391,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -423,7 +423,7 @@ public class TripControllers {
 			}
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		return gson.toJson(data);
@@ -449,7 +449,7 @@ public class TripControllers {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -473,7 +473,7 @@ public class TripControllers {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 
 		}
 
@@ -488,7 +488,7 @@ public class TripControllers {
 			@RequestParam(name = "tripStatus") String tripStatus,
 			@RequestParam(name = "vendorCode") String vendorCode) {
 
-		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information filterByColumn {} ", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -563,7 +563,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data);
 	}
@@ -586,7 +586,7 @@ public class TripControllers {
 
 		} catch (Exception e) {
 			data.setData(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data);
 	}

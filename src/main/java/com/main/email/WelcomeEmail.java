@@ -3,6 +3,7 @@ package com.main.email;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@java.lang.SuppressWarnings("squid:S00112")
 public class WelcomeEmail {
 	LocalDateTime localDateTime = LocalDateTime.now();
 	LocalDate localDate = localDateTime.toLocalDate();

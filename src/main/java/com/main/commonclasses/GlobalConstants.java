@@ -71,4 +71,7 @@ public class GlobalConstants {
 	public static final String VENDOR_TYPE_NETWORK="Network";
 	public static final String VENDOR_TYPE_FIXED_ASSETS="FIXED ASSETS";
 	
+	public static final String DATE_FORMATTER="yyyy-MM-dd HH:mm:ss";
+	public static final String DATE_FORMATTER_DD_MM_YYYY="dd-MM-yyyy";
+	
 }

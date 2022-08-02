@@ -115,8 +115,8 @@ public class UIController {
 		String pid = "";
 		try {
 			pid = request.getParameter("pid");
-		} catch (Exception ex) {
-			logger.error("error : " + ex);
+		} catch (Exception e) {
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
 		if ("".equalsIgnoreCase(pid)) {
@@ -267,10 +267,10 @@ public class UIController {
 
 			int totalTripCount = serviceManager.tripDetailsRepo.getTripCount();
 			int totalCloseTripCount = serviceManager.tripDetailsRepo.getCloseTripCount();
-			int TotalInTransitTripCount = serviceManager.tripDetailsRepo.getInTransitTripCount();
+			int totalInTransitTripCount = serviceManager.tripDetailsRepo.getInTransitTripCount();
 			model.addAttribute("totalTripCount", totalTripCount);
 			model.addAttribute("TotalCloseTripCount", totalCloseTripCount);
-			model.addAttribute("TotalInTransitTripCount", TotalInTransitTripCount);
+			model.addAttribute("TotalInTransitTripCount", totalInTransitTripCount);
 
 			int getAllInvoiceCount = serviceManager.invoiceGenerationEntityRepo.getCountForAllInvoices();
 			int countForAllProcessedInvoice = serviceManager.invoiceGenerationEntityRepo
@@ -292,7 +292,7 @@ public class UIController {
 			String vendorCode = principal.getName();
 			int totalTripCount = serviceManager.tripDetailsRepo.getTripCount(vendorCode);
 			int totalCloseTripCount = serviceManager.invoiceGenerationEntityRepo.getQueryInvoiceCount(vendorCode);
-			int TotalInTransitTripCount = serviceManager.tripDetailsRepo.getInTransitTripCount(vendorCode);
+			int totalInTransitTripCount = serviceManager.tripDetailsRepo.getInTransitTripCount(vendorCode);
 			int closedTripCount = serviceManager.tripDetailsRepo.getCloseTripCount(vendorCode);
 			int queryTripCount = serviceManager.tripDetailsRepo.getQueryTripCount(vendorCode);
 
@@ -303,7 +303,7 @@ public class UIController {
 			model.addAttribute("role", rolename);
 			model.addAttribute("totalTripCount", totalTripCount);
 			model.addAttribute("TotalCloseTripCount", totalCloseTripCount);
-			model.addAttribute("TotalInTransitTripCount", TotalInTransitTripCount);
+			model.addAttribute("TotalInTransitTripCount", totalInTransitTripCount);
 			model.addAttribute("pendingInvoice", processInvoice);
 			model.addAttribute("approveInvoice", approveInvoice);
 			model.addAttribute("draftInvoice", draftInvoice);
@@ -479,7 +479,7 @@ public class UIController {
 	public String allTrips(Model model, Principal principal, HttpServletRequest request) {
 		String rolename = (String) request.getSession().getAttribute("role");
 
-		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		String currentDate = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER_DD_MM_YYYY).format(new Date());
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("dataLimit", dataLimit);
 
@@ -801,7 +801,7 @@ public class UIController {
 			listofTrips.add(tripID);
 
 		}
-		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		String currentDate = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER_DD_MM_YYYY).format(new Date());
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("listofTrips", listofTrips);
 
@@ -840,7 +840,7 @@ public class UIController {
 			listofTrips.add(tripID);
 			vendorName = tripDetails.getVendorName();
 		}
-		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		String currentDate = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER_DD_MM_YYYY).format(new Date());
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("vendorName", vendorName);
 		model.addAttribute("listofTrips", listofTrips);
@@ -855,7 +855,7 @@ public class UIController {
 
 	@GetMapping("/allInvoices_Finance")
 	public String allInvoicesFinance(Model model, HttpServletRequest request, Principal principal) {
-		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		String currentDate = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER_DD_MM_YYYY).format(new Date());
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("dataLimit", dataLimit);
 		return "allInvoices_Finance";
@@ -924,7 +924,7 @@ public class UIController {
 	@GetMapping("/getDoc")
 
 	void getDoc(HttpServletResponse response, HttpServletRequest request, @RequestParam("name") String name,
-			@RequestParam("path") String path) {
+			@RequestParam("path") String path) throws IOException {
 
 		File file = null;
 		FileInputStream inputStream = null;
@@ -945,7 +945,8 @@ public class UIController {
 
 		} catch (Exception e) {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
-
+		} finally {
+			inputStream.close();
 		}
 	}
 

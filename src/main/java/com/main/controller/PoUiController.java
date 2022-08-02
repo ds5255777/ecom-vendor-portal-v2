@@ -62,7 +62,7 @@ public class PoUiController {
 			String vendorCode = (String) request.getSession().getAttribute("userName");
 			rolename = (String) request.getSession().getAttribute("role");
 			vendorCode = (String) request.getSession().getAttribute("userName");
-			List<PoDetails> details1 = new ArrayList<PoDetails>();
+			List<PoDetails> details1 = new ArrayList<>();
 			List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
 			String processBy = principal.getName();
 			Date proceessOn = new Date();
@@ -222,7 +222,7 @@ public class PoUiController {
 	public String poView(Model model, HttpServletRequest request, Principal principal) {
 
 		String id = request.getParameter("id");
-		String arr[] = id.split(",");
+		String[] arr = id.split(",");
 		String poNumber = "";
 		String viewPage = "";
 		for (int i = 0; i < arr.length; i++) {
@@ -342,7 +342,6 @@ public class PoUiController {
 		long count = serviceManager.invoiceNumberRepo.count();
 		String invoiceNumberPrefix = "ECOM-";
 		count = count + 1;
-		String invoiceNumber = invoiceNumberPrefix + String.format("%08d", count);
-		return invoiceNumber;
+		return invoiceNumberPrefix + String.format("%08d", count);
 	}
 }

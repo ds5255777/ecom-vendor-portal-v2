@@ -72,7 +72,7 @@ public class CommanFunction {
 			Transport.send(message);
 
 		} catch (Exception e) {
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 	}
@@ -101,7 +101,6 @@ public class CommanFunction {
 					return new PasswordAuthentication(emailObj.getUserName(), emailObj.getPassword());
 				}
 			});
-			// session.setDebug(true);
 
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(emailObj.getUserName()));

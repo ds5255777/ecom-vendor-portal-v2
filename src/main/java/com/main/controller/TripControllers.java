@@ -58,7 +58,7 @@ public class TripControllers {
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 		try {
@@ -95,7 +95,7 @@ public class TripControllers {
 	public String getCloseTripsDetails(Principal principal) {
 		DataContainer data = new DataContainer();
 		String userName = principal.getName();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
 		try {
@@ -123,7 +123,7 @@ public class TripControllers {
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 			try {
 				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo.findAll();
@@ -158,7 +158,7 @@ public class TripControllers {
 	public String getCloseAndApprovedTripsDetails(Principal principal) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
@@ -186,7 +186,7 @@ public class TripControllers {
 
 	public String getInTransitTripsDetails(Principal principal) {
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
@@ -212,7 +212,7 @@ public class TripControllers {
 
 	public String statusNetwork(Principal principal, @RequestBody TripDetailsDto obj) {
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 		try {
@@ -258,7 +258,7 @@ public class TripControllers {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String processedOn = dateFormat.format(date);
@@ -324,7 +324,7 @@ public class TripControllers {
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
@@ -356,7 +356,7 @@ public class TripControllers {
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)
 					|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
@@ -378,7 +378,7 @@ public class TripControllers {
 	public String getRemarksByRefID(Principal principal, @RequestBody String obj) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			JSONObject jsonObject = new JSONObject(obj);
 			String tripID = jsonObject.get("tripID").toString();
@@ -403,7 +403,7 @@ public class TripControllers {
 	public String getDraftLineTripDetails(Principal principal, @RequestBody TripDetailsDto tripDtoObj) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
@@ -434,7 +434,7 @@ public class TripControllers {
 	public String getTripDetailByTripId(Principal principal, HttpSession session) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String vendorCode = principal.getName();
 		try {
 
@@ -462,7 +462,7 @@ public class TripControllers {
 	public String findByTripDetailUsingTripID(Principal principal, @RequestBody TripDetailsDto tripDtoObj) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			String tripID = tripDtoObj.getTripID();
 			String invoiceNumber = tripDtoObj.getInvoiceNumber();
@@ -492,7 +492,7 @@ public class TripControllers {
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			if (tripStatus.equals(GlobalConstants.VENDOR_TRIP_STATUS_APPROVED)) {
 
@@ -574,7 +574,7 @@ public class TripControllers {
 	public String multipleTripApproved(Principal principal, @RequestParam("tripID") String obj,
 			@RequestParam("vendorTripStatus") String vendorTripStatus) {
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String processedBy = principal.getName();
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");

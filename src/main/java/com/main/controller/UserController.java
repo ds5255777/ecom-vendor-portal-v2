@@ -46,7 +46,7 @@ public class UserController {
 		logger.info("Log Some Information : ", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			userDto.getId();
 
@@ -92,7 +92,7 @@ public class UserController {
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			List<String> userStatusList = new ArrayList<>();
@@ -122,7 +122,7 @@ public class UserController {
 	public String getUserById(@RequestBody UserDTO userDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			User userDtoToEntity = this.serviceManager.modelMapper.map(userDto, User.class);
@@ -147,7 +147,7 @@ public class UserController {
 	public String setStatusOfUserById(@RequestBody UserDTO userDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			serviceManager.userRepository.updateStatusByUserid(userDto.getStatus(), userDto.getId());
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
@@ -168,7 +168,7 @@ public class UserController {
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String userRole = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 		try {
@@ -203,7 +203,7 @@ public class UserController {
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			List<User> users = serviceManager.userRepository.findByRoleIdAndStatus(userDto.getRoleId(),
@@ -227,7 +227,7 @@ public class UserController {
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			User us = serviceManager.userService.findByUsername(principal.getName());
 			us.setPassword(password);
@@ -251,7 +251,7 @@ public class UserController {
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			List<Object[]> vendorList = serviceManager.supDetailsRepo.getAllInActiveVendor();
@@ -306,7 +306,7 @@ public class UserController {
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			SupDetails supDetails = serviceManager.supDetailsRepo.findBybpCode(details.getBpCode());
 			data.setData(this.serviceManager.modelMapper.map(supDetails, SupDetailsDTO.class));
@@ -329,7 +329,7 @@ public class UserController {
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			serviceManager.userRepository.updateStatusOfVendorByBpCode(user.getStatus(), user.getBpCode());
@@ -355,7 +355,7 @@ public class UserController {
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			User userDtoToEntity = this.serviceManager.modelMapper.map(userDto, User.class);
@@ -387,7 +387,7 @@ public class UserController {
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			String bpCode = details.getBpCode();

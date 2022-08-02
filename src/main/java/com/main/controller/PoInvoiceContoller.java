@@ -63,7 +63,7 @@ public class PoInvoiceContoller {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			String ecomInvoiceNumber = objDto.getInvoiceNumber();
@@ -88,7 +88,7 @@ public class PoInvoiceContoller {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			String vendorCode = principal.getName();
 
@@ -115,7 +115,7 @@ public class PoInvoiceContoller {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			String filePath = filepath + File.separator + invoiceDetailsDto.getInvoiceNumber();
 			String fullFilePathWithName = "";
@@ -232,7 +232,7 @@ public class PoInvoiceContoller {
 			@RequestBody PoInvoiceDetailsDTO invoiceDetailsDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			String vendorCode = principal.getName();
 			String invoiceNo = invoiceDetailsDto.getInvoiceNumber();
@@ -260,7 +260,7 @@ public class PoInvoiceContoller {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			String vendorCode = principal.getName();
 

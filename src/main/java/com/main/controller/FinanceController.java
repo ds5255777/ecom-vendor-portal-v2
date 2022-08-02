@@ -53,7 +53,7 @@ public class FinanceController {
 		String userName = principal.getName();
 		String userRole = this.serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			if (userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
 					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
@@ -85,7 +85,7 @@ public class FinanceController {
 		String userName = principal.getName();
 		String userRole = this.serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			if (userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
 					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
@@ -115,7 +115,7 @@ public class FinanceController {
 		String userName = principal.getName();
 		String userRole = this.serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			if (userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
 					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
@@ -144,7 +144,7 @@ public class FinanceController {
 		String userName = principal.getName();
 		String userRole = this.serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			if (userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
 					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
@@ -173,7 +173,7 @@ public class FinanceController {
 		String userName = principal.getName();
 		String userRole = this.serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			if (userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
 					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
@@ -198,7 +198,7 @@ public class FinanceController {
 		String userName = principal.getName();
 		String userRole = this.serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			if (userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
 					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
@@ -220,7 +220,7 @@ public class FinanceController {
 	public String getQueryByTypeAndForeignKey(HttpServletRequest request, @RequestBody QueryDto obj) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 
 		try {
 
@@ -243,18 +243,18 @@ public class FinanceController {
 	public String saveInvoiceQuery(Principal principal, HttpServletRequest request, @RequestBody QueryDto entity) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = (String) request.getSession().getAttribute("role");
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String processedOn = dateFormat.format(date);
+		String emailType = "";
 		List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
 				.findByIsActive(GlobalConstants.ACTIVE_STATUS);
 		EmailConfiguration emailConfiguration = emailList.get(0);
 		String vendorEmail = (String) request.getSession().getAttribute("userEmail");
-
-		String emailType = null;
+		
 		String type = "";
 
 		try {
@@ -371,7 +371,7 @@ public class FinanceController {
 	public String getDocumentByTypeAndForeignKey(HttpServletRequest request, @RequestBody DocumentDto entity) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 
 		try {
 			List<Document> listDoc = serviceManager.documentRepo.findByTypeAndForeignKeyOrderByIdDesc(entity.getType(),
@@ -397,7 +397,7 @@ public class FinanceController {
 		String userName = principal.getName();
 		String userRole = this.serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String processedOn = dateFormat.format(date);
@@ -452,7 +452,7 @@ public class FinanceController {
 			@RequestParam(name = "actualArrival") String toDate) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		logger.info(fromDate);
 		logger.info(toDate);
 		try {
@@ -474,7 +474,7 @@ public class FinanceController {
 	public String getFilterInvoiceByVendorCode(HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			List<String> vendorList = serviceManager.invoiceGenerationEntityRepo.getDistnictVendorList();
 			data.setData(vendorList);
@@ -489,7 +489,7 @@ public class FinanceController {
 	@PostMapping({ "viewInvoiceForFinanceTeam" })
 	public String viewInvoiceForFinanceTeam(@RequestBody InvoiceGenerationDto obj) {
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 
 		try {
 			List<InvoiceGenerationEntity> invoiceViewList = serviceManager.invoiceServiceImpl

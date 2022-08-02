@@ -85,7 +85,7 @@ public class InvoiceController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllPendingInvoice" })
@@ -111,7 +111,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllApproveInvoice" })
@@ -138,7 +138,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllQueryInvoiceVendor" })
@@ -154,15 +154,15 @@ public class InvoiceController {
 				List<InvoiceGenerationEntity> queryInvoice = serviceManager.invoiceGenerationEntityRepo
 						.getAllQueryInvoiceVendor(vendorCode);
 
-				List<InvoiceGenerationDto> listOfInvoice = queryInvoice.stream().map(
-						allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+				List<InvoiceGenerationDto> listOfInvoice = queryInvoice.stream()
+						.map(allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 				data.setData(listOfInvoice);
 			} else {
 				List<InvoiceGenerationEntity> queryInvoice = serviceManager.invoiceGenerationEntityRepo
 						.getAllQueryInvoiceVendor();
-				List<InvoiceGenerationDto> listOfInvoice = queryInvoice.stream().map(
-						allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+				List<InvoiceGenerationDto> listOfInvoice = queryInvoice.stream()
+						.map(allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 				data.setData(listOfInvoice);
 			}
@@ -173,7 +173,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllRejectInvoice" })
@@ -198,7 +198,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllInvoiceToBilling" })
@@ -223,7 +223,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping("/saveInvoice")
@@ -253,15 +253,13 @@ public class InvoiceController {
 				doc.setForeignKey(invoiceDto.getEcomInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = invoiceDto.getInvoiceFileText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
+				FileOutputStream fos = new FileOutputStream(fullFilePathWithName);
+				String b64 = invoiceDto.getInvoiceFileText();
+				byte[] decoder = Base64.getDecoder().decode(b64);
 
-					fos.write(decoder);
+				fos.write(decoder);
+				fos.close();
 
-				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE, e);
-				}
 			}
 
 			if (null != invoiceDto.getDocumentFileOneName()) {
@@ -276,15 +274,13 @@ public class InvoiceController {
 				doc.setForeignKey(invoiceDto.getEcomInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = invoiceDto.getDocumentFileOneText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
+				FileOutputStream fos = new FileOutputStream(fullFilePathWithName);
+				String b64 = invoiceDto.getDocumentFileOneText();
+				byte[] decoder = Base64.getDecoder().decode(b64);
 
-					fos.write(decoder);
+				fos.write(decoder);
+				fos.close();
 
-				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE, e);
-				}
 			}
 
 			if (null != invoiceDto.getDocumentFileTwoName()) {
@@ -299,15 +295,13 @@ public class InvoiceController {
 				doc.setForeignKey(invoiceDto.getEcomInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = invoiceDto.getDocumentFileTwoText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
+				FileOutputStream fos = new FileOutputStream(fullFilePathWithName);
+				String b64 = invoiceDto.getDocumentFileTwoText();
+				byte[] decoder = Base64.getDecoder().decode(b64);
 
-					fos.write(decoder);
+				fos.write(decoder);
+				fos.close();
 
-				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE, e);
-				}
 			}
 			String ecomInvoiceNumber = invoiceDto.getEcomInvoiceNumber();
 
@@ -363,7 +357,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 
 	}
 
@@ -399,14 +393,12 @@ public class InvoiceController {
 				serviceManager.documentRepo.save(doc);
 				logger.info(fullFilePathWithName);
 
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = obj.getDocumentFileOneText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
+				FileOutputStream fos = new FileOutputStream(fullFilePathWithName);
+				String b64 = obj.getDocumentFileOneText();
+				byte[] decoder = Base64.getDecoder().decode(b64);
 
-					fos.write(decoder);
-				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE, e);
-				}
+				fos.write(decoder);
+				fos.close();
 			}
 
 			if (null != obj.getDocumentFileTwoName()) {
@@ -421,14 +413,12 @@ public class InvoiceController {
 				doc.setForeignKey(obj.getEcomInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					String b64 = obj.getDocumentFileTwoText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
+				FileOutputStream fos = new FileOutputStream(fullFilePathWithName);
+				String b64 = obj.getDocumentFileTwoText();
+				byte[] decoder = Base64.getDecoder().decode(b64);
 
-					fos.write(decoder);
-				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE, e);
-				}
+				fos.write(decoder);
+				fos.close();
 			}
 			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
 
@@ -510,7 +500,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 
 	}
 
@@ -545,7 +535,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllDraftInvoice" })
@@ -569,7 +559,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/deleteDraftInvoice" })
@@ -593,7 +583,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/deleteLineItem" })
@@ -615,7 +605,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/discardDraftInvoice" })
@@ -639,7 +629,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllQueryInvoiceVendorPo" })
@@ -662,7 +652,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/checkForExistingInvoiceNumber" })
@@ -686,7 +676,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping(value = "/getQueryInvoice")
@@ -711,7 +701,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/deleteTripQueryInvoice" })
@@ -732,7 +722,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/addNewTripInQueryInvoice" })
@@ -761,7 +751,7 @@ public class InvoiceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 }

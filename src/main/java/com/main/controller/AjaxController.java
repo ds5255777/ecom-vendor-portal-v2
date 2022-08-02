@@ -542,7 +542,7 @@ public class AjaxController {
 			data.setData(e.toString());
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/saveRegistrationQuery" })
@@ -567,7 +567,7 @@ public class AjaxController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getVendorDetailByPid" })
@@ -588,7 +588,7 @@ public class AjaxController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getRegistrationQueryData" })
@@ -611,7 +611,7 @@ public class AjaxController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@GetMapping({ "/checkExistingPan" })
@@ -632,7 +632,7 @@ public class AjaxController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 }

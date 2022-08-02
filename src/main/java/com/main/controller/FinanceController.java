@@ -75,7 +75,7 @@ public class FinanceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/viewAllProcessInvoiceForFinanceTeam" })
@@ -105,7 +105,7 @@ public class FinanceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/viewAllUnProcessInvoiceForFinanceTeam" })
@@ -134,7 +134,7 @@ public class FinanceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllInReviewInvoice" })
@@ -163,7 +163,7 @@ public class FinanceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getPaymentReleaseInvoice" })
@@ -188,7 +188,7 @@ public class FinanceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/viewAllQueryInvoiceForFinanceTeam" })
@@ -213,7 +213,7 @@ public class FinanceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getQueryByTypeAndForeignKey" })
@@ -236,7 +236,7 @@ public class FinanceController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/saveQuery" })
@@ -364,7 +364,7 @@ public class FinanceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getDocumentByTypeAndForeignKey" })
@@ -386,7 +386,7 @@ public class FinanceController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/approveInvoiceFinanceSide" })
@@ -443,7 +443,7 @@ public class FinanceController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@GetMapping({ "filterInvoiceDetails" })
@@ -467,7 +467,7 @@ public class FinanceController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "getFilterInvoiceByVendorCode" })
@@ -483,7 +483,7 @@ public class FinanceController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "viewInvoiceForFinanceTeam" })
@@ -504,6 +504,6 @@ public class FinanceController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 }

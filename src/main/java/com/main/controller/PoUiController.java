@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.AccountDetails;
 import com.main.db.bpaas.entity.InvoiceNumber;
 import com.main.db.bpaas.entity.PoDetails;
@@ -22,17 +23,19 @@ import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.servicemanager.ServiceManager;
 
+import net.bytebuddy.agent.builder.AgentBuilder.CircularityLock.Global;
+
 @Controller
 public class PoUiController {
 
 	@Value("${maxFileSize}")
-	public String maxFileSize;
+	private String maxFileSize;
 
 	@Value("${fileSize}")
-	public String fileSize;
+	private String fileSize;
 
 	@Value("${dataLimit}")
-	public String dataLimit;
+	private String dataLimit;
 
 	@Autowired
 	private ServiceManager serviceManager;
@@ -58,10 +61,8 @@ public class PoUiController {
 
 		if (vendorType1.length == 2 || vendorType.equalsIgnoreCase("Fixed Asset")
 				|| vendorType.equalsIgnoreCase("FIXED ASSETS")) {
-			String rolename = (String) request.getSession().getAttribute("role");
-			String vendorCode = (String) request.getSession().getAttribute("userName");
-			rolename = (String) request.getSession().getAttribute("role");
-			vendorCode = (String) request.getSession().getAttribute("userName");
+			String vendorCode = principal.getName();
+			String rolename = serviceManager.rolesRepository.getuserRoleByUserName(vendorCode);
 			List<PoDetails> details1 = new ArrayList<>();
 			List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
 			String processBy = principal.getName();
@@ -102,7 +103,7 @@ public class PoUiController {
 			model.addAttribute("userStatus", us.getStatus());
 			model.addAttribute("dataLimit", dataLimit);
 
-			if (rolename.equalsIgnoreCase("Vendor")) {
+			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 
 				return "dashboard_Po";
 
@@ -115,13 +116,14 @@ public class PoUiController {
 	@GetMapping("/allPO")
 	public String allPo(Model model, Principal principal, HttpServletRequest request) {
 
-		String rolename = (String) request.getSession().getAttribute("role");
+		String userName = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
-		String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		String currentDate = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER_YYYY_MM_DD).format(new Date());
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("dataLimit", dataLimit);
 
-		if (rolename.equalsIgnoreCase("Vendor")) {
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 
 			return "allPO";
 
@@ -225,15 +227,12 @@ public class PoUiController {
 		String[] arr = id.split(",");
 		String poNumber = "";
 		String viewPage = "";
-		for (int i = 0; i < arr.length; i++) {
-			if (arr.length == 1) {
-				poNumber = arr[0];
-				break;
-			} else {
-				poNumber = arr[0];
-				viewPage = arr[1];
-				break;
-			}
+
+		if (arr.length == 1) {
+			poNumber = arr[0];
+		} else if (arr.length == 2) {
+			poNumber = arr[0];
+			viewPage = arr[1];
 		}
 		model.addAttribute("poNumber", poNumber);
 
@@ -260,9 +259,7 @@ public class PoUiController {
 		model.addAttribute("maxFileSize", maxFileSize);
 		model.addAttribute("paymentMethod", paymentMethod);
 
-		PoDetails findByPoNumber = null;
-		findByPoNumber = serviceManager.podetailsRepo.findByPoNo(poNumber);
-		model.addAttribute("curentDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		model.addAttribute("curentDate", new SimpleDateFormat(GlobalConstants.DATE_FORMATTER_YYYY_MM_DD).format(new Date()));
 		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
 		model.addAttribute("payment", payment);
 
@@ -284,9 +281,6 @@ public class PoUiController {
 			accountNumber.add(accountnumber);
 		}
 
-		if (null == accountnumber) {
-			accountnumber = "";
-		}
 		model.addAttribute("accountNumber", accountNumber);
 		model.addAttribute("creidtTerms", creidtTerms);
 		return "poInvoiceGenerate";
@@ -306,7 +300,7 @@ public class PoUiController {
 		model.addAttribute("PoNumber", poNumber);
 		model.addAttribute("invoiceNumber", poNumber);
 		model.addAttribute("curentDate", new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
-		model.addAttribute("curentDate1", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		model.addAttribute("curentDate1", new SimpleDateFormat(GlobalConstants.DATE_FORMATTER_YYYY_MM_DD).format(new Date()));
 		List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
 		model.addAttribute("maxFileSize", maxFileSize);
 		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
@@ -328,9 +322,6 @@ public class PoUiController {
 		for (int i = 0; i < listaccountNumber.size(); i++) {
 			accountnumber = listaccountNumber.get(i).getAccoutNumber();
 			accountNumber.add(accountnumber);
-		}
-		if (null == accountnumber) {
-			accountnumber = "";
 		}
 		model.addAttribute("accountNumber", accountNumber);
 		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();

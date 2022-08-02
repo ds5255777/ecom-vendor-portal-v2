@@ -64,7 +64,7 @@ public class PoController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/poDetailsByPoNo" })
@@ -73,8 +73,7 @@ public class PoController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
-			PoDetails details = new PoDetails();
-			details = serviceManager.podetailsRepo.findByPoNo(detailsDto.getPoNo());
+			PoDetails details = serviceManager.podetailsRepo.findByPoNo(detailsDto.getPoNo());
 
 			data.setData(this.serviceManager.modelMapper.map(details, PoDetailsDTO.class));
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
@@ -85,7 +84,7 @@ public class PoController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllProcessPo" })
@@ -108,7 +107,7 @@ public class PoController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllUnProcessPo" })
@@ -132,7 +131,7 @@ public class PoController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllInvoiceDetails" })
@@ -169,7 +168,7 @@ public class PoController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getSelectInvoiceDetailsPo" })
@@ -205,7 +204,7 @@ public class PoController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllPODetailsByPoNo" })
@@ -233,7 +232,7 @@ public class PoController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllPODetailsByLineNumber" })
@@ -259,7 +258,7 @@ public class PoController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/savePoInvoiceQuery" })
@@ -286,7 +285,7 @@ public class PoController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getPoQueryData" })
@@ -316,7 +315,7 @@ public class PoController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@GetMapping({ "filterPoDetails" })
@@ -341,7 +340,7 @@ public class PoController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/updateRemaningQuantity" })
@@ -377,7 +376,7 @@ public class PoController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/updateRemaningQuantitydraft" })
@@ -411,7 +410,7 @@ public class PoController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getCurrentRemaningQty" })
@@ -436,7 +435,7 @@ public class PoController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 }

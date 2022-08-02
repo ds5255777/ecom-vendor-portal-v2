@@ -40,7 +40,7 @@ public class DashboardController {
 	private ServiceManager serviceManager;
 
 	@Value("${tripLimit}")
-	public String invoiceLimit;
+	private String invoiceLimit;
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(DashboardController.class);
@@ -90,7 +90,7 @@ public class DashboardController {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping("/updateDetailsforNetwork")
@@ -101,20 +101,20 @@ public class DashboardController {
 		String userName = principal.getName();
 
 		JSONObject jsonObject = new JSONObject(agrn);
-		String processedon = jsonObject.get("processedOn").toString();
-		String processedBy = jsonObject.getString("processedBy").toString();
-		String tripid = jsonObject.get("tripID").toString();
-		String assigenedTo = jsonObject.get("AssigenedTo").toString();
+		String processedon = jsonObject.optString("processedOn");
+		String processedBy = jsonObject.optString("processedBy");
+		String tripid = jsonObject.optString("tripID");
+		String assigenedTo = jsonObject.optString("AssigenedTo");
 		String lumpSomeCheckBox = "";
-		String lumpSomeAmount = jsonObject.getString("LumpSomeAmount").toString();
+		String lumpSomeAmount = jsonObject.optString("LumpSomeAmount");
 
-		String fs = jsonObject.getString("fs").toString();
-		String totalFreight = jsonObject.getString("totalFreight").toString();
-		String basicFreight = jsonObject.getString("basicFreight").toString();
-		String commentsByUSer = jsonObject.getString("commentsby").toString();
-		String vendorName = jsonObject.getString("vendorName").toString();
-		String vendorCode = jsonObject.getString("vendorCode").toString();
-		String type = jsonObject.getString("type").toString();
+		String fs = jsonObject.optString("fs");
+		String totalFreight = jsonObject.optString("totalFreight");
+		String basicFreight = jsonObject.optString("basicFreight");
+		String commentsByUSer = jsonObject.optString("commentsby");
+		String vendorName = jsonObject.optString("vendorName");
+		String vendorCode = jsonObject.optString("vendorCode");
+		String type = jsonObject.optString("type");
 
 		if ("".equalsIgnoreCase(lumpSomeAmount)) {
 			lumpSomeCheckBox = "false";
@@ -126,19 +126,19 @@ public class DashboardController {
 			lumpSomeAmount = "0";
 		}
 
-		String query = jsonObject.getString("Query").toString();
+		String query = jsonObject.optString("Query");
 		if ("No".equalsIgnoreCase(query)) {
 			serviceManager.tripDetailsRepo.updateDetailsByNetwork(assigenedTo, tripid, processedBy, processedon,
 					lumpSomeCheckBox, lumpSomeAmount, "Yet To Be Approved", Double.parseDouble(basicFreight),
 					Double.parseDouble(totalFreight), Double.parseDouble(fs), vendorName, vendorCode);
 		} else {
-			String standardKM = jsonObject.getString("standardKM").toString();
-			String milage = jsonObject.getString("milage").toString();
-			String ratePerKm = jsonObject.getString("ratePerKm").toString();
-			String routeKms = jsonObject.getString("routeKms").toString();
-			String fsBaseRate = jsonObject.getString("fsBaseRate").toString();
-			String currentFuelRate = jsonObject.getString("currentFuelRate").toString();
-			String fsDiff = jsonObject.getString("fsDiff").toString();
+			String standardKM = jsonObject.optString("standardKM");
+			String milage = jsonObject.optString("milage");
+			String ratePerKm = jsonObject.optString("ratePerKm");
+			String routeKms = jsonObject.optString("routeKms");
+			String fsBaseRate = jsonObject.optString("fsBaseRate");
+			String currentFuelRate = jsonObject.optString("currentFuelRate");
+			String fsDiff = jsonObject.optString("fsDiff");
 
 			try {
 				serviceManager.tripDetailsRepo.updateDetailsByNetworkInQuery(tripid, processedBy, processedon,
@@ -182,7 +182,7 @@ public class DashboardController {
 		comm.setType(type);
 		serviceManager.queryRepo.save(comm);
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 
 	}
 
@@ -214,7 +214,7 @@ public class DashboardController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "refreshValues" })
@@ -223,8 +223,8 @@ public class DashboardController {
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			JSONObject jsonObject = new JSONObject(reqObj);
-			String vendorCode = (String) jsonObject.get("vendorCode");//
-			String route = (String) jsonObject.get("route");
+			String vendorCode = (String) jsonObject.optString("vendorCode");//
+			String route = (String) jsonObject.optString("route");
 
 			AgreementMaster masterData = serviceManager.agreementMasterRepo.getAllTripsByVendorCode(vendorCode, route);
 			data.setData(masterData);
@@ -235,7 +235,7 @@ public class DashboardController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "getBpCodeForNetwork" })
@@ -244,7 +244,7 @@ public class DashboardController {
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			JSONObject jsonObject = new JSONObject(reqObj);
-			String vendorName = (String) jsonObject.get("vendorName");
+			String vendorName = jsonObject.optString("vendorName");
 			data.setData(serviceManager.supDetailsRepo.getVendorCode(vendorName));
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
@@ -253,7 +253,7 @@ public class DashboardController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 }

@@ -19,7 +19,7 @@ import com.main.servicemanager.ServiceManager;
 public class SchedularController {
 
 	@Autowired
-	ServiceManager serviceManger;
+	private ServiceManager serviceManger;
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(SchedularController.class);
@@ -33,58 +33,48 @@ public class SchedularController {
 
 			if ("Completed".equalsIgnoreCase(checkSchedular)) {
 
-				try {
+				List<SendEmail> statusList = serviceManger.sendEmailRepo
+						.findByStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+				List<EmailConfiguration> emailList = serviceManger.emailConfigurationRepository
+						.findByIsActive(GlobalConstants.ACTIVE_STATUS);
 
-					List<SendEmail> statusList = serviceManger.sendEmailRepo
-							.findByStatus(GlobalConstants.EMAIL_STATUS_SENDING);
-					List<EmailConfiguration> emailList = serviceManger.emailConfigurationRepository
-							.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+				if (!statusList.isEmpty() || (!emailList.isEmpty())) {
+					for (int i = 0; i < statusList.size(); i++) {
 
-					if (!statusList.isEmpty() || (!emailList.isEmpty())) {
-						for (int i = 0; i < statusList.size(); i++) {
+						CommanFunction.sendEmail(emailList.get(0), statusList.get(i).getSendTo(),
+								statusList.get(i).getSendCc(), statusList.get(i).getBcc(),
+								statusList.get(i).getSubject(), statusList.get(i).getEmailBody());
 
-							CommanFunction.sendEmail(emailList.get(0), statusList.get(i).getSendTo(),
-									statusList.get(i).getSendCc(), statusList.get(i).getBcc(),
-									statusList.get(i).getSubject(), statusList.get(i).getEmailBody());
+						serviceManger.sendEmailRepo.updateStatus(GlobalConstants.EMAIL_STATUS_SEND,
+								statusList.get(i).getId());
 
-							serviceManger.sendEmailRepo.updateStatus(GlobalConstants.EMAIL_STATUS_SEND,
-									statusList.get(i).getId());
-
-						}
 					}
-
-				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 
 				checkSchedular = "Occupied";
 			} else {
-				try {
 
-					List<SendEmail> statusList = serviceManger.sendEmailRepo
-							.findByStatus(GlobalConstants.EMAIL_STATUS_SENDING);
-					List<EmailConfiguration> emailList = serviceManger.emailConfigurationRepository
-							.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+				List<SendEmail> statusList = serviceManger.sendEmailRepo
+						.findByStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+				List<EmailConfiguration> emailList = serviceManger.emailConfigurationRepository
+						.findByIsActive(GlobalConstants.ACTIVE_STATUS);
 
-					if (!statusList.isEmpty() || (!emailList.isEmpty())) {
-						for (int i = 0; i < statusList.size(); i++) {
+				if (!statusList.isEmpty() || (!emailList.isEmpty())) {
+					for (int i = 0; i < statusList.size(); i++) {
 
-							CommanFunction.sendEmail(emailList.get(0), statusList.get(i).getSendTo(),
-									statusList.get(i).getSendCc(), statusList.get(i).getBcc(),
-									statusList.get(i).getSubject(), statusList.get(i).getEmailBody());
-							serviceManger.sendEmailRepo.updateStatus(GlobalConstants.EMAIL_STATUS_SEND,
-									statusList.get(i).getId());
-						}
+						CommanFunction.sendEmail(emailList.get(0), statusList.get(i).getSendTo(),
+								statusList.get(i).getSendCc(), statusList.get(i).getBcc(),
+								statusList.get(i).getSubject(), statusList.get(i).getEmailBody());
+						serviceManger.sendEmailRepo.updateStatus(GlobalConstants.EMAIL_STATUS_SEND,
+								statusList.get(i).getId());
 					}
-
-				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
+
 			}
 
 		} catch (Exception e) {
 
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 	}

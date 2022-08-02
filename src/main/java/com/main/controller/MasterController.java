@@ -48,7 +48,7 @@ public class MasterController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getActiveMasterData" })
@@ -67,7 +67,7 @@ public class MasterController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getMasterById" })
@@ -85,7 +85,7 @@ public class MasterController {
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/saveUpdateMasterDetails" })
@@ -103,7 +103,7 @@ public class MasterController {
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/deleteMaster" })
@@ -118,7 +118,7 @@ public class MasterController {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 }

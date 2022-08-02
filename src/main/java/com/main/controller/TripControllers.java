@@ -87,7 +87,7 @@ public class TripControllers {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getCloseTripsDetails" })
@@ -113,7 +113,7 @@ public class TripControllers {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllTripsDetails" })
@@ -150,7 +150,7 @@ public class TripControllers {
 				logger.error(GlobalConstants.ERROR_MESSAGE, e);
 			}
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getCloseAndApprovedTripsDetails" })
@@ -179,7 +179,7 @@ public class TripControllers {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getInTransitTripsDetails" })
@@ -205,7 +205,7 @@ public class TripControllers {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping(value = "/status")
@@ -249,7 +249,7 @@ public class TripControllers {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/updateVendorTripStatusAndOpenCloseReadingByTripId" })
@@ -267,45 +267,44 @@ public class TripControllers {
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
 		try {
-			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+			if ((rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR))
+					&& (tripDtoObj.getVendorCode().equals(userName))) {
 
-				if (tripDtoObj.getVendorCode().equals(userName)) {
+				this.serviceManager.modelMapper.map(tripDtoObj, TripDetails.class);
 
-					this.serviceManager.modelMapper.map(tripDtoObj, TripDetails.class);
+				serviceManager.tripDetailsRepo.updateVendorTripStatusByTripId(tripDtoObj.getTripID(),
+						tripDtoObj.getVendorTripStatus(), tripDtoObj.getOpeningReading(),
+						tripDtoObj.getClosingReading(), userName, processedOn);
 
-					serviceManager.tripDetailsRepo.updateVendorTripStatusByTripId(tripDtoObj.getTripID(),
-							tripDtoObj.getVendorTripStatus(), tripDtoObj.getOpeningReading(),
-							tripDtoObj.getClosingReading(), userName, processedOn);
+				List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
+						.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+				EmailConfiguration emailConfiguration = emailList.get(0);
 
-					List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
-							.findByIsActive(GlobalConstants.ACTIVE_STATUS);
-					EmailConfiguration emailConfiguration = emailList.get(0);
+				String vendorEmail = (String) request.getSession().getAttribute("userEmail");
 
-					String vendorEmail = (String) request.getSession().getAttribute("userEmail");
+				List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Vendor Trip Approve");
 
-					List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Vendor Trip Approve");
+				if (!queryType.isEmpty()) {
+					SendEmail sendEmail = new SendEmail();
+					MailContent mailContent = queryType.get(0);
+					sendEmail.setMailfrom(emailConfiguration.getUserName());
+					sendEmail.setSendTo(vendorEmail);
+					sendEmail.setSubject(mailContent.getSubject());
+					sendEmail.setEmailBody(mailContent.getEmailBody());
+					sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
 
-					if (!queryType.isEmpty()) {
-						SendEmail sendEmail = new SendEmail();
-						MailContent mailContent = queryType.get(0);
-						sendEmail.setMailfrom(emailConfiguration.getUserName());
-						sendEmail.setSendTo(vendorEmail);
-						sendEmail.setSubject(mailContent.getSubject());
-						sendEmail.setEmailBody(mailContent.getEmailBody());
-						sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+					serviceManager.sendEmailRepo.save(sendEmail);
 
-						serviceManager.sendEmailRepo.save(sendEmail);
+					EmailAuditLogs auditLogs = new EmailAuditLogs();
+					auditLogs.setMailFrom(emailConfiguration.getUserName());
+					auditLogs.setMailTo(vendorEmail);
+					auditLogs.setMailSubject(mailContent.getSubject());
+					auditLogs.setMailMessage(mailContent.getEmailBody());
 
-						EmailAuditLogs auditLogs = new EmailAuditLogs();
-						auditLogs.setMailFrom(emailConfiguration.getUserName());
-						auditLogs.setMailTo(vendorEmail);
-						auditLogs.setMailSubject(mailContent.getSubject());
-						auditLogs.setMailMessage(mailContent.getEmailBody());
-
-						serviceManager.emailAuditLogsRepo.save(auditLogs);
-					}
-					data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+					serviceManager.emailAuditLogsRepo.save(auditLogs);
 				}
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+
 			}
 
 		} catch (Exception e) {
@@ -313,7 +312,7 @@ public class TripControllers {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getPendingApprovelTripsDetails" })
@@ -346,7 +345,7 @@ public class TripControllers {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/tripDetailByTripId" })
@@ -371,7 +370,7 @@ public class TripControllers {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getRemarksByRefID" })
@@ -395,7 +394,7 @@ public class TripControllers {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getDraftLineTripDetails" })
@@ -427,7 +426,7 @@ public class TripControllers {
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getTripDetailByTripId" })
@@ -454,7 +453,7 @@ public class TripControllers {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 
 	}
 
@@ -478,7 +477,7 @@ public class TripControllers {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 
 	}
 
@@ -554,8 +553,7 @@ public class TripControllers {
 							.findByVehicleNumberAndVendorTripStatusAndVendorCode(columnValue,
 									GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED, vendorCode);
 					List<TripDetailsDto> filterByRoute = getListByDateFilter.stream().map(
-							filterInRoot -> this.serviceManager.modelMapper
-									.map(filterInRoot, TripDetailsDto.class))
+							filterInRoot -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
 							.collect(Collectors.toList());
 					data.setData(filterByRoute);
 				}
@@ -567,7 +565,7 @@ public class TripControllers {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@GetMapping({ "multipleTripApproved" })
@@ -590,6 +588,6 @@ public class TripControllers {
 			data.setData(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 }

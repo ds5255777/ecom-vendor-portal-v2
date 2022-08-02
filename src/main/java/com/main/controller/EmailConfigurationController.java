@@ -39,10 +39,10 @@ import com.main.servicemanager.ServiceManager;
 public class EmailConfigurationController {
 
 	@Autowired
-	ServiceManager serviceManager;
+	private ServiceManager serviceManager;
 
 	@Value("${registrationLink}")
-	public String registrationLink;
+	private String registrationLink;
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(EmailConfigurationController.class);
@@ -67,7 +67,7 @@ public class EmailConfigurationController {
 
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getEmailCofigurationDataById" })
@@ -94,7 +94,7 @@ public class EmailConfigurationController {
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getEmailCofigurationDataByStatus" })
@@ -118,7 +118,7 @@ public class EmailConfigurationController {
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/updateEmailConfigurationSatatusByid" })
@@ -139,7 +139,7 @@ public class EmailConfigurationController {
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/sendEmailToVendor" })
@@ -201,7 +201,7 @@ public class EmailConfigurationController {
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getAllSentEmail" })
@@ -225,7 +225,7 @@ public class EmailConfigurationController {
 			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 
 }

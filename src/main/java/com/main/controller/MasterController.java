@@ -36,9 +36,9 @@ public class MasterController {
 	@PostMapping({ "/saveTripMaster" })
 	public String saveTripMaster(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
-		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information : ", dateTimeFormatter.format(LocalDateTime.now()));
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			AgreementMaster save = serviceManager.agreementMasterRepo
 					.save(this.serviceManager.modelMapper.map(masterDto, AgreementMaster.class));
@@ -55,11 +55,11 @@ public class MasterController {
 	public String getActiveMasterData(HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			List<AgreementMaster> allAgreementMasters = serviceManager.agreementMasterRepo.findAll();
 			List<AgreementMasterDTO> allAgreementMastersDto = allAgreementMasters.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, AgreementMasterDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, AgreementMasterDTO.class))
 					.collect(Collectors.toList());
 			data.setData(allAgreementMastersDto);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
@@ -74,7 +74,7 @@ public class MasterController {
 	public String getUserById(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			logger.info("hii master");
 			AgreementMaster agreementMaster = serviceManager.agreementMasterRepo.findById(masterDto.getId()).get();
@@ -92,7 +92,7 @@ public class MasterController {
 	public String saveUpdateMasterDetails(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			logger.info("in mster update");
 			serviceManager.agreementMasterRepo
@@ -110,7 +110,7 @@ public class MasterController {
 	public String deleteMaster(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			serviceManager.agreementMasterRepo.deleteById(masterDto.getId());
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);

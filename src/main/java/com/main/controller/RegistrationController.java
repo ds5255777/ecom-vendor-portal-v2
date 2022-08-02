@@ -42,7 +42,7 @@ public class RegistrationController {
 	public String getPendingRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
@@ -57,7 +57,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -66,7 +66,7 @@ public class RegistrationController {
 	public String getApprovedRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
@@ -81,7 +81,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -90,7 +90,7 @@ public class RegistrationController {
 	public String getRejectedRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
@@ -105,7 +105,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -114,7 +114,7 @@ public class RegistrationController {
 	public String getQueryRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
@@ -128,7 +128,7 @@ public class RegistrationController {
 			}
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -137,7 +137,7 @@ public class RegistrationController {
 	public String updateVendorRegistrationStatus(Principal principal, @RequestBody SupDetailsDTO objDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
@@ -151,7 +151,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -161,7 +161,7 @@ public class RegistrationController {
 	public String getAllApprovedVendor(Principal principal) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
@@ -177,7 +177,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -186,7 +186,7 @@ public class RegistrationController {
 	public String approveRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String vendorCode = "";
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
@@ -203,7 +203,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -212,7 +212,7 @@ public class RegistrationController {
 	public String rejectedRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
@@ -226,7 +226,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -235,7 +235,7 @@ public class RegistrationController {
 	public String getAllRequest(Principal principal) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
@@ -250,7 +250,7 @@ public class RegistrationController {
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error("error : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}

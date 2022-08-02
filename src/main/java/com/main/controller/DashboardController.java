@@ -48,7 +48,7 @@ public class DashboardController {
 	@PostMapping({ "getDashboardDetails" })
 	public String getDashBoardDetails(Principal principal, HttpSession session, HttpServletRequest request) {
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
@@ -87,7 +87,7 @@ public class DashboardController {
 			}
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		return gson.toJson(data).toString();
@@ -104,9 +104,9 @@ public class DashboardController {
 		String processedon = jsonObject.get("processedOn").toString();
 		String processedBy = jsonObject.getString("processedBy").toString();
 		String tripid = jsonObject.get("tripID").toString();
-		String AssigenedTo = jsonObject.get("AssigenedTo").toString();
-		String LumpSomeCheckBox = "";
-		String LumpSomeAmount = jsonObject.getString("LumpSomeAmount").toString();
+		String assigenedTo = jsonObject.get("AssigenedTo").toString();
+		String lumpSomeCheckBox = "";
+		String lumpSomeAmount = jsonObject.getString("LumpSomeAmount").toString();
 
 		String fs = jsonObject.getString("fs").toString();
 		String totalFreight = jsonObject.getString("totalFreight").toString();
@@ -116,20 +116,20 @@ public class DashboardController {
 		String vendorCode = jsonObject.getString("vendorCode").toString();
 		String type = jsonObject.getString("type").toString();
 
-		if ("".equalsIgnoreCase(LumpSomeAmount)) {
-			LumpSomeCheckBox = "false";
+		if ("".equalsIgnoreCase(lumpSomeAmount)) {
+			lumpSomeCheckBox = "false";
 		} else {
-			LumpSomeCheckBox = "true";
+			lumpSomeCheckBox = "true";
 		}
 
-		if ("".equalsIgnoreCase(LumpSomeAmount)) {
-			LumpSomeAmount = "0";
+		if ("".equalsIgnoreCase(lumpSomeAmount)) {
+			lumpSomeAmount = "0";
 		}
 
-		String Query = jsonObject.getString("Query").toString();
-		if ("No".equalsIgnoreCase(Query)) {
-			serviceManager.tripDetailsRepo.updateDetailsByNetwork(AssigenedTo, tripid, processedBy, processedon,
-					LumpSomeCheckBox, LumpSomeAmount, "Yet To Be Approved", Double.parseDouble(basicFreight),
+		String query = jsonObject.getString("Query").toString();
+		if ("No".equalsIgnoreCase(query)) {
+			serviceManager.tripDetailsRepo.updateDetailsByNetwork(assigenedTo, tripid, processedBy, processedon,
+					lumpSomeCheckBox, lumpSomeAmount, "Yet To Be Approved", Double.parseDouble(basicFreight),
 					Double.parseDouble(totalFreight), Double.parseDouble(fs), vendorName, vendorCode);
 		} else {
 			String standardKM = jsonObject.getString("standardKM").toString();
@@ -142,17 +142,17 @@ public class DashboardController {
 
 			try {
 				serviceManager.tripDetailsRepo.updateDetailsByNetworkInQuery(tripid, processedBy, processedon,
-						LumpSomeCheckBox, LumpSomeAmount, Double.parseDouble(standardKM), Double.parseDouble(milage),
+						lumpSomeCheckBox, lumpSomeAmount, Double.parseDouble(standardKM), Double.parseDouble(milage),
 						Double.parseDouble(ratePerKm), Double.parseDouble(routeKms), Double.parseDouble(fsBaseRate),
 						Double.parseDouble(currentFuelRate), Double.parseDouble(fsDiff),
 						Double.parseDouble(basicFreight), Double.parseDouble(totalFreight), Double.parseDouble(fs),
 						vendorName, vendorCode);
-			} catch (Exception ex) {
-				logger.error("error : " + ex);
+			} catch (Exception e) {
+				logger.error(GlobalConstants.ERROR_MESSAGE, e);
 			}
 		}
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		DataContainer data = new DataContainer();
 		data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
@@ -162,15 +162,15 @@ public class DashboardController {
 		try {
 			Date date = new Date();
 			comm.setRaisedOn(date);
-		} catch (Exception ex) {
-			logger.error("error : " + ex);
+		} catch (Exception e) {
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 		TripDetails obj = serviceManager.tripDetailsRepo.findByTripID(tripid);
 		int id = obj.getId();
 
 		comm.setRaisedAgainQuery(tripid);
-		if ("Yes".equalsIgnoreCase(Query)) {
+		if ("Yes".equalsIgnoreCase(query)) {
 			comm.setComment("Values Repopulated from MDM");
 		} else {
 			comm.setComment(commentsByUSer);
@@ -189,28 +189,28 @@ public class DashboardController {
 	@PostMapping({ "getFinanceDashBoardDetails" })
 	public String getFinanceDashBoardDetails(HttpSession session, HttpServletRequest request) {
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String rolename = (String) request.getSession().getAttribute("role");
 
 		try {
 			if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(rolename)) {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getTopFiftyInvoice();
-				List<InvoiceGenerationDto> listOfTopFiftyInvoice = allInvoice.stream().map(
-						(listofTrip) -> this.serviceManager.modelMapper.map(listofTrip, InvoiceGenerationDto.class))
+				List<InvoiceGenerationDto> listOfTopFiftyInvoice = allInvoice.stream()
+						.map(listofTrip -> this.serviceManager.modelMapper.map(listofTrip, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 				data.setData(listOfTopFiftyInvoice);
 			} else if (GlobalConstants.ROLE_FINANCE.equalsIgnoreCase(rolename)) {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceGenerationEntityRepo
 						.topFiftyInProcessedInvoice();
-				List<InvoiceGenerationDto> listOfTopFiftyInvoice = allInvoice.stream().map(
-						(listofTrip) -> this.serviceManager.modelMapper.map(listofTrip, InvoiceGenerationDto.class))
+				List<InvoiceGenerationDto> listOfTopFiftyInvoice = allInvoice.stream()
+						.map(listofTrip -> this.serviceManager.modelMapper.map(listofTrip, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 				data.setData(listOfTopFiftyInvoice);
 			}
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 		}
 
@@ -220,7 +220,7 @@ public class DashboardController {
 	@PostMapping({ "refreshValues" })
 	public String refreshValues(Principal principal, @RequestBody String reqObj) {
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			JSONObject jsonObject = new JSONObject(reqObj);
 			String vendorCode = (String) jsonObject.get("vendorCode");//
@@ -231,7 +231,7 @@ public class DashboardController {
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 		}
 
@@ -241,15 +241,15 @@ public class DashboardController {
 	@PostMapping({ "getBpCodeForNetwork" })
 	public String getBpCodeForNetwork(Principal principal, @RequestBody String reqObj) {
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			JSONObject jsonObject = new JSONObject(reqObj);
-			String vendorName = (String) jsonObject.get("vendorName");//
+			String vendorName = (String) jsonObject.get("vendorName");
 			data.setData(serviceManager.supDetailsRepo.getVendorCode(vendorName));
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 		}
 

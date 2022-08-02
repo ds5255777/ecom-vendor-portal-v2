@@ -63,7 +63,7 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String vendorCode = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(vendorCode);
 		try {
@@ -94,7 +94,7 @@ public class InvoiceController {
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(vendorCode);
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
@@ -120,7 +120,7 @@ public class InvoiceController {
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(vendorCode);
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 				List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
@@ -147,7 +147,7 @@ public class InvoiceController {
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(vendorCode);
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
@@ -181,7 +181,7 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String vendorCode = principal.getName();
 		try {
 			List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
@@ -206,7 +206,7 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String vendorCode = principal.getName();
 		try {
 			List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
@@ -230,7 +230,7 @@ public class InvoiceController {
 	public String saveInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationDto invoiceDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 
 		try {
 			String filePath = filepath + File.separator + invoiceDto.getEcomInvoiceNumber();
@@ -371,7 +371,7 @@ public class InvoiceController {
 	public String updateInvoice(HttpServletRequest request, @RequestBody InvoiceQueryDto obj) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String rolename = (String) request.getSession().getAttribute("role");
 		try {
 			String filePath = filepath + File.separator + obj.getEcomInvoiceNumber();
@@ -518,7 +518,7 @@ public class InvoiceController {
 	public String getSelectInvoiceDetails(Principal principal, @RequestBody InvoiceGenerationDto invoiceObj) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String invoiceNumber = invoiceObj.getEcomInvoiceNumber();
 		String vendorCode = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(vendorCode);
@@ -553,7 +553,7 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			List<InvoiceGenerationEntity> draftInvoice = serviceManager.invoiceGenerationEntityRepo
 					.getDraftInvoice(vendorCode);
@@ -577,7 +577,7 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			Long id = obj.getId();
@@ -601,7 +601,7 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			String tripID = obj.getTripID();
@@ -623,7 +623,7 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			String invoiceNumber = obj.getEcomInvoiceNumber();
@@ -647,7 +647,7 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 		String vendorCode = principal.getName();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			List<PoInvoiceDetails> queryInvoice = serviceManager.poinvoiceRepo.getAllQueryInvoiceVendorPo(vendorCode);
 
@@ -670,7 +670,7 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			String invoiceNumber = serviceManager.invoiceGenerationEntityRepo
 					.checkForExistingInvoiceNumber(obj.getVendorCode(), obj.getInvoiceNumber());
@@ -694,7 +694,7 @@ public class InvoiceController {
 			HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String vendorCode = principal.getName();
 
 		try {
@@ -719,7 +719,7 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			String tripID = obj.getTripID();
@@ -740,7 +740,7 @@ public class InvoiceController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			String tripID = obj.getTripID();

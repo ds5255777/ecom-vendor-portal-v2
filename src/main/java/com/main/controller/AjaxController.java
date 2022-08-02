@@ -65,7 +65,7 @@ public class AjaxController {
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		processID = "";
 		try {
 
@@ -550,7 +550,7 @@ public class AjaxController {
 			@RequestBody QueryEntityDTO entityDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			Integer getid = entityDto.getId();
 
@@ -574,13 +574,13 @@ public class AjaxController {
 	public String getVendorDetailByPid(HttpServletRequest request, @RequestBody SupDetailsDTO objDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String pid = objDto.getPid();
 		try {
 			List<SupDetails> supDetails = serviceManager.supDetailsRepo.findBypid(pid);
 
 			List<SupDetailsDTO> supDetailsToDTO = supDetails.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, SupDetailsDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, SupDetailsDTO.class))
 					.collect(Collectors.toList());
 			data.setData(supDetailsToDTO);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
@@ -595,7 +595,7 @@ public class AjaxController {
 	public String getRegistrationQueryData(HttpServletRequest request, @RequestBody QueryEntityDTO objDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 
 		try {
 
@@ -603,7 +603,7 @@ public class AjaxController {
 					.findByReferenceidAndTypeOrderByIdDesc(objDto.getReferenceid(), objDto.getType());
 
 			List<QueryEntityDTO> usersListDto = list.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, QueryEntityDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, QueryEntityDTO.class))
 					.collect(Collectors.toList());
 			data.setData(usersListDto);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
@@ -618,7 +618,7 @@ public class AjaxController {
 	public String getBpcode(@RequestParam("panNumber") String panNumber, @RequestParam("flag") String flag) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 
 		try {
 			String checkEmail = serviceManager.supDetailsRepo.checkPanNumber(panNumber, flag);

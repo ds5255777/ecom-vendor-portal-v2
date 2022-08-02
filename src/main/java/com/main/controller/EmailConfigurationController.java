@@ -53,7 +53,7 @@ public class EmailConfigurationController {
 
 		logger.info("Log Some Information : ", dateTimeFormatter.format(LocalDateTime.now()));
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			serviceManager.emailConfigurationRepository
@@ -76,7 +76,7 @@ public class EmailConfigurationController {
 			@RequestBody EmailConfigurationDTO entityDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			Optional<EmailConfiguration> email = serviceManager.emailConfigurationRepository
@@ -103,7 +103,7 @@ public class EmailConfigurationController {
 			@RequestBody EmailConfigurationDTO entityDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
@@ -127,7 +127,7 @@ public class EmailConfigurationController {
 			@RequestBody EmailConfigurationDTO entityDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			serviceManager.emailConfigurationRepository.updateEmailConfigurationSatatusByid(entityDto.getIsActive(),
@@ -147,7 +147,7 @@ public class EmailConfigurationController {
 			@RequestBody SendEmailToVendorDTO entityDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 
 		try {
 			final Random rand = SecureRandom.getInstanceStrong();
@@ -169,7 +169,7 @@ public class EmailConfigurationController {
 					+ Base64.getEncoder().encodeToString(entityDto.getVendorAddress().getBytes()) + "&processBy="
 					+ Base64.getEncoder().encodeToString(entityDto.getProcessBy().getBytes()) + "&processByEmailId="
 					+ Base64.getEncoder().encodeToString(introducerEmail.getBytes()) + "&flag=" + randInt;
-			String newmailLink = maillink.replaceAll(" ", "%20");
+			String newmailLink = maillink.replace(" ", "%20");
 
 			String message = "<b>Dear Vendor,</b><br><br>";
 			message += "<i> Request you to please click on below link and register yourself!</i><br>";
@@ -209,7 +209,7 @@ public class EmailConfigurationController {
 			@RequestBody SendEmailToVendorDTO entityDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			List<SendEmailToVendor> emailList = serviceManager.sendEmailToVendorRepo

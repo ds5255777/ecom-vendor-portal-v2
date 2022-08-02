@@ -50,7 +50,7 @@ public class PoController {
 		logger.info("Log Some Information : ", dateTimeFormatter.format(LocalDateTime.now()));
 		String vendorCode = principal.getName();
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			List<PoDetails> allPoDetails = serviceManager.podetailsRepo.findByVendorCode(vendorCode);
@@ -71,7 +71,7 @@ public class PoController {
 	public String poDetailsByPoNo(HttpServletRequest request, @RequestBody PoDetailsDTO detailsDto) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			PoDetails details = new PoDetails();
 			details = serviceManager.podetailsRepo.findByPoNo(detailsDto.getPoNo());
@@ -92,7 +92,7 @@ public class PoController {
 	public String getAllProcessPo(HttpServletRequest request, Principal principal) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			String vendorCode = principal.getName();
 			List<PoDetails> details = serviceManager.podetailsRepo.getAllProcessPo(vendorCode);
@@ -104,7 +104,7 @@ public class PoController {
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error("error in getAllProcessPo method : " + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 
 		}
 
@@ -115,7 +115,7 @@ public class PoController {
 	public String getAllUnProcessPo(HttpServletRequest request, Principal principal) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			String vendorCode = principal.getName();
 			List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
@@ -139,7 +139,7 @@ public class PoController {
 	public String getAllInvoiceDetails(HttpServletRequest request, Principal principal) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			String vendorCode = principal.getName();
@@ -176,7 +176,7 @@ public class PoController {
 	public String getSelectInvoiceDetailsPo(HttpServletRequest request, Principal principal,
 			@RequestBody PoInvoiceDetailsDTO detailsDto) {
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			String vendorCode = principal.getName();
 
@@ -214,7 +214,7 @@ public class PoController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			String vendorCode = principal.getName();
 
@@ -241,7 +241,7 @@ public class PoController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			List<PoLineDetails> poInvoiceDetails = serviceManager.poLineItemRepo
@@ -268,7 +268,7 @@ public class PoController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			String raisedBy = principal.getName();
 
@@ -295,7 +295,7 @@ public class PoController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			String raisedBy = principal.getName();
@@ -324,7 +324,7 @@ public class PoController {
 			@RequestParam(name = "actualDeparture") Date fromDate, @RequestParam(name = "actualArrival") Date toDate) {
 
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		logger.info("fromDate : ", fromDate, " toDate : ", toDate);
 		String vendorCode = principal.getName();
 		try {
@@ -350,7 +350,7 @@ public class PoController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			String processBy = principal.getName();
 			Date proceessOn = new Date();
@@ -386,7 +386,7 @@ public class PoController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			logger.info("getRemaningQuatity" , details.getRemaningQuatity() , "id" , details.getId());
@@ -419,7 +419,7 @@ public class PoController {
 
 		DataContainer data = new DataContainer();
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
 			String getRemaningQuatity = serviceManager.podetailsRepo.getCurrentRemaningQty(details.getPoLineId());

@@ -1,7 +1,6 @@
 package com.main.controller;
 
 import java.security.Principal;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class UserController {
 
 	public String saveUpdateUserDetails(HttpServletRequest request, @RequestBody UserDTO userDto) {
 
-		logger.info("Log Some Information : {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information : {} ");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -85,7 +84,7 @@ public class UserController {
 
 	public String getActiveUsersData(HttpServletRequest request) {
 
-		logger.info("Log Some Information getActiveUsersData {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information getActiveUsersData {} ");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -161,7 +160,7 @@ public class UserController {
 	@PostMapping({ "/checkForExistingUserName" })
 	public String checkForExistingUserName(Principal principal, @RequestBody UserDTO userDto) {
 
-		logger.info("Log Some Information checkForExistingUserName {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information checkForExistingUserName {} ");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -196,7 +195,7 @@ public class UserController {
 
 	public String getUserByRole(@RequestBody UserDTO userDto) {
 
-		logger.info("Log Some Information getUserByRole {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information getUserByRole {} ");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -220,7 +219,7 @@ public class UserController {
 	@PostMapping({ "/changePassword" })
 	public String changePassword(Principal principal, @RequestParam(name = "password") String password) {
 
-		logger.info("Log Some Information changePassword {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information changePassword {} ");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -243,7 +242,7 @@ public class UserController {
 	@PostMapping({ "/getActiveVendorData" })
 	public String getActiveVendor(HttpServletRequest request) {
 
-		logger.info("Log Some Information getActiveVendorData {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information getActiveVendorData {} ");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -298,7 +297,7 @@ public class UserController {
 
 	public String getVendorById(HttpServletRequest request, @RequestBody SupDetailsDTO details) {
 
-		logger.info("Log Some Information getVendorById {}", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information getVendorById {}");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -321,7 +320,7 @@ public class UserController {
 
 	public String setStatusOfVendorByBpCode(HttpServletRequest request, @RequestBody UserDTO user) {
 
-		logger.info("Log Some Information setStatusOfVendorByBpCode {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information setStatusOfVendorByBpCode {} ");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -347,7 +346,7 @@ public class UserController {
 
 	public String getAllVendorStatus(HttpServletRequest request, @RequestBody UserDTO userDto) {
 
-		logger.info("Log Some Information getAllVendorStatus {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information getAllVendorStatus {} ");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -379,7 +378,7 @@ public class UserController {
 
 	public String activeVendor(HttpServletRequest request, @RequestBody UserDTO details) {
 
-		logger.info("Log Some Information activeVendor {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information activeVendor {} ");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();

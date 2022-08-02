@@ -116,7 +116,7 @@ public class UIController {
 		try {
 			pid = request.getParameter("pid");
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		if ("".equalsIgnoreCase(pid)) {
@@ -791,7 +791,7 @@ public class UIController {
 			invoiceSave.setInvoiceStatus("Draft-Invoicing");
 			serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
 		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber, userName);
@@ -926,15 +926,12 @@ public class UIController {
 	void getDoc(HttpServletResponse response, HttpServletRequest request, @RequestParam("name") String name,
 			@RequestParam("path") String path) throws IOException {
 
-		File file = null;
-		FileInputStream inputStream = null;
-		try {
+		File file = new File(path);
+		try (FileInputStream inputStream = new FileInputStream(file)) {
 			String[] docNameExtensionArray = name.split("\\.");
 			String docNameExtension = docNameExtensionArray[docNameExtensionArray.length - 1];
 			String uri = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/";
 
-			file = new File(path);
-			inputStream = new FileInputStream(file);
 			response.setContentType("application/" + docNameExtension);
 
 			response.setContentLength((int) file.length());
@@ -944,9 +941,7 @@ public class UIController {
 			inputStream.close();
 
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
-		} finally {
-			inputStream.close();
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 	}
 

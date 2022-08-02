@@ -3,7 +3,6 @@ package com.main.controller;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,7 +54,7 @@ public class TripControllers {
 	public String filterTripDetails(Principal principal, @RequestParam(name = "actualDeparture") String fromDate,
 			@RequestParam(name = "actualArrival") String toDate, @RequestParam(name = "vendorCode") String vendorCode) {
 
-		logger.info("Log Some Information filterTripDetails {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information filterTripDetails {} ");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
@@ -488,7 +487,7 @@ public class TripControllers {
 			@RequestParam(name = "tripStatus") String tripStatus,
 			@RequestParam(name = "vendorCode") String vendorCode) {
 
-		logger.info("Log Some Information filterByColumn {} ", dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information filterByColumn {} ");
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();

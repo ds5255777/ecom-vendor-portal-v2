@@ -96,9 +96,6 @@ public class ServiceManager {
 	@Autowired
 	public PaymentTermRepo paymentTermRepo;
 
-	/*
-	 * @Autowired public NatureOfTransactionRepo natureOfTransactionRepo;
-	 */
 	@Autowired
 	public CountryRepo countryRepo;
 

@@ -43,10 +43,10 @@ public class MasterController {
 			AgreementMaster save = serviceManager.agreementMasterRepo
 					.save(this.serviceManager.modelMapper.map(masterDto, AgreementMaster.class));
 			data.setData(this.serviceManager.modelMapper.map(save, AgreementMasterDTO.class));
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -62,11 +62,10 @@ public class MasterController {
 					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, AgreementMasterDTO.class))
 					.collect(Collectors.toList());
 			data.setData(allAgreementMastersDto);
-			data.setMsg("success");
-			logger.info("end of getActiveMasterData" + allAgreementMastersDto);
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -80,10 +79,10 @@ public class MasterController {
 			logger.info("hii master");
 			AgreementMaster agreementMaster = serviceManager.agreementMasterRepo.findById(masterDto.getId()).get();
 			data.setData(this.serviceManager.modelMapper.map(agreementMaster, AgreementMasterDTO.class));
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
 		return gson.toJson(data).toString();
@@ -98,10 +97,10 @@ public class MasterController {
 			logger.info("in mster update");
 			serviceManager.agreementMasterRepo
 					.save(this.serviceManager.modelMapper.map(masterDto, AgreementMaster.class));
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
 		return gson.toJson(data).toString();
@@ -114,10 +113,10 @@ public class MasterController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			serviceManager.agreementMasterRepo.deleteById(masterDto.getId());
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}

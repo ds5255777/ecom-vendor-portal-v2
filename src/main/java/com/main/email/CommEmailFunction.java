@@ -13,12 +13,11 @@ import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.main.controller.SchedularController;
-
 public class CommEmailFunction {
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	private static Logger logger = LoggerFactory.getLogger(SchedularController.class);
+	private static Logger logger = LoggerFactory.getLogger(CommEmailFunction.class);
+
 	public static void sendEmail(String commaSeparatedEamilName, String subject, String content, String smtpPort,
 			String username, String password, String host) {
 

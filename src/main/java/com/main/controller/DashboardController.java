@@ -83,11 +83,11 @@ public class DashboardController {
 				}
 
 				data.setData(invoice);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 
 		return gson.toJson(data).toString();
@@ -154,7 +154,7 @@ public class DashboardController {
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		DataContainer data = new DataContainer();
-		data.setMsg("success");
+		data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		QueryEntity comm = new QueryEntity();
 		comm.setRaisedBy(userName);
@@ -207,11 +207,11 @@ public class DashboardController {
 						.collect(Collectors.toList());
 				data.setData(listOfTopFiftyInvoice);
 			}
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
-			data.setMsg("error");
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 		}
 
 		return gson.toJson(data).toString();
@@ -228,11 +228,11 @@ public class DashboardController {
 
 			AgreementMaster masterData = serviceManager.agreementMasterRepo.getAllTripsByVendorCode(vendorCode, route);
 			data.setData(masterData);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
-			data.setMsg("error");
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 		}
 
 		return gson.toJson(data).toString();
@@ -246,11 +246,11 @@ public class DashboardController {
 			JSONObject jsonObject = new JSONObject(reqObj);
 			String vendorName = (String) jsonObject.get("vendorName");//
 			data.setData(serviceManager.supDetailsRepo.getVendorCode(vendorName));
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
-			data.setMsg("error");
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 		}
 
 		return gson.toJson(data).toString();

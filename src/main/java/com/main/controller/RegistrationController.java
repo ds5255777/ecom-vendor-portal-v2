@@ -51,12 +51,12 @@ public class RegistrationController {
 
 				List<Object[]> users = serviceManager.supDetailsRepo
 						.findByPendingVenStatus(GlobalConstants.PENDING_REQUEST_STATUS);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 				data.setData(users);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
@@ -75,12 +75,12 @@ public class RegistrationController {
 
 				List<Object[]> users = serviceManager.supDetailsRepo
 						.findByPendingVenStatus(GlobalConstants.APPROVED_REQUEST_STATUS);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 				data.setData(users);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
@@ -99,12 +99,12 @@ public class RegistrationController {
 
 				List<Object[]> users = serviceManager.supDetailsRepo
 						.findByPendingVenStatus(GlobalConstants.REJECTED_REQUEST_STATUS);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 				data.setData(users);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
@@ -123,11 +123,11 @@ public class RegistrationController {
 
 				List<Object[]> users = serviceManager.supDetailsRepo
 						.findByPendingVenStatus(GlobalConstants.QUERY_REQUEST_STATUS);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 				data.setData(users);
 			}
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
@@ -146,11 +146,11 @@ public class RegistrationController {
 
 				SupDetails obj = serviceManager.supDetailsRepo.findByPid(objDto.getPid());
 				data.setData(this.serviceManager.modelMapper.map(obj, SupDetailsDTO.class));
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
@@ -172,11 +172,11 @@ public class RegistrationController {
 				List<SupDetails> approvedVendor = serviceManager.supDetailsRepo
 						.findByVenStatus(GlobalConstants.APPROVED_REQUEST_STATUS);
 				data.setData(approvedVendor);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
@@ -198,11 +198,11 @@ public class RegistrationController {
 
 				serviceManager.supDetailsRepo.approveRequestByPid(vendorCode, supDetailsDto.getPid(),
 						GlobalConstants.APPROVED_REQUEST_STATUS);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
@@ -221,11 +221,11 @@ public class RegistrationController {
 
 				serviceManager.supDetailsRepo.approveRequestByPid(supDetailsDto.getPid(),
 						GlobalConstants.REJECTED_REQUEST_STATUS);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();
@@ -245,11 +245,11 @@ public class RegistrationController {
 
 				List<SupDetails> findAll = serviceManager.supDetailsRepo.findAll();
 				data.setData(findAll);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error("error : " + e);
 		}
 		return gson.toJson(data).toString();

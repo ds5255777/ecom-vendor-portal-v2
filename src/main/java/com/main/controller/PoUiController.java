@@ -37,8 +37,8 @@ public class PoUiController {
 	@Autowired
 	private ServiceManager serviceManager;
 
-	@GetMapping("/dashboard_Po")
-	public String dashboard_Po(Model model, Principal principal, HttpServletRequest request) {
+	@GetMapping("/dashboardPo")
+	public String dashboardPo(Model model, Principal principal, HttpServletRequest request) {
 
 		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
 		User us = serviceManager.userService.findByUsername(principal.getName());
@@ -54,7 +54,7 @@ public class PoUiController {
 		request.setAttribute("vendorType", vendorType);
 		model.addAttribute("vendorType", vendorType);
 
-		String vendorType1[] = vendorType.split(",");
+		String[] vendorType1 = vendorType.split(",");
 
 		if (vendorType1.length == 2 || vendorType.equalsIgnoreCase("Fixed Asset")
 				|| vendorType.equalsIgnoreCase("FIXED ASSETS")) {

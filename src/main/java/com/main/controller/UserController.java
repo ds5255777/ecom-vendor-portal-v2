@@ -43,7 +43,7 @@ public class UserController {
 
 	public String saveUpdateUserDetails(HttpServletRequest request, @RequestBody UserDTO userDto) {
 
-		logger.info("Log Some Information : " + dateTimeFormatter.format(LocalDateTime.now()));
+		logger.info("Log Some Information : ", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -73,12 +73,12 @@ public class UserController {
 
 			}
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
@@ -101,16 +101,16 @@ public class UserController {
 			userStatusList.add(GlobalConstants.INACTIVE_STATUS);
 			List<User> userList = serviceManager.userRepository.findByStatusIn(userStatusList);
 			List<UserDTO> usersList = userList.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, UserDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, UserDTO.class))
 					.collect(Collectors.toList());
 
 			data.setData(usersList);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
@@ -130,12 +130,12 @@ public class UserController {
 			User userObj = serviceManager.userRepository.findById(userDtoToEntity.getId()).orElseThrow(null);
 
 			data.setData(this.serviceManager.modelMapper.map(userObj, UserDTO.class));
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
@@ -150,12 +150,12 @@ public class UserController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 			serviceManager.userRepository.updateStatusByUserid(userDto.getStatus(), userDto.getId());
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
@@ -180,16 +180,16 @@ public class UserController {
 				String username = serviceManager.userRepository.checkForExistingUserName(userDto.getUsername());
 
 				if (null == username) {
-					data.setMsg("success");
+					data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 				} else {
 					data.setMsg("exist");
 				}
 			}
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
@@ -209,13 +209,12 @@ public class UserController {
 			List<User> users = serviceManager.userRepository.findByRoleIdAndStatus(userDto.getRoleId(),
 					GlobalConstants.ACTIVE_STATUS);
 
-			logger.info("" + users.size());
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			data.setData(this.serviceManager.modelMapper.map(users, UserDTO.class));
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
@@ -229,17 +228,16 @@ public class UserController {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		logger.info("Password is : " + password);
 		try {
 			User us = serviceManager.userService.findByUsername(principal.getName());
 			us.setPassword(password);
-			us.setStatus("1");
+			us.setStatus(GlobalConstants.ACTIVE_STATUS);
 			serviceManager.userService.save(us);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
@@ -289,12 +287,12 @@ public class UserController {
 			}
 
 			data.setData(sdtList);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			logger.info("end  to getActiveVendorData ");
 
 		} catch (Exception e) {
-			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
@@ -312,12 +310,12 @@ public class UserController {
 		try {
 			SupDetails supDetails = serviceManager.supDetailsRepo.findBybpCode(details.getBpCode());
 			data.setData(this.serviceManager.modelMapper.map(supDetails, SupDetailsDTO.class));
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			logger.info(" end to vendor details method");
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
@@ -338,12 +336,12 @@ public class UserController {
 			serviceManager.userRepository.updateFlagOfVendorByBpCode(GlobalConstants.SET_FLAG_IN_ACTIVE,
 					user.getBpCode());
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
@@ -365,17 +363,17 @@ public class UserController {
 			List<User> vendorListStatus = serviceManager.userRepository.getAllVendorStatus(bpCode);
 
 			List<UserDTO> usersList = vendorListStatus.stream()
-					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, UserDTO.class))
+					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, UserDTO.class))
 					.collect(Collectors.toList());
 
 			data.setData(usersList);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			logger.info("end  to getActiveVendorData ");
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 
@@ -396,13 +394,12 @@ public class UserController {
 			String status = details.getStatus();
 			serviceManager.userRepository.updateStatusOfVendorByBpCode(status, bpCode);
 
-			data.setMsg("success");
-			logger.info(" activeVendor status  : " + status);
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
-			data.setMsg("error");
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 
 		}
 

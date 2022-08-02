@@ -554,8 +554,8 @@
             function getInvoiceDataFormDataByInvoiceNumber(id,type) {
                 $('.loader').show();
 
-                var urlOftripsDetail = "invoiceView_Finance?id=" + id+"&type="+type;
-                window.open(urlOftripsDetail, "invoiceView_Finance", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
+                var urlOftripsDetail = "invoiceViewFinance?id=" + id+"&type="+type;
+                window.open(urlOftripsDetail, "invoiceViewFinance", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
                 $('.loader').hide();
             }
 

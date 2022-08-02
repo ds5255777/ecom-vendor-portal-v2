@@ -2,6 +2,8 @@ package com.main.service;
 
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.repo.TripDetailsRepo;
+
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,14 +50,14 @@ public class TripServiceImpl implements TripService {
 		}
 		if (!"".equalsIgnoreCase(runStatus) && !"".equalsIgnoreCase(vendorTripStatus)
 				&& "".equalsIgnoreCase(paymentStatus) && !"".equalsIgnoreCase(vendorCode)) {
-			return tripDetailsRepo.getTripsByFiltersRunStatus_VendorTripStatus(runStatus, vendorTripStatus, vendorCode);
+			return tripDetailsRepo.getTripsByFiltersRunStatusVendorTripStatus(runStatus, vendorTripStatus, vendorCode);
 		}
 		if (!"".equalsIgnoreCase(runStatus) && !"".equalsIgnoreCase(vendorTripStatus)
 				&& !"".equalsIgnoreCase(paymentStatus) && !"".equalsIgnoreCase(vendorCode)) {
-			return tripDetailsRepo.getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus(runStatus,
+			return tripDetailsRepo.getTripsByFiltersRunStatusVendorTripStatuspaymentStatus(runStatus,
 					vendorTripStatus, paymentStatus, vendorCode);
 		}
-		return null;
+		return Collections.emptyList();
 	}
 
 	@Override
@@ -64,17 +66,17 @@ public class TripServiceImpl implements TripService {
 	}
 
 	@Override
-	public List<TripDetails> getTripsByFiltersNetwork(String runStatus, String vendorTripStatus, String PaymentStatus) {
+	public List<TripDetails> getTripsByFiltersNetwork(String runStatus, String vendorTripStatus, String paymentStatus) {
 
 		if (!"".equalsIgnoreCase(runStatus) && "".equalsIgnoreCase(vendorTripStatus)
-				&& "".equalsIgnoreCase(PaymentStatus)) {
+				&& "".equalsIgnoreCase(paymentStatus)) {
 			return tripDetailsRepo.getTripsByFiltersVendorRunStatus(runStatus);
 		} else if (!"".equalsIgnoreCase(runStatus) && !"".equalsIgnoreCase(vendorTripStatus)
-				&& "".equalsIgnoreCase(PaymentStatus)) {
-			return tripDetailsRepo.getTripsByFiltersRunStatus_VendorTripStatus(runStatus, vendorTripStatus);
+				&& "".equalsIgnoreCase(paymentStatus)) {
+			return tripDetailsRepo.getTripsByFiltersRunStatusVendorTripStatus(runStatus, vendorTripStatus);
 		} else {
-			return tripDetailsRepo.getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus(runStatus,
-					vendorTripStatus, PaymentStatus);
+			return tripDetailsRepo.getTripsByFiltersRunStatusVEndorTripStatuspaymentStatus(runStatus,
+					vendorTripStatus, paymentStatus);
 		}
 	}
 

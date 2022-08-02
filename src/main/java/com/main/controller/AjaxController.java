@@ -60,13 +60,12 @@ public class AjaxController {
 
 	@PostMapping("/SaveRegistration")
 	@Transactional
-	public String SaveRegistration(@RequestBody SupDetailsDTO supDetailsDto, HttpServletRequest request) {
+	public String saveRegistration(@RequestBody SupDetailsDTO supDetailsDto, HttpServletRequest request) {
 
 		logger.info("Log Some Information", dateTimeFormatter.format(LocalDateTime.now()));
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		String contents = "";
 		processID = "";
 		try {
 
@@ -90,7 +89,7 @@ public class AjaxController {
 				processID = GlobalConstants.VENDOR_PID_PREFIX + id + GlobalConstants.VENDOR_PID_SUFFIX;
 				serviceManager.detailsRepo.updatePidInSupDetails(id, processID);
 				data.setData(processID);
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} else {
 
 				if (supDetailsDto.getVenStatus().equals(GlobalConstants.APPROVED_REQUEST_STATUS)) {
@@ -113,14 +112,14 @@ public class AjaxController {
 					serviceManager.detailsRepo
 							.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 					data.setData(processID);
-					data.setMsg("success");
+					data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 				} else if (supDetailsDto.getVenStatus().equals(GlobalConstants.UPDATE_VENDOR)) {
 					supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
 
 					serviceManager.detailsRepo
 							.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 					data.setData(processID);
-					data.setMsg("success");
+					data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 				}
 			}
 
@@ -138,7 +137,6 @@ public class AjaxController {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 			String currentDateTimeString = sdf.format(new Date());
 			File file = new File(logFilePath + File.separator + currentDateTimeString + ".txt");
-			contents = "Current Date is-" + currentDateTimeString + "\n";
 			JSONArray array = new JSONArray();
 			JSONObject DocumentObj = new JSONObject();
 			String[] documentExtensionArray = null;
@@ -170,7 +168,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 			if (null != supDetailsDto.getPdFileName()) {
@@ -198,7 +196,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 			if (null != supDetailsDto.getPANFileName()) {
@@ -226,7 +224,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 			if (null != supDetailsDto.getCcFileName()) {
@@ -254,7 +252,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 			if (null != supDetailsDto.getAcFileName()) {
@@ -282,7 +280,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 			if (null != supDetailsDto.getAplFileName()) {
@@ -310,7 +308,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 			// ITR filling declaration
@@ -338,7 +336,7 @@ public class AjaxController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 			if (null != supDetailsDto.getFuvfFileName()) {
@@ -366,7 +364,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 			if (null != supDetailsDto.getMsmecFileName()) {
@@ -394,7 +392,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 			if (null != supDetailsDto.getAmFileName()) {
@@ -422,7 +420,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 			if (null != supDetailsDto.getItraFileName1()) {
@@ -450,7 +448,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 			if (null != supDetailsDto.getItraFileName2()) {
@@ -478,7 +476,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 			if (null != supDetailsDto.getItraFileName3()) {
@@ -506,7 +504,7 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 			if (null != supDetailsDto.getNmisFileName()) {
@@ -535,14 +533,14 @@ public class AjaxController {
 
 					fos.write(decoder);
 				} catch (Exception e) {
-					logger.error(GlobalConstants.ERROR_MESSAGE + e);
+					logger.error(GlobalConstants.ERROR_MESSAGE , e);
 				}
 			}
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			data.setData(e.toString());
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -563,11 +561,11 @@ public class AjaxController {
 				entityDto.setReferenceid(entityDto.getRaisedAgainQuery());
 				serviceManager.queryRepo.save(this.serviceManager.modelMapper.map(entityDto, QueryEntity.class));
 			}
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -585,10 +583,10 @@ public class AjaxController {
 					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, SupDetailsDTO.class))
 					.collect(Collectors.toList());
 			data.setData(supDetailsToDTO);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -608,10 +606,10 @@ public class AjaxController {
 					.map((listOfUser) -> this.serviceManager.modelMapper.map(listOfUser, QueryEntityDTO.class))
 					.collect(Collectors.toList());
 			data.setData(usersListDto);
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE + e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}
@@ -625,14 +623,14 @@ public class AjaxController {
 		try {
 			String checkEmail = serviceManager.supDetailsRepo.checkPanNumber(panNumber, flag);
 			if (null == checkEmail) {
-				data.setMsg("success");
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} else {
 				data.setMsg("exist");
 			}
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE,e);
+			logger.error(GlobalConstants.ERROR_MESSAGE , e);
 		}
 		return gson.toJson(data).toString();
 	}

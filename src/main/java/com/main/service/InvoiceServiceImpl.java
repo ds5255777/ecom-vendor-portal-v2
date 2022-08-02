@@ -16,50 +16,42 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	@Override
 	public InvoiceGenerationEntity getInvoiceById(Long id) {
-		InvoiceGenerationEntity invoice = this.invoiceGenerationEntityRepo.findById(id).orElseThrow(null);
-		return invoice;
+		return this.invoiceGenerationEntityRepo.findById(id).orElseThrow(null);
 	}
 
 	@Override
 	public List<InvoiceGenerationEntity> getAllInvoice() {
-		List<InvoiceGenerationEntity> invoice = this.invoiceGenerationEntityRepo.getAllInvoiceByFinance();
-		return invoice;
+		return this.invoiceGenerationEntityRepo.getAllInvoiceByFinance();
 	}
 
 	@Override
 	public List<InvoiceGenerationEntity> getTopFiftyInvoice() {
-		List<InvoiceGenerationEntity> invoice = this.invoiceGenerationEntityRepo.topFiftyUnProcessedInvoice();
-		return invoice;
+		return this.invoiceGenerationEntityRepo.topFiftyUnProcessedInvoice();
 	}
 
 	@Override
 	public List<InvoiceGenerationEntity> getAllProcessInvoice() {
-		List<InvoiceGenerationEntity> invoice = this.invoiceGenerationEntityRepo.getAllProcessInvoice();
-		return invoice;
+		return this.invoiceGenerationEntityRepo.getAllProcessInvoice();
 	}
 
 	@Override
 	public List<InvoiceGenerationEntity> getAllUnProcessInvoice() {
-		List<InvoiceGenerationEntity> invoice = this.invoiceGenerationEntityRepo.getAllUnProcessInvoice();
-		return invoice;
+		return this.invoiceGenerationEntityRepo.getAllUnProcessInvoice();
 	}
 
 	@Override
 	public List<InvoiceGenerationEntity> getAllQueryInvoice() {
-		List<InvoiceGenerationEntity> invoice = this.invoiceGenerationEntityRepo.getAllQueryInvoice();
-		return invoice;
+		return this.invoiceGenerationEntityRepo.getAllQueryInvoice();
 	}
 
 	@Override
 	public List<InvoiceGenerationEntity> getAllInReviewInvoice() {
-		List<InvoiceGenerationEntity> invoice = this.invoiceGenerationEntityRepo.getAllInReviewInvoice();
-		return invoice;
+		return this.invoiceGenerationEntityRepo.getAllInReviewInvoice();
 	}
 
 	@Override
 	public List<InvoiceGenerationEntity> getPaymentReleaseInvoice() {
-		List<InvoiceGenerationEntity> invoice = this.invoiceGenerationEntityRepo.getPaymentReleaseInvoice();
-		return invoice;
+		return this.invoiceGenerationEntityRepo.getPaymentReleaseInvoice();
 	}
 
 	@Override

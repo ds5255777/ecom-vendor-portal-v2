@@ -54,8 +54,8 @@ public class TripServiceImpl implements TripService {
 		}
 		if (!"".equalsIgnoreCase(runStatus) && !"".equalsIgnoreCase(vendorTripStatus)
 				&& !"".equalsIgnoreCase(paymentStatus) && !"".equalsIgnoreCase(vendorCode)) {
-			return tripDetailsRepo.getTripsByFiltersRunStatusVendorTripStatuspaymentStatus(runStatus,
-					vendorTripStatus, paymentStatus, vendorCode);
+			return tripDetailsRepo.getTripsByFiltersRunStatusVendorTripStatuspaymentStatus(runStatus, vendorTripStatus,
+					paymentStatus, vendorCode);
 		}
 		return Collections.emptyList();
 	}
@@ -75,8 +75,7 @@ public class TripServiceImpl implements TripService {
 				&& "".equalsIgnoreCase(paymentStatus)) {
 			return tripDetailsRepo.getTripsByFiltersRunStatusVendorTripStatus(runStatus, vendorTripStatus);
 		} else {
-			return tripDetailsRepo.getTripsByFiltersRunStatusVEndorTripStatuspaymentStatus(runStatus,
-					vendorTripStatus, paymentStatus);
+			return tripDetailsRepo.getTripsByFiltes(runStatus, vendorTripStatus, paymentStatus);
 		}
 	}
 

@@ -450,12 +450,9 @@ public class AjaxController {
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String pid = objDto.getPid();
 		try {
-			List<SupDetails> supDetails = serviceManager.supDetailsRepo.findBypid(pid);
+			 SupDetails vendorPid = serviceManager.supDetailsRepo.findByPid(pid);
 
-			List<SupDetailsDTO> supDetailsToDTO = supDetails.stream()
-					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, SupDetailsDTO.class))
-					.collect(Collectors.toList());
-			data.setData(supDetailsToDTO);
+			data.setData(this.serviceManager.modelMapper.map(vendorPid, SupDetailsDTO.class));
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);

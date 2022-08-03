@@ -59,9 +59,8 @@ public class FinanceController {
 					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
 
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllInvoice();
-				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream()
-						.map(listOfInvoice -> this.serviceManager.modelMapper.map(listOfInvoice,
-								InvoiceGenerationDto.class))
+				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream().map(
+						listOfInvoice -> this.serviceManager.modelMapper.map(listOfInvoice, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 
 				data.setData(listofAllInvoice);
@@ -91,9 +90,8 @@ public class FinanceController {
 					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllProcessInvoice();
 
-				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream()
-						.map(listOfInvoice -> this.serviceManager.modelMapper.map(listOfInvoice,
-								InvoiceGenerationDto.class))
+				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream().map(
+						listOfInvoice -> this.serviceManager.modelMapper.map(listOfInvoice, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 
 				data.setData(listofAllInvoice);
@@ -120,9 +118,8 @@ public class FinanceController {
 			if (userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
 					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllUnProcessInvoice();
-				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream()
-						.map(listOfInvoice -> this.serviceManager.modelMapper.map(listOfInvoice,
-								InvoiceGenerationDto.class))
+				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream().map(
+						listOfInvoice -> this.serviceManager.modelMapper.map(listOfInvoice, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 
 				data.setData(listofAllInvoice);
@@ -149,9 +146,8 @@ public class FinanceController {
 			if (userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
 					|| userRole.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
 				List<InvoiceGenerationEntity> allInvoice = serviceManager.invoiceServiceImpl.getAllInReviewInvoice();
-				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream()
-						.map(listOfInvoice -> this.serviceManager.modelMapper.map(listOfInvoice,
-								InvoiceGenerationDto.class))
+				List<InvoiceGenerationDto> listofAllInvoice = allInvoice.stream().map(
+						listOfInvoice -> this.serviceManager.modelMapper.map(listOfInvoice, InvoiceGenerationDto.class))
 						.collect(Collectors.toList());
 
 				data.setData(listofAllInvoice);
@@ -249,12 +245,11 @@ public class FinanceController {
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String processedOn = dateFormat.format(date);
-		String emailType = "";
 		List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
 				.findByIsActive(GlobalConstants.ACTIVE_STATUS);
 		EmailConfiguration emailConfiguration = emailList.get(0);
 		String vendorEmail = (String) request.getSession().getAttribute("userEmail");
-		
+
 		String type = "";
 
 		try {
@@ -265,22 +260,18 @@ public class FinanceController {
 				if (GlobalConstants.ROLE_VENDOR.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_IN_REVIEW, GlobalConstants.ROLE_FINANCE, getid);
-					emailType = GlobalConstants.EMAIL_TYPE_VEN_INVOICE_UPDATE;
 					type = entity.getType();
 				} else if (GlobalConstants.ROLE_FINANCE.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_VENDOR, getid);
-					emailType = GlobalConstants.EMAIL_TYPE_FIN_TEM_INVOICE_QUERY;
 					type = entity.getType();
 				} else if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_FINANCE, getid);
-					emailType = GlobalConstants.EMAIL_TYPE_FIN_HED_INVOICE_QUERY;
 					type = entity.getType();
 				} else if (GlobalConstants.ROLE_NETWORK.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_VENDOR, getid);
-					emailType = GlobalConstants.EMAIL_TYPE_NET_TEM_INVOICE_QUERY;
 					type = entity.getType();
 				}
 
@@ -289,14 +280,12 @@ public class FinanceController {
 				if (GlobalConstants.ROLE_VENDOR.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateStatusByUserid(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_NETWORK, getid);
-					emailType = GlobalConstants.EMAIL_TYPE_VEN_TRIP_QUERY;
 					type = entity.getType();
 				}
 			} else if (GlobalConstants.SET_TYPE_REGISTRATION.equalsIgnoreCase(entity.getType())) {
 				entity.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 				if (GlobalConstants.ROLE_REGISTRATION_APPROVAL.equalsIgnoreCase(rolename)) {
 					serviceManager.supDetailsRepo.updateVendorStatus(GlobalConstants.QUERY_REQUEST_STATUS, getid);
-					emailType = GlobalConstants.EMAIL_TYPE_VEN_TRIP_QUERY;
 					type = entity.getType();
 				}
 			}

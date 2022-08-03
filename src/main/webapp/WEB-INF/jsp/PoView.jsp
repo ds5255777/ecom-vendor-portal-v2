@@ -46,12 +46,12 @@
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse text-sm" onunload="javascript:refreshParent(); window.close();">
-<jsp:include page="loader.jsp" />
+    <jsp:include page="loader.jsp" />
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;">
-			<h5 style=" color: white;">&nbsp;  PO Details</h5>
+            <h5 style=" color: white;">&nbsp; PO Details</h5>
             <ul class="navbar-nav ml-auto">
-                <li>    PO Number :  <input type="text" id="ecomInvoiceNumber" name="ecomInvoiceNumber" value="${poNumber}" readonly style="background: #007BFF; color: white; border: 0px;"></li>
+                <li> PO Number : <input type="text" id="ecomInvoiceNumber" name="ecomInvoiceNumber" value="${poNumber}" readonly style="background: #007BFF; color: white; border: 0px;"></li>
             </ul>
         </nav>
 
@@ -68,9 +68,9 @@
                             </div>
                         </div>
                         <div class="card-body">
-                             <form id="stepOneForm" class="forms-sample">
+                            <form id="stepOneForm" class="forms-sample">
                                 <div class="row">
-                                   
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">PO Number <span class="text-danger">*</span></label>
@@ -79,12 +79,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Supplier Site <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" readonly placeholder="Supplier Site " name="supplierSite" id="supplierSite"   style="width: 100%;">
+                                                <input class="form-control-sm" type="text" readonly placeholder="Supplier Site " name="supplierSite" id="supplierSite" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -92,45 +92,45 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Ship To<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="text" placeholder="Ship To" name="shipTo" id="shipTo"  readonly class="form-control-sm" style="width: 100%;">
+                                                <input type="text" placeholder="Ship To" name="shipTo" id="shipTo" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                     <div class="col-md-3">
+
+                                    <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Bill To <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="text" placeholder="Bill To" name="billTo" id="billTo"  readonly class="form-control-sm" style="width: 100%;">
+                                                <input type="text" placeholder="Bill To" name="billTo" id="billTo" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                 
-                                    
-                                   
+
+
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Buyer <span class="text-danger">*</span></label>
-                                           <div class="col-sm-7">
-                                                <input type="text" placeholder="Buyer" name="buyer" id="buyer"  readonly class="form-control-sm" style="width: 100%;">
+                                            <div class="col-sm-7">
+                                                <input type="text" placeholder="Buyer" name="buyer" id="buyer" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Currency <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                          <input class="form-control-sm" type="text" placeholder="Currency" readonly name="currency" id="currency"  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Currency" readonly name="currency" id="currency" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">UOM <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                          <input class="form-control-sm" type="text" placeholder="UOM" name="uom" id="uom" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="UOM" name="uom" id="uom" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -138,7 +138,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Quantity<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="text" class="form-control-sm" name="quantity" id="quantity"  placeholder="Quantity"readonly  style="width: 100%;">
+                                                <input type="text" class="form-control-sm" name="quantity" id="quantity" placeholder="Quantity" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -146,7 +146,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Need By Date<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="needByDate" id="needByDate" type="text" placeholder="Need By Date" readonly style="width: 100%;" >
+                                                <input class="form-control-sm" name="needByDate" id="needByDate" type="text" placeholder="Need By Date" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -154,7 +154,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Charge Account<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input type="text" class="form-control-sm" name="chargeAccount" id="chargeAccount" placeholder="Charge Account" readonly style="width: 100%;" >
+                                                <input type="text" class="form-control-sm" name="chargeAccount" id="chargeAccount" placeholder="Charge Account" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -166,39 +166,39 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Deliver To<span class="text-danger"> *</span></label>
-                                          <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" name="deliverTo" id="deliverTo" readonly placeholder="Deliver To"  style="width: 100%;">
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" name="deliverTo" id="deliverTo" readonly placeholder="Deliver To" style="width: 100%;">
                                             </div>
-                                            
-                                        </div>
-                                                                       
 
-                                </div>
+                                        </div>
+
+
+                                    </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    
+
                     <div class="card card-primary collapsed-card">
-                    <div class="card-header" style="padding: 5px 5px 0px 5px;">
+                        <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">PO Shipments</h4>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool"  data-card-widget="collapse" style="margin-right: 10px;">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
                         </div>
-                        
-                     <div class="card-body">
+
+                        <div class="card-body">
                             <form id="stepTwoForm" class="forms-sample">
-                            
-                            
-                          		   <div class="row">
-                                   
+
+
+                                <div class="row">
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Org <span class="text-danger">*</span></label>
@@ -207,12 +207,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">UOM <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="UOM" name="uom2" id="uom2"  readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="UOM" name="uom2" id="uom2" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -220,45 +220,45 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Ship To<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="text" placeholder="Ship To" name="shipTo2" id="shipTo2"  readonly class="form-control-sm" style="width: 100%;">
+                                                <input type="text" placeholder="Ship To" name="shipTo2" id="shipTo2" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                     <div class="col-md-3">
+
+                                    <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Quantity <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="text" placeholder="Quantity" name="quantity2" id="quantity2"  readonly class="form-control-sm" style="width: 100%;">
+                                                <input type="text" placeholder="Quantity" name="quantity2" id="quantity2" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                 
-                                    
-                                   
+
+
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Need By Date <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="text" placeholder="Need By Date" name="needByDate2" id="needByDate2"  readonly class="form-control-sm" style="width: 100%;">
+                                                <input type="text" placeholder="Need By Date" name="needByDate2" id="needByDate2" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Charge Account <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                      <input class="form-control-sm" type="text" placeholder="Charge Account" readonly="readonly" name="chargeAccount2" id="chargeAccount2"  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Charge Account" readonly="readonly" name="chargeAccount2" id="chargeAccount2" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Amount <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                     <input class="form-control-sm" type="text" placeholder="Amount" name="amount" id="amount" readonly style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Amount" name="amount" id="amount" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -266,7 +266,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Match Approval Level<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="text" class="form-control-sm" name="matchApprovalLevel" id="matchApprovalLevel"  placeholder="Match Approval Level" readonly  style="width: 100%;">
+                                                <input type="text" class="form-control-sm" name="matchApprovalLevel" id="matchApprovalLevel" placeholder="Match Approval Level" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -274,7 +274,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Match option<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="invoiceMatchoption" id="invoiceMatchoption" type="text" readonly placeholder="Invoice Match option" style="width: 100%;" >
+                                                <input class="form-control-sm" name="invoiceMatchoption" id="invoiceMatchoption" type="text" readonly placeholder="Invoice Match option" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -282,21 +282,21 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Accrue at Receipt flag<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
-                                                <input type="text" class="form-control-sm" name="accrueatReceiptflag" id="accrueatReceiptflag" readonly placeholder="Accrue at Receipt flag" style="width: 100%;" >
+                                                <input type="text" class="form-control-sm" name="accrueatReceiptflag" id="accrueatReceiptflag" readonly placeholder="Accrue at Receipt flag" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                             
-                                </div>					
-                          			
-                          							
-                          		 </form>
-                          </div>
-                          </div>
-                    
-                    
-                     <div class="card card-primary collapsed-card">
-                    <div class="card-header" style="padding: 5px 5px 0px 5px;">
+
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div class="card card-primary collapsed-card">
+                        <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">PO Distribution</h4>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
@@ -304,15 +304,15 @@
                                 </button>
                             </div>
                         </div>
-                    
-                    
-                     <div class="card-body">
+
+
+                        <div class="card-body">
                             <form id="stepThreeForm" class="forms-sample">
-                            
-                            
-                          							        
-                          		   <div class="row">
-                                   
+
+
+
+                                <div class="row">
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Item Type <span class="text-danger">*</span></label>
@@ -321,12 +321,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Deliver To<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" type="text" placeholder="Deliver To" name="deliverTo3" id="deliverTo3" readonly  style="width: 100%;">
+                                                <input class="form-control-sm" type="text" placeholder="Deliver To" name="deliverTo3" id="deliverTo3" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -334,16 +334,16 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Charge Account<span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
-                                                <input type="text" name="poNumber" id="chargeAccount3"  readonly class="form-control-sm" style="width: 100%;">
+                                                <input type="text" name="poNumber" id="chargeAccount3" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
-                               
-                                 
+
+
                                 </div>
                             </form>
-                           </div>
-                    
+                        </div>
+
                     </div>
                     <div class="card card-primary">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
@@ -355,43 +355,44 @@
                             </div>
                         </div>
                         <div class="card-body">
-                        <form id="stepThreeForm" class="forms-sample">
-                            <div class="card-body" style="overflow: auto;">
-                                <table id="prTable" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Line Number</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Item Type</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Item</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Category</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Description</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">UOM</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Remaning Quatity</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Price</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Need By Date</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Amount</th>
-                                            <th style="padding: 5px 5px 5px 1.5rem;">Charge Account</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </form>
-                        <!-- /.card-body -->
-                    </div></div>
+                            <form id="stepThreeForm" class="forms-sample">
+                                <div class="card-body" style="overflow: auto;">
+                                    <table id="prTable" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Line Number</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Item Type</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Item</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Category</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Description</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">UOM</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Quantity</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Remaning Quatity</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Price</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Need By Date</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Amount</th>
+                                                <th style="padding: 5px 5px 5px 1.5rem;">Charge Account</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </form>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
                     <!-- /.card -->
                     <center>
                         <div class="form-group">
-                            
+
                             <button type="button" class="btn btn-primary" id="closeModal" onclick="closeWin()">Close</button>
-                            
-                             <c:choose>
-                             <c:when test="${viewPage=='UnProcess'}">
-                             <input id="flipToInvoice" type="submit" class="btn btn-primary" onclick="invoiceProcessing()" value="Flip to Invoice " />
-                             </c:when>
+
+                            <c:choose>
+                                <c:when test="${viewPage=='UnProcess'}">
+                                    <input id="flipToInvoice" type="submit" class="btn btn-primary" onclick="invoiceProcessing()" value="Flip to Invoice " />
+                                </c:when>
                             </c:choose>
                         </div>
-                         
+
                     </center>
                 </div>
             </section>
@@ -681,6 +682,7 @@
         }
           
     </script>
-</body>
+    
+    </body>
 
 </html>

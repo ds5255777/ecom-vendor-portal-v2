@@ -12,7 +12,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>${titleName}|Process PO</title>
 
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -111,13 +110,9 @@
     <jsp:include page="loader.jsp" />
 	<div class="wrapper">
 
-		<!-- Navbar -->
 		<jsp:include page="navbar.jsp?pagename=Process PO" />
-		<!-- /.navbar -->
-		<!-- Main Sidebar Container -->
 		<jsp:include page="slidebar_Po.jsp?pagename=Process PO" />
 
-		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<div class="content-header" style="padding: 0px;">
 				<div class="container-fluid">
@@ -128,15 +123,11 @@
 				</div>
 			</div>
 
-			<!-- /.content-header -->
 
-			<!-- Main content -->
 			<section class="content mt-2">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-12" style="font-size: 14px;">
-							<!-- general form elements -->
-							<!-- /.card-header -->
 							<div class="card card-primary ">
 								<div class="card-body ">
 									<form role="form" id="addForm" autocomplete="off">
@@ -185,21 +176,17 @@
 										</tbody>
 									</table>
 								</div>
-								<!-- /.card-body -->
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			<!-- Control Sidebar -->
 		</div>
-		<!-- ./wrapper -->
 	</div>
 
 	<script src="plugins/jquery/jquery.min.js"></script>
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
 									$.widget.bridge('uibutton', $.ui.button);
 									$.widget.bridge('uitooltip', $.ui.tooltip);
@@ -256,7 +243,6 @@
             "scrollX": true,
             "pageLength": dataLimit,
             dom: 'Bfrtip',
-            //buttons: ['excel','pdf','print'],
             buttons: [
 
                 {
@@ -277,8 +263,6 @@
 
                         var tblBody = doc.content[1].table.body;
                         for (var i = 0; i < tblBody[0].length; i++) {
-                            //	 console.log(tblBody[0]);
-                            //	 console.log(tblBody[0][i]);
                             tblBody[0][i].fillColor = '#FFFFFF';
                             tblBody[0][i].color = 'black';
                         }
@@ -310,8 +294,6 @@
                         obj['hLineColor'] = function(i) {
                             return '#aaa';
                         };
-                        //   doc.content[1].margin = [ 150, 0, 150, 0 ];
-
                     }
                 }
             ],
@@ -419,13 +401,9 @@
 
         function setTripStatus(poNo) {
             console.log("poNo" + poNo);
-            //	 tripId =  $("#tripID").val();		
-
             var json = {
                 "poNo": poNo
             }
-
-            
 
             $.ajax({
                 type: "POST",
@@ -438,17 +416,9 @@
 
                     if (data.msg == 'success') {
                         var result = data.data;
-                        
-                       
                         var myForm = "";
                         myForm = document.getElementById("tripForm");
                         setData(myForm, result);
-                       
-                        
-
-                        
-					
-                       
                         $("tbody").show();
                     } else {
                         Toast.fire({
@@ -458,7 +428,6 @@
                     }
                 },
                 error: function(jqXHR, textStatue, errorThrown) {
-                    //alert("failed, please try again");
                     Toast.fire({
                         type: 'error',
                         title: 'Failed.. Try Again..'
@@ -475,5 +444,4 @@
         }
         </script>
 </body>
-
 </html>

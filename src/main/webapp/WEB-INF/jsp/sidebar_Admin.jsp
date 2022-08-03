@@ -3,18 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-
-    <!-- Brand Logo class="navbar-brand brand-logo-mini  rounded-circle" -->
     <a href="dashboard" class="brand-link"> <img src="${logoPath}" alt="AdminLTE Logo" class="brand-image navbar-brand brand-logo-mini">
         <span class="brand-text font-weight-light">${sideLogoName}</span>
     </a>
 
-    <!-- Sidebar -->
     <div class="sidebar">
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                <!-- DASHBOARD -->
                 <li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link 
                        <% if (request.getParameter("pagename").equalsIgnoreCase("dashboard")) {
                                out.print("active");
@@ -26,9 +22,6 @@
                     <hr>
                 </li>
 
-
-
-
             <li class="nav-item"><a href="tripMaster" class="nav-link 
                        <% if (request.getParameter("pagename").equalsIgnoreCase("masterEvaluationCriteria")) {
                                out.print("active");
@@ -39,9 +32,6 @@
                 </a>
                 <hr>
             </li>
-            
-            
-            
             
                 <li class="nav-item"><a href="emailConfig" class="nav-link
                             <%if (request.getParameter("pagename").equalsIgnoreCase("emailConfig")) {
@@ -76,7 +66,6 @@
                 <i class="nav-icon fas fa-user"></i>
                 <p>Users</p>
                 </a></li>
-            </li>
                    
                     <li class="nav-item"><a href="vendorRegistrastion" target="_blank" rel="noopener noreferrer" class="nav-link
                             <%if (request.getParameter("pagename").equalsIgnoreCase("vendorRegistrastion")) {
@@ -84,7 +73,6 @@
 			}%>                            
                             ">
                          
-                      <!-- <i class="fa-solid fa-id-card"></i> -->
                       
                      <i class="nav-icon fas fa-registered"></i>
                     
@@ -97,7 +85,6 @@
 			}%>                            
                             ">
                          
-                      <!-- <i class="fa-solid fa-id-card"></i> -->
                     <i class="nav-icon fas fa-download"></i>
                        <p>Vendor Reports</p> 
                     </a></li> 
@@ -112,9 +99,6 @@
                 </a>
                 <hr>
             </li>
-
-           
-                
                            
             </ul>
             <hr>

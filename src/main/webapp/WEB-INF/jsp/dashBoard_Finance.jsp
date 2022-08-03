@@ -12,31 +12,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>${titleName}|Dashboard</title>
 
-<!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Font Awesome -->
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> 
-<!-- Ionicons -->
 <link rel="stylesheet" href="dist/css/ionicons.min.css">
-<!-- Tempusdominus Bbootstrap 4 -->
 <link rel="stylesheet"
 	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-<!-- iCheck -->
 <link rel="stylesheet"
 	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-<!-- JQVMap -->
 <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-<!-- Theme style -->
 <link rel="stylesheet" href="dist/css/adminlte.min.css">
-<!-- overlayScrollbars -->
 <link rel="stylesheet"
 	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-<!-- Daterange picker -->
 <link rel="stylesheet"
 	href="plugins/daterangepicker/daterangepicker.css">
-<!-- summernote -->
-<!-- <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css"> -->
-<!-- Google Font: Source Sans Pro -->
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
@@ -65,30 +53,18 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 %>
 	<div class="wrapper">
 
-		<!-- Navbar -->
 		<jsp:include page="navbar.jsp?pagename=Finance Dashboard" />
 
-		<!-- Right navbar links -->
 		<jsp:include page="slidebar_Finance.jsp?pagename=dashboard" />
 
-		<!-- /.navbar -->
-
-		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
-			
-			<!-- /.content-header -->
 
-			<!-- Main content -->
 			<section class="content" style="padding-top: 15px;">
 				<div class="container-fluid">
 
 					<c:if test="${role.equalsIgnoreCase(financeRole) }">
-						<!-- Small boxes (Stat box) -->
 						<div class="row">
-							<!-- ./col -->
 							<div class="col-lg-2 col-6">
-								<!-- small box -->
 								<div class="small-box bg-white">
 									<div class="inner">
 										<h2>${allInvoice}</h2>
@@ -128,7 +104,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 								</div>
 							</div>
 							<div class="col-lg-2 col-6">
-								<!-- small box -->
 								<div class="small-box bg-white">
 									<div class="inner">
 										<h2>${countForPaymentrelaseInvoice}</h2>
@@ -148,7 +123,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 							</div>
 
 							<div class="col-lg-2 col-6">
-								<!-- small box -->
 								<div class="small-box bg-white">
 									<div class="inner">
 										<h2>${countForPendingForApprovalInvoice}</h2>
@@ -166,9 +140,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 									</a>
 								</div>
 							</div>
-							<!-- ./col -->
 							<div class="col-lg-2 col-6">
-								<!-- small box -->
 								<div class="small-box bg-white">
 									<div class="inner">
 										<h2>${countForApprovedInvoice }</h2>
@@ -188,7 +160,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 								</div>
 							</div>
 							<div class="col-lg-2 col-6">
-								<!-- small box -->
 								<div class="small-box bg-white">
 									<div class="inner">
 										<h2>${queryCount }</h2>
@@ -207,17 +178,13 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 									</a>
 								</div>
 							</div>
-							<!-- ./col -->
 						</div>
 					</c:if>
-					<!-- /.row -->
 
 					<c:if test="${role.equalsIgnoreCase(financeHeadRole) }">
 
 						<div class="row">
-							<!-- ./col -->
 							<div class="col-lg-4 col-6">
-								<!-- small box -->
 								<div class="small-box bg-white">
 									<div class="inner">
 										<h2>${allInvoice}</h2>
@@ -237,7 +204,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 							</div>
 
 							<div class="col-lg-4 col-6">
-								<!-- small box -->
 								<div class="small-box bg-white">
 									<div class="inner">
 										<h2>${countForPendingForApprovalInvoice}</h2>
@@ -257,7 +223,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 							</div>
 
 							<div class="col-lg-4 col-6">
-								<!-- small box -->
 								<div class="small-box bg-white">
 									<div class="inner">
 										<h2>${countForApprovedInvoice }</h2>
@@ -276,18 +241,13 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 									</a>
 								</div>
 							</div>
-							<!-- ./col -->
 						</div>
 					</c:if>
 
-					<!-- Main row -->
 
-					<!-- /.row (main row) -->
 				</div>
-				<!-- /.container-fluid -->
 			</section>
 
-			<!-- Main content -->
 			<section class="content">
 				<div class="container-fluid">
 					<c:if test="${role.equalsIgnoreCase(financeRole) }">
@@ -300,7 +260,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 											data-placement="bottom">Top
 											50 In-Review Invoices</h3>
 									</div>
-									<!-- /.card-header -->
 									<div class="card-body table-responsive p-0"
 										style="height: 420px;">
 										<table class="table table-head-fixed" id="tabledata">
@@ -316,15 +275,12 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 												</tr>
 											</thead>
 											<tbody>
-												<!-- body -->
 											</tbody>
 										</table>
 									</div>
-									<!-- /.card-body -->
 								</div>
 							</div>
 							<div class="col-md-4">
-								<!-- DONUT CHART -->
 								<div class="card card-primary  card-outline ">
 									<div class="card-body">
 										<p>
@@ -333,7 +289,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 										<canvas id="unresolvedsts"
 											style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
 									</div>
-									<!-- /.card-body -->
 								</div>
 							</div>
 						</div>
@@ -349,7 +304,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 											data-placement="bottom">Top
 											50 Pending For Approval Invoices</h3>
 									</div>
-									<!-- /.card-header -->
 									<div class="card-body table-responsive p-0"
 										style="height: 420px;">
 										<table class="table table-head-fixed" id="tabledata">
@@ -365,15 +319,12 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 												</tr>
 											</thead>
 											<tbody>
-												<!-- body -->
 											</tbody>
 										</table>
 									</div>
-									<!-- /.card-body -->
 								</div>
 							</div>
 							<div class="col-md-4">
-								<!-- DONUT CHART -->
 								<div class="card card-primary  card-outline ">
 									<div class="card-body">
 										<p>
@@ -382,25 +333,15 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 										<canvas id="unresolvedsts"
 											style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
 									</div>
-									<!-- /.card-body -->
 								</div>
 							</div>
 						</div>
 					</c:if>
 				</div>
 			</section>
-			<!-- /.content -->
 		</div>
 
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
-		</aside>
-		<!-- /.control-sidebar -->
 	</div>
-	<!-- ./wrapper -->
-
-	<!-- Modal -->
 	<div class="modal fade" id="changePassword" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -434,49 +375,29 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 		</div>
 	</div>
 
-	<!-- jQuery -->
 	<script src="plugins/jquery/jquery.min.js"></script>
-	<!-- jQuery UI 1.11.4 -->
 	<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 	<script>
                             $.widget.bridge('uibutton', $.ui.button);
                             $.widget.bridge('uitooltip', $.ui.tooltip);
 
         </script>
-	<!-- Bootstrap 4 -->
 	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- ChartJS -->
 	<script src="plugins/chart.js/Chart.min.js"></script>
-	<!-- Sparkline -->
 	<script src="plugins/sparklines/sparkline.js"></script>
-	<!-- JQVMap -->
-	<!-- <script src="plugins/jqvmap/jquery.vmap.min.js"></script> -->
-	<!-- <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script> -->
-	<!-- jQuery Knob Chart -->
 	<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-	<!-- daterangepicker -->
 	<script src="plugins/moment/moment.min.js"></script>
 	<script src="plugins/daterangepicker/daterangepicker.js"></script>
-	<!-- Tempusdominus Bootstrap 4 -->
 	<script
 		src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-	<!-- Summernote -->
-	<!-- <script src="plugins/summernote/summernote-bs4.min.js"></script> -->
-	<!-- overlayScrollbars -->
 	<script
 		src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-	<!-- AdminLTE App -->
 	<script src="dist/js/adminlte.js"></script>
-	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-	<!-- <script src="dist/js/pages/dashboard.js"></script> -->
-	<!-- AdminLTE for demo purposes -->
 	<script src="dist/js/demo.js"></script>
 	<script src="plugins/datatables/jquery.dataTables.js"></script>
 	<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 	<script src="dist/js/chart2.js"></script>
 	
-	<!-- table Data -->
 	<script>
 	
 	var userType = '${role}';
@@ -538,10 +459,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                     options: unresolvedstsOptions
                 })
                 }
-            
-            
 
-		 /* change Password */ 
             function changePassword(password) {
                 console.log(document.getElementById('passwordch').value);
                 console.log("my password" + password);
@@ -568,7 +486,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                     }
                 });
             }
-            /* Top 50 Invoice */
             getData();
 
             function getData() {

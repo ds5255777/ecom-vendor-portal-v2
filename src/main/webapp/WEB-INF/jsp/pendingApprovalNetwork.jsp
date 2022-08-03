@@ -1,7 +1,6 @@
 <%@page import="com.main.commonclasses.GlobalConstants"%>
 <%@page import="com.main.commonclasses.GlobalUrl"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
@@ -12,7 +11,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>${titleName}|PendingApprovalTrips</title>
 
-<!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 <link rel="stylesheet"
@@ -129,14 +127,10 @@ tbody {
 	<jsp:include page="loader.jsp" />
 	<div class="wrapper">
 
-		<!-- Navbar -->
 		<jsp:include page="navbar.jsp?pagename=Pending For Approval" />
-		<!-- /.navbar -->
 
-		<!-- Main Sidebar Container -->
 		<jsp:include page="slidebar.jsp?pagename=Pending For Approval" />
 
-		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<div class="content-header" style="padding: 0px;">
 				<div class="container-fluid">
@@ -147,20 +141,12 @@ tbody {
 				</div>
 			</div>
 
-			<!-- /.content-header -->
-
-
-			<!-- Main content -->
 			<section class="content mt-2">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12" style="font-size: 14px;">
-							<!-- general form elements -->
 							<div class="card card-primary ">
-							<!-- <div class="card"> -->
 
-								<!-- /.card-header -->
 								<div class="card-body ">
 								<form role="form" id="addForm" autocomplete="off">
 									<div class="row">
@@ -190,13 +176,11 @@ tbody {
 										</div>
 									</div>
 								</form>
-								<!-- /.card-header -->
 								<div class="card-body table-responsive p-0"
 									style="height: 100%;">
 									<table class="table table-head-fixed" id="tabledata1">
 										<thead>
 											<tr>
-
 												<th class="bg-primary">Trip ID</th>
 												<th class="bg-primary">Route</th>
 												<th class="bg-primary">Vendor Name</th>
@@ -204,7 +188,6 @@ tbody {
 												<th class="bg-primary">Run Type</th>
 												<th class="bg-primary">Trip Status</th>
 												<th class="bg-primary">Vehicle Number</th>
-
 											</tr>
 										</thead>
 
@@ -220,30 +203,19 @@ tbody {
 													<td>${yetTobeApprovedAllDetails.runType}</td>
 													<td>${yetTobeApprovedAllDetails.runStatus}</td>
 													<td>${yetTobeApprovedAllDetails.vehicleNumber}</td>
-
-
 												</tr>
 											</c:forEach>
 										</tbody>
-
-
 									</table>
 								</div>
-								<!-- /.card-body -->
 							</div>
-</div>
-</div>
-
+						</div>
+						</div>
 						</div>
 					</div>
 			</section>
-
-
-
-			<!-- Modal -->
 			<div class="modal fade" id="tripValue" role="dialog">
 				<div class="modal-dialog " style="max-width: 1400px;">
-					<!-- Modal content-->
 					<div class="modal-content">
 						<div class="modal-body" style="overflow-y: auto;">
 							<div class="container-fluid panel2" id="headerLineItemForm">
@@ -258,8 +230,6 @@ tbody {
 														Details</h3>
 												</div>
 
-
-												<!-- /.card-header -->
 												<div class="card-body">
 													<form role="form" id="tripForm1">
 
@@ -663,15 +633,8 @@ tbody {
 														</div>
 													</form>
 												</div>
-												<!-- /.card-body -->
 											</div>
-											<!-- /.card -->
 										</table>
-
-
-
-
-
 										<div class=" card-primary">
 											<div class="card card-primary ">
 												<div class="card-header" style="padding: 4px 0px 4px 4px;">
@@ -693,44 +656,34 @@ tbody {
 																			<th class="bg-primary">Role/Department</th>
 																			<th class="bg-primary">Raised On</th>
 																			<th class="bg-primary">Remarks</th>
-
 																		</tr>
 																	</thead>
 																	<tbody>
-
 																	</tbody>
 																</table>
 															</div>
 														</div>
 													</form>
 												</div>
-
 											</div>
 										</div>
-
 									</div>
-
 								</div>
 							</div>
 						</div>
-
 					</div>
-</div>
+				</div>
 				</div>
 			</div>
-
-			<!-- model Start -->
-
+			</div>
 			<script src="plugins/jquery/jquery.min.js"></script>
 			<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-			<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 			<script>
 				$.widget.bridge('uibutton', $.ui.button);
 				$.widget.bridge('uitooltip', $.ui.tooltip);
 			</script>
 			<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 			<script src="js/commonFunctions.js"></script>
-
 			<script src="plugins/sparklines/sparkline.js"></script>
 			<script src="plugins/moment/moment.min.js"></script>
 			<script src="plugins/daterangepicker/daterangepicker.js"></script>
@@ -796,12 +749,9 @@ tbody {
           "scrollX": true,
           "pageLength": dataLimit,
           dom: 'Bfrtip',
-          //buttons: ['excel','pdf','print'],
           buttons: [
-
               {
                   extend: 'excelHtml5',
-
                   exportOptions: {
                       columns: [ 0, 1, 2, 3, 4, 5, 6],
                   }
@@ -848,8 +798,6 @@ tbody {
                       obj['hLineColor'] = function(i) {
                           return '#aaa';
                       };
-                      //   doc.content[1].margin = [ 150, 0, 150, 0 ];
-
                   }
               }
           ],
@@ -906,17 +854,12 @@ tbody {
                }
            },
            error: function (jqXHR, textStatue, errorThrown) {
-               //alert("failed, please try again");
                Toast.fire({
                    type: 'error',
                    title: 'Failed.. Try Again..'
                })
            }
-
        });
-
-
-     //Ajax to get remarks
        $.ajax({
            type: "POST",
            data: JSON.stringify(json),
@@ -951,11 +894,7 @@ tbody {
                }
            }
        });
-
-
    }
-
-
 
    function lumpsomePropertyChange() {
        var checkedValue = $('.messageCheckbox:checked').val();
@@ -1002,25 +941,12 @@ tbody {
            $("#fs").val("");
            $("#totalFreight").val("");
            $("#basicFreight").val("");
-           
-          
-
-
-           //Recalcluate
-
-
        }
-	
-
-
    }
 
 
 
    function updateTripDataByNetworkTeam() {
-
-
-       //Validations
        var ratePerKm = document.getElementById("ratePerKm").value;
        var milage = document.getElementById("mileage").value;
 
@@ -1037,7 +963,6 @@ tbody {
        var fs = document.getElementById("fs").value;
        var vendorName = document.getElementById("vendorName").value
        var vendorCode = document.getElementById("vendorCode").value
-
 
        if (milage === "" || milage === null || milage === '') {
            Toast.fire({
@@ -1067,8 +992,6 @@ tbody {
            return "";
        }
 
-       //currentFuelRate
-
        if (currentFuelRate === "" || currentFuelRate === null || currentFuelRate === '') {
            Toast.fire({
                type: 'error',
@@ -1077,8 +1000,6 @@ tbody {
            document.getElementById("currentFuelRate").focus();
            return "";
        }
-
-
 
        if (fsBaseRate === "" || fsBaseRate === null || fsBaseRate === '') {
            Toast.fire({
@@ -1097,11 +1018,6 @@ tbody {
            document.getElementById("fsDiff").focus();
            return "";
        }
-
-
-
-
-
 
        var today = new Date();
        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -1130,8 +1046,6 @@ tbody {
                  return "";
              }
 
-             //fs
-
              if (fs === "" || fs === null || fs === '') {
                  Toast.fire({
                      type: 'error',
@@ -1141,7 +1055,6 @@ tbody {
                  return "";
              }
 
-
          } else {
              if (AmountLumpSum === '' || AmountLumpSum === null || AmountLumpSum === '0' || AmountLumpSum === '0.0') {
                  Toast.fire({
@@ -1150,10 +1063,7 @@ tbody {
                  });
                   document.getElementById("AmountLumpSum").focus();
                  return "";
-
              }
-
-             
          }
          
          calcualteFormulae();
@@ -1187,7 +1097,6 @@ tbody {
 
          }
 
-       //  calcualteFormulae();
          $.ajax({
              type: "POST",
              data: JSON.stringify(obj),
@@ -1206,7 +1115,6 @@ tbody {
                  }
              },
              error: function (jqXHR, textStatue, errorThrown) {
-                 //alert("failed, please try again");
                  Toast.fire({
                      type: 'error',
                      title: 'Action Performed'
@@ -1215,13 +1123,9 @@ tbody {
 
          });
 
-
          $('#tripValue').modal('hide');
          location.reload();
-
-
      }
-
 
      function calcualteFormulae() {
          var currentFuelRate = document.getElementById("currentFuelRate").value;
@@ -1277,7 +1181,6 @@ tbody {
                     }
                 },
                 error: function(jqXHR, textStatue, errorThrown) {
-                    //alert("failed, please try again");
                     Toast.fire({
                         type: 'error',
                         title: 'Failed.. Try Again..'
@@ -1287,5 +1190,4 @@ tbody {
     }                                                    	
 </script>
 </body>
-
 </html>

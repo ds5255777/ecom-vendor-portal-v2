@@ -16,7 +16,6 @@
 <title>Business Partner Registration</title>
 
 
-<!-- Optional SmartWizard themes -->
 <link rel="stylesheet"
 	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 <link
@@ -96,16 +95,13 @@
         
 
          function showHideRequiredClass() {
-            //alert($("#partnerType").val());
             if ($("#partnerType").val() == "Scheduled") {
-                //alert("ji..");
                 $(".required").css("visibility", "visible");
                 $("#finishButton").attr("disabled", true);
             }  else {
                 $(".required").css("visibility", "hidden");
                 $(".adHocRequired").css("visibility", "visible");
                 $("#finishButton").attr("disabled", false);
-                //alert("ji..2");
             } 
         } 
 
@@ -162,7 +158,6 @@
                     return false;
                 }
                 console.log("Inside Step Three second part");
-                //
 
                 var mandFields = "invoiceCurrency,paymentCurrency,creditTerms,paymentMethod";
                 var mandFieldsArr = mandFields.split(",");
@@ -196,12 +191,9 @@
   
 
         function changetextbox() {
-            /* alert(document.getElementById("tdsApplication").value);  */
             if (document.getElementById("tdsApplication").value === "No") {
                 document.getElementById("tdsSection").disabled = 'true';
                 document.getElementById("tdsRate").disabled = 'true';
-                //    document.getElementById("tdsRate").val()="";
-                //            	    document.getElementById("tdsSection").value()="";
                 $("#tdsSection").val("");
                 $("#tdsRate").val("");
 
@@ -222,17 +214,6 @@
                     return regex.test(inputvalues);
                 }
             });
-            /* $("#introducedByEmailID").change(function() {
-                var inputvalues = $(this).val();
-                var regex = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@ecomexpress.in$/;
-                
-                if (!regex.test(inputvalues)) {
-                    $("#introducedByEmailID").val("");
-
-                    swal.fire("Alert", "Dear User Please Provide ECOM Patner Email ID", "warning");
-                    return regex.test(inputvalues);
-                }
-            }); */
         });
         
         $(document).ready(function() {
@@ -263,30 +244,20 @@
         	var fileInput3 = document.getElementById(id).value;
         	var gst = document.getElementById(id);
         	var allowedExtensions = /(\.jpg|\.jpeg|\.pdf)$/i;
-        	 /* if (!allowedExtensions.exec(fileInput3)) {
-        		 $("#GSTFile").val("");
-             	swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File....", "warning");
-             	return false;
-             } */
         	 if (typeof (gst.files) != "undefined") {
-             	//alert("hello");
              	
              	const fsize = gst.files.item(0).size;
              	
              	console.log(fsize);
              	const file = Math.round((fsize / 1024));
              	console.log(file);
-                // var size = parseFloat(cc.files[0].size / (1024 * 1024)).toFixed(2);
-                 //alert("Your File Size is "+(file/1024)+"MB");
                  if(file > ${maxFileSize}) {
                  	swal.fire("Alert", "Please select File size less than 5 MB....", "warning");
                  	$("#" + id).val("");
                  }else{
                  	 var ext = fileInput3.split(".")[1];
-                     // alert("Extension is "+ext);
                       
                       if( ext=="pdf" || ext=="jpg" || ext=="JPEG" || ext=="JPG" || ext=="jpeg" || ext=="PDF" ){
-                      	//Sab valid hai
                       }else{
                       	swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File....", "warning");
                           
@@ -376,18 +347,10 @@
         visibility: hidden;
     }
 
-
-
-
-
-/* When the body has the loading class, we turn
-               the scrollbar off with overflow:hidden */
 body.loading .modal {
 	overflow: hidden;
 }
 
-/* Anytime the body has the loading class, our
-               modal element will be visible */
 body.loading .modal {
 	display: block;
 }
@@ -447,7 +410,6 @@ width: 100% !important;
     position: absolute;
     right: 0;
     padding: 1px;
-    /* border: hidden; */
     display: none;
 }
 </style>
@@ -461,7 +423,6 @@ width: 100% !important;
 
 
 	<div class="">
-		<!-- partial:../../partials/_navbar.html -->
 		<nav
 			class="navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
 			<div class="navbar-menu-wrapper d-flex align-items-center">
@@ -513,27 +474,7 @@ width: 100% !important;
 
 
                                             <tr>
-
-                                                <%-- <td><label>Business Partner Type<span class="required adHocRequired">*</span></label></td>
-
-                                                <td style="width: auto"><select class="js-example-basic-multiple select2" name="states[]" id="states" onchange="select()" multiple="multiple">
-                                                        <c:forEach items="${business}" var="bus">
-
-                                                            <option value="${bus}">${bus}</option>
-                                                        </c:forEach>
-                                                    </select></td>
-
-
-                                                <td><label for="partnerType">Business Partner</label></td>
-                                                <td><select id="partnerType" name="partnerType" class="form-control p-input" onchange="showHideRequiredClass();" disabled="disabled">
-                                                        <c:forEach items="${partner}" var="par">
-
-                                                            <option value="${par}">${par}</option>
-                                                        </c:forEach>
-
-                                                    </select></td> --%>
                                                 <input type="hidden" id="roleId" />
-
 
                                                 <td><label for="suppName">Business Partner Name<span class="required adHocRequired">*</span></label></td>
                                                 <td colspan='1'><input type="text" class="form-control p-input" id="suppName" name="suppName" placeholder="Business Partner Name" onchange="removeValCssByID(this)" oninput="this.value = this.value.toUpperCase()" maxlength="50"></td>
@@ -675,26 +616,6 @@ width: 100% !important;
 
                                                     </select></td>
                                                     
-                                                    <%-- <td><label for="Business Partner Type">Business Partner Type<span class="required adHocRequired">*</span>
-                                                        </label></td>
-
-                                                    <td colspan='2'><select  class="form-control p-input" id="natureOfTransactions" name="natureOfTransactions" placeholder="Nature of Transactions" onchange="removeValCssByID(this)">
-                                                            <option value="">Select</option>
-                                                            <c:forEach items="${business}" var="nat">
-
-                                                                <option value="${nat}">${nat}</option>
-                                                            </c:forEach>
-
-                                                        </select></td>
-                                                        
-                                                     <td><label for="partnerType">Business Partner</label></td>
-                                               		 <td colspan="2"><select id="partnerType" name="partnerType" class="form-control p-input" onchange="showHideRequiredClass();" disabled="disabled">
-                                                        <c:forEach items="${partner}" var="par">
-
-                                                            <option value="${par}">${par}</option>
-                                                        </c:forEach>
-
-                                                    </select></td> --%>   
                                                 </tr>
 
                                                 <tr class="">
@@ -1048,10 +969,6 @@ width: 100% !important;
 								</div>
 							</div>
 
-							<!-- End -->
-
-							<!-- Start -->
-
 							<div class="card" style="margin-bottom: 10px;">
 								<div class="card-header" id="itrHead"
 									style="background: #1991eb; color: #ffffff;">
@@ -1138,8 +1055,6 @@ width: 100% !important;
 									</div>
 								</div>
 							</div>
-
-							<!-- End -->
 
 						</div>
 
@@ -1239,13 +1154,6 @@ width: 100% !important;
                                                         </tr>
 
                                                         <tr>
-                                                            <!-- <td><label>ITR Acknowledgment of 3 years<span
-																	class="required">*</span></label></td>
-															<td><input type="file" id="ITRAFile" name="ITRAFile"
-																onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
-																class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
-																<textarea id="ITRAFileText" rows="5"
-																	style="display: none;"></textarea></td> -->
                                                             <td><label>Name mismatch affidavit or
                                                                     declaration would be required if name mentioned in all
 
@@ -1254,8 +1162,6 @@ width: 100% !important;
                                                             <td><input type="file" id="NMISFile" name="NMISFile" onchange="handleFileSelect(event,'NMISFileText','Name Mismatch Affidavit'), onValidateFile('NMISFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
                                                                 <textarea id="NMISFileText" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                         size Max ${fileSize} MB</span></label>
-                                                                <!-- <a href="C:/1.BPAAS/Document/doc.pdf" download="doc.pdf">Download Template
-																		</a> -->
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -1267,10 +1173,6 @@ width: 100% !important;
 							</div>
 						</div>
 					</div>
-					
-					
-				<!-- query page -->
-
 					<div id="step-6" class="">
 						<div class="card queryFormUi" style="display: none; margin-bottom: 10px;">
 							<div class="card-header" id="addressBookHead"
@@ -1421,8 +1323,6 @@ width: 100% !important;
                     document.getElementById('compGstn').value + '</td><td>' +
                     document.getElementById('addDetails').value + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
-                /*  document.getElementById('addCountry').value = "";
-                 document.getElementById('state').value = ""; */
                 document.getElementById('city').value = "";
                 document.getElementById('pinCode').value = "";
                 document.getElementById('states').value = "";
@@ -1521,37 +1421,6 @@ width: 100% !important;
             }
         });
 
-     /*    $("#addITRGridButt").click(function() {
-            var abc = document.getElementById('fyYear').value;
-            var abc1 = document.getElementById('acknowledgementNumber').value;
-            let abc2 = document.getElementById('ITRAFile').value;
-        
-          let cc=abc2.substr(12);
-          
-          
-            console.log("abc =>" + abc);
-            if (abc == null || abc == "") {
-                swal.fire("Alert", "Select Financial Year Number. !", "warning");
-                return false;
-            } else if (abc1 == null || abc1 == "") {
-                swal.fire("Alert", "Fill Acknowledgement Number. !", "warning");
-                return false;
-            } else {
-                $("#addITRGrid").append('<tr class=""><td>' +
-                    document.getElementById('fyYear').value + '</td><td>' +
-
-                    document.getElementById('acknowledgementNumber').value + '</td><td>' +
-
-                    cc + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
-
-                document.getElementById('fyYear').value = "";
-                document.getElementById('acknowledgementNumber').value = "";
-                document.getElementById('ITRAFile').value="";
-            }
-        });
-
- */        
-  
         $("#panNumber").change(function() {
             var inputvalues = $(this).val();
             var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
@@ -1594,12 +1463,9 @@ width: 100% !important;
         
         
         function changetextbox() {
-            /* alert(document.getElementById("tdsApplication").value);  */
             if (document.getElementById("tdsApplication").value === "No") {
                 document.getElementById("tdsSection").disabled = 'true';
                 document.getElementById("tdsRate").disabled = 'true';
-                //    document.getElementById("tdsRate").val()="";
-                //            	    document.getElementById("tdsSection").value()="";
                 $("#tdsSection").val("");
                 $("#tdsRate").val("");
 
@@ -1647,13 +1513,6 @@ width: 100% !important;
                 }
             });
         });
-
-        
-        
-        
-        
-        
-        
         
         function sendToServer() {
         
@@ -1670,18 +1529,6 @@ width: 100% !important;
                      return false;
                  }
              }
-        	
-           /*  var element = document.getElementById('states');
-        	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
-        	var selectedValues = [];    
-            $("#states :selected").each(function(){
-                selectedValues.push($(this).val()); 
-            }); */
-            /* if(selectedValues== ""){
-            	swal.fire("Alert", "Please Select Business Partner Type", "warning")
-                return regex.test(inputvalues);
-            } */
-           
         	
             var addressDetailsArray = [];
             var table = document.getElementById('addBookGrid');
@@ -1795,8 +1642,6 @@ width: 100% !important;
                }
             }
             
-            /* if ($("#partnerType").val() == "Ad-Hoc" || $("#partnerType").val() == "Scheduled") {  */
-        		  
         		  var mandFields = "CCFile,ITRFile,MSMECFile";
                   var mandFieldsArr = mandFields.split(",");
 
@@ -1808,19 +1653,6 @@ width: 100% !important;
                           return false;
                       }
                   }
-        	   /* }  */
-        	   /* else{
-        		  var mandFields = "suppName";
-                  var mandFieldsArr = mandFields.split(",");
-                  for (i = 0; i < mandFieldsArr.length; i++) {
-                      console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
-                      if (document.getElementById(mandFieldsArr[i]).value == '') {
-                          notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
-                          console.log("mandatory Check :: " + mandFieldsArr[i]);
-                          return false;
-                      }
-                  }
-        	  } */ 
 
             
             
@@ -1828,14 +1660,12 @@ width: 100% !important;
 
             var step1Obj = FormDataToJSON('stepOneForm');
             var step6Obj = FormDataToJSON('stepSixForm');
-            //var step8Obj = FormDataToJSON('StepEightForm');
             var step7Obj = FormDataToJSON('stepSevenForm');
 
             const finalObj = {
                 ...step1Obj,
                 ...step6Obj,
                 ...step7Obj
-                //...step8Obj
             };
             finalObj.accountDetails = accountDetailsArray;
             finalObj.addressDetails = addressDetailsArray;
@@ -1888,7 +1718,6 @@ width: 100% !important;
                 finalObj.nmisFileText = $("#NMISFileText").val();
             }
             
-            // last three year ITR file upload
             if (document.getElementById("ITRFile1").files.length > 0) {
                 finalObj.itraFileName1 = document.getElementById("ITRFile1").files.item(0).name;
                 finalObj.itraFileText1 = $("#ITRFileText1").val();
@@ -1902,15 +1731,6 @@ width: 100% !important;
                 finalObj.itraFileText3 = $("#ITRFileText3").val();
             }
 
-            /* var checked = []
-            
-            
-            $("input[name='option[]']:checked").each(function() {
-                checked.push($(this).val());
-            });
-
-            let values = checked.toString();
-            console.log(values); */
             
            var values= document.getElementById("roleId").value ;
             
@@ -2002,7 +1822,6 @@ width: 100% !important;
 
 
                         setTimeout(function(response) {
-                            //location.href = "login";
                         }, 2000);
                     } else {
                         alert("failed");
@@ -2019,11 +1838,6 @@ width: 100% !important;
         }
 
         if (window.File && window.FileReader && window.FileList && window.Blob) {
-            /* document.getElementById('CICFile').addEventListener('change', handleFileSelect, false);
-            document.getElementById('GSTFile').addEventListener('change', handleFileSelect, false);
-            document.getElementById('TDSFile').addEventListener('change', handleFileSelect, false);
-            document.getElementById('PANFile').addEventListener('change', handleFileSelect, false);
-            document.getElementById('CCFile').addEventListener('change', handleFileSelect, false); */
         } else {
             alert('The File APIs are not fully supported in this browser.');
         }
@@ -2031,46 +1845,19 @@ width: 100% !important;
         function handleFileSelect(evt, id) {
             var f = evt.target.files[0]; // FileList object
             var reader = new FileReader();
-            // Closure to capture the file information.
             reader.onload = (function(theFile) {
                 return function(e) {
                     var binaryData = e.target.result;
-                    //Converting Binary Data to base 64
                     var base64String = window.btoa(binaryData);
-                    //showing file converted to base64
                     console.log(base64String);
 
                     $("#" + id).val(base64String);
 
-                    //  document.getElementById(evt.target.id + 'Text').value = base64String;
-                    //alert('File converted to base64 successfuly!\nCheck in Textarea');
                 };
             })(f);
-            // Read in the image file as a data URL.
             reader.readAsBinaryString(f);
         }
 
-           /*  getEntityName();
-         function getEntityName(){
-         	
-         	var myForm="";
-         	myForm = document.getElementById("stepSevenForm");
-         	
-         	for (var i = 0; i < myForm.elements.length; i++) {
-                
-               	var idOfElement=myForm.elements[i].id;
-               	
-               	if(idOfElement!=""){
-               		
-                    console.log(idOfElement);
-                     		
-               	}
-               }	
-         }  */    
-
-         
-         
-          
          function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
              try {
                  if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
@@ -2090,11 +1877,6 @@ width: 100% !important;
                       	   swal.fire("Alert", "Business Partner Code is mandatory", "warning")
                              .then((value) => {});
                          }
-                 	/* else  if(controlName=="states"){
-                 	  
-                 	   swal.fire("Alert", "Business Partner Type is mandatory", "warning")
-                        .then((value) => {});
-                    } */
                  	else  if(controlName=="suppName"){
                    	  
                   	   swal.fire("Alert", "Business Partner Name is mandatory", "warning")
@@ -2127,24 +1909,6 @@ width: 100% !important;
                  	   swal.fire("Alert", "TDS Rate is mandatory", "warning")
                         .then((value) => {});
                     } 
-                 	 
-              
-                 	 
-               /* 	else  if(controlName=="GSTFile"){
-                	  
-              	   swal.fire("Alert", "GST Certificate is mandatory", "warning")
-                     .then((value) => {});
-                 } */
-               	/* else  if(controlName=="PDFile"){
-                  	  
-               	   swal.fire("Alert", "Proprietorship Declaration is mandatory", "warning")
-                      .then((value) => {});
-                  }
-               	else  if(controlName=="PANFile"){
-                  	  
-               	   swal.fire("Alert", "PAN Card is mandatory", "warning")
-                      .then((value) => {});
-                  } */
                	else  if(controlName=="CCFile"){
                 	  
                 	   swal.fire("Alert", "Cancelled Cheque/ Passbook/ Bank Statement  is mandatory", "warning")
@@ -2172,8 +1936,6 @@ width: 100% !important;
                        .then((value) => {});
                    }
                  	
-                    // $('#manPara').css('display', '');
-                    // addValCss(controlName);
                      $("#" + controlName).focus();
                  } else {
                      console.log('Values Are Passed As Empty Or Null In notifyTooltip()');
@@ -2183,8 +1945,6 @@ width: 100% !important;
              }
          } 
  
-       
-        
          var matchFlag=0;
          $(function() {
              $("#confirmedAccoutNumber").keyup(function() {
@@ -2195,7 +1955,6 @@ width: 100% !important;
                  if(password!="" && passwordConfirm!=""){
                   if ($('#accoutNumber').val() == $('#confirmedAccoutNumber').val() && passflag!="1" ) {
          		    $('#divCheckPasswordMatch').html('Account number match.').css('color', 'green');
-         		    // Enable #x	
          		    $("#addBankGridButt").prop("disabled", false)
          		    
          		  } 
@@ -2204,7 +1963,6 @@ width: 100% !important;
          		    $('#divCheckPasswordMatch').html('Account number do not match!').css('color', 'red');
          		    matchFlag=1;
          		    
-              // Disable #x
      		    $('#addBankGridButt').attr('disabled', true);
               
                  return;
@@ -2224,14 +1982,12 @@ width: 100% !important;
                  if(password!="" || passwordConfirm!=""){
                   if ($('#accoutNumber').val() == $('#confirmedAccoutNumber').val() && passflag!="1" ) {
          		    $('#divCheckPasswordMatch').html('Account number match.').css('color', 'green');
-         		    // Enable #x	
          		    $("#addBankGridButt").prop("disabled", false)
          		    
          		  } 
                   else {
                  	 if(matchFlag==1){
          		    $('#divCheckPasswordMatch').html('Account number does not match!').css('color', 'red');
-              // Disable #x
      		    $('#addBankGridButt').attr('disabled', true);
             
                  return;
@@ -2264,17 +2020,14 @@ width: 100% !important;
         
        $("#suppName").keypress(function(event){
             	var inputValue = event.which;
-                //alert(inputValue);
                if( !(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0) && !(inputValue >= 37 && inputValue <= 47) ) { 
                     event.preventDefault(); 
                 } 
-               //event.preventDefault();
             }); 
     
            
            $("#city").keypress(function(event){
              	var inputValue = event.which;
-                 //alert(inputValue);
                  if(inputValue==8){
                      
                  }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
@@ -2300,7 +2053,6 @@ width: 100% !important;
            
            $("#conFname").keypress(function(event){
               	var inputValue = event.which;
-                  //alert(inputValue);
                   if(inputValue==8){
                       
                   }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
@@ -2321,7 +2073,6 @@ width: 100% !important;
            
            $("#conLname").keypress(function(event){
            	var inputValue = event.which;
-               //alert(inputValue);
                if(inputValue==8){
                    
                }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
@@ -2332,7 +2083,6 @@ width: 100% !important;
      
             $("#bankName").keypress(function(event){
             	var inputValue = event.which;
-                //alert(inputValue);
                 if(inputValue==8){
                     
                 }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
@@ -2368,7 +2118,6 @@ width: 100% !important;
                         	swal.fire(""," Invalid Aadhar Number", "warning");
                             $("#aadharNumber").val('');
                             $("#aadharNumber").focus();
-                            //return false;
                         }
                     }
                 });
@@ -2381,12 +2130,10 @@ width: 100% !important;
 	            $("#states :selected").each(function(){
 	                selectedValues.push($(this).val()); 
 	            });
-	           // alert(selectedValues);
 	            
 	            let values = selectedValues.toString();
 	         
 	        	document.getElementById("roleId").value=values;
-	        	//alert("roleId111: "+num);
 		
 				
 				var val = document.getElementById("states").value

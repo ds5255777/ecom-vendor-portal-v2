@@ -12,7 +12,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>${titleName}|All PO</title>
 
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -111,15 +110,10 @@
     <jsp:include page="loader.jsp" />
     <div class="wrapper">
 
-        <!-- Navbar -->
         <jsp:include page="navbar.jsp?pagename=All PO" />
-        <!-- /.navbar -->
-
-        <!-- Main Sidebar Container -->
         
 		 <jsp:include page="slidebar_Po.jsp?pagename=All PO" /> 
 		
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="content-header" style="padding: 0px;">
                 <div class="container-fluid">
@@ -132,10 +126,6 @@
                 </div>
             </div>
 
-            <!-- /.content-header -->
-
-
-            <!-- Main content -->
             <section class="content mt-2">
                 <div class="container-fluid">
 
@@ -193,34 +183,15 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- /.card-body -->
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-
-            <!-- Control Sidebar -->
-            <!-- <aside class="control-sidebar control-sidebar-dark">
-			Control sidebar content goes here
-		</aside>
-		/.control-sidebar -->
         </div>
-        <!-- ./wrapper -->
-
-
-
-
-
-
-
-
-        <!-- Model Start -->
-               <!-- model Start -->
-
+	</div>
         <script src="plugins/jquery/jquery.min.js"></script>
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
             $.widget.bridge('uibutton', $.ui.button);
             $.widget.bridge('uitooltip', $.ui.tooltip);
@@ -277,7 +248,6 @@
             "scrollX": true,
             "pageLength": dataLimit,
             dom: 'Bfrtip',
-            //buttons: ['excel','pdf','print'],
             buttons: [
 
                 {
@@ -298,8 +268,6 @@
 
                         var tblBody = doc.content[1].table.body;
                         for (var i = 0; i < tblBody[0].length; i++) {
-                            //	 console.log(tblBody[0]);
-                            //	 console.log(tblBody[0][i]);
                             tblBody[0][i].fillColor = '#FFFFFF';
                             tblBody[0][i].color = 'black';
                         }
@@ -331,8 +299,6 @@
                         obj['hLineColor'] = function(i) {
                             return '#aaa';
                         };
-                        //   doc.content[1].margin = [ 150, 0, 150, 0 ];
-
                     }
                 }
             ],
@@ -493,7 +459,6 @@
             var et = new Date(enddate);
 
             if (fromDate == "" || fromDate == null) {
-                //alert("plaese select from date"+fromDate);
                 Toast.fire({
                     type: 'error',
                     title: 'Please Select Start Date..'
@@ -503,7 +468,6 @@
             }
 
             if (toDate == "" || toDate == null) {
-                //alert("plaese select from date"+fromDate);
                 Toast.fire({
                     type: 'error',
                     title: 'Please Select End Date..'

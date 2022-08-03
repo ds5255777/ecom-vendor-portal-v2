@@ -4,17 +4,14 @@
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
-    <!-- Brand Logo class="navbar-brand brand-logo-mini  rounded-circle" -->
     <a href="dashboard" class="brand-link"> <img src="${logoPath}" alt="AdminLTE Logo" class="brand-image navbar-brand brand-logo-mini">
         <span class="brand-text font-weight-light">${sideLogoName}</span>
     </a>
 
-    <!-- Sidebar -->
     <div class="sidebar">
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                <!-- DASHBOARD -->
                 <li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link
                                         <% if (request.getParameter("pagename").equalsIgnoreCase("dashboard")) {
                                                 out.print("active");
@@ -48,22 +45,10 @@
                                     out.print("active");
                                 }%>
                                                 ">
-                                <!-- <i class="nav-icon fas fa-times"></i> -->
                                 <i class="nav-icon fas fa fa-check"></i>
                                 <p>Approved Trips</p>
                             </a></li>
                     </ul>
-                <%--     <ul class="nav nav-treeview">
-                        <li class="nav-item"><a href="pendingApprovalNetwork" class="nav-link
-                                                <%if (request.getParameter("pagename").equalsIgnoreCase("Pending For Approval")) {
-                                    out.print("active");
-                                }%>
-                                                ">
-                                <!-- <i class="nav-icon fas fa-times"></i> -->
-                                <i class="nav-icon fas fa-list"></i>
-                                <p>Pending for Approval</p>
-                            </a></li>
-                    </ul> --%>
                     <ul class="nav nav-treeview">
                         <li class="nav-item"><a href="QueryTripsForNetwork" class="nav-link
                                                 <%if (request.getParameter("pagename").equalsIgnoreCase("Query Raised")) {
@@ -130,25 +115,6 @@
                     <hr>
                 </li>
 
-                <%-- <li class="nav-item"><a href="#" class="nav-link
-                                        <%if (request.getParameter("pagename").equalsIgnoreCase("")) {
-                                    out.print("active");
-                                }%>
-                                        ">
-                        <i class="nav-icon far fas fa-cog"></i>
-                        <p>Setting</p>
-                    </a>
-                    <hr>
-                </li> --%>
-
-                <%-- <li class="nav-item"><a href="#" class="nav-link
-                                        <%if (request.getParameter("pagename").equalsIgnoreCase("")) {
-                                    out.print("active");
-                                }%>
-                                        ">
-                        <i class="nav-icon fas fa-chart-bar"></i>
-                        <p>Reports</p>
-                    </a></li> --%>
             </ul>
         </nav>
     </div>

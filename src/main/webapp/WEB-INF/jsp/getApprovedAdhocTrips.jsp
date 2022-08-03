@@ -11,8 +11,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>${titleName}|ApprovalAdhocTrips</title>
-
-<!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 <link rel="stylesheet"
@@ -121,14 +119,10 @@ tbody {
 	<jsp:include page="loader.jsp" />
 	<div class="wrapper">
 
-		<!-- Navbar -->
 		<jsp:include page="navbar.jsp?pagename=Approved Trips" />
-		<!-- /.navbar -->
 
-		<!-- Main Sidebar Container -->
 		<jsp:include page="slidebar.jsp?pagename=getApprovedAdhocTrips" />
 
-		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<div class="content-header" style="padding: 0px;">
 				<div class="container-fluid">
@@ -138,21 +132,14 @@ tbody {
 					</div>
 				</div>
 			</div>
-			<!-- /.content-header -->
-			<!-- Main content -->
 			<section class="content mt-2">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12" style="font-size: 14px;">
-							<!-- general form elements -->
 							<div class="card card-primary">
-
-								<!-- /.card-header -->
 								<div class="card-body ">
 								<form role="form" id="addForm" autocomplete="off">
 									<div class="row">
-
 										<div class="col-md-2">
 											<div class="dropdown">
 												<button type="button"
@@ -183,7 +170,6 @@ tbody {
 									<table class="table table-head-fixed" id="tabledata1">
 										<thead>
 											<tr>
-
 												<th class="bg-primary">Trip ID</th>
 												<th class="bg-primary">Route</th>
 												<th class="bg-primary">Vendor name</th>
@@ -191,8 +177,6 @@ tbody {
 												<th class="bg-primary">Run Type</th>
 												<th class="bg-primary">Trip Status</th>
 												<th class="bg-primary">Vehicle Number</th>
-
-
 											</tr>
 										</thead>
 
@@ -208,30 +192,21 @@ tbody {
 													<td>${ApprovedAllDetails.runType}</td>
 													<td>${ApprovedAllDetails.runStatus}</td>
 													<td>${ApprovedAllDetails.vehicleNumber}</td>
-
-
 												</tr>
 											</c:forEach>
 										</tbody>
-
-
 									</table>
 								</div>
-								<!-- /.card-body -->
 							</div>
-</div>
-
+						</div>
 						</div>
 					</div>
 				</div>
 			</section>
 		</div>
 
-
-
 		<div class="modal fade" id="tripValue" role="dialog">
 			<div class="modal-dialog " style="max-width: 1400px;">
-				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-body" style="overflow-y: auto;">
 						<div class="container-fluid panel2" id="headerLineItemForm">
@@ -249,7 +224,6 @@ tbody {
 													style="font-size: 20px; color: white;"></i>
 											</button>
 										</div>
-										<!-- /.card-header -->
 										<div class="card-body" style="padding-bottom: inherit;">
 											<form role="form" id="tripForm1">
 												<div class="row">
@@ -289,9 +263,6 @@ tbody {
 															</div>
 														</div>
 													</div>
-
-
-
 													<div class="col-md-3">
 														<div class="form-group row">
 															<label class="col-sm-5" title="Vehicle Number">Vehicle
@@ -304,7 +275,6 @@ tbody {
 														</div>
 													</div>
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5" title="Vendor Name">Vendor
 																Name</label>
@@ -315,7 +285,6 @@ tbody {
 														</div>
 													</div>
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5" title="Vendor Code">Vendor
 																Code</label>
@@ -325,20 +294,7 @@ tbody {
 															</div>
 														</div>
 													</div>
-													<!-- <div class="col-md-3">
-														text input
-														<div class="form-group row">
-															<label class="col-sm-5" title="Actual Vehicle Type">Act Vehicle
-																</label>
-															<div class="col-sm-7">
-																<input type="text" class="form-control"
-																	id="actualVechicleType" name="actualVechicleType"
-																	autocomplete="off" disabled>
-															</div>
-														</div>
-													</div> -->
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5" title="Standard Vehicle Type">Std. Vehicle
 																</label>
@@ -350,7 +306,6 @@ tbody {
 														</div>
 													</div>
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5" title="Standard Payload Capacity">Payload
 																Cap.</label>
@@ -362,9 +317,7 @@ tbody {
 															</div>
 														</div>
 													</div>
-
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5"
 																title="Standard Shipment Capacity">Shipment Cap.</label>
@@ -408,7 +361,6 @@ tbody {
 															</div>
 														</div>
 													</div>
-
 													<div class="col-md-3">
 														<div class="form-group row">
 															<label class="col-sm-5" title="Destination Hub">Dest
@@ -450,7 +402,6 @@ tbody {
 															</div>
 														</div>
 													</div>
-
 													<div class="col-md-3">
 														<div class="form-group row">
 															<label class="col-sm-5" title="Standard KM">Standard
@@ -595,15 +546,13 @@ tbody {
 														<div class="form-group row">
 
 															<input type="hidden" class="form-control" id="vendorCode"
-																name="vendorCode" value=${userName } readonly>
+																name="vendorCode" value="${userName}" readonly>
 														</div>
 													</div>
 												</div>
 											</form>
 										</div>
-										<!-- /.card-body -->
 									</div>
-									<!-- /.card -->
 									<div class=" card-primary">
 										<div class="card card-primary ">
 											<div class="card-header" style="padding: 4px 0px 4px 4px;">
@@ -626,47 +575,34 @@ tbody {
 																		<th class="bg-primary">Role/Department</th>
 																		<th class="bg-primary">Raised On</th>
 																		<th class="bg-primary">Remarks</th>
-
 																	</tr>
 																</thead>
 																<tbody>
-
 																</tbody>
 															</table>
 														</div>
 													</div>
 												</form>
 											</div>
-
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-
 				</div>
-
 			</div>
 		</div>
 	</div>
 
-
-
-	<!-- model Start -->
-
-
-
 	<script src="plugins/jquery/jquery.min.js"></script>
 	<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 	<script>
 		$.widget.bridge('uibutton', $.ui.button);
 		$.widget.bridge('uitooltip', $.ui.tooltip);
 	</script>
 	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="js/commonFunctions.js"></script>
-
 	<script src="plugins/sparklines/sparkline.js"></script>
 	<script src="plugins/moment/moment.min.js"></script>
 	<script src="plugins/daterangepicker/daterangepicker.js"></script>
@@ -684,7 +620,6 @@ tbody {
 	<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 	<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 	<script src="plugins/toastr/toastr.min.js"></script>
-
 	<script src="plugins/datatables/jquery.dataTables.js"></script>
 	<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 	<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -697,10 +632,10 @@ tbody {
 	<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 	<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 	
-<script type="text/javascript">
+	<script type="text/javascript">
 
-var dataLimit='${dataLimit}';
-dataLimit=parseInt(dataLimit);
+		var dataLimit='${dataLimit}';
+		dataLimit=parseInt(dataLimit);
 
    $('#tripValue').modal("hide");
    const Toast = Swal.mixin({
@@ -728,9 +663,7 @@ dataLimit=parseInt(dataLimit);
        "scrollX": true,
        "pageLength": dataLimit,
        dom: 'Bfrtip',
-       //buttons: ['excel','pdf','print'],
        buttons: [
-
            {
                extend: 'excelHtml5',
 
@@ -780,8 +713,6 @@ dataLimit=parseInt(dataLimit);
                    obj['hLineColor'] = function(i) {
                        return '#aaa';
                    };
-                   //   doc.content[1].margin = [ 150, 0, 150, 0 ];
-
                }
            }
        ],
@@ -854,14 +785,12 @@ dataLimit=parseInt(dataLimit);
                    title: 'Failed.. Try Again..'
                })
            }
-
        });
 
        var obj ={
 					"referenceid": tripId,
 					"type": "Trip"
 			}
-			
 			$.ajax({
 				type : "POST",
 				url : "<%=GlobalUrl.getQueryByTypeAndForeignKey%>",
@@ -870,11 +799,8 @@ dataLimit=parseInt(dataLimit);
 				contentType : "application/json",
 				success : function(response) {
 					if (response.msg == "success") {
-					
 						if("data" in response){
-						
 							var result = response.data;												
-							
 						     	tabledataQuery.clear();
 						     	var count=0;
 			                        for (var i = 0; i < result.length; i++) {
@@ -943,23 +869,11 @@ dataLimit=parseInt(dataLimit);
            $("#fs").prop('disabled', true);
            $("#totalFreight").prop('disabled', true);
            $("#basicFreight").prop('disabled', true);
-
-           //Recalcluate
-
-
        }
-
-
-
    }
-
-
 
    function updateTripDataByNetworkTeam() {
 	   $('.loader').show();
-
-
-       //Validations
        var ratePerKm = document.getElementById("ratePerKm").value;
        var routeKms = document.getElementById("routeKms").value;
        var fsBaseRate = document.getElementById("fsBaseRate").value;
@@ -1000,17 +914,11 @@ dataLimit=parseInt(dataLimit);
            return "";
        }
 
-
-
-
-
-
        var today = new Date();
        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
        var dateTime = date + ' ' + time;
        var checkedValue = $('.messageCheckbox:checked').val();
-
 
        if (checkedValue != '' || checkedValue != "") {
            checkedValue = 'unchecked';
@@ -1033,8 +941,6 @@ dataLimit=parseInt(dataLimit);
                return "";
            }
 
- 
-
            if (fs === "" || fs === null || fs === '') {
                Toast.fire({
                    type: 'error',
@@ -1043,7 +949,6 @@ dataLimit=parseInt(dataLimit);
                document.getElementById("fs").focus();
                return "";
            }
-
 
        } else {
            if (AmountLumpSum == '' || AmountLumpSum == null || AmountLumpSum == '0' || AmountLumpSum == '0.0') {
@@ -1074,8 +979,6 @@ dataLimit=parseInt(dataLimit);
 
        }
 
-
-
        $.ajax({
            type: "POST",
            data: JSON.stringify(obj),
@@ -1095,7 +998,6 @@ dataLimit=parseInt(dataLimit);
                }
            },
            error: function (jqXHR, textStatue, errorThrown) {
-               //alert("failed, please try again");
                Toast.fire({
                    type: 'error',
                    title: 'Action Performed'
@@ -1104,13 +1006,10 @@ dataLimit=parseInt(dataLimit);
 
        });
 
-
        $('#tripValue').modal('hide');
 
-
    }
-
-                </script>
+</script>
 
 </body>
 

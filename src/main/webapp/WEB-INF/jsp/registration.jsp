@@ -11,7 +11,6 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Business Partner Registration</title>
 
-<!-- Optional SmartWizard themes -->
 <link rel="stylesheet"
 	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 <link
@@ -94,22 +93,11 @@
                   	   swal.fire("Alert", "Introducer Email Id is mandatory", "warning")
                          .then((value) => {});
                      }
-                	/* else  if(controlName=="states"){
-                	  
-                	   swal.fire("Alert", "Business Partner Type is mandatory", "warning")
-                       .then((value) => {});
-                   } */
                 	else  if(controlName=="suppName"){
                   	  
                  	   swal.fire("Alert", "Business Partner Name is mandatory", "warning")
                         .then((value) => {});
                     }
-                	
-                	/* else  if(controlName=="panNumber"){
-                  	  
-                   	   swal.fire("Alert", "PAN Number is mandatory", "warning")
-                          .then((value) => {});
-                      } */
                 	
                 	 else  if(controlName=="creditTerms"){
                       	  
@@ -131,24 +119,6 @@
                        .then((value) => {});
                    }
                 	  
-                	 
-             
-                	 
-              	/* else  if(controlName=="GSTFile"){
-               	  
-             	   swal.fire("Alert", "GST Certificate is mandatory", "warning")
-                    .then((value) => {});
-                } */
-              	 /* else  if(controlName=="PDFile"){
-                 	  
-              	   swal.fire("Alert", "Proprietorship Declaration is mandatory", "warning")
-                     .then((value) => {});
-                 } *//*
-              	else  if(controlName=="PANFile"){
-                 	  
-              	   swal.fire("Alert", "PAN Card is mandatory", "warning")
-                     .then((value) => {});
-                 } */
               	else  if(controlName=="CCFile"){
                	  
                	   swal.fire("Alert", "Cancelled Cheque/ Passbook/ Bank Statement  is mandatory", "warning")
@@ -165,19 +135,6 @@
                	   swal.fire("Alert", "MSME Certificate is mandatory", "warning")
                       .then((value) => {});
                   }
-              	/* else  if(controlName=="AMFile"){
-               	  
-               	   swal.fire("Alert", "Approval Mail is mandatory", "warning")
-                      .then((value) => {});
-                  } */
-              	/* else  if(controlName=="NMISFile"){
-               	  
-               	   swal.fire("Alert", "Name Mismatch Affidavit is mandatory", "warning")
-                      .then((value) => {});
-                  } */
-                	
-                   // $('#manPara').css('display', '');
-                   // addValCss(controlName);
                     $("#" + controlName).focus();
                 } else {
                     console.log('Values Are Passed As Empty Or Null In notifyTooltip()');
@@ -189,24 +146,22 @@
 
         $(document).ready(function() {
             $('#smartwizard').smartWizard({
-                transitionEffect: 'fade', // Effect on navigation, none/fade/slide/slideleft
+                transitionEffect: 'fade', 
                 contentCache: true,
                 theme: 'circles',
                 showStepURLhash: true,
                 keyNavigation: false,
                 toolbarSettings: {
-                    toolbarPosition: 'bottom', // none, top, bottom, both
-                    toolbarButtonPosition: 'right', // left, right
-                    showNextButton: true, // show/hide a Next button
-                    showPreviousButton: true, // show/hide a Previous button
+                    toolbarPosition: 'bottom', 
+                    toolbarButtonPosition: 'right', 
+                    showNextButton: true, 
+                    showPreviousButton: true, \
                     toolbarExtraButtons: [
                         $('<button disabled="true" id="finishButton"></button>').text('Finish')
-                        //                            $('<button id="finishButton"></button>').text('Finish')
                         .addClass('btn btn-success btnfinish')
                         .on('click', function() {
                         	
                         	  var pid="${pid}";
-                        	  /*  if ($("#partnerType").val() == "Scheduled") {  */
                         		  console.log($("#partnerType").val());
                         		 if(pid==""){
                         		  var mandFields = "CCFile,ITRFile,MSMECFile";
@@ -221,19 +176,6 @@
                                       }
                                   }
                         	    }
-                        	   /* } 
-                        	   else{
-                        		  var mandFields = "suppName";
-                                  var mandFieldsArr = mandFields.split(",");
-                                  for (i = 0; i < mandFieldsArr.length; i++) {
-                                      console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
-                                      if (document.getElementById(mandFieldsArr[i]).value == '') {
-                                          notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
-                                          console.log("mandatory Check :: " + mandFieldsArr[i]);
-                                          return false;
-                                      }
-                                  }
-                        	  }  */
                         	   
                         	   if(pid !=""){
                         		   for(var k=0;k<5; k++ ){
@@ -253,8 +195,6 @@
                         	   else{
                         		   sendToServer();
                         	   }
-                        	   
-                            
                         })
                     ]
                 }
@@ -269,7 +209,6 @@
                 
             	console.log("stepNumber " + stepNumber);
                 console.log("stepDirection " + stepDirection);
-               // console.log("getCurrentIndex " + $("#smartwizard").smartWizard("currentStep"));
 
                 var chedlka=$("#smartwizard").smartWizard("currentStep");
                 var pid="${pid}";
@@ -280,48 +219,30 @@
                     $('.btnfinish').attr('disabled', false);
                     $('.sw-btn-next').attr('disabled', true);
                 } else {
-                   // $('.btnfinish').attr('disabled', true);
                     $('.sw-btn-next').attr('disabled', false);
                 }
-                
-                
- 				 /* if(pid!="" && stepNumber === 4){
- 					$('.btnfinish').attr('disabled', false);
-                }  */
-                
                 return checkMand(stepNumber,stepDirection);
             }); 
         });
         
-       
-        
-        
-
          function showHideRequiredClass() {
-            //alert($("#partnerType").val());
             if ($("#partnerType").val() == "Scheduled") {
-                //alert("ji..");
                 $(".required").css("visibility", "visible");
                 $("#finishButton").attr("disabled", true);
             }  else {
                 $(".required").css("visibility", "hidden");
                 $(".adHocRequired").css("visibility", "visible");
                 $("#finishButton").attr("disabled", true);
-                //alert("ji..2");
             } 
         } 
 
         function checkMand(stepNo,stepDirection) {
-
             
         	if(stepDirection=="backward"){
         		return true;
         	}
         	
             if (stepNo == 0) {
-
-               
-
                     console.log("Inside Step One");
                     var mandFields = "introducedByName,introducedByEmailID,suppName";
                     var mandFieldsArr = mandFields.split(",");
@@ -329,31 +250,10 @@
                         console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
                         if (document.getElementById(mandFieldsArr[i]).value == '') {
                             notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
-                           
-                            console.log("mandatory Check :: " + mandFieldsArr[i]);
-                            
-                            return false;
-                        }
-                    }
-                  
-
-                    //  
-                /* } else {
-                    console.log("Inside Step One");
-                    //
-
-                    var mandFields = "partnerType,introducedByName,introducedByEmailID,suppName,compEmail,phoneNumber";
-                    var mandFieldsArr = mandFields.split(",");
-                    for (i = 0; i < mandFieldsArr.length; i++) {
-                        console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
-                        if (document.getElementById(mandFieldsArr[i]).value == '') {
-                            notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
                             console.log("mandatory Check :: " + mandFieldsArr[i]);
                             return false;
                         }
                     }
-                } */
-
 
             } else if (stepNo == 1) {
                 console.log("Inside Step Two");
@@ -383,7 +283,6 @@
                     return false;
                 }
                 console.log("Inside Step Three second part");
-                //
 
                 var mandFields = "invoiceCurrency,paymentCurrency,creditTerms,paymentMethod";
                 var mandFieldsArr = mandFields.split(",");
@@ -441,7 +340,7 @@
                 	swal.fire(""," Invalid Aadhar Number", "warning");
                     $("#aadharNumber").val('');
                     $("#aadharNumber").focus();
-                    //return false;
+                    return false;
                 }
             }
         }
@@ -492,7 +391,6 @@
                 	
                     var inputValue = event.which;
                    
-                    // allow letters and whitespaces only.
                     if(inputValue==8){
                     	
                     }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
@@ -517,7 +415,6 @@
                 	
                     var inputValue = event.which;
                    
-                    // allow letters and whitespaces only.
                     if(inputValue==8){
                     	
                     }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
@@ -532,7 +429,6 @@
                 	
                     var inputValue = event.which;
                    
-                    // allow letters and whitespaces only.
                     if(inputValue==8){
                     	
                     }else if(!(inputValue >= 65 && inputValue <= 122 ) && (inputValue != 32 && inputValue != 0) && !(inputValue >= 37 && inputValue <= 47 ) ) { 
@@ -548,7 +444,6 @@
                 	
                     var inputValue = event.which;
                    
-                    // allow letters and whitespaces only.
                     if(inputValue==8){
                     	
                     }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
@@ -569,7 +464,6 @@
                 	
                     var inputValue = event.which;
                    
-                    // allow letters and whitespaces only.
                     if(inputValue==8){
                     	
                     }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
@@ -583,7 +477,6 @@
                 	
                     var inputValue = event.which;
                    
-                    // allow letters and whitespaces only.
                     if(inputValue==8){
                     	
                     }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
@@ -594,16 +487,10 @@
            
         });
         
-       
-
-
         function changetextbox() {
-            /* alert(document.getElementById("tdsApplication").value);  */
              if (document.getElementById("tdsApplication").value === "No") {
                 document.getElementById("tdsSection").disabled = 'true';
                 document.getElementById("tdsRate").disabled = 'true';
-                //    document.getElementById("tdsRate").val()="";
-                //            	    document.getElementById("tdsSection").value()="";
                 $("#tdsSection").val("");
                 $("#tdsRate").val("");
 
@@ -626,10 +513,6 @@
                     return regex.test(inputvalues);
                 }
             });
-            
-            //allow special characters for Business partner type
-    
-          
             
             $("#introducedByEmailID").change(function() {
                 var inputvalues = $(this).val();
@@ -658,8 +541,6 @@
             });
         });
         
-     
-        
         $(document).ready(function() {
             $("#ifscCode").change(function() {
                 var inputvalues = $(this).val();
@@ -672,7 +553,6 @@
                 }
             });
         });
-        
         
         $(document).ready(function() {
             $("#pinCode").change(function() {
@@ -693,40 +573,22 @@
         	
         	var fileInput3 = document.getElementById(id).value;
         	var gst = document.getElementById(id);
-        	/* var allowedExtensions = /(\.jpg|\.jpeg|\.pdf)$/i; */
-        	 /* if (!allowedExtensions.exec(fileInput3)) {
-        		 $("#GSTFile").val("");
-             	swal.fire("Alert", "Invalid File Type, Select Only JPEG & PDF File....", "warning");
-             	return false;
-             } */
         	 if (typeof (gst.files) != "undefined") {
-             	
-             	
              	const fsize = gst.files.item(0).size;
-             	
              	console.log(fsize);
              	const file = Math.round((fsize / 1024));
              	console.log(file);
-                // var size = parseFloat(cc.files[0].size / (1024 * 1024)).toFixed(2);
-                 //alert("Your File Size is "+(file/1024)+"MB");
                  if(file > ${maxFileSize}) {
                  	swal.fire("Alert", " File size should be less than 5 MB", "warning");
                  	$("#" + id).val("");
                  }else{
-                 	 /* var ext = fileInput3.split(".")[1]; */
-                 	 
                  	var f = evt.target.files[0];
                  	var fileName = f.name;
                  	var ext=fileName.substring(fileName.lastIndexOf(".") , fileName.length);
-                 	 
-                 	 
-                     // alert("Extension is "+ext);
                       
                       if( ext==".pdf" || ext==".jpg" || ext==".JPEG" || ext==".JPG" || ext==".jpeg" || ext==".PDF" || ext==".DOCX" || ext==".docx" ){
-                      	//Sab valid hai
                       }else{
                       	swal.fire("Alert", "Invalid File Type, Select Only Pdf, Word & Jpeg File", "warning");
-                          
                       	$("#" + id).val("");
                           return false;	
                       }
@@ -749,60 +611,6 @@
             $(document).ready(function() {
                 
             });
-           /*  else 
-            {
-              // Image preview
-                 if (fileInput.files && fileInput.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        document.getElementById(
-                            'imagePreview').innerHTML = 
-                            '<img src="' + e.target.result
-                            + '"/>';
-                    };
-                    reader.readAsDataURL(fileInput.files[0]);
-                } 
-            } */
-        
-        
-        /* function isNumber(evt)
-        {
-           var charCode = (evt.which) ? evt.which : event.keyCode
-           if (charCode > 31 && (charCode < 48 || charCode > 57))
-              return false;
-   
-           return true;
-        } */
-        
-        
-
-      <%--   function checkemail(emailid) {
-            console.log("email id" + emailid);
-           // alert("Hiiiiiiiiiiiiii");
-            $.ajax({
-                type: "POST",
-                url: "<%=GlobalUrl.checkemail%>?email="+emailid,
-                dataType: "json",
-                contentType: "application/json",
-                success: function(data) {
-                    alert("Hiiiiiiiiiiiiii");
-
-                    if (data.msg == 'True') {
-                        Toast.fire({
-                            type: 'success',
-                            title: 'Submitted Successfully'
-                        })
-                    } else {
-                        alert("failed");
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-            });
-
-        }
- --%>
     </script>
 
 <style>
@@ -858,14 +666,10 @@ input:focus {
 		url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
 }
 
-/* When the body has the loading class, we turn
-               the scrollbar off with overflow:hidden */
 body.loading .modal {
 	overflow: hidden;
 }
 
-/* Anytime the body has the loading class, our
-               modal element will be visible */
 body.loading .modal {
 	display: block;
 }
@@ -943,7 +747,6 @@ select[readonly].select2 + .select2-container {
 <body>
 	<jsp:include page="loader.jsp" />
 	 <div class="">
-        <!-- partial:../../partials/_navbar.html -->
         <nav class="navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="navbar-menu-wrapper d-flex align-items-center">
                 <ul class="navbar-nav d-flex align-items-center flex-row" style="margin-left: 30px;">
@@ -978,7 +781,7 @@ select[readonly].select2 + .select2-container {
                             </div>
                             <div id="basicDetailsHeadData" aria-labelledby="basicDetailsHead" style="border-style: solid; border-width: 1px; border-color: #11aef6;">
                                 <form id="stepOneForm" class="forms-sample" style="padding: 20px;">
-                                    <table class="table center-aligned-table" id="fromTable" name="fromTable">
+                                    <table class="table center-aligned-table" id="fromTable" >
                                         <thead>
                                         </thead>
                                         <tbody>
@@ -991,35 +794,10 @@ select[readonly].select2 + .select2-container {
 
                                                 <td><label for="Supplier Type">Business Partner
                                                         Code</label></td>
-                                                <td colspan='1'><input type="test" class="form-control p-input" id="bpCode" name="bpCode" placeholder="Business Partner Code" onchange="removeValCssByID(this)" disabled></td>
-
-
+                                                <td colspan='1'><input type="text" class="form-control p-input" id="bpCode" name="bpCode" placeholder="Business Partner Code" onchange="removeValCssByID(this)" disabled></td>
                                             </tr>
-
-
-
                                             <tr>
-
-                                                <%-- <td><label>Business Partner Type<span class="required adHocRequired">*</span></label></td>
-
-                                                <td style="width: auto"><select class="js-example-basic-multiple select2" name="states[]" id="states" onchange="select()" multiple="multiple">
-                                                        <c:forEach items="${business}" var="bus">
-
-                                                            <option value="${bus}">${bus}</option>
-                                                        </c:forEach>
-                                                    </select></td>
-
-
-                                                <td><label for="partnerType">Business Partner</label></td>
-                                                <td><select id="partnerType" name="partnerType" class="form-control p-input" onchange="showHideRequiredClass();" disabled="disabled">
-                                                        <c:forEach items="${partner}" var="par">
-
-                                                            <option value="${par}">${par}</option>
-                                                        </c:forEach>
-
-                                                    </select></td> --%>
                                                 <input type="hidden" id="roleId" />
-
 
                                                 <td><label for="suppName">Business Partner Name<span class="required adHocRequired">*</span></label></td>
                                                 <td colspan='1'><input type="text" class="form-control p-input" id="suppName" name="suppName" placeholder="Business Partner Name" onchange="removeValCssByID(this)"  maxlength="50"></td>
@@ -1038,10 +816,6 @@ select[readonly].select2 + .select2-container {
                                                 <td><label for="mesmeNumber">MESME Certificate Number</label></td>
                                                 <td colspan='1'><input type="text" class="form-control p-input" id="mesmeNumber" maxlength="12" name="mesmeNumber" placeholder="MESME Certificate Number" disabled="disabled"></td>
 													</tr>
-
-
-
-
 
                                             <tr class="">
 
@@ -1085,7 +859,7 @@ select[readonly].select2 + .select2-container {
 												
 												<td><label>Region<span class="required adHocRequired"></span></label></td>
 
-                                                <td style="width: auto"><select colspan='1' class="js-example-basic-multiple1 select2" name="region" id="region" multiple="multiple" onchange="region1();">
+                                                <td style="width: auto"><select  class="js-example-basic-multiple1 select2" name="region" id="region" multiple="multiple" onchange="region1();">
                                                         <c:forEach items="${region}" var="reg">
 
                                                             <option value="${reg}">${reg}</option>
@@ -1159,27 +933,6 @@ select[readonly].select2 + .select2-container {
                                                         </c:forEach>
 
                                                     </select></td>
-                                                    
-                                                    <%-- <td><label for="Business Partner Type">Business Partner Type<span class="required adHocRequired">*</span>
-                                                        </label></td>
-
-                                                    <td colspan='2'><select  class="form-control p-input" id="natureOfTransactions" name="natureOfTransactions" placeholder="Nature of Transactions" onchange="removeValCssByID(this)">
-                                                            <option value="">Select</option>
-                                                            <c:forEach items="${business}" var="nat">
-
-                                                                <option value="${nat}">${nat}</option>
-                                                            </c:forEach>
-
-                                                        </select></td>
-                                                        
-                                                     <td><label for="partnerType">Business Partner</label></td>
-                                               		 <td colspan="2"><select id="partnerType" name="partnerType" class="form-control p-input" onchange="showHideRequiredClass();" disabled="disabled">
-                                                        <c:forEach items="${partner}" var="par">
-
-                                                            <option value="${par}">${par}</option>
-                                                        </c:forEach>
-
-                                                    </select></td> --%>   
                                                 </tr>
 
                                                 <tr class="">
@@ -1408,7 +1161,7 @@ select[readonly].select2 + .select2-container {
 
                                                     <td colspan='2'>
 
-                                                        <select id="paymentMethod" name="paymentMethod" class="form-control p-input" colspan='2' placeholder="Payment Method" onchange="removeValCssByID(this)">
+                                                        <select id="paymentMethod" name="paymentMethod" class="form-control p-input"  onchange="removeValCssByID(this)">
 
                                                             <c:forEach items="${paymentMethod}" var="met">
                                                                 <option value="${met}">${met}</option>
@@ -1452,9 +1205,6 @@ select[readonly].select2 + .select2-container {
                                                 </thead>
                                                 <tbody>
                                                     <tr class="">
-                                                        <!-- <td><label class="addressLable" for="tdsApplication">TDS
-                                                                Applicable</label></td>
-                                                        <td colspan='2'><input type="text" id="tdsApplication" value="Yes" name="tdsApplication" readonly class="form-control p-input "> </td> -->
 
 														<td><label class="addressLable" for="tdsApplication">TDS
                                                                 Applicable<span class="required">*</span></label></td>
@@ -1488,10 +1238,6 @@ select[readonly].select2 + .select2-container {
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- End -->
-
-                            <!-- Start -->
 
                             <div class="card" style="margin-bottom: 10px;">
                                 <div class="card-header" id="itrHead" style="background: #1991eb; color: #ffffff;">
@@ -1562,11 +1308,7 @@ select[readonly].select2 + .select2-container {
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- End -->
-
                         </div>
-
                     </div>
                     <div id="step-5" class="">
                         <div class="card" style="margin-bottom: 10px;">
@@ -1659,13 +1401,6 @@ select[readonly].select2 + .select2-container {
                                                         </tr>
 
                                                         <tr>
-                                                            <!-- <td><label>ITR Acknowledgment of 3 years<span
-																	class="required">*</span></label></td>
-															<td><input type="file" id="ITRAFile" name="ITRAFile"
-																onchange="handleFileSelect(event,'ITRAFileText'), onValidateFile('ITRAFile')"
-																class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
-																<textarea id="ITRAFileText" rows="5"
-																	style="display: none;"></textarea></td> -->
                                                             <td><label>Name mismatch affidavit or
                                                                     declaration would be required if name mentioned in all
 
@@ -1674,8 +1409,6 @@ select[readonly].select2 + .select2-container {
                                                             <td><input type="file" id="NMISFile" name="NMISFile" onchange="handleFileSelect(event,'NMISFileText','Name Mismatch Affidavit'), onValidateFile(event,'NMISFile')" class="form-control p-input" accept=".docx, .jpg, .jpeg, .pdf">
                                                                 <textarea id="NMISFileText" rows="5" style="display: none;"></textarea> <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                         size Max ${fileSize} MB</span></label>
-                                                                <!-- <a href="C:/1.BPAAS/Document/doc.pdf" download="doc.pdf">Download Template
-																		</a> -->
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -1687,10 +1420,6 @@ select[readonly].select2 + .select2-container {
                             </div>
                         </div>
                     </div>
-
-
-                    <!-- query page -->
-
                     <div id="step-6" class="">
                     <div class="card queryFormUiText">
                     	<p style="font-size: 40px;color: green;text-align: center;margin-top: 100px;margin-bottom: 100px;">Thanks for registration! Click the Finish button for complete</p>
@@ -1741,9 +1470,6 @@ select[readonly].select2 + .select2-container {
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
@@ -1752,9 +1478,6 @@ select[readonly].select2 + .select2-container {
 	<script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
 	<script src="js/commonFunctions.js"></script>
 	<script src="plugins/datatables/jquery.dataTables.min.js"></script>
-    <!-- <script src="plugins/datatablres-bs4/js/dataTables.bootstrap4.min.js"></script> -->
-    <!-- <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script> -->
-   <!--  <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script> -->
     <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
     <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 	<script>
@@ -1784,14 +1507,9 @@ select[readonly].select2 + .select2-container {
         			  $('#finishButton').attr("disabled", false);
         		  }
         		  clearInterval(stateCheck);
-        	    
-        	    // document ready
         	  }
         	}, 100);
-        
-        
         if(pid!=""){
-        	
             location.href="#step-6"
             	$("#step6Id").css("display","block");
     	        $("#step-6").css("display","none");
@@ -1823,8 +1541,6 @@ select[readonly].select2 + .select2-container {
             $('.js-example-basic-multiple').select2({
             	zplaceholder: "Select Partner Type",
                 allowClear: true
-    		//maximumSelectionLength: 1
-    		
             });
             
         });
@@ -1834,11 +1550,7 @@ select[readonly].select2 + .select2-container {
                 allowClear: true
     		
             });
-            
         });
-      
-
-        	 
         
         $("#addBookGridButt").click(function() {
             var abc = document.getElementById('city').value;
@@ -1871,8 +1583,6 @@ select[readonly].select2 + .select2-container {
                     document.getElementById('compGstn').value + '</td><td>' +
                     document.getElementById('addDetails').value + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
-                /*  document.getElementById('addCountry').value = "";
-                 document.getElementById('state').value = ""; */
                 document.getElementById('city').value = "";
                 document.getElementById('pinCode').value = "";
                 document.getElementById('states').value = "";
@@ -1880,8 +1590,6 @@ select[readonly].select2 + .select2-container {
                 document.getElementById('addDetails').value = "";
                 document.getElementById('compGstn').value="";
                 $("#addDetails").prop('readonly', false);
-               // var $S2 = $("select[name=states]");
-               // $S2.removeAttr("readonly");
             }
 
         });
@@ -1975,35 +1683,6 @@ select[readonly].select2 + .select2-container {
             }
         });
 
-       /*  $("#addITRGridButt").click(function() {
-            var abc = document.getElementById('fyYear').value;
-            var abc1 = document.getElementById('acknowledgementNumber').value;
-            var abc2 =  document.getElementById('ITRAFile').value; 
-            console.log("abc =>" + abc);
-            if (abc == null || abc == "") {
-                swal.fire("Alert", "Select financial year ", "warning");
-                return false;
-            } else if (abc1 == null || abc1 == "") {
-                swal.fire("Alert", "Acknowledgement number is mandatory", "warning");
-                return false;
-             } else if (abc2 == null || abc2 == "") {
-                swal.fire("Alert", " Please! Upload ITR document", "warning");
-                return false;
-            } else {
-                $("#addITRGrid").append('<tr class=""><td>' +
-                    document.getElementById('fyYear').value + '</td><td>' +
-                    document.getElementById('acknowledgementNumber').value + '</td><td>' +
-                    
-                    document.getElementById('ITRAFile').files[0].name  +'</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
-
-                document.getElementById('fyYear').value = "";
-                document.getElementById('acknowledgementNumber').value = "";
-                document.getElementById('ITRAFile').value = "";
-               
-
-            }
-        }); */
-
         function sendToServer() {
             var addressDetailsArray = [];
             var table = document.getElementById('addBookGrid');
@@ -2061,22 +1740,6 @@ select[readonly].select2 + .select2-container {
                 contactDetailsArray.push(pushContactObj);
             }
             
-            /* var itrDetailsArray = [];
-            table = document.getElementById('addITRGrid');
-            rowLength = table.rows.length;
-
-            for (var i = 1; i < rowLength; i += 1) {
-                var row = table.rows[i];
-
-                var pushItrObj = {
-                    "fyYear": row.cells[0].innerHTML,
-                    "acknowledgementNumber": row.cells[1].innerHTML
-                }
-                itrDetailsArray.push(pushItrObj);
-            } */
-            
-            
-            
             $body.addClass("loading");
 
             var step1Obj = FormDataToJSON('stepOneForm');
@@ -2094,7 +1757,6 @@ select[readonly].select2 + .select2-container {
             finalObj.accountDetails = accountDetailsArray;
             finalObj.addressDetails = addressDetailsArray;
             finalObj.contactDetails = contactDetailsArray;
-            /* finalObj.itrDetails = itrDetailsArray; */
             if (document.getElementById("GSTFile").files.length > 0) {
             	finalObj.gstFileName=document.getElementById("GSTFile").files.item(0).name;
                 finalObj.gstFileText = $("#GSTFileText").val();
@@ -2140,7 +1802,6 @@ select[readonly].select2 + .select2-container {
                 finalObj.nmisFileText = $("#NMISFileText").val();
             }
             
-            // last three year ITR file upload
             if (document.getElementById("ITRFile1").files.length > 0) {
                 finalObj.itraFileName1 = document.getElementById("ITRFile1").files.item(0).name;
                 finalObj.itraFileText1 = $("#ITRFileText1").val();
@@ -2154,29 +1815,12 @@ select[readonly].select2 + .select2-container {
                 finalObj.itraFileText3 = $("#ITRFileText3").val();
             }
 
-           /*  var checked = []
-            $("input[name='option[]']:checked").each(function() {
-                checked.push($(this).val());
-            });
-
-            let values = checked.toString();
-            console.log(values);
-            finalObj.vendorType = values; */
-            
-           
-            
-            
             var element = document.getElementById('states');
         	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
         	var selectedValues = [];    
             $("#states :selected").each(function(){
                 selectedValues.push($(this).val()); 
             });
-            /*  if(selectedValues== ""){
-            	swal.fire("Alert", "please select Business Partner Type....", "warning")
-                return regex.test(inputvalues);
-            }
-             */
              var values= document.getElementById("roleId").value ;
              console.log("value vendorType : "+values);
              finalObj.vendorType = values;
@@ -2237,9 +1881,8 @@ select[readonly].select2 + .select2-container {
                             window.location = "login";
                         });
 
-
                         setTimeout(function(response) {
-                            //location.href = "login";
+                            location.href = "login";
                         }, 2000);
                     } else {
                         alert("failed");
@@ -2255,42 +1898,10 @@ select[readonly].select2 + .select2-container {
             });
         }
 
-       /*  if (window.File && window.FileReader && window.FileList && window.Blob) {
-            /* document.getElementById('CICFile').addEventListener('change', handleFileSelect, false);
-            document.getElementById('GSTFile').addEventListener('change', handleFileSelect, false);
-            document.getElementById('TDSFile').addEventListener('change', handleFileSelect, false);
-            document.getElementById('PANFile').addEventListener('change', handleFileSelect, false);
-            document.getElementById('CCFile').addEventListener('change', handleFileSelect, false); 
-        } else {
-            alert('The File APIs are not fully supported in this browser.');
-        }
- */
-        /* function handleFileSelect(evt, id) {
-            var f = evt.target.files[0]; // FileList object
-            var reader = new FileReader();
-            // Closure to capture the file information.
-            reader.onload = (function(theFile) {
-                return function(e) {
-                    var binaryData = e.target.result;
-                    //Converting Binary Data to base 64
-                    var base64String = window.btoa(binaryData);
-                    //showing file converted to base64
-                    //console.log(base64String);
-
-                    $("#" + id).val(base64String);
-
-                    //  document.getElementById(evt.target.id + 'Text').value = base64String;
-                    //alert('File converted to base64 successfuly!\nCheck in Textarea');
-                };
-            })(f);
-            // Read in the image file as a data URL.
-            reader.readAsBinaryString(f);
-        } */
  
  function handleFileSelect(evt,id,hardCodedName) {
 	    var f = evt.target.files[0]; // FileList object
 	    var reader = new FileReader();
-	    // Closure to capture the file information.
 	    reader.onload = (function (theFile) {
 	        return function (e) {
 	            var binaryData = e.target.result;		  	            
@@ -2303,18 +1914,9 @@ select[readonly].select2 + .select2-container {
 				$("#" + id).val(base64String);
 	        };
 	    })(f);
-	    // Read in the image file as a data URL.
 	    reader.readAsBinaryString(f);		  			  	
 }
  
-     /*    
-        function a(event){
-        	var char = event.which;
-        	if(char >31 && char <32 && (char<65 || char>90) && (char < 97 || char >122))){
-        		return false;
-        	}
-        }
- */
         function isNumberKey(evt)
         {
            var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -2330,88 +1932,6 @@ select[readonly].select2 + .select2-container {
            return true;
         }
  
-/*  function myfun() {
-	var a = document.getElementById("phoneNumber").value;
-	if(a.length<10){
-		document.getElementById("message").innerHTML="Mobile number must be 10 digit";
-		return false;
-	}
-} */
-
-
-
-
-
-           /*  getEntityName();
-         function getEntityName(){
-         	
-         	var myForm="";
-         	myForm = document.getElementById("stepSevenForm");
-         	
-         	for (var i = 0; i < myForm.elements.length; i++) {
-                
-               	var idOfElement=myForm.elements[i].id;
-               	
-               	if(idOfElement!=""){
-               		
-                    console.log(idOfElement);
-                     		
-               	}
-               }	
-         }  */   
-         /* $(function() {
-             $("#confirmedAccoutNumber").keyup(function() {
-            	
-                 var password = $("#accoutNumber").val();
-                 var passwordConfirm = $("#confirmedAccoutNumber").val();
-                 var passflag = $("#passflag").val();
-                 
-                
-                  if ($('#accoutNumber').val() == $('#confirmedAccoutNumber').val() && passflag!="1" ) {
-         		    $('#divCheckPasswordMatch').html('Account number match.').css('color', 'green');
-         		    // Enable #x	
-         		    $("#addBankGridButt").prop("disabled", false)
-         		    
-         		  } 
-                  else {
-                	  
-                	  //swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + response.data, "success", "OK")
-         		    $('#divCheckPasswordMatch').html('Account number do not match!').css('color', 'red');
-              // Disable #x
-     		    $('#addBankGridButt').attr('disabled', true);
-                 return;
-         		  }
-                  
-               //  $("#divCheckPasswordMatch").html(password == $(this).val() ? "Passwords match." : "Passwords do not match!");
-             });
-         }); 
-         
-         $(function() {
-             $("#accoutNumber").keyup(function() {
-                 var password = $("#accoutNumber").val();
-                 var passwordConfirm = $("#confirmedAccoutNumber").val();
-                 var passflag = $("#passflag").val();
-                 
-                
-                  if ($('#accoutNumber').val() == $('#confirmedAccoutNumber').val() && passflag!="1" ) {
-         		    $('#divCheckPasswordMatch').html('Account number match.').css('color', 'green');
-         		    // Enable #x	
-         		    $("#addBankGridButt").prop("disabled", false)
-         		    
-         		  } 
-                  else {
-                	  
-                	 // swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + response.data, "success", "OK")
-         		    $('#divCheckPasswordMatch').html('Account number did not match!').css('color', 'red');
-              // Disable #x
-     		    $('#addBankGridButt').attr('disabled', true);
-                 return;
-         		  }
-               //  $("#divCheckPasswordMatch").html(password == $(this).val() ? "Passwords match." : "Passwords do not match!");
-             });
-         });  */
-         
-
          var matchFlag=0;
          $(function() {
              $("#confirmedAccoutNumber").keyup(function() {
@@ -2422,7 +1942,6 @@ select[readonly].select2 + .select2-container {
                  if(password!="" && passwordConfirm!=""){
                   if ($('#accoutNumber').val() == $('#confirmedAccoutNumber').val() && passflag!="1" ) {
          		    $('#divCheckPasswordMatch').html('Account number match.').css('color', 'green');
-         		    // Enable #x	
          		    $("#addBankGridButt").prop("disabled", false)
          		    
          		  } 
@@ -2431,7 +1950,6 @@ select[readonly].select2 + .select2-container {
          		    $('#divCheckPasswordMatch').html('Account number do not match!').css('color', 'red');
          		    matchFlag=1;
          		    
-              // Disable #x
      		    $('#addBankGridButt').attr('disabled', true);
               
                  return;
@@ -2451,16 +1969,13 @@ select[readonly].select2 + .select2-container {
                  if(password!="" || passwordConfirm!=""){
                   if ($('#accoutNumber').val() == $('#confirmedAccoutNumber').val() && passflag!="1" ) {
          		    $('#divCheckPasswordMatch').html('Account number match.').css('color', 'green');
-         		    // Enable #x	
          		    $("#addBankGridButt").prop("disabled", false)
          		    
          		  } 
                   else {
                  	 if(matchFlag==1){
          		    $('#divCheckPasswordMatch').html('Account number does not match!').css('color', 'red');
-              // Disable #x
      		    $('#addBankGridButt').attr('disabled', true);
-            
                  return;
                  	 }
          		  }
@@ -2535,7 +2050,6 @@ select[readonly].select2 + .select2-container {
          }
          
  
-         //getQueryData();
 		 function getQueryData(){
 			 
 			 var obj ={
@@ -2583,16 +2097,11 @@ select[readonly].select2 + .select2-container {
 				}); 
 		 }
 		 
-	        //var pid= $("#pid").val('');
-	       
-	
 	        function getVendorData() {
 	            console.log(pid);
 	            var json = {
 	                "pid": pid
 	            }
-	            
-	            
 	            $.ajax({
 	                type: "POST",
 	                data: JSON.stringify(json),
@@ -2605,7 +2114,6 @@ select[readonly].select2 + .select2-container {
 	                        var result = data.data;
 	                    	console.log(result);
 	                    
-	                    //	id=result[0].id;
 	                    	
 	                    	$("#vendorPrimaryKey").val(result[0].id);
 	                    	$("#vendorPid").val(pid);
@@ -2620,7 +2128,6 @@ select[readonly].select2 + .select2-container {
 	                           
 	                         
 	                        	   for (let i = 0; i < str.length; i++) {
-	                            	  // alert("str"+str[i]);
 	                            	   
 	                            	    if(str[i] == 'Network' && str[i+1] == 'Fixed Asset' && str[i+2] == 'Other'){
 	                            	    		$('#states').val(["Network","Fixed Asset","Other"]).change() 
@@ -2648,18 +2155,12 @@ select[readonly].select2 + .select2-container {
 	                              				$('#states').val('Other').trigger('change');
 	                              		 		break;
 	                              	   }    	
-	                            	  
 	                        	 } 
-	                        
 	                           
 	                        	 select();
-	                      
 	                  
 	                       if(result[0].partnerType!="Ad-Hoc"){
 	                    	   
-	                    	
-	                        //tabledata.clear();
-
 	                         for (var i = 0; i < result[0].addressDetails.length; i++) {
 	                      
 	                        	
@@ -2669,10 +2170,6 @@ select[readonly].select2 + .select2-container {
 	                        			 result[0].addressDetails[i].city + '</td><td>' +
 	                        			 result[0].addressDetails[i].pinCode + '</td><td>' +
 	                        			 result[0].addressDetails[i].addDetails + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
-
-	                        	 
-	                        	 
-	                        	 
 	                        } 
 	                         for (var i = 0; i < result[0].contactDetails.length; i++) {
 
@@ -2701,14 +2198,7 @@ select[readonly].select2 + .select2-container {
 
 	                        		 result[0].itrDetails[i].acknowledgementNumber + '</td><td>' +
 	                        		 '</td><td>' + '  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
-
-	                        
-	                        
 	                         }
-	                        
-	                    
-	                       
-	                        
 	                        myForm = document.getElementById("stepSixForm");
 	                        setData(myForm, result[0]);
 	                      
@@ -2717,9 +2207,6 @@ select[readonly].select2 + .select2-container {
 	                        setData(myForm, result[0]);
 
 	                       } 
-	                        
-	                       // $("#id").val(result[0].id);
-	                        //$("#userModal").modal('show');
 
 	                    } else {
 	                        Toast.fire({
@@ -2745,12 +2232,10 @@ select[readonly].select2 + .select2-container {
 	            $("#states :selected").each(function(){
 	                selectedValues.push($(this).val()); 
 	            });
-	           // alert(selectedValues);
 	            
 	            let values = selectedValues.toString();
 	         
 	        	document.getElementById("roleId").value=values;
-	        	//alert("roleId111: "+num);
 		
 				
 				var val = document.getElementById("states").value
@@ -2786,29 +2271,9 @@ select[readonly].select2 + .select2-container {
 				
 			}
 			
-			//$(".sw-container").css("min-height","0px");
-			//$(".tab-content").css("min-height","0px");
-		//	$(".sw-container tab-content").css("min-height","0px");
 			
 			function region1(){
-				/*  var value =[];
-	             $("#region :selected").each(function(){
-	            	 value.push($(this).val()); 
-	             });
-	         
-	            
-	             if(value.includes("CRO") || value.includes("ERO")){//ERO
-	            	 alert("ERO");
-	            	 
-	             }else if(value.includes("WRO")){
-	            	 alert("WRO");
-	             }else if(value.includes("NRO")){
-	            	 alert("NRO");
-	             }else if(value.includes("SRO1") || value.includes("SRO2")){//SRO
-	            	 alert("SRO");
-	             }else if(value.includes("IHQ") ){
-	            	 alert("IHQ");
-	             } */
+				console.log("ok");
 			}
 			
 			$("#panNumber").focusout(function() {
@@ -2861,9 +2326,6 @@ select[readonly].select2 + .select2-container {
 	}
 	
 	function setVendorData(vendorEmail,vendorType1,region11,vendorAddress,processBy,processByEmailId){
-		//var str1=vendorType1.split(",");
-		// $("#states").val(str1);
-		// $("#states").trigger('change');
 		 $("#addDetails").val(vendorAddress);
 		 $("#conEmail").val(vendorEmail);
 		 
@@ -2881,10 +2343,6 @@ select[readonly].select2 + .select2-container {
 		 
 		 var $S1 = $("select[name=region]");
 		 $S1.attr("readonly", "readonly");
-		// var $S2 = $("select[name=states]");
-		// $S2.attr("readonly", "readonly");
-		 
-		 
 	}
     </script>
 

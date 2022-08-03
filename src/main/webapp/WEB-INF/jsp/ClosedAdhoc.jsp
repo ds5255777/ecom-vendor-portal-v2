@@ -539,7 +539,8 @@
 														<div class="form-group row">
 
 															<input type="hidden" class="form-control" id="vendorCode"
-																name="vendorCode" value=${userName } readonly>
+																name="vendorCode" value="${userName}" readonly>
+																
 														</div>
 													</div>
 												</div>

@@ -11,8 +11,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>${titleName}|In-Transit Trips</title>
-
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="dist/css/ionicons.min.css">
@@ -35,7 +33,6 @@
             height: 25px;
             font-size: 14px;
         }
-
         .custom-file {
             height: 25px;
             font-size: 14px;
@@ -110,14 +107,10 @@
     <jsp:include page="loader.jsp" />
     <div class="wrapper">
 
-        <!-- Navbar -->
         <jsp:include page="navbar.jsp?pagename=In-Transit Trips" />
-        <!-- /.navbar -->
 
-        <!-- Main Sidebar Container -->
         <jsp:include page="sidebar_Vendor.jsp?pagename=inTransitTrips" />
 
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="content-header" style="padding: 0px;">
                 <div class="container-fluid">
@@ -129,22 +122,14 @@
                 </div>
             </div>
 
-            <!-- /.content-header -->
-
-
-            <!-- Main content -->
             <section class="content mt-2">
                 <div class="container-fluid">
-
                     <div class="row">
                         <div class="col-md-12" style="font-size: 14px;">
-                            <!-- general form elements -->
                             <div class="card card-primary ">
-                                <!-- /.card-header -->
                                 <div class="card-body ">
                                 <form role="form" id="addForm" autocomplete="off">
 										<div class="row">
-											
 											<div class="col-md-2">
 												<div class="dropdown">
 													<button type="button"
@@ -183,33 +168,19 @@
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Origin Hub</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Destination Hub</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Status</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
-
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- /.card-body -->
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </section>
-
-            <!-- Control Sidebar -->
-            <!-- <aside class="control-sidebar control-sidebar-dark">
-			Control sidebar content goes here
-		</aside>
-		/.control-sidebar -->
         </div>
-        <!-- ./wrapper -->
-
-        <!-- Model Start -->
-        <!-- Model Start -->
+        </div>
 		<div class="modal fade" id="tripValue" role="dialog">
 			<div class="modal-dialog " style="max-width: 1400px;">
 				<!-- Modal content-->
@@ -227,7 +198,6 @@
 												<button type="button" class="btn btn-sm" id="closeModal" style="float: right;padding: 5px 5px 0px 0;"
 												data-dismiss="modal"><i class="nav-icon far fa-window-close" style="font-size: 20px; color: white;"></i></button>
 										</div>
-										<!-- /.card-header -->
 										<div class="card-body" style="padding-bottom: inherit;">
 											<form role="form" id="tripForm">
 												<div class="row">
@@ -267,9 +237,6 @@
 															</div>
 														</div>
 													</div>
-
-
-
 													<div class="col-md-3">
 														<div class="form-group row">
 															<label class="col-sm-5" title="Vehicle Number">Vehicle
@@ -282,7 +249,6 @@
 														</div>
 													</div>
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5" title="Vendor Name">Vendor
 																Name</label>
@@ -293,7 +259,6 @@
 														</div>
 													</div>
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5" title="Actual Vehicle Type">Act Vehicle
 																</label>
@@ -305,7 +270,6 @@
 														</div>
 													</div>
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5" title="Standard Vehicle Type">Std. Vehicle
 																</label>
@@ -540,15 +504,13 @@
 														<div class="form-group row">
 
 															<input type="hidden" class="form-control" id="vendorCode"
-																name="vendorCode" value=${userName } readonly>
+																name="vendorCode" value="${userName}" readonly>
 														</div>
 													</div>
 												</div>
 											</form>
 										</div>
-										<!-- /.card-body -->
 									</div>
-									<!-- /.card -->
 									<div class=" card-primary">
 										<div class="card card-primary ">
 											<div class="card-header" style="padding: 4px 0px 4px 4px;">
@@ -571,35 +533,27 @@
 																		<th class="bg-primary">Role/Department</th>
 																		<th class="bg-primary">Raised On</th>
 																		<th class="bg-primary">Remarks</th>
-
 																	</tr>
 																</thead>
 																<tbody>
-
 																</tbody>
 															</table>
 														</div>
 													</div>
 												</form>
 											</div>
-
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-
 				</div>
-
 			</div>
 		</div>
-		<!-- model Start -->
-
 
         <script src="plugins/jquery/jquery.min.js"></script>
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
             $.widget.bridge('uibutton', $.ui.button);
             $.widget.bridge('uitooltip', $.ui.tooltip);
@@ -657,7 +611,6 @@
                 "scrollX": true,
                 "pageLength": dataLimit,
                 dom: 'Bfrtip',
-                //buttons: ['excel','pdf','print'],
                 buttons: [
 
                     {
@@ -678,8 +631,6 @@
 
                             var tblBody = doc.content[1].table.body;
                             for (var i = 0; i < tblBody[0].length; i++) {
-                                //	 console.log(tblBody[0]);
-                                //	 console.log(tblBody[0][i]);
                                 tblBody[0][i].fillColor = '#FFFFFF';
                                 tblBody[0][i].color = 'black';
                             }
@@ -711,8 +662,6 @@
                             obj['hLineColor'] = function(i) {
                                 return '#aaa';
                             };
-                            //   doc.content[1].margin = [ 150, 0, 150, 0 ];
-
                         }
                     }
                 ],
@@ -861,7 +810,6 @@
                         }
                     },
                     error: function(jqXHR, textStatue, errorThrown) {
-                        //alert("failed, please try again");
                         Toast.fire({
                             type: 'error',
                             title: 'Failed.. Try Again..'

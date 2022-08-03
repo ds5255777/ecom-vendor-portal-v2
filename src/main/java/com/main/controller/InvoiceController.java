@@ -232,18 +232,18 @@ public class InvoiceController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 
-		try {
-			String filePath = filepath + File.separator + invoiceDto.getEcomInvoiceNumber();
-			String fullFilePathWithName = "";
+		String filePath = filepath + File.separator + invoiceDto.getEcomInvoiceNumber();
+		String fullFilePathWithName = "";
+		File file1 = new File(filePath);
 
-			if (null != invoiceDto.getInvoiceFileName()) {
+		if (!file1.exists()) {
+			file1.mkdirs();
+		}
 
-				File file1 = new File(filePath);
+		if (null != invoiceDto.getInvoiceFileName()) {
+			fullFilePathWithName = filePath + File.separator + invoiceDto.getInvoiceFileName();
 
-				if (!file1.exists()) {
-					file1.mkdirs();
-				}
-				fullFilePathWithName = filePath + File.separator + invoiceDto.getInvoiceFileName();
+			try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
 
 				Document doc = new Document();
 				doc.setDocName(invoiceDto.getInvoiceFileName());
@@ -253,19 +253,25 @@ public class InvoiceController {
 				doc.setForeignKey(invoiceDto.getEcomInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				FileOutputStream fos = new FileOutputStream(fullFilePathWithName);
 				String b64 = invoiceDto.getInvoiceFileText();
 				byte[] decoder = Base64.getDecoder().decode(b64);
 
 				fos.write(decoder);
 				fos.close();
-
+			} catch (Exception e) {
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			}
 
-			if (null != invoiceDto.getDocumentFileOneName()) {
+		}
 
-				fullFilePathWithName = filePath + File.separator + invoiceDto.getDocumentFileOneName();
+		if (null != invoiceDto.getDocumentFileOneName())
 
+		{
+
+			fullFilePathWithName = filePath + File.separator + invoiceDto.getDocumentFileOneName();
+
+			try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
 				Document doc = new Document();
 				doc.setDocName(invoiceDto.getDocumentFileOneName());
 				doc.setDocPath(fullFilePathWithName);
@@ -274,19 +280,23 @@ public class InvoiceController {
 				doc.setForeignKey(invoiceDto.getEcomInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				FileOutputStream fos = new FileOutputStream(fullFilePathWithName);
 				String b64 = invoiceDto.getDocumentFileOneText();
 				byte[] decoder = Base64.getDecoder().decode(b64);
 
 				fos.write(decoder);
 				fos.close();
-
+			} catch (Exception e) {
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			}
 
-			if (null != invoiceDto.getDocumentFileTwoName()) {
+		}
 
-				fullFilePathWithName = filePath + File.separator + invoiceDto.getDocumentFileTwoName();
+		if (null != invoiceDto.getDocumentFileTwoName()) {
 
+			fullFilePathWithName = filePath + File.separator + invoiceDto.getDocumentFileTwoName();
+
+			try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
 				Document doc = new Document();
 				doc.setDocName(invoiceDto.getDocumentFileTwoName());
 				doc.setDocPath(fullFilePathWithName);
@@ -295,67 +305,65 @@ public class InvoiceController {
 				doc.setForeignKey(invoiceDto.getEcomInvoiceNumber());
 				serviceManager.documentRepo.save(doc);
 
-				FileOutputStream fos = new FileOutputStream(fullFilePathWithName);
 				String b64 = invoiceDto.getDocumentFileTwoText();
 				byte[] decoder = Base64.getDecoder().decode(b64);
 
 				fos.write(decoder);
 				fos.close();
-
-			}
-			String ecomInvoiceNumber = invoiceDto.getEcomInvoiceNumber();
-
-			Long idByinvocienumber = serviceManager.invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
-
-			Date date = new Date();
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-			String processedOn = dateFormat.format(date);
-
-			if (null != idByinvocienumber) {
-				invoiceDto.setInvoiceStatus(GlobalConstants.INVOICE_STATUS_IN_REVIEW);
-				invoiceDto.setId(idByinvocienumber);
-				invoiceDto.setProcessedBy(invoiceDto.getVendorCode());
-				invoiceDto.setProcessedOn(processedOn);
-				invoiceDto.setAssignTo(GlobalConstants.ROLE_FINANCE);
-				serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsInvoiceNumber(ecomInvoiceNumber);
-				InvoiceGenerationEntity invoiceSave = this.serviceManager.modelMapper.map(invoiceDto,
-						InvoiceGenerationEntity.class);
-				serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
+			} catch (Exception e) {
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			}
 
-			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
-					.findByIsActive(GlobalConstants.ACTIVE_STATUS);
-			EmailConfiguration emailConfiguration = emailList.get(0);
-
-			String vendorEmail = (String) request.getSession().getAttribute("userEmail");
-
-			List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Vendor Invoice Process");
-
-			if (!queryType.isEmpty()) {
-				SendEmail sendEmail = new SendEmail();
-				MailContent mailContent = queryType.get(0);
-				sendEmail.setMailfrom(emailConfiguration.getUserName());
-				sendEmail.setSendTo(vendorEmail);
-				sendEmail.setSubject(mailContent.getSubject());
-				sendEmail.setEmailBody(mailContent.getEmailBody());
-				sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
-
-				serviceManager.sendEmailRepo.save(sendEmail);
-
-				EmailAuditLogs auditLogs = new EmailAuditLogs();
-				auditLogs.setMailFrom(emailConfiguration.getUserName());
-				auditLogs.setMailTo(vendorEmail);
-				auditLogs.setMailSubject(mailContent.getSubject());
-				auditLogs.setMailMessage(mailContent.getEmailBody());
-
-				serviceManager.emailAuditLogsRepo.save(auditLogs);
-			}
-			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
-
-		} catch (Exception e) {
-			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
+		String ecomInvoiceNumber = invoiceDto.getEcomInvoiceNumber();
+
+		Long idByinvocienumber = serviceManager.invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
+
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		String processedOn = dateFormat.format(date);
+
+		if (null != idByinvocienumber) {
+			invoiceDto.setInvoiceStatus(GlobalConstants.INVOICE_STATUS_IN_REVIEW);
+			invoiceDto.setId(idByinvocienumber);
+			invoiceDto.setProcessedBy(invoiceDto.getVendorCode());
+			invoiceDto.setProcessedOn(processedOn);
+			invoiceDto.setAssignTo(GlobalConstants.ROLE_FINANCE);
+			serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsInvoiceNumber(ecomInvoiceNumber);
+			InvoiceGenerationEntity invoiceSave = this.serviceManager.modelMapper.map(invoiceDto,
+					InvoiceGenerationEntity.class);
+			serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
+		}
+
+		List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
+				.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+		EmailConfiguration emailConfiguration = emailList.get(0);
+
+		String vendorEmail = (String) request.getSession().getAttribute("userEmail");
+
+		List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Vendor Invoice Process");
+
+		if (!queryType.isEmpty()) {
+			SendEmail sendEmail = new SendEmail();
+			MailContent mailContent = queryType.get(0);
+			sendEmail.setMailfrom(emailConfiguration.getUserName());
+			sendEmail.setSendTo(vendorEmail);
+			sendEmail.setSubject(mailContent.getSubject());
+			sendEmail.setEmailBody(mailContent.getEmailBody());
+			sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+
+			serviceManager.sendEmailRepo.save(sendEmail);
+
+			EmailAuditLogs auditLogs = new EmailAuditLogs();
+			auditLogs.setMailFrom(emailConfiguration.getUserName());
+			auditLogs.setMailTo(vendorEmail);
+			auditLogs.setMailSubject(mailContent.getSubject());
+			auditLogs.setMailMessage(mailContent.getEmailBody());
+
+			serviceManager.emailAuditLogsRepo.save(auditLogs);
+		}
+		data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		return gson.toJson(data);
 
@@ -374,51 +382,59 @@ public class InvoiceController {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 			String processedOn = dateFormat.format(date);
 
+			File file1 = new File(filePath);
+
+			if (!file1.exists()) {
+				file1.mkdirs();
+			}
+
 			if (null != obj.getDocumentFileOneName()) {
-
-				File file1 = new File(filePath);
-
-				if (!file1.exists()) {
-					file1.mkdirs();
-				}
 
 				fullFilePathWithName = filePath + File.separator + obj.getDocumentFileOneName();
 
-				Document doc = new Document();
-				doc.setDocName(obj.getDocumentFileOneName());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus(GlobalConstants.ACTIVE_STATUS);
-				doc.setType(GlobalConstants.SET_TYPE_INVOICE);
-				doc.setForeignKey(obj.getEcomInvoiceNumber());
-				serviceManager.documentRepo.save(doc);
-				logger.info(fullFilePathWithName);
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					Document doc = new Document();
+					doc.setDocName(obj.getDocumentFileOneName());
+					doc.setDocPath(fullFilePathWithName);
+					doc.setStatus(GlobalConstants.ACTIVE_STATUS);
+					doc.setType(GlobalConstants.SET_TYPE_INVOICE);
+					doc.setForeignKey(obj.getEcomInvoiceNumber());
+					serviceManager.documentRepo.save(doc);
+					logger.info(fullFilePathWithName);
 
-				FileOutputStream fos = new FileOutputStream(fullFilePathWithName);
-				String b64 = obj.getDocumentFileOneText();
-				byte[] decoder = Base64.getDecoder().decode(b64);
+					String b64 = obj.getDocumentFileOneText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
 
-				fos.write(decoder);
-				fos.close();
+					fos.write(decoder);
+					fos.close();
+				} catch (Exception e) {
+					data.setMsg(GlobalConstants.ERROR_MESSAGE);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+				}
 			}
 
 			if (null != obj.getDocumentFileTwoName()) {
 
 				fullFilePathWithName = filePath + File.separator + obj.getDocumentFileTwoName();
 
-				Document doc = new Document();
-				doc.setDocName(obj.getDocumentFileTwoName());
-				doc.setDocPath(fullFilePathWithName);
-				doc.setStatus(GlobalConstants.ACTIVE_STATUS);
-				doc.setType(GlobalConstants.SET_TYPE_INVOICE);
-				doc.setForeignKey(obj.getEcomInvoiceNumber());
-				serviceManager.documentRepo.save(doc);
+				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+					Document doc = new Document();
+					doc.setDocName(obj.getDocumentFileTwoName());
+					doc.setDocPath(fullFilePathWithName);
+					doc.setStatus(GlobalConstants.ACTIVE_STATUS);
+					doc.setType(GlobalConstants.SET_TYPE_INVOICE);
+					doc.setForeignKey(obj.getEcomInvoiceNumber());
+					serviceManager.documentRepo.save(doc);
 
-				FileOutputStream fos = new FileOutputStream(fullFilePathWithName);
-				String b64 = obj.getDocumentFileTwoText();
-				byte[] decoder = Base64.getDecoder().decode(b64);
+					String b64 = obj.getDocumentFileTwoText();
+					byte[] decoder = Base64.getDecoder().decode(b64);
 
-				fos.write(decoder);
-				fos.close();
+					fos.write(decoder);
+					fos.close();
+				} catch (Exception e) {
+					data.setMsg(GlobalConstants.ERROR_MESSAGE);
+					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+				}
 			}
 			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
 

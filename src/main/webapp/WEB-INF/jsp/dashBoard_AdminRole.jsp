@@ -70,7 +70,7 @@
                                         In-Active Users : <b>${totalInActiveUser}</b></p>
                                 </div>
                                 <div class="icon">
-                                <i class="fa fa-user" style="color: #FAA654;font-size: 150px; aria-hidden="true" ></i>
+                                <i class="fa fa-user" style="color: #FAA654;font-size: 150px;" ></i>
                                 </div>
                                 <a href="addUsers" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
                                     info <i class="fas fa-arrow-circle-right"></i>

@@ -12,7 +12,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>${titleName}|AllTrips</title>
 
-<!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 <link rel="stylesheet"
@@ -66,19 +65,15 @@
 
 		}
 		tripStatus.onchange = function() {
-			//empty Chapters- and Topics- dropdowns
 			paymentStatus.length = 1;
 			status.length = 1;
-			//display correct values
 			for ( var y in statusObject[this.value]) {
 				status.options[status.options.length] = new Option(y, y);
 			}
 			GetSelectedTextValue1();
 		}
 		status.onchange = function() {
-			//empty Chapters dropdown
 			paymentStatus.length = 1;
-			//display correct values
 			var z = statusObject[tripStatus.value][this.value];
 			for (var i = 0; i < z.length; i++) {
 				paymentStatus.options[paymentStatus.options.length] = new Option(
@@ -171,14 +166,10 @@ tbody {
 	<jsp:include page="loader.jsp" />
 	<div class="wrapper">
 
-		<!-- Navbar -->
 		<jsp:include page="navBar_Network.jsp?pagename=All Trips (Network)" />
-		<!-- /.navbar -->
 
-		<!-- Main Sidebar Container -->
 		<jsp:include page="slidebar.jsp?pagename=AllTripsNetwork" />
 
-		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<div class="content-header" style="padding: 0px;">
 				<div class="container-fluid">
@@ -188,24 +179,13 @@ tbody {
 					</div>
 				</div>
 			</div>
-
-			<!-- /.content-header -->
-
-
-			<!-- Main content -->
 			<section class="content mt-2">
 				<div class="container-fluid">
-
 					<div class="row">
 						<div class="col-md-12" style="font-size: 14px;">
-							<!-- general form elements -->
 							<div class="card">
-
-								<!-- /.card-header -->
 								<div class="card-body ">
 									<form role="form" id="addForm" autocomplete="off">
-
-
 										<div class="row">
 											<div class="col-md-2">
 												<input type="text" name="fromDate"
@@ -294,12 +274,8 @@ tbody {
 			</section>
 
 		</div>
-		<!-- ./wrapper -->
-
-		<!-- Model Start -->
 		<div class="modal fade" id="tripValue" role="dialog">
 			<div class="modal-dialog " style="max-width: 1400px;">
-				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-body" style="overflow-y: auto;">
 						<div class="container-fluid panel2" id="headerLineItemForm">
@@ -318,7 +294,6 @@ tbody {
 													style="font-size: 20px; color: white;"></i>
 											</button>
 										</div>
-										<!-- /.card-header -->
 										<div class="card-body" style="padding-bottom: inherit;">
 											<form role="form" id="tripForm">
 												<div class="row">
@@ -358,9 +333,6 @@ tbody {
 															</div>
 														</div>
 													</div>
-
-
-
 													<div class="col-md-3">
 														<div class="form-group row">
 															<label class="col-sm-5" title="Vehicle Number">Vehicle
@@ -394,20 +366,7 @@ tbody {
 															</div>
 														</div>
 													</div>
-													<!-- <div class="col-md-3">
-														text input
-														<div class="form-group row">
-															<label class="col-sm-5" title="Actual Vehicle Type">Act Vehicle
-																</label>
-															<div class="col-sm-7">
-																<input type="text" class="form-control"
-																	id="actualVechicleType" name="actualVechicleType"
-																	autocomplete="off" disabled>
-															</div>
-														</div>
-													</div> -->
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5" title="Standard Vehicle Type">Std.
 																Vehicle </label>
@@ -419,7 +378,6 @@ tbody {
 														</div>
 													</div>
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5" title="Standard Payload Capacity">Payload
 																Cap.</label>
@@ -433,7 +391,6 @@ tbody {
 													</div>
 
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5"
 																title="Standard Shipment Capacity">Shipment Cap.</label>
@@ -608,7 +565,6 @@ tbody {
 														</div>
 													</div>
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5" title="FS">FS Amount</label>
 															<div class="col-sm-7">
@@ -644,13 +600,12 @@ tbody {
 														<div class="form-group row">
 
 															<input type="hidden" class="form-control" id="vendorCode"
-																name="vendorCode" value=${userName } readonly>
+																name="vendorCode" value="${userName }" readonly>
 														</div>
 													</div>
 												</div>
 											</form>
 										</div>
-										<!-- /.card-body -->
 									</div>
 									<!-- /.card -->
 									<div class=" card-primary">
@@ -698,11 +653,9 @@ tbody {
 </div>
 			</div>
 		</div>
-		<!-- model Start -->
 		<script src="plugins/jquery/jquery.min.js"></script>
 		<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 		<script src="js/common.js"></script>
-		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 		<script>
 			$.widget.bridge('uibutton', $.ui.button);
 			$.widget.bridge('uitooltip', $.ui.tooltip);
@@ -772,7 +725,6 @@ tbody {
           "scrollX": true,
           "pageLength": dataLimit,
           dom: 'Bfrtip',
-          //buttons: ['excel','pdf','print'],
           buttons: [
 
               {
@@ -824,8 +776,6 @@ tbody {
                       obj['hLineColor'] = function (i) {
                           return '#aaa';
                       };
-                      //   doc.content[1].margin = [ 150, 0, 150, 0 ];
-
                   }
               }
           ],
@@ -849,7 +799,6 @@ tbody {
           }
       });
 
-      // #myInput is a <input type="text"> element
          $('#searchData').on( 'keyup', function () {
          	tabledata.search( this.value ).draw();
          } );
@@ -884,9 +833,6 @@ tbody {
              var fsBaseRate = parseFloat($("#fsBaseRate").val());
              var mileage = parseFloat($("#mileage").val());
              var routeKms = parseFloat($("#routeKms").val());
-             /* if($.isNumeric( $("#currentFuelRate").val() )){
-              totalFreight = totalFreight+parseFloat($("#currentFuelRate").val());
-              } */
              fs = ((currentFuelRate - fsBaseRate / mileage) * routeKms);
 
          }
@@ -1014,7 +960,6 @@ tbody {
 
                      if (data.msg == 'success') {
                          var result = data.data;
-                         /* jsondata=JSON.parse(result) */
                          var myForm = "";
                          myForm = document.getElementById("tripForm");
                          setData(myForm, result);
@@ -1027,7 +972,6 @@ tbody {
                      }
                  },
                  error: function (jqXHR, textStatue, errorThrown) {
-                     //alert("failed, please try again");
                      Toast.fire({
                          type: 'error',
                          title: 'Failed.. Try Again..'
@@ -1035,7 +979,6 @@ tbody {
                  }
              });
              
-           //Ajax to get remarks
              $.ajax({
                  type: "POST",
                  data: JSON.stringify(json),
@@ -1086,7 +1029,6 @@ tbody {
          toDate=moment(toDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
          
          if (fromDate == "" || fromDate == null) {
-             //alert("plaese select from date"+fromDate);
              Toast.fire({
                  type: 'error',
                  title: 'Please Select Start Date..'
@@ -1096,7 +1038,6 @@ tbody {
          }
 
          if (toDate == "" || toDate == null) {
-             //alert("plaese select from date"+fromDate);
              Toast.fire({
                  type: 'error',
                  title: 'Please Select End Date..'
@@ -1231,7 +1172,6 @@ tbody {
              contentType: "application/json",
              data: JSON.stringify(obj),
              success: function (data) {
-                 //alert("Hiiiiiiiiiiiiii");
 
                  $('.loader').hide();
                  if (data.msg == "success") {
@@ -1297,8 +1237,6 @@ tbody {
              }
          });
      }
-
-
             </script>
 
 </html>

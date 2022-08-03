@@ -64,7 +64,6 @@ tbody {
 </style>
 
 <style>
-/* changing select2 color  */
 .select2-container--default .select2-purple .select2-selection--multiple .select2-selection__choice,
 	.select2-purple .select2-container--default .select2-selection--multiple .select2-selection__choice
 	{
@@ -96,11 +95,8 @@ request.setAttribute("financeRole", financeRole);
 	<jsp:include page="loader.jsp" />
 	<div class="wrapper">
 
-		<!-- Navbar -->
 		<jsp:include page="navbar.jsp?pagename=Trip Master" />
-		<!-- /.navbar -->
 
-		<!-- Main Sidebar Container -->
 		 <%
     	String rolename = (String) request.getSession().getAttribute("role");
 		 out.print(rolename);
@@ -111,58 +107,40 @@ request.setAttribute("financeRole", financeRole);
 					<jsp:include page="sidebar_Admin.jsp?pagename=masterEvaluationCriteria" />
 				</c:when>  
 			    <c:when test='<%=rolename.equalsIgnoreCase(financeRole)%>'>  
-				<!-- Right navbar links -->
 					<jsp:include page="slidebar_Finance.jsp?pagename=masterEvaluationCriteria" />
 				</c:when>
 		</c:choose>
-		<!-- /.navbar -->	
 
-		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
 			<div class="content-header" style="padding: 0px;">
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
 							<div class="input-group-prepend">
-
-
-
 							</div>
 						</div>
-						<!-- /.col -->
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 							</ol>
 						</div>
-						<!-- /.col -->
 					</div>
-					<!-- /.row -->
 				</div>
-				<!-- /.container-fluid -->
 			</div>
-			<!-- /.content-header -->
-			<!-- Main content -->
 			<section class="content">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-12">
-							<!-- general form elements -->
 							<div class="card card-primary">
 								<div class="card-header">
 									<h3 class="card-title">Trip Master Details</h3>
 								</div>
-								<!-- /.card-header -->
-								<!-- form start -->
 								<form role="form" id="addForm" autocomplete="off">
 									<div class="card-body">
 										<div class="row">
-
 											<div class="col-md-2">
 												<label>Route</label> <input type="text" name="route"
 													class="form-control" id="route" maxlength="50" oninput="this.value = this.value.toUpperCase()">
 											</div>
-
 											<div class="col-md-2">
 												<label>Vendor Name</label> <input type="text"
 													name="vendorName" class="form-control" id="vendorName"
@@ -258,9 +236,6 @@ request.setAttribute("financeRole", financeRole);
 
 										</div>
 									</div>
-									<!-- /.card-body -->
-
-									<!-- /.card-body -->
 									<div class="card-footer" align="center">
 										<button type="submit" class="btn btn-primary" id="submitBtn" >Submit</button>
 										<div class="btn btn-default btn-file"
@@ -284,7 +259,6 @@ request.setAttribute("financeRole", financeRole);
 								<div class="card-header">
 									<h3 class="card-title">Active Master</h3>
 								</div>
-								<!-- /.card-header -->
 								<div class="card-body">
 								<form role="form" id="addForm" autocomplete="off">
 										<div class="row">
@@ -357,41 +331,25 @@ request.setAttribute("financeRole", financeRole);
 
 									</table>
 								</div>
-								<!-- /.card-body -->
 							</div>
-
 						</div>
 					</div>
-
-
 				</div>
-
 			</section>
-			<!-- /.content -->
-
-			<!-- /.content -->
 		</div>
-
-
 		<aside class="control-sidebar control-sidebar-dark"></aside>
 	</div>
 
-
-
 	<div class="modal fade" id="userModal" role="dialog">
 		<div class="modal-dialog " style="max-width: 1300px;">
-			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-12">
-							<!-- general form elements -->
 							<div class="card card-primary">
 								<div class="card-header">
 									<h3 class="card-title">Update Master Detail</h3>
 								</div>
-								<!-- /.card-header -->
-								<!-- form start -->
 
 								<form role="form" id="updateMDMData" autocomplete="off">
 									<div class="card-body">
@@ -498,11 +456,6 @@ request.setAttribute("financeRole", financeRole);
 										</div>
 									</div>
 
-
-
-
-									<!-- /.card-body -->
-
 									<div class="card-footer" align="center">
 										<button type="submit" id="updateBtn" class="btn btn-primary">Update</button>
 										<button type="button" class="btn btn-primary"
@@ -582,7 +535,6 @@ request.setAttribute("financeRole", financeRole);
                "scrollX": true,
                "pageLength": 100,
                dom: 'Bfrtip',
-               //buttons: ['excel','pdf','print'],
                buttons: [
 
                    {
@@ -603,8 +555,6 @@ request.setAttribute("financeRole", financeRole);
 
                            var tblBody = doc.content[1].table.body;
                            for (var i = 0; i < tblBody[0].length; i++) {
-                               //	 console.log(tblBody[0]);
-                               //	 console.log(tblBody[0][i]);
                                tblBody[0][i].fillColor = '#FFFFFF';
                                tblBody[0][i].color = 'black';
                            }
@@ -636,8 +586,6 @@ request.setAttribute("financeRole", financeRole);
                            obj['hLineColor'] = function(i) {
                                return '#aaa';
                            };
-                           //   doc.content[1].margin = [ 150, 0, 150, 0 ];
-
                        }
                    }
                ],
@@ -685,10 +633,7 @@ request.setAttribute("financeRole", financeRole);
 
            $.validator.setDefaults({
                 submitHandler : function() {
-                	 //alert("insode add12");
                      addFormData();
-
-                }
            });
            $('#addForm').validate({
 
@@ -763,7 +708,6 @@ request.setAttribute("financeRole", financeRole);
                 submitHandler : function() {
                      updateFormData();
 
-                     //alert("insode add");
                 }
            });
            $('#updateMDMData').validate({
@@ -838,7 +782,6 @@ request.setAttribute("financeRole", financeRole);
            function addFormData(){
 
                $("#submitBtn").prop("disabled",true);               
-                    /* $('.loader').show(); */
                     
                     var fromDate = $("#agreementMadeDate").val();
                     var toDate = $("#agreementExpiryDate").val();
@@ -866,7 +809,7 @@ request.setAttribute("financeRole", financeRole);
                              "currentFuelRate" :$("#currentFuelRate").val(),
                              "fsDiff" :$("#fsDiff").val()
                      }
-                    
+                    $('.loader').show();
                           $.ajax({
                                type: "POST",
                                data:  JSON.stringify(json),
@@ -1222,9 +1165,8 @@ request.setAttribute("financeRole", financeRole);
       	    });
       	});
            
-           
-                    
-               </script>
+
+     </script>
 
 </body>
 </html>

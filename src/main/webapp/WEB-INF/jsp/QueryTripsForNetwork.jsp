@@ -12,7 +12,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>${titleName}|QueryRaised</title>
 
-<!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 <link rel="stylesheet"
@@ -121,14 +120,10 @@ tbody {
 	<jsp:include page="loader.jsp" />
 	<div class="wrapper">
 
-		<!-- Navbar -->
 		<jsp:include page="navbar.jsp?pagename=Query Raised" />
-		<!-- /.navbar -->
 
-		<!-- Main Sidebar Container -->
 		<jsp:include page="slidebar.jsp?pagename=Query Raised" />
 
-		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<div class="content-header" style="padding: 0px;">
 				<div class="container-fluid">
@@ -139,10 +134,6 @@ tbody {
 				</div>
 			</div>
 
-			<!-- /.content-header -->
-
-
-			<!-- Main content -->
 			<section class="content mt-2">
 				<div class="container-fluid">
 
@@ -220,7 +211,6 @@ tbody {
 
 										</table>
 									</div>
-									<!-- /.card-body -->
 								</div>
 
 							</div>
@@ -231,7 +221,6 @@ tbody {
 		</div>
 
 
-		<!-- Modal -->
 		<div class="modal fade" id="tripValue" role="dialog">
 			<div class="modal-dialog " style="max-width: 1400px;">
 				<!-- Modal content-->
@@ -652,13 +641,9 @@ tbody {
 															</div>
 														</div>
 													</div>
-
-
 												</form>
 											</div>
-											<!-- /.card-body -->
 										</div>
-										<!-- /.card -->
 									</table>
 									<div class="col-md-12">
 										<div class="card card-primary ">
@@ -705,16 +690,8 @@ tbody {
 		</div>
 
 	</div>
-
-
-
-
-	<!-- model Start -->
-
-
 	<script src="plugins/jquery/jquery.min.js"></script>
 	<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 	<script>
 		$.widget.bridge('uibutton', $.ui.button);
 		$.widget.bridge('uitooltip', $.ui.tooltip);
@@ -788,7 +765,6 @@ tbody {
         "scrollX": true,
         "pageLength": dataLimit,
         dom: 'Bfrtip',
-        //buttons: ['excel','pdf','print'],
         buttons: [
   
             {
@@ -840,8 +816,6 @@ tbody {
                    obj['hLineColor'] = function(i) {
                        return '#aaa';
                    };
-                   //   doc.content[1].margin = [ 150, 0, 150, 0 ];
-  
                }
            }
        ],
@@ -872,8 +846,6 @@ tbody {
     var globalTripId = "";
     function setTripStatus(tripId ,vendorNameOfTrip) {
 
-        //	 tripId =  $("#tripID").val();		
-
         var json = {
             "tripID": tripId
         }
@@ -900,7 +872,6 @@ tbody {
                 }
             },
             error: function (jqXHR, textStatue, errorThrown) {
-                //alert("failed, please try again");
                 Toast.fire({
                     type: 'error',
                     title: 'Failed.. Try Again..'
@@ -908,9 +879,6 @@ tbody {
             }
 
         });
-
-
-        //Ajax to get remarks
         $.ajax({
             type: "POST",
             data: JSON.stringify(json),
@@ -1045,8 +1013,6 @@ tbody {
               return "";
           }
 
-          //currentFuelRate
-
           if (currentFuelRate === "" || currentFuelRate === null || currentFuelRate === '') {
               Toast.fire({
                   type: 'error',
@@ -1102,8 +1068,6 @@ tbody {
                   document.getElementById("totalFreight").focus();
                   return "";
               }
-
-              //fs
 
               if (fs === "" || fs === null || fs === '') {
                   Toast.fire({
@@ -1186,7 +1150,6 @@ tbody {
                    }
                },
                error: function (jqXHR, textStatue, errorThrown) {
-                   //alert("failed, please try again");
                    Toast.fire({
                        type: 'error',
                        title: 'Action Performed'
@@ -1248,12 +1211,10 @@ tbody {
 					document.getElementById("mileage").value = resData.stdMileagePerKm
 							.toFixed(2);
 					document.getElementById("standardKM").value = resData.fixedKm;
-					// document.getElementById("resData.currentFuelRate").value = resData.fsDiff.toFixed(2);
 					document.getElementById("fsDiff").value = resData.fsDiff;
 					document.getElementById("fsBaseRate").value = resData.baseRate
 							.toFixed(2);
 					document.getElementById("routeKms").value = resData.standardKM
-					//actualKM
 		
 					if ("0" == document.getElementById("actualKM")) {
 						document.getElementById("routeKms").value = document
@@ -1305,7 +1266,6 @@ console.log(json);
           }
       },
       error: function(jqXHR, textStatue, errorThrown) {
-          //alert("failed, please try again");
           Toast.fire({
               type: 'error',
               title: 'Failed.. Try Again..'

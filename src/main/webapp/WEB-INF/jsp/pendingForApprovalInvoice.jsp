@@ -11,7 +11,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>${titleName}|Pending For Approval Invoice</title>
 
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="dist/css/ionicons.min.css">
 	 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -21,7 +20,6 @@
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
@@ -109,17 +107,10 @@
     <jsp:include page="loader.jsp" />
     <div class="wrapper">
 
-        <!-- Navbar -->
         <jsp:include page="navbar.jsp?pagename=Pending For Approval" />
-        <!-- /.navbar -->
 
-        <!-- Main Sidebar Container -->
          <jsp:include page="slidebar_Finance.jsp?pagename=pendingForApprovalInvoice" />
-        
-        
-       
 
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="content-header" style="padding: 0px;">
                 <div class="container-fluid">
@@ -131,22 +122,15 @@
                 </div>
             </div>
 
-            <!-- /.content-header -->
-
-            <!-- Main content -->
             <section class="content mt-2">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12" style="font-size: 14px;">
-                            <!-- general form elements -->
                             <div class="card card-primary ">
                                 
-                                <!-- /.card-header -->
                                 <div class="card-body ">
                                 <form role="form" id="addForm" autocomplete="off">
 										<div class="row">
-											
-
 											<div class="col-md-2">
 												<div class="dropdown">
 													<button type="button"
@@ -188,20 +172,18 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- /.card-body -->
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
         </div>
-        <!-- ./wrapper -->
+		</div>
         <script src="plugins/jquery/jquery.min.js"></script>
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
         <script>
             $.widget.bridge('uibutton', $.ui.button);
             $.widget.bridge('uitooltip', $.ui.tooltip);
-
         </script>
         <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="plugins/sparklines/sparkline.js"></script>
@@ -253,9 +235,7 @@
                 "scrollX": true,
                 "pageLength": dataLimit,
                 dom: 'Bfrtip',
-                //buttons: ['excel','pdf','print'],
                 buttons: [
-
                     {
                         extend: 'excelHtml5',
 
@@ -274,8 +254,6 @@
 
                             var tblBody = doc.content[1].table.body;
                             for (var i = 0; i < tblBody[0].length; i++) {
-                                //	 console.log(tblBody[0]);
-                                //	 console.log(tblBody[0][i]);
                                 tblBody[0][i].fillColor = '#FFFFFF';
                                 tblBody[0][i].color = 'black';
                             }
@@ -307,8 +285,6 @@
                             obj['hLineColor'] = function(i) {
                                 return '#aaa';
                             };
-                            //   doc.content[1].margin = [ 150, 0, 150, 0 ];
-
                         }
                     }
                 ],

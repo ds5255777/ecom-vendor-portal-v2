@@ -10,27 +10,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>${titleName}|Dashboard</title>
 
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- JQVMap -->
     <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-    <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <!-- summernote -->
-    <!-- <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css"> -->
-    <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
     <style>
@@ -50,42 +38,27 @@
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
     <div class="wrapper">
 
-        <!-- Navbar -->
         <jsp:include page="navbar.jsp?pagename=Admin Dashboard" />
 
-
-
-        <!-- Right navbar links -->
         <jsp:include page="sidebar_Admin.jsp?pagename=dashboard" />
-
-        <!-- /.navbar -->
-
-
             
-            
-            <!-- /.content-header -->
 			<div class="content-wrapper">
-						<!-- Content Header (Page header) -->
 						<div class="content-header" style="padding: 0px;">
 							<div class="container-fluid">
 								<div class="row mb-2">
 									<div class="col-sm-6">
-									 <input type="hidden" id =uname  value=${uname} />
+									 <input type="hidden" id =uname  value="${uname}" />
 									</div>
 									<div class="col-sm-6"></div>
 								</div>
 							</div>
 						</div>
 
-            <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    <!-- Small boxes (Stat box) -->
                     <div class="row">
-                        <!-- ./col -->
 							
 							<div class="col-lg-6 col-6">
-                            <!-- small box -->
                             <div class="small-box bg-white">
                                 <div class="inner" style="height: 200px;">
                                     <p id="invdue" data-toggle="tooltip" data-placement="bottom" >
@@ -99,7 +72,6 @@
                                 </div>
                                 <div class="icon">
                                 <i class="fa fa-user" style="color: #FAA654;font-size: 150px; aria-hidden="true" ></i>
-                                   <!--  <i class="fas fa-file-invoice-dollar" style="color: #1F8BFF; font-size: 50px;"></i> -->
                                 </div>
                                 <a href="addUsers" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
                                     info <i class="fas fa-arrow-circle-right"></i>

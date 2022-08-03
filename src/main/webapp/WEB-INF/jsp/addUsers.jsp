@@ -77,7 +77,7 @@
 
         <jsp:include page="sidebar_Admin.jsp?pagename=addUsers" />
        
-		<input type="hidden" id =uname value=${uname } />
+		<input type="hidden" id =uname value="${uname}" />
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header" style="padding: 0px;">

@@ -11,28 +11,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${titleName}|Po Process</title>
-    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <!-- daterange picker -->
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- Bootstrap Color Picker -->
-   <!--  <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css"> -->
-    <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    <!-- Bootstrap4 Duallistbox -->
-    <!-- <link rel="stylesheet" href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css"> -->
-    <!-- BS Stepper -->
-    <!-- <link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css"> -->
-    <!-- dropzonejs -->
-    <!-- <link rel="stylesheet" href="plugins/dropzone/min/dropzone.min.css"> -->
-    <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -63,13 +48,9 @@
 <body class="hold-transition sidebar-mini sidebar-collapse text-sm" onunload="javascript:refreshParent(); window.close();">
 <jsp:include page="loader.jsp" />
     <div class="wrapper">
-        <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;"" >
-			<!-- Left navbar links -->
 			<h5 style=" color: white;">&nbsp;  PO Details</h5>
-            <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <!-- Navbar Search -->
                 <h6 class="float-sm-right" style="color: white;">
                     <b>PO Number : </b> <input type="text" id="ecomInvoiceNumber" name="ecomInvoiceNumber" value="${poNumber}" readonly style="background: #007BFF; color: white; border: 0px;">
                 </h6>

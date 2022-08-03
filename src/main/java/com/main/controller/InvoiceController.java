@@ -257,7 +257,7 @@ public class InvoiceController {
 				byte[] decoder = Base64.getDecoder().decode(b64);
 
 				fos.write(decoder);
-				fos.close();
+				
 			} catch (Exception e) {
 				data.setMsg(GlobalConstants.ERROR_MESSAGE);
 				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
@@ -284,7 +284,7 @@ public class InvoiceController {
 				byte[] decoder = Base64.getDecoder().decode(b64);
 
 				fos.write(decoder);
-				fos.close();
+				
 			} catch (Exception e) {
 				data.setMsg(GlobalConstants.ERROR_MESSAGE);
 				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
@@ -309,7 +309,7 @@ public class InvoiceController {
 				byte[] decoder = Base64.getDecoder().decode(b64);
 
 				fos.write(decoder);
-				fos.close();
+				
 			} catch (Exception e) {
 				data.setMsg(GlobalConstants.ERROR_MESSAGE);
 				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
@@ -406,7 +406,7 @@ public class InvoiceController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					fos.close();
+					
 				} catch (Exception e) {
 					data.setMsg(GlobalConstants.ERROR_MESSAGE);
 					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
@@ -430,7 +430,7 @@ public class InvoiceController {
 					byte[] decoder = Base64.getDecoder().decode(b64);
 
 					fos.write(decoder);
-					fos.close();
+					
 				} catch (Exception e) {
 					data.setMsg(GlobalConstants.ERROR_MESSAGE);
 					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);

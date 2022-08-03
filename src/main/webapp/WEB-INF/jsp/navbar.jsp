@@ -3,7 +3,6 @@
 <input type="hidden" id="contextPath" value="${pageContext.request.contextPath}" readonly>
 <c:set var="pageName" value='<%=request.getParameter("pagename")%>' />
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="${pageContext.request.contextPath}/assets/#"><i class="fas fa-bars"></i></a></li>
         <c:choose>
@@ -18,12 +17,10 @@
 				<li class="nav-item d-none d-sm-inline-block"><b><a
 						class="nav-link"><%=request.getParameter("pagename")%></a></b></li>
 				<li class="nav-item d-none d-sm-inline-block" style="padding: 6px;">
-
 					<button type="button" class="btn btn-default btn-sm "
 						id="refreshDashboardButton">
 						<i class="fas fa-sync-alt"></i>
 					</button>
-
 				</li>
 				<div class="input-group-prepend">
 					<form role="form" id="addForm" autocomplete="off">
@@ -168,7 +165,6 @@
         </c:choose>
     </ul>
     
-    <!-- manish -->
 	<ul class="navbar-nav ml-auto">
 	
 	<c:choose>

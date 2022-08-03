@@ -48,12 +48,10 @@
 <body class="hold-transition sidebar-mini sidebar-collapse text-sm" onunload="javascript:refreshParent(); window.close();">
 <jsp:include page="loader.jsp" />
     <div class="wrapper">
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;"" >
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;">
 			<h5 style=" color: white;">&nbsp;  PO Details</h5>
             <ul class="navbar-nav ml-auto">
-                <h6 class="float-sm-right" style="color: white;">
-                    <b>PO Number : </b> <input type="text" id="ecomInvoiceNumber" name="ecomInvoiceNumber" value="${poNumber}" readonly style="background: #007BFF; color: white; border: 0px;">
-                </h6>
+                <li>    PO Number :  <input type="text" id="ecomInvoiceNumber" name="ecomInvoiceNumber" value="${poNumber}" readonly style="background: #007BFF; color: white; border: 0px;"></li>
             </ul>
         </nav>
 

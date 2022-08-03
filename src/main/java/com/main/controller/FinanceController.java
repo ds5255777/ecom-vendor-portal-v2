@@ -261,17 +261,14 @@ public class FinanceController {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_IN_REVIEW, GlobalConstants.ROLE_FINANCE, getid);
 					type = entity.getType();
-				} else if (GlobalConstants.ROLE_FINANCE.equalsIgnoreCase(rolename)) {
+				} else if ((GlobalConstants.ROLE_FINANCE.equalsIgnoreCase(rolename))
+						|| (GlobalConstants.ROLE_NETWORK.equalsIgnoreCase(rolename))) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_VENDOR, getid);
 					type = entity.getType();
 				} else if (GlobalConstants.ROLE_FINANCE_HEAD.equalsIgnoreCase(rolename)) {
 					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
 							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_FINANCE, getid);
-					type = entity.getType();
-				} else if (GlobalConstants.ROLE_NETWORK.equalsIgnoreCase(rolename)) {
-					serviceManager.queryRepo.updateInvoiceStatus(processedOn, userName,
-							GlobalConstants.INVOICE_STATUS_QUERY, GlobalConstants.ROLE_VENDOR, getid);
 					type = entity.getType();
 				}
 

@@ -48,22 +48,16 @@
 <body class="hold-transition sidebar-mini sidebar-collapse text-sm" onunload="javascript:refreshParent(); window.close();">
 <jsp:include page="loader.jsp" />
     <div class="wrapper">
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;"" >
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;">
 			<h5 style=" color: white;">&nbsp;  PO Details</h5>
             <ul class="navbar-nav ml-auto">
-                <h6 class="float-sm-right" style="color: white;">
-                    <b>PO Number : </b> <input type="text" id="ecomInvoiceNumber" name="ecomInvoiceNumber" value="${poNumber}" readonly style="background: #007BFF; color: white; border: 0px;">
-                </h6>
+                <li>    PO Number :  <input type="text" id="ecomInvoiceNumber" name="ecomInvoiceNumber" value="${poNumber}" readonly style="background: #007BFF; color: white; border: 0px;"></li>
             </ul>
         </nav>
 
-        <!-- /.navbar -->
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper" style="margin-left: 0px !important;">
-            <!-- Main content -->
             <section class="content" style="overflow: hidden;">
                 <div class="container-fluid">
-                    <!-- SELECT2 EXAMPLE -->
                     <div class="card card-primary" style="margin-top: 1rem;">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">Basic Details</h4>
@@ -351,7 +345,6 @@
                            </div>
                     
                     </div>
-                    <!-- /.card -->
                     <div class="card card-primary">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">Line Item's</h4>
@@ -361,14 +354,12 @@
                                 </button>
                             </div>
                         </div>
-                        <!-- /.card-header -->
                         <div class="card-body">
                         <form id="stepThreeForm" class="forms-sample">
                             <div class="card-body" style="overflow: auto;">
                                 <table id="prTable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <!-- <th style="padding: 5px 5px 5px 1.5rem;">Number</th> -->
                                             <th style="padding: 5px 5px 5px 1.5rem;">Line Number</th>
                                             <th style="padding: 5px 5px 5px 1.5rem;">Item Type</th>
                                             <th style="padding: 5px 5px 5px 1.5rem;">Item</th>
@@ -402,48 +393,20 @@
                         </div>
                          
                     </center>
-                    <!-- /.row -->
                 </div>
-                <!-- /.container-fluid -->
             </section>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
-
-        <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
         </aside>
-        <!-- /.control-sidebar -->
     </div>
 
-    <!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Bootstrap4 Duallistbox -->
- <!--    <script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script> -->
-    <!-- InputMask -->
     <script src="plugins/moment/moment.min.js"></script>
-    <!-- <script src="plugins/inputmask/jquery.inputmask.min.js"></script> -->
-    <!-- date-range-picker -->
     <script src="plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- bootstrap color picker -->
-    <!-- <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script> -->
-    <!-- Tempusdominus Bootstrap 4 -->
     <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <!-- Bootstrap Switch -->
-    <!-- <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script> -->
-    <!-- BS-Stepper -->
-   <!--  <script src="plugins/bs-stepper/js/bs-stepper.min.js"></script> -->
-    <!-- dropzonejs -->
-    <!-- <script src="plugins/dropzone/min/dropzone.min.js"></script> -->
-    <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
-    <!-- Page specific script -->
-    <!-- DataTables  & Plugins -->
     <script src="js/commonFunctions.js"></script>
     <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="plugins/toastr/toastr.min.js"></script>
@@ -464,7 +427,6 @@
     <script src="plugins/select2/js/select2.full.min.js"></script>
     <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
     <script src="plugins/jquery-validation/additional-methods.min.js"></script>
-    <!-- Select2 -->
     <script src="plugins/select2/js/select2.full.min.js"></script>
 
     <script>
@@ -479,8 +441,6 @@
             "pageLength": 15,
         });
         
-        /* $("input[type=text]").prop('disabled', true); */
-
         function closeWin() {
             window.close()
         }
@@ -493,7 +453,6 @@
             var obj = {
                 "poNo": poNo
             }
-			//alert("invoiceNumber"+invoiceNumber);
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(obj),
@@ -505,7 +464,6 @@
 
                     if (data.msg == 'success') {
                         var result = data.data;
-                       //var tripLineArray = data.data.poInvoiceLine;
                        var tripLineArray=result[0].poline;
                         var myForm = "";
                         myForm = document.getElementById("stepOneForm");
@@ -569,8 +527,6 @@
                             
                             $('#prTable').DataTable().row.add([tripLineArray[i].lineNumber, tripLineArray[i].itemType, tripLineArray[i].item, tripLineArray[i].category, tripLineArray[i].description, tripLineArray[i].uom, tripLineArray[i].quantity,tripLineArray[i].remaningQuatity ,tripLineArray[i].price, tripLineArray[i].needByDate, tripLineArray[i].amount, tripLineArray[i].chargeAccount]);
                         }
-                       // $("#invoiceNumber").val(result.invoiceNumber);
-                       // $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);
                         $('#prTable').DataTable().draw();
                         $("tbody").show();
                     } else {
@@ -687,8 +643,6 @@
 	        			g==""|| g==null || h=="" || h==null  || i==""|| i==null || j=="" || j==null || k==""|| k==null || l=="" || l==null ||
 	        			m==""|| m==null || n=="" || n==null  || o==""|| o==null || p=="" || p==null || q==""|| q==null ){
 	        		
-	        		//confirm("Are You Sure To Confirm! : "+a+""+b+""+c+""+d+""+e+""+f+""+g+""+h+""+i+""+j+""+k+""+l+""+m+""+n+""+o+""+p+""+q+" Field(s) Vales Are Blank");
-	        		//  swal.fire("Are You Sure To Confirm! : ", "+a+""+b+""+c+""+d+""+e+""+f+""+g+""+h+""+i+""+j+""+k+""+l+""+m+""+n+""+o+""+p+""+q+"  , "success", "OK")
 	        		
 	        			 
 	        			 Swal.fire({
@@ -714,20 +668,10 @@
 	        			            var urlOftripsDetail = "poInvoiceGenerate?id=" + poNo;
 	        			            window.open(urlOftripsDetail, "poInvoiceGenerate", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
 	        			      		
-	        			            // window.close();
 	        			            $('#flipToInvoice').attr('disabled', true);
 	        				  }
-	        				
-	        				
-	        			 
 	        		 });
-	        			 
 	        	}
-        	
-        	
-        	
-        	
-            
         }
         
         function refreshParent() 

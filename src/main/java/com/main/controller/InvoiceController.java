@@ -257,7 +257,7 @@ public class InvoiceController {
 				byte[] decoder = Base64.getDecoder().decode(b64);
 
 				fos.write(decoder);
-				
+
 			} catch (Exception e) {
 				data.setMsg(GlobalConstants.ERROR_MESSAGE);
 				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
@@ -284,7 +284,7 @@ public class InvoiceController {
 				byte[] decoder = Base64.getDecoder().decode(b64);
 
 				fos.write(decoder);
-				
+
 			} catch (Exception e) {
 				data.setMsg(GlobalConstants.ERROR_MESSAGE);
 				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
@@ -309,7 +309,7 @@ public class InvoiceController {
 				byte[] decoder = Base64.getDecoder().decode(b64);
 
 				fos.write(decoder);
-				
+
 			} catch (Exception e) {
 				data.setMsg(GlobalConstants.ERROR_MESSAGE);
 				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
@@ -375,146 +375,140 @@ public class InvoiceController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String rolename = (String) request.getSession().getAttribute("role");
-		try {
-			String filePath = filepath + File.separator + obj.getEcomInvoiceNumber();
-			String fullFilePathWithName = "";
-			Date date = new Date();
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-			String processedOn = dateFormat.format(date);
+		String filePath = filepath + File.separator + obj.getEcomInvoiceNumber();
+		String fullFilePathWithName = "";
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		String processedOn = dateFormat.format(date);
 
-			File file1 = new File(filePath);
+		File file1 = new File(filePath);
 
-			if (!file1.exists()) {
-				file1.mkdirs();
-			}
-
-			if (null != obj.getDocumentFileOneName()) {
-
-				fullFilePathWithName = filePath + File.separator + obj.getDocumentFileOneName();
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					Document doc = new Document();
-					doc.setDocName(obj.getDocumentFileOneName());
-					doc.setDocPath(fullFilePathWithName);
-					doc.setStatus(GlobalConstants.ACTIVE_STATUS);
-					doc.setType(GlobalConstants.SET_TYPE_INVOICE);
-					doc.setForeignKey(obj.getEcomInvoiceNumber());
-					serviceManager.documentRepo.save(doc);
-					logger.info(fullFilePathWithName);
-
-					String b64 = obj.getDocumentFileOneText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					
-				} catch (Exception e) {
-					data.setMsg(GlobalConstants.ERROR_MESSAGE);
-					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
-				}
-			}
-
-			if (null != obj.getDocumentFileTwoName()) {
-
-				fullFilePathWithName = filePath + File.separator + obj.getDocumentFileTwoName();
-
-				try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-					Document doc = new Document();
-					doc.setDocName(obj.getDocumentFileTwoName());
-					doc.setDocPath(fullFilePathWithName);
-					doc.setStatus(GlobalConstants.ACTIVE_STATUS);
-					doc.setType(GlobalConstants.SET_TYPE_INVOICE);
-					doc.setForeignKey(obj.getEcomInvoiceNumber());
-					serviceManager.documentRepo.save(doc);
-
-					String b64 = obj.getDocumentFileTwoText();
-					byte[] decoder = Base64.getDecoder().decode(b64);
-
-					fos.write(decoder);
-					
-				} catch (Exception e) {
-					data.setMsg(GlobalConstants.ERROR_MESSAGE);
-					logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
-				}
-			}
-			String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
-
-			List<InvoiceLineItem> invoiceLineItemsList = obj.getInvoiceLineItems();
-
-			InvoiceGenerationEntity invObj = serviceManager.invoiceGenerationEntityRepo
-					.findByEcomInvoiceNumber(ecomInvoiceNumber);
-
-			if (null != obj) {
-
-				List<InvoiceLineItem> artifactsList = invoiceLineItemsList.stream()
-						.filter(x -> "1".equalsIgnoreCase(x.getNewAdded())).collect(Collectors.toList());
-
-				if (!artifactsList.isEmpty()) {
-					for (InvoiceLineItem invoiceLineItem : artifactsList) {
-						serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsQueryInvoice(
-								invoiceLineItem.getTripID(), ecomInvoiceNumber);
-					}
-				}
-
-				invObj.setInvoiceLineItem(invoiceLineItemsList);
-				invObj.setAssignTo(obj.getAssignTo());
-				invObj.setInvoiceStatus(obj.getInvoiceStatus());
-				invObj.setInvoiceAmount(obj.getInvoiceAmount());
-				invObj.setTaxableAmount(obj.getTaxableAmount());
-				invObj.setProcessedBy(obj.getVendorCode());
-				invObj.setProcessedOn(processedOn);
-
-				serviceManager.invoiceGenerationEntityRepo.save(invObj);
-				serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsQueryInvoice("123", ecomInvoiceNumber);
-
-				QueryEntity queryEntity = new QueryEntity();
-				queryEntity.setComment(obj.getRemarks());
-				queryEntity.setForeignKey(Integer.valueOf(invObj.getId().toString()));
-				queryEntity.setRaisedAgainQuery(obj.getInvoiceNumber());
-				queryEntity.setRole(rolename);
-				queryEntity.setRaisedBy(obj.getVendorCode());
-				queryEntity.setRaisedOn(new Date());
-				queryEntity.setReferenceid(obj.getInvoiceNumber());
-				queryEntity.setType("Invoice");
-				serviceManager.queryRepo.save(queryEntity);
-
-				String invoiceNumber = obj.getEcomInvoiceNumber();
-				logger.info(invoiceNumber);
-
-			}
-			data.setData(obj);
-			List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
-			EmailConfiguration emailConfiguration = emailList.get(0);
-
-			String vendorEmail = (String) request.getSession().getAttribute("userEmail");
-
-			List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Invoice Update");
-
-			if (!queryType.isEmpty()) {
-				SendEmail sendEmail = new SendEmail();
-				MailContent mailContent = queryType.get(0);
-				sendEmail.setMailfrom(emailConfiguration.getUserName());
-				sendEmail.setSendTo(vendorEmail);
-				sendEmail.setSubject(mailContent.getSubject());
-				sendEmail.setEmailBody(mailContent.getEmailBody());
-				sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
-
-				serviceManager.sendEmailRepo.save(sendEmail);
-
-				EmailAuditLogs auditLogs = new EmailAuditLogs();
-				auditLogs.setMailFrom(emailConfiguration.getUserName());
-				auditLogs.setMailTo(vendorEmail);
-				auditLogs.setMailSubject(mailContent.getSubject());
-				auditLogs.setMailMessage(mailContent.getEmailBody());
-
-				serviceManager.emailAuditLogsRepo.save(auditLogs);
-			}
-
-			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
-
-		} catch (Exception e) {
-			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+		if (!file1.exists()) {
+			file1.mkdirs();
 		}
+
+		if (null != obj.getDocumentFileOneName()) {
+
+			fullFilePathWithName = filePath + File.separator + obj.getDocumentFileOneName();
+
+			try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+				Document doc = new Document();
+				doc.setDocName(obj.getDocumentFileOneName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus(GlobalConstants.ACTIVE_STATUS);
+				doc.setType(GlobalConstants.SET_TYPE_INVOICE);
+				doc.setForeignKey(obj.getEcomInvoiceNumber());
+				serviceManager.documentRepo.save(doc);
+				logger.info(fullFilePathWithName);
+
+				String b64 = obj.getDocumentFileOneText();
+				byte[] decoder = Base64.getDecoder().decode(b64);
+
+				fos.write(decoder);
+
+			} catch (Exception e) {
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+			}
+		}
+
+		if (null != obj.getDocumentFileTwoName()) {
+
+			fullFilePathWithName = filePath + File.separator + obj.getDocumentFileTwoName();
+
+			try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
+				Document doc = new Document();
+				doc.setDocName(obj.getDocumentFileTwoName());
+				doc.setDocPath(fullFilePathWithName);
+				doc.setStatus(GlobalConstants.ACTIVE_STATUS);
+				doc.setType(GlobalConstants.SET_TYPE_INVOICE);
+				doc.setForeignKey(obj.getEcomInvoiceNumber());
+				serviceManager.documentRepo.save(doc);
+
+				String b64 = obj.getDocumentFileTwoText();
+				byte[] decoder = Base64.getDecoder().decode(b64);
+
+				fos.write(decoder);
+
+			} catch (Exception e) {
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+			}
+		}
+		String ecomInvoiceNumber = obj.getEcomInvoiceNumber();
+
+		List<InvoiceLineItem> invoiceLineItemsList = obj.getInvoiceLineItems();
+
+		InvoiceGenerationEntity invObj = serviceManager.invoiceGenerationEntityRepo
+				.findByEcomInvoiceNumber(ecomInvoiceNumber);
+
+		if (null != obj) {
+
+			List<InvoiceLineItem> artifactsList = invoiceLineItemsList.stream()
+					.filter(x -> "1".equalsIgnoreCase(x.getNewAdded())).collect(Collectors.toList());
+
+			if (!artifactsList.isEmpty()) {
+				for (InvoiceLineItem invoiceLineItem : artifactsList) {
+					serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsQueryInvoice(invoiceLineItem.getTripID(),
+							ecomInvoiceNumber);
+				}
+			}
+
+			invObj.setInvoiceLineItem(invoiceLineItemsList);
+			invObj.setAssignTo(obj.getAssignTo());
+			invObj.setInvoiceStatus(obj.getInvoiceStatus());
+			invObj.setInvoiceAmount(obj.getInvoiceAmount());
+			invObj.setTaxableAmount(obj.getTaxableAmount());
+			invObj.setProcessedBy(obj.getVendorCode());
+			invObj.setProcessedOn(processedOn);
+
+			serviceManager.invoiceGenerationEntityRepo.save(invObj);
+			serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsQueryInvoice("123", ecomInvoiceNumber);
+
+			QueryEntity queryEntity = new QueryEntity();
+			queryEntity.setComment(obj.getRemarks());
+			queryEntity.setForeignKey(Integer.valueOf(invObj.getId().toString()));
+			queryEntity.setRaisedAgainQuery(obj.getInvoiceNumber());
+			queryEntity.setRole(rolename);
+			queryEntity.setRaisedBy(obj.getVendorCode());
+			queryEntity.setRaisedOn(new Date());
+			queryEntity.setReferenceid(obj.getInvoiceNumber());
+			queryEntity.setType("Invoice");
+			serviceManager.queryRepo.save(queryEntity);
+
+			String invoiceNumber = obj.getEcomInvoiceNumber();
+			logger.info(invoiceNumber);
+
+		}
+		data.setData(obj);
+		List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository.findByIsActive("1");
+		EmailConfiguration emailConfiguration = emailList.get(0);
+
+		String vendorEmail = (String) request.getSession().getAttribute("userEmail");
+
+		List<MailContent> queryType = serviceManager.mailContentRepo.findByType("Invoice Update");
+
+		if (!queryType.isEmpty()) {
+			SendEmail sendEmail = new SendEmail();
+			MailContent mailContent = queryType.get(0);
+			sendEmail.setMailfrom(emailConfiguration.getUserName());
+			sendEmail.setSendTo(vendorEmail);
+			sendEmail.setSubject(mailContent.getSubject());
+			sendEmail.setEmailBody(mailContent.getEmailBody());
+			sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+
+			serviceManager.sendEmailRepo.save(sendEmail);
+
+			EmailAuditLogs auditLogs = new EmailAuditLogs();
+			auditLogs.setMailFrom(emailConfiguration.getUserName());
+			auditLogs.setMailTo(vendorEmail);
+			auditLogs.setMailSubject(mailContent.getSubject());
+			auditLogs.setMailMessage(mailContent.getEmailBody());
+
+			serviceManager.emailAuditLogsRepo.save(auditLogs);
+		}
+
+		data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		return gson.toJson(data);
 

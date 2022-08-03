@@ -46,7 +46,7 @@ public class PoController {
 	@PostMapping({ "/getAllPODetails" })
 	public String getActiveMasterData(HttpServletRequest request, Principal principal) {
 
-		logger.info("Log Some Information getActiveMasterData {} ");
+		logger.info("Log Some Information getActiveMasterData ");
 		String vendorCode = principal.getName();
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();

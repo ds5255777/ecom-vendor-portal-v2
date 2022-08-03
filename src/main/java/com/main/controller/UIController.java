@@ -938,7 +938,6 @@ public class UIController {
 			response.setHeader("Content-Disposition", "inline;filename=\"" + name + "\"");
 			response.setHeader("Content-Security-Policy", "frame-ancestors " + uri + " ");
 			FileCopyUtils.copy(inputStream, response.getOutputStream());
-			inputStream.close();
 
 		} catch (Exception e) {
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);

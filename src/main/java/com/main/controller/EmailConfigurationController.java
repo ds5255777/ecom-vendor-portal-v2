@@ -50,7 +50,7 @@ public class EmailConfigurationController {
 
 	public String saveUpdateEmailData(HttpServletRequest request, @RequestBody EmailConfigurationDTO entityDto) {
 
-		logger.info("Log Some Information : {} ");
+		logger.info("Log Some Information : ");
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {

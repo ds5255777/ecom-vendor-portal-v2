@@ -59,7 +59,7 @@ public class PoInvoiceContoller {
 	@PostMapping({ "/deleteDraftPoInvoice" })
 	public String deleteDraftPoInvoice(HttpServletRequest request, @RequestBody PoDetailsDTO objDto) {
 
-		logger.info("Log Some Information deleteDraftPoInvoice {} ");
+		logger.info("Log Some Information deleteDraftPoInvoice ");
 
 		DataContainer data = new DataContainer();
 
@@ -136,7 +136,7 @@ public class PoInvoiceContoller {
 				String b64 = invoiceDetailsDto.getInvoiceFileText();
 				byte[] decoder = Base64.getDecoder().decode(b64);
 				fos.write(decoder);
-				fos.close();
+				
 			} catch (Exception e) {
 				data.setMsg(GlobalConstants.ERROR_MESSAGE);
 				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
@@ -159,7 +159,7 @@ public class PoInvoiceContoller {
 				byte[] decoder = Base64.getDecoder().decode(b64);
 
 				fos.write(decoder);
-				fos.close();
+				
 			} catch (Exception e) {
 				data.setMsg(GlobalConstants.ERROR_MESSAGE);
 				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);

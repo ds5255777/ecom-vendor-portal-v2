@@ -35,7 +35,7 @@ public class MasterController {
 	@PostMapping({ "/saveTripMaster" })
 	public String saveTripMaster(HttpServletRequest request, @RequestBody AgreementMasterDTO masterDto) {
 
-		logger.info("Log Some Information saveTripMaster {} ");
+		logger.info("Log Some Information saveTripMaster ");
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {

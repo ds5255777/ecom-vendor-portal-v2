@@ -1,8 +1,8 @@
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,35 +11,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${titleName}|PO Invoice Generate</title>
-<!-- Google Font: Source Sans Pro -->
-<!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 <link rel="stylesheet" href="dist/css/ionicons.min.css">
-<link rel="stylesheet"
-	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-<link rel="stylesheet"
-	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
 <link rel="stylesheet" href="dist/css/adminlte.min.css">
-<link rel="stylesheet"
-	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-<link rel="stylesheet"
-	href="plugins/daterangepicker/daterangepicker.css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="plugins/jquery-ui/jquery-ui.min.css">
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+<link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-<link rel="stylesheet"
-	href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-<link rel="stylesheet"
-	href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-<link rel="stylesheet"
-	href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+<link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 
 <style>
@@ -68,14 +55,11 @@
 <body class="hold-transition sidebar-mini sidebar-collapse text-sm"
 	onunload="javascript:refreshParent()">
 	<div class="wrapper">
-		<!-- Navbar -->
 		<nav
 			class="main-header navbar navbar-expand navbar-white navbar-light"
-			style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;"" >
+			style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;">
 			<h5 style="color: white;">Invoice-Process</h5>
-			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
-				<!-- Navbar Search -->
 				<h6 class="float-sm-right" style="color: white;">
 					<b>Invoice Number : </b> <input type="text"
 						name="ecomInvoiceNumber" id="ecomInvoiceNumber"
@@ -85,13 +69,9 @@
 			</ul>
 		</nav>
 
-		<!-- /.navbar -->
-		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper" style="margin-left: 0px !important;">
-			<!-- Main content -->
 			<section class="content" style="overflow: hidden;">
 				<div class="container-fluid">
-					<!-- SELECT2 EXAMPLE -->
 					<div class="card card-primary" style="margin-top: 1rem;">
 						<div class="card-header" style="padding: 5px 5px 0px 5px;">
 							<h4 class="card-title">Basic Details</h4>
@@ -197,7 +177,6 @@
 											<label class="col-sm-5">Supplier Site <span
 												class="text-danger">*</span></label>
 											<div class="col-sm-7">
-												<!-- <input class="form-control-sm" type="text" placeholder="Site Name" name="siteName" id="siteName" style="width: 100%;"> -->
 												<input class="form-control-sm" type="text"
 													placeholder="Supplier Site" name="supplierSite"
 													id="supplierSite" readonly style="width: 100%;">
@@ -317,13 +296,6 @@
 							</form>
 						</div>
 					</div>
-
-
-
-
-
-					
-									<!-- /.card -->
 					<div class="card card-primary">
 						<div class="card-header" style="padding: 5px 5px 0px 5px;">
 							<h4 class="card-title">Line Item's</h4>
@@ -335,14 +307,6 @@
 								<input type="hidden" id="grossamt">
 							</div>
 						</div>
-
-
-						<!-- <div class="card-body" style="overflow: auto;"> -->
-
-						<!-- </div> -->
-
-
-
 
 						<div class="card-body" style="overflow: auto;">
 						
@@ -421,7 +385,6 @@
 								</button>
 							</div>
 						</div>
-						<!-- /.card-header -->
 						<div class="card-body" style="overflow: auto;">
 							<form id="stepFourForm" class="forms-sample" autocomplete="off">
 								<div class="row">
@@ -489,7 +452,6 @@
 								</div>
 							</form>
 						</div>
-						<!-- /.card-body -->
 					</div>	
 
 					<div class="card card-primary" style="margin-top: 1rem; ">
@@ -538,24 +500,15 @@
 									class="btn btn-info">Close</button>
 							</div>
 						
-						<!-- /.row -->
 					</div>
-					<!-- /.container-fluid -->
 			</section>
-			<!-- /.content -->
 		</div>
-		<!-- /.content-wrapper -->
-
-		<!-- Control Sidebar -->
 		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
 		</aside>
-		<!-- /.control-sidebar -->
 	</div>
 
 	<script src="plugins/jquery/jquery.min.js"></script>
 		<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 		<script>
 			$.widget.bridge('uibutton', $.ui.button);
 			$.widget.bridge('uitooltip', $.ui.tooltip);

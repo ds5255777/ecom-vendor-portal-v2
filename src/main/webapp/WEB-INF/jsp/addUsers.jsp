@@ -1,7 +1,8 @@
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <html lang="en">
 
 <head>
@@ -48,9 +49,6 @@
             padding: 5px 5px 0px 1.5rem;
         }
 
-    </style>
-
-    <style>
         .select2-container--default .select2-purple .select2-selection--multiple .select2-selection__choice,
         .select2-purple .select2-container--default .select2-selection--multiple .select2-selection__choice {
             background-color: #006fe6;
@@ -76,10 +74,9 @@
         <jsp:include page="navbar.jsp?pagename=Users" />
 
         <jsp:include page="sidebar_Admin.jsp?pagename=addUsers" />
-       
-		<input type="hidden" id =uname value="${uname}" />
+
+        <input type="hidden" id=uname value="${uname}" />
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
             <div class="content-header" style="padding: 0px;">
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -94,7 +91,6 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <!-- general form elements -->
                             <div class="card card-primary">
                                 <div class="card-header">
                                     <h3 class="card-title">Add User, Not Applicable For Vendor</h3>
@@ -125,9 +121,9 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleId" style="height: 34px;">
-                                                          <c:forEach items="${role}" var="roleName">
-															<option value="${roleName.id}">${roleName.roleName}</option>
-														</c:forEach>
+                                                        <c:forEach items="${role}" var="roleName">
+                                                            <option value="${roleName.id}">${roleName.roleName}</option>
+                                                        </c:forEach>
                                                     </select>
                                                 </div>
                                             </div>
@@ -165,14 +161,14 @@
                                     <table id="tabledata" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">User Name</th>
-                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">First Name</th>
-                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Last Name</th>
-                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Role</th>
-                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Email</th>
-                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Contact No</th>
-                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Status</th>
-                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Action</th> 
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">User Name</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">First Name</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Last Name</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Role</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Email</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Contact No</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Status</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Action</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -202,22 +198,22 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">User Name</label> <input type="text" name="username" class="form-control" readonly="readonly" id="usernameEdit" >
+                                                    <label for="exampleInputserverName1">User Name</label> <input type="text" name="username" class="form-control" readonly="readonly" id="usernameEdit">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Password</label> <input type="password"maxlength="70" name="password" class="form-control" id="passwordEdit" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter">
+                                                    <label for="exampleInputserverName1">Password</label> <input type="password" maxlength="70" name="password" class="form-control" id="passwordEdit" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">First Name</label> <input type="text"maxlength="70" name="firstName" class="form-control" id="firstNameEdit" pattern="[a-zA-Z]+">
+                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" maxlength="70" name="firstName" class="form-control" id="firstNameEdit" pattern="[a-zA-Z]+">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" maxlength="70"name="lastName" class="form-control" id="lastNameEdit" pattern="[a-zA-Z]+">
+                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" maxlength="70" name="lastName" class="form-control" id="lastNameEdit" pattern="[a-zA-Z]+">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -225,27 +221,27 @@
                                                     <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleIdEdit" style="height: 34px;">
                                                         <c:forEach items="${role}" var="roleName">
 
-															<option value="${roleName.id}">${roleName.roleName}</option>
-														</c:forEach>
-                                                       
+                                                            <option value="${roleName.id}">${roleName.roleName}</option>
+                                                        </c:forEach>
+
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" maxlength="70"class="form-control" id="emailIdEdit">
+                                                    <label for="exampleInputserverName1">Email</label> <input type="text" name="emailId" maxlength="70" class="form-control" id="emailIdEdit">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Contact No</label> <input type="text" name="contactNo" maxlength="10"  class="form-control" id="contactNoEdit" pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$" title="Enter Valid mobile number ex.9811111111">
+                                                    <label for="exampleInputserverName1">Contact No</label> <input type="text" name="contactNo" maxlength="10" class="form-control" id="contactNoEdit" pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$" title="Enter Valid mobile number ex.9811111111">
                                                 </div>
                                             </div>
-                                             <div class="col-md-3">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputserverName1">Status</label> <select class="form-control" id="statusEdit" style="height: 34px;">
-                                                            <option value="1">Active</option>
-                                                        	<option value="0">In-Active</option>
+                                                        <option value="1">Active</option>
+                                                        <option value="0">In-Active</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -280,14 +276,6 @@
     <script src="dist/js/demo.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="plugins/select2/js/select2.full.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var bootstrapTooltip = $.fn.tooltip.noConflict();
-            $.fn.bstooltip = bootstrapTooltip;
-            $('.quickHelp').bstooltip();
-        })
-
-    </script>
     <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
     <script src="plugins/jquery-validation/additional-methods.min.js"></script>
     <script src="plugins/datatables/jquery.dataTables.js"></script>
@@ -295,7 +283,7 @@
     <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="plugins/toastr/toastr.min.js"></script>
 
-    <script>
+<script>
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
@@ -315,10 +303,7 @@
                 }
             }
         }
-
-    </script>
-
-    <script type="text/javascript">
+    
         var mappingTableArray = [];
 
         var tabledata = $('#tabledata').DataTable({

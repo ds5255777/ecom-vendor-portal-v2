@@ -1,10 +1,9 @@
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <!DOCTYPE html>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+    
 <html lang="en">
 
 <head>
@@ -183,7 +182,6 @@
         </div>
 		<div class="modal fade" id="tripValue" role="dialog">
 			<div class="modal-dialog " style="max-width: 1400px;">
-				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-body" style="overflow-y: auto;">
 						<div class="container-fluid panel2" id="headerLineItemForm">
@@ -281,7 +279,7 @@
 														</div>
 													</div>
 													<div class="col-md-3">
-														<!-- text input -->
+														
 														<div class="form-group row">
 															<label class="col-sm-5" title="Standard Payload Capacity">Payload
 																Cap.</label>
@@ -295,7 +293,7 @@
 													</div>
 
 													<div class="col-md-3">
-														<!-- text input -->
+														
 														<div class="form-group row">
 															<label class="col-sm-5"
 																title="Standard Shipment Capacity">Shipment Cap.</label>
@@ -469,7 +467,7 @@
 														</div>
 													</div>
 													<div class="col-md-3">
-														<!-- text input -->
+														
 														<div class="form-group row">
 															<label class="col-sm-5" title="FS">FS Amount</label>
 															<div class="col-sm-7">

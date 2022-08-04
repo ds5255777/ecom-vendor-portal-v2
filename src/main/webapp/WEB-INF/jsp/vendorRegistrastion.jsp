@@ -1,9 +1,9 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,34 +16,21 @@
 <title>Business Partner Registration</title>
 
 
-<link rel="stylesheet"
-	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-<link
-	href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard_theme_circles.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard_theme_arrows.min.css"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="plugins/fontawesome-free/css/fontawesome.min.css" />
-<link rel="stylesheet"
-	href="dist/css/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
-<link rel="stylesheet"
-	href="plugins/flag-icon-css/css/flag-icon.min.css" />
+<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<link href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard_theme_circles.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard_theme_arrows.min.css" rel="stylesheet">
+<link rel="stylesheet" href="plugins/fontawesome-free/css/fontawesome.min.css" />
+<link rel="stylesheet" href="dist/css/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
+<link rel="stylesheet" href="plugins/flag-icon-css/css/flag-icon.min.css" />
 <link rel="stylesheet" href="dist/css/style.css" />
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard.min.css" />
-<link rel="stylesheet"
-	href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard.min.css" />
+<link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
-<link
-	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
-	rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="plugins/jquery/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+<script src="js/jquery-ui.js"></script>
 <script src="dist/js/notify.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="js/select2.min.js"></script>
 
 
 <script>
@@ -915,8 +902,6 @@ width: 100% !important;
 					<div id="step-4" class="">
 						<div class="card" style="margin-bottom: 10px;">
 
-							<!-- Start -->
-
 							<div class="card" style="margin-bottom: 10px;">
 								<div class="card-header" id="addressBookHead"
 									style="background: #1991eb; color: #ffffff;">
@@ -932,9 +917,6 @@ width: 100% !important;
 												</thead>
 												<tbody>
                                                     <tr class="">
-                                                        <!-- <td><label class="addressLable" for="tdsApplication">TDS
-                                                                Applicable</label></td>
-                                                        <td colspan='2'><input type="text" id="tdsApplication" value="Yes" name="tdsApplication" readonly class="form-control p-input "> </td> -->
 
 														<td><label class="addressLable" for="tdsApplication">TDS
                                                                 Applicable<span class="required">*</span></label></td>
@@ -2225,12 +2207,10 @@ width: 100% !important;
 			
     </script>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/js/jquery.smartWizard.min.js"></script>
+	 <script src="js/jquery.smartWizard.min.js"></script>
 	<script src="plugins/popper/umd/popper.min.js"></script>
 	<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-	<script
-		src="dist/css/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
+	<script src="dist/css/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
 	<script src="plugins/js/off-canvas.js"></script>
 	<script src="plugins/js/hoverable-collapse.js"></script>
 	<script src="plugins/js/misc.js"></script>

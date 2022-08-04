@@ -1,8 +1,8 @@
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,23 +51,18 @@
 
 <body class="hold-transition sidebar-mini sidebar-collapse text-sm">
     <div class="wrapper">
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;"" >
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;">
 			<h5 style=" color: white;">Invoice-Process</h5>
             <ul class="navbar-nav ml-auto">
-                <!-- Navbar Search -->
                 <h6 class="float-sm-right" style="color: white;">
                     <b>Invoice Number : </b> <input type="text" name="ecomInvoiceNumber" id="ecomInvoiceNumber" readonly value="${invoiceNumber}" style="background: #007BFF; color: white; border: 0px;">
                 </h6>
             </ul>
         </nav>
 
-        <!-- /.navbar -->
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper" style="margin-left: 0px !important;">
-            <!-- Main content -->
             <section class="content" style="overflow: hidden;">
                 <div class="container-fluid">
-                    <!-- SELECT2 EXAMPLE -->
                     <div class="card card-primary" style="margin-top: 1rem;">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">BASIC DETAILS</h4>
@@ -114,14 +109,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- <div class="col-md-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-5">Site Name <span class="text-danger"></span></label>
-                                            <div class="col-sm-7">
-                                                <input class="form-control-sm"  type="text" name="siteName" id="siteName" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div> -->
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Date <span class="text-danger"></span></label>
@@ -209,7 +196,6 @@
                             </form>
                         </div>
                     </div>
-                    <!-- /.card -->
                     <div class="card card-primary">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">Line Item's</h4>
@@ -220,7 +206,6 @@
                             </div>
                         </div>
 
-                        <!-- /.card-header -->
                         <div class="card-body" style="overflow: auto;">
                             <form id="stepTwoForm" class="forms-sample">
                                 <div class="row">
@@ -245,8 +230,6 @@
                                 </div>
                             </form>
                         </div>
-
-                        <!-- /.card-header -->
 
                         <div class="card-body" style="overflow: auto;">
                             <table id="prTable" class="table table-bordered table-striped">
@@ -273,20 +256,16 @@
                                 </thead>
                             </table>
                         </div>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
-
                     <div class="card card-primary">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
-                            <h4 class="card-title">Remarks & Document Update</h4>
+                            <h4 class="card-title">Remarks  &amp; Document Update</h4>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" style="margin-right: 10px;">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
                         </div>
-                        <!-- /.card-header -->
                         <div class="card-body" style="overflow: auto;">
                             <form id="stepFourForm" class="forms-sample">
                                 <div class="row">
@@ -321,7 +300,6 @@
                                 </div>
                             </form>
                         </div>
-                        <!-- /.card-body -->
                     </div>
                     </div>
                     <center>
@@ -333,7 +311,6 @@
                             <button type="button" onclick="closeWin()" class="btn btn-info">Close</button>
                         </div>
                     </center>
-                    <!-- /.row -->
                     <div class="card card-primary" style="margin-top: 1rem;">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">Remarks List</h4>
@@ -369,47 +346,25 @@
 							</form>
 						</div>
                     </div>
+                    </section>
                 </div>
-                <!-- /.container-fluid -->
-            </section>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
-
-        <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
         </aside>
-        <!-- /.control-sidebar -->
-    </div>
 
-    <!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Bootstrap4 Duallistbox -->
     <script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-    <!-- InputMask -->
     <script src="plugins/moment/moment.min.js"></script>
     <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
-    <!-- date-range-picker -->
     <script src="plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- bootstrap color picker -->
     <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
     <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <!-- Bootstrap Switch -->
     <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-    <!-- BS-Stepper -->
     <script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
-    <!-- dropzonejs -->
     <script src="plugins/dropzone/min/dropzone.min.js"></script>
-    <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
-    <!-- Page specific script -->
-    <!-- DataTables  & Plugins -->
     <script src="js/commonFunctions.js"></script>
     <script src="js/common.js"></script>
     <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
@@ -431,7 +386,6 @@
     <script src="plugins/select2/js/select2.full.min.js"></script>
     <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
     <script src="plugins/jquery-validation/additional-methods.min.js"></script>
-    <!-- Select2 -->
     <script src="plugins/select2/js/select2.full.min.js"></script>
 
     <script>

@@ -1,10 +1,10 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,12 +13,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Ecom Vendor | Log in</title>
 
-<!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Font Awesome -->
 <link rel="stylesheet" href="dist/css/login/style.css">
-<!-- icheck bootstrap -->
 <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
 </head>
 

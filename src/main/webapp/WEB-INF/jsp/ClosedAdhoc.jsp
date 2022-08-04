@@ -1,7 +1,7 @@
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -247,7 +247,6 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <!-- text input -->
                                                             <div class="form-group row">
                                                                 <label class="col-sm-5" title="Vendor Name">Vendor
                                                                     Name</label>
@@ -257,7 +256,6 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <!-- text input -->
                                                             <div class="form-group row">
                                                                 <label class="col-sm-5" title="Vendor Code">Vendor
                                                                     Code</label>
@@ -560,135 +558,163 @@
     
     <script type="text/javascript">
 
-	    $('#tripValue').modal("hide");
-	    const Toast = Swal.mixin({
-	        toast: true,
-	        position: 'top-end',
-	        showConfirmButton: false,
-	        timer: 3000
-	    });
-	    
-	    var dataLimit='${dataLimit}';
-		dataLimit=parseInt(dataLimit);
-	    
-	    var tabledataQuery = $('#tabledataQuery').DataTable({
-	          "paging": false,
-	          "lengthChange": false,
-	          "searching": false,
-	          "info": false,
-	          "autoWidth": false,
-	          "aaSorting": []
-	      });
-                                                    var tabledata = $('#tabledata1').DataTable({
-                                                        "paging": true,
-                                                        "lengthChange": false,
-                                                        "searching": true,
-                                                        "info": true,
-                                                        "autoWidth": false,
-                                                        "aaSorting": [],
-                                                        "scrollX": true,
-                                                        "pageLength": dataLimit,
-                                                        dom: 'Bfrtip',
-                                                        buttons: [
+	   
+					$('#tripValue').modal("hide");
+					const Toast = Swal.mixin({
+						toast : true,
+						position : 'top-end',
+						showConfirmButton : false,
+						timer : 3000
+					});
 
-                                                            {
-                                                                extend: 'excelHtml5',
+					var dataLimit = '${dataLimit}';
+					dataLimit = parseInt(dataLimit);
 
-                                                                exportOptions: {
-                                                                    columns: [ 0, 1, 2, 3, 4, 5, 6],
-                                                                }
-                                                            },
-                                                            {
-                                                                extend: 'pdfHtml5',
-                                                                orientation: 'landscape',
-                                                                pageSize: 'A4',
-                                                                exportOptions: {
-                                                                    columns: [ 0, 1, 2, 3, 4, 5, 6],
-                                                                },
-                                                                customize: function(doc) {
+					var tabledataQuery = $('#tabledataQuery').DataTable({
+						"paging" : false,
+						"lengthChange" : false,
+						"searching" : false,
+						"info" : false,
+						"autoWidth" : false,
+						"aaSorting" : []
+					});
+					var tabledata = $('#tabledata1')
+							.DataTable(
+									{
+										"paging" : true,
+										"lengthChange" : false,
+										"searching" : true,
+										"info" : true,
+										"autoWidth" : false,
+										"aaSorting" : [],
+										"scrollX" : true,
+										"pageLength" : dataLimit,
+										dom : 'Bfrtip',
+										buttons : [
 
-                                                                    var tblBody = doc.content[1].table.body;
-                                                                    for (var i = 0; i < tblBody[0].length; i++) {
-                                                                        tblBody[0][i].fillColor = '#FFFFFF';
-                                                                        tblBody[0][i].color = 'black';
-                                                                    }
+												{
+													extend : 'excelHtml5',
 
-                                                                    var objLayout = {};
-                                                                    objLayout['hLineWidth'] = function(i) {
-                                                                        return .5;
-                                                                    };
-                                                                    objLayout['vLineWidth'] = function(i) {
-                                                                        return .5;
-                                                                    };
-                                                                    objLayout['hLineColor'] = function(i) {
-                                                                        return '#aaa';
-                                                                    };
-                                                                    objLayout['vLineColor'] = function(i) {
-                                                                        return '#aaa';
-                                                                    };
-                                                                    objLayout['paddingLeft'] = function(i) {
-                                                                        return 4;
-                                                                    };
-                                                                    objLayout['paddingRight'] = function(i) {
-                                                                        return 4;
-                                                                    };
-                                                                    doc.content[1].layout = objLayout;
-                                                                    var obj = {};
-                                                                    obj['hLineWidth'] = function(i) {
-                                                                        return .5;
-                                                                    };
-                                                                    obj['hLineColor'] = function(i) {
-                                                                        return '#aaa';
-                                                                    };
-                                                                }
-                                                            }
-                                                        ],
-                                                        initComplete: function() {
-                                                            var $buttons = $('.dt-buttons').hide();
-                                                            $('#exportLink').on('click', function() {
-                                                                var btnClass = "excel" ?
-                                                                    '.buttons-' + "excel" :
-                                                                    null;
-                                                                if (btnClass) $buttons.find(btnClass).click();
-                                                            })
+													exportOptions : {
+														columns : [ 0, 1, 2, 3,
+																4, 5, 6 ],
+													}
+												},
+												{
+													extend : 'pdfHtml5',
+													orientation : 'landscape',
+													pageSize : 'A4',
+													exportOptions : {
+														columns : [ 0, 1, 2, 3,
+																4, 5, 6 ],
+													},
+													customize : function(doc) {
 
-                                                            $('#exportLinkPdf').on('click', function() {
-                                                                var btnClass = "pdf" ?
-                                                                    '.buttons-' + "pdf" :
-                                                                    null;
-                                                                if (btnClass) $buttons.find(btnClass).click();
-                                                            })
-                                                        }
-                                                    });
-                                                    
-                                                    $('#searchData').on( 'keyup', function () {
-                                                    	tabledata.search( this.value ).draw();
-                                                    } );
-                                                    
-                                                    $('#tabledata1_filter').css("display","none");
-                                                    
-                                                    if (document.getElementById("mode").value === "Line Haul") {
-                                                        document.getElementById("openingReading").d = 'true';
-                                                        document.getElementById("closingReading").d = 'true';
-                                                        $("#tdsSection").val("");
-                                                        $("#tdsRate").val("");
-                                                    } else {
-                                                        document.getElementById("openingReading").d = '';
-                                                        document.getElementById("closingReading").d = '';
-                                                    }
+														var tblBody = doc.content[1].table.body;
+														for (var i = 0; i < tblBody[0].length; i++) {
+															tblBody[0][i].fillColor = '#FFFFFF';
+															tblBody[0][i].color = 'black';
+														}
 
+														var objLayout = {};
+														objLayout['hLineWidth'] = function(
+																i) {
+															return .5;
+														};
+														objLayout['vLineWidth'] = function(
+																i) {
+															return .5;
+														};
+														objLayout['hLineColor'] = function(
+																i) {
+															return '#aaa';
+														};
+														objLayout['vLineColor'] = function(
+																i) {
+															return '#aaa';
+														};
+														objLayout['paddingLeft'] = function(
+																i) {
+															return 4;
+														};
+														objLayout['paddingRight'] = function(
+																i) {
+															return 4;
+														};
+														doc.content[1].layout = objLayout;
+														var obj = {};
+														obj['hLineWidth'] = function(
+																i) {
+															return .5;
+														};
+														obj['hLineColor'] = function(
+																i) {
+															return '#aaa';
+														};
+													}
+												} ],
+										initComplete : function() {
+											var $buttons = $('.dt-buttons')
+													.hide();
+											$('#exportLink')
+													.on(
+															'click',
+															function() {
+																var btnClass = "excel" ? '.buttons-'
+																		+ "excel"
+																		: null;
+																if (btnClass)
+																	$buttons
+																			.find(
+																					btnClass)
+																			.click();
+															})
 
-                                                    var globalTripId = "";
-                                                    function setTripStatus(tripId) {
+											$('#exportLinkPdf')
+													.on(
+															'click',
+															function() {
+																var btnClass = "pdf" ? '.buttons-'
+																		+ "pdf"
+																		: null;
+																if (btnClass)
+																	$buttons
+																			.find(
+																					btnClass)
+																			.click();
+															})
+										}
+									});
 
-                                                        var json = {
-                                                            "tripID": tripId
-                                                        }
+					$('#searchData').on('keyup', function() {
+						tabledata.search(this.value).draw();
+					});
 
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            data: JSON.stringify(json),
-                                                            url: "<%=GlobalUrl.tripDetailByTripId%>",
+					$('#tabledata1_filter').css("display", "none");
+
+					if (document.getElementById("mode").value === "Line Haul") {
+						document.getElementById("openingReading").d = 'true';
+						document.getElementById("closingReading").d = 'true';
+						$("#tdsSection").val("");
+						$("#tdsRate").val("");
+					} else {
+						document.getElementById("openingReading").d = '';
+						document.getElementById("closingReading").d = '';
+					}
+
+					var globalTripId = "";
+					function setTripStatus(tripId) {
+
+						var json = {
+							"tripID" : tripId
+						}
+
+						$
+								.ajax({
+									type : "POST",
+									data : JSON.stringify(json),
+									url : "
+				<%=GlobalUrl.tripDetailByTripId%>",
                                                             dataType: "json",
                                                             contentType: "application/json",
                                                             success: function (data) {

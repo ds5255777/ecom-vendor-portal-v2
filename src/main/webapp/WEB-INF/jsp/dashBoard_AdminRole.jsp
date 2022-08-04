@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html lang="en">
 
 <head>
@@ -22,16 +22,17 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
     <style>
-    tbody {
-	font-size: 12.9px;
-	}
-	
-	.table td, .table th {
-		padding: 5px;
-		vertical-align: top;
-		border-top: 1px solid #dee2e6;
-	}
-    
+        tbody {
+            font-size: 12.9px;
+        }
+
+        .table td,
+        .table th {
+            padding: 5px;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
     </style>
 </head>
 
@@ -41,36 +42,37 @@
         <jsp:include page="navbar.jsp?pagename=Admin Dashboard" />
 
         <jsp:include page="sidebar_Admin.jsp?pagename=dashboard" />
-            
-			<div class="content-wrapper">
-						<div class="content-header" style="padding: 0px;">
-							<div class="container-fluid">
-								<div class="row mb-2">
-									<div class="col-sm-6">
-									 <input type="hidden" id =uname  value="${uname}" />
-									</div>
-									<div class="col-sm-6"></div>
-								</div>
-							</div>
-						</div>
+
+        <div class="content-wrapper">
+            <div class="content-header" style="padding: 0px;">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <input type="hidden" id=uname value="${uname}" />
+                        </div>
+                        <div class="col-sm-6"></div>
+                    </div>
+                </div>
+            </div>
 
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
-							<div class="col-lg-6 col-6">
+                        <div class="col-lg-6 col-6">
                             <div class="small-box bg-white">
                                 <div class="inner" style="height: 200px;">
-                                    <p id="invdue" data-toggle="tooltip" data-placement="bottom" >
-                                      <a style="font-size: 30px;"> Total No of Users : </a><b style="font-size: 30px;">${getAllUserCount}</b></p>
-                                       
-                                       <p id="allActive" data-toggle="tooltip" data-placement="bottom"  style="font-size: 20px;">
-                                       Active Users : <b>${totalActiveUser}</b></p>
-                                       
-                                       <p id="allInactive" data-toggle="tooltip" data-placement="bottom"  style="font-size: 20px;">
+                                    <p id="invdue" data-toggle="tooltip" data-placement="bottom">
+                                        <a style="font-size: 30px;"> Total No of Users : </a><b style="font-size: 30px;">${getAllUserCount}</b>
+                                    </p>
+
+                                    <p id="allActive" data-toggle="tooltip" data-placement="bottom" style="font-size: 20px;">
+                                        Active Users : <b>${totalActiveUser}</b></p>
+
+                                    <p id="allInactive" data-toggle="tooltip" data-placement="bottom" style="font-size: 20px;">
                                         In-Active Users : <b>${totalInActiveUser}</b></p>
                                 </div>
                                 <div class="icon">
-                                <i class="fa fa-user" style="color: #FAA654;font-size: 150px;" ></i>
+                                    <i class="fa fa-user" style="color: #FAA654;font-size: 150px;"></i>
                                 </div>
                                 <a href="addUsers" class="small-box-footer" style="background: #007bffe0; color: white !important;">More
                                     info <i class="fas fa-arrow-circle-right"></i>
@@ -78,19 +80,20 @@
                             </div>
                         </div>
 
-						<div class="col-lg-6 col-6">
-                            <div class="small-box bg-white" >
+                        <div class="col-lg-6 col-6">
+                            <div class="small-box bg-white">
                                 <div class="inner" style="height: 200px;">
-                                    <p id="vendors" data-toggle="tooltip" data-placement="bottom" >
-                                       <a style="font-size: 30px;">Total No of Vendors : </a><b style="font-size: 30px;">${getAllVendorCount}</b></p>
-                                       
-                                     <p id="Actvendors" data-toggle="tooltip" data-placement="bottom"  style="font-size: 20px;">
-                                       Active Vendors : <b>${allActiveVendorCount}</b></p>
-                                
-                                 	<p id="inactVendor" data-toggle="tooltip" data-placement="bottom"  style="font-size: 20px;">
-                                       In-Active Vendors : <b>${allInActiveVendorCount}</b></p>
-                                
-                                       
+                                    <p id="vendors" data-toggle="tooltip" data-placement="bottom">
+                                        <a style="font-size: 30px;">Total No of Vendors : </a><b style="font-size: 30px;">${getAllVendorCount}</b>
+                                    </p>
+
+                                    <p id="Actvendors" data-toggle="tooltip" data-placement="bottom" style="font-size: 20px;">
+                                        Active Vendors : <b>${allActiveVendorCount}</b></p>
+
+                                    <p id="inactVendor" data-toggle="tooltip" data-placement="bottom" style="font-size: 20px;">
+                                        In-Active Vendors : <b>${allInActiveVendorCount}</b></p>
+
+
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-user-circle" aria-hidden="true" style="color: #1F8BFF;font-size: 160px; "></i>
@@ -100,7 +103,7 @@
                                 </a>
                             </div>
                         </div>
-							
+
                     </div>
                 </div>
             </section>
@@ -119,12 +122,12 @@
                                     <table class="table table-head-fixed" id="tabledata">
                                         <thead>
                                             <tr>
-                                                    <th class="bg-primary" >User Name</th>
-                                                     <th class="bg-primary" >First Name</th>
-                                                     <th class="bg-primary" >Last Name</th>
-                                                     <th class="bg-primary" >Role</th>
-                                                     <th class="bg-primary" >Email</th>
-													 <th class="bg-primary" >Contact No</th>
+                                                <th class="bg-primary">User Name</th>
+                                                <th class="bg-primary">First Name</th>
+                                                <th class="bg-primary">Last Name</th>
+                                                <th class="bg-primary">Role</th>
+                                                <th class="bg-primary">Email</th>
+                                                <th class="bg-primary">Contact No</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -144,8 +147,8 @@
             </section>
         </div>
     </div>
-   
-        <form role="form" id="changePassword1" autocomplete="off">
+
+    <form role="form" id="changePassword1" autocomplete="off">
         <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -163,7 +166,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Confirm Password </label>
-                            <input type="password" class="form-control p-input" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm Password" >
+                            <input type="password" class="form-control p-input" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm Password">
                         </div>
                         <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
                     </div>
@@ -173,7 +176,7 @@
                 </div>
             </div>
         </div>
-        </form>
+    </form>
 
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -196,12 +199,13 @@
     <script src="plugins/datatables/jquery.dataTables.js"></script>
     <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
     <script src="dist/js/chart2.js"></script>
-	<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
-	<script src="plugins/toastr/toastr.min.js"></script>
-	<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
-	<script src="plugins/jquery-validation/additional-methods.min.js"></script>
-		<script>
+    <script src="plugins/toastr/toastr.min.js"></script>
+    <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="plugins/jquery-validation/additional-methods.min.js"></script>
+    
+    <script>
             $(document).ready(function () {
                 if (${userStatus} === 3) {
                     $('#changePassword').modal('show');
@@ -261,33 +265,7 @@
     			showConfirmButton : false,
     			timer : 3000
     		});
-        </script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var bootstrapTooltip = $.fn.tooltip.noConflict();
-            $.fn.bstooltip = bootstrapTooltip;
-            $('#quickHelp').bstooltip();
-            $('#oveTickets').bstooltip();
-            $('#invdue').bstooltip();
-            $('#opeTickets').bstooltip();
-            $('#UnTickets').bstooltip();
-            $('#iamwatch').bstooltip();
-            $('#perTicket').bstooltip();
-            $('#allActive').bstooltip();
-            
-            $('#allInactive').bstooltip();
-            $('#noofinvoice').bstooltip();
-            $('#proinvoice').bstooltip();
-            $('#appinvoice').bstooltip();
-            $('#vendors').bstooltip();
-            $('#Actvendors').bstooltip();
-            $('#inactVendor').bstooltip();
-            
-        })
-
-    </script>
-    <script>
+   
         var tabledata = $('#tabledata').DataTable({
             "paging": false,
             "lengthChange": false,
@@ -432,6 +410,7 @@
         }
 
     </script>
+
 
 </body>
 

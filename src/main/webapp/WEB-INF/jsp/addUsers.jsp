@@ -1,7 +1,8 @@
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <html lang="en">
 
 <head>
@@ -48,9 +49,6 @@
             padding: 5px 5px 0px 1.5rem;
         }
 
-    </style>
-
-    <style>
         .select2-container--default .select2-purple .select2-selection--multiple .select2-selection__choice,
         .select2-purple .select2-container--default .select2-selection--multiple .select2-selection__choice {
             background-color: #006fe6;
@@ -79,7 +77,6 @@
 
         <input type="hidden" id=uname value="${uname}" />
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
             <div class="content-header" style="padding: 0px;">
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -94,7 +91,6 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <!-- general form elements -->
                             <div class="card card-primary">
                                 <div class="card-header">
                                     <h3 class="card-title">Add User, Not Applicable For Vendor</h3>
@@ -280,14 +276,6 @@
     <script src="dist/js/demo.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="plugins/select2/js/select2.full.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var bootstrapTooltip = $.fn.tooltip.noConflict();
-            $.fn.bstooltip = bootstrapTooltip;
-            $('.quickHelp').bstooltip();
-        })
-
-    </script>
     <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
     <script src="plugins/jquery-validation/additional-methods.min.js"></script>
     <script src="plugins/datatables/jquery.dataTables.js"></script>
@@ -315,10 +303,7 @@
                 }
             }
         }
-
-    </script>
-
-    <script type="text/javascript">
+    
         var mappingTableArray = [];
 
         var tabledata = $('#tabledata').DataTable({

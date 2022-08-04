@@ -1,8 +1,8 @@
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -563,12 +563,12 @@
 		<div class="split right">
         	 <div class="form-group">
             <label for="doc">Document Details</label>
-                <select class="form-control" id="multipleAttachment" onclick="displayAttachmentForPoDetails()" style="height: 35px;" >
+                <select class="form-control" id="multipleAttachment" onchange="displayAttachmentForPoDetails()" style="height: 35px;" >
                                                 
                                             </select>
                                             </div>
                 <a id="ifrmameHref"   target="_blank">Click Here to open doc in new window</a>
-                <iframe id="pdfLink" style="height:90%; width:100%" ></iframe>
+                <iframe id="pdfLink" style="height:90%; width:100%" title="Navigation menu" ></iframe>
    		 </div>
 
     <script src="plugins/jquery/jquery.min.js"></script>

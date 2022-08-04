@@ -1,7 +1,7 @@
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,9 +49,6 @@
             border-top: 1px solid #dee2e6;
         }
 
-    </style>
-
-    <style>
         .select2-container--default .select2-purple .select2-selection--multiple .select2-selection__choice,
         .select2-purple .select2-container--default .select2-selection--multiple .select2-selection__choice {
             background-color: #006fe6;
@@ -224,15 +221,6 @@
     <script src="dist/js/demo.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="plugins/select2/js/select2.full.min.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var bootstrapTooltip = $.fn.tooltip.noConflict();
-            $.fn.bstooltip = bootstrapTooltip;
-            $('.quickHelp').bstooltip();
-        })
-
-    </script>
     <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
     <script src="plugins/jquery-validation/additional-methods.min.js"></script>
     <script src="plugins/datatables/jquery.dataTables.js"></script>
@@ -260,11 +248,7 @@
                 }
             }
         }
-
-    </script>
-
-
-    <script type="text/javascript">
+    
         var tabledata = $('#tabledata').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -534,17 +518,17 @@
                         tabledata.clear();
                         for (var i = 0; i < result.length; i++) {
                          	if(!result[i].hasOwnProperty("userName")){
-   								result[i].userName="";
-   							}
-                              if(!result[i].hasOwnProperty("serverName")){
-        							result[i].serverName="";
-        						}
-								if(!result[i].hasOwnProperty("smtpPort")){
-   								result[i].smtpPort="";
-   							}
-                               if(!result[i].hasOwnProperty("id")){
-   								result[i].id="";
-   							}
+                         	result[i].userName="";
+                         	}
+                         	if(!result[i].hasOwnProperty("serverName")){
+                         	result[i].serverName="";
+                         	}
+                         	if(!result[i].hasOwnProperty("smtpPort")){
+                         	result[i].smtpPort="";
+                         	}
+                         	if(!result[i].hasOwnProperty("id")){
+                         	result[i].id="";
+                         	}
                             var inactive = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"inactiveActiveDeleteData(" + result[i].id + ")\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
                             var edit = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"   data-original-title=\"Click To Edit\" style=\"width: 43px;\"  onclick=\"editData(" + result[i].id + ")\"><i class=\"nav-icon fas fa-edit\"> </i> </button>";
 

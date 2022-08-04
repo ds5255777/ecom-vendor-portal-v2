@@ -1,9 +1,9 @@
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <!DOCTYPE html>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+    
 <html lang="en">
 
 <head>
@@ -13,33 +13,20 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<link rel="stylesheet"
-	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-<link rel="stylesheet"
-	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
 <link rel="stylesheet" href="dist/css/adminlte.min.css">
-<link rel="stylesheet"
-	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-<link rel="stylesheet"
-	href="plugins/daterangepicker/daterangepicker.css">
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="plugins/jquery-ui/jquery-ui.min.css">
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+<link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-<link rel="stylesheet"
-	href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-<link rel="stylesheet"
-	href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-<link rel="stylesheet"
-	href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+<link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 <style>
 custom-file-input {
@@ -247,7 +234,6 @@ tbody {
 
 
 															<div class="col-md-3">
-																<!-- text input -->
 																<div class="form-group row">
 
 																	<label class="col-sm-5">Vendor Name<span
@@ -326,7 +312,6 @@ tbody {
 																</div>
 															</div>
 															<div class="col-md-3">
-																<!-- text input -->
 																<div class="form-group row">
 																	<label class="col-sm-5" title="Actual Vehicle Type">Act
 																		Vehicle </label>
@@ -338,7 +323,6 @@ tbody {
 																</div>
 															</div>
 															<div class="col-md-3">
-																<!-- text input -->
 																<div class="form-group row">
 																	<label class="col-sm-5" title="Standard Vehicle Type">Std.
 																		Vehicle </label>
@@ -350,7 +334,7 @@ tbody {
 																</div>
 															</div>
 															<div class="col-md-3">
-																<!-- text input -->
+																
 																<div class="form-group row">
 																	<label class="col-sm-5"
 																		title="Standard Payload Capacity">Payload Cap.</label>
@@ -364,7 +348,7 @@ tbody {
 															</div>
 
 															<div class="col-md-3">
-																<!-- text input -->
+																
 																<div class="form-group row">
 																	<label class="col-sm-5"
 																		title="Standard Shipment Capacity">Shipment
@@ -537,7 +521,7 @@ tbody {
 																</div>
 															</div>
 															<div class="col-md-3">
-																<!-- text input -->
+																
 																<div class="form-group row">
 																	<label class="col-sm-5" title="FS">FS Amount</label>
 																	<div class="col-sm-7">
@@ -582,7 +566,7 @@ tbody {
 																<div class="form-group">
 																	<input type="checkbox" id="lumpsum" name="lumpsum"
 																		class="messageCheckbox" value=""
-																		onclick="lumpsomePropertyChange()"> <label
+																		onblur="lumpsomePropertyChange()"> <label
 																		class="col-sm-11" for="lumsum"> If Lump Sum
 																		amount is applicable</label><br>
 																	<div class="col-sm-7">

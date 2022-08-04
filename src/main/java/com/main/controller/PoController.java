@@ -352,9 +352,6 @@ public class PoController {
 			String processBy = principal.getName();
 			Date proceessOn = new Date();
 
-			logger.info("getRemaningQuatity in po line :::::::: ", details.getRemaningQuatity() , "poLineId"
-					, details.getId());
-
 			serviceManager.podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
 
 			Integer flag = details.getFlag();
@@ -385,8 +382,6 @@ public class PoController {
 
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
-
-			logger.info("getRemaningQuatity" , details.getRemaningQuatity() , "id" , details.getId());
 
 			serviceManager.podetailsRepo.updateRemaningQuatity(details.getRemaningQuatity(), details.getId());
 			String processBy = principal.getName();

@@ -1,10 +1,9 @@
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <!DOCTYPE html>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
+
 <html lang="en">
 
 <head>
@@ -13,33 +12,20 @@
 <title>${titleName}|ApprovalAdhocTrips</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<link rel="stylesheet"
-	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-<link rel="stylesheet"
-	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
 <link rel="stylesheet" href="dist/css/adminlte.min.css">
-<link rel="stylesheet"
-	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-<link rel="stylesheet"
-	href="plugins/daterangepicker/daterangepicker.css">
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="plugins/jquery-ui/jquery-ui.min.css">
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+<link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-<link rel="stylesheet"
-	href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-<link rel="stylesheet"
-	href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-<link rel="stylesheet"
-	href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+<link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 <style>
 custom-file-input {
@@ -53,62 +39,49 @@ custom-file-input {
 	padding-bottom: 35px;
 	font-size: 14px;
 }
-
 .custom-file-label::after {
 	height: auto !important;
 }
-
 .custom-file-label {
 	padding-bottom: 23px;
 	height: 25px;
 	font-size: 14px;
 }
-
 .tableheading {
 	font-size: 15px;
 	font-weight: bold;
 }
-
 label {
 	font-weight: 500;
 	margin-bottom: 1px;
 }
-
 .form-control {
 	height: 25px;
 	font-size: 14px;
 }
-
 tbody {
 	font-size: 12.9px;
 }
-
 .table td, .table th {
 	vertical-align: top;
 	border-top: 1px solid #dee2e6;
 	padding: 5px 5px 0px 1.5rem;
 }
-
 .observedScoreheading {
 	width: 60px !important;
 }
-
 .serialNoheading {
 	width: 60px !important;
 }
-
 .documentheading {
 	width: 500px;
 }
-
 .attachmentheading {
 	width: 500px;
 }
-
 .helpheading {
 	width: 60px !important;
 }
-
 .tooltip.show p {
 	text-align: left;
 }
@@ -490,7 +463,6 @@ tbody {
 														</div>
 													</div>
 													<div class="col-md-3">
-														<!-- text input -->
 														<div class="form-group row">
 															<label class="col-sm-5" title="FS">FS Amount</label>
 															<div class="col-sm-7">
@@ -598,18 +570,16 @@ tbody {
 	<script src="plugins/jquery/jquery.min.js"></script>
 	<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 	<script>
-		$.widget.bridge('uibutton', $.ui.button);
-		$.widget.bridge('uitooltip', $.ui.tooltip);
+	    $.widget.bridge('uibutton', $.ui.button);
+	    $.widget.bridge('uitooltip', $.ui.tooltip);
 	</script>
 	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="js/commonFunctions.js"></script>
 	<script src="plugins/sparklines/sparkline.js"></script>
 	<script src="plugins/moment/moment.min.js"></script>
 	<script src="plugins/daterangepicker/daterangepicker.js"></script>
-	<script
-		src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-	<script
-		src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+	<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 	<script src="dist/js/adminlte.js"></script>
 	<script src="dist/js/demo.js"></script>
 	<script src="js/moment.min.js"></script>
@@ -805,17 +775,17 @@ tbody {
 						     	var count=0;
 			                        for (var i = 0; i < result.length; i++) {
 			                        	if(!result[i].hasOwnProperty("raisedBy")){
-			                               	result[i].raisedBy="";
-			                               }
-			                                             if(!result[i].hasOwnProperty("role")){
-			                               	result[i].role="";
-			                               }
-			                                             if(!result[i].hasOwnProperty("raisedOn")){
-			                               	result[i].raisedOn="";
-			                               }
-			                                             if(!result[i].hasOwnProperty("comment")){
-			                               	result[i].comment="";
-			                               }                    
+			                        	result[i].raisedBy="";
+			                        	}
+			                        	if(!result[i].hasOwnProperty("role")){
+			                        	result[i].role="";
+			                        	}
+			                        	if(!result[i].hasOwnProperty("raisedOn")){
+			                        	result[i].raisedOn="";
+			                        	}
+			                        	if(!result[i].hasOwnProperty("comment")){
+			                        	result[i].comment="";
+			                        	}                   
 			                        count++;
 			                        tabledataQuery.row.add([count,result[i].raisedBy, result[i].role, result[i].raisedOn, result[i].comment]);
 			                        }
@@ -1010,7 +980,5 @@ tbody {
 
    }
 </script>
-
 </body>
-
 </html>

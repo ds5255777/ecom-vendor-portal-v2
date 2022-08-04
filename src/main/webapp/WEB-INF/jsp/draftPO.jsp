@@ -1,10 +1,9 @@
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <!DOCTYPE html>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <html lang="en">
 
 <head>
@@ -130,34 +129,30 @@
                         <div class="col-md-12" style="font-size: 14px;">
                             <div class="card card-primary ">
                                 <div class="card-body ">
-                                <form role="form" id="addForm" autocomplete="off">
-										<div class="row">
-											
-											<div class="col-md-2">
-												<div class="dropdown">
-													<button type="button"
-														class="btn btn-primary dropdown-toggle"
-														style="  margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;"
-														data-toggle="dropdown">Export Details</button>
-													<div class="dropdown-menu">
-														<a class="dropdown-item" href="#" id="exportLinkPdf">Download
-															PDF</a> <a class="dropdown-item" href="#" id="exportLink">Download
-															Excel</a>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-8"></div>
-											<div class="col-md-2">
-												<div class="form-group row">
-													<label class="col-md-4">Search : </label>
-													<div class="col-md-8">
-														<input type="text" name="searchData" placeholder="Search"
-															class="form-control" id="searchData">
-													</div>
-												</div>
-											</div>
-										</div>
-									</form>
+                                    <form role="form" id="addForm" autocomplete="off">
+                                        <div class="row">
+
+                                            <div class="col-md-2">
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" style="  margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;" data-toggle="dropdown">Export Details</button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#" id="exportLinkPdf">Download
+                                                            PDF</a> <a class="dropdown-item" href="#" id="exportLink">Download
+                                                            Excel</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8"></div>
+                                            <div class="col-md-2">
+                                                <div class="form-group row">
+                                                    <label class="col-md-4">Search : </label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" name="searchData" placeholder="Search" class="form-control" id="searchData">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                     <table class="table table-bordered table-hover" id="tabledata">
                                         <thead>
                                             <tr>
@@ -178,43 +173,44 @@
                 </div>
             </section>
         </div>
-        </div>
-        <script src="plugins/jquery/jquery.min.js"></script>
-        <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-        <script>
-            $.widget.bridge('uibutton', $.ui.button);
-            $.widget.bridge('uitooltip', $.ui.tooltip);
-        </script>
-        <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="plugins/sparklines/sparkline.js"></script>
-        <script src="plugins/moment/moment.min.js"></script>
-        <script src="plugins/daterangepicker/daterangepicker.js"></script>
-        <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-        <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-        <script src="dist/js/adminlte.js"></script>
-        <script src="dist/js/demo.js"></script>
-        <script src="js/moment.min.js"></script>
-        <script src="plugins/select2/js/select2.full.min.js"></script>
-        <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
-        <script src="plugins/jquery-validation/additional-methods.min.js"></script>
-        <script src="plugins/datatables/jquery.dataTables.js"></script>
-        <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-        <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
-        <script src="plugins/toastr/toastr.min.js"></script>
-        
-        <script src="plugins/datatables/jquery.dataTables.js"></script>
-        <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-        <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-        <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-        <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-        <script src="plugins/jszip/jszip.min.js"></script>
-        <script src="plugins/pdfmake/pdfmake.min.js"></script>
-        <script src="plugins/pdfmake/vfs_fonts.js"></script>
-        <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-        <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
-        <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    </div>
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+        $.widget.bridge('uitooltip', $.ui.tooltip);
 
-        <script type="text/javascript">
+    </script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/sparklines/sparkline.js"></script>
+    <script src="plugins/moment/moment.min.js"></script>
+    <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="dist/js/adminlte.js"></script>
+    <script src="dist/js/demo.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="plugins/select2/js/select2.full.min.js"></script>
+    <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="plugins/jquery-validation/additional-methods.min.js"></script>
+    <script src="plugins/datatables/jquery.dataTables.js"></script>
+    <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="plugins/toastr/toastr.min.js"></script>
+
+    <script src="plugins/datatables/jquery.dataTables.js"></script>
+    <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="plugins/jszip/jszip.min.js"></script>
+    <script src="plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    
+     <script type="text/javascript">
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -407,6 +403,8 @@
                 getData();
             }
         </script>
+
+
 </body>
 
 </html>

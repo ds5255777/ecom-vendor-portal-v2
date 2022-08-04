@@ -217,9 +217,9 @@ public class TripControllers {
 		try {
 
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
-				String runStatus = obj.getRunStatus().toString();
-				String vendortripStatus = obj.getVendorTripStatus().toString();
-				String paymentStatus = obj.getPaymentStatus().toString();
+				String runStatus = obj.getRunStatus();
+				String vendortripStatus = obj.getVendorTripStatus();
+				String paymentStatus = obj.getPaymentStatus();
 
 				List<TripDetails> tripFindByStatus = serviceManager.tripService.getTripsByFiltersNetwork(runStatus,
 						vendortripStatus, paymentStatus);
@@ -229,10 +229,10 @@ public class TripControllers {
 				data.setData(tripFilterList);
 			} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 
-				String runStatus = obj.getRunStatus().toString();
-				String vendortripStatus = obj.getVendorTripStatus().toString();
-				String paymentStatus = obj.getPaymentStatus().toString();
-				String vendorCode = obj.getVendorCode().toString();
+				String runStatus = obj.getRunStatus();
+				String vendortripStatus = obj.getVendorTripStatus();
+				String paymentStatus = obj.getPaymentStatus();
+				String vendorCode = obj.getVendorCode();
 				if (vendorCode.equalsIgnoreCase(userName)) {
 					List<TripDetails> tripFindByStatus = serviceManager.tripService.getTripsByFilters(runStatus,
 							vendortripStatus, paymentStatus, vendorCode);
@@ -379,7 +379,7 @@ public class TripControllers {
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			JSONObject jsonObject = new JSONObject(obj);
-			String tripID = jsonObject.get("tripID").toString();
+			String tripID = jsonObject.optString("tripID");
 			List<QueryEntity> qe = serviceManager.queryRepo.findCommentsByRefID(tripID);
 			List<QueryEntityDTO> queryList = qe.stream()
 					.map(listQuery -> this.serviceManager.modelMapper.map(listQuery, QueryEntityDTO.class))

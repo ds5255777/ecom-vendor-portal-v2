@@ -1,9 +1,9 @@
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <!DOCTYPE html>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+    
 <html lang="en">
 
 <head>
@@ -121,22 +121,14 @@
                     </div>
                 </div>
             </div>
-
-            <!-- /.content-header -->
-
-            <!-- Main content -->
             <section class="content mt-2">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12" style="font-size: 14px;">
-                            <!-- general form elements -->
                             <div class="card card-primary ">
-
-                                <!-- /.card-header -->
                                 <div class="card-body ">
                                     <form role="form" id="addForm" autocomplete="off">
                                         <div class="row">
-
                                             <div class="col-md-2">
                                                 <div class="dropdown">
                                                     <button type="button" class="btn btn-primary dropdown-toggle" style="  margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;" data-toggle="dropdown">Export Details</button>
@@ -164,8 +156,6 @@
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">ECOM Invoice Number</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Invoice Number</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Code</th>
-                                                <!--  <th style="padding: 5px 5px 5px 1.5rem;">Vendor Name</th>
-                                               <th style="padding: 5px 5px 5px 1.5rem;">Invoice Receiving Date</th>  -->
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Invoice Date</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Status</th>
                                             </tr>
@@ -174,7 +164,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- /.card-body -->
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 

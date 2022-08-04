@@ -1,7 +1,7 @@
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,36 +11,23 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Business Partner Registration</title>
 
-<link rel="stylesheet"
-	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-<link
-	href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard_theme_circles.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard_theme_arrows.min.css"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="plugins/fontawesome-free/css/fontawesome.min.css" />
-<link rel="stylesheet"
-	href="dist/css/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
-<link rel="stylesheet"
-	href="plugins/flag-icon-css/css/flag-icon.min.css" />
+<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<link href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard_theme_circles.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard_theme_arrows.min.css" rel="stylesheet">
+<link rel="stylesheet" href="plugins/fontawesome-free/css/fontawesome.min.css" />
+<link rel="stylesheet" href="dist/css/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
+<link rel="stylesheet" href="plugins/flag-icon-css/css/flag-icon.min.css" />
 <link rel="stylesheet" href="dist/css/style.css" />
- <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard.min.css" /> 
-	
-<link rel="stylesheet"
-	href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard.min.css" />
+
+<link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
-<link
-	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
-	rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 <script src="plugins/jquery/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+<script src="js/1.10.0/jquery-ui.js"></script>
 <script src="dist/js/notify.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="js/select2.min.js"></script>
 	
 	 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -1190,8 +1177,6 @@ select[readonly].select2 + .select2-container {
                     </div>
                     <div id="step-4" class="">
                         <div class="card" style="margin-bottom: 10px;">
-
-                            <!-- Start -->
 
                             <div class="card" style="margin-bottom: 10px;">
                                 <div class="card-header" id="addressBookHead" style="background: #1991eb; color: #ffffff;">
@@ -2345,16 +2330,13 @@ select[readonly].select2 + .select2-container {
 		 $S1.attr("readonly", "readonly");
 	}
     </script>
-
-	 <script
-		src="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/js/jquery.smartWizard.min.js"></script> 
-	
-	<script src="plugins/popper/umd/popper.min.js"></script>
-	<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-	<script
-		src="dist/css/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
-	<script src="plugins/js/off-canvas.js"></script>
-	<script src="plugins/js/hoverable-collapse.js"></script>
-	<script src="plugins/js/misc.js"></script>
+    
+ <script src="js/jquery.smartWizard.min.js"></script>
+ <script src="plugins/popper/umd/popper.min.js"></script>
+ <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+ <script src="dist/css/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
+ <script src="plugins/js/off-canvas.js"></script>
+ <script src="plugins/js/hoverable-collapse.js"></script>
+ <script src="plugins/js/misc.js"></script>
 </body>
 </html>

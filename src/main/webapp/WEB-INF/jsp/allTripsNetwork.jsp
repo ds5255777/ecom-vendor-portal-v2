@@ -1,8 +1,7 @@
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,33 +13,20 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<link rel="stylesheet"
-	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-<link rel="stylesheet"
-	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
 <link rel="stylesheet" href="dist/css/adminlte.min.css">
-<link rel="stylesheet"
-	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-<link rel="stylesheet"
-	href="plugins/daterangepicker/daterangepicker.css">
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="plugins/jquery-ui/jquery-ui.min.css">
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+<link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-<link rel="stylesheet"
-	href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-<link rel="stylesheet"
-	href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-<link rel="stylesheet"
-	href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+<link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 
 <script>
@@ -231,42 +217,40 @@ tbody {
 											</div>
 										</div>
 									</form>
-									<table class="display nowrap table table-bordered table-hover"
-										id="tabledata" style="width:100%;">
-										<thead>
-											<tr>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip
-													Id</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run
-													Type</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor
-													Name</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor
-													Code</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run
-													Status</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor
-													Status</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual
-													Departure</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual
-													KM</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Std.
-													KM</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Origin
-													Hub</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Destination
-													Hub</th>
-												<th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Payment
-													Status</th>
-											</tr>
-										</thead>
-										<tbody>
-										</tbody>
+									<table class="display nowrap table table-bordered table-hover" id="tabledata" style="width:100%;">
+									    <thead>
+									        <tr>
+									            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Trip
+									                Id</th>
+									            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
+									            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run
+									                Type</th>
+									            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor
+									                Name</th>
+									            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor
+									                Code</th>
+									            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run
+									                Status</th>
+									            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor
+									                Status</th>
+									            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual
+									                Departure</th>
+									            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual
+									                KM</th>
+									            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Std.
+									                KM</th>
+									            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Origin
+									                Hub</th>
+									            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Destination
+									                Hub</th>
+									            <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Payment
+									                Status</th>
+									        </tr>
+									    </thead>
+									    <tbody>
+									    </tbody>
 									</table>
 								</div>
-								<!-- /.card-body -->
 							</div>
 						</div>
 					</div>
@@ -345,7 +329,7 @@ tbody {
 														</div>
 													</div>
 													<div class="col-md-3">
-														<!-- text input -->
+														
 														<div class="form-group row">
 															<label class="col-sm-5" title="Vendor Name">Vendor
 																Name</label>
@@ -356,7 +340,7 @@ tbody {
 														</div>
 													</div>
 													<div class="col-md-3">
-														<!-- text input -->
+														
 														<div class="form-group row">
 															<label class="col-sm-5" title="Vendor Code">Vendor
 																Code</label>
@@ -607,7 +591,6 @@ tbody {
 											</form>
 										</div>
 									</div>
-									<!-- /.card -->
 									<div class=" card-primary">
 										<div class="card card-primary ">
 											<div class="card-header" style="padding: 4px 0px 4px 4px;">
@@ -657,18 +640,16 @@ tbody {
 		<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 		<script src="js/common.js"></script>
 		<script>
-			$.widget.bridge('uibutton', $.ui.button);
-			$.widget.bridge('uitooltip', $.ui.tooltip);
+		    $.widget.bridge('uibutton', $.ui.button);
+		    $.widget.bridge('uitooltip', $.ui.tooltip);
 		</script>
 		<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="js/commonFunctions.js"></script>
 		<script src="plugins/sparklines/sparkline.js"></script>
 		<script src="plugins/moment/moment.min.js"></script>
 		<script src="plugins/daterangepicker/daterangepicker.js"></script>
-		<script
-			src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-		<script
-			src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+		<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+		<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 		<script src="dist/js/adminlte.js"></script>
 		<script src="dist/js/demo.js"></script>
 		<script src="js/moment.min.js"></script>

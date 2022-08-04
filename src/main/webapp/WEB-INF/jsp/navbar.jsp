@@ -1,5 +1,5 @@
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <input type="hidden" id="contextPath" value="${pageContext.request.contextPath}" readonly>
 <c:set var="pageName" value='<%=request.getParameter("pagename")%>' />
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -15,7 +15,7 @@
 						style="font-size: 18px; color: #12344dd6;"><i
 							class="fa fa-fast-backward"></i></b></a></li>
 				<li class="nav-item d-none d-sm-inline-block"><b><a
-						class="nav-link"><%=request.getParameter("pagename")%></a></b></li>
+						class="nav-link"> <%= request.getParameter("pagename") %></a></b></li>
 				<li class="nav-item d-none d-sm-inline-block" style="padding: 6px;">
 					<button type="button" class="btn btn-default btn-sm "
 						id="refreshDashboardButton">
@@ -64,7 +64,7 @@
 						style="font-size: 18px; color: #12344dd6;"><i
 							class="fa fa-fast-backward"></i></b></a></li>
 				<li class="nav-item d-none d-sm-inline-block"><b><a
-						class="nav-link"><%=request.getParameter("pagename")%></a></b></li>
+						class="nav-link"> <%= request.getParameter("pagename") %> </a></b></li>
 				<li class="nav-item d-none d-sm-inline-block" style="padding: 6px;">
 
 					<button type="button" class="btn btn-default btn-sm "
@@ -107,7 +107,7 @@
 			
 			<c:when test="${pageName=='Closed And Approved Trips' || pageName=='Pending For Approvel Trips'}">
 				<li class="nav-item d-none d-sm-inline-block"><a class="black-text nav-link quickHelp" data-toggle="tooltip" data-placement="bottom" title="Back" href="#" onclick="history.back()" style="padding-right: 0px;"><b style="font-size: 18px;color: #12344dd6;"><i class="fa fa-fast-backward"></i></b></a></li>
-                <li class="nav-item d-none d-sm-inline-block"><b><a class="nav-link"><%=request.getParameter("pagename")%></a></b></li>
+                <li class="nav-item d-none d-sm-inline-block"><b><a class="nav-link"> <%= request.getParameter("pagename") %> </a></b></li>
                 
                 <button type="button" class="btn btn-default btn-sm "
 						id="refreshDashboardButton">
@@ -124,7 +124,7 @@
 					<b style="font-size: 18px; color: #12344dd6;"><i
 							class="fa fa-fast-backward"></i></b></a></li>
 				<li class="nav-item d-none d-sm-inline-block"><b><a
-						class="nav-link"><%=request.getParameter("pagename")%></a></b></li>
+						class="nav-link"> <%= request.getParameter("pagename") %> </a></b></li>
 				<li class="nav-item d-none d-sm-inline-block" style="padding: 6px;">
 
 					<button type="button" class="btn btn-default btn-sm "
@@ -155,12 +155,12 @@
 				</li>
 			</c:when>
 			<c:when test="${pageName=='Dashboard' || pageName=='PO Dashboard' || pageName=='Finance Dashboard'}">
-                <li class="nav-item d-none d-sm-inline-block"><b><a class="nav-link"><%=request.getParameter("pagename")%></a></b></li>
+                <li class="nav-item d-none d-sm-inline-block"><b><a class="nav-link"> <%= request.getParameter("pagename") %> </a></b></li>
 			</c:when>
 
 			<c:otherwise>
                 <li class="nav-item d-none d-sm-inline-block"><a class="black-text nav-link quickHelp" data-toggle="tooltip" data-placement="bottom" title="Back" href="#" onclick="history.back()" style="padding-right: 0px;"><b style="font-size: 18px;color: #12344dd6;"><i class="fa fa-fast-backward"></i></b></a></li>
-                <li class="nav-item d-none d-sm-inline-block"><b><a class="nav-link"><%=request.getParameter("pagename")%></a></b></li>
+                <li class="nav-item d-none d-sm-inline-block"><b><a class="nav-link"> <%= request.getParameter("pagename") %> </a></b></li>
             </c:otherwise>
         </c:choose>
     </ul>

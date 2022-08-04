@@ -1,10 +1,9 @@
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <!DOCTYPE html>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+    
 <html lang="en">
 
 <head>
@@ -128,10 +127,8 @@
 
                     <div class="row">
                         <div class="col-md-12" style="font-size: 14px;">
-                            <!-- general form elements -->
                             <div class="card">
 
-                                <!-- /.card-header -->
                                 <div class="card-body ">
                                     <form role="form" id="addForm" autocomplete="off">
                                         <div class="row">
@@ -157,7 +154,6 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <!-- /.card-header -->
                                     <div class="card-body table-responsive p-0" style="width:100%;">
                                         <table class="table table-head-fixed" id="tabledata1">
                                             <thead>
@@ -205,7 +201,6 @@
 
         <div class="modal fade" id="tripValue" role="dialog">
             <div class="modal-dialog " style="max-width: 1400px;">
-                <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-body" style="overflow-y: auto;">
                         <div class="container-fluid panel2" id="headerLineItemForm">
@@ -218,9 +213,6 @@
                                                 <h3 class="card-title" style="font-size: 15px;">Trip
                                                     Details</h3>
                                             </div>
-
-
-                                            <!-- /.card-header -->
                                             <div class="card-body">
                                                 <form role="form" id="tripForm1">
                                                     <div class="row">
@@ -233,7 +225,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <!-- text input -->
+                                                           
                                                             <div class="form-group row">
 
                                                                 <label class="col-sm-5">Vendor Name<span class="required adHocRequired"></span></label>
@@ -256,12 +248,6 @@
                                                                 <label class="col-sm-5">Vendor Code</label>
                                                                 <div class="col-sm-7">
                                                                     <input type="text" class="form-control" id="vendorCode" name="vendorCode" readonly="readonly" autocomplete="off">
-                                                                    <!-- <select class="form-control" onclick="selectVendorCode()"
-																		id="vendorCode" name="vendorCode"
-																		style="height: 34px;">
-
-
-																	</select> -->
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -305,7 +291,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <!-- text input -->
+                                                           
                                                             <div class="form-group row">
                                                                 <label class="col-sm-5" title="Actual Vehicle Type">Act
                                                                     Vehicle </label>
@@ -315,7 +301,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <!-- text input -->
+                                                           
                                                             <div class="form-group row">
                                                                 <label class="col-sm-5" title="Standard Vehicle Type">Std.
                                                                     Vehicle </label>
@@ -325,7 +311,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <!-- text input -->
+                                                           
                                                             <div class="form-group row">
                                                                 <label class="col-sm-5" title="Standard Payload Capacity">Payload Cap.</label>
                                                                 <div class="col-sm-7">
@@ -335,7 +321,7 @@
                                                         </div>
 
                                                         <div class="col-md-3">
-                                                            <!-- text input -->
+                                                           
                                                             <div class="form-group row">
                                                                 <label class="col-sm-5" title="Standard Shipment Capacity">Shipment
                                                                     Cap.</label>
@@ -479,7 +465,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <!-- text input -->
+                                                           
                                                             <div class="form-group row">
                                                                 <label class="col-sm-5" title="FS">FS Amount</label>
                                                                 <div class="col-sm-7">
@@ -516,7 +502,7 @@
                                                         </div>
                                                         <div class="col-md-3">
                                                             <div class="form-group">
-                                                                <input type="checkbox" id="lumpsum" name="lumpsum" class="messageCheckbox" value="" onclick="lumpsomePropertyChange()"> <label class="col-sm-11" for="lumsum"> If Lump Sum
+                                                                <input type="checkbox" id="lumpsum" name="lumpsum" class="messageCheckbox" value="" onblur="lumpsomePropertyChange()"> <label class="col-sm-11" for="lumsum"> If Lump Sum
                                                                     amount is applicable</label><br>
                                                                 <div class="col-sm-7">
                                                                     <label class="col-sm-12" style="margin-bottom: 1px;">Amount</label>

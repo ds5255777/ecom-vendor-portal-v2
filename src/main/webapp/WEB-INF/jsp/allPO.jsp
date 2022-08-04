@@ -1,8 +1,7 @@
-<%@page import="com.main.commonclasses.GlobalConstants"%>
-<%@page import="com.main.commonclasses.GlobalUrl"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import="com.main.commonclasses.GlobalConstants" %>
+<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -131,10 +130,8 @@
 
                     <div class="row">
                         <div class="col-md-12" style="font-size: 14px;">
-                            <!-- general form elements -->
                             <div class="card card-primary ">
                                 
-                                <!-- /.card-header -->
                                 <div class="card-body ">
                                 
                               <form role="form" id="addForm" autocomplete="off">

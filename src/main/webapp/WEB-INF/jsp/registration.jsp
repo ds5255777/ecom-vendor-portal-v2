@@ -774,20 +774,20 @@ select[readonly].select2 + .select2-container {
                                         <tbody>
                                             <tr class="">
                                                 <td><label for="name">Introducer Name<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="introducedByName" name="introducedByName" placeholder="Introducer Name" maxlength="50"></td>
+                                                <td colspan="1"><input type="text" class="form-control p-input" id="introducedByName" name="introducedByName" placeholder="Introducer Name" maxlength="50"></td>
 
                                                 <td><label for="emailId">Introducer Email ID<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="introducedByEmailID" name="introducedByEmailID" maxlength="50" placeholder="abc@ecomexpress.in" onchange="removeValCssByID(this)"><span id="message"></span></td>
+                                                <td colspan="1"><input type="text" class="form-control p-input" id="introducedByEmailID" name="introducedByEmailID" maxlength="50" placeholder="abc@ecomexpress.in" onchange="removeValCssByID(this)"><span id="message"></span></td>
 
                                                 <td><label for="Supplier Type">Business Partner
                                                         Code</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="bpCode" name="bpCode" placeholder="Business Partner Code" onchange="removeValCssByID(this)" disabled></td>
+                                                <td colspan="1"><input type="text" class="form-control p-input" id="bpCode" name="bpCode" placeholder="Business Partner Code" onchange="removeValCssByID(this)" disabled></td>
                                             </tr>
                                             <tr>
                                                 <input type="hidden" id="roleId" />
 
                                                 <td><label for="suppName">Business Partner Name<span class="required adHocRequired">*</span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="suppName" name="suppName" placeholder="Business Partner Name" onchange="removeValCssByID(this)"  maxlength="50"></td>
+                                                <td colspan="1"><input type="text" class="form-control p-input" id="suppName" name="suppName" placeholder="Business Partner Name" onchange="removeValCssByID(this)"  maxlength="50"></td>
                                             
 												<td><label for="businessClassification">Business
                                                         Classification</label></td>
@@ -801,19 +801,19 @@ select[readonly].select2 + .select2-container {
                                                     </select></td>
 
                                                 <td><label for="mesmeNumber">MESME Certificate Number</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="mesmeNumber" maxlength="12" name="mesmeNumber" placeholder="MESME Certificate Number" disabled="disabled"></td>
+                                                <td colspan="1"><input type="text" class="form-control p-input" id="mesmeNumber" maxlength="12" name="mesmeNumber" placeholder="MESME Certificate Number" disabled="disabled"></td>
 													</tr>
 
                                             <tr class="">
 
                                                 
                                                 <td><label for="aadharNumber">Aadhar Number</label></td>
-                                                <td colspan='1'><input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" class="form-control p-input" id="aadharNumber" maxlength="12" name="aadharNumber" placeholder="Aadhar Number" onblur="AadharValidate();"></td>
+                                                <td colspan="1"><input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" class="form-control p-input" id="aadharNumber" maxlength="12" name="aadharNumber" placeholder="Aadhar Number" onblur="AadharValidate();"></td>
 													
 												<td><label for="adharLinkStatus">Aadhar Link
                                                         Status</label></td>
 
-                                                <td><select colspan='1' class="form-control p-input" id="adharLinkStatus" name="adharLinkStatus" placeholder="Aadhar Link Status" onchange="removeValCssByID(this)">
+                                                <td><select colspan="1" class="form-control p-input" id="adharLinkStatus" name="adharLinkStatus" placeholder="Aadhar Link Status" onchange="removeValCssByID(this)">
                                                         <option value="">Select</option>
                                                         <c:forEach items="${adharLink}" var="link">
 
@@ -824,7 +824,7 @@ select[readonly].select2 + .select2-container {
                                                     
                                                  <td><label>Section Type<span class="required adHocRequired"></span></label></td>
 
-                                                <td><select colspan='1' class="form-control p-input" id="sectionType" name="sectionType" placeholder="Aadhar Link Status" onchange="removeValCssByID(this)">
+                                                <td><select colspan="1" class="form-control p-input" id="sectionType" name="sectionType" placeholder="Aadhar Link Status" onchange="removeValCssByID(this)">
                                                         <option value="">Select</option>
                                                         <c:forEach items="${sectionType}" var="type">
 
@@ -840,9 +840,9 @@ select[readonly].select2 + .select2-container {
                                             <tr class="">
 
                                                 <td><label for="panNumber">Pan Number<span class="required adHocRequired"></span></label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="panNumber" name="panNumber" placeholder="Pan Number" oninput="this.value = this.value.toUpperCase()" maxlength="10" onchange="removeValCssByID(this)"></td>
+                                                <td colspan="1"><input type="text" class="form-control p-input" id="panNumber" name="panNumber" placeholder="Pan Number" oninput="this.value = this.value.toUpperCase()" maxlength="10" onchange="removeValCssByID(this)"></td>
                                                 <td><label for="tanNumber">TAN Number</label></td>
-                                                <td colspan='1'><input type="text" class="form-control p-input" id="tanNumber" name="tanNumber" placeholder="TAN Number" oninput="this.value = this.value.toUpperCase()" maxlength="10" onkeypress="return isNumberKey(evt);"></td>
+                                                <td colspan="1"><input type="text" class="form-control p-input" id="tanNumber" name="tanNumber" placeholder="TAN Number" oninput="this.value = this.value.toUpperCase()" maxlength="10" onkeypress="return isNumberKey(evt);"></td>
 												
 												<td><label>Region<span class="required adHocRequired"></span></label></td>
 
@@ -876,7 +876,7 @@ select[readonly].select2 + .select2-container {
                                             <tbody>
                                                 <tr class="">
                                                     <td><label class="addressLable" for="country">Country<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><select id="addCountry" name="addCountry" class="form-control p-input">
+                                                    <td colspan="2"><select id="addCountry" name="addCountry" class="form-control p-input">
                                                             <c:forEach items="${country}" var="count">
 
                                                                 <option value="${count}">${count}</option>
@@ -885,7 +885,7 @@ select[readonly].select2 + .select2-container {
                                                         </select></td>
 
                                                     <td><label class="addressLable">State<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'>
+                                                    <td colspan="2">
                                                         <select name="state" id="state" class="form-control p-input">
                                                             <c:forEach items="${stateName}" var="stateNames">
 
@@ -894,13 +894,13 @@ select[readonly].select2 + .select2-container {
                                                         </select>
                                                     </td>
                                                     <td><label class="addressLable">District/City<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="city" name="city" placeholder="District" maxlength="50"></td>
+                                                    <td colspan="2"><input type="text" class="form-control p-input" id="city" name="city" placeholder="District" maxlength="50"></td>
                                                 </tr>
                                                 <tr class="">
 
 
                                                     <td><label>Postal/ZIP Code<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="pinCode" name="pinCode" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Postal Code/ ZIP Code" maxlength="6"></td>
+                                                    <td colspan="2"><input type="text" class="form-control p-input" id="pinCode" name="pinCode" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Postal Code/ ZIP Code" maxlength="6"></td>
                                                     
                                                     <td><label>Business Partner Type<span class="required adHocRequired">*</span></label></td>
 
@@ -925,12 +925,12 @@ select[readonly].select2 + .select2-container {
                                                 <tr class="">
                                                 
                                                		 <td><label for="compGstn">GSTN Number<span class="required adHocRequired"></span></label></td>
-                                                    <td colspan='2'><input type="test" class="form-control p-input gst" id="compGstn" name="compGstn" name="compGstn" placeholder="GSTN Number" oninput="this.value = this.value.toUpperCase()" maxlength="15"></td>
+                                                    <td colspan="2"><input type="test" class="form-control p-input gst" id="compGstn" name="compGstn" name="compGstn" placeholder="GSTN Number" oninput="this.value = this.value.toUpperCase()" maxlength="15"></td>
 
                                                     <td><label for="addressDetails">Address
                                                             Details<span class="required adHocRequired">*</span>
                                                         </label></td>
-                                                    <td colspan='2'><textarea class="form-control" id="addDetails" name="addDetails" maxlength="250" placeholder="Complete Address" rows="3"></textarea></td>
+                                                    <td colspan="2"><textarea class="form-control" id="addDetails" name="addDetails" maxlength="250" placeholder="Complete Address" rows="3"></textarea></td>
                                                     <td style="width: 150px;"></td>
                                                     <td colspan=''><button type="Button" class="btn btn-primary" id="addBookGridButt" name="addBookGridButt">Add Address</button></td>
                                                 </tr>
@@ -977,19 +977,19 @@ select[readonly].select2 + .select2-container {
                                             <tbody>
                                                 <tr class="">
                                                     <td><label for="fnameCon">First Name<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="conFname" name="conFname" placeholder="First Name" maxlength="30"></td>
+                                                    <td colspan="2"><input type="text" class="form-control p-input" id="conFname" name="conFname" placeholder="First Name" maxlength="30"></td>
 
                                                     <td><label for="lnameCon">Last Name<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="conLname" name="conLname" placeholder="Last Name" maxlength="30"></td>
+                                                    <td colspan="2"><input type="text" class="form-control p-input" id="conLname" name="conLname" placeholder="Last Name" maxlength="30"></td>
 
                                                     <td><label for="phno">Phone Number<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="conPhone" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="conPhone" placeholder="Phone Number" maxlength="10"></td>
+                                                    <td colspan="2"><input type="text" class="form-control p-input" id="conPhone" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="conPhone" placeholder="Phone Number" maxlength="10"></td>
                                                 <tr>
                                                 <tr class="">
 
 
                                                     <td><label for="emailId">Email ID<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="conEmail" name="conEmail" placeholder="Email ID"></td>
+                                                    <td colspan="2"><input type="text" class="form-control p-input" id="conEmail" name="conEmail" placeholder="Email ID"></td>
                                                     <td></td>
                                                     <td></td>
                                                     <td>
@@ -1038,33 +1038,33 @@ select[readonly].select2 + .select2-container {
                                             <tbody>
                                                 <tr class="">
                                                     <td><label for="bankName">Bank Name<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="bankName" name="bankName" placeholder="Bank Name" maxlength="200"></td>
+                                                    <td colspan="2"><input type="text" class="form-control p-input" id="bankName" name="bankName" placeholder="Bank Name" maxlength="200"></td>
 
 													<td><label for="bankName">Beneficiary Name<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="beneficiaryName" name="beneficiaryName" placeholder="Beneficiary Name" maxlength="200"></td>
+                                                    <td colspan="2"><input type="text" class="form-control p-input" id="beneficiaryName" name="beneficiaryName" placeholder="Beneficiary Name" maxlength="200"></td>
 
                                                     <td><label for="ifscCode">IFSC Code<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="ifscCode" name="ifscCode" placeholder="IFSC Code" oninput="this.value = this.value.toUpperCase()" maxlength="11"></td>
+                                                    <td colspan="2"><input type="text" class="form-control p-input" id="ifscCode" name="ifscCode" placeholder="IFSC Code" oninput="this.value = this.value.toUpperCase()" maxlength="11"></td>
 
                                                     <td><label for="accoutNumber">Account Number<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="accoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="accoutNumber" placeholder="Account Number" maxlength="16"></td>
+                                                    <td colspan="2"><input type="text" class="form-control p-input" id="accoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="accoutNumber" placeholder="Account Number" maxlength="16"></td>
 
                                                 </tr>
 
                                                 <tr class="">
                                                     
                                                     <td><label for="Confirmed accoutNumber">Confirm Account Number<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="confirmedAccoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="confirmedAccoutNumber" placeholder="Confirm  Account Number" maxlength="16"></td>
+                                                    <td colspan="2"><input type="text" class="form-control p-input" id="confirmedAccoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="confirmedAccoutNumber" placeholder="Confirm  Account Number" maxlength="16"></td>
 
 													<td><label for="accoutCurrency">Currency<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='2'><select id="accoutCurrency" name="accoutCurrency" class="form-control p-input">
+                                                    <td colspan="2"><select id="accoutCurrency" name="accoutCurrency" class="form-control p-input">
                                                             <c:forEach items="${currency}" var="cur">
 
                                                                 <option value="${cur}">${cur}</option>
                                                             </c:forEach>
                                                         </select></td>
                                                     <td></td>
-                                                    <td colspan='3'>
+                                                    <td colspan="3">
                                                         <button type="Button" id="addBankGridButt" name="addBankGridButt" class="btn btn-primary">Add
                                                             Account Details</button>
                                                     </td>
@@ -1113,7 +1113,7 @@ select[readonly].select2 + .select2-container {
                                                     <td><label for="invoiceCurrency">Invoice
                                                             Currency<span class="required adHocRequired">*</span>
                                                         </label></td>
-                                                    <td colspan='2'><select id="invoiceCurrency" name="invoiceCurrency" class="form-control p-input">
+                                                    <td colspan="2"><select id="invoiceCurrency" name="invoiceCurrency" class="form-control p-input">
                                                             <c:forEach items="${currency}" var="cur">
 
                                                                 <option value="${cur}">${cur}</option>
@@ -1124,7 +1124,7 @@ select[readonly].select2 + .select2-container {
                                                     <td><label for="paymentCurrency">Payment
                                                             Currency<span class="required adHocRequired">*</span>
                                                         </label></td>
-                                                    <td colspan='2'><select id="paymentCurrency" name="paymentCurrency" class="form-control p-input">
+                                                    <td colspan="2"><select id="paymentCurrency" name="paymentCurrency" class="form-control p-input">
                                                             <c:forEach items="${currency}" var="cur">
 
                                                                 <option value="${cur}">${cur}</option>
@@ -1134,7 +1134,7 @@ select[readonly].select2 + .select2-container {
                                                     <td><label for="creditTerms">Payment / Credit
                                                             Terms<span class="required adHocRequired">*</span>
                                                         </label></td>
-                                                    <td><select id="creditTerms" name="creditTerms" class="form-control p-input" colspan='2' placeholder="Payment / Credit Terms" onchange="removeValCssByID(this)">
+                                                    <td><select id="creditTerms" name="creditTerms" class="form-control p-input" colspan="2" placeholder="Payment / Credit Terms" onchange="removeValCssByID(this)">
                                                             <option value="">Select</option>
                                                             <c:forEach items="${payment}" var="pay">
 
@@ -1146,7 +1146,7 @@ select[readonly].select2 + .select2-container {
                                                 <tr class="">
                                                     <td><label for="paymentMethod">Payment Method<span class="required adHocRequired">*</span></label></td>
 
-                                                    <td colspan='2'>
+                                                    <td colspan="2">
 
                                                         <select id="paymentMethod" name="paymentMethod" class="form-control p-input"  onchange="removeValCssByID(this)">
 
@@ -1158,9 +1158,9 @@ select[readonly].select2 + .select2-container {
                                                     </td>
 
                                                     <td><label for="dateBasis">Terms Date Basis</label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="dateBasis" name="dateBasis" placeholder="Terms Date Basis"></td>
+                                                    <td colspan="2"><input type="text" class="form-control p-input" id="dateBasis" name="dateBasis" placeholder="Terms Date Basis"></td>
                                                     <td><label for="deliveryTerms">Delivery Terms</label></td>
-                                                    <td colspan='2'><input type="text" class="form-control p-input" id="deliveryTerms" name="deliveryTerms" placeholder="Delivery Terms"></td>
+                                                    <td colspan="2"><input type="text" class="form-control p-input" id="deliveryTerms" name="deliveryTerms" placeholder="Delivery Terms"></td>
 
 
                                                 </tr>
@@ -1193,14 +1193,14 @@ select[readonly].select2 + .select2-container {
 
 														<td><label class="addressLable" for="tdsApplication">TDS
                                                                 Applicable<span class="required">*</span></label></td>
-                                                        <td colspan='2'><select id="tdsApplication" name="tdsApplication" onchange="changetextbox();" class="form-control p-input ">
+                                                        <td colspan="2"><select id="tdsApplication" name="tdsApplication" onchange="changetextbox();" class="form-control p-input ">
                                                                 <option value="Yes">Yes</option>
                                                                 <option value="No">No</option>
                                                             </select></td>
 
                                                         <td><label class="addressLable" for="tdsSection">TDS
                                                                 Section<span class="required adHocRequired">*</span></label></td>
-                                                        <td colspan='2'><select id="tdsSection" name="tdsSection" class="form-control p-input" colspan='2' placeholder="TDS Section">
+                                                        <td colspan="2"><select id="tdsSection" name="tdsSection" class="form-control p-input" colspan="2" placeholder="TDS Section">
                                                                 <option value="">Select</option>
                                                                 <c:forEach items="${tdsCode}" var="tds">
 
@@ -1213,7 +1213,7 @@ select[readonly].select2 + .select2-container {
 
                                                         <td><label for="tdsRate">TDS Exemption Rate
                                                                 %<span class="required adHocRequired">*</span></label></td>
-                                                        <td colspan='2'><input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode <= 46" class="form-control p-input" id="tdsRate" name="tdsRate" placeholder="TDS  Exemption Rate" maxlength="4"></td>
+                                                        <td colspan="2"><input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode <= 46" class="form-control p-input" id="tdsRate" name="tdsRate" placeholder="TDS  Exemption Rate" maxlength="4"></td>
                                                     </tr>
 
                                                 </tbody>

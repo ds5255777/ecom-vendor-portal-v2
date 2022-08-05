@@ -1,10 +1,10 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" %>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,10 +57,10 @@
 				</div>
 				<label for="username" style="font-weight: bolder;">User ID</label> <input
 					class="form-control" id="username" name="username" type="text"
-					data-role="tagsinput" placeholder="User Id"><br> <label
-					for="password" style="font-weight: bolder;">Password</label> <input
+					data-role="tagsinput" placeholder="User Id" required><br> <label
+					for="password" style="font-weight: bolder;" >Password</label> <input
 					class="form-control" id="password" name="password" type="password"
-					placeholder="Password"><br> <input type="hidden"
+					placeholder="Password" required><br> <input type="hidden"
 					name="" value="" />
 				<button type="submit" class="btn "
 					style="color: white; background-color: #204572;">Login</button>

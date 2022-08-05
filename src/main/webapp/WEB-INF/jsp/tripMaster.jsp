@@ -92,10 +92,10 @@ request.setAttribute("financeRole", financeRole);
         
         %>
         <c:choose>  
-			    <c:when test='<%=rolename.equalsIgnoreCase(adminRole)%>'>  
+			    <c:when test="<%=rolename.equalsIgnoreCase(adminRole)%>">  
 					<jsp:include page="sidebar_Admin.jsp?pagename=masterEvaluationCriteria" />
 				</c:when>  
-			    <c:when test='<%=rolename.equalsIgnoreCase(financeRole)%>'>  
+			    <c:when test="<%=rolename.equalsIgnoreCase(financeRole)%>">  
 					<jsp:include page="slidebar_Finance.jsp?pagename=masterEvaluationCriteria" />
 				</c:when>
 		</c:choose>
@@ -623,6 +623,7 @@ request.setAttribute("financeRole", financeRole);
            $.validator.setDefaults({
                 submitHandler : function() {
                      addFormData();
+                }
            });
            $('#addForm').validate({
 

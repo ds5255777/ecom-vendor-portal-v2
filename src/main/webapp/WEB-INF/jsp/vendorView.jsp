@@ -15,13 +15,9 @@
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    <link rel="stylesheet" href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
-    <link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css">
-    <link rel="stylesheet" href="plugins/dropzone/min/dropzone.min.css">
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -573,15 +569,9 @@
 
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
     <script src="plugins/moment/moment.min.js"></script>
-    <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
     <script src="plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
     <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-    <script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
-    <script src="plugins/dropzone/min/dropzone.min.js"></script>
     <script src="dist/js/adminlte.min.js"></script>
     <script src="dist/js/demo.js"></script>
     <script src="js/commonFunctions.js"></script>

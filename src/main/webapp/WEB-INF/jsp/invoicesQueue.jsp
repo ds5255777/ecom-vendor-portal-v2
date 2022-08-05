@@ -124,11 +124,11 @@ request.setAttribute("adminRole", adminRole);
         
         %>
         <c:choose>  
-			    <c:when test='<%=rolename.equalsIgnoreCase(vendorRole)%>'>  
+			    <c:when test="<%=rolename.equalsIgnoreCase(vendorRole)%>">  
 			      <jsp:include page="sidebar_Vendor.jsp?pagename=invoiceQueue" />  
 			    </c:when>
 			     
-			    <c:when test='<%=rolename.equalsIgnoreCase(adminRole)%>'> 
+			    <c:when test="<%=rolename.equalsIgnoreCase(adminRole)%>"> 
 			    	<jsp:include page="sidebar_Admin.jsp?pagename=invoiceQueue" />
 			    </c:when> 
 			    

@@ -124,7 +124,7 @@ request.setAttribute("networkRole", networkRole);
         
         %>
         <c:choose>  
-			    <c:when test='<%=rolename.equalsIgnoreCase(vendorRole)%>'>  
+			    <c:when test="<%=rolename.equalsIgnoreCase(vendorRole)%>">  
 			      <jsp:include page="sidebar_Vendor.jsp?pagename=queryInvoiceVendor" />  
 			    </c:when>  
 			    <c:otherwise>  

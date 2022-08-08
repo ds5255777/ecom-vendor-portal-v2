@@ -73,13 +73,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value = "select count(*) from users where status='0' and role_id !='2'; ", nativeQuery = true)
 	int getCountForAllInActiveUsers();
 
-	@Query(value = "select count(*) from users where bp_code!='' and role_id ='2';", nativeQuery = true)
+	@Query(value = "select count(*) from supdetails where ven_status in('Approved','Update');", nativeQuery = true)
 	int getAllVendorCount();
 
-	@Query(value = "select count(*) from users where bp_code!='' and status in('1','3')  and role_id ='2' ; ", nativeQuery = true)
+	@Query(value = "select count(*) from supdetails where ven_status in('Approved','Update') and flag='Active' ; ", nativeQuery = true)
 	int getAllActiveVendorCount();
 
-	@Query(value = "select count(*) from users where bp_code!='' and status= '0'  and role_id ='2' ", nativeQuery = true)
+	@Query(value = "select count(*) from supdetails where ven_status in('Approved','Update') and flag='In-Active' ", nativeQuery = true)
 	int getAllInActiveVendorCount();
 
 	@Query(value = "select bp_code from users where username=:uname ; ", nativeQuery = true)

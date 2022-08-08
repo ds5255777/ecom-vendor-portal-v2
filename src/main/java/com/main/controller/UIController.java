@@ -36,6 +36,7 @@ import com.main.db.bpaas.entity.InvoiceNumber;
 import com.main.db.bpaas.entity.PoDetails;
 import com.main.db.bpaas.entity.PoLineDetails;
 import com.main.db.bpaas.entity.RolesEntity;
+import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.servicemanager.ServiceManager;
@@ -105,6 +106,20 @@ public class UIController {
 		String vendorAddress = new String(decoder.decode(request.getParameter("vendorAddress")));
 		String processBy = new String(decoder.decode(request.getParameter("processBy")));
 		String processByEmailId = new String(decoder.decode(request.getParameter("processByEmailId")));
+		
+		List<SupDetails> findAll = serviceManager.supDetailsRepo.findAll();
+		for(int i=0;i<findAll.size();i++) {
+			String vendorExitingEmail = findAll.get(i).getContactDetails().get(0).getConEmail();
+			if(vendorExitingEmail.equalsIgnoreCase(vendorEmail)) {
+				response.setContentType("text/html");
+				PrintWriter pwriter = response.getWriter();
+				pwriter.println(
+						"<font color=red>Vendor Already Exists ! Please Contact With Administrator And Try Again...</font>");
+				pwriter.close();
+			}
+		}
+		
+		
 		model.addAttribute("vendorEmail", vendorEmail);
 		model.addAttribute("vendorType2", vendorType2);
 		model.addAttribute("region1", region1);

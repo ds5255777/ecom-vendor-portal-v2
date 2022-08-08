@@ -142,7 +142,7 @@
                     toolbarPosition: 'bottom', 
                     toolbarButtonPosition: 'right', 
                     showNextButton: true, 
-                    showPreviousButton: true, \
+                    showPreviousButton: true,
                     toolbarExtraButtons: [
                         $('<button disabled="true" id="finishButton"></button>').text('Finish')
                         .addClass('btn btn-success btnfinish')
@@ -2337,6 +2337,6 @@ select[readonly].select2 + .select2-container {
  <script src="dist/css/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
  <script src="plugins/js/off-canvas.js"></script>
  <script src="plugins/js/hoverable-collapse.js"></script>
- <script src="plugins/js/misc.js"></script>
+<!--  <script src="plugins/js/misc.js"></script> -->
 </body>
 </html>

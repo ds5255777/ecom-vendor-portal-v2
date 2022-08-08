@@ -16,7 +16,7 @@
         height:     100%;
         width:      100%;
         background: rgba(255, 255, 255, 0.66) 
-            url('dist/img/spinner.gif') 
+            url('dist/img/loader.gif') 
             50% 50% 
             no-repeat;
     }

@@ -133,8 +133,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	@Query(value = "select count(*) from Trip_Details where run_type = ?", nativeQuery = true)
 	int getADHocTripCount(String type);
 
-	@Query(value = "SELECT * FROM trip_details where vendor_trip_status=:ApprovalStatus and assign_to = 'Vendor' and  run_type='Adhoc'; ", nativeQuery = true)
-	List<TripDetails> findAllTripsByStatus(@Param("ApprovalStatus") String ApprovalStatus);
+	@Query(value = "SELECT * FROM trip_details where vendor_trip_status=:approvalStatus and assign_to = 'Vendor' and  run_type='Adhoc'; ", nativeQuery = true)
+	List<TripDetails> findAllTripsByStatus(@Param("approvalStatus") String approvalStatus);
 
 	@Query(value = "SELECT * FROM trip_details where vendor_trip_status = 'Yet To Be Approved By Network Team' and assign_to = 'Network' and run_type='Adhoc' and run_status = 'Closed'; ", nativeQuery = true)
 	List<TripDetails> findAllTripsWhoseStatusIsNull();
@@ -151,81 +151,24 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	List<TripDetails> findTripsByID(@Param("tripID") String tripID);
 
 	@Query(value = "select * from Trip_Details where vendor_trip_status= ?", nativeQuery = true)
-	List<TripDetails> getQueryTripsForNetwork(String vendor_trip_status);
+	List<TripDetails> getQueryTripsForNetwork(String vendorTripStatus);
 
-	/*
-	 * @Transactional
-	 * 
-	 * @Modifying
-	 * 
-	 * @Query(value = "update Trip_Details set " +
-	 * "processed_By=:processed_By,processed_On=:processed_On," +
-	 * "lumpSome_CheckBox=:LumpSomeCheckBox,lumpSome_Amount=:LumpSomeAmount," +
-	 * "current_fuel_rate=:currentFuelRate,fs_base_rate=:fsBaseRate," +
-	 * "mileage=:milage,rate_per_km=:ratePerKm," + "route_kms=:routeKms," +
-	 * "standard_km=:standardKM," +
-	 * "fs_diff=:fs_diff,basic_freight=:basicFreight,total_freight=:totalFreight,fs=:fs ,vendor_name=:vendorName ,vendor_code=:vendorCode  where trip_id=:tripID ;"
-	 * , nativeQuery = true) public void updateDetailsByNetworkInQuery(
-	 * 
-	 * @Param("tripID") String tripID,
-	 * 
-	 * @Param("processed_By") String processed_By,
-	 * 
-	 * @Param("processed_On") String processed_On,
-	 * 
-	 * @Param("LumpSomeCheckBox") String LumpSomeCheckBox,
-	 * 
-	 * @Param("LumpSomeAmount") String LumpSomeAmount,
-	 * 
-	 * @Param("standardKM") double standardKM,
-	 * 
-	 * @Param("milage") double milage,
-	 * 
-	 * @Param("ratePerKm") double ratePerKm,
-	 * 
-	 * @Param("routeKms") double routeKms,
-	 * 
-	 * @Param("fsBaseRate") double fsBaseRate,
-	 * 
-	 * @Param("currentFuelRate") double currentFuelRate,
-	 * 
-	 * @Param("fs_diff") double fs_diff,
-	 * 
-	 * @Param("basicFreight") double basicFreight,
-	 * 
-	 * @Param("totalFreight") double totalFreight, @Param("vendorName") String
-	 * vendorName, @Param("vendorCode") String vendorCode);
-	 * 
-	 */
 	@Transactional
 	@Modifying
-	@Query(value = "update Trip_Details set vendor_trip_status=:vendor_tripStatus,assign_to=:assignto ,processed_By=:processed_By,processed_On=:processed_On,lumpSome_CheckBox=:LumpSomeCheckBox,lumpSome_Amount=:LumpSomeAmount,basic_freight=:basicFreight,total_freight=:totalFreight,fs=:fs ,vendor_name=:vendorName,vendor_code=:vendorCode where trip_id=:tripID ;", nativeQuery = true)
+	@Query(value = "update Trip_Details set vendor_trip_status=:vendorTripStatus,assign_to=:assignto ,processed_By=:processedBy,processed_On=:processedOn,lumpSome_CheckBox=:lumpSomeCheckBox,lumpSome_Amount=:lumpSomeAmount,basic_freight=:basicFreight,total_freight=:totalFreight,fs=:fs ,vendor_name=:vendorName,vendor_code=:vendorCode where trip_id=:tripID ;", nativeQuery = true)
 	public void updateDetailsByNetwork(@Param("assignto") String assignto, @Param("tripID") String tripID,
-			@Param("processed_By") String processed_By, @Param("processed_On") String processed_On,
-			@Param("LumpSomeCheckBox") String LumpSomeCheckBox, @Param("LumpSomeAmount") String LumpSomeAmount,
-			@Param("vendor_tripStatus") String vendor_tripStatus, @Param("basicFreight") double basicFreight,
+			@Param("processedBy") String processedBy, @Param("processedOn") String processedOn,
+			@Param("lumpSomeCheckBox") String lumpSomeCheckBox, @Param("lumpSomeAmount") String lumpSomeAmount,
+			@Param("vendorTripStatus") String vendorTripStatus, @Param("basicFreight") double basicFreight,
 			@Param("totalFreight") double totalFreight, @Param("fs") double fs, @Param("vendorName") String vendorName,
-			@Param("vendorCode") String vendorCode);// fs
+			@Param("vendorCode") String vendorCode);
 
 	@Query(value = "select * from  Trip_Details where 1=1 and run_status=:runStatus and vendor_code=:vendorCode", nativeQuery = true)
 	List<TripDetails> getTripsByFiltersVendorRunStatus(@Param("runStatus") String runStatus,
 			@Param("vendorCode") String vendorCode);
 
-	@Query(value = "select * from Trip_Details where 1=1 and vendor_trip_status=:vendorTripStatus and run_status=:runStatus and vendor_code=:vendorCode", nativeQuery = true)
-	List<TripDetails> getTripsByFiltersRunStatus_VendorTripStatus(@Param("runStatus") String runStatus,
-			@Param("vendorTripStatus") String vendorTripStatus, @Param("vendorCode") String vendorCode);
-
-	@Query(value = "select * from Trip_Details where 1=1 and run_status=:runStatus and vendor_trip_status=:vendorTripStatus and  payment_status=:paymentStatus and vendor_code=:vendorCode", nativeQuery = true)
-	List<TripDetails> getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus(@Param("runStatus") String runStatus,
-			@Param("vendorTripStatus") String vendorTripStatus, @Param("paymentStatus") String paymentStatus,
-			@Param("vendorCode") String vendorCode);
-
 	@Query(value = "select * from  Trip_Details where 1=1 and run_status=:runStatus", nativeQuery = true)
 	List<TripDetails> getTripsByFiltersVendorRunStatus(@Param("runStatus") String runStatus);
-
-	@Query(value = "select * from Trip_Details where 1=1 and vendor_trip_status=:vendorTripStatus and run_status=:runStatus", nativeQuery = true)
-	List<TripDetails> getTripsByFiltersRunStatus_VendorTripStatus(@Param("runStatus") String runStatus,
-			@Param("vendorTripStatus") String vendorTripStatus);
 
 	@Query(value = "select * from Trip_Details where 1=1 and run_status=:runStatus and vendor_trip_status=:vendorTripStatus and  payment_status=:paymentStatus ", nativeQuery = true)
 	List<TripDetails> getTripsByFiltersRunStatus_VEndorTripStatus_paymentStatus(@Param("runStatus") String runStatus,

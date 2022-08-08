@@ -1,10 +1,11 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,7 +42,7 @@
 	</div>
 
 	<div class="splitRight right">
-		<img src="dist/img/ecom.png" alt="Ecom Logo" class="center"
+		<img src="dist/img/logoECOM.png" alt="Ecom Logo" class="center"
 			style="padding-top: 60px;">
 		<center>
 			<h5 style="margin: 10px; font-weight: 600; color: #467394;">————Vendor

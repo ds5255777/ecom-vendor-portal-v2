@@ -322,15 +322,21 @@ public class UserController {
 
 		logger.info("Log Some Information setStatusOfVendorByBpCode  ");
 
+		String status="";
 		DataContainer data = new DataContainer();
-		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
+		if(user.getStatus().equalsIgnoreCase("0")) {
+			 status=GlobalConstants.SET_FLAG_IN_ACTIVE;
+		}else if(user.getStatus().equalsIgnoreCase("1")){
+			status=GlobalConstants.SET_FLAG_TYPE_ACTIVE;
+		}
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
 			serviceManager.userRepository.updateStatusOfVendorByBpCode(user.getStatus(), user.getBpCode());
-			serviceManager.userRepository.updateFlagOfVendorByBpCode(GlobalConstants.SET_FLAG_IN_ACTIVE,
+			serviceManager.userRepository.updateFlagOfVendorByBpCode(status,
 					user.getBpCode());
 
-			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+			data.setMsg("success");
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);

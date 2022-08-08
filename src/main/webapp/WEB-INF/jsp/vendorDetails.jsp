@@ -1,28 +1,51 @@
+<%@page import="com.main.commonclasses.GlobalConstants"%>
+<%@page import="com.main.commonclasses.GlobalUrl"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-<%@ page import="com.main.commonclasses.GlobalConstants" %>
-<%@ page import="com.main.commonclasses.GlobalUrl" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-    
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>${titleName}|VendorDetails</title>
+<!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Font Awesome -->
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-<link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Tempusdominus Bbootstrap 4 -->
+<link rel="stylesheet"
+	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- iCheck -->
+<link rel="stylesheet"
+	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!-- JQVMap -->
+<link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+<!-- Theme style -->
 <link rel="stylesheet" href="dist/css/adminlte.min.css">
-<link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-<link rel="stylesheet" type="text/css" href="plugins/jquery-ui/jquery-ui.min.css">
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<!-- overlayScrollbars -->
+<link rel="stylesheet"
+	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<!-- Daterange picker -->
+<link rel="stylesheet"
+	href="plugins/daterangepicker/daterangepicker.css">
+<!-- summernote -->
+<!-- <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css"> -->
+<link rel="stylesheet" type="text/css"
+	href="plugins/jquery-ui/jquery-ui.min.css">
+<!-- Google Font: Source Sans Pro -->
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+	rel="stylesheet">
 <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-<link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-<link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-<link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet"
+	href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<link rel="stylesheet"
+	href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+<link rel="stylesheet"
+	href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 <style>
 label {
@@ -77,36 +100,48 @@ th, td,tr {
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
     <jsp:include page="loader.jsp" />
     <div class="wrapper">
-
+        <!-- Navbar -->
         <jsp:include page="navbar.jsp?pagename=Vendor Details" />
-
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
         <jsp:include page="sidebar_Admin.jsp?pagename=Vendor Details" />
-
+        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
             <div class="content-header" style="padding: 0px;">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <div class="input-group-prepend"></div>
                         </div>
+                        <!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                             </ol>
                         </div>
+                        <!-- /.col -->
                     </div>
+                    <!-- /.row -->
                 </div>
+                <!-- /.container-fluid -->
             </div>
+            <!-- /.content-header -->
+            <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
+                            <!-- general form elements -->
                             <div class="card card-primary">
+                                <!-- /.card-header -->
+                                <!-- form start -->
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card card-primary">
+                                <!-- /.card-header -->
                                 <div class="card-body">
                                     <table id="tabledata" class="table table-bordered table-hover">
                                         <thead>
@@ -118,11 +153,13 @@ th, td,tr {
                                                 <th class="bg-primary">Introduced By Name</th>
                                                 <th class="bg-primary">introduced by email id</th>
                                                 <th class="bg-primary">Status</th>
-                                                <th class="bg-primary">In-Active Vendor</th>
+                                                <th class="bg-primary">Action</th>
+                                                <!-- <th class="bg-primary">Action</th> -->
                                             </tr>
                                         </thead>
                                     </table>
                                 </div>
+                                <!-- /.card-body -->
                             </div>
                         </div>
                     </div>
@@ -131,13 +168,17 @@ th, td,tr {
         </div>
         <aside class="control-sidebar control-sidebar-dark"></aside>
     </div>
+    <!-- ./wrapper -->
 
     <div class="modal fade" id="userModal" role="dialog">
         <div class="modal-dialog " style="max-width: 1800px;">
+            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
+                            <!-- general form elements -->
+                            <!--  <div class="card card-primary"> -->
                             <div class="card card-primary" style="margin-bottom: 10px;">
                                 <div class="card-header" id="addressBookHead" style="background: #11aef6; color: #ffffff;">
                                     <h6 class="mb-0">Basic Details</h6>
@@ -150,34 +191,57 @@ th, td,tr {
                                             <tbody>
                                                 <tr>
                                                     <td><label>Process Id</label></td>
-                                                    <td colspan="1"><input type="text" class="form-control p-input" id="pid" name="pid" readonly></td>
+                                                    <td colspan='1'><input type="text" class="form-control p-input" id="pid" name="pid" readonly></td>
 
                                                     <td><label>Request Status</label></td>
-                                                    <td colspan="1"><input type="text" class="form-control p-input" id="venStatus" name="venStatus" readonly></td>
+                                                    <td colspan='1'><input type="text" class="form-control p-input" id="venStatus" name="venStatus" readonly></td>
                                                     <td><label>Business Partner Type</label></td>
-                                                    <td colspan="1"><input type="text" class="form-control p-input" id="vendorType" name="vendorType" readonly></td>
+                                                    <td colspan='1'><input type="text" class="form-control p-input" id="vendorType" name="vendorType" readonly></td>
                                                 </tr>
                                                 <tr class="">
                                                     <td><label for="name">Introducer Name<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan="1"><input type="text" readonly class="form-control p-input" id="introducedByName" name="introducedByName" placeholder="Introducer Name" maxlength="50"></td>
+                                                    <td colspan='1'><input type="text" readonly class="form-control p-input" id="introducedByName" name="introducedByName" placeholder="Introducer Name" maxlength="50"></td>
 
                                                     <td><label for="emailId">Introducer Email ID<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan="1"><input type="text" readonly class="form-control p-input" id="introducedByEmailID" name="introducedByEmailID" maxlength="50" placeholder="abc@ecomexpress.in" onchange="removeValCssByID(this)"><span id="message"></span></td>
+                                                    <td colspan='1'><input type="text" readonly class="form-control p-input" id="introducedByEmailID" name="introducedByEmailID" maxlength="50" placeholder="abc@ecomexpress.in" onchange="removeValCssByID(this)"><span id="message"></span></td>
 
                                                     <td><label for="Supplier Type">Business Partner
                                                             Code</label></td>
-                                                    <td colspan="1">
+                                                    <td colspan='1'>
                                                         <input type="hidden" id="id" name="id">
                                                         <input type="text" class="form-control p-input" id="bpCode" name="bpCode" placeholder="Business Partner Code" onchange="removeValCssByID(this);" oninput="this.value = this.value.toUpperCase()">
                                                     </td>
+
+
                                                 </tr>
+
+
+
                                                 <tr>
 
+                                                    <%-- <td><label>Business Partner Type<span class="required adHocRequired">*</span></label></td>
+
+                                                <td style="width: auto"><select class="js-example-basic-multiple select2" name="states[]" id="states" onchange="select()" multiple="multiple">
+                                                        <c:forEach items="${business}" var="bus">
+
+                                                            <option value="${bus}">${bus}</option>
+                                                        </c:forEach>
+                                                    </select></td>
+
+
+                                                <td><label for="partnerType">Business Partner</label></td>
+                                                <td><select id="partnerType" name="partnerType" class="form-control p-input" onchange="showHideRequiredClass();" disabled="disabled">
+                                                        <c:forEach items="${partner}" var="par">
+
+                                                            <option value="${par}">${par}</option>
+                                                        </c:forEach>
+
+                                                    </select></td> --%>
                                                     <input type="hidden" id="roleId">
 
 
                                                     <td><label for="suppName">Business Partner Name<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan="1"><input type="text" class="form-control p-input" id="suppName" name="suppName" placeholder="Business Partner Name" onchange="removeValCssByID(this)" oninput="this.value = this.value.toUpperCase()" maxlength="50"></td>
+                                                    <td colspan='1'><input type="text" class="form-control p-input" id="suppName" name="suppName" placeholder="Business Partner Name" onchange="removeValCssByID(this)" oninput="this.value = this.value.toUpperCase()" maxlength="50"></td>
 
                                                     <td><label for="businessClassification">Business
                                                             Classification</label></td>
@@ -191,7 +255,7 @@ th, td,tr {
                                                         </select></td>
 
                                                     <td><label for="mesmeNumber">MESME Certificate Number</label></td>
-                                                    <td colspan="1"><input type="text" class="form-control p-input" id="mesmeNumber" maxlength="12" name="mesmeNumber" placeholder="MESME Certificate Number" disabled="disabled"></td>
+                                                    <td colspan='1'><input type="text" class="form-control p-input" id="mesmeNumber" maxlength="12" name="mesmeNumber" placeholder="MESME Certificate Number" disabled="disabled"></td>
                                                 </tr>
 
 
@@ -202,12 +266,12 @@ th, td,tr {
 
 
                                                     <td><label for="aadharNumber">Aadhar Number</label></td>
-                                                    <td colspan="1"><input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" class="form-control p-input" id="aadharNumber" maxlength="12" name="aadharNumber" placeholder="Aadhar Number" onblur="AadharValidate();"></td>
+                                                    <td colspan='1'><input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" class="form-control p-input" id="aadharNumber" maxlength="12" name="aadharNumber" placeholder="Aadhar Number" onblur="AadharValidate();"></td>
 
                                                     <td><label for="adharLinkStatus">Aadhar Link
                                                             Status</label></td>
 
-                                                    <td><select  class="form-control p-input" id="adharLinkStatus" name="adharLinkStatus" placeholder="Aadhar Link Status" onchange="removeValCssByID(this)">
+                                                    <td><select colspan='1' class="form-control p-input" id="adharLinkStatus" name="adharLinkStatus" placeholder="Aadhar Link Status" onchange="removeValCssByID(this)">
                                                             <option value="">Select</option>
                                                             <c:forEach items="${adharLink}" var="link">
 
@@ -218,7 +282,7 @@ th, td,tr {
 
                                                     <td><label>Section Type<span class="required adHocRequired"></span></label></td>
 
-                                                    <td><select  class="form-control p-input" id="sectionType" name="sectionType" placeholder="Aadhar Link Status" onchange="removeValCssByID(this)">
+                                                    <td><select colspan='1' class="form-control p-input" id="sectionType" name="sectionType" placeholder="Aadhar Link Status" onchange="removeValCssByID(this)">
                                                             <option value="">Select</option>
                                                             <c:forEach items="${sectionType}" var="type">
 
@@ -234,13 +298,13 @@ th, td,tr {
                                                 <tr class="">
 
                                                     <td><label for="panNumber">Pan Number<span class="required adHocRequired"></span></label></td>
-                                                    <td colspan="1"><input type="text" class="form-control p-input" id="panNumber" name="panNumber" placeholder="Pan Number" oninput="this.value = this.value.toUpperCase()" maxlength="10" onchange="removeValCssByID(this)"></td>
+                                                    <td colspan='1'><input type="text" class="form-control p-input" id="panNumber" name="panNumber" placeholder="Pan Number" oninput="this.value = this.value.toUpperCase()" maxlength="10" onchange="removeValCssByID(this)"></td>
                                                     <td><label for="tanNumber">TAN Number</label></td>
-                                                    <td colspan="1"><input type="text" class="form-control p-input" id="tanNumber" name="tanNumber" placeholder="TAN Number" oninput="this.value = this.value.toUpperCase()" maxlength="10" onkeypress="return isNumberKey(evt);"></td>
+                                                    <td colspan='1'><input type="text" class="form-control p-input" id="tanNumber" name="tanNumber" placeholder="TAN Number" oninput="this.value = this.value.toUpperCase()" maxlength="10" onkeypress="return isNumberKey(evt);"></td>
 
                                                     <td><label>Region<span class="required adHocRequired"></span></label></td>
 
-                                                    <td style="width: auto"><select  class="js-example-basic-multiple1 select2" name="region[]" id="region" multiple="multiple" onchange="region1();">
+                                                    <td style="width: auto"><select colspan='1' class="js-example-basic-multiple1 select2" name="region[]" id="region" multiple="multiple" onchange="region1();">
                                                             <c:forEach items="${region}" var="reg">
 
                                                                 <option value="${reg}">${reg}</option>
@@ -256,6 +320,7 @@ th, td,tr {
                                     </form>
                                 </div>
                             </div>
+                            <!-- </div> -->
 
                             <div id="step-2" class="">
                                 <div class="card" style="margin-bottom: 10px;">
@@ -271,7 +336,7 @@ th, td,tr {
                                                     <tbody>
                                                         <tr class="">
                                                             <td><label class="addressLable" for="country">Country<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan="2"><select id="addCountry" name="addCountry" class="form-control p-input">
+                                                            <td colspan='2'><select id="addCountry" name="addCountry" class="form-control p-input">
                                                                     <c:forEach items="${country}" var="count">
 
                                                                         <option value="${count}">${count}</option>
@@ -280,7 +345,7 @@ th, td,tr {
                                                                 </select></td>
 
                                                             <td><label class="addressLable">State<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan="2">
+                                                            <td colspan='2'>
                                                                 <select name="state" id="state" class="form-control p-input">
                                                                     <c:forEach items="${stateName}" var="stateNames">
 
@@ -289,13 +354,13 @@ th, td,tr {
                                                                 </select>
                                                             </td>
                                                             <td><label class="addressLable">District/City<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan="2"><input type="text" class="form-control p-input" id="city" name="city" placeholder="District" maxlength="50"></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="city" name="city" placeholder="District" maxlength="50"></td>
                                                         </tr>
                                                         <tr class="">
 
 
                                                             <td><label>Postal/ZIP Code<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan="2"><input type="text" class="form-control p-input" id="pinCode" name="pinCode" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Postal Code/ ZIP Code" maxlength="6"></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="pinCode" name="pinCode" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Postal Code/ ZIP Code" maxlength="6"></td>
 
                                                             <td><label>Business Partner Type<span class="required adHocRequired">*</span></label></td>
 
@@ -316,17 +381,37 @@ th, td,tr {
 
                                                                 </select></td>
 
+                                                            <%-- <td><label for="Business Partner Type">Business Partner Type<span class="required adHocRequired">*</span>
+                                                        </label></td>
+
+                                                    <td colspan='2'><select  class="form-control p-input" id="natureOfTransactions" name="natureOfTransactions" placeholder="Nature of Transactions" onchange="removeValCssByID(this)">
+                                                            <option value="">Select</option>
+                                                            <c:forEach items="${business}" var="nat">
+
+                                                                <option value="${nat}">${nat}</option>
+                                                            </c:forEach>
+
+                                                        </select></td>
+                                                        
+                                                     <td><label for="partnerType">Business Partner</label></td>
+                                               		 <td colspan="2"><select id="partnerType" name="partnerType" class="form-control p-input" onchange="showHideRequiredClass();" disabled="disabled">
+                                                        <c:forEach items="${partner}" var="par">
+
+                                                            <option value="${par}">${par}</option>
+                                                        </c:forEach>
+
+                                                    </select></td> --%>
                                                         </tr>
 
                                                         <tr class="">
 
                                                             <td><label for="compGstn">GSTN Number<span class="required adHocRequired"></span></label></td>
-                                                            <td colspan="2"><input type="test" class="form-control p-input gst" id="compGstn" name="compGstn" name="compGstn" placeholder="GSTN Number" oninput="this.value = this.value.toUpperCase()" maxlength="15"></td>
+                                                            <td colspan='2'><input type="test" class="form-control p-input gst" id="compGstn" name="compGstn" name="compGstn" placeholder="GSTN Number" oninput="this.value = this.value.toUpperCase()" maxlength="15"></td>
 
                                                             <td><label for="addressDetails">Address
                                                                     Details<span class="required adHocRequired">*</span>
                                                                 </label></td>
-                                                            <td colspan="2"><textarea class="form-control" id="addDetails" name="addDetails" maxlength="250" placeholder="Complete Address" rows="2"></textarea></td>
+                                                            <td colspan='2'><textarea class="form-control" id="addDetails" name="addDetails" maxlength="250" placeholder="Complete Address" rows="2"></textarea></td>
                                                             <td style="width: 150px;"></td>
                                                             <td colspan=''><button type="Button" class="btn btn-primary" id="addBookGridButt" name="addBookGridButt">Add Address</button></td>
                                                         </tr>
@@ -374,19 +459,19 @@ th, td,tr {
                                                     <tbody>
                                                         <tr class="">
                                                             <td><label for="fnameCon">First Name<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan="2"><input type="text" class="form-control p-input" id="conFname" name="conFname" placeholder="First Name"></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="conFname" name="conFname" placeholder="First Name"></td>
 
                                                             <td><label for="lnameCon">Last Name<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan="2"><input type="text" class="form-control p-input" id="conLname" name="conLname" placeholder="Last Name"></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="conLname" name="conLname" placeholder="Last Name"></td>
 
                                                             <td><label for="phno">Phone Number<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan="2"><input type="text" class="form-control p-input" id="conPhone" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="conPhone" placeholder="Phone Number" maxlength="10"></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="conPhone" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="conPhone" placeholder="Phone Number" maxlength="10"></td>
                                                         <tr>
                                                         <tr class="">
 
 
                                                             <td><label for="emailId">Email Id<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan="2"><input type="text" class="form-control p-input" id="conEmail" name="conEmail" placeholder="Email"></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="conEmail" name="conEmail" placeholder="Email"></td>
                                                             <td></td>
                                                             <td></td>
                                                             <td>
@@ -437,33 +522,33 @@ th, td,tr {
                                                     <tbody>
                                                         <tr class="">
                                                             <td><label for="bankName">Bank Name<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan="2"><input type="text" class="form-control p-input" id="bankName" name="bankName" placeholder="Bank Name" maxlength="200"></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="bankName" name="bankName" placeholder="Bank Name" maxlength="200"></td>
 
                                                             <td><label for="bankName">Beneficiary Name<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan="2"><input type="text" class="form-control p-input" id="beneficiaryName" name="beneficiaryName" placeholder="Beneficiary Name" maxlength="200"></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="beneficiaryName" name="beneficiaryName" placeholder="Beneficiary Name" maxlength="200"></td>
 
                                                             <td><label for="ifscCode">IFSC Code<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan="2"><input type="text" class="form-control p-input" id="ifscCode" name="ifscCode" placeholder="IFSC Code" oninput="this.value = this.value.toUpperCase()" maxlength="11"></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="ifscCode" name="ifscCode" placeholder="IFSC Code" oninput="this.value = this.value.toUpperCase()" maxlength="11"></td>
 
                                                             <td><label for="accoutNumber">Account Number<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan="2"><input type="text" class="form-control p-input" id="accoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="accoutNumber" placeholder="Account Number"></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="accoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="accoutNumber" placeholder="Account Number"></td>
 
                                                         </tr>
 
                                                         <tr class="">
 
                                                             <td><label for="Confirmed accoutNumber">Confirm Account Number<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan="2"><input type="text" class="form-control p-input" id="confirmedAccoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="confirmedAccoutNumber" placeholder="Confirm  Account Number" maxlength="16"></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="confirmedAccoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="confirmedAccoutNumber" placeholder="Confirm  Account Number" maxlength="16"></td>
 
                                                             <td><label for="accoutCurrency">Currency<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan="2"><select id="accoutCurrency" name="accoutCurrency" class="form-control p-input">
+                                                            <td colspan='2'><select id="accoutCurrency" name="accoutCurrency" class="form-control p-input">
                                                                     <c:forEach items="${currency}" var="cur">
 
                                                                         <option value="${cur}">${cur}</option>
                                                                     </c:forEach>
                                                                 </select></td>
                                                             <td></td>
-                                                            <td colspan="3">
+                                                            <td colspan='3'>
                                                                 <button type="Button" id="addBankGridButt" name="addBankGridButt" class="btn btn-primary">Add
                                                                     Account Details</button>
                                                             </td>
@@ -512,7 +597,7 @@ th, td,tr {
                                                             <td><label for="invoiceCurrency">Invoice
                                                                     Currency<span class="required adHocRequired">*</span>
                                                                 </label></td>
-                                                            <td colspan="2"><select id="invoiceCurrency" name="invoiceCurrency" class="form-control p-input">
+                                                            <td colspan='2'><select id="invoiceCurrency" name="invoiceCurrency" class="form-control p-input">
                                                                     <c:forEach items="${currency}" var="cur">
 
                                                                         <option value="${cur}">${cur}</option>
@@ -523,7 +608,7 @@ th, td,tr {
                                                             <td><label for="paymentCurrency">Payment
                                                                     Currency<span class="required adHocRequired">*</span>
                                                                 </label></td>
-                                                            <td colspan="2"><select id="paymentCurrency" name="paymentCurrency" class="form-control p-input">
+                                                            <td colspan='2'><select id="paymentCurrency" name="paymentCurrency" class="form-control p-input">
                                                                     <c:forEach items="${currency}" var="cur">
 
                                                                         <option value="${cur}">${cur}</option>
@@ -533,7 +618,7 @@ th, td,tr {
                                                             <td><label for="creditTerms">Payment / Credit
                                                                     Terms<span class="required adHocRequired">*</span>
                                                                 </label></td>
-                                                            <td colspan="2"><select id="creditTerms" name="creditTerms" class="form-control p-input"  onchange="removeValCssByID(this)">
+                                                            <td colspan='2'><select id="creditTerms" name="creditTerms" class="form-control p-input"  onchange="removeValCssByID(this)">
                                                                     <option value="">Select</option>
                                                                     <c:forEach items="${payment}" var="pay">
 
@@ -545,7 +630,7 @@ th, td,tr {
                                                         <tr class="">
                                                             <td><label for="paymentMethod">Payment Method<span class="required adHocRequired">*</span></label></td>
 
-                                                            <td colspan="2">
+                                                            <td colspan='2'>
 
                                                                 <select id="paymentMethod" name="paymentMethod" class="form-control p-input" onchange="removeValCssByID(this)">
 
@@ -557,9 +642,9 @@ th, td,tr {
                                                             </td>
 
                                                             <td><label for="dateBasis">Terms Date Basis</label></td>
-                                                            <td colspan="2"><input type="text" class="form-control p-input" id="dateBasis" name="dateBasis" placeholder="Terms Date Basis"></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="dateBasis" name="dateBasis" placeholder="Terms Date Basis"></td>
                                                             <td><label for="deliveryTerms">Delivery Terms</label></td>
-                                                            <td colspan="2"><input type="text" class="form-control p-input" id="deliveryTerms" name="deliveryTerms" placeholder="Delivery Terms"></td>
+                                                            <td colspan='2'><input type="text" class="form-control p-input" id="deliveryTerms" name="deliveryTerms" placeholder="Delivery Terms"></td>
 
 
                                                         </tr>
@@ -580,6 +665,7 @@ th, td,tr {
                             <div id="step-4" class="">
                                 <div class="card" style="margin-bottom: 10px;">
 
+                                    <!-- Start -->
 
                                     <div class="card" style="margin-bottom: 10px;">
                                         <div class="card-header" id="addressBookHead" style="background: #1991eb; color: #ffffff;">
@@ -593,17 +679,20 @@ th, td,tr {
                                                         </thead>
                                                         <tbody>
                                                             <tr class="">
+                                                                <!-- <td><label class="addressLable" for="tdsApplication">TDS
+                                                                Applicable</label></td>
+                                                        <td colspan='2'><input type="text" id="tdsApplication" value="Yes" name="tdsApplication" readonly class="form-control p-input "> </td> -->
 
                                                                 <td><label class="addressLable" for="tdsApplication">TDS
                                                                         Applicable<span class="required">*</span></label></td>
-                                                                <td colspan="2"><select id="tdsApplication" name="tdsApplication" onchange="changetextbox();" class="form-control p-input ">
+                                                                <td colspan='2'><select id="tdsApplication" name="tdsApplication" onchange="changetextbox();" class="form-control p-input ">
                                                                         <option value="Yes">Yes</option>
                                                                         <option value="No">No</option>
                                                                     </select></td>
 
                                                                 <td><label class="addressLable" for="tdsSection">TDS
                                                                         Section<span class="required adHocRequired">*</span></label></td>
-                                                                <td colspan="2"><select id="tdsSection" name="tdsSection" class="form-control p-input">
+                                                                <td colspan='2'><select id="tdsSection" name="tdsSection" class="form-control p-input">
                                                                         <option value="">Select</option>
                                                                         <c:forEach items="${tdsCode}" var="tds">
 
@@ -616,7 +705,7 @@ th, td,tr {
 
                                                                 <td><label for="tdsRate">TDS Exemption Rate
                                                                         %<span class="required adHocRequired">*</span></label></td>
-                                                                <td colspan="2"><input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode <= 46" class="form-control p-input" id="tdsRate" name="tdsRate" placeholder="TDS  Exemption Rate" maxlength="4"></td>
+                                                                <td colspan='2'><input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode <= 46" class="form-control p-input" id="tdsRate" name="tdsRate" placeholder="TDS  Exemption Rate" maxlength="4"></td>
                                                             </tr>
 
                                                         </tbody>
@@ -627,6 +716,9 @@ th, td,tr {
                                         </div>
                                     </div>
 
+                                    <!-- End -->
+
+                                    <!-- Start -->
 
                                     <div class="card" style="margin-bottom: 10px;">
                                         <div class="card-header" id="itrHead" style="background: #1991eb; color: #ffffff;">
@@ -697,6 +789,9 @@ th, td,tr {
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- End -->
+
                                 </div>
 
                             </div>
@@ -792,6 +887,8 @@ th, td,tr {
                                                                     <td><input type="file" id="NMISFile" name="NMISFile" onchange="handleFileSelect(event,'NMISFileText'), onValidateFile('NMISFile')" class="form-control p-input" accept=".jpg, .jpeg, .pdf"> <textarea id="NMISFileText" rows="5" style="display: none;"></textarea>
                                                                         <label><span style="font-weight: 500; color: #fd7e14;">File
                                                                                 size Max ${fileSize} MB</span></label>
+                                                                        <!-- <a href="C:/1.BPAAS/Document/doc.pdf" download="doc.pdf">Download Template
+																		</a> -->
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -809,6 +906,8 @@ th, td,tr {
                                 <button type="button" class="btn btn-primary" id="closePopBtn" data-dismiss="modal">Close</button>
                             </div>
 
+                            <!-- model End -->
+
                         </div>
                     </div>
                     </div>
@@ -818,25 +917,39 @@ th, td,tr {
                     
                 
 
+	<!-- jQuery -->
 	<script src="plugins/jquery/jquery.min.js"></script>
+	<!-- jQuery UI 1.11.4 -->
 	<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 	<script>
 		$.widget.bridge('uibutton', $.ui.button);
 		$.widget.bridge('uitooltip', $.ui.tooltip);
 	</script>
+	<!-- Bootstrap 4 -->
 	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="js/commonFunctions.js"></script>
+	<!-- Sparkline -->
 	<script src="plugins/sparklines/sparkline.js"></script>
+	<!-- daterangepicker -->
 	<script src="plugins/moment/moment.min.js"></script>
 	<script src="plugins/daterangepicker/daterangepicker.js"></script>
-	<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script
+		src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 
-	<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+	<!-- overlayScrollbars -->
+	<script
+		src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+	<!-- AdminLTE App -->
 	<script src="dist/js/adminlte.js"></script>
+	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+	<!-- AdminLTE for demo purposes -->
 	<script src="dist/js/demo.js"></script>
 	<script src="js/moment.min.js"></script>
 	<script src="plugins/select2/js/select2.full.min.js"></script>
-	<script src="js/select2.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			var bootstrapTooltip = $.fn.tooltip.noConflict();
@@ -852,6 +965,8 @@ th, td,tr {
 	<script src="plugins/toastr/toastr.min.js"></script>
 	
 	<script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
@@ -934,6 +1049,7 @@ th, td,tr {
                         result = data.data;
                         tabledata.clear();
                          for (var i = 0; i < result.length; i++) {
+                        	/*  bpcode=result[i].bpCode; */
                         	 if(!result[i].hasOwnProperty("introducedByName")){
      							result[i].introducedByName="";
      						}
@@ -965,8 +1081,18 @@ th, td,tr {
                         	 
                         	 
                         	 var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#\" onclick=\"editData('" + result[i].bpCode + "')\" >" + result[i].bpCode + "</button>";
-                             var save = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#vendorValue\" onclick=\"inActiveVendor('"  + result[i].bpCode + "' ,'"  + i+ "','"  + result[i].suppName+ "' )\"> <i class=\"fas fa-user-slash\"></i>  </button>";
-
+                        	 /* var inactive = "<button type=\"button\"  class=\"btn btn-primary btn-xs \" data-placement=\"bottom\"  data-original-title=\"Click To Delete\" onclick=\"inactiveActiveDeleteData('"  + result[i].bpCode + "' ,'"  +  result[i].suppName + "' )\"> <i class=\"nav-icon fas fa-trash\"> </i>  </button>"; */
+                        	 
+                        	 
+                        	<%--  if(result[i].flag=="<%=GlobalConstants.SET_FLAG_TYPE_ACTIVE%>"){
+                        		 Status=  "<select  class=\"form-control-sm \" onchange=\"setVendorStatus(this.value,'"+i+"')\" style=\"width: 100px; height: 28px;\" id=\"status_"+i+"\" > <option value=\"0\" \">In-Active</option><option value=\"1\"  \">In-Active</option> </select > ";
+                        	 } --%>
+                        	 /*  else {
+                        		 Status=  "<select  class=\"form-control-sm \" onchange=\"setVendorStatus(this.value,'"+i+"')\" style=\"width: 100px; height: 28px;\" id=\"status_"+i+"\" > <option value=\"1\" \">Active</option><option value=\"0\"  \">In-Active</option> </select > ";		 
+                        	 } */ 
+                             var inactive = "<a href=\"#\" data-toggle=\"modal\"  tittle=\"In-Active Vendor\" data-target=\"#vendorValue\" onclick=\"inActiveVendor('"  + result[i].bpCode + "' ,'"  + i+ "','"  + result[i].suppName+ "' )\"> <i style=\"color:red;\" class=\"fas fa-user-slash\"></i>  </button>";
+                             var active = "<a href=\"#\" data-toggle=\"modal\" tittle=\"Active Vendor\" data-target=\"#vendorValue\" onclick=\"activeVendor('"  + result[i].bpCode + "' ,'"  + i+ "','"  + result[i].suppName+ "' )\"> <i class=\"fas fa-user\"></i>  </button>";
+                             
                             tabledata.row.add([view,
                             	result[i].suppName,
                             	result[i].vendorType, 
@@ -974,7 +1100,7 @@ th, td,tr {
                             	result[i].introducedByName, 
                             	result[i].introducedByEmailID,
                             	result[i].flag,
-                            	save]);
+                            	inactive+" &nbsp;&nbsp; "+active]);
                         } 
                         tabledata.draw();
                         $("tbody").show();
@@ -1059,6 +1185,72 @@ th, td,tr {
 
        }
         
+        function activeVendor(bpcode,index,name){
+         	 
+         	 
+         	 Swal.fire({
+         		  title: 'Are you sure want to Active?',
+         		  text: "Vendor Code : "+bpcode,
+         		  icon: 'warning',
+         		  showCancelButton: true,
+         		  confirmButtonColor: '#3085d6',
+         		  cancelButtonColor: '#d33',
+         		  confirmButtonText: 'Yes'
+         		}).then((result) => {
+         			
+         			let test=[1];
+         			test[0]=result;
+         			var val=Object.values(test[0])
+         		  if (val=="true") {
+         			activeVendorFlag(bpcode,index,name);
+         		  }
+         		})
+         		
+            }
+       
+       function activeVendorFlag(bpcode,index,name) {
+      	 
+      	 
+      	
+          var json = {
+              "bpCode": bpcode,
+              "status": "1"
+          }
+          $.ajax({
+              type: "POST",
+              data: JSON.stringify(json),
+              url: "<%=GlobalUrl.setStatusOfVendorByBpCode%>",
+              dataType: "json",
+              contentType: "application/json",
+              async: false,
+              success: function(data) {
+
+                  if (data.msg == 'success') {
+
+                  	
+                      Toast.fire({
+                          type: 'success',
+                          title: 'Active Successfully..'
+                      })
+
+
+                      getData();
+                  } else {
+                      Toast.fire({
+                          type: 'error',
+                          title: 'Failed.. Try Again..'
+                      })
+                  }
+
+              },
+              error: function(jqXHR, textStatue, errorThrown) {
+                  alert("failed, please try again");
+              }
+
+          });
+
+      }
+
         function getVendorStatus(value,bpcode,index){
         	
         	  var json = {
@@ -1121,9 +1313,12 @@ th, td,tr {
         
 
         function changetextbox() {
+            /* alert(document.getElementById("tdsApplication").value);  */
             if (document.getElementById("tdsApplication").value === "No") {
                 document.getElementById("tdsSection").disabled = 'true';
                 document.getElementById("tdsRate").disabled = 'true';
+                //    document.getElementById("tdsRate").val()="";
+                //            	    document.getElementById("tdsSection").value()="";
                 $("#tdsSection").val("");
                 $("#tdsRate").val("");
 
@@ -1253,16 +1448,21 @@ th, td,tr {
                         	  
                         	   if(ero == 'Y'){
                    				$('#region').val('ERO').trigger('change');
+                    		 		//break;
                     	   }  
                         	  
                          if(wro == 'Y'){
                       				$('#region').val('WRO').trigger('change');
+                       		 		//break;
                        	   } if(nro == 'Y'){
                  				$('#region').val('NRO').trigger('change');
+                   		 		//break;
                    	   		}  if(sro == 'Y'){
                  				$('#region').val('SRO1').trigger('change');
+                   		 		//break;
                    	   		}  if(ihq == 'Y'){
                  				$('#region').val('IHQ').trigger('change');
+                   		 		//break;
                    	   		} 
                        	   
                    	   	 var addressPurchasingFlag=result.addressPurchasingFlag;
@@ -1270,11 +1470,13 @@ th, td,tr {
                    	 	var invoicePrevalidatedFlag=result.invoicePrevalidatedFlag;
                    	  if(addressPurchasingFlag == 'Y'){
             				$('#flag').val('ADDRESS_PURCHASING').trigger('change');
+             		 		//break;
              	 	  }  if(addressPaymentFlag == 'Y'){
          				$('#flag').val('ADDRESS_PAYMENT').trigger('change');
            		 		//break;
            	  		 } if(invoicePrevalidatedFlag == 'Y'){
          				$('#flag').val('INVOICE_PREVALIDATED').trigger('change');
+           		 		//break;
            	  		 }
                        	   
                    	   	$('#acknowledgementNumber1').val(result.acknowledgementNumber1);
@@ -1286,6 +1488,10 @@ th, td,tr {
                    		$('#fyYear3').val(result.fyYear3);
                    		
                   
+                      // if(result.partnerType!="Ad-Hoc"){
+                    	   
+                    	
+                       // tabledata.clear();
                         $("#addBookGridTbody").html("");
                          for (var i = 0; i < result.addressDetails.length; i++) {
                       
@@ -1325,6 +1531,18 @@ th, td,tr {
                         
                          }
                         
+                        /*  for (var i = 0; i < result.itrDetails.length; i++) {
+                         $("#addITRGrid").append('<tr class=""><td>' +
+                        		 result.itrDetails[i].fyYear + '</td><td>' +
+
+                        		 result.itrDetails[i].acknowledgementNumber + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+
+                         
+                        
+                         }
+                         */
+                    
+                       
                         
                         myForm = document.getElementById("stepSixForm");
                         setData(myForm, result);
@@ -1333,6 +1551,9 @@ th, td,tr {
                         myForm = document.getElementById("stepSevenForm");
                         setData(myForm, result);
 
+                     //  } 
+                        
+                       // $("#id").val(result.id);
                         $("#userModal").modal('show');
 
                     } else {
@@ -1348,7 +1569,15 @@ th, td,tr {
                 }
 
             });
+
+
+                      
+            
+            
+            
         }
+        
+       
         
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2({
@@ -1359,6 +1588,10 @@ th, td,tr {
             
         });
         
+        
+        
+
+
         $("#addBookGridButt").click(function() {
             var abc = document.getElementById('city').value;
             var abc2 = document.getElementById('pinCode').value;
@@ -1388,6 +1621,8 @@ th, td,tr {
                          document.getElementById('compGstn').value + '</td><td>' +
                          document.getElementById('addDetails').value + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
+                /*  document.getElementById('addCountry').value = "";
+                 document.getElementById('state').value = ""; */
                 document.getElementById('city').value = "";
                 document.getElementById('pinCode').value = "";
                 document.getElementById('states').value = "";
@@ -1489,12 +1724,66 @@ th, td,tr {
             }
         });
 
+       /*  $("#addITRGridButt").click(function() {
+            var abc = document.getElementById('fyYear').value;
+            var abc1 = document.getElementById('acknowledgementNumber').value;
+            var abc2 = document.getElementById('ITRAFile').value;
+            // alert(abc2)
+           //C:\fakepath\
+         	   
+             let txt=abc2.substr(12);
+            console.log("abc =>" + abc);
+            if (abc == null || abc == "") {
+                swal.fire("Alert", "Select Financial Year Number. !", "warning");
+                return false;
+            } else if (abc1 == null || abc1 == "") {
+                swal.fire("Alert", "Fill Acknowledgement Number. !", "warning");
+                return false;
+            } else {
+                 $("#addITRGrid").append('<tr class=""><td>' +
+                    document.getElementById('fyYear').value + '</td><td>' +
+
+                    document.getElementById('acknowledgementNumber').value + '</td><td>' +
+
+                    txt + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+
+                document.getElementById('fyYear').value = "";
+                document.getElementById('acknowledgementNumber').value = "";
+            }
+        }); 
+
+         */
+        
+       /*  function ValidatePAN() {
+            var txtPANCard = document.getElementById("panNumber");
+            var lblPANCard = document.getElementById("lblPANCard")
+            var regex = /([A-Z]){5}([0-9]){4}([A-Z]){1}$/;
+            if (regex.test(txtPANCard.value.toUpperCase())) {
+                lblPANCard.style.visibility = "hidden";
+                return true;
+            } else {
+                lblPANCard.style.visibility = "visible";
+                return false;
+            }
+        }
+         */
+        
+        
         function sendToServer() {
         	
        
         	var txtPANCard = document.getElementById("panNumber");
             var lblPANCard = document.getElementById("lblPANCard")
             var regex = /([A-Z]){5}([0-9]){4}([A-Z]){1}$/;
+           /*  if (regex.test(txtPANCard.value.toUpperCase())) {
+                lblPANCard.style.visibility = "hidden";
+                
+            } else {
+                lblPANCard.style.visibility = "visible";
+                swal.fire("Alert", "Invalid Pan Number", "warning");
+                return false;
+            }  */
+        	//alert("hii");
         	console.log("Inside Step One");
             var mandFields = "introducedByName,introducedByEmailID,suppName";
             var mandFieldsArr = mandFields.split(",");
@@ -1506,6 +1795,20 @@ th, td,tr {
                     return false;
                 }
             }
+            
+            
+        	
+            /* var element = document.getElementById('states');
+        	var element=[...element.options].filter(ele => ele.selected).map(ele => ele.text);
+        	var selectedValues = [];    
+            $("#states :selected").each(function(){
+                selectedValues.push($(this).val()); 
+            });
+ 			if(selectedValues== ""){
+            	swal.fire("Alert", "please select Business Partner Type....", "warning")
+                return regex.test(inputvalues);
+            } */
+            
             
             var addressDetailsArray = [];
             var vendorType=[];
@@ -1590,6 +1893,18 @@ th, td,tr {
             var itrDetailsArray = [];
             table = document.getElementById('addITRGrid');
             rowLength = table.rows.length;
+/* 
+            for (var i = 1; i < rowLength; i += 1) {
+                var row = table.rows[i];
+
+                var pushItrObj = {
+                    "fyYear": row.cells[0].innerHTML,
+                    "acknowledgementNumber": row.cells[1].innerHTML
+                }
+                itrDetailsArray.push(pushItrObj);
+            } */
+            
+            
             
             $body.addClass("loading");
 
@@ -1601,6 +1916,7 @@ th, td,tr {
            
             
             var step6Obj = FormDataToJSON('stepSixForm');
+            //var step8Obj = FormDataToJSON('StepEightForm');
             var step7Obj = FormDataToJSON('stepSevenForm');
             
           
@@ -1609,6 +1925,7 @@ th, td,tr {
                 ...step1Obj,
                 ...step6Obj,
                 ...step7Obj
+                //...step8Obj
             };
             finalObj.accountDetails = accountDetailsArray;
             finalObj.addressDetails = addressDetailsArray;
@@ -1659,6 +1976,7 @@ th, td,tr {
                 finalObj.amFileName = document.getElementById("AMFile").files.item(0).name;
                 finalObj.amFileText = $("#AMFileText").val();
             }
+            // last three year ITR file upload
             if (document.getElementById("ITRFile1").files.length > 0) {
                 finalObj.itraFileName1 = document.getElementById("ITRFile1").files.item(0).name;
                 finalObj.itraFileText1 = $("#ITRFileText1").val();
@@ -1680,6 +1998,21 @@ th, td,tr {
             var checked = []
             
              checked=document.getElementById("roleId").value
+           
+             
+            /*  $("input[name='option[]']:checked").each(function() {
+                 checked.push($(this).val());
+             }); */
+            
+           /*  $("input[name='vendorType[]']:value").each(function() {
+                checked.push($(this).val());
+            });
+
+           /*  $("#vendorType").value {
+                checked.push($(this).val());
+            }); */
+            
+          
             
             var values= document.getElementById("roleId").value ;
             console.log("value vendorType : "+values);
@@ -1762,7 +2095,9 @@ th, td,tr {
                 dataType: "json",
                 contentType: "application/json",
                 success: function(response) {
+                	//return;
                 	$('.loader').hide();
+                	//$('userModal').hide();
                     if (response.msg == 'success') {
                     	
                         swal.fire("Thanks", "Vendor Update  Sucessfully", "success", "OK").then(function() {
@@ -1771,6 +2106,7 @@ th, td,tr {
 
 
                         setTimeout(function(response) {
+                            //location.href = "login";
                         }, 1000000);
                     } else {
                         alert("failed");
@@ -1787,19 +2123,27 @@ th, td,tr {
         }
 
         if (window.File && window.FileReader && window.FileList && window.Blob) {
+            /* document.getElementById('CICFile').addEventListener('change', handleFileSelect, false);
+            document.getElementById('GSTFile').addEventListener('change', handleFileSelect, false);
+            document.getElementById('TDSFile').addEventListener('change', handleFileSelect, false);
+            document.getElementById('PANFile').addEventListener('change', handleFileSelect, false);
+            document.getElementById('CCFile').addEventListener('change', handleFileSelect, false); */
         } else {
             alert('The File APIs are not fully supported in this browser.');
         }
 
         
         function showHideRequiredClass() {
+            //alert($("#partnerType").val());
             if ($("#partnerType").val() == "Scheduled") {
+                //alert("ji..");
                 $(".required").css("visibility", "visible");
                 $("#updateBtn").attr("disabled", true);
             }  else {
                 $(".required").css("visibility", "hidden");
                 $(".adHocRequired").css("visibility", "visible");
                 $("#updateBtn").attr("disabled", false);
+                //alert("ji..2");
             } 
         } 
 
@@ -1820,6 +2164,12 @@ th, td,tr {
             try {
                 if (controlName != null && controlName != '' && tooltipMessage != null && tooltipMessage != '' && tooltipPlacement != null && tooltipPlacement != '') {
 
+                   /* $("#" + controlName).notify(
+                        tooltipMessage, {
+                            autoHideDelay: 3500,
+                            position: tooltipPlacement
+                        }
+                    );*/
                     $('#manPara').css('display', '');
                     addValCss(controlName);
                     $("#" + controlName).focus();
@@ -1871,14 +2221,17 @@ th, td,tr {
         
         $("#suppName").keypress(function(event){
         	var inputValue = event.which;
+            //alert(inputValue);
            if( !(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0) && !(inputValue >= 37 && inputValue <= 47) ) { 
                 event.preventDefault(); 
             } 
+           //event.preventDefault();
         }); 
 
        
        $("#city").keypress(function(event){
          	var inputValue = event.which;
+             //alert(inputValue);
              if(inputValue==8){
                  
              }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
@@ -1903,6 +2256,7 @@ th, td,tr {
        
        $("#conFname").keypress(function(event){
           	var inputValue = event.which;
+              //alert(inputValue);
               if(inputValue==8){
                   
               }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
@@ -1923,6 +2277,7 @@ th, td,tr {
        
        $("#conLname").keypress(function(event){
        	var inputValue = event.which;
+           //alert(inputValue);
            if(inputValue==8){
                
            }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
@@ -1933,6 +2288,7 @@ th, td,tr {
  
         $("#bankName").keypress(function(event){
         	var inputValue = event.which;
+            //alert(inputValue);
             if(inputValue==8){
                 
             }else if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
@@ -1949,6 +2305,7 @@ th, td,tr {
                 if(password!="" && passwordConfirm!=""){
                  if ($('#accoutNumber').val() == $('#confirmedAccoutNumber').val() && passflag!="1" ) {
         		    $('#divCheckPasswordMatch').html('Account number match.').css('color', 'green');
+        		    // Enable #x	
         		    $("#addBankGridButt").prop("disabled", false)
         		    
         		  } 
@@ -1957,6 +2314,7 @@ th, td,tr {
         		    $('#divCheckPasswordMatch').html('Account number do not match!').css('color', 'red');
         		    matchFlag=1;
         		    
+             // Disable #x
     		    $('#addBankGridButt').attr('disabled', true);
              
                 return;
@@ -1976,12 +2334,14 @@ th, td,tr {
                 if(password!="" || passwordConfirm!=""){
                  if ($('#accoutNumber').val() == $('#confirmedAccoutNumber').val() && passflag!="1" ) {
         		    $('#divCheckPasswordMatch').html('Account number match.').css('color', 'green');
+        		    // Enable #x	
         		    $("#addBankGridButt").prop("disabled", false)
         		    
         		  } 
                  else {
                 	 if(matchFlag==1){
         		    $('#divCheckPasswordMatch').html('Account number does not match!').css('color', 'red');
+             // Disable #x
     		    $('#addBankGridButt').attr('disabled', true);
            
                 return;
@@ -2038,6 +2398,7 @@ th, td,tr {
                     	swal.fire(""," Invalid Aadhar Number", "warning");
                         $("#aadharNumber").val('');
                         $("#aadharNumber").focus();
+                        //return false;
                     }
                 }
             });
@@ -2102,11 +2463,14 @@ th, td,tr {
             $("#states :selected").each(function(){
                 selectedValues.push($(this).val()); 
             });
+           // alert(selectedValues);
             
             let values = selectedValues.toString();
          
         	document.getElementById("roleId").value=values;
+        	//alert("roleId111: "+num);
 	
+			
 			var val = document.getElementById("states").value
 			if (val == "Network") {
 				document.getElementById("partnerType").disabled = false;
@@ -2130,7 +2494,7 @@ th, td,tr {
      }
 
      function region1(){
-		console.log("ok");
+
      }
        
 

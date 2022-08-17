@@ -305,6 +305,9 @@
         }
     
         var mappingTableArray = [];
+        
+        var dataLimit='${dataLimit}';
+		dataLimit=parseInt(dataLimit);
 
         var tabledata = $('#tabledata').DataTable({
             "paging": true,
@@ -313,27 +316,8 @@
             "info": true,
             "autoWidth": false,
             "aaSorting": [],
-            "scrollX": true
-        });
-
-        var tabledata2 = $('#tabledata2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "info": true,
-            "autoWidth": false,
-            "aaSorting": [],
-            "scrollX": true
-        });
-
-        var tabledata3 = $('#tabledata3').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "info": true,
-            "autoWidth": false,
-            "aaSorting": []
-
+            "scrollX": true,
+            "pageLength": dataLimit
         });
 
         const Toast = Swal.mixin({

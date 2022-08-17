@@ -8,34 +8,22 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>${titleName}|VendorDetails</title>
-<!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Font Awesome -->
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-<!-- Ionicons -->
 <link rel="stylesheet"
 	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Tempusdominus Bbootstrap 4 -->
 <link rel="stylesheet"
 	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-<!-- iCheck -->
 <link rel="stylesheet"
 	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-<!-- JQVMap -->
 <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-<!-- Theme style -->
 <link rel="stylesheet" href="dist/css/adminlte.min.css">
-<!-- overlayScrollbars -->
 <link rel="stylesheet"
 	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-<!-- Daterange picker -->
 <link rel="stylesheet"
 	href="plugins/daterangepicker/daterangepicker.css">
-<!-- summernote -->
-<!-- <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css"> -->
 <link rel="stylesheet" type="text/css"
 	href="plugins/jquery-ui/jquery-ui.min.css">
-<!-- Google Font: Source Sans Pro -->
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
@@ -191,23 +179,23 @@ th, td,tr {
                                             <tbody>
                                                 <tr>
                                                     <td><label>Process Id</label></td>
-                                                    <td colspan='1'><input type="text" class="form-control p-input" id="pid" name="pid" readonly></td>
+                                                    <td colspan="1"><input type="text" class="form-control p-input" id="pid" name="pid" readonly></td>
 
                                                     <td><label>Request Status</label></td>
-                                                    <td colspan='1'><input type="text" class="form-control p-input" id="venStatus" name="venStatus" readonly></td>
+                                                    <td colspan="1"><input type="text" class="form-control p-input" id="venStatus" name="venStatus" readonly></td>
                                                     <td><label>Business Partner Type</label></td>
-                                                    <td colspan='1'><input type="text" class="form-control p-input" id="vendorType" name="vendorType" readonly></td>
+                                                    <td colspan="1"><input type="text" class="form-control p-input" id="vendorType" name="vendorType" readonly></td>
                                                 </tr>
                                                 <tr class="">
                                                     <td><label for="name">Introducer Name<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='1'><input type="text" readonly class="form-control p-input" id="introducedByName" name="introducedByName" placeholder="Introducer Name" maxlength="50"></td>
+                                                    <td colspan="1"><input type="text" readonly class="form-control p-input" id="introducedByName" name="introducedByName" placeholder="Introducer Name" maxlength="50"></td>
 
                                                     <td><label for="emailId">Introducer Email ID<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='1'><input type="text" readonly class="form-control p-input" id="introducedByEmailID" name="introducedByEmailID" maxlength="50" placeholder="abc@ecomexpress.in" onchange="removeValCssByID(this)"><span id="message"></span></td>
+                                                    <td colspan="1"><input type="text" readonly class="form-control p-input" id="introducedByEmailID" name="introducedByEmailID" maxlength="50" placeholder="abc@ecomexpress.in" onchange="removeValCssByID(this)"><span id="message"></span></td>
 
                                                     <td><label for="Supplier Type">Business Partner
                                                             Code</label></td>
-                                                    <td colspan='1'>
+                                                    <td colspan="1">
                                                         <input type="hidden" id="id" name="id">
                                                         <input type="text" class="form-control p-input" id="bpCode" name="bpCode" placeholder="Business Partner Code" onchange="removeValCssByID(this);" oninput="this.value = this.value.toUpperCase()">
                                                     </td>
@@ -218,30 +206,12 @@ th, td,tr {
 
 
                                                 <tr>
-
-                                                    <%-- <td><label>Business Partner Type<span class="required adHocRequired">*</span></label></td>
-
-                                                <td style="width: auto"><select class="js-example-basic-multiple select2" name="states[]" id="states" onchange="select()" multiple="multiple">
-                                                        <c:forEach items="${business}" var="bus">
-
-                                                            <option value="${bus}">${bus}</option>
-                                                        </c:forEach>
-                                                    </select></td>
-
-
-                                                <td><label for="partnerType">Business Partner</label></td>
-                                                <td><select id="partnerType" name="partnerType" class="form-control p-input" onchange="showHideRequiredClass();" disabled="disabled">
-                                                        <c:forEach items="${partner}" var="par">
-
-                                                            <option value="${par}">${par}</option>
-                                                        </c:forEach>
-
-                                                    </select></td> --%>
+                                                   
                                                     <input type="hidden" id="roleId">
 
 
                                                     <td><label for="suppName">Business Partner Name<span class="required adHocRequired">*</span></label></td>
-                                                    <td colspan='1'><input type="text" class="form-control p-input" id="suppName" name="suppName" placeholder="Business Partner Name" onchange="removeValCssByID(this)" oninput="this.value = this.value.toUpperCase()" maxlength="50"></td>
+                                                    <td colspan="1"><input type="text" class="form-control p-input" id="suppName" name="suppName" placeholder="Business Partner Name" onchange="removeValCssByID(this)" oninput="this.value = this.value.toUpperCase()" maxlength="50"></td>
 
                                                     <td><label for="businessClassification">Business
                                                             Classification</label></td>
@@ -255,7 +225,7 @@ th, td,tr {
                                                         </select></td>
 
                                                     <td><label for="mesmeNumber">MESME Certificate Number</label></td>
-                                                    <td colspan='1'><input type="text" class="form-control p-input" id="mesmeNumber" maxlength="12" name="mesmeNumber" placeholder="MESME Certificate Number" disabled="disabled"></td>
+                                                    <td colspan="1"><input type="text" class="form-control p-input" id="mesmeNumber" maxlength="12" name="mesmeNumber" placeholder="MESME Certificate Number" disabled="disabled"></td>
                                                 </tr>
 
 
@@ -266,12 +236,12 @@ th, td,tr {
 
 
                                                     <td><label for="aadharNumber">Aadhar Number</label></td>
-                                                    <td colspan='1'><input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" class="form-control p-input" id="aadharNumber" maxlength="12" name="aadharNumber" placeholder="Aadhar Number" onblur="AadharValidate();"></td>
+                                                    <td colspan="1"><input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" class="form-control p-input" id="aadharNumber" maxlength="12" name="aadharNumber" placeholder="Aadhar Number" onblur="AadharValidate();"></td>
 
                                                     <td><label for="adharLinkStatus">Aadhar Link
                                                             Status</label></td>
 
-                                                    <td><select colspan='1' class="form-control p-input" id="adharLinkStatus" name="adharLinkStatus" placeholder="Aadhar Link Status" onchange="removeValCssByID(this)">
+                                                    <td><select colspan="1" class="form-control p-input" id="adharLinkStatus" name="adharLinkStatus" placeholder="Aadhar Link Status" onchange="removeValCssByID(this)">
                                                             <option value="">Select</option>
                                                             <c:forEach items="${adharLink}" var="link">
 
@@ -282,7 +252,7 @@ th, td,tr {
 
                                                     <td><label>Section Type<span class="required adHocRequired"></span></label></td>
 
-                                                    <td><select colspan='1' class="form-control p-input" id="sectionType" name="sectionType" placeholder="Aadhar Link Status" onchange="removeValCssByID(this)">
+                                                    <td><select colspan="1" class="form-control p-input" id="sectionType" name="sectionType" placeholder="Aadhar Link Status" onchange="removeValCssByID(this)">
                                                             <option value="">Select</option>
                                                             <c:forEach items="${sectionType}" var="type">
 
@@ -298,13 +268,13 @@ th, td,tr {
                                                 <tr class="">
 
                                                     <td><label for="panNumber">Pan Number<span class="required adHocRequired"></span></label></td>
-                                                    <td colspan='1'><input type="text" class="form-control p-input" id="panNumber" name="panNumber" placeholder="Pan Number" oninput="this.value = this.value.toUpperCase()" maxlength="10" onchange="removeValCssByID(this)"></td>
+                                                    <td colspan="1"><input type="text" class="form-control p-input" id="panNumber" name="panNumber" placeholder="Pan Number" oninput="this.value = this.value.toUpperCase()" maxlength="10" onchange="removeValCssByID(this)"></td>
                                                     <td><label for="tanNumber">TAN Number</label></td>
-                                                    <td colspan='1'><input type="text" class="form-control p-input" id="tanNumber" name="tanNumber" placeholder="TAN Number" oninput="this.value = this.value.toUpperCase()" maxlength="10" onkeypress="return isNumberKey(evt);"></td>
+                                                    <td colspan="1"><input type="text" class="form-control p-input" id="tanNumber" name="tanNumber" placeholder="TAN Number" oninput="this.value = this.value.toUpperCase()" maxlength="10" onkeypress="return isNumberKey(evt);"></td>
 
                                                     <td><label>Region<span class="required adHocRequired"></span></label></td>
 
-                                                    <td style="width: auto"><select colspan='1' class="js-example-basic-multiple1 select2" name="region[]" id="region" multiple="multiple" onchange="region1();">
+                                                    <td style="width: auto"><select  class="js-example-basic-multiple1 select2" name="region[]" id="region" multiple="multiple" onchange="region1();">
                                                             <c:forEach items="${region}" var="reg">
 
                                                                 <option value="${reg}">${reg}</option>
@@ -336,7 +306,7 @@ th, td,tr {
                                                     <tbody>
                                                         <tr class="">
                                                             <td><label class="addressLable" for="country">Country<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan='2'><select id="addCountry" name="addCountry" class="form-control p-input">
+                                                            <td colspan="2"><select id="addCountry" name="addCountry" class="form-control p-input">
                                                                     <c:forEach items="${country}" var="count">
 
                                                                         <option value="${count}">${count}</option>
@@ -345,7 +315,7 @@ th, td,tr {
                                                                 </select></td>
 
                                                             <td><label class="addressLable">State<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan='2'>
+                                                            <td colspan="2">
                                                                 <select name="state" id="state" class="form-control p-input">
                                                                     <c:forEach items="${stateName}" var="stateNames">
 
@@ -354,13 +324,13 @@ th, td,tr {
                                                                 </select>
                                                             </td>
                                                             <td><label class="addressLable">District/City<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan='2'><input type="text" class="form-control p-input" id="city" name="city" placeholder="District" maxlength="50"></td>
+                                                            <td colspan="2"><input type="text" class="form-control p-input" id="city" name="city" placeholder="District" maxlength="50"></td>
                                                         </tr>
                                                         <tr class="">
 
 
                                                             <td><label>Postal/ZIP Code<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan='2'><input type="text" class="form-control p-input" id="pinCode" name="pinCode" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Postal Code/ ZIP Code" maxlength="6"></td>
+                                                            <td colspan="2"><input type="text" class="form-control p-input" id="pinCode" name="pinCode" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Postal Code/ ZIP Code" maxlength="6"></td>
 
                                                             <td><label>Business Partner Type<span class="required adHocRequired">*</span></label></td>
 
@@ -384,7 +354,7 @@ th, td,tr {
                                                             <%-- <td><label for="Business Partner Type">Business Partner Type<span class="required adHocRequired">*</span>
                                                         </label></td>
 
-                                                    <td colspan='2'><select  class="form-control p-input" id="natureOfTransactions" name="natureOfTransactions" placeholder="Nature of Transactions" onchange="removeValCssByID(this)">
+                                                    <td colspan="2"><select  class="form-control p-input" id="natureOfTransactions" name="natureOfTransactions" placeholder="Nature of Transactions" onchange="removeValCssByID(this)">
                                                             <option value="">Select</option>
                                                             <c:forEach items="${business}" var="nat">
 
@@ -406,12 +376,12 @@ th, td,tr {
                                                         <tr class="">
 
                                                             <td><label for="compGstn">GSTN Number<span class="required adHocRequired"></span></label></td>
-                                                            <td colspan='2'><input type="test" class="form-control p-input gst" id="compGstn" name="compGstn" name="compGstn" placeholder="GSTN Number" oninput="this.value = this.value.toUpperCase()" maxlength="15"></td>
+                                                            <td colspan="2"><input type="test" class="form-control p-input gst" id="compGstn" name="compGstn" name="compGstn" placeholder="GSTN Number" oninput="this.value = this.value.toUpperCase()" maxlength="15"></td>
 
                                                             <td><label for="addressDetails">Address
                                                                     Details<span class="required adHocRequired">*</span>
                                                                 </label></td>
-                                                            <td colspan='2'><textarea class="form-control" id="addDetails" name="addDetails" maxlength="250" placeholder="Complete Address" rows="2"></textarea></td>
+                                                            <td colspan="2"><textarea class="form-control" id="addDetails" name="addDetails" maxlength="250" placeholder="Complete Address" rows="2"></textarea></td>
                                                             <td style="width: 150px;"></td>
                                                             <td colspan=''><button type="Button" class="btn btn-primary" id="addBookGridButt" name="addBookGridButt">Add Address</button></td>
                                                         </tr>
@@ -459,19 +429,19 @@ th, td,tr {
                                                     <tbody>
                                                         <tr class="">
                                                             <td><label for="fnameCon">First Name<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan='2'><input type="text" class="form-control p-input" id="conFname" name="conFname" placeholder="First Name"></td>
+                                                            <td colspan="2"><input type="text" class="form-control p-input" id="conFname" name="conFname" placeholder="First Name"></td>
 
                                                             <td><label for="lnameCon">Last Name<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan='2'><input type="text" class="form-control p-input" id="conLname" name="conLname" placeholder="Last Name"></td>
+                                                            <td colspan="2"><input type="text" class="form-control p-input" id="conLname" name="conLname" placeholder="Last Name"></td>
 
                                                             <td><label for="phno">Phone Number<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan='2'><input type="text" class="form-control p-input" id="conPhone" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="conPhone" placeholder="Phone Number" maxlength="10"></td>
+                                                            <td colspan="2"><input type="text" class="form-control p-input" id="conPhone" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="conPhone" placeholder="Phone Number" maxlength="10"></td>
                                                         <tr>
                                                         <tr class="">
 
 
                                                             <td><label for="emailId">Email Id<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan='2'><input type="text" class="form-control p-input" id="conEmail" name="conEmail" placeholder="Email"></td>
+                                                            <td colspan="2"><input type="text" class="form-control p-input" id="conEmail" name="conEmail" placeholder="Email"></td>
                                                             <td></td>
                                                             <td></td>
                                                             <td>
@@ -522,33 +492,33 @@ th, td,tr {
                                                     <tbody>
                                                         <tr class="">
                                                             <td><label for="bankName">Bank Name<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan='2'><input type="text" class="form-control p-input" id="bankName" name="bankName" placeholder="Bank Name" maxlength="200"></td>
+                                                            <td colspan="2"><input type="text" class="form-control p-input" id="bankName" name="bankName" placeholder="Bank Name" maxlength="200"></td>
 
                                                             <td><label for="bankName">Beneficiary Name<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan='2'><input type="text" class="form-control p-input" id="beneficiaryName" name="beneficiaryName" placeholder="Beneficiary Name" maxlength="200"></td>
+                                                            <td colspan="2"><input type="text" class="form-control p-input" id="beneficiaryName" name="beneficiaryName" placeholder="Beneficiary Name" maxlength="200"></td>
 
                                                             <td><label for="ifscCode">IFSC Code<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan='2'><input type="text" class="form-control p-input" id="ifscCode" name="ifscCode" placeholder="IFSC Code" oninput="this.value = this.value.toUpperCase()" maxlength="11"></td>
+                                                            <td colspan="2"><input type="text" class="form-control p-input" id="ifscCode" name="ifscCode" placeholder="IFSC Code" oninput="this.value = this.value.toUpperCase()" maxlength="11"></td>
 
                                                             <td><label for="accoutNumber">Account Number<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan='2'><input type="text" class="form-control p-input" id="accoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="accoutNumber" placeholder="Account Number"></td>
+                                                            <td colspan="2"><input type="text" class="form-control p-input" id="accoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="accoutNumber" placeholder="Account Number"></td>
 
                                                         </tr>
 
                                                         <tr class="">
 
                                                             <td><label for="Confirmed accoutNumber">Confirm Account Number<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan='2'><input type="text" class="form-control p-input" id="confirmedAccoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="confirmedAccoutNumber" placeholder="Confirm  Account Number" maxlength="16"></td>
+                                                            <td colspan="2"><input type="text" class="form-control p-input" id="confirmedAccoutNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="confirmedAccoutNumber" placeholder="Confirm  Account Number" maxlength="16"></td>
 
                                                             <td><label for="accoutCurrency">Currency<span class="required adHocRequired">*</span></label></td>
-                                                            <td colspan='2'><select id="accoutCurrency" name="accoutCurrency" class="form-control p-input">
+                                                            <td colspan="2"><select id="accoutCurrency" name="accoutCurrency" class="form-control p-input">
                                                                     <c:forEach items="${currency}" var="cur">
 
                                                                         <option value="${cur}">${cur}</option>
                                                                     </c:forEach>
                                                                 </select></td>
                                                             <td></td>
-                                                            <td colspan='3'>
+                                                            <td colspan="3">
                                                                 <button type="Button" id="addBankGridButt" name="addBankGridButt" class="btn btn-primary">Add
                                                                     Account Details</button>
                                                             </td>
@@ -597,7 +567,7 @@ th, td,tr {
                                                             <td><label for="invoiceCurrency">Invoice
                                                                     Currency<span class="required adHocRequired">*</span>
                                                                 </label></td>
-                                                            <td colspan='2'><select id="invoiceCurrency" name="invoiceCurrency" class="form-control p-input">
+                                                            <td colspan="2"><select id="invoiceCurrency" name="invoiceCurrency" class="form-control p-input">
                                                                     <c:forEach items="${currency}" var="cur">
 
                                                                         <option value="${cur}">${cur}</option>
@@ -608,7 +578,7 @@ th, td,tr {
                                                             <td><label for="paymentCurrency">Payment
                                                                     Currency<span class="required adHocRequired">*</span>
                                                                 </label></td>
-                                                            <td colspan='2'><select id="paymentCurrency" name="paymentCurrency" class="form-control p-input">
+                                                            <td colspan="2"><select id="paymentCurrency" name="paymentCurrency" class="form-control p-input">
                                                                     <c:forEach items="${currency}" var="cur">
 
                                                                         <option value="${cur}">${cur}</option>
@@ -618,7 +588,7 @@ th, td,tr {
                                                             <td><label for="creditTerms">Payment / Credit
                                                                     Terms<span class="required adHocRequired">*</span>
                                                                 </label></td>
-                                                            <td colspan='2'><select id="creditTerms" name="creditTerms" class="form-control p-input"  onchange="removeValCssByID(this)">
+                                                            <td colspan="2"><select id="creditTerms" name="creditTerms" class="form-control p-input"  onchange="removeValCssByID(this)">
                                                                     <option value="">Select</option>
                                                                     <c:forEach items="${payment}" var="pay">
 
@@ -630,7 +600,7 @@ th, td,tr {
                                                         <tr class="">
                                                             <td><label for="paymentMethod">Payment Method<span class="required adHocRequired">*</span></label></td>
 
-                                                            <td colspan='2'>
+                                                            <td colspan="2">
 
                                                                 <select id="paymentMethod" name="paymentMethod" class="form-control p-input" onchange="removeValCssByID(this)">
 
@@ -642,9 +612,9 @@ th, td,tr {
                                                             </td>
 
                                                             <td><label for="dateBasis">Terms Date Basis</label></td>
-                                                            <td colspan='2'><input type="text" class="form-control p-input" id="dateBasis" name="dateBasis" placeholder="Terms Date Basis"></td>
+                                                            <td colspan="2"><input type="text" class="form-control p-input" id="dateBasis" name="dateBasis" placeholder="Terms Date Basis"></td>
                                                             <td><label for="deliveryTerms">Delivery Terms</label></td>
-                                                            <td colspan='2'><input type="text" class="form-control p-input" id="deliveryTerms" name="deliveryTerms" placeholder="Delivery Terms"></td>
+                                                            <td colspan="2"><input type="text" class="form-control p-input" id="deliveryTerms" name="deliveryTerms" placeholder="Delivery Terms"></td>
 
 
                                                         </tr>
@@ -665,7 +635,6 @@ th, td,tr {
                             <div id="step-4" class="">
                                 <div class="card" style="margin-bottom: 10px;">
 
-                                    <!-- Start -->
 
                                     <div class="card" style="margin-bottom: 10px;">
                                         <div class="card-header" id="addressBookHead" style="background: #1991eb; color: #ffffff;">
@@ -679,20 +648,17 @@ th, td,tr {
                                                         </thead>
                                                         <tbody>
                                                             <tr class="">
-                                                                <!-- <td><label class="addressLable" for="tdsApplication">TDS
-                                                                Applicable</label></td>
-                                                        <td colspan='2'><input type="text" id="tdsApplication" value="Yes" name="tdsApplication" readonly class="form-control p-input "> </td> -->
 
                                                                 <td><label class="addressLable" for="tdsApplication">TDS
                                                                         Applicable<span class="required">*</span></label></td>
-                                                                <td colspan='2'><select id="tdsApplication" name="tdsApplication" onchange="changetextbox();" class="form-control p-input ">
+                                                                <td colspan="2"><select id="tdsApplication" name="tdsApplication" onchange="changetextbox();" class="form-control p-input ">
                                                                         <option value="Yes">Yes</option>
                                                                         <option value="No">No</option>
                                                                     </select></td>
 
                                                                 <td><label class="addressLable" for="tdsSection">TDS
                                                                         Section<span class="required adHocRequired">*</span></label></td>
-                                                                <td colspan='2'><select id="tdsSection" name="tdsSection" class="form-control p-input">
+                                                                <td colspan="2"><select id="tdsSection" name="tdsSection" class="form-control p-input">
                                                                         <option value="">Select</option>
                                                                         <c:forEach items="${tdsCode}" var="tds">
 
@@ -705,7 +671,7 @@ th, td,tr {
 
                                                                 <td><label for="tdsRate">TDS Exemption Rate
                                                                         %<span class="required adHocRequired">*</span></label></td>
-                                                                <td colspan='2'><input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode <= 46" class="form-control p-input" id="tdsRate" name="tdsRate" placeholder="TDS  Exemption Rate" maxlength="4"></td>
+                                                                <td colspan="2"><input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode <= 46" class="form-control p-input" id="tdsRate" name="tdsRate" placeholder="TDS  Exemption Rate" maxlength="4"></td>
                                                             </tr>
 
                                                         </tbody>
@@ -716,9 +682,6 @@ th, td,tr {
                                         </div>
                                     </div>
 
-                                    <!-- End -->
-
-                                    <!-- Start -->
 
                                     <div class="card" style="margin-bottom: 10px;">
                                         <div class="card-header" id="itrHead" style="background: #1991eb; color: #ffffff;">
@@ -948,8 +911,7 @@ th, td,tr {
 	<script src="dist/js/demo.js"></script>
 	<script src="js/moment.min.js"></script>
 	<script src="plugins/select2/js/select2.full.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	<script src="js/select2.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			var bootstrapTooltip = $.fn.tooltip.noConflict();
@@ -992,6 +954,8 @@ th, td,tr {
 
     <script type="text/javascript">
         var globalVendorCode = "";
+        var dataLimit='${dataLimit}';
+		dataLimit=parseInt(dataLimit);
 
         var tabledata = $('#tabledata').DataTable({
             "paging": true,
@@ -1000,7 +964,8 @@ th, td,tr {
             "info": true,
             "autoWidth": false,
             "aaSorting": [],
-            "scrollX": true 
+            "scrollX": true ,
+            "pageLength": dataLimit
         });
         $(document).ready(function() {
             $('.js-example-basic-multiple1').select2({

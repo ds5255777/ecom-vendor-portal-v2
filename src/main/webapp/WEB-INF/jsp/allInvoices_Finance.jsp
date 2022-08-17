@@ -131,10 +131,10 @@
                                     <form role="form" id="addForm" autocomplete="off">
                                         <div class="row">
                                             <div class="col-md-1">
-                                                <input type="text" name="fromDate" placeholder="Act Dept Starting Date" readonly class="form-control" id="fromDate">
+                                                <input type="text" name="fromDate" placeholder="Inv To Date" readonly class="form-control" id="fromDate">
                                             </div>
                                             <div class="col-md-1">
-                                                <input type="text" name="toDate" placeholder="Act Dept End Date" readonly class="form-control" id="toDate">
+                                                <input type="text" name="toDate" placeholder="Inv From Date" readonly class="form-control" id="toDate">
                                             </div>
                                             <div class="col-md-1">
 
@@ -417,6 +417,9 @@
 
                 var fromDate = $("#fromDate").val();
                 var toDate = $("#toDate").val();
+                
+                console.log(fromDate ,"   ",toDate );
+
                 
                 if (fromDate == "" || fromDate == null) {
                     Toast.fire({

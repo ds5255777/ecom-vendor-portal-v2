@@ -340,6 +340,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 
     </script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
     <script src="plugins/chart.js/Chart.min.js"></script>
     <script src="plugins/sparklines/sparkline.js"></script>
     <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
@@ -355,6 +356,57 @@ request.setAttribute("financeHeadRole", financeHeadRole);
         
         
 	<script>
+	
+	 $(document).ready(function () {
+         if (${userStatus} === 3) {
+             $('#changePassword').modal('show');
+         }
+     });
+	 
+	 $('#changePassword1').validate({
+         rules: {
+         	password: {
+                 required: true
+             },
+             passwordConfirm: {
+                 required: true
+             }
+         },
+          errorElement: 'span',
+         errorPlacement: function(error, element) {
+             error.addClass('invalid-feedback');
+             element.closest('.form-group').append(error);
+         },
+         highlight: function(element, errorClass, validClass) {
+             $(element).addClass('is-invalid');
+             document.getElementById("passflag").value ="1";
+             
+         },
+         unhighlight: function(element, errorClass, validClass) {
+             $(element).removeClass('is-invalid');
+             document.getElementById("passflag").value ="0";
+         } 
+		 });
+      
+     $(function() {
+         $("#passwordConfirm").keyup(function() {
+             var password = $("#password").val();
+             var passwordConfirm = $("#passwordConfirm").val();
+             var passflag = $("#passflag").val();
+              if ($('#password').val() == $('#passwordConfirm').val() && passflag!="1" ) {
+     		    $('#divCheckPasswordMatch').html('Passwords match.').css('color', 'green');
+     		    // Enable #x	
+     		    $("#changePasswordButton").prop("disabled", false)
+     		    
+     		  } 
+              else {
+     		    $('#divCheckPasswordMatch').html('Passwords do not match!').css('color', 'red');
+          // Disable #x
+ 		    $('#changePasswordButton').attr('disabled', true);
+             return;
+     		  }
+         });
+     });
 	
 	var userType = '${role}';
 	

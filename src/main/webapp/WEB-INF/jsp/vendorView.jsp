@@ -559,7 +559,7 @@
 		<div class="split right">
         	 <div class="form-group">
             <label for="doc">Document Details</label>
-                <select class="form-control" id="multipleAttachment" onchange="displayAttachmentForPoDetails()" style="height: 35px;" >
+                <select class="form-control" id="multipleAttachment" style="height: 35px;" >
                                                 
                                             </select>
                                             </div>
@@ -817,6 +817,8 @@
                         }
                         contactTable.draw();
                         $("tbody").show();
+                        getQueryData();
+                        displayAttachmentForPoDetails();
                     } else {
                         Toast.fire({
                             type: 'error',
@@ -833,7 +835,7 @@
             });
         }
         
-        getQueryData();
+        
 		 
 		 function getQueryData(){
 			 

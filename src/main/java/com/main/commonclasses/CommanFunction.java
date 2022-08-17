@@ -35,9 +35,18 @@ public class CommanFunction {
 
 			String toEmail = "";
 			String ccEmail = "";
+			String bccEmail = "";
 
 			toEmail = commaSeparatedEamilName;
 			ccEmail = commaSeparatedCCEamilID;
+			bccEmail = commaSeparatedBCCEamilID;
+
+			if (null == commaSeparatedCCEamilID) {
+				ccEmail = "";
+			}
+			if (null == commaSeparatedBCCEamilID) {
+				bccEmail = "";
+			}
 
 			InternetAddress[] parseToEmail = InternetAddress.parse(toEmail, true);
 
@@ -61,9 +70,9 @@ public class CommanFunction {
 				message.setRecipients(Message.RecipientType.CC, parseccEmail);
 			}
 
-			if (!"".equalsIgnoreCase(commaSeparatedBCCEamilID)) {
+			if (!"".equalsIgnoreCase(bccEmail)) {
 
-				InternetAddress[] parseBccEmail = InternetAddress.parse(commaSeparatedBCCEamilID, true);
+				InternetAddress[] parseBccEmail = InternetAddress.parse(bccEmail, true);
 				message.setRecipients(Message.RecipientType.BCC, parseBccEmail);
 			}
 
@@ -138,7 +147,7 @@ public class CommanFunction {
 			Transport.send(message);
 
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE , e);
+			logger.error(GlobalConstants.ERROR_MESSAGE, e);
 		}
 
 	}

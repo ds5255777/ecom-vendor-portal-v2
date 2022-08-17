@@ -26,7 +26,7 @@ public class SchedularController {
 
 	private String checkSchedular = "Completed";
 
-	@Scheduled(fixedDelay = 100 * 60 * 1000)
+	@Scheduled(fixedDelay = 1 * 60 * 1000)
 	public void sendAllEmails() {
 
 		try {
@@ -37,10 +37,12 @@ public class SchedularController {
 						.findByStatus(GlobalConstants.EMAIL_STATUS_SENDING);
 				List<EmailConfiguration> emailList = serviceManger.emailConfigurationRepository
 						.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+				
+				
 
 				if (!statusList.isEmpty() || (!emailList.isEmpty())) {
 					for (int i = 0; i < statusList.size(); i++) {
-
+						
 						CommanFunction.sendEmail(emailList.get(0), statusList.get(i).getSendTo(),
 								statusList.get(i).getSendCc(), statusList.get(i).getBcc(),
 								statusList.get(i).getSubject(), statusList.get(i).getEmailBody());
@@ -62,6 +64,7 @@ public class SchedularController {
 				if (!statusList.isEmpty() || (!emailList.isEmpty())) {
 					for (int i = 0; i < statusList.size(); i++) {
 
+						
 						CommanFunction.sendEmail(emailList.get(0), statusList.get(i).getSendTo(),
 								statusList.get(i).getSendCc(), statusList.get(i).getBcc(),
 								statusList.get(i).getSubject(), statusList.get(i).getEmailBody());
@@ -74,6 +77,7 @@ public class SchedularController {
 
 		} catch (Exception e) {
 
+			e.printStackTrace();
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 

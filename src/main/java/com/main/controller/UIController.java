@@ -57,17 +57,18 @@ public class UIController {
 	public Integer linkExpireTimeInHours;
 
 	@Autowired
-	ServiceManager serviceManager;
+	private ServiceManager serviceManager;
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(UIController.class);
 
 	@GetMapping({ "/login" })
-	public String login(Model model, String error, String logout) {
+	public String login(Model model, String error, String logout, HttpServletRequest request) {
 		model.addAttribute("userForm", new User());
 
 		if (error != null) {
 			model.addAttribute("error", "Your username and password is invalid.");
+
 		}
 
 		if (logout != null) {
@@ -106,11 +107,11 @@ public class UIController {
 		String vendorAddress = new String(decoder.decode(request.getParameter("vendorAddress")));
 		String processBy = new String(decoder.decode(request.getParameter("processBy")));
 		String processByEmailId = new String(decoder.decode(request.getParameter("processByEmailId")));
-		
+
 		List<SupDetails> findAll = serviceManager.supDetailsRepo.findAll();
-		for(int i=0;i<findAll.size();i++) {
+		for (int i = 0; i < findAll.size(); i++) {
 			String vendorExitingEmail = findAll.get(i).getContactDetails().get(0).getConEmail();
-			if(vendorExitingEmail.equalsIgnoreCase(vendorEmail)) {
+			if (vendorExitingEmail.equalsIgnoreCase(vendorEmail)) {
 				response.setContentType("text/html");
 				PrintWriter pwriter = response.getWriter();
 				pwriter.println(
@@ -118,8 +119,7 @@ public class UIController {
 				pwriter.close();
 			}
 		}
-		
-		
+
 		model.addAttribute("vendorEmail", vendorEmail);
 		model.addAttribute("vendorType2", vendorType2);
 		model.addAttribute("region1", region1);
@@ -224,6 +224,10 @@ public class UIController {
 		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
 		model.addAttribute("role", rolename);
 		model.addAttribute("username", principal.getName());
+
+		int count = 0;
+		serviceManager.userRepository.updateAttemptCount(principal.getName(), count);
+
 		if (null == bpCode) {
 			bpCode = "";
 		}
@@ -400,6 +404,7 @@ public class UIController {
 
 			model.addAttribute("role", rolename);
 			model.addAttribute("allInvoice", allInvoice);
+			model.addAttribute("userStatus", us.getStatus());
 			model.addAttribute("inReviewInvoice", inReviewInvoice);
 			model.addAttribute("countForPendingForApprovalInvoice", countForPendingForApprovalInvoice);
 			model.addAttribute("countForApprovedInvoice", countForApprovedInvoice);
@@ -438,17 +443,17 @@ public class UIController {
 
 	@GetMapping({ "/addUsers" })
 	public String addUsers(Model model, Principal principal, String error, String logout, HttpServletRequest request) {
+		String userName = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
 
-		String rolename = (String) request.getSession().getAttribute("role");
-
-		if (rolename.equalsIgnoreCase("Admin")) {
-
-			List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive("1");
-			List<RolesEntity> role = serviceManager.rolesRepository.findByIsActiveAndRoleNameNot("1", "Vendor");
+			List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+			List<RolesEntity> role = serviceManager.rolesRepository.findByIsActiveAndRoleNameNot(GlobalConstants.ACTIVE_STATUS, GlobalConstants.ROLE_VENDOR);
 			model.addAttribute("rolesList", roleList);
 			model.addAttribute("role", role);
-			String uname = principal.getName();
-			model.addAttribute("uname", uname);
+
+			model.addAttribute("uname", userName);
+			model.addAttribute("dataLimit", dataLimit);
 
 			return "addUsers";
 
@@ -458,9 +463,13 @@ public class UIController {
 	}
 
 	@GetMapping({ "/emailConfig" })
-	public String emailConfig(Model model, String error, String logout, HttpServletRequest request) {
-
+	public String emailConfig(Model model,Principal principal, String error, String logout, HttpServletRequest request) {
+		String userName = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
 		return "emailConfig";
+		}
+		return "";
 	}
 
 	@GetMapping({ "/triggerEmail" })
@@ -492,17 +501,18 @@ public class UIController {
 
 	@GetMapping("/allTrips")
 	public String allTrips(Model model, Principal principal, HttpServletRequest request) {
-		String rolename = (String) request.getSession().getAttribute("role");
-
+		String userName = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		
 		String currentDate = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER_DD_MM_YYYY).format(new Date());
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("dataLimit", dataLimit);
 
-		if (rolename.equalsIgnoreCase("Network")) {
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 			return "allTripsNetwork";
-		} else if (rolename.equalsIgnoreCase("Vendor")) {
+		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 			return "allTrips";
-		} else if (rolename.equalsIgnoreCase("Admin")) {
+		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
 			return "allTrips";
 		}
 		return "";
@@ -623,6 +633,7 @@ public class UIController {
 		model.addAttribute("paymentMethod", paymentMethod);
 		model.addAttribute("flag", flag);
 		model.addAttribute("stateName", stateName);
+		model.addAttribute("dataLimit", dataLimit);
 
 		if (rolename.equalsIgnoreCase("Admin")) {
 

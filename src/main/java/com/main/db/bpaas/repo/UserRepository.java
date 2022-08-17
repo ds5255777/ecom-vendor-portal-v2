@@ -22,6 +22,19 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value = "update users set status=:status where id=:id ; ", nativeQuery = true)
 	void updateStatusByUserid(@Param("status") String status, @Param("id") Integer id);
 
+	@Query(value = "select failed_attempt from users where username=:username ; ", nativeQuery = true)
+	int failedAttemptCount(@Param("username") String username);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "update users set failed_attempt=:count  where username=:username ; ", nativeQuery = true)
+	void updateAttemptCount(String username, int count);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "update users set status=:inactiveStatus  where username=:username ; ", nativeQuery = true)
+	void updateUserStatus(String username, String inactiveStatus);
+
 	User findByUsernameAndStatusNot(String username, String string);
 
 	User findByUsernameAndStatusIn(String username, List<String> userStatusList);

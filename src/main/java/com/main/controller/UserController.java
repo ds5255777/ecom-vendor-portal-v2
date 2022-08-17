@@ -39,49 +39,39 @@ public class UserController {
 	private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@PostMapping({ "/saveUpdateUserDetails" })
-
-	public String saveUpdateUserDetails(HttpServletRequest request, @RequestBody UserDTO userDto) {
+	public String saveUpdateUserDetails(Principal principal, @RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information :  ");
 
+		String userName = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
-		try {
-			userDto.getId();
-
-			if (null == userDto.getId()) {
-				userDto.setPassword(serviceManager.bCryptPasswordEncoder.encode(userDto.getPassword()));
-				serviceManager.userRepository.save(this.serviceManager.modelMapper.map(userDto, User.class));
-
-			} else {
-
-				String password = serviceManager.userRepository.getUserPasswordById(userDto.getId());
-
-				if ((null != userDto.getPassword()) && !userDto.getPassword().equalsIgnoreCase("")) {
-
-					password = serviceManager.bCryptPasswordEncoder.encode(userDto.getPassword());
-
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
+			try {
+				userDto.getId();
+				if (null == userDto.getId()) {
+					userDto.setPassword(serviceManager.bCryptPasswordEncoder.encode(userDto.getPassword()));
+					serviceManager.userRepository.save(this.serviceManager.modelMapper.map(userDto, User.class));
+				} else {
+					String password = serviceManager.userRepository.getUserPasswordById(userDto.getId());
+					if ((null != userDto.getPassword()) && !userDto.getPassword().equalsIgnoreCase("")) {
+						password = serviceManager.bCryptPasswordEncoder.encode(userDto.getPassword());
+					}
+					userDto.setPassword(password);
+					serviceManager.userRepository.save(this.serviceManager.modelMapper.map(userDto, User.class));
 				}
-				userDto.setPassword(password);
-
-				serviceManager.userRepository.save(this.serviceManager.modelMapper.map(userDto, User.class));
-
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+			} catch (Exception e) {
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			}
-
-			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
-
-		} catch (Exception e) {
-			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-
-			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
-
 		}
-
 		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getActiveUsersData" })
-
 	public String getActiveUsersData(HttpServletRequest request) {
 
 		logger.info("Log Some Information getActiveUsersData  ");
@@ -89,7 +79,6 @@ public class UserController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
-
 			List<String> userStatusList = new ArrayList<>();
 			userStatusList.add(GlobalConstants.ACTIVE_STATUS);
 			userStatusList.add(GlobalConstants.CHANGE_PASSWORD_STATUS);
@@ -98,42 +87,29 @@ public class UserController {
 			List<UserDTO> usersList = userList.stream()
 					.map(listOfUser -> this.serviceManager.modelMapper.map(listOfUser, UserDTO.class))
 					.collect(Collectors.toList());
-
 			data.setData(usersList);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
-
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
-
 		}
-
 		return gson.toJson(data);
 	}
 
 	@PostMapping({ "/getUserById" })
-
 	public String getUserById(@RequestBody UserDTO userDto) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
-
 			User userDtoToEntity = this.serviceManager.modelMapper.map(userDto, User.class);
-
 			User userObj = serviceManager.userRepository.findById(userDtoToEntity.getId()).orElseThrow(null);
-
 			data.setData(this.serviceManager.modelMapper.map(userObj, UserDTO.class));
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
-
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
-
 		}
-
 		return gson.toJson(data);
 	}
 
@@ -218,24 +194,23 @@ public class UserController {
 
 	@PostMapping({ "/changePassword" })
 	public String changePassword(Principal principal, @RequestParam(name = "password") String password) {
-
 		logger.info("Log Some Information changePassword  ");
-
+		String userName = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
-		try {
-			User us = serviceManager.userService.findByUsername(principal.getName());
-			us.setPassword(password);
-			us.setStatus(GlobalConstants.ACTIVE_STATUS);
-			serviceManager.userService.save(us);
-			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
-		} catch (Exception e) {
-			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-
-			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
-
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
+			try {
+				User us = serviceManager.userService.findByUsername(principal.getName());
+				us.setPassword(password);
+				us.setStatus(GlobalConstants.ACTIVE_STATUS);
+				serviceManager.userService.save(us);
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+			} catch (Exception e) {
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+			}
 		}
-
 		return gson.toJson(data);
 	}
 
@@ -243,13 +218,10 @@ public class UserController {
 	public String getActiveVendor(HttpServletRequest request) {
 
 		logger.info("Log Some Information getActiveVendorData  ");
-
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
-
 			List<Object[]> vendorList = serviceManager.supDetailsRepo.getAllInActiveVendor();
-
 			List<SupplierDTO> sdtList = new ArrayList<>();
 			for (Object[] objects : vendorList) {
 				SupplierDTO sdt = new SupplierDTO();
@@ -279,17 +251,13 @@ public class UserController {
 				}
 				sdtList.add(sdt);
 			}
-
 			data.setData(sdtList);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			logger.info("end  to getActiveVendorData ");
-
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
-
 		}
-
 		return gson.toJson(data);
 	}
 
@@ -322,19 +290,18 @@ public class UserController {
 
 		logger.info("Log Some Information setStatusOfVendorByBpCode  ");
 
-		String status="";
+		String status = "";
 		DataContainer data = new DataContainer();
-		if(user.getStatus().equalsIgnoreCase("0")) {
-			 status=GlobalConstants.SET_FLAG_IN_ACTIVE;
-		}else if(user.getStatus().equalsIgnoreCase("1")){
-			status=GlobalConstants.SET_FLAG_TYPE_ACTIVE;
+		if (user.getStatus().equalsIgnoreCase("0")) {
+			status = GlobalConstants.SET_FLAG_IN_ACTIVE;
+		} else if (user.getStatus().equalsIgnoreCase("1")) {
+			status = GlobalConstants.SET_FLAG_TYPE_ACTIVE;
 		}
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
 			serviceManager.userRepository.updateStatusOfVendorByBpCode(user.getStatus(), user.getBpCode());
-			serviceManager.userRepository.updateFlagOfVendorByBpCode(status,
-					user.getBpCode());
+			serviceManager.userRepository.updateFlagOfVendorByBpCode(status, user.getBpCode());
 
 			data.setMsg("success");
 

@@ -79,7 +79,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		request.getSession().setAttribute("sideLogoName", sideLogoName);
 
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-
+		
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
 				grantedAuthorities);
 	}

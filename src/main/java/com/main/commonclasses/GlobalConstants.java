@@ -2,6 +2,7 @@ package com.main.commonclasses;
 
 public class GlobalConstants {
 
+	 public static final int MAX_FAILED_ATTEMPTS = 5;
 	
 	public static final String VENDOR_PID_PREFIX="Vendor-00000000";
 	public static final String VENDOR_PID_SUFFIX="-CreationUAT";

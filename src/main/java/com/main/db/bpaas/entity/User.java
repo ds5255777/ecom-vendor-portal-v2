@@ -61,6 +61,9 @@ public class User implements Serializable {
 	
 	@Column(name = "bp_code")
 	private String bpCode;
+	
+	@Column(name = "failed_attempt")
+    private int failedAttempt=0;
 
 	@Transient
 	private String passwordConfirm;

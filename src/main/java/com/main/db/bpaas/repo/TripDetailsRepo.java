@@ -106,9 +106,6 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	List<TripDetails> findByActualDepartureBetween(@Param("startDate") String startDate,
 			@Param("endDate") String endDate);
 
-	@Query(value = "select  * from trip_details  where trip_id IN(:tripID)", nativeQuery = true)
-	List<TripDetails> findByTripIDIn(@Param("tripID") String[] tripID);
-
 	@Query(value = "select  * from trip_details  where invoice_number=:invoiceNumber ", nativeQuery = true)
 	List<TripDetails> getTripStatusIsDraftInvoicing(String invoiceNumber);
 

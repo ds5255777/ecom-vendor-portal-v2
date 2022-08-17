@@ -3,6 +3,8 @@ package com.main.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Date;
@@ -28,7 +30,11 @@ import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.Document;
+import com.main.db.bpaas.entity.EmailAuditLogs;
+import com.main.db.bpaas.entity.EmailConfiguration;
+import com.main.db.bpaas.entity.MailContent;
 import com.main.db.bpaas.entity.QueryEntity;
+import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.payloads.QueryEntityDTO;
@@ -86,12 +92,53 @@ public class AjaxController {
 				serviceManager.detailsRepo.updatePidInSupDetails(id, processID);
 				data.setData(processID);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+
+				/* send onBoard email */
+
+				List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
+						.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+				EmailConfiguration emailConfiguration = emailList.get(0);
+
+				String vendorEmail = supDetailsDto.getContactDetails().get(0).getConEmail();
+				String introducerEmailID = supDetailsDto.getIntroducedByEmailID();
+
+				List<MailContent> mailType = serviceManager.mailContentRepo.findByType("Vendor On Board");
+
+				SendEmail sendEmail = new SendEmail();
+				MailContent mailContent = mailType.get(0);
+				String emailBody = mailContent.getEmailBody();
+				Date date = new Date();
+				DateFormat dateFormat = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER);
+				String strDate = dateFormat.format(date);
+				emailBody = emailBody.replace("#VendorRefId#", processID);
+				emailBody = emailBody.replace("#OndordingDate#", strDate);
+
+				sendEmail.setMailfrom(emailConfiguration.getUserName());
+				sendEmail.setSendTo(vendorEmail);
+				sendEmail.setSendCc(introducerEmailID);
+				sendEmail.setSubject(mailContent.getSubject());
+				sendEmail.setEmailBody(emailBody);
+				sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+
+				serviceManager.sendEmailRepo.save(sendEmail);
+
+				EmailAuditLogs auditLogs = new EmailAuditLogs();
+				auditLogs.setMailFrom(emailConfiguration.getUserName());
+				auditLogs.setMailTo(vendorEmail);
+				auditLogs.setMailCC(introducerEmailID);
+				auditLogs.setMailSubject(mailContent.getSubject());
+				auditLogs.setMailMessage(emailBody);
+
+				serviceManager.emailAuditLogsRepo.save(auditLogs);
+
 			} else {
 
 				if (supDetailsDto.getVenStatus().equals(GlobalConstants.APPROVED_REQUEST_STATUS)) {
 					User us = new User();
-					us.setBpCode(supDetailsDto.getBpCode());
-					us.setUsername(supDetailsDto.getBpCode());
+					String bpCode = supDetailsDto.getBpCode();
+					String passwordUser = UserServiceImpl.generateRandomPassword();
+					us.setBpCode(bpCode);
+					us.setUsername(bpCode);
 					us.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS);
 					us.setRoleId(2);
 					us.setVendorName(supDetailsDto.getSuppName());
@@ -100,13 +147,50 @@ public class AjaxController {
 
 					us.setFirstName(supDetailsDto.getContactDetails().get(0).getConFname());
 					us.setLastName(supDetailsDto.getContactDetails().get(0).getConLname());
-					us.setPassword(UserServiceImpl.generateRandomPassword());
+					us.setPassword(passwordUser);
 					supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
 					serviceManager.userService.save(us);
 
 					supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
 					serviceManager.detailsRepo
 							.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
+					
+					/* send onBoard email */
+
+					List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
+							.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+					EmailConfiguration emailConfiguration = emailList.get(0);
+
+					String vendorEmail = supDetailsDto.getContactDetails().get(0).getConEmail();
+
+					List<MailContent> mailType = serviceManager.mailContentRepo.findByType("Send username And Password");
+
+					SendEmail sendEmail = new SendEmail();
+					MailContent mailContent = mailType.get(0);
+					String emailBody = mailContent.getEmailBody();
+					
+					emailBody = emailBody.replace("#username#", bpCode);
+					emailBody = emailBody.replace("#password#", passwordUser);
+					System.out.println(passwordUser);
+
+					sendEmail.setMailfrom(emailConfiguration.getUserName());
+					sendEmail.setSendTo(vendorEmail);
+					sendEmail.setSubject(mailContent.getSubject());
+					sendEmail.setEmailBody(emailBody);
+					sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+
+					serviceManager.sendEmailRepo.save(sendEmail);
+
+					EmailAuditLogs auditLogs = new EmailAuditLogs();
+					auditLogs.setMailFrom(emailConfiguration.getUserName());
+					auditLogs.setMailTo(vendorEmail);
+					auditLogs.setMailSubject(mailContent.getSubject());
+					auditLogs.setMailMessage(emailBody);
+
+					serviceManager.emailAuditLogsRepo.save(auditLogs);
+					
+					
+					
 					data.setData(processID);
 					data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 				} else if (supDetailsDto.getVenStatus().equals(GlobalConstants.UPDATE_VENDOR)) {
@@ -450,7 +534,7 @@ public class AjaxController {
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String pid = objDto.getPid();
 		try {
-			 SupDetails vendorPid = serviceManager.supDetailsRepo.findByPid(pid);
+			SupDetails vendorPid = serviceManager.supDetailsRepo.findByPid(pid);
 
 			data.setData(this.serviceManager.modelMapper.map(vendorPid, SupDetailsDTO.class));
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
@@ -485,7 +569,7 @@ public class AjaxController {
 	}
 
 	@GetMapping({ "/checkExistingPan" })
-	public String getBpcode(@RequestParam("panNumber") String panNumber, @RequestParam("flag") String flag) {
+	public String checkExistingPan(@RequestParam("panNumber") String panNumber, @RequestParam("flag") String flag) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();

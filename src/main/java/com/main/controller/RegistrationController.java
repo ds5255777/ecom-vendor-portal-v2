@@ -169,6 +169,8 @@ public class RegistrationController {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)
 					|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
 
+				
+				
 				List<SupDetails> approvedVendor = serviceManager.supDetailsRepo
 						.findByVenStatus(GlobalConstants.APPROVED_REQUEST_STATUS);
 				data.setData(approvedVendor);

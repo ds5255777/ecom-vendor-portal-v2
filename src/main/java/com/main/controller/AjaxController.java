@@ -171,7 +171,6 @@ public class AjaxController {
 					
 					emailBody = emailBody.replace("#username#", bpCode);
 					emailBody = emailBody.replace("#password#", passwordUser);
-					System.out.println(passwordUser);
 
 					sendEmail.setMailfrom(emailConfiguration.getUserName());
 					sendEmail.setSendTo(vendorEmail);
@@ -225,7 +224,7 @@ public class AjaxController {
 			Document doc = new Document();
 			doc.setDocName(supDetailsDto.getGstFileName());
 			doc.setDocPath(fullFilePathWithName);
-			doc.setStatus("1");
+			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 			doc.setForeignKey(processID);
 			serviceManager.documentRepo.save(doc);
@@ -245,7 +244,7 @@ public class AjaxController {
 			Document doc = new Document();
 			doc.setDocName(supDetailsDto.getPdFileName());
 			doc.setDocPath(fullFilePathWithName);
-			doc.setStatus("1");
+			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 			doc.setForeignKey(processID);
 			serviceManager.documentRepo.save(doc);
@@ -265,7 +264,7 @@ public class AjaxController {
 			Document doc = new Document();
 			doc.setDocName(supDetailsDto.getPANFileName());
 			doc.setDocPath(fullFilePathWithName);
-			doc.setStatus("1");
+			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 			doc.setForeignKey(processID);
 			serviceManager.documentRepo.save(doc);
@@ -285,7 +284,7 @@ public class AjaxController {
 			Document doc = new Document();
 			doc.setDocName(supDetailsDto.getCcFileName());
 			doc.setDocPath(fullFilePathWithName);
-			doc.setStatus("1");
+			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 			doc.setForeignKey(processID);
 			serviceManager.documentRepo.save(doc);
@@ -305,7 +304,7 @@ public class AjaxController {
 			Document doc = new Document();
 			doc.setDocName(supDetailsDto.getAcFileName());
 			doc.setDocPath(fullFilePathWithName);
-			doc.setStatus("1");
+			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 			doc.setForeignKey(processID);
 			serviceManager.documentRepo.save(doc);
@@ -325,7 +324,7 @@ public class AjaxController {
 			Document doc = new Document();
 			doc.setDocName(supDetailsDto.getAplFileName());
 			doc.setDocPath(fullFilePathWithName);
-			doc.setStatus("1");
+			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 			doc.setForeignKey(processID);
 			serviceManager.documentRepo.save(doc);
@@ -345,7 +344,7 @@ public class AjaxController {
 			Document doc = new Document();
 			doc.setDocName(supDetailsDto.getItrFileName());
 			doc.setDocPath(fullFilePathWithName);
-			doc.setStatus("1");
+			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 			doc.setForeignKey(processID);
 			serviceManager.documentRepo.save(doc);
@@ -364,7 +363,7 @@ public class AjaxController {
 			Document doc = new Document();
 			doc.setDocName(supDetailsDto.getFuvfFileName());
 			doc.setDocPath(fullFilePathWithName);
-			doc.setStatus("1");
+			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 			doc.setForeignKey(processID);
 			serviceManager.documentRepo.save(doc);
@@ -384,7 +383,7 @@ public class AjaxController {
 			Document doc = new Document();
 			doc.setDocName(supDetailsDto.getMsmecFileName());
 			doc.setDocPath(fullFilePathWithName);
-			doc.setStatus("1");
+			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 			doc.setForeignKey(processID);
 			serviceManager.documentRepo.save(doc);
@@ -404,7 +403,7 @@ public class AjaxController {
 			Document doc = new Document();
 			doc.setDocName(supDetailsDto.getAmFileName());
 			doc.setDocPath(fullFilePathWithName);
-			doc.setStatus("1");
+			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 			doc.setForeignKey(processID);
 			serviceManager.documentRepo.save(doc);
@@ -424,7 +423,7 @@ public class AjaxController {
 			Document doc = new Document();
 			doc.setDocName(supDetailsDto.getItraFileName1());
 			doc.setDocPath(fullFilePathWithName);
-			doc.setStatus("1");
+			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 			doc.setForeignKey(processID);
 			serviceManager.documentRepo.save(doc);
@@ -444,7 +443,7 @@ public class AjaxController {
 			Document doc = new Document();
 			doc.setDocName(supDetailsDto.getItraFileName2());
 			doc.setDocPath(fullFilePathWithName);
-			doc.setStatus("1");
+			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 			doc.setForeignKey(processID);
 			serviceManager.documentRepo.save(doc);
@@ -464,7 +463,7 @@ public class AjaxController {
 			Document doc = new Document();
 			doc.setDocName(supDetailsDto.getItraFileName3());
 			doc.setDocPath(fullFilePathWithName);
-			doc.setStatus("1");
+			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 			doc.setForeignKey(processID);
 			serviceManager.documentRepo.save(doc);
@@ -484,7 +483,7 @@ public class AjaxController {
 			Document doc = new Document();
 			doc.setDocName(supDetailsDto.getNmisFileName());
 			doc.setDocPath(fullFilePathWithName);
-			doc.setStatus("1");
+			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 			doc.setForeignKey(processID);
 			serviceManager.documentRepo.save(doc);

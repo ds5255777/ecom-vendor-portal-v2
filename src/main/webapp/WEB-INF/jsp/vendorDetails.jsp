@@ -1502,7 +1502,7 @@ th, td,tr {
                          document.getElementById('compGstn').value + '</td><td>' +
                          document.getElementById('addDetails').value + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
-                 document.getElementById('state').value = ""; */
+                 document.getElementById('state').value = "";
                 document.getElementById('city').value = "";
                 document.getElementById('pinCode').value = "";
                 document.getElementById('states').value = "";

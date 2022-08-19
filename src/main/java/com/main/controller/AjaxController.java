@@ -206,7 +206,7 @@ public class AjaxController {
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
-		String filePath = "C:/1.BPAAS/VendorPortal/" + processID;
+		String filePath = filepaths + processID;
 		String fullFilePathWithName = "";
 		File file1 = new File(filePath);
 

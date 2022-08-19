@@ -437,12 +437,8 @@ public class TripControllers {
 		try {
 
 			List<String> list = serviceManager.tripDetailsRepo.getTripId(vendorCode);
-
-			List<InvoiceGenerationDto> draftInvoice = list.stream()
-					.map(draftinvoiceList -> this.serviceManager.modelMapper.map(draftinvoiceList,
-							InvoiceGenerationDto.class))
-					.collect(Collectors.toList());
-			data.setData(draftInvoice);
+			
+			data.setData(list);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {

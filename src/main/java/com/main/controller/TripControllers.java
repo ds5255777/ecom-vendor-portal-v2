@@ -34,7 +34,6 @@ import com.main.db.bpaas.entity.MailContent;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.TripDetails;
-import com.main.payloads.InvoiceGenerationDto;
 import com.main.payloads.QueryEntityDTO;
 import com.main.payloads.TripDetailsDto;
 import com.main.servicemanager.ServiceManager;

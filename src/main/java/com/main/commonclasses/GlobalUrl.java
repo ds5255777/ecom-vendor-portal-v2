@@ -90,6 +90,7 @@ public class GlobalUrl {
 	public static final String getMasterById=masterController+"/getMasterById";
 	public static final String saveUpdateMasterDetails=masterController+"/saveUpdateMasterDetails";
 	public static final String deleteMaster=masterController+"/deleteMaster";
+	public static final String saveAgreementList = masterController+"/saveAgreementList";
 	
 	 public static final String poController="poController";
 	 public static final String getAllPODetails=poController+"/getAllPODetails";

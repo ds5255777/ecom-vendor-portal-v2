@@ -120,4 +120,20 @@ public class MasterController {
 		return gson.toJson(data);
 	}
 
+	@RequestMapping({ "/saveAgreementList" })
+	public String saveCommodityList(@RequestBody List<AgreementMaster> objList) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		try {
+			for (AgreementMaster createCommodityEntity : objList) {
+				serviceManager.agreementMasterRepo.save(createCommodityEntity);
+			}
+			data.setMsg("success");
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+		return gson.toJson(data).toString();
+	}
 }

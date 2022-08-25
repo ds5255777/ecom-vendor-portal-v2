@@ -235,8 +235,23 @@ request.setAttribute("financeRole", financeRole);
 												Download Template
 											</a>
 										</div>
-									</div>
 									
+									<div class="btn btn-default btn-file"
+											style="background-color: #007bff; color: white;">
+											<i class="fas fa-paperclip"></i> Upload Excel <input
+												type="file" style="cursor: pointer;" id="readExcel"
+												accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+												name="attachment">
+										</div>
+										
+										<!-- <div class="btn btn-default btn-file"
+											style="background-color: #007bff; color: white;">
+											<i class="fas fa-paperclip"></i> Upload Excel (Update) <input
+												type="file" style="cursor: pointer;" id="readExcelUpdate" onchange="handleFileSelectForExcelUpdate(event)"
+												accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+												name="attachmentUpdate">
+										</div> -->
+									</div>
 								</form>
 							</div>
 						</div>
@@ -460,8 +475,57 @@ request.setAttribute("financeRole", financeRole);
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="excelUploadModal" role="dialog">
+		<div class="modal-dialog " style="max-width: 1050px;">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body">
+
+					<div class="col-md-12">
+						<div class="table-reponsive">
+
+							<table id="tabledataExcelUpload" class="table table-bordered">
+								<thead>
+									<tr>
+										<th class="bg-primary">Route</th>
+										<th class="bg-primary">Vendor Name</th>
+										<th class="bg-primary">Vendor Code</th>
+										<th class="bg-primary">Type</th>
+										<th class="bg-primary">Origin</th>
+										<th class="bg-primary">City Name</th>
+										<th class="bg-primary">State</th>
+										<th class="bg-primary">Vehicle Type</th>
+										<th class="bg-primary">Trip Cost</th>
+										<th class="bg-primary">Rate</th>
+										<th class="bg-primary">Base Rate</th>
+										<th class="bg-primary">Mileage/Km</th>
+										<th class="bg-primary">Max Kms</th>
+										<th class="bg-primary">Fuel Rate</th>
+										<th class="bg-primary">FS Diff</th>
+										<th class="bg-primary">Agreement Made Date</th>
+										<th class="bg-primary">Agreement Expiry Date</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+
+					<button type="button" class="btn btn-primary" id="excelUploadSaveBtn">Submit</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 	<script src="plugins/jquery/jquery.min.js"></script>
 	<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
 	<script>
 		$.widget.bridge('uibutton', $.ui.button);
 		$.widget.bridge('uitooltip', $.ui.tooltip);
@@ -512,6 +576,18 @@ request.setAttribute("financeRole", financeRole);
 	
 	
      <script type="text/javascript">
+     
+ 	var tabledataExcelUpload = $('#tabledataExcelUpload').DataTable({
+		"paging" : true,
+		"lengthChange" : false,
+		"searching" : true,
+		"info" : true,
+		"autoWidth" : false,
+		"aaSorting" : [],
+		"scrollX" : true,
+		"pageLength": 100
+		
+	});
            
            var tabledata = $('#tabledata').DataTable({
            	
@@ -526,19 +602,26 @@ request.setAttribute("financeRole", financeRole);
                dom: 'Bfrtip',
                buttons: [
 
-                   {
-                       extend: 'excelHtml5',
-
-                       exportOptions: {
-                           columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-                       }
-                   },
+            	   {
+		                  extend: 'excelHtml5',
+		                  title: '',
+		                  exportOptions: {
+		                  	columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+		                  	"format": {
+		                        "header": function(data, columnindex, trDOM, node){
+		                          // Here 2 is the index of the column 
+		                          // whose header name we want to change(0 based)
+		                        	return GetColumnPrefix(columnindex);
+		                        }
+		                      }
+		                   }
+		                  },
                    {
                        extend: 'pdfHtml5',
                        orientation: 'landscape',
                        pageSize: 'A4',
                        exportOptions: {
-                           columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+                           columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,  17],
                        },
                        customize: function(doc) {
 
@@ -595,6 +678,53 @@ request.setAttribute("financeRole", financeRole);
                    })
                }
            });
+           
+           
+           function GetColumnPrefix(colIndex) {
+			    switch (colIndex) {
+			    case 0:
+			    	  return "id";  
+			    case 1:
+			    	  return "route";
+			      case 2:
+			    	  return "vendorName";
+			      case 3:
+			    	  return "vendorCode";
+			      case 4:
+			    	  return "type";
+			      case 5:
+			    	  return "city";  
+			    case 6:
+			    	  return "cityName";
+			      case 7:
+			    	  return "state";
+			      case 8:
+			    	  return "vehicleType";
+			      case 9:
+			    	  return "tripCost";	
+			      case 10:
+			    	  return "rate";
+			      case 11:
+			    	  return "baseRate";
+			      case 12:
+			    	  return "stdMileagePerKm";
+			      case 13:
+			    	  return "maxKms";
+			      case 14:
+			    	  return "currentFuelRate";
+			      case 15:
+			    	  return "fsDiff";
+			      case 16:
+			    	  return "agreementMadeDate";
+			      case 17:
+			    	  return "agreementExpiryDate";
+			      
+			         // leave space after the prefix
+			    
+			      default:
+			        return "";
+			    }
+			  }
 
            $('#searchData').on( 'keyup', function () {
            	tabledata.search( this.value ).draw();
@@ -1154,7 +1284,164 @@ request.setAttribute("financeRole", financeRole);
       	        return new Date().toJSON().split('T')[0];
       	    });
       	});
-           
+          
+          
+       // for read Excel and convert to json Array	
+			var input_dom_element = document.getElementById("readExcel");
+			input_dom_element.addEventListener('change', handleFileSelectForExcel, false);
+			
+			var ExcelToJSON = function() {
+			
+		      this.parseExcel = function(file) {
+		        var reader = new FileReader();
+			
+		        reader.onload = function(e) {
+		          var data = e.target.result;
+		          var workbook = XLSX.read(data, {
+		            type: 'binary'
+		          });
+		          workbook.SheetNames.forEach(function(sheetName) {
+		            // Here is your object
+		            var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+		            var json_object = JSON.stringify(XL_row_object);	
+		            if(buttonType=="New"){
+		            	 jsonArray  = JSON.parse(json_object);
+				            console.log("new.."+jsonArray);
+				            
+					         showJsonArrayTable();
+		            }
+		            /* else if(buttonType=="Update"){
+		            	 jsonArrayUpdate  = JSON.parse(json_object);
+				            console.log("update.."+jsonArrayUpdate);
+				            updateCommodityData();
+		            } */
+		           
+		            jQuery( '#xlx_json' ).val( json_object );
+		          })
+		          
+		          // modify jsonArray 
+		          
+		          	
+		        };
+
+		        reader.onerror = function(ex) {
+		          console.log(ex);
+		        };
+
+		        reader.readAsBinaryString(file);
+		      };
+		  };
+		  
+		  function handleFileSelectForExcelUpdate(evt) {
+			  
+			  buttonType = "Update";
+			  
+			  jsonArrayUpdate=[];
+		    var filesUpdate = evt.target.files; // FileList object
+		    var xl2jsonUpdate = new ExcelToJSON();
+		    xl2jsonUpdate.parseExcel(filesUpdate[0]);
+		  }
+		  
+		  function handleFileSelectForExcel(evt) {
+			    buttonType="New";
+			  var files = evt.target.files; // FileList object
+			    var xl2json = new ExcelToJSON();
+			    xl2json.parseExcel(files[0]);
+			  }	
+		  
+		  function showJsonArrayTable(){
+				
+				tabledataExcelUpload.clear();
+				
+				 for(var i=0;i<jsonArray.length;i++){
+					 tabledataExcelUpload.row.add([ jsonArray[i].route,
+                  	   jsonArray[i].vendorName,
+                	   jsonArray[i].vendorCode,
+                	   jsonArray[i].type,
+                	   jsonArray[i].city,
+                	   jsonArray[i].cityName,
+                	   jsonArray[i].state,
+                	   jsonArray[i].vehicleType,
+                	   jsonArray[i].tripCost,
+                	   jsonArray[i].rate,
+                	   jsonArray[i].baseRate,
+                	   jsonArray[i].stdMileagePerKm,
+                	   jsonArray[i].maxKms,
+                	   jsonArray[i].currentFuelRate,
+                	   jsonArray[i].fsDiff,
+                	   jsonArray[i].agreementMadeDate,
+                	   jsonArray[i].agreementExpiryDate  ]);
+		         }
+				 
+				 tabledataExcelUpload.draw();
+			     $("tbody").show();
+				
+				
+				$("#excelUploadModal").modal('show');
+			}
+		  
+		  $("#excelUploadSaveBtn").click(function () {
+				
+				if(jsonArray.length==0){
+					
+					Toast.fire({
+						type : 'warning',
+						title : 'No Data in Excel Sheet'
+					})
+					
+					return;
+				}
+				
+				$('.loader').show();
+				
+				$("#excelUploadSaveBtn").prop("disabled",true);
+				$.ajax({
+			      	type: "POST",
+			  		data:  JSON.stringify(jsonArray),
+			        url: "<%=GlobalUrl.saveAgreementList%>",
+					dataType : "json",
+					contentType : "application/json",
+					
+					success : function(data) {
+						$('.loader').hide();
+						if (data.msg == 'success') {	
+							
+							Toast.fire({
+								type : 'success',
+								title : 'Successfull..'
+							})
+							
+							$("#excelUploadModal").modal('hide');
+							
+							$("#projectsList").prop("disabled",false);
+							$("#sitesList").prop("disabled",false);
+							$("#categoryList").prop("disabled",false);
+							$("#subCategoryList").prop("disabled",false);
+							showUploadedFilesData();
+							$("#addForm")[0].reset();
+							arrayAttachment = [];
+							jsonArray=[];
+							getTableData();
+							$("#submitBtn").prop("disabled",false);
+							getData();
+						} else {
+							Toast.fire({
+								type : 'error',
+								title : 'Failed.. Try Again..'
+							})
+						}
+
+					},
+					error : function(jqXHR, textStatue, errorThrown) {
+						$('.loader').hide();
+						$("#excelUploadSaveBtn").prop("disabled",false);
+						
+						alert("failed, please try again");
+					}
+
+				});
+				
+			})
 
      </script>
 

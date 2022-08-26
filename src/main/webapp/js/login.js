@@ -74,7 +74,7 @@ function validateOnsubit() {
 	}
 
 	var captchaReturnType = validateCaptcha2();
-	validateOnClick();
+	//validateOnClick();
 	if (captchaReturnType) {
 
 		$("#target").submit();

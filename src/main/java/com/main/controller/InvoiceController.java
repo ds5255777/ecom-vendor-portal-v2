@@ -41,6 +41,7 @@ import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.payloads.InvoiceGenerationDto;
+import com.main.payloads.PoInvoiceDetailsDTO;
 import com.main.payloads.TripDetailsDto;
 import com.main.servicemanager.ServiceManager;
 
@@ -166,56 +167,6 @@ public class InvoiceController {
 						.collect(Collectors.toList());
 				data.setData(listOfInvoice);
 			}
-			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
-
-		} catch (Exception e) {
-			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
-		}
-
-		return gson.toJson(data);
-	}
-
-	@PostMapping({ "/getAllRejectInvoice" })
-	public String getAllRejectInvoice(Principal principal, @RequestBody List<InvoiceGenerationEntity> invoiceDetails) {
-
-		DataContainer data = new DataContainer();
-
-		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
-		String vendorCode = principal.getName();
-		try {
-			List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
-					.getAllRejectInvoice(vendorCode);
-
-			List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream()
-					.map(allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
-					.collect(Collectors.toList());
-			data.setData(listOfInvoice);
-			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
-
-		} catch (Exception e) {
-			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
-		}
-
-		return gson.toJson(data);
-	}
-
-	@PostMapping({ "/getAllInvoiceToBilling" })
-	public String getMonthallyInvoice(Principal principal, HttpServletRequest request) {
-
-		DataContainer data = new DataContainer();
-
-		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
-		String vendorCode = principal.getName();
-		try {
-			List<InvoiceGenerationEntity> pandingInvoice = serviceManager.invoiceGenerationEntityRepo
-					.getAllRejectInvoice(vendorCode);
-
-			List<InvoiceGenerationDto> listOfInvoice = pandingInvoice.stream()
-					.map(allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
-					.collect(Collectors.toList());
-			data.setData(listOfInvoice);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
@@ -651,10 +602,10 @@ public class InvoiceController {
 		try {
 			List<PoInvoiceDetails> queryInvoice = serviceManager.poinvoiceRepo.getAllQueryInvoiceVendorPo(vendorCode);
 
-			List<InvoiceGenerationDto> listOfInvoice = queryInvoice.stream()
-					.map(allInvoice -> this.serviceManager.modelMapper.map(allInvoice, InvoiceGenerationDto.class))
+			List<PoInvoiceDetailsDTO> poQueryInvoice = queryInvoice.stream()
+					.map(allInvoice -> this.serviceManager.modelMapper.map(allInvoice, PoInvoiceDetailsDTO.class))
 					.collect(Collectors.toList());
-			data.setData(listOfInvoice);
+			data.setData(poQueryInvoice);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {

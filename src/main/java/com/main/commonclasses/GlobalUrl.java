@@ -57,9 +57,9 @@ public class GlobalUrl {
 	public static final String getAllInvoice=invoiceController+"/getAllInvoice";
 	public static final String getAllPendingInvoice=invoiceController+"/getAllPendingInvoice";
 	public static final String getAllApproveInvoice=invoiceController+"/getAllApproveInvoice";
-	public static final String getAllRejectInvoice=invoiceController+"/getAllRejectInvoice";
+	//public static final String getAllRejectInvoice=invoiceController+"/getAllRejectInvoice";
 	public static final String saveInvoice=invoiceController+"/saveInvoice";
-	public static final String getAllInvoiceToBilling=invoiceController+"/getAllInvoiceToBilling";
+	//public static final String getAllInvoiceToBilling=invoiceController+"/getAllInvoiceToBilling";
 	public static final String getLineItemDetails=invoiceController+"/getLineItemDetails";
 	public static final String getSelectInvoiceDetails=invoiceController+"/getSelectInvoiceDetails";
 	public static final String getAllDraftInvoice = invoiceController + "/getAllDraftInvoice";
@@ -90,6 +90,7 @@ public class GlobalUrl {
 	public static final String getMasterById=masterController+"/getMasterById";
 	public static final String saveUpdateMasterDetails=masterController+"/saveUpdateMasterDetails";
 	public static final String deleteMaster=masterController+"/deleteMaster";
+	public static final String saveAgreementList = masterController+"/saveAgreementList";
 	
 	 public static final String poController="poController";
 	 public static final String getAllPODetails=poController+"/getAllPODetails";

@@ -34,8 +34,8 @@ public class RegistrationController {
 
 	public synchronized String generateVendorCode() {
 
-		String invoiceNumberPrefix = "Temp-";
-		return invoiceNumberPrefix.concat(new SimpleDateFormat("yyyyHHmmssSSS").format(new Date()));
+		String vendorCodePrefix = "Temp-";
+		return vendorCodePrefix.concat(new SimpleDateFormat("yyyyHHmmssSSS").format(new Date()));
 	}
 
 	@PostMapping({ "/getPendingRequest" })

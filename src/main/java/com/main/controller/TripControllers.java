@@ -34,7 +34,6 @@ import com.main.db.bpaas.entity.MailContent;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.TripDetails;
-import com.main.payloads.InvoiceGenerationDto;
 import com.main.payloads.QueryEntityDTO;
 import com.main.payloads.TripDetailsDto;
 import com.main.servicemanager.ServiceManager;
@@ -437,12 +436,8 @@ public class TripControllers {
 		try {
 
 			List<String> list = serviceManager.tripDetailsRepo.getTripId(vendorCode);
-
-			List<InvoiceGenerationDto> draftInvoice = list.stream()
-					.map(draftinvoiceList -> this.serviceManager.modelMapper.map(draftinvoiceList,
-							InvoiceGenerationDto.class))
-					.collect(Collectors.toList());
-			data.setData(draftInvoice);
+			
+			data.setData(list);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {

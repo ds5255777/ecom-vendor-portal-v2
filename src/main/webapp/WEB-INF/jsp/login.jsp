@@ -57,7 +57,7 @@
                     <span style="color: red">${error} ${message}</span>
                     <p id="demo"></p>
                 </div>
-                <label for="username" style="font-weight: bolder;">User ID</label> <input class="form-control" id="username" name="username" type="text" data-role="tagsinput" placeholder="User Id" required><br>
+                <label for="username" style="font-weight: bolder;">User ID</label> <input class="form-control" id="username" name="username" type="text" data-role="tagsinput" placeholder="User Id" oninput="this.value = this.value.replace(/[^0-9-_A-Za-z]/g, '').replace(/(\..*)\./g, '$1');" required><br>
                 <label for="password" style="font-weight: bolder;">Password</label>
                 <input class="form-control" id="password" name="password" type="password" placeholder="Password" required><br> <input type="hidden" name="" value="" />
 

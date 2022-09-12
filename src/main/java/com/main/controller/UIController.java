@@ -63,9 +63,8 @@ public class UIController {
 	private static Logger logger = LoggerFactory.getLogger(UIController.class);
 
 	@GetMapping({ "/login" })
-	public String login(Model model, String error, String logout, HttpServletRequest request) {
+	public String login(Model model, Principal principal, String error, String logout, HttpServletRequest request) {
 		model.addAttribute("userForm", new User());
-
 		if (error != null) {
 			model.addAttribute("error", "Your username and password is invalid.");
 
@@ -448,7 +447,8 @@ public class UIController {
 		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
 
 			List<RolesEntity> roleList = serviceManager.rolesRepository.findByIsActive(GlobalConstants.ACTIVE_STATUS);
-			List<RolesEntity> role = serviceManager.rolesRepository.findByIsActiveAndRoleNameNot(GlobalConstants.ACTIVE_STATUS, GlobalConstants.ROLE_VENDOR);
+			List<RolesEntity> role = serviceManager.rolesRepository
+					.findByIsActiveAndRoleNameNot(GlobalConstants.ACTIVE_STATUS, GlobalConstants.ROLE_VENDOR);
 			model.addAttribute("rolesList", roleList);
 			model.addAttribute("role", role);
 
@@ -463,11 +463,12 @@ public class UIController {
 	}
 
 	@GetMapping({ "/emailConfig" })
-	public String emailConfig(Model model,Principal principal, String error, String logout, HttpServletRequest request) {
+	public String emailConfig(Model model, Principal principal, String error, String logout,
+			HttpServletRequest request) {
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
-		return "emailConfig";
+			return "emailConfig";
 		}
 		return "";
 	}
@@ -503,7 +504,7 @@ public class UIController {
 	public String allTrips(Model model, Principal principal, HttpServletRequest request) {
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
-		
+
 		String currentDate = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER_DD_MM_YYYY).format(new Date());
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("dataLimit", dataLimit);

@@ -132,7 +132,7 @@ public class MasterController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			e.printStackTrace();
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 		return gson.toJson(data).toString();
 	}

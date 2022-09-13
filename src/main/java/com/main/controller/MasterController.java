@@ -134,6 +134,6 @@ public class MasterController {
 			data.setMsg("error");
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
-		return gson.toJson(data).toString();
+		return gson.toJson(data);
 	}
 }

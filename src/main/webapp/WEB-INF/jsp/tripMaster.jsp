@@ -244,13 +244,6 @@ request.setAttribute("financeRole", financeRole);
 												name="attachment">
 										</div>
 										
-										<!-- <div class="btn btn-default btn-file"
-											style="background-color: #007bff; color: white;">
-											<i class="fas fa-paperclip"></i> Upload Excel (Update) <input
-												type="file" style="cursor: pointer;" id="readExcelUpdate" onchange="handleFileSelectForExcelUpdate(event)"
-												accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-												name="attachmentUpdate">
-										</div> -->
 									</div>
 								</form>
 							</div>
@@ -478,7 +471,7 @@ request.setAttribute("financeRole", financeRole);
 	
 	<div class="modal fade" id="excelUploadModal" role="dialog">
 		<div class="modal-dialog " style="max-width: 1050px;">
-			<!-- Modal content-->
+			
 			<div class="modal-content">
 				<div class="modal-body">
 

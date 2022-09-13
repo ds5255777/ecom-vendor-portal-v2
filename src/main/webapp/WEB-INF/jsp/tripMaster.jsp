@@ -517,8 +517,7 @@ request.setAttribute("financeRole", financeRole);
 	
 	<script src="plugins/jquery/jquery.min.js"></script>
 	<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+	
 	<script>
 		$.widget.bridge('uibutton', $.ui.button);
 		$.widget.bridge('uitooltip', $.ui.tooltip);

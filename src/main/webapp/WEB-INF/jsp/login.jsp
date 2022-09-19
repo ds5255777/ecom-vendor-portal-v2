@@ -25,7 +25,7 @@
 
 <body>
 
-    <div class="splitLeft left">
+    <div class="splitLeft left" style="overflow: hidden;">
         <img src="dist/img/vendorPortal.jpg" alt="Vendor Portal Logo" class="center brand-image" style="width: 70%;">
         <div style="text-align: center;">
             <h2 style="color: white;">Vendor Portal</h2>

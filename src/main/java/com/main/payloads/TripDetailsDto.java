@@ -36,9 +36,16 @@ public class TripDetailsDto {
 	private Double basicFreight;
 	private Double fs;
 	private Double totalFreight;
+	/*
+	 * @NotNull
+	 * 
+	 * @NotBlank
+	 * 
+	 * @Pattern(regexp = "^[0-9]{1,6}$")
+	 */
 	private String openingReading;
 	private String closingReading;
-	private String vendorTripStatus; 
+	private String vendorTripStatus;
 	private String paymentStatus;
 	private String assignTo;
 	private String invoiceNumber;

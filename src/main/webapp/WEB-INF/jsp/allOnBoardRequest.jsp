@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<%@ page import="com.main.commonclasses.GlobalConstants" %>
-<%@ page import="com.main.commonclasses.GlobalUrl" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html lang="en">
@@ -69,8 +67,8 @@
                                                 <th class="bg-primary">Process Id</th>
                                                 <th class="bg-primary">introduced by email id</th>
                                                 <th class="bg-primary">Introduced By Name</th>
-                                                <th class="bg-primary">Business Partner Name</th>
-                                                <th class="bg-primary">Business Partner Type</th>
+                                                <th class="bg-primary">Supplier Name</th>
+                                                <th class="bg-primary">Supplier Type</th>
                                                 <th class="bg-primary">Status</th>
                                             </tr>
                                         </thead>
@@ -86,11 +84,6 @@
 
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-        $.widget.bridge('uitooltip', $.ui.tooltip);
-
-    </script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/chart.js/Chart.min.js"></script>
     <script src="plugins/sparklines/sparkline.js"></script>
@@ -109,79 +102,7 @@
     <script src="plugins/toastr/toastr.min.js"></script>
     <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
     <script src="plugins/jquery-validation/additional-methods.min.js"></script>
-
-    <script>
-		const Toast = Swal.mixin({
-			toast : true,
-			position : 'top-end',
-			showConfirmButton : false,
-			timer : 3000
-		});
-		var tabledata = $('#tabledata').DataTable({
-			"paging" : false,
-			"lengthChange" : false,
-			"searching" : false,
-			"info" : false,
-			"autoWidth" : false,
-			"aaSorting" : []
-		});
-		
-		var globalProcessId = "";
-		
-pendingRequest();
-        function pendingRequest() {
-            $('.loader').show();
-            $.ajax({
-                type: "POST",
-                data: "",
-                url: "<%=GlobalUrl.getAllRequest%>",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(data) {
-                    $('.loader').hide();
-                    if (data.msg == 'success') {
-                        var result = data.data;
-                        tabledata.clear();
-                        for (var i = 0; i < result.length; i++) {
-                            var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#vendorValue\" onclick=\"setVenRegStatus('" + result[i].pid + "','Vendor View')\" >" + result[i].pid + "</button>";
-                            tabledata.row.add([
-                            	view, 
-                            	result[i].introducedByEmailID,
-                            	result[i].introducedByName, 
-                            	result[i].suppName,
-                            	result[i].vendorType,
-                            	result[i].venStatus]);
-                        }
-                        tabledata.draw();
-                        $("tbody").show();
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed.. Try Again..'
-                        })
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-            });
-        }
-        
-        function setVenRegStatus(pid){
-        	globalProcessId = "";
-        	globalProcessId = pid;
-        	console.log(globalProcessId);
-        }
-        
-        function setVenRegStatus(pid, status) {
-            $('.loader').show();
-            var urlOftripsDetail = "vendorView?pid=" +btoa(pid)+"&status="+btoa(status);
-            window.open(urlOftripsDetail, "vendorView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
-            $('.loader').hide();
-        }
-        
-        
-        </script>
+    <script src="js/allOnBoardRequest.js"></script>
 
 </body>
 

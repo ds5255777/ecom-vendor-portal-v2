@@ -18,7 +18,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,8 +101,8 @@ public class UIController {
 		String vendorType1 = new String(decoder.decode(request.getParameter("vendorType")));
 		String[] strSplit = vendorType1.split(",");
 		ArrayList<String> vendorType2 = new ArrayList<>(Arrays.asList(strSplit));
-		String region1 = new String(decoder.decode(request.getParameter("region")));
-		String vendorAddress = new String(decoder.decode(request.getParameter("vendorAddress")));
+		String region1 = new String(decoder.decode(request.getParameter("resgion")));
+		String creditTerms = new String(decoder.decode(request.getParameter("creditTerms")));
 		String processBy = new String(decoder.decode(request.getParameter("processBy")));
 		String processByEmailId = new String(decoder.decode(request.getParameter("processByEmailId")));
 
@@ -122,7 +121,7 @@ public class UIController {
 		model.addAttribute("vendorEmail", vendorEmail);
 		model.addAttribute("vendorType2", vendorType2);
 		model.addAttribute("region1", region1);
-		model.addAttribute("vendorAddress", vendorAddress);
+		model.addAttribute("creditTerms", creditTerms);
 		model.addAttribute("processBy", processBy);
 		model.addAttribute("processByEmailId", processByEmailId);
 
@@ -430,8 +429,9 @@ public class UIController {
 		} else if (rolename.equalsIgnoreCase("Commercial Team")) {
 			List<String> vendorType1 = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
 			List<String> region = serviceManager.regionRepo.getRegion();
-
+			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
 			model.addAttribute("region", region);
+			model.addAttribute("payment", payment);
 			model.addAttribute("vendorType", vendorType1);
 			return "triggerEmail";
 		}
@@ -458,7 +458,7 @@ public class UIController {
 			return "addUsers";
 
 		}
-		return "";
+		return "error";
 
 	}
 
@@ -470,34 +470,25 @@ public class UIController {
 		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
 			return "emailConfig";
 		}
-		return "";
+		return "error";
 	}
 
 	@GetMapping({ "/triggerEmail" })
-	public String triggerEmail(Model model, String error, String logout, HttpServletRequest request) {
+	public String triggerEmail(Model model, Principal principal, String error, String logout,
+			HttpServletRequest request) {
 
-		List<String> vendorType = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
-		List<String> region = serviceManager.regionRepo.getRegion();
+		String userName = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
+			List<String> vendorType = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+			List<String> region = serviceManager.regionRepo.getRegion();
 
-		model.addAttribute("region", region);
-		model.addAttribute("vendorType", vendorType);
-		return "triggerEmail";
-	}
+			model.addAttribute("region", region);
+			model.addAttribute("vendorType", vendorType);
+			return "triggerEmail";
+		}
+		return "error";
 
-	@GetMapping("/logout")
-	public String logout(Model model, String error, String logout, HttpServletRequest request, HttpSession session) {
-
-		session.removeAttribute("titleName");
-		session.removeAttribute("logoPath");
-		session.removeAttribute("sideLogoName");
-		session.removeAttribute("userName");
-		session.removeAttribute("userId");
-		session.removeAttribute("firstName");
-		session.removeAttribute("lastName");
-		session.removeAttribute("role");
-		session.removeAttribute("fullName");
-		session.invalidate();
-		return "login";
 	}
 
 	@GetMapping("/allTrips")
@@ -516,7 +507,7 @@ public class UIController {
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
 			return "allTrips";
 		}
-		return "";
+		return "error";
 	}
 
 	@GetMapping("/tripDetailsView")
@@ -697,12 +688,13 @@ public class UIController {
 		model.addAttribute("flag", flag);
 		model.addAttribute("stateName", stateName);
 
-		if (rolename.equalsIgnoreCase("Admin")) {
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)
+				|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_CCOMMERCIAL_TEAM)) {
 
 			return "vendorRegistrastion";
 
 		}
-		return "";
+		return "error";
 	}
 
 	@GetMapping("/dashbaordNetwork")
@@ -729,9 +721,12 @@ public class UIController {
 
 	@GetMapping("/getApprovedAdhocTrips")
 	public String getApprovedAdhocTrips(Model model, Principal principal) {
-		List<TripDetails> allApprovedTripscount = serviceManager.tripService.findAllTripsByStatus("Yet To Be Approved");
-		model.addAttribute("ApprovedAllDetailsForNetwork", allApprovedTripscount);
-		model.addAttribute("dataLimit", dataLimit);
+		/*
+		 * List<TripDetails> allApprovedTripscount =
+		 * serviceManager.tripService.findAllTripsByStatus("Yet To Be Approved");
+		 * model.addAttribute("ApprovedAllDetailsForNetwork", allApprovedTripscount);
+		 * model.addAttribute("dataLimit", dataLimit);
+		 */
 		return "getApprovedAdhocTrips";
 	}
 
@@ -747,10 +742,7 @@ public class UIController {
 
 	@GetMapping("/ClosedAdhoc")
 	public String closedAdhoc(Model model, Principal principal) {
-		List<TripDetails> allDetailsForNetwork = serviceManager.tripService
-				.getInTransitTripByRunTypeAndRunStatus("Adhoc", "Closed");
-		model.addAttribute("AllDetailsForNetwork", allDetailsForNetwork);
-		model.addAttribute("dataLimit", dataLimit);
+
 		return "ClosedAdhoc";
 	}
 
@@ -766,73 +758,81 @@ public class UIController {
 	public String tripsInvoiceGenerate(Principal principal, HttpServletRequest request, Model model) {
 
 		String userName = principal.getName();
-		String invoiceNumber = "";
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+			String invoiceNumber = "";
 
-		invoiceNumber = generateInvoiceNumber();
+			invoiceNumber = generateInvoiceNumber();
 
-		InvoiceNumber inNumber = new InvoiceNumber();
-		inNumber.setEcomInvoiceNumber(invoiceNumber);
-		inNumber.setStatus("Used_Trip_Invoice");
-		serviceManager.invoiceNumberRepo.save(inNumber);
+			InvoiceNumber inNumber = new InvoiceNumber();
+			inNumber.setEcomInvoiceNumber(invoiceNumber);
+			inNumber.setStatus("Used_Trip_Invoice");
+			serviceManager.invoiceNumberRepo.save(inNumber);
 
-		model.addAttribute("invoiceNumber", invoiceNumber);
-		request.getSession().setAttribute("invoiceNumber", invoiceNumber);
+			model.addAttribute("invoiceNumber", invoiceNumber);
+			request.getSession().setAttribute("invoiceNumber", invoiceNumber);
 
-		Base64.Decoder decoder = Base64.getDecoder();
+			String eInvoiceStatus = serviceManager.supDetailsRepo.getEInvoiceStatusByVendorCode(userName);
+			model.addAttribute("eInvoiceStatus", eInvoiceStatus);
 
-		String tripId = new String(decoder.decode(request.getParameter("id")));
-		model.addAttribute("maxFileSize", maxFileSize);
-		model.addAttribute("fileSize", fileSize);
-		model.addAttribute("tripId", tripId);
-		model.addAttribute("userName", userName);
+			Base64.Decoder decoder = Base64.getDecoder();
 
-		String tripUpdateId = tripId;
-		tripUpdateId = tripUpdateId.replace(",", " ");
+			String tripId = new String(decoder.decode(request.getParameter("id")));
+			model.addAttribute("maxFileSize", maxFileSize);
+			model.addAttribute("fileSize", fileSize);
+			model.addAttribute("tripId", tripId);
+			model.addAttribute("userName", userName);
 
-		String[] split = tripUpdateId.split(" ");
-		TripDetails findByTripID = null;
+			String tripUpdateId = tripId;
+			tripUpdateId = tripUpdateId.replace(",", " ");
 
-		try {
+			String[] split = tripUpdateId.split(" ");
+			TripDetails findByTripID = null;
 
-			for (String str : split) {
-				findByTripID = serviceManager.tripDetailsRepo.findByTripID(str);
+			try {
 
-				Date date = new Date();
-				DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-				String processedOn = dateFormat.format(date);
+				for (String str : split) {
+					findByTripID = serviceManager.tripDetailsRepo.findByTripID(str);
 
-				if (null != findByTripID.getTripID()) {
-					findByTripID.setVendorTripStatus("Draft-Invoicing");
-					findByTripID.setInvoiceNumber(invoiceNumber);
-					findByTripID.setProcessedOn(processedOn);
-					findByTripID.setProcessedBy(userName);
-					serviceManager.tripDetailsRepo.save(findByTripID);
+					Date date = new Date();
+					DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+					String processedOn = dateFormat.format(date);
+
+					if (null != findByTripID.getTripID()) {
+						findByTripID.setVendorTripStatus("Draft-Invoicing");
+						findByTripID.setInvoiceNumber(invoiceNumber);
+						findByTripID.setProcessedOn(processedOn);
+						findByTripID.setProcessedBy(userName);
+						serviceManager.tripDetailsRepo.save(findByTripID);
+					}
 				}
+				String vendorName = findByTripID.getVendorName();
+				model.addAttribute("vendorName", vendorName);
+				InvoiceGenerationEntity invoiceSave = new InvoiceGenerationEntity();
+				invoiceSave.setVendorName(vendorName);
+				invoiceSave.setEcomInvoiceNumber(invoiceNumber);
+				invoiceSave.setVendorCode(userName);
+				invoiceSave.setInvoiceStatus("Draft-Invoicing");
+				serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
+			} catch (Exception e) {
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			}
-			String vendorName = findByTripID.getVendorName();
-			model.addAttribute("vendorName", vendorName);
-			InvoiceGenerationEntity invoiceSave = new InvoiceGenerationEntity();
-			invoiceSave.setVendorName(vendorName);
-			invoiceSave.setEcomInvoiceNumber(invoiceNumber);
-			invoiceSave.setVendorCode(userName);
-			invoiceSave.setInvoiceStatus("Draft-Invoicing");
-			serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
-		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+
+			List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber,
+					userName);
+			List<Object> listofTrips = new ArrayList<>();
+			for (TripDetails tripDetails : list) {
+				String tripID = tripDetails.getTripID();
+				listofTrips.add(tripID);
+
+			}
+			String currentDate = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER_DD_MM_YYYY).format(new Date());
+			model.addAttribute("currentDate", currentDate);
+			model.addAttribute("listofTrips", listofTrips);
+
+			return "draftInvoiceGenerate";
 		}
-
-		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber, userName);
-		List<Object> listofTrips = new ArrayList<>();
-		for (TripDetails tripDetails : list) {
-			String tripID = tripDetails.getTripID();
-			listofTrips.add(tripID);
-
-		}
-		String currentDate = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER_DD_MM_YYYY).format(new Date());
-		model.addAttribute("currentDate", currentDate);
-		model.addAttribute("listofTrips", listofTrips);
-
-		return "draftInvoiceGenerate";
+		return "error";
 	}
 
 	@GetMapping("/invoiceView")
@@ -850,28 +850,35 @@ public class UIController {
 	public String draftInvoiceGenerate(Model model, HttpServletRequest request, Principal principal) {
 
 		String vendorName = principal.getName();
-		Base64.Decoder decoder = Base64.getDecoder();
-		String invoiceNumber = new String(decoder.decode(request.getParameter("id")));
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(vendorName);
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 
-		model.addAttribute("maxFileSize", maxFileSize);
-		model.addAttribute("fileSize", fileSize);
-		model.addAttribute("invoiceNumber", invoiceNumber);
+			Base64.Decoder decoder = Base64.getDecoder();
+			String invoiceNumber = new String(decoder.decode(request.getParameter("id")));
+			String eInvoiceStatus = serviceManager.supDetailsRepo.getEInvoiceStatusByVendorCode(vendorName);
 
-		List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber,
-				vendorName);
+			model.addAttribute("maxFileSize", maxFileSize);
+			model.addAttribute("fileSize", fileSize);
+			model.addAttribute("invoiceNumber", invoiceNumber);
+			model.addAttribute("eInvoiceStatus", eInvoiceStatus);
 
-		List<Object> listofTrips = new ArrayList<>();
+			List<TripDetails> list = serviceManager.tripDetailsRepo.getTripStatusIsDraftInvoicing(invoiceNumber,
+					vendorName);
 
-		for (TripDetails tripDetails : list) {
-			String tripID = tripDetails.getTripID();
-			listofTrips.add(tripID);
-			vendorName = tripDetails.getVendorName();
+			List<Object> listofTrips = new ArrayList<>();
+
+			for (TripDetails tripDetails : list) {
+				String tripID = tripDetails.getTripID();
+				listofTrips.add(tripID);
+				vendorName = tripDetails.getVendorName();
+			}
+			String currentDate = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER_DD_MM_YYYY).format(new Date());
+			model.addAttribute("currentDate", currentDate);
+			model.addAttribute("vendorName", vendorName);
+			model.addAttribute("listofTrips", listofTrips);
+			return "draftInvoiceGenerate";
 		}
-		String currentDate = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER_DD_MM_YYYY).format(new Date());
-		model.addAttribute("currentDate", currentDate);
-		model.addAttribute("vendorName", vendorName);
-		model.addAttribute("listofTrips", listofTrips);
-		return "draftInvoiceGenerate";
+		return "error";
 	}
 
 	@GetMapping("/changePassword")
@@ -938,14 +945,20 @@ public class UIController {
 	@GetMapping("/queryInvoiceEdit")
 	public String queryInvoiceEdit(Model model, HttpServletRequest request, Principal principal) {
 
-		Base64.Decoder decoder = Base64.getDecoder();
-		model.addAttribute("maxFileSize", maxFileSize);
-		String invoiceNumber = new String(decoder.decode(request.getParameter("id")));
-		String invoiceType = new String(decoder.decode(request.getParameter("type")));
-		model.addAttribute("fileSize", fileSize);
-		model.addAttribute("invoiceNumber", invoiceNumber);
-		model.addAttribute("type", invoiceType);
-		return "queryInvoiceEdit";
+		String userName = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+
+			Base64.Decoder decoder = Base64.getDecoder();
+			model.addAttribute("maxFileSize", maxFileSize);
+			String invoiceNumber = new String(decoder.decode(request.getParameter("id")));
+			String invoiceType = new String(decoder.decode(request.getParameter("type")));
+			model.addAttribute("fileSize", fileSize);
+			model.addAttribute("invoiceNumber", invoiceNumber);
+			model.addAttribute("type", invoiceType);
+			return "queryInvoiceEdit";
+		}
+		return "error";
 	}
 
 	@GetMapping("/getDoc")
@@ -973,8 +986,14 @@ public class UIController {
 
 	@GetMapping("/dashboardRegistration")
 	public String dashboardRegistration(Model model, HttpServletRequest request, Principal principal) {
-		model.addAttribute("dataLimit", dataLimit);
-		return "dashboardRegistration";
+		String userName = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
+
+			model.addAttribute("dataLimit", dataLimit);
+			return "dashboardRegistration";
+		}
+		return "error";
 	}
 
 	@GetMapping("/vendorView")
@@ -998,6 +1017,12 @@ public class UIController {
 	public String allOnBoardRequest(Model model, HttpServletRequest request, Principal principal) {
 		model.addAttribute("dataLimit", dataLimit);
 		return "allOnBoardRequest";
+	}
+
+	@GetMapping("/users")
+	public String users(Model model, HttpServletRequest request, Principal principal) {
+
+		return "error";
 	}
 
 }

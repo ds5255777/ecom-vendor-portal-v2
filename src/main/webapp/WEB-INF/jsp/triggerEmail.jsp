@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<%@ page import="com.main.commonclasses.GlobalUrl" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-    
+
 <html lang="en">
 
 <head>
@@ -27,7 +26,7 @@
     <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-	
+
 
     <style>
         label {
@@ -50,30 +49,34 @@
             vertical-align: top;
             border-top: 1px solid #dee2e6;
         }
-		.select2 {
-			width: 100% !important;
-		}
-	.select2-container--default .select2-selection--multiple .select2-selection__choice {
-		margin-top: 5px;
-    padding: 0;
-    padding-left: 20px;
-    position: relative;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    vertical-align: bottom;
-    white-space: nowrap;
-    color: black;
-}
-.required {
-	color: red;
-}
+
+        .select2 {
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            margin-top: 5px;
+            padding: 0;
+            padding-left: 20px;
+            position: relative;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: bottom;
+            white-space: nowrap;
+            color: black;
+        }
+
+        .required {
+            color: red;
+        }
+
     </style>
 
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
-<jsp:include page="loader.jsp" />
+    <jsp:include page="loader.jsp" />
     <div class="wrapper">
 
         <jsp:include page="navbar.jsp?pagename=Commercial Team" />
@@ -109,28 +112,28 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Vendor Email Id<span class="required">*</span></label> <input type="text" name="vendorEmail"  placeholder="Vendor Email Id" class="form-control" id="vendorEmail" maxlength="50" >
+                                                    <label for="exampleInputserverName1">Vendor Email Id<span class="required">*</span></label> <input type="text" name="vendorEmail" placeholder="Vendor Email Id" class="form-control" id="vendorEmail" maxlength="50">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                      <label for="vendorType">Vendor Type<span class="required">*</span>
-                                                        </label>
-                                                      <select class="js-example-basic-multiple1 select2" name="vendorType" id="vendorType" multiple="multiple" >
-                                            	
-                                                            <c:forEach items="${vendorType}" var="type">
-																<option value="${type}">${type}</option>
-                                                            </c:forEach>
+                                                    <label for="vendorType">Vendor Type<span class="required">*</span>
+                                                    </label>
+                                                    <select class="js-example-basic-multiple1 select2" name="vendorType" id="vendorType" multiple="multiple">
 
-                                                        </select>
+                                                        <c:forEach items="${vendorType}" var="type">
+                                                            <option value="${type}">${type}</option>
+                                                        </c:forEach>
+
+                                                    </select>
                                                 </div>
 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-												<label>Region<span class="required">*</span></label>
+                                                    <label for="region">Region<span class="required">*</span></label>
 
-                                                <select  class="js-example-basic-multiple1 select2" name="region" id="region" multiple="multiple" >
+                                                    <select class="js-example-basic-multiple1 select2" name="region" id="region" multiple="multiple">
                                                         <c:forEach items="${region}" var="reg">
 
                                                             <option value="${reg}">&nbsp;${reg}</option>
@@ -141,7 +144,17 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="vendorAddress">Vendor Address<span class="required">*</span></label> <input type="text" id="vendorAddress" name="vendorAddress" placeholder="" maxlength="100" class="form-control" >
+                                                    <label for="creditTerms">Payment/Credit Terms<span class="required">*</span></label> 
+                                                    <select id="creditTerms" name="creditTerms"
+														class="form-control p-input">
+															<option value="">Select</option>
+															<c:forEach items="${payment}" var="pay">
+
+																<option value="${pay}">${pay}</option>
+															</c:forEach>
+
+													</select>
+                                                    <!-- <input type="text" id="vendorAddress" name="vendorAddress" placeholder="" maxlength="100" class="form-control"> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -168,12 +181,12 @@
                                     <table id="tabledata" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-primary" >Vendor Email Id</th>
+                                                <th class="bg-primary">Vendor Email Id</th>
                                                 <th class="bg-primary">Vendor Type</th>
-                                                <th class="bg-primary" >Region</th>
-                                               <th class="bg-primary" > Vendor Address</th>
-                                               <th class="bg-primary" > Email Process Date</th>
-                                               <th class="bg-primary" > Email Process By</th>
+                                                <th class="bg-primary">Region</th>
+                                                <th class="bg-primary">Payment/Credit Terms</th>
+                                                <th class="bg-primary"> Email Process Date</th>
+                                                <th class="bg-primary"> Email Process By</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -244,10 +257,6 @@
 
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-        $.widget.bridge('uitooltip', $.ui.tooltip);
-    </script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/sparklines/sparkline.js"></script>
 
@@ -262,16 +271,6 @@
 
     <script src="plugins/select2/js/select2.full.min.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var bootstrapTooltip = $.fn.tooltip.noConflict();
-            $.fn.bstooltip = bootstrapTooltip;
-            $('.quickHelp').bstooltip();
-        })
-
-    </script>
-
-
     <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
     <script src="plugins/jquery-validation/additional-methods.min.js"></script>
 
@@ -280,311 +279,9 @@
     <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="plugins/toastr/toastr.min.js"></script>
 
-    <script>
-        function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
-        }
+    <script src="js/triggerEmail.js"></script>
 
-        function filterFunction() {
-            var input, filter, ul, li, a, i;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            div = document.getElementById("myDropdown");
-            a = div.getElementsByTagName("a");
-            for (i = 0; i < a.length; i++) {
-                txtValue = a[i].textContent || a[i].innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    a[i].style.display = "";
-                } else {
-                    a[i].style.display = "none";
-                }
-            }
-        }
-
-    </script>
-
-
-    <script type="text/javascript">
-        var tabledata = $('#tabledata').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": true,
-            "info": true,
-            "autoWidth": false,
-            "aaSorting": [],
-            "scrollX": true
-        });
-        $(document).ready(function() {
-            $('.js-example-basic-multiple1').select2({
-            	zplaceholder: "Select Region",
-                allowClear: true
-    		
-            });
-            
-        });
-
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
-
-
-        $.validator.setDefaults({
-            submitHandler: function() {
-                addFormData();
-
-            }
-        });
-        $('#addForm').validate({
-
-            rules: {
-            	vendorEmail: {
-                    required: true,
-                    email: true
-                },
-                vendorType: {
-                    required: true
-
-                },
-                region: {
-
-                    required: true
-
-                },
-                vendorAddress: {
-                    required: true
-
-                }
-
-            },
-
-            errorElement: 'span',
-            errorPlacement: function(error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
-        });
-
-        $.validator.setDefaults({
-            submitHandler: function() {
-                updateFormData();
-
-            }
-        });
-        $('#updateForm').validate({
-
-            rules: {
-                userName: {
-                    required: true,
-                    email: true
-                },
-                password: {
-                    required: true
-
-                },
-                serverName: {
-
-                    required: true
-
-                },
-                smtpPort: {
-                    required: true
-
-                }
-
-            },
-
-            errorElement: 'span',
-            errorPlacement: function(error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
-        });
-
-
-        var id = "";
-        var status = "";
-
-       
-
-        function addFormData() {
-
-        	 var region=$("#region").val().toString();
-        	 
-        	 
-        	 
-
-            var json = {
-
-                "vendorEmail": $("#vendorEmail").val(),
-                "vendorType": $("#vendorType").val().toString(),
-                "region": region,
-                "vendorAddress": $("#vendorAddress").val()
-                
-            }
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(json),
-                url: "<%=GlobalUrl.sendEmailToVendor%>",
-                dataType: "json",
-                contentType: "application/json",
-                async: false,
-                success: function(data) {
-                	 $('.loader').hide();
-                    if (data.msg == 'success') {
-
-                        $('#addForm')[0].reset();
-
-                       
-                    	swal.fire("Email sent sucessfully", "", "success", "OK").then(function() {
-                    		$('#region').val("");
-                   		 $('#region').trigger('change');
-                   		$('#vendorType').val("");
-                  		 $('#vendorType').trigger('change');
-                    	});
-
-                        getData();
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed.. Try Again..'
-                        })
-                    }
-
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-
-            });
-
-        }
-
-           getData();
-
-        function getData() {
-
-
-            var json = {
-                "isActive": "1"
-            }
-
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(json),
-                url: "<%=GlobalUrl.getAllSentEmail%>",
-                dataType: "json",
-                contentType: "application/json",
-                async: false,
-                success: function(data) {
-
-                    if (data.msg == 'success') {
-
-                        var result = data.data;
-                        tabledata.clear();
-
-                        for (var i = 0; i < result.length; i++) {
-                        	
-                         	if(!result[i].hasOwnProperty("vendorEmail")){
-   								result[i].vendorEmail="";
-   							}
-                              if(!result[i].hasOwnProperty("vendorType")){
-        							result[i].vendorType="";
-        						}
-								if(!result[i].hasOwnProperty("region")){
-   								result[i].region="";
-   							}
-								if(!result[i].hasOwnProperty("vendorAddress")){
-	   								result[i].vendorAddress="";
-	   							}
-								if(!result[i].hasOwnProperty("processOn")){
-	   								result[i].processOn="";
-	   							}
-                               if(!result[i].hasOwnProperty("processBy")){
-   								result[i].processBy="";
-   							}
-                              
-
-                            tabledata.row.add([result[i].vendorEmail, result[i].vendorType, result[i].region, result[i].vendorAddress,result[i].processOn,result[i].processBy]);
-
-                        }
-
-                        tabledata.draw();
-                        $("tbody").show();
-
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed.. Try Again..'
-                        })
-                    }
-
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-
-            });
-
-        }
-
-
-        function inactiveActiveDeleteData(id) {
-
-            var json = {
-                "id": id,
-                "isActive": "0"
-            }
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(json),
-                url: "<%=GlobalUrl.updateEmailConfigurationSatatusByid%>",
-                dataType: "json",
-                contentType: "application/json",
-                async: false,
-                success: function(data) {
-
-                    if (data.msg == 'success') {
-
-                        Toast.fire({
-                            type: 'success',
-                            title: 'Deleted Successfully..'
-                        })
-
-
-                        getData();
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed.. Try Again..'
-                        })
-                    }
-
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-
-            });
-
-
-        }
-
-    </script>
 
 </body>
+
 </html>

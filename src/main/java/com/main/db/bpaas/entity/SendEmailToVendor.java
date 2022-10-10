@@ -9,11 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 @Entity
 @Table(name = "send_email_vendor")
 public class SendEmailToVendor {
@@ -29,6 +27,8 @@ public class SendEmailToVendor {
 	private String region;
 	@Column(name = "vendor_address")
 	private String vendorAddress;
+	@Column(name = "creditTerms")
+	private String creditTerms;
 	@Column(name = "process_on")
 	private Date processOn;
 	@Column(name = "process_by")

@@ -19,6 +19,8 @@ public class InvoiceGenerationDto {
 	private String invoiceDate;
 	private String invoiceNumber;
 	private String invoiceCurrency;
+	private String irnNumber;
+	private String eInvoiceApplibale;
 	private String invoiceAmount;
 	private String invoiceReceivingDate;
 	private String invoiceStatus;

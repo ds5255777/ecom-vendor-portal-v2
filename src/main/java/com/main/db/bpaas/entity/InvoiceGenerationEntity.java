@@ -13,13 +13,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
 @Table(name = "invoice_generation")
-@Getter
-@Setter
+@Data
 public class InvoiceGenerationEntity {
 
 	@Id
@@ -44,9 +42,17 @@ public class InvoiceGenerationEntity {
 	private String invoiceAmount;
 	@Column(name = "invoice_receiving_date")
 	private String invoiceReceivingDate;
-
+	
+	@Column(name = "e_invoice")
+	private String eInvoiceApplibale;
+	
+	@Column(name = "irn_number")
+	private String irnNumber;
+	
 	@Column(name = "invoice_status")
 	private String invoiceStatus;
+
+	
 	@Column(name = "assign_to")
 	private String assignTo;
 

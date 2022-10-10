@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<%@ page import="com.main.commonclasses.GlobalConstants" %>
-<%@ page import="com.main.commonclasses.GlobalUrl" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-    
+
 <html lang="en">
 
 <head>
@@ -61,7 +59,7 @@
                                     <i class="fa fa-tasks" style="color: chocolate; font-size: 50px;"></i>
 
                                 </div>
-                                <a href="#" class="small-box-footer" onclick="pendingRequest();" style="background: #007bffe0; color: white !important;">More
+                                <a href="#" class="small-box-footer" id="pendingRequest" style="background: #007bffe0; color: white !important;">More
                                     info <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
@@ -74,9 +72,9 @@
                                     <p id="oveTickets" data-toggle="tooltip" data-placement="bottom">Approved Request</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fa fa-user" style="color: #FAA654; font-size: 50px;" ></i>
+                                    <i class="fa fa-user" style="color: #FAA654; font-size: 50px;"></i>
                                 </div>
-                                <a href="#" class="small-box-footer" onclick="approvedRequest();" style="background: #007bffe0; color: white !important;">More
+                                <a href="#" class="small-box-footer" id="approvedRequest" style="background: #007bffe0; color: white !important;">More
                                     info <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
@@ -93,7 +91,7 @@
                                     <i class="fas fas fa-user-times" style="color: #f44336ab; font-size: 50px;"></i>
 
                                 </div>
-                                <a href="#" class="small-box-footer" onclick="rejectedRequest();" style="background: #007bffe0; color: white !important;">More
+                                <a href="#" class="small-box-footer" id="rejectedRequest" style="background: #007bffe0; color: white !important;">More
                                     info <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
@@ -110,13 +108,13 @@
                                 <div class="icon">
                                     <i class="fas fa fa-check" style="color: #28a745; font-size: 50px;"></i>
                                 </div>
-                                <a href="#" class="small-box-footer" onclick="queryRequest();" style="background: #007bffe0; color: white !important;">More
+                                <a href="#" class="small-box-footer" id="queryRequest" style="background: #007bffe0; color: white !important;">More
                                     info <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
-                   
+
                 </div>
             </section>
 
@@ -136,8 +134,8 @@
                                                 <th class="bg-primary">Process Id</th>
                                                 <th class="bg-primary">introduced by email id</th>
                                                 <th class="bg-primary">Introduced By Name</th>
-                                                <th class="bg-primary">Business Partner Name</th>
-                                                <th class="bg-primary">Business Partner Type</th>
+                                                <th class="bg-primary">Supplier Name</th>
+                                                <th class="bg-primary">Supplier Type</th>
                                                 <th class="bg-primary">Status</th>
                                             </tr>
                                         </thead>
@@ -163,7 +161,7 @@
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" onclick="approveInvoice()" id="updateBtnBtn" name="updateBtnBtn" class="btn btn-primary">Approve</button>
+                    <button type="button" id="updateBtnBtn" name="updateBtnBtn" class="btn btn-primary">Approve</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -201,11 +199,6 @@
     </div>
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-        $.widget.bridge('uitooltip', $.ui.tooltip);
-
-    </script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/chart.js/Chart.min.js"></script>
     <script src="plugins/sparklines/sparkline.js"></script>
@@ -224,206 +217,7 @@
     <script src="plugins/toastr/toastr.min.js"></script>
     <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
     <script src="plugins/jquery-validation/additional-methods.min.js"></script>
-<script>
-		const Toast = Swal.mixin({
-			toast : true,
-			position : 'top-end',
-			showConfirmButton : false,
-			timer : 3000
-		});
-
-		var tabledata = $('#tabledata').DataTable({
-			"paging" : false,
-			"lengthChange" : false,
-			"searching" : false,
-			"info" : false,
-			"autoWidth" : false,
-			"aaSorting" : []
-		});
-		
-		var globalProcessId = "";
-        pendingRequest();
-        function pendingRequest() {
-
-            $('.loader').show();
-            document.getElementById("lastInvoice").innerHTML = "Pending Request";
-            document.getElementById("allRequest").style.display = "block";
-            $.ajax({
-                type: "POST",
-                data: "",
-                url: "<%=GlobalUrl.getPendingRequest%>",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(data) {
-                    $('.loader').hide();
-                    if (data.msg == 'success') {
-                        var result = data.data;
-                        tabledata.clear();
-                        for (var i = 0; i < result.length; i++) {
-                            var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#vendorValue\" onclick=\"setVenRegStatus('" + result[i][0] + "','Pending Vendor')\" >" + result[i][0] + "</button>";
-                            tabledata.row.add([
-                            	view, 
-                            	result[i][1],
-                            	result[i][2], 
-                            	result[i][3],
-                            	result[i][4],
-                            	result[i][5]]);
-                        }
-                        tabledata.draw();
-                        $("tbody").show();
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed.. Try Again..'
-                        })
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-            });
-        }
-        
-        function setVenRegStatus(pid){
-        	globalProcessId = "";
-        	globalProcessId = pid;
-        	console.log(globalProcessId);
-        }
-        
-        function setVenRegStatus(pid, status) {
-            $('.loader').show();
-            var urlOftripsDetail = "vendorView?pid=" +btoa(pid)+"&status="+btoa(status);
-            window.open(urlOftripsDetail, "vendorView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
-            $('.loader').hide();
-        }
-        
-        function refereshList() {
-        	pendingRequest();
-        	location.reload();
-        	$('.loader').hide();
-        }
-        
-        function approvedRequest(){
-        	$('.loader').show();
-        	
-        	document.getElementById("lastInvoice").innerHTML = "Approved Request";
-        	document.getElementById("allRequest").style.display = "block";
-            $.ajax({
-                type: "POST",
-                data: "",
-                url: "<%=GlobalUrl.getApprovedRequest%>",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(data) {
-                    $('.loader').hide();
-                    if (data.msg == 'success') {
-                        var result = data.data;
-                        tabledata.clear();
-                        for (var i = 0; i < result.length; i++) {
-                            var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#vendorValue\" onclick=\"setVenRegStatus('" + result[i][0] + "','Approved Vendor')\" >" + result[i][0] + "</button>";
-                            tabledata.row.add([
-                            	view, 
-                            	result[i][1],
-                            	result[i][2], 
-                            	result[i][3],
-                            	result[i][4],
-                            	result[i][5]]);
-                        }
-                        tabledata.draw();
-                        $("tbody").show();
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed.. Try Again..'
-                        })
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-            });
-        }
-        
-        function rejectedRequest(){
-        	$('.loader').show();
-        	document.getElementById("lastInvoice").innerHTML = "Rejected Request";
-        	document.getElementById("allRequest").style.display = "block";
-            $.ajax({
-                type: "POST",
-                data: "",
-                url: "<%=GlobalUrl.getRejectedRequest%>",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(data) {
-                    $('.loader').hide();
-                    if (data.msg == 'success') {
-                        var result = data.data;
-                        tabledata.clear();
-                        for (var i = 0; i < result.length; i++) {
-                            var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#vendorValue\" onclick=\"setVenRegStatus('" + result[i][0] + "','Rejected Vendor')\" >" + result[i][0] + "</button>";
-                            tabledata.row.add([
-                            	view, 
-                            	result[i][1],
-                            	result[i][2], 
-                            	result[i][3],
-                            	result[i][4],
-                            	result[i][5]]);
-                        }
-                        tabledata.draw();
-                        $("tbody").show();
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed.. Try Again..'
-                        })
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-            });
-        }
-        
-		function queryRequest(){
-			$('.loader').show();
-			document.getElementById("lastInvoice").innerHTML = "Query";
-			document.getElementById("allRequest").style.display = "block";
-            $.ajax({
-                type: "POST",
-                data: "",
-                url: "<%=GlobalUrl.getQueryRequest%>",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(data) {
-                    $('.loader').hide();
-                    if (data.msg == 'success') {
-                        var result = data.data;
-                        tabledata.clear();
-                        for (var i = 0; i < result.length; i++) {
-                            var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#vendorValue\" onclick=\"setVenRegStatus('" + result[i][0] + "','Query Vendor')\" >" + result[i][0] + "</button>";
-                            tabledata.row.add([
-                            	view, 
-                            	result[i][1],
-                            	result[i][2], 
-                            	result[i][3],
-                            	result[i][4],
-                            	result[i][5]]);
-                        }
-                        tabledata.draw();
-                        $("tbody").show();
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed.. Try Again..'
-                        })
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again");
-                }
-            });
-        }
-	</script>
+    <script src="js/dashboardRegistration.js"></script>
 
 </body>
 

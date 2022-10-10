@@ -24,12 +24,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query(value = "select failed_attempt from users where username=:username ; ", nativeQuery = true)
 	int failedAttemptCount(@Param("username") String username);
-	
+
 	@Transactional
 	@Modifying
 	@Query(value = "update users set failed_attempt=:count  where username=:username ; ", nativeQuery = true)
 	void updateAttemptCount(String username, int count);
-	
+
 	@Transactional
 	@Modifying
 	@Query(value = "update users set status=:inactiveStatus  where username=:username ; ", nativeQuery = true)
@@ -116,5 +116,15 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query(value = "select  id from Users where bp_code=:bpCode ", nativeQuery = true)
 	Integer getUserId(String bpCode);
+
+	@Transactional
+	@Modifying
+	@Query(value = "update users set password=:password, email_id=:emailId, contact_no=:contactNo, status=:status where id=:id and username=:username ;", nativeQuery = true)
+	public void updateUserDetails(@Param("password") String password, @Param("emailId") String emailId,
+			@Param("contactNo") String contactNo, @Param("status") String status, @Param("id") Integer id,
+			@Param("username") String username);
+
+	@Query(value = "select users.status from users where users.bp_code=:bpCode ; ", nativeQuery = true)
+	String getVendorStatus(String bpCode);
 
 }

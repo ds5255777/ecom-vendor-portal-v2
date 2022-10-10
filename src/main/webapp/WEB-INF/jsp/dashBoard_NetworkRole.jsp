@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<%@ page import="com.main.commonclasses.GlobalConstants" %>
-<%@ page import="com.main.commonclasses.GlobalUrl" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -80,7 +78,7 @@
                         </div>
 
                         <div class="col-lg-2 col-6">
-                            
+
                             <div class="small-box bg-white">
                                 <div class="inner">
                                     <h2>${yetTobeApproved}</h2>
@@ -96,9 +94,9 @@
                             </div>
                         </div>
 
-                       
+
                         <div class="col-lg-2 col-6">
-                            
+
                             <div class="small-box bg-white">
                                 <div class="inner">
                                     <h2>${getTripCountForQueryAdhoc}</h2>
@@ -131,9 +129,9 @@
                             </div>
                         </div>
 
-                       
+
                         <div class="col-lg-2 col-6">
-                            
+
                             <div class="small-box bg-white">
                                 <div class="inner">
                                     <h2>${getAllInvoiceCount}</h2>
@@ -149,17 +147,17 @@
                             </div>
                         </div>
 
-                       
-                    </div>
-                    
-                   
 
-                    
+                    </div>
+
+
+
+
                 </div>
-                
+
             </section>
 
-            
+
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -170,7 +168,7 @@
                                     <h3 class="card-title" id="lastInvoice" data-toggle="tooltip" data-placement="bottom">Top
                                         50 Pending Approval Trips</h3>
                                 </div>
-                                
+
                                 <div class="card-body table-responsive p-0" style="height: 420px;">
                                     <table class="table table-head-fixed" id="tabledata">
                                         <thead>
@@ -197,7 +195,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -207,14 +205,21 @@
                                         <strong>Trips by Status</strong>
                                     </p>
                                     <canvas id="unresolvedsts" style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
+
+                                    <input type="hidden" id="TripsCount" value="${ ApprovedTripscount }">
+                                    <input type="hidden" id="ToBeApproved" value="${ yetTobeApproved }">
+                                    <input type="hidden" id="TripCountForQueryAdhoc" value="${ getTripCountForQueryAdhoc }">
+                                    <input type="hidden" id="ClosedTripCountForAdhoc" value="${ getInClosedTripCountForAdhoc }">
+
+
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            
+
         </div>
 
         <aside class="control-sidebar control-sidebar-dark">
@@ -250,10 +255,6 @@
 
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-        $.widget.bridge('uitooltip', $.ui.tooltip);
-    </script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/chart.js/Chart.min.js"></script>
     <script src="plugins/sparklines/sparkline.js"></script>
@@ -269,86 +270,7 @@
     <script src="plugins/datatables/jquery.dataTables.js"></script>
     <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
     <script src="dist/js/chart2.js"></script>
-        <script>
-                            $(document).ready(function () {
-                                if (${userStatus} === 3) {
-                                    $('#changePassword').modal('show');
-                                }
-                            });
-
-                            $(function () {
-                                $("#conpassword").keyup(function () {
-                                    var password = $("#passwordch").val();
-                                    if ($('#passwordch').val() == $('#conpassword').val()) {
-                                        $('#divCheckPasswordMatch').html('Passwords match.').css('color', 'green');
-                                    } else
-                                        $('#divCheckPasswordMatch').html('Passwords do not match!').css('color', 'red');
-
-                                });
-
-                            });
-        
-            var tabledata = $('#tabledata').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "info": true,
-                "autoWidth": false,
-                "aaSorting": []
-            });
-
-            var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
-            var unresolvedstsData = {
-                labels: [
-                    'Approved Trips',
-                    'Pending Approval',
-                    'Query Trips',
-                    'Closed(Adhoc) Trips'
-                ],
-                datasets: [{
-                        data: [${ApprovedTripscount}, ${yetTobeApproved}, ${getTripCountForQueryAdhoc},${getInClosedTripCountForAdhoc} ],
-                        backgroundColor: ['#00a65a', '#8d4f55', '#C422F4','#1477B0' ],
-                    }]
-            }
-            var unresolvedstsOptions = {
-                maintainAspectRatio: false,
-                responsive: true,
-            }
-            var unresolvedstsOptionsChart = new Chart(unresolvedsts, {
-                type: 'doughnut',
-                data: unresolvedstsData,
-                options: unresolvedstsOptions
-            })
-
-           
-
-            function changePassword(password) {
-
-                $.ajax({
-                    type: "POST",
-                    data: JSON.stringify(password),
-                    url: "<%=GlobalUrl.changePassword%>",
-                    dataType: "json",
-                    contentType: "application/json",
-                    success: function (data) {
-                        if (data.msg == 'success') {
-
-                            $("tbody").show();
-                        } else {
-                            Toast.fire({
-                                type: 'error',
-                                title: 'Failed.. Try Again..'
-                            })
-                        }
-                    },
-                    error: function (jqXHR, textStatue, errorThrown) {
-                        alert("failed, please try again letter");
-                    }
-                });
-
-            }
-
-        </script>
+    <script src="js/dashBoard_NetworkRole.js"></script>
 </body>
 
 </html>

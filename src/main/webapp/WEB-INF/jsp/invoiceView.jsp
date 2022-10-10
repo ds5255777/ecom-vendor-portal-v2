@@ -1,5 +1,3 @@
-<%@ page import="com.main.commonclasses.GlobalConstants" %>
-<%@ page import="com.main.commonclasses.GlobalUrl" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -41,7 +39,8 @@
         .row {
             margin-bottom: 0.5rem !important;
         }
-       /*  #prTable  {
+
+        /*  #prTable  {
 		    display: block;
 		    overflow-x: auto;
 		    white-space: nowrap;
@@ -56,7 +55,7 @@
             <h5 style=" color: white;">Invoice-Process</h5>
             <ul class="navbar-nav ml-auto">
                 <li class="float-sm-right" style="color: white;">
-                    Invoice Number : <input type="text" id="ecomInvoiceNumber" name="ecomInvoiceNumber" readonly style="background: #007BFF; color: white; border: 0px;">
+                    Invoice Number : <input type="text" id="ecomInvoiceNumber" name="ecomInvoiceNumber" value="${invoiceNumber}" readonly style="background: #007BFF; color: white; border: 0px;">
                 </li>
             </ul>
 
@@ -82,6 +81,7 @@
                                             <label class="col-sm-5">Partner Name <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" readonly name="vendorName" id="vendorName" style="width: 100%;">
+                                                <input type="hidden" id="type" name="type" value="${type}">
                                             </div>
                                         </div>
                                     </div>
@@ -101,11 +101,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                     <div class="col-md-3">
+                                    <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Currency <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                            <input type="text" class="form-control-sm" name="invoiceCurrency" id="invoiceCurrency" style="width: 100%;">
+                                                <input type="text" class="form-control-sm" name="invoiceCurrency" id="invoiceCurrency" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -113,7 +113,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Invoice Date <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
-                                            <input type="hidden" id="id" name="id" disabled>
+                                                <input type="hidden" id="id" name="id" disabled>
                                                 <input type="text" name="invoiceDate" id="invoiceDate" readonly class="form-control-sm" style="width: 100%;">
                                             </div>
                                         </div>
@@ -126,7 +126,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                   <div class="col-md-3">
+                                    <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">HSN Code<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
@@ -134,7 +134,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Taxable Amount</label>
@@ -143,12 +143,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Tax (%)<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="text" placeholder="Tax Amount"  style="width: 100%;">
+                                                <input class="form-control-sm" name="taxAmount" id="taxAmount" type="text" placeholder="Tax Amount" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -156,21 +156,21 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Cess/Tax<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="greenTax" id="greenTax" type="text" placeholder="Cess/Tax Not Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateInvoice();">
+                                                <input class="form-control-sm" name="greenTax" id="greenTax" type="text" placeholder="Cess/Tax Not Applicable" style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateInvoice();">
                                             </div>
                                         </div>
                                     </div>
-                                     <div class="col-md-3">
+                                    <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Extra KM<span class="text-danger"> </span></label>
                                             <div class="col-sm-2">
-                                                <input class="form-control-sm" name="exteraKM" id="exteraKM" type="text" placeholder="Ex KM"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5"  onblur="calculateRateKm();calculateInvoice();">
+                                                <input class="form-control-sm" name="exteraKM" id="exteraKM" type="text" placeholder="Ex KM" style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateRateKm();calculateInvoice();">
                                             </div>
-                                             <div class="col-sm-2">
-                                                <input class="form-control-sm" name="ratePerKm" id="ratePerKm" type="text" placeholder="R/KM"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5">
+                                            <div class="col-sm-2">
+                                                <input class="form-control-sm" name="ratePerKm" id="ratePerKm" type="text" placeholder="R/KM" style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5">
                                             </div>
                                             <div class="col-sm-3">
-                                                <input class="form-control-sm" name="extraKmRate" id="extraKmRate" type="text" placeholder="Rate KM" style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5"  >
+                                                <input class="form-control-sm" name="extraKmRate" id="extraKmRate" type="text" placeholder="Rate KM" style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5">
                                             </div>
                                         </div>
                                     </div>
@@ -178,7 +178,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">Other Charges<span class="text-danger"> </span></label>
                                             <div class="col-sm-7">
-                                                <input class="form-control-sm" name="miscellaneous" id="miscellaneous" type="text" placeholder="Not Applicable"  style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9-.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5"  onblur="calculateInvoice();">
+                                                <input class="form-control-sm" name="miscellaneous" id="miscellaneous" type="text" placeholder="Not Applicable" style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9-.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="5" onblur="calculateInvoice();">
                                             </div>
                                         </div>
                                     </div>
@@ -212,35 +212,35 @@
                                 </button>
                             </div>
                         </div>
-                            <div class="card-body" style="overflow: auto;">
-								<div class="col-md-12">
-									<div class="table-responsive">
-										<table id="prTable" class="display nowrap table table-bordered" style="width:100%">
-		                                    <thead>
-											<tr>
-												<th class="bg-primary">Trip ID</th>
-												<th class="bg-primary">Run Type</th>
-												<th class="bg-primary">Route</th>
-												<th class="bg-primary">Standard KM</th>
-												<th class="bg-primary">Rate/km</th>
-												<th class="bg-primary">Fuel Rate</th>
-												<th class="bg-primary">FS Base Rate</th>
-												<th class="bg-primary">Std. Vehicle</th>
-												<th class="bg-primary">FS Diff</th>
-												<th class="bg-primary">Basic Freight</th>
-												<th class="bg-primary">FS</th>
-												<th class="bg-primary">Mileage</th>
-												<th class="bg-primary">Total Freight</th>
-												<th class="bg-primary">Lump sum Amount</th>
-												<th class="bg-primary">Line level Description</th>
-											</tr>
-										</thead>
-		                                </table>
-									</div>
-								</div>
+                        <div class="card-body" style="overflow: auto;">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table id="prTable" class="display nowrap table table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="bg-primary">Trip ID</th>
+                                                <th class="bg-primary">Run Type</th>
+                                                <th class="bg-primary">Route</th>
+                                                <th class="bg-primary">Standard KM</th>
+                                                <th class="bg-primary">Rate/km</th>
+                                                <th class="bg-primary">Fuel Rate</th>
+                                                <th class="bg-primary">FS Base Rate</th>
+                                                <th class="bg-primary">Std. Vehicle</th>
+                                                <th class="bg-primary">FS Diff</th>
+                                                <th class="bg-primary">Basic Freight</th>
+                                                <th class="bg-primary">FS</th>
+                                                <th class="bg-primary">Mileage</th>
+                                                <th class="bg-primary">Total Freight</th>
+                                                <th class="bg-primary">Lump sum Amount</th>
+                                                <th class="bg-primary">Line level Description</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
                             </div>
+                        </div>
                     </div>
-                    <div class="card card-primary"  id="queryWindow" style="display: none;" style="margin-top: 1rem;">
+                    <div class="card card-primary" id="queryWindow" style="display: none;" style="margin-top: 1rem;">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">Remarks</h4>
                             <div class="card-tools">
@@ -254,37 +254,32 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-										    <label class="col-sm-3" >Remarks <span class="text-danger"></span></label>
-										    <div class="col-sm-9">
-										    <textarea class="form-control" id="comment" name="comment" rows="3" maxlength="250" placeholder="Remarks if Any"></textarea>
-										 </div>
-										 </div>
+                                            <label class="col-sm-3">Remarks <span class="text-danger"></span></label>
+                                            <div class="col-sm-9">
+                                                <textarea class="form-control" id="comment" name="comment" rows="3" maxlength="250" placeholder="Remarks if Any"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
-                                    <div class="col-md-3"  id="raiseQueryDiv">
-								<button type="button" id="raiseQuery" value="raiseQuery"
-									onclick="raiseQueryModel()" class="btn btn-primary">Reply
-									</button>
-								</div>
-								</div>
+                                        <div class="col-md-3" id="raiseQueryDiv">
+                                            <button type="button" id="raiseQuery" value="raiseQuery" class="btn btn-primary">Reply
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    
-                    <div class="row" >
-						<div class="col-md-3"></div>
-							<div class="col-md-2" style="display: none;"
-								id="viewAttachmentDiv">
-								<button type="button" id="viewAttachment"
-									onclick="displayAttachmentForPoDetails()" value="viewAttachment"
-									class="btn btn-primary btn-lg">View Attachments</button>
-							</div>
-							<div class="col-md-1" style="    margin-left: -102px;">
-								<button type="button" onclick="closeWin()"
-									class="btn btn-info btn-lg">Close</button>
-							</div>
-					</div>
+
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-2" style="display: none;" id="viewAttachmentDiv">
+                            <button type="button" id="viewAttachment" value="viewAttachment" class="btn btn-primary btn-lg">View Attachments</button>
+                        </div>
+                        <div class="col-md-1" style="    margin-left: -102px;">
+                            <button type="button" id="closeWindow" class="btn btn-info btn-lg">Close</button>
+                        </div>
+                    </div>
                     <div class="card card-primary" style="margin-top: 1rem;">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">Remarks List</h4>
@@ -295,30 +290,28 @@
                             </div>
                         </div>
                         <div class="card-body">
-							<form id="queryForm" class="forms-sample">
-								<div class="col-md-12">
+                            <form id="queryForm" class="forms-sample">
+                                <div class="col-md-12">
 
-									<div class="table-responsive">
-										<table
-											class="table table-bordered table-hover"
-											id="tabledataQuery">
-											<thead>
-												<tr>
-													<th class="bg-primary"  >S.No</th>
-													<th class="bg-primary"  >Raised By</th>
-													<th class="bg-primary">Role/Department</th>
-													<th class="bg-primary" >Raised On</th>
-													<th class="bg-primary" >Remarks</th>
-												</tr>
-											</thead>
-											<tbody>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover" id="tabledataQuery">
+                                            <thead>
+                                                <tr>
+                                                    <th class="bg-primary">S.No</th>
+                                                    <th class="bg-primary">Raised By</th>
+                                                    <th class="bg-primary">Role/Department</th>
+                                                    <th class="bg-primary">Raised On</th>
+                                                    <th class="bg-primary">Remarks</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</form>
-						</div>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -326,9 +319,9 @@
         <aside class="control-sidebar control-sidebar-dark">
         </aside>
     </div>
-    
-		
-		<div class="modal fade" id="viewAttachmentPopUp" role="dialog">
+
+
+    <div class="modal fade" id="viewAttachmentPopUp" role="dialog">
         <div class="modal-dialog " style="max-width: 1300px;">
             <div class="modal-content">
                 <div class="modal-body">
@@ -336,39 +329,39 @@
                         <div class="row">
                             <div class="col">
                                 <div class="row innerRow">
-                                    
-                                    
+
+
                                     <div class="col-md-8">
-                                       <div class="form-group">
+                                        <div class="form-group">
                                             <label>Document Name</label>
-                                            <select class="form-control" id="multipleAttachment" style="height: 35px;" >
-                                                
+                                            <select class="form-control" id="multipleAttachment" style="height: 35px;">
+
                                             </select>
-                                             
-                                        </div> 
+
+                                        </div>
                                     </div>
                                     <div class="col-md-3" style="display: none" id="uploadeddateDiv">
                                         <div class="form-group">
                                             <label>Uploaded Date</label>
-                                            <input type="text" class="form-control" id="uploadeddate" style="height: 35px;" readonly>                                               
+                                            <input type="text" class="form-control" id="uploadeddate" style="height: 35px;" readonly>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="container-fluid panel2">
-                        <div class="row">                            
+                        <div class="row">
                             <div class="col-lg-12" style="height: 400px;">
-                            <a id="ifrmameHref"   target="_blank">Click Here to open doc in new window</a>
-                                <iframe id="pdfLink" style="height:100%; width:100%" title="Navigation menu" ></iframe>
+                                <a id="ifrmameHref" target="_blank">Click Here to open doc in new window</a>
+                                <iframe id="pdfLink" style="height:100%; width:100%" title="Navigation menu"></iframe>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -400,330 +393,7 @@
     <script src="plugins/jquery-validation/additional-methods.min.js"></script>
     <script src="plugins/select2/js/select2.full.min.js"></script>
 
-    <script>
-        var prTable = $("#prTable").DataTable({
-            "paging": false,
-            "lengthChange": false,
-            "searching": false,
-            "info": true,
-            "autoWidth": false,
-            "aaSorting": [],
-            "scrollX": true,
-            "pageLength": 15,
-        });
-        
-        var tabledataQuery = $('#tabledataQuery').DataTable({
-            "paging": false,
-            "lengthChange": false,
-            "searching": false,
-            "info": false,
-            "autoWidth": false,
-            "aaSorting": []
-        });
-        
-        var invoiceNumber = '${invoiceNumber}';
-        
-        console.log(invoiceNumber);
-        
-        var type = '${type}';
-        var tripLineArray = [];
-        $("input[type=text]").prop('disabled', true);
-        setInvoiceDetails();
-        
-        showHideButton();
-
-        function showHideButton(){
-        
-        	if( type =="Invoice Queue" || type =="Pending Queue" || type =="Approved Queue" ){
-        		$("#prosInvBtn").css("display","block");
-        		$("#viewAttachmentDiv").css("display","block");
-        		$("#raiseQueryDiv").css("display","block");
-        	}
-        	else if( type =="Query Queue" || type =="InvoiceQuery Queue"  ){
-        		$("#queryWindow").css("display","block");
-        		$("#viewAttachmentDiv").css("display","block"); 
-        	}
-        }
-
-        function closeWin() {
-            window.close()
-        }
-
-        function setInvoiceDetails() {
-        	
-
-            var obj = {
-                "ecomInvoiceNumber": invoiceNumber
-            }
-
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(obj),
-                url: "<%=GlobalUrl.getSelectInvoiceDetails%>",
-                dataType: "json",
-                contentType: "application/json",
-                async: false,
-                success: function(data) {
-
-                    if (data.msg == 'success') {
-                        var result = data.data;
-                        
-                        tripLineArray = data.data.invoiceLineItem;
-                        var myForm = "";
-                        myForm = document.getElementById("stepOneForm");
-                        setData(myForm, result);
-                        $('#prTable').DataTable().clear();
-                        for (var i = 0; i < tripLineArray.length; i++) {
-                            if (!tripLineArray[i].hasOwnProperty("tripID")) {
-                                tripLineArray[i].tripID = "";
-                            }
-                            if (!tripLineArray[i].hasOwnProperty("runType")) {
-                                tripLineArray[i].runType = "";
-                            }
-                            if (!tripLineArray[i].hasOwnProperty("route")) {
-                                tripLineArray[i].route = "";
-                            }
-                            if (!tripLineArray[i].hasOwnProperty("standardKM")) {
-                                tripLineArray[i].standardKM = "";
-                            }
-                            if (!tripLineArray[i].hasOwnProperty("ratePerKm")) {
-                                tripLineArray[i].ratePerKm = "";
-                            }
-                            if (!tripLineArray[i].hasOwnProperty("currentFuelRate")) {
-                                tripLineArray[i].currentFuelRate = "";
-                            }
-                            if (!tripLineArray[i].hasOwnProperty("fsBaseRate")) {
-                                tripLineArray[i].fsBaseRate = "";
-                            }
-                            if (!tripLineArray[i].hasOwnProperty("standardVechicleType")) {
-                                tripLineArray[i].standardVechicleType = "";
-                            }
-                            if (!tripLineArray[i].hasOwnProperty("fsDiff")) {
-                                tripLineArray[i].fsDiff = "";
-                            }
-                            if (!tripLineArray[i].hasOwnProperty("basicFreight")) {
-                                tripLineArray[i].basicFreight = "";
-                            }
-                            if (!tripLineArray[i].hasOwnProperty("fs")) {
-                                tripLineArray[i].fs = "";
-                            }
-                            if (!tripLineArray[i].hasOwnProperty("mileage")) {
-                                tripLineArray[i].mileage = "";
-                            }
-                            if (!tripLineArray[i].hasOwnProperty("totalFreight")) {
-                                tripLineArray[i].totalFreight = "";
-                            }
-                            if (!tripLineArray[i].hasOwnProperty("lumpsomeamount")) {
-                                tripLineArray[i].lumpsomeamount = "";
-                            }
-                            if (!tripLineArray[i].hasOwnProperty("lineLevelDescription")) {
-                                tripLineArray[i].lineLevelDescription = "-";
-                            }
-                            $('#prTable').DataTable().row.add([tripLineArray[i].tripID,tripLineArray[i].runType, tripLineArray[i].route, 
-                            	tripLineArray[i].standardKM, tripLineArray[i].ratePerKm, tripLineArray[i].currentFuelRate, 
-                            	tripLineArray[i].fsBaseRate, tripLineArray[i].standardVechicleType, tripLineArray[i].fsDiff, tripLineArray[i].basicFreight, 
-                            	tripLineArray[i].fs, tripLineArray[i].mileage, tripLineArray[i].totalFreight, tripLineArray[i].lumpsomeamount,
-                            	tripLineArray[i].lineLevelDescription]);
-                        }
-                        $("#invoiceNumber").val(result.invoiceNumber);
-                        $("#ecomInvoiceNumber").val(result.ecomInvoiceNumber);
-                        $('#prTable').DataTable().draw();
-                        $("tbody").show();
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: 'Failed.. Try Again..'
-                        })
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    Toast.fire({
-                        type: 'error',
-                        title: 'Failed.. Try Again..'
-                    })
-                }
-            });
-        }
-        
-        getQueryData();
-		 
-		 function getQueryData(){
-			 
-			 var obj ={
-						"referenceid": $('#invoiceNumber').val(),
-						"type": "Invoice"
-				}
-				
-				$.ajax({
-					type : "POST",
-					url : "<%=GlobalUrl.getQueryByTypeAndForeignKey%>",
-					data :JSON.stringify(obj),
-					dataType : "json",
-					contentType : "application/json",
-					success : function(response) {
-						if (response.msg == "success") {
-						
-							if("data" in response){
-							
-								var result = response.data;												
-								
-							     	tabledataQuery.clear();
-							     	var count=0;
-				                        for (var i = 0; i < result.length; i++) {
-				                        	if(!result[i].hasOwnProperty("raisedBy")){
-				                               	result[i].raisedBy="";
-				                               }
-				                                             if(!result[i].hasOwnProperty("role")){
-				                               	result[i].role="";
-				                               }
-				                                             if(!result[i].hasOwnProperty("raisedOn")){
-				                               	result[i].raisedOn="";
-				                               }
-				                                             if(!result[i].hasOwnProperty("comment")){
-				                               	result[i].comment="";
-				                               }                    
-				                        count++;
-				                        tabledataQuery.row.add([count,result[i].raisedBy, result[i].role, result[i].raisedOn, result[i].comment]);
-				                        }
-				                        tabledataQuery.draw();
-				                        $("tbody").show();
-								}
-						} else {
-							Toast.fire({
-								type : 'error',
-								title : 'Failed ..'
-							})
-						}
-					},
-					error : function(jqXHR, textStatue, errorThrown) {
-						
-						Toast.fire({
-							type : 'error',
-							title : 'Failed Added try again..'
-						})
-
-					}
-				}); 
-		 }
-		 
-		 function raiseQueryModel(){
-				var query = document.getElementById("comment").value;
-	            if (query === "" || query === null || query === '') {
-	                Toast.fire({
-	                    type: 'error',
-	                    title: 'Please Insert Remarks'
-	                });
-	                document.getElementById("comment").focus();
-	                return "";
-	            }
-	            
-	            var finalObj={
-	                    "comment": $("#comment").val(),
-	                    "raisedAgainQuery": $("#invoiceNumber").val(),
-	                    "id": $("#id").val(),
-	                    "type":"Invoice"
-	                    }
-	            $.ajax({
-	                type: "POST",
-	                data: JSON.stringify(finalObj),
-	                url: "<%=GlobalUrl.saveQuery%>",
-	                dataType: "json",
-	                contentType: "application/json",
-	                success: function(response) {
-
-	                    if (response.msg == 'success') {
-	                        swal.fire("", "Remarks Sucessfully Submitted", "success", "OK").then(function() {
-	                        	window.opener.refereshList();
-	                            window.close(); 
-	                        });
-	                        setTimeout(function(response) {}, 2000);
-	                    } else {
-	                        alert("failed");
-	                    }
-	                },
-	                error: function(jqXHR, textStatue, errorThrown) {
-	                    Swal.fire({
-	                        icon: 'error',
-	                        title: 'Oops...',
-	                        text: 'Something went wrong!',
-	                    })
-	                }
-	            });
-			}
-		 
-		 /* Document Modal code */
-			
-		 function displayAttachmentForPoDetails(){
-				
-			 $('#multipleAttachment').empty();
-			 
-			 var obj ={
-						"foreignKey": $('#ecomInvoiceNumber').val(),
-						"type": "Invoice"
-				}
-				
-				$.ajax({
-					type : "POST",
-					url : "<%=GlobalUrl.getDocumentByTypeAndForeignKey%>",
-					data :JSON.stringify(obj),
-					dataType : "json",
-					contentType : "application/json",
-					success : function(response) {
-						if (response.msg == "success") {
-						
-							if("data" in response){
-							
-								var result = response.data;												
-								
-								$('#multipleAttachment').append($('<option/>').attr("value", '').text("Select"));
-								
-								for (var i = 0; i < result.length; i++) {																						
-									$('#multipleAttachment').append($('<option/>').attr("value", result[i].docPath).text(result[i].docName));			
-								}
-								$("#viewAttachmentPopUp").modal('show');
-								
-							}else{
-								Toast.fire({
-									type : 'error',
-									title : 'Attachment Not Available..'
-								})
-							}
-						} else {
-							Toast.fire({
-								type : 'error',
-								title : 'Failed ..'
-							})
-						}
-					},
-					error : function(jqXHR, textStatue, errorThrown) {
-						
-						Toast.fire({
-							type : 'error',
-							title : 'Failed Added try again..'
-						})
-
-					}
-				}); 								 
-			}
-		
-		 $("#multipleAttachment").change(function () {
-			 
-			 $("#pdfLink").contents().find("body").html(" ");
-			    var fileName = $("#multipleAttachment option:selected").text();
-			    
-			    console.log("fileName from drop down >> " + fileName);
-				var filePath = $("#multipleAttachment").val();
-			    
-				 fileName = encodeURIComponent(fileName);
-			     filePath = encodeURIComponent(filePath);
-					var urlpath = "getDoc" + "?name=" + fileName+ "&path=" + filePath;
-
-					$('#pdfLink').attr('src', urlpath);
-					$('#ifrmameHref').attr('href', urlpath);
-
-				});
-			
-    </script>
+    <script src="js/invoiceView.js"></script>
 </body>
 
 </html>

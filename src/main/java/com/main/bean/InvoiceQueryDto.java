@@ -22,6 +22,8 @@ public class InvoiceQueryDto {
 	private String invoiceAmount;
 	private String invoiceReceivingDate;
 	private String vehicleNumber;
+	private String irnNumber;
+	private String eInvoice;
 	private String invoiceStatus;
 	private String assignTo;
 	private String taxableAmount;

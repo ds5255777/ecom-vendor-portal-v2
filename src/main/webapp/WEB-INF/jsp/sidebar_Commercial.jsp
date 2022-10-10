@@ -1,4 +1,3 @@
-<%@ page import="com.main.commonclasses.GlobalConstants" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
@@ -12,7 +11,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                <li class="nav-item"><a href="triggerEmail" class="nav-link
+                <li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link
                                         <% if (request.getParameter("pagename").equalsIgnoreCase("commercialTeam")) {
                                                 out.print("active");
                                             }%>
@@ -22,8 +21,20 @@
                     </a>
                     <hr>
                 </li>
-               
-            
+                
+                <li class="nav-item"><a href="vendorRegistrastion" target="_blank" rel="noopener noreferrer" class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("vendorRegistrastion")) {
+				out.print("active");
+			}%>                            
+                            ">
+
+
+                        <i class="nav-icon fas fa-registered"></i>
+
+                        <p>Vendor Registrastion</p>
+                    </a></li>
+
+
             </ul>
         </nav>
     </div>

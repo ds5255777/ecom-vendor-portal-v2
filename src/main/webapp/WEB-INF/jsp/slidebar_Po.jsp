@@ -1,4 +1,3 @@
-<%@ page import="com.main.commonclasses.GlobalConstants" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
@@ -12,7 +11,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                <li class="nav-item"><a href="dashboard_Po" class="nav-link
+                <li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link
                                         <% if (request.getParameter("pagename").equalsIgnoreCase("dashboard_Po")) {
                                                 out.print("active");
                                             }%>
@@ -35,7 +34,7 @@
                                 }%>
 
                                                 ">
-                               <i class="nav-icon fas fa-list"></i>
+                                <i class="nav-icon fas fa-list"></i>
                                 <p>All PO</p>
                             </a></li>
                     </ul>
@@ -44,9 +43,9 @@
                                                 <%if (request.getParameter("pagename").equalsIgnoreCase("Unprocess PO")) {
                                     out.print("active");
                                 }%> ">
-                                
-                                 
-                                 <i class="nav-icon fa fa-tasks"></i>
+
+
+                                <i class="nav-icon fa fa-tasks"></i>
                                 <p>Unprocessed PO</p>
                             </a></li>
                     </ul>
@@ -59,7 +58,7 @@
                                 <p>Processed PO</p>
                             </a></li>
                     </ul>
-                    
+
                     <hr>
                 </li>
 
@@ -78,7 +77,7 @@
                                 <p>All Invoice</p>
                             </a></li>
                     </ul>
-                     <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview">
                         <li class="nav-item"><a href="draftPO" class="nav-link
                                                 <%if (request.getParameter("pagename").equalsIgnoreCase("draftInvoice")) {
                                     out.print("active");
@@ -88,14 +87,14 @@
                             </a></li>
                     </ul>
                     <ul class="nav nav-treeview">
-                    <li class="nav-item"><a href="QueryPo" class="nav-link
+                        <li class="nav-item"><a href="QueryPo" class="nav-link
                             <%if (request.getParameter("pagename").equalsIgnoreCase("queryInvoicePO")) {
 				out.print("active");
 			}%>">
-                            <i class="nav-icon fas fa-question"></i>
-                            <p>Query Invoice</p>
-                        </a></li>
-                </ul>
+                                <i class="nav-icon fas fa-question"></i>
+                                <p>Query Invoice</p>
+                            </a></li>
+                    </ul>
                     <hr>
                 </li>
 

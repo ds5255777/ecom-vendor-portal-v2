@@ -13,13 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
 @Table(name = "Po_Details")
-@Getter
-@Setter
+@Data
 public class PoDetails {
 
 	@Id

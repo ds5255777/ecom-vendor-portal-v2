@@ -5,7 +5,7 @@ public class GlobalConstants {
 	 public static final int MAX_FAILED_ATTEMPTS = 5;
 	
 	public static final String VENDOR_PID_PREFIX="Vendor-00000000";
-	public static final String VENDOR_PID_SUFFIX="-CreationUAT";
+	public static final String VENDOR_PID_SUFFIX="-ECOM";
 	
 	public static final String ERROR_MESSAGE = "error";
 	public static final String SUCCESS_MESSAGE = "success";
@@ -29,6 +29,7 @@ public class GlobalConstants {
 	public static final String ROLE_FINANCE = "Finance";
 	public static final String ROLE_NETWORK = "Network";
 	public static final String ROLE_REGISTRATION_APPROVAL="Finance Registration Approval";
+	public static final String ROLE_CCOMMERCIAL_TEAM="Commercial Team";
 
 	public static final String RUN_IN_TRANSIT = "In-Transit";
 	public static final String RUN_CLOSED = "Closed";
@@ -41,7 +42,8 @@ public class GlobalConstants {
 	
 	public static final String NETWORK_TRIP_STATUS_YET_TO_APPROVED_NETWORK="Yet To Be Approved By Network Team";	
 
-	public static final String PAYMENT_STATUS = "";
+	public static final String ADHOC_TYPE_TRIPS = "Adhoc";
+	public static final String SCHEDULED_TYPE_TRIPS = "Scheduled";
 	
 	public static final String INVOICE_STATUS_IN_REVIEW="In-Review";
 	public static final String INVOICE_STATUS_PENDING_APPROVAL="Pending For Approval";

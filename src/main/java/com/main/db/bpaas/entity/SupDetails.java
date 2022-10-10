@@ -15,13 +15,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
 @Table(name = "SupDetails")
-@Getter
-@Setter
+@Data
 
 @NamedQueries({ // @NamedQuery(name = "SupDetails.findPendindSupp", query = "select t from
 				// SupDetails t where t.supStatus = 'Pending'"),
@@ -56,6 +54,10 @@ public class SupDetails {
 	private String tanNumber;
 	@Column(name = "adhar_link_status")
 	private String adharLinkStatus;
+	
+	@Column(name = "e_Invoice_Applicable")
+	private String eInvoiceApplicable;
+	
 	private String businessClassification;
 	@Column(name = "site_dff")
 	private String siteDff;

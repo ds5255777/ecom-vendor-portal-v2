@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,7 @@ public class UserController {
 	private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@PostMapping({ "/saveUpdateUserDetails" })
-	public String saveUpdateUserDetails(Principal principal, @RequestBody UserDTO userDto) {
+	public String saveUpdateUserDetails(Principal principal,@Valid @RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information :  ");
 
@@ -60,7 +61,7 @@ public class UserController {
 						password = serviceManager.bCryptPasswordEncoder.encode(userDto.getPassword());
 					}
 					userDto.setPassword(password);
-					serviceManager.userRepository.save(this.serviceManager.modelMapper.map(userDto, User.class));
+					serviceManager.userRepository.updateUserDetails(password,userDto.getEmailId(),userDto.getContactNo(),userDto.getStatus(),userDto.getId(), userDto.getUsername());
 				}
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} catch (Exception e) {
@@ -289,7 +290,9 @@ public class UserController {
 	public String setStatusOfVendorByBpCode(HttpServletRequest request, @RequestBody UserDTO user) {
 
 		logger.info("Log Some Information setStatusOfVendorByBpCode  ");
-
+		
+	
+		
 		String status = "";
 		DataContainer data = new DataContainer();
 		if (user.getStatus().equalsIgnoreCase("0")) {
@@ -297,13 +300,14 @@ public class UserController {
 		} else if (user.getStatus().equalsIgnoreCase("1")) {
 			status = GlobalConstants.SET_FLAG_TYPE_ACTIVE;
 		}
+		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
 			serviceManager.userRepository.updateStatusOfVendorByBpCode(user.getStatus(), user.getBpCode());
 			serviceManager.userRepository.updateFlagOfVendorByBpCode(status, user.getBpCode());
 
-			data.setMsg("success");
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);

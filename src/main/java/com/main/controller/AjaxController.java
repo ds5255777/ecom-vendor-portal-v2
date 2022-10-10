@@ -154,7 +154,7 @@ public class AjaxController {
 					supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
 					serviceManager.detailsRepo
 							.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
-					
+
 					/* send onBoard email */
 
 					List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
@@ -163,12 +163,13 @@ public class AjaxController {
 
 					String vendorEmail = supDetailsDto.getContactDetails().get(0).getConEmail();
 
-					List<MailContent> mailType = serviceManager.mailContentRepo.findByType("Send username And Password");
+					List<MailContent> mailType = serviceManager.mailContentRepo
+							.findByType("Send username And Password");
 
 					SendEmail sendEmail = new SendEmail();
 					MailContent mailContent = mailType.get(0);
 					String emailBody = mailContent.getEmailBody();
-					
+
 					emailBody = emailBody.replace("#username#", bpCode);
 					emailBody = emailBody.replace("#password#", passwordUser);
 
@@ -187,14 +188,23 @@ public class AjaxController {
 					auditLogs.setMailMessage(emailBody);
 
 					serviceManager.emailAuditLogsRepo.save(auditLogs);
-					
-					
-					
+
 					data.setData(processID);
 					data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 				} else if (supDetailsDto.getVenStatus().equals(GlobalConstants.UPDATE_VENDOR)) {
 					supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
 
+					String bpCode = supDetailsDto.getBpCode();
+
+					String status = serviceManager.userRepository.getVendorStatus(bpCode);
+
+					if (status == null || status.equals("")) {
+						supDetailsDto.setFlag(GlobalConstants.SET_FLAG_IN_ACTIVE);
+					}
+
+					else if (status.equals("1")) {
+						supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
+					}
 					serviceManager.detailsRepo
 							.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 					data.setData(processID);
@@ -575,6 +585,27 @@ public class AjaxController {
 
 		try {
 			String checkEmail = serviceManager.supDetailsRepo.checkPanNumber(panNumber, flag);
+			if (null == checkEmail) {
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+			} else {
+				data.setMsg("exist");
+			}
+
+		} catch (Exception e) {
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+		}
+		return gson.toJson(data);
+	}
+
+	@GetMapping({ "/checkVendorCode" })
+	public String checkVendorCode(@RequestParam("bpCode") String bpCode, @RequestParam("suppName") String suppName) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
+
+		try {
+			String checkEmail = serviceManager.supDetailsRepo.checkBpCode(bpCode);
 			if (null == checkEmail) {
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} else {

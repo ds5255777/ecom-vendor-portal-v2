@@ -21,6 +21,7 @@ public class SupDetailsDTO {
 	private String adharLinkStatus;
 	private String businessClassification;
 	private String siteDff;
+	private String eInvoiceApplicable;
 	private String opeUnitReqMap;
 	private String venStatus; 
 	private String invoiceCurrency;

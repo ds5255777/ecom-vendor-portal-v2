@@ -1,4 +1,3 @@
-<%@ page import="com.main.commonclasses.GlobalConstants" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
@@ -22,17 +21,17 @@
                     <hr>
                 </li>
 
-            <li class="nav-item"><a href="tripMaster" class="nav-link 
+                <li class="nav-item"><a href="tripMaster" class="nav-link 
                        <% if (request.getParameter("pagename").equalsIgnoreCase("masterEvaluationCriteria")) {
                                out.print("active");
                            }%>
                        ">
-                    <i class="nav-icon fas fa fa-tasks highlight-icon"> </i>
-                    <p>Trip Master</p>
-                </a>
-                <hr>
-            </li>
-            
+                        <i class="nav-icon fas fa fa-tasks highlight-icon"> </i>
+                        <p>Trip Master</p>
+                    </a>
+                    <hr>
+                </li>
+
                 <li class="nav-item"><a href="emailConfig" class="nav-link
                             <%if (request.getParameter("pagename").equalsIgnoreCase("emailConfig")) {
 				out.print("active");
@@ -41,68 +40,67 @@
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>Email Configuration</p>
                     </a></li>
-                    
-                    
-                    <li class="nav-item"><a href="notification" class="nav-link
+
+
+                <li class="nav-item"><a href="notification" class="nav-link
                             <%if (request.getParameter("pagename").equalsIgnoreCase("notification")) {
 				out.print("active");
 			}%>                            
                             ">
-                         
-                         <i class="nav-icon fa fa-bell" ></i>
-                    
+
+                        <i class="nav-icon fa fa-bell"></i>
+
                         <p>Notification</p>
                     </a></li>
-                    
-                    
-                     <li class="nav nav-treeview">
-                                               <li class="nav-item"><a href="addUsers"
-                                                       class="nav-link
+
+
+                <li class="nav nav-treeview">
+                <li class="nav-item"><a href="addUsers" class="nav-link
                            <%if (request.getParameter("pagename").equalsIgnoreCase("addUsers")) {
                                out.print("active");
                        }%>
 
                 ">
-                <i class="nav-icon fas fa-user"></i>
-                <p>Users</p>
-                </a></li>
-                   
-                    <li class="nav-item"><a href="vendorRegistrastion" target="_blank" rel="noopener noreferrer" class="nav-link
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Users</p>
+                    </a></li>
+
+                <li class="nav-item"><a href="vendorRegistrastion" target="_blank" rel="noopener noreferrer" class="nav-link
                             <%if (request.getParameter("pagename").equalsIgnoreCase("vendorRegistrastion")) {
 				out.print("active");
 			}%>                            
                             ">
-                         
-                      
-                     <i class="nav-icon fas fa-registered"></i>
-                    
-                       <p>Vendor Registrastion</p> 
+
+
+                        <i class="nav-icon fas fa-registered"></i>
+
+                        <p>Vendor Registrastion</p>
                     </a></li>
-                    
-                    <li class="nav-item"><a href="vendorReports"  rel="noopener noreferrer" class="nav-link
+
+                <li class="nav-item"><a href="vendorReports" rel="noopener noreferrer" class="nav-link
                             <%if (request.getParameter("pagename").equalsIgnoreCase("vendorReports")) {
 				out.print("active");
 			}%>                            
                             ">
-                         
-                    <i class="nav-icon fas fa-download"></i>
-                       <p>Vendor Reports</p> 
-                    </a></li> 
 
-           <li class="nav-item"><a href="vendorDetails" class="nav-link
+                        <i class="nav-icon fas fa-download"></i>
+                        <p>Vendor Reports</p>
+                    </a></li>
+
+                <li class="nav-item"><a href="vendorDetails" class="nav-link
                             <%if (request.getParameter("pagename").equalsIgnoreCase("Vendor Details")) {
 				out.print("active");
 			}%>                            
                             ">
-                   <i class="nav-icon fa fa-user-circle"></i>
-                    <p>Vendor Details</p>
-                </a>
-                <hr>
-            </li>
-                           
+                        <i class="nav-icon fa fa-user-circle"></i>
+                        <p>Vendor Details</p>
+                    </a>
+                    <hr>
+                </li>
+
             </ul>
             <hr>
-                       
+
         </nav>
     </div>
 </aside>

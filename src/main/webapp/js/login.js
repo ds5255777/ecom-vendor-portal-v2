@@ -1,4 +1,25 @@
+var csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+
+
+
 createCaptcha2();
+
+$( "#captchaClick" ).bind( "click", function() {
+ createCaptcha2();
+});
+
+$( "#click" ).bind( "click", function() {
+ validateOnsubit();
+});
+
+$( document ).ready(function() {
+     const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+});
 
 
 function createCaptcha2() {
@@ -45,30 +66,21 @@ function validateOnsubit() {
 
 	var username = document.getElementById("username").value;
 	if (username === "" || username === null || username === '') {
-		Toast.fire({
-			type: 'error',
-			title: 'Enter a Username'
-		});
+		swal.fire("", "Enter a Username", "warning");
 		document.getElementById("username").focus();
 		return "";
 	}
 
 	var password = document.getElementById("password").value;
 	if (password === "" || password === null || password === '') {
-		Toast.fire({
-			type: 'error',
-			title: 'Enter a Password'
-		});
+		swal.fire("", "Enter Password", "warning");
 		document.getElementById("password").focus();
 		return "";
 	}
 
 	var captchaInput = document.getElementById("captchaInput").value;
 	if (captchaInput === "" || captchaInput === null || captchaInput === '') {
-		Toast.fire({
-			type: 'error',
-			title: 'Enter a Captcha Code'
-		});
+		swal.fire("", "Enter a Captcha Code", "warning");
 		document.getElementById("captchaInput").focus();
 		return "";
 	}

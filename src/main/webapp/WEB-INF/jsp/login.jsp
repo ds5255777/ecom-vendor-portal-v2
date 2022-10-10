@@ -1,7 +1,10 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -56,7 +59,7 @@
                     <span style="color: red">${error} ${message}</span>
                     <p id="demo"></p>
                 </div>
-                <label for="username" style="font-weight: bolder;">User ID</label> <input class="form-control" id="username" name="username" type="text" data-role="tagsinput" placeholder="User Id" oninput="this.value = this.value.replace(/[^0-9-_A-Za-z]/g, '').replace(/(\..*)\./g, '$1');" required><br>
+                <label for="username" style="font-weight: bolder;">User ID</label> <input class="form-control" id="username" name="username" type="text" data-role="tagsinput" placeholder="User Id" required><br>
                 <label for="password" style="font-weight: bolder;">Password</label>
                 <input class="form-control" id="password" name="password" type="password" placeholder="Password" required><br> <input type="hidden" name="" value="" />
 
@@ -74,7 +77,7 @@
                         </div>
                     </div>
                     <div class="col-sm-3">
-                        <button type="button" class="btn btn-primary btn-xs" style="height: fit-content;cursor: pointer;" onclick="createCaptcha2()">
+                        <button type="button" id="captchaClick" class="btn btn-primary btn-xs" style="height: fit-content;cursor: pointer;">
                             <i class="fa fa-refresh"></i>
                         </button>
                     </div>
@@ -82,23 +85,17 @@
 
 
                 <br>
-                <button type="button" id="click" class="btn " value="Login" style="color: white; background-color: #204572;height: fit-content;cursor: pointer;" onclick="validateOnsubit();">Login</button>
+                <button type="button" id="click" class="btn " value="Login" style="color: white; background-color: #204572;height: fit-content;cursor: pointer;">Login</button>
             </div>
+            <sec:csrfInput />
         </form>
     </div>
+
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="js/login.js"></script>
     <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="plugins/toastr/toastr.min.js"></script>
-    <script type="text/javascript">
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
 
-    </script>
 </body>
 
 </html>

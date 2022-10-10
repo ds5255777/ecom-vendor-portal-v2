@@ -61,7 +61,7 @@ $(document).keypress(
 		    if (event.which == '58'){  event.preventDefault();}
 		    if (event.which == '60'){  event.preventDefault();}
 		    if (event.which == '62'){  event.preventDefault();}
-		    if (event.which == '47'){  event.preventDefault();}
+		    //if (event.which == '47'){  event.preventDefault();}
 		    if (event.which == '63'){  event.preventDefault();}
 		 //  alert(event.which);
 		    

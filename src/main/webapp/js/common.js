@@ -1,11 +1,11 @@
 function dateValidationCheck(date1, date2){	 
 	var check="false";		
-	
+	debugger
 	if(date1 !="" && date2 !=""){
 		
-		date1=moment(date1, 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD');
+		date1=moment(date1, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD');
 	
-		date2=moment(date2, 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DD');
+		date2=moment(date2, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD');
 			
 			if(date1 > date2){
 				check="true";
@@ -79,7 +79,6 @@ function fillFileNameInLabel(evt,obj){
 		fileName = replaceAllSpecialCharacter(fileName);	
 		fileName=fileName.trim();
 	  fileName = fileName+extension;	
-//	  /debugger;
       //replace the "Choose a file" label
       $(obj).next('.custom-file-label').html(fileName);
 }

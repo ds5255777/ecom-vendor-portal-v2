@@ -54,7 +54,8 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 
 	SupDetails findByPid(String pid);
 
-	List<SupDetails> findByVenStatus(String approvedRequestStatus);
+	@Query(value = "select * from supdetails where ven_status in ('Approved','Update');", nativeQuery = true)
+	List<SupDetails> findByVenStatus();
 
 	Integer countByVenStatus(String status);
 
@@ -77,5 +78,12 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 
 	@Query(value = "select vendor_type from supdetails where bp_code=:vendorCode", nativeQuery = true)
 	String findByVendorType(String vendorCode);
+
+	@Query(value = "select e_invoice_applicable from supdetails where bp_code=:vendorName", nativeQuery = true)
+	String getEInvoiceStatusByVendorCode(String vendorName);
+
+	@Query(value = "select bp_code from supdetails where supdetails.bp_code=:bpCode ; ", nativeQuery = true)
+	String checkBpCode(String bpCode);
+
 
 }

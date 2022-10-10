@@ -120,7 +120,7 @@ public class MasterController {
 		return gson.toJson(data);
 	}
 
-	@PostMapping({ "/saveAgreementList" })
+	@RequestMapping({ "/saveAgreementList" })
 	public String saveCommodityList(@RequestBody List<AgreementMaster> objList) {
 
 		DataContainer data = new DataContainer();
@@ -132,8 +132,8 @@ public class MasterController {
 			data.setMsg("success");
 		} catch (Exception e) {
 			data.setMsg("error");
-			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+			e.printStackTrace();
 		}
-		return gson.toJson(data);
+		return gson.toJson(data).toString();
 	}
 }

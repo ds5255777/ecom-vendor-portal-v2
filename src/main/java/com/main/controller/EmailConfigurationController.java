@@ -163,17 +163,17 @@ public class EmailConfigurationController {
 
 			String maillink = registrationLink + "?vendorEmail="
 					+ Base64.getEncoder().encodeToString(entityDto.getVendorEmail().getBytes()) + "&vendorType="
-					+ Base64.getEncoder().encodeToString(entityDto.getVendorType().getBytes()) + "&region="
-					+ Base64.getEncoder().encodeToString(entityDto.getRegion().getBytes()) + "&vendorAddress="
-					+ Base64.getEncoder().encodeToString(entityDto.getVendorAddress().getBytes()) + "&processBy="
+					+ Base64.getEncoder().encodeToString(entityDto.getVendorType().getBytes()) + "&resgion="
+					+ Base64.getEncoder().encodeToString(entityDto.getRegion().getBytes()) + "&creditTerms="
+					+ Base64.getEncoder().encodeToString(entityDto.getCreditTerms().getBytes()) + "&processBy="
 					+ Base64.getEncoder().encodeToString(entityDto.getProcessBy().getBytes()) + "&processByEmailId="
 					+ Base64.getEncoder().encodeToString(introducerEmail.getBytes()) + "&flag=" + randInt;
 			String newmailLink = maillink.replace(" ", "%20");
 
-			String message = "<b>Dear Vendor,</b><br><br>";
+			String message = "<b>Hi,</b><br><br>";
 			message += "<i> Request you to please click on below link and register yourself!</i><br>";
 			message += "<font color=blue>Link :- </font>";
-			String regards = "<p>Regards<br>ECOM Team</p>";
+			String regards = "<p>Regards<br>Ecom Team</p>";
 
 			String newUrlString = message + newmailLink + regards;
 			new Thread(new Runnable() {

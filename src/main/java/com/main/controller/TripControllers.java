@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -60,7 +61,8 @@ public class TripControllers {
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 		try {
-
+			fromDate=fromDate.replace(",","");
+			
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
 						.findByActualDepartureBetween(fromDate, toDate);
@@ -152,7 +154,6 @@ public class TripControllers {
 	}
 
 	@PostMapping({ "/getCloseAndApprovedTripsDetails" })
-
 	public String getCloseAndApprovedTripsDetails(Principal principal) {
 
 		DataContainer data = new DataContainer();
@@ -252,7 +253,7 @@ public class TripControllers {
 
 	@PostMapping({ "/updateVendorTripStatusAndOpenCloseReadingByTripId" })
 	public String getApprovTripsDetails(Principal principal, HttpServletRequest request,
-			@RequestBody TripDetailsDto tripDtoObj) {
+			@Valid @RequestBody TripDetailsDto tripDtoObj) {
 
 		DataContainer data = new DataContainer();
 
@@ -263,7 +264,11 @@ public class TripControllers {
 
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		String openingReading = tripDtoObj.getOpeningReading();
+		String closingReading = tripDtoObj.getClosingReading();
 
+		openingReading = openingReading.replaceAll("[^a-zA-Z0-9]", " ");
+		closingReading = closingReading.replaceAll("[^a-zA-Z0-9]", " ");
 		try {
 			if ((rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR))
 					&& (tripDtoObj.getVendorCode().equals(userName))) {
@@ -271,8 +276,7 @@ public class TripControllers {
 				this.serviceManager.modelMapper.map(tripDtoObj, TripDetails.class);
 
 				serviceManager.tripDetailsRepo.updateVendorTripStatusByTripId(tripDtoObj.getTripID(),
-						tripDtoObj.getVendorTripStatus(), tripDtoObj.getOpeningReading(),
-						tripDtoObj.getClosingReading(), userName, processedOn);
+						GlobalConstants.APPROVED_REQUEST_STATUS, openingReading, closingReading, userName, processedOn);
 
 				List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
 						.findByIsActive(GlobalConstants.ACTIVE_STATUS);
@@ -436,7 +440,7 @@ public class TripControllers {
 		try {
 
 			List<String> list = serviceManager.tripDetailsRepo.getTripId(vendorCode);
-			
+
 			data.setData(list);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
@@ -582,6 +586,89 @@ public class TripControllers {
 			data.setData(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
+		return gson.toJson(data);
+	}
+
+	@PostMapping({ "getApprovedAdhocTrips" })
+	public String approvedAdhocTrips(Principal principal) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
+
+		try {
+			List<TripDetails> approvedTrips = serviceManager.tripService
+					.findAllTripsByStatus(GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED);
+			List<TripDetailsDto> collect = approvedTrips.stream()
+					.map(filterList -> this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
+					.collect(Collectors.toList());
+			data.setData(collect);
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+
+		} catch (Exception e) {
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+		}
+
+		return gson.toJson(data);
+	}
+
+	@PostMapping({ "getQueryTrips" })
+	public String queryTrips(Principal principal) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
+
+		try {
+			List<TripDetails> approvedTrips = serviceManager.tripDetailsRepo
+					.getQueryTripsForNetwork(GlobalConstants.VENDOR_TRIP_STATUS_QUERY);
+			List<TripDetailsDto> collect = approvedTrips.stream()
+					.map(filterList -> this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
+					.collect(Collectors.toList());
+			data.setData(collect);
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+
+		} catch (Exception e) {
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+		}
+
+		return gson.toJson(data);
+	}
+
+	@PostMapping({ "getClosedAdhocTrips" })
+	public String closedAdhocTrips(Principal principal) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
+
+		try {
+			List<TripDetails> approvedTrips = serviceManager.tripService.getInTransitTripByRunTypeAndRunStatus(
+					GlobalConstants.ADHOC_TYPE_TRIPS, GlobalConstants.RUN_CLOSED);
+			List<TripDetailsDto> collect = approvedTrips.stream()
+					.map(filterList -> this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
+					.collect(Collectors.toList());
+			data.setData(collect);
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+
+		} catch (Exception e) {
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+		}
+
+		return gson.toJson(data);
+	}
+
+	@PostMapping({ "getPendingAdhocTrips" })
+	public String pendingAdhocTrips(Principal principal) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
+
+		try {
+			List<TripDetails> approvedTrips = serviceManager.tripService.findAllTripsByStatus("");
+			List<TripDetailsDto> collect = approvedTrips.stream()
+					.map(filterList -> this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
+					.collect(Collectors.toList());
+			data.setData(collect);
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+
+		} catch (Exception e) {
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+		}
+
 		return gson.toJson(data);
 	}
 }

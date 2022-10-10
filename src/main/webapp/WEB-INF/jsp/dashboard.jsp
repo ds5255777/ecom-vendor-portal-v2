@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<%@ page import="com.main.commonclasses.GlobalConstants" %>
-<%@ page import="com.main.commonclasses.GlobalUrl" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ page import="java.util.Arrays,java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page import="java.util.Arrays,java.util.List"%>
 
 <html lang="en">
 
@@ -12,14 +10,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>${titleName}|Dashboard</title>
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <style>
         tbody {
             font-size: 12.9px;
@@ -85,7 +82,7 @@
                                 <div class="inner">
                                     <h2>${TotalInTransitTripCount}</h2>
 
-                                    <p id="opeTickets" data-toggle="tooltip" data-placement="bottom">In-Transit Trip</p>
+                                    <p id="opeTickets" data-toggle="tooltip" data-placement="bottom">In-Transit Trips</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-map-marked-alt" style="color: #ffc107; font-size: 50px;"></i>
@@ -97,7 +94,7 @@
                         </div>
 
                         <div class="col-lg-2 col-6">
-                           
+
                             <div class="small-box bg-white">
                                 <div class="inner">
                                     <h2>${pendingInvoice}</h2>
@@ -115,12 +112,12 @@
                         </div>
 
                         <div class="col-lg-2 col-6">
-                           
+
                             <div class="small-box bg-white">
                                 <div class="inner">
                                     <h2>${approveInvoice}</h2>
                                     <p id="iamwatch" data-toggle="tooltip" data-placement="bottom">Approved
-                                        Invoice</p>
+                                        Invoices</p>
                                 </div>
                                 <div class="icon">
 
@@ -132,12 +129,12 @@
                             </div>
                         </div>
                         <div class="col-lg-2 col-6">
-                           
+
                             <div class="small-box bg-white">
                                 <div class="inner">
                                     <h2>${draftInvoice}</h2>
                                     <p id="UnTickets" data-toggle="tooltip" data-placement="bottom">Draft
-                                        Invoice</p>
+                                        Invoices</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fab fa-firstdraft" style="color: #1F8BFF; font-size: 50px;"></i>
@@ -149,13 +146,13 @@
                         </div>
 
                         <div class="col-lg-2 col-6">
-                           
+
                             <div class="small-box bg-white">
                                 <div class="inner">
                                     <h2>${TotalCloseTripCount}</h2>
 
                                     <p id="perTicket" data-toggle="tooltip" data-placement="bottom">Query
-                                        Invoice</p>
+                                        Invoices</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-question" style="color: #3010af; font-size: 50px;"></i>
@@ -169,7 +166,7 @@
                 </div>
             </section>
 
-            
+
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -199,20 +196,23 @@
                                 <div class="card-body">
                                     <p>Trips by Status</p>
                                     <canvas id="unresolvedsts" style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
+
+                                    <input type="hidden" id="inTransitCount" value="${ TotalInTransitTripCount }">
+                                    <input type="hidden" id="closedCount" value="${ closedTripCount }">
+                                    <input type="hidden" id="queryCount" value="${ queryTripCount }">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            
+
         </div>
 
-        <aside class="control-sidebar control-sidebar-dark">
-        </aside>
+        <aside class="control-sidebar control-sidebar-dark"></aside>
     </div>
 
-            
+
 
     <form role="form" id="changePassword1" autocomplete="off">
         <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -242,13 +242,9 @@
         </div>
     </form>
 
-   
+
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-        $.widget.bridge('uitooltip', $.ui.tooltip);
-    </script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
     <script src="plugins/chart.js/Chart.min.js"></script>
@@ -265,202 +261,9 @@
     <script src="plugins/datatables/jquery.dataTables.js"></script>
     <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
     <script src="dist/js/chart2.js"></script>
-     <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="plugins/toastr/toastr.min.js"></script>
-        
-        <script>
-		
-            $(document).ready(function () {
-                if (${userStatus} === 3) {
-                    $('#changePassword').modal('show');
-                }
-            });
-            
-            var dataLimit='${dataLimit}';
-    		dataLimit=parseInt(dataLimit);
-            
-            $('#changePassword1').validate({
-                rules: {
-                	password: {
-                        required: true
-                    },
-                    passwordConfirm: {
-                        required: true
-                    }
-                },
-	             errorElement: 'span',
-	            errorPlacement: function(error, element) {
-	                error.addClass('invalid-feedback');
-	                element.closest('.form-group').append(error);
-	            },
-	            highlight: function(element, errorClass, validClass) {
-	                $(element).addClass('is-invalid');
-	                document.getElementById("passflag").value ="1";
-	                
-	            },
-	            unhighlight: function(element, errorClass, validClass) {
-	                $(element).removeClass('is-invalid');
-	                document.getElementById("passflag").value ="0";
-	            } 
-       		 });
-             
-            $(function() {
-                $("#passwordConfirm").keyup(function() {
-                    var password = $("#password").val();
-                    var passwordConfirm = $("#passwordConfirm").val();
-                    var passflag = $("#passflag").val();
-                     if ($('#password').val() == $('#passwordConfirm').val() && passflag!="1" ) {
-            		    $('#divCheckPasswordMatch').html('Passwords match.').css('color', 'green');
-            		    // Enable #x	
-            		    $("#changePasswordButton").prop("disabled", false)
-            		    
-            		  } 
-                     else {
-            		    $('#divCheckPasswordMatch').html('Passwords do not match!').css('color', 'red');
-                 // Disable #x
-        		    $('#changePasswordButton').attr('disabled', true);
-                    return;
-            		  }
-                });
-            }); 
-            
-            const Toast = Swal.mixin({
-    			toast : true,
-    			position : 'top-end',
-    			showConfirmButton : false,
-    			timer : 3000
-    		});
-        
-        var tabledata = $('#tabledata').DataTable({
-            "paging": false,
-            "lengthChange": false,
-            "searching": false,
-            "info": true,
-            "autoWidth": false,
-            "aaSorting": [],
-            "pageLength": dataLimit
-        });
-        var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
-        var unresolvedstsData = {
-            labels: [
-                'In-Transit Trip',
-                'Closed Trips',
-                'Query Trips'
-            ],
-            datasets: [{
-                data: [${TotalInTransitTripCount},${closedTripCount},${queryTripCount}],
-                backgroundColor: ['#ffc107','#28a745','#C422F4'],
-            }]
-        }
-        var unresolvedstsOptions = {
-            maintainAspectRatio: false,
-            responsive: true,
-        }
-        var unresolvedstsOptionsChart = new Chart(unresolvedsts, {
-            type: 'doughnut',
-            data: unresolvedstsData,
-            options: unresolvedstsOptions
-        })
-
-        getDashBoardInformation();
-
-        function getDashBoardInformation() {
-
-
-            $.ajax({
-                type: "POST",
-                data: "",
-                url: "<%=GlobalUrl.getDashboardDetails%>",
-                dataType: "json",
-                contentType: "application/json",
-                success: function(data) {
-                    if (data.msg == 'success') {
-                        var result = data.data
-                        var tripList = data.data.tripList;
-                        tabledata.clear();
-                        var count = 0;
-                        var date ="";
-                        for (var i = 0; i < result.length; i++) {
-                            if (!result[i].hasOwnProperty("invoiceNumber")) {
-                                result[i].invoiceNumber = "";
-                            }
-                            if (!result[i].hasOwnProperty("invoiceDate")) {
-                                result[i].invoiceDate = "";
-                            }
-                            if (!result[i].hasOwnProperty("invoiceAmount")) {
-                                result[i].invoiceAmount = "";
-                            }
-                            if (!result[i].hasOwnProperty("invoiceStatus")) {
-                                result[i].invoiceStatus = "";
-                            }
-                            if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
-                                result[i].invoiceStatus = "";
-                            }
-                            if (!result[i].hasOwnProperty("vendorName")) {
-                                result[i].vendorName = "";
-                            }
-                            if (!result[i].hasOwnProperty("vendorCode")) {
-                                result[i].vendorCode = "";
-                            }
-                            date = result[i].invoiceReceivingDate.split(",");
-                            
-                            tabledata.row.add([
-                            	result[i].ecomInvoiceNumber,
-                            	date[0], 
-                            	result[i].invoiceNumber, 
-                            	result[i].invoiceAmount, 
-                            	result[i].invoiceStatus]); 
-                        }
-                        tabledata.draw();
-                        $("tbody").show();
-                    } else {
-                    	Toast.fire({
-                            type: 'error',
-                            title: 'Failed..not Load Try Again..'
-                        })
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again letter");
-                }
-            });
-        }
-        
-        function changePassword(password){
-        	
-        	$.ajax({
-                 type: "POST",
-                 data: "",
-                 url: "<%=GlobalUrl.changePassword%>"+"?password="+password,
-                 dataType: "json",
-                 contentType: "application/json",
-                 
-                 success: function(data) {
-                	 $('.loader').hide();
-                     $("#changePassword").modal('hide');
-                     if (data.msg == "success") {
-                         Swal.fire({
-                             type: 'success',
-                             title: 'Password Updated Successfully..'
-                         })
-                        
-                     } else {
-                    	 Swal.fire({
-                             type: 'error',
-                             title: 'Try Again...'
-                         })
-                     }
-                 },
-                 error: function(jqXHR, textStatue, errorThrown) {
-                     alert("failed, please try again letter");
-                 }
-             });
-
-        }
-
-    </script>
-
-
+    <script src="js/dashboard.js"></script>
 </body>
 
 </html>

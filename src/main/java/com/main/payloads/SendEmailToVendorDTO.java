@@ -10,7 +10,7 @@ public class SendEmailToVendorDTO {
 	private String vendorEmail;
 	private String vendorType;
 	private String region;
-	private String vendorAddress;
+	private String creditTerms;
 	private Date processOn;
 	private String processBy;
 	private Integer flag;

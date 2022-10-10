@@ -172,7 +172,7 @@ public class RegistrationController {
 				
 				
 				List<SupDetails> approvedVendor = serviceManager.supDetailsRepo
-						.findByVenStatus(GlobalConstants.APPROVED_REQUEST_STATUS);
+						.findByVenStatus();
 				data.setData(approvedVendor);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<%@ page import="com.main.commonclasses.GlobalConstants" %>
-<%@ page import="com.main.commonclasses.GlobalUrl" %>
+<%@page import="com.main.commonclasses.GlobalConstants"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="java.util.Arrays,java.util.List" %>
@@ -252,9 +251,15 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                                 <div class="card card-primary  card-outline ">
                                     <div class="card-body">
                                         <p>
-                                            <strong>Invoice Status</strong>
+                                            <strong>Finance Side Invoice Status</strong>
                                         </p>
                                         <canvas id="unresolvedsts" style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
+                                        <input type="hidden" id="vendorRole" value="${role}">
+                                        <input type="hidden" id="allInvoice" value="${ allInvoice }">
+                                        <input type="hidden" id="inReviewInvoice" value="${ inReviewInvoice }">
+                                        <input type="hidden" id="countForPendingForApprovalInvoice" value="${ countForPendingForApprovalInvoice }">
+                                        <input type="hidden" id="queryCount" value="${ queryCount }">
+
                                     </div>
                                 </div>
                             </div>
@@ -296,6 +301,11 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                                             <strong>Invoice Status</strong>
                                         </p>
                                         <canvas id="unresolvedsts" style="min-height: 385px; max-height: 377px; max-width: 100%; display: block; width: 401px; height: 459px;"></canvas>
+                                        <input type="hidden" id="allInvoice" value="${ allInvoice }">
+                                        <input type="hidden" id="inReviewInvoice" value="${ inReviewInvoice }">
+                                        <input type="hidden" id="countForPendingForApprovalInvoice" value="${ countForPendingForApprovalInvoice }">
+                                        <input type="hidden" id="queryCount" value="${ queryCount }">
+
                                     </div>
                                 </div>
                             </div>
@@ -325,7 +335,7 @@ request.setAttribute("financeHeadRole", financeHeadRole);
                     <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="changePassword(document.getElementById('passwordch').value)">Change
+                    <button type="button" id="chngpass" class="btn btn-primary">Change
                         Password</button>
                 </div>
             </div>
@@ -334,11 +344,6 @@ request.setAttribute("financeHeadRole", financeHeadRole);
 
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-        $.widget.bridge('uitooltip', $.ui.tooltip);
-
-    </script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
     <script src="plugins/chart.js/Chart.min.js"></script>
@@ -353,203 +358,9 @@ request.setAttribute("financeHeadRole", financeHeadRole);
     <script src="plugins/datatables/jquery.dataTables.js"></script>
     <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
     <script src="dist/js/chart2.js"></script>
-        
-        
-	<script>
-	
-	 $(document).ready(function () {
-         if (${userStatus} === 3) {
-             $('#changePassword').modal('show');
-         }
-     });
-	 
-	 $('#changePassword1').validate({
-         rules: {
-         	password: {
-                 required: true
-             },
-             passwordConfirm: {
-                 required: true
-             }
-         },
-          errorElement: 'span',
-         errorPlacement: function(error, element) {
-             error.addClass('invalid-feedback');
-             element.closest('.form-group').append(error);
-         },
-         highlight: function(element, errorClass, validClass) {
-             $(element).addClass('is-invalid');
-             document.getElementById("passflag").value ="1";
-             
-         },
-         unhighlight: function(element, errorClass, validClass) {
-             $(element).removeClass('is-invalid');
-             document.getElementById("passflag").value ="0";
-         } 
-		 });
-      
-     $(function() {
-         $("#passwordConfirm").keyup(function() {
-             var password = $("#password").val();
-             var passwordConfirm = $("#passwordConfirm").val();
-             var passflag = $("#passflag").val();
-              if ($('#password').val() == $('#passwordConfirm').val() && passflag!="1" ) {
-     		    $('#divCheckPasswordMatch').html('Passwords match.').css('color', 'green');
-     		    // Enable #x	
-     		    $("#changePasswordButton").prop("disabled", false)
-     		    
-     		  } 
-              else {
-     		    $('#divCheckPasswordMatch').html('Passwords do not match!').css('color', 'red');
-          // Disable #x
- 		    $('#changePasswordButton').attr('disabled', true);
-             return;
-     		  }
-         });
-     });
-	
-	var userType = '${role}';
-	
-            var tabledata = $('#tabledata').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "info": true,
-                "autoWidth": false,
-                "aaSorting": []
-            });
 
-            if(userType == "<%=GlobalConstants.ROLE_FINANCE%>"){            
-            var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
-            var unresolvedstsData = {
-                labels: [
-                    'All Invoices',
-                    'In-Review Trip Invoices',
-                    'In-Review PO Invoices',
-                    'Query'
-                ],
-                datasets: [{
-                        data: [${allInvoice}, ${inReviewInvoice}, ${countForPendingForApprovalInvoice}, ${queryCount}],
-                        backgroundColor: ['#FAA654', '#1F8BFF','#28a745','#3010af'],
-                    }]
-            }
-            var unresolvedstsOptions = {
-                maintainAspectRatio: false,
-                responsive: true,
-            }
-            var unresolvedstsOptionsChart = new Chart(unresolvedsts, {
-                type: 'doughnut',
-                data: unresolvedstsData,
-                options: unresolvedstsOptions
-            })
-            }
-            
-            if(userType == "<%=GlobalConstants.ROLE_FINANCE_HEAD%>"){            
-                var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
-                var unresolvedstsData = {
-                    labels: [
-                        'All Invoices',
-                        'Pending For Approval',
-                        'Approved Invoices'
-                    ],
-                    datasets: [{
-                            data: [${allInvoice},  ${countForPendingForApprovalInvoice}, ${countForApprovedInvoice}],
-                            backgroundColor: ['#6610f2', '#28a745', '#1F8BFF'],
-                        }]
-                }
-                var unresolvedstsOptions = {
-                    maintainAspectRatio: false,
-                    responsive: true,
-                }
-                var unresolvedstsOptionsChart = new Chart(unresolvedsts, {
-                    type: 'doughnut',
-                    data: unresolvedstsData,
-                    options: unresolvedstsOptions
-                })
-                }
 
-            function changePassword(password) {
-                console.log(document.getElementById('passwordch').value);
-                console.log("my password" + password);
-
-                $.ajax({
-                    type: "POST",
-                    data: JSON.stringify(password),
-                    url: "<%=GlobalUrl.changePassword%>",
-                    dataType: "json",
-                    contentType: "application/json",
-                    success: function (data) {
-                        if (data.msg == 'success') {
-
-                            $("tbody").show();
-                        } else {
-                            Toast.fire({
-                                type: 'error',
-                                title: 'Failed.. Try Again..'
-                            })
-                        }
-                    },
-                    error: function (jqXHR, textStatue, errorThrown) {
-                        alert("failed, please try again letter");
-                    }
-                });
-            }
-            getData();
-
-            function getData() {
-
-                $.ajax({
-                    type: "POST",
-                    data: "",
-                    url: "<%=GlobalUrl.getFinanceDashBoardDetails%>",
-                    dataType: "json",
-                    contentType: "application/json",
-                    success: function(data) {
-
-                        if (data.msg == 'success') {
-
-                            var result = data.data;
-                            tabledata.clear();
-                            for (var i = 0; i < result.length; i++) {
-                            	if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
-                                    result[i].ecomInvoiceNumber = "";
-                                }
-                                if (!result[i].hasOwnProperty("invoiceDate")) {
-                                    result[i].invoiceDate = "";
-                                }
-                                if (!result[i].hasOwnProperty("vendorCode")) {
-                                    result[i].vendorCode = "";
-                                }
-                                if (!result[i].hasOwnProperty("vendorName")) {
-                                    result[i].vendorName = "";
-                                }
-                                if (!result[i].hasOwnProperty("taxableAmount")) {
-                                    result[i].taxableAmount = "";
-                                }
-                                if (!result[i].hasOwnProperty("taxAmount")) {
-                                    result[i].taxAmount = "";
-                                }
-                                if (!result[i].hasOwnProperty("invoiceAmount")) {
-                                    result[i].invoiceAmount = "";
-                                }
-                            	tabledata.row.add([result[i].ecomInvoiceNumber,result[i].invoiceDate,result[i].vendorCode,
-                                	result[i].vendorName,result[i].taxableAmount,result[i].taxAmount,result[i].invoiceAmount]);
-                            }
-                            tabledata.draw();
-                            $("tbody").show();
-                        } else {
-                            Toast.fire({
-                                type: 'error',
-                                title: 'Failed.. Try Again..'
-                            })
-                        }
-                    },
-                    error: function(jqXHR, textStatue, errorThrown) {
-                        alert("failed, please try again");
-                    }
-                });
-            }
-        </script>
+    <script src="js/dashBoard_Finance.js"></script>
 
 </body>
 

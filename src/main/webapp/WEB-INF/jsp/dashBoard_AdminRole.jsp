@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<%@ page import="com.main.commonclasses.GlobalConstants" %>
-<%@ page import="com.main.commonclasses.GlobalUrl" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html lang="en">
@@ -12,14 +10,12 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
     <style>
         tbody {
@@ -139,6 +135,9 @@
                                 <div class="card-body">
                                     <p><strong>User By Status</strong></p>
                                     <canvas id="unresolvedsts" style="min-height: 385px;  max-height: 377px; max-width: 100%;display: block;width: 401px;height: 459px;"></canvas>
+
+                                    <input type="hidden" id="activeUser" value="${ totalActiveUser }">
+                                    <input type="hidden" id="inactiveUser" value="${ totalInActiveUser }">
                                 </div>
                             </div>
                         </div>
@@ -180,11 +179,6 @@
 
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-        $.widget.bridge('uitooltip', $.ui.tooltip);
-
-    </script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/chart.js/Chart.min.js"></script>
     <script src="plugins/sparklines/sparkline.js"></script>
@@ -204,212 +198,8 @@
     <script src="plugins/toastr/toastr.min.js"></script>
     <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
     <script src="plugins/jquery-validation/additional-methods.min.js"></script>
-    
-    <script>
-            $(document).ready(function () {
-                if (${userStatus} === 3) {
-                    $('#changePassword').modal('show');
-                }
-            });
-            
-            
-            $('#changePassword1').validate({
-                rules: {
-                	password: {
-                        required: true
-                    },
-                    passwordConfirm: {
-                        required: true
-                    }
-                },
-	             errorElement: 'span',
-	            errorPlacement: function(error, element) {
-	                error.addClass('invalid-feedback');
-	                element.closest('.form-group').append(error);
-	            },
-	            highlight: function(element, errorClass, validClass) {
-	                $(element).addClass('is-invalid');
-	                document.getElementById("passflag").value ="1";
-	                
-	            },
-	            unhighlight: function(element, errorClass, validClass) {
-	                $(element).removeClass('is-invalid');
-	                document.getElementById("passflag").value ="0";
-	            } 
-       		 });
-             
-            $(function() {
-                $("#passwordConfirm").keyup(function() {
-                    var password = $("#password").val();
-                    var passwordConfirm = $("#passwordConfirm").val();
-                    var passflag = $("#passflag").val();
-                    
-                   
-                     if ($('#password').val() == $('#passwordConfirm').val() && passflag!="1" ) {
-            		    $('#divCheckPasswordMatch').html('Passwords match.').css('color', 'green');
-            		    // Enable #x	
-            		    $("#changePasswordButton").prop("disabled", false)
-            		    
-            		  } 
-                     else {
-            		    $('#divCheckPasswordMatch').html('Passwords do not match!').css('color', 'red');
-        		    $('#changePasswordButton').attr('disabled', true);
-                    return;
-            		  }
-                });
-            }); 
-            
-            const Toast = Swal.mixin({
-    			toast : true,
-    			position : 'top-end',
-    			showConfirmButton : false,
-    			timer : 3000
-    		});
-   
-        var tabledata = $('#tabledata').DataTable({
-            "paging": false,
-            "lengthChange": false,
-            "searching": false,
-            "info": false,
-            "autoWidth": false,
-            "aaSorting": []
-        });
 
-        var unresolvedsts = $('#unresolvedsts').get(0).getContext('2d')
-        var unresolvedstsData = {
-            labels: [
-                'Active',
-                'In-Active',
-                
-            ],
-            datasets: [{
-                data: [${totalActiveUser}, ${totalInActiveUser}],
-                backgroundColor: ['#00a65a', '#FF0000'],
-            }]
-        }
-        var unresolvedstsOptions = {
-            maintainAspectRatio: false,
-            responsive: true,
-        }
-        var unresolvedstsOptionsChart = new Chart(unresolvedsts, {
-            type: 'doughnut',
-            data: unresolvedstsData,
-            options: unresolvedstsOptions
-        })
-
-        getDashBoardInformation();
-
-        function getDashBoardInformation() {
-
-            var id = "";
-            var obj = {
-                "id": id
-            }
-
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(obj),
-                url: "<%=GlobalUrl.getActiveUsersData%>",
-                dataType: "json",
-                contentType: "application/json",
-                async: false,
-                success: function(data) {
-
-                	 if (data.msg == 'success') {
-
-                         var lastName = "";
-                         var result = data.data;
-                         tabledata.clear();
-
-                         for (var i = 0; i < result.length; i++) {
-
-                             lastName = "";
-                             if(!result[i].hasOwnProperty("username")){
-    								result[i].username="";
-    							}
-                               if(!result[i].hasOwnProperty("firstName")){
-         							result[i].firstName="";
-         						}
-								if(!result[i].hasOwnProperty("lastName")){
-    								result[i].lastName="";
-    							}
-                                if(!result[i].hasOwnProperty("emailId")){
-    								result[i].emailId="";
-    							}
-                                if(!result[i].hasOwnProperty("contactNo")){
-     								result[i].contactNo="";
-     							}
-                                if(!result[i].hasOwnProperty("status")){
-    								result[i].status="";
-    							}
-                                if(!result[i].hasOwnProperty("id")){
-     								result[i].id="";
-     							}if (result[i].hasOwnProperty("lastName")) {
-                                    lastName = result[i].lastName;
-                                }
-
-                             tabledata.row.add([result[i].username, result[i].firstName, lastName, result[i].rolesObj.roleName, result[i].emailId, result[i].contactNo]);
-				
-                             let introByEmail="";
-                             var uname = $("#uname").val();
-                        	 if (uname === result[i].username) {
-                        		 introByEmail=result[i].emailId
-                        	 }
-                         }
-
-                         tabledata.draw();
-                         $("tbody").show();
-
-                     } else {
-                    	Toast.fire({
-                            type: 'error',
-                            title: 'Failed..not Load Try Again..'
-                        })
-                    }
-                },
-                error: function(jqXHR, textStatue, errorThrown) {
-                    alert("failed, please try again letter");
-                }
-            });
-        }
-        
-        function changePassword(password){
-        	console.log(document.getElementById('password').value);
-        	console.log("my password "+"<%=GlobalUrl.changePassword%>"+"?password="+password);
-        	
-        	
-        	$.ajax({
-                 type: "POST",
-                 data: "",
-                 url: "<%=GlobalUrl.changePassword%>"+"?password="+password,
-                 dataType: "json",
-                 contentType: "application/json",
-                 async: false,
-                 
-                 success: function(data) {
-                	 $('.loader').hide();
-                     $("#changePassword").modal('hide');
-                     if (data.msg == "success") {
-                         Swal.fire({
-                             type: 'success',
-                             title: 'Password Updated Successfully..'
-                         })
-                        
-                     } else {
-                    	 Swal.fire({
-                             type: 'error',
-                             title: 'Try Again...'
-                         })
-                     }
-                 },
-                 error: function(jqXHR, textStatue, errorThrown) {
-                     alert("failed, please try again letter");
-                 }
-             });
-
-        }
-
-    </script>
+    <script src="js/dashBoard_AdminRole.js"></script>
 
 
 </body>

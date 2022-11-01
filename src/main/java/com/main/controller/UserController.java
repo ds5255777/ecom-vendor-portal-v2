@@ -196,13 +196,33 @@ public class UserController {
 	@PostMapping({ "/changePassword" })
 	public String changePassword(Principal principal, @RequestParam(name = "password") String password) {
 		logger.info("Log Some Information changePassword  ");
+//		String userName = principal.getName();
+//		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
+			try {
+				User us = serviceManager.userService.findByUsername(principal.getName());
+				us.setPassword(password);
+				us.setStatus(GlobalConstants.ACTIVE_STATUS);
+				serviceManager.userService.save(us);
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+			} catch (Exception e) {
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+			}
+		return gson.toJson(data);
+	}
+	
+	@PostMapping({ "/changeVendorPassword" })
+	public String changeVendorPassword(Principal principal, @RequestParam(name = "password") String password,@RequestParam(name = "username") String username) {
+		logger.info("Log Some Information changePassword  ");
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
 			try {
-				User us = serviceManager.userService.findByUsername(principal.getName());
+				User us = serviceManager.userService.findByUsername(username);
 				us.setPassword(password);
 				us.setStatus(GlobalConstants.ACTIVE_STATUS);
 				serviceManager.userService.save(us);

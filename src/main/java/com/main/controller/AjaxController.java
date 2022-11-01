@@ -134,63 +134,75 @@ public class AjaxController {
 			} else {
 
 				if (supDetailsDto.getVenStatus().equals(GlobalConstants.APPROVED_REQUEST_STATUS)) {
-					User us = new User();
-					String bpCode = supDetailsDto.getBpCode();
-					String passwordUser = UserServiceImpl.generateRandomPassword();
-					us.setBpCode(bpCode);
-					us.setUsername(bpCode);
-					us.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS);
-					us.setRoleId(2);
-					us.setVendorName(supDetailsDto.getSuppName());
-					us.setContactNo(supDetailsDto.getContactDetails().get(0).getConPhone());
-					us.setEmailId(supDetailsDto.getContactDetails().get(0).getConEmail());
 
-					us.setFirstName(supDetailsDto.getContactDetails().get(0).getConFname());
-					us.setLastName(supDetailsDto.getContactDetails().get(0).getConLname());
-					us.setPassword(passwordUser);
-					supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
-					serviceManager.userService.save(us);
+					String vendorType = supDetailsDto.getVendorType();
 
-					supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
-					serviceManager.detailsRepo
-							.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
+					String[] arrOfVendorType = vendorType.split(",");
 
-					/* send onBoard email */
+					for (String w : arrOfVendorType) {
 
-					List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
-							.findByIsActive(GlobalConstants.ACTIVE_STATUS);
-					EmailConfiguration emailConfiguration = emailList.get(0);
+						if (w.equals("FIXED ASSETS") || w.equals("Network")) {
 
-					String vendorEmail = supDetailsDto.getContactDetails().get(0).getConEmail();
+							User us = new User();
+							String bpCode = supDetailsDto.getBpCode();
 
-					List<MailContent> mailType = serviceManager.mailContentRepo
-							.findByType("Send username And Password");
+							String passwordUser = UserServiceImpl.generateRandomPassword();
+							us.setBpCode(bpCode);
+							us.setUsername(bpCode);
+							us.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS);
+							us.setRoleId(2);
+							us.setVendorName(supDetailsDto.getSuppName());
+							us.setContactNo(supDetailsDto.getContactDetails().get(0).getConPhone());
+							us.setEmailId(supDetailsDto.getContactDetails().get(0).getConEmail());
 
-					SendEmail sendEmail = new SendEmail();
-					MailContent mailContent = mailType.get(0);
-					String emailBody = mailContent.getEmailBody();
+							us.setFirstName(supDetailsDto.getContactDetails().get(0).getConFname());
+							us.setLastName(supDetailsDto.getContactDetails().get(0).getConLname());
+							us.setPassword(passwordUser);
+							supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
+							serviceManager.userService.save(us);
 
-					emailBody = emailBody.replace("#username#", bpCode);
-					emailBody = emailBody.replace("#password#", passwordUser);
+							supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
+							serviceManager.detailsRepo
+									.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 
-					sendEmail.setMailfrom(emailConfiguration.getUserName());
-					sendEmail.setSendTo(vendorEmail);
-					sendEmail.setSubject(mailContent.getSubject());
-					sendEmail.setEmailBody(emailBody);
-					sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+							/* send onBoard email */
 
-					serviceManager.sendEmailRepo.save(sendEmail);
+							List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
+									.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+							EmailConfiguration emailConfiguration = emailList.get(0);
 
-					EmailAuditLogs auditLogs = new EmailAuditLogs();
-					auditLogs.setMailFrom(emailConfiguration.getUserName());
-					auditLogs.setMailTo(vendorEmail);
-					auditLogs.setMailSubject(mailContent.getSubject());
-					auditLogs.setMailMessage(emailBody);
+							String vendorEmail = supDetailsDto.getContactDetails().get(0).getConEmail();
 
-					serviceManager.emailAuditLogsRepo.save(auditLogs);
+							List<MailContent> mailType = serviceManager.mailContentRepo
+									.findByType("Send username And Password");
 
+							SendEmail sendEmail = new SendEmail();
+							MailContent mailContent = mailType.get(0);
+							String emailBody = mailContent.getEmailBody();
+
+							emailBody = emailBody.replace("#username#", bpCode);
+							emailBody = emailBody.replace("#password#", passwordUser);
+
+							sendEmail.setMailfrom(emailConfiguration.getUserName());
+							sendEmail.setSendTo(vendorEmail);
+							sendEmail.setSubject(mailContent.getSubject());
+							sendEmail.setEmailBody(emailBody);
+							sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+
+							serviceManager.sendEmailRepo.save(sendEmail);
+
+							EmailAuditLogs auditLogs = new EmailAuditLogs();
+							auditLogs.setMailFrom(emailConfiguration.getUserName());
+							auditLogs.setMailTo(vendorEmail);
+							auditLogs.setMailSubject(mailContent.getSubject());
+							auditLogs.setMailMessage(emailBody);
+
+							serviceManager.emailAuditLogsRepo.save(auditLogs);
+						}
+					}
 					data.setData(processID);
 					data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+
 				} else if (supDetailsDto.getVenStatus().equals(GlobalConstants.UPDATE_VENDOR)) {
 					supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
 

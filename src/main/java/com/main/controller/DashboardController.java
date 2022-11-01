@@ -223,13 +223,17 @@ public class DashboardController {
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 			JSONObject jsonObject = new JSONObject(reqObj);
-			String vendorCode =  jsonObject.optString("vendorCode");
-			String route =  jsonObject.optString("route");
+			String vendorCode = jsonObject.optString("vendorCode");
+			String route = jsonObject.optString("route");
 
 			AgreementMaster masterData = serviceManager.agreementMasterRepo.getAllTripsByVendorCode(vendorCode, route);
-			data.setData(masterData);
-			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
+			if (null != masterData) {
+				data.setData(masterData);
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+			} else {
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			}
 		} catch (Exception e) {
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);

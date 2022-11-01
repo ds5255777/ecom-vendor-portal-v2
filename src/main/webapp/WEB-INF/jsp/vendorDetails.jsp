@@ -123,6 +123,7 @@ th, td, tr {
 												<th class="bg-primary">Introduced By Name</th>
 												<th class="bg-primary">introduced by email id</th>
 												<th class="bg-primary">Status</th>
+												<th class="bg-primary">Change Password</th>
 												<th class="bg-primary">Action</th>
 											</tr>
 										</thead>
@@ -1039,6 +1040,33 @@ th, td, tr {
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                <form role="form" id="changePassword1" autocomplete="off">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Change
+                            Password</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    <div class="form-group">
+                            <label for="exampleInputEmail1">User Name</label> <input type="text" class="form-control p-input" id="userID" name="userID" readonly >
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">New Password</label> <input type="hidden" id="passflag"> <input type="password" class="form-control p-input" id="password" name="password" placeholder="New Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="changePasswordButton" class="btn btn-primary"  >Change Password</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 
 

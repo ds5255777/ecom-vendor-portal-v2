@@ -138,6 +138,11 @@ label {
 	color: red;
 }
 
+
+.msmeClass {
+	color: red;
+}
+
 #addDetails {
 	resize: vertical;
 }
@@ -222,7 +227,7 @@ select[readonly].select2+.select2-container {
 							<div id="basicDetailsHeadData" aria-labelledby="basicDetailsHead"
 								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
 								<form id="stepOneForm" class="forms-sample"
-									style="padding: 20px;">
+									style="padding: 20px;" autocomplete="off">
 									<table class="table center-aligned-table" id="fromTable">
 										<thead>
 										</thead>
@@ -258,7 +263,8 @@ select[readonly].select2+.select2-container {
 													placeholder="Supplier Name" maxlength="50"></td>
 
 												<td><label for="businessClassification">Business
-														Classification</label></td>
+														Classification<span
+														class="required adHocRequired">*</span></label></td>
 												<td><select id="businessClassification"
 													name="businessClassification" class="form-control p-input">
 														<option value="">Select</option>
@@ -270,7 +276,8 @@ select[readonly].select2+.select2-container {
 												</select></td>
 
 												<td><label for="mesmeNumber">MESME Certificate
-														Number</label></td>
+														Number<span
+														class="msmeClass" style="visibility: hidden;">*</span></label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="mesmeNumber"
 													maxlength="12" name="mesmeNumber"
@@ -380,7 +387,7 @@ select[readonly].select2+.select2-container {
 							<div id="addressBookHeadData" aria-labelledby="addressBookHead"
 								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
 								<div class="card-body" style="padding-top: 15px;">
-									<form id="stepTwoForm" class="forms-sample">
+									<form id="stepTwoForm" class="forms-sample" autocomplete="off">
 										<table class="table center-aligned-table addTable"
 											id="fromTable">
 
@@ -474,7 +481,7 @@ select[readonly].select2+.select2-container {
 											</tbody>
 										</table>
 									</form>
-									<form class="forms-sample">
+									<form class="forms-sample" autocomplete="off">
 										<div class="card-body">
 											<div class="table-responsive"
 												style="border-style: solid; border-width: 1px; border-color: #1991eb;">
@@ -511,7 +518,7 @@ select[readonly].select2+.select2-container {
 								class="collapse show"
 								style="border-style: solid; border-width: 1px; border-color: #1991eb;">
 								<div class="card-body">
-									<form id="Form-3" class="forms-sample">
+									<form id="Form-3" class="forms-sample" autocomplete="off">
 										<table class="table center-aligned-table" id="fromTable">
 											<thead>
 											</thead>
@@ -555,7 +562,7 @@ select[readonly].select2+.select2-container {
 										</table>
 										<div class="form-group"></div>
 									</form>
-									<form class="forms-sample">
+									<form class="forms-sample" autocomplete="off">
 										<div class="card-body">
 											<div class="table-responsive"
 												style="border-style: solid; border-width: 1px; border-color: #1991eb;">
@@ -589,7 +596,7 @@ select[readonly].select2+.select2-container {
 							<div id="addressBookHeadData" aria-labelledby="addressBookHead"
 								style="border-style: solid; border-width: 1px; border-color: #1991eb;">
 								<div class="card-body" style="margin-bottom: 10px;">
-									<form id="Form-4" class="forms-sample">
+									<form id="Form-4" class="forms-sample" autocomplete="off">
 										<table class="table center-aligned-table" id="fromTable">
 											<thead>
 											</thead>
@@ -687,7 +694,7 @@ select[readonly].select2+.select2-container {
 							<div id="addressBookHeadData" aria-labelledby="addressBookHead"
 								style="border-style: solid; border-width: 1px; border-color: #1991eb;">
 								<div class="card-body" style="margin-bottom: 10px;">
-									<form id="stepSixForm" class="forms-sample">
+									<form id="stepSixForm" class="forms-sample" autocomplete="off">
 										<table class="table center-aligned-table" id="fromTable">
 											<thead>
 											</thead>
@@ -774,7 +781,7 @@ select[readonly].select2+.select2-container {
 								<div id="addressBookHeadData" aria-labelledby="addressBookHead"
 									style="border-style: solid; border-width: 1px; border-color: #1991eb;">
 									<div class="card-body" style="margin-bottom: 10px;">
-										<form id="stepSevenForm" class="forms-sample">
+										<form id="stepSevenForm" class="forms-sample" autocomplete="off">
 											<table class="table center-aligned-table" id="fromTable">
 												<thead>
 												</thead>
@@ -828,7 +835,7 @@ select[readonly].select2+.select2-container {
 								<div id="itrHeadData" aria-labelledby="itrHead"
 									style="border-style: solid; border-width: 1px; border-color: #1991eb;">
 									<div class="card-body" style="margin-bottom: 10px;">
-										<form id="StepEightForm" class="forms-sample">
+										<form id="StepEightForm" class="forms-sample" autocomplete="off">
 											<table class="table center-aligned-table table-striped"
 												id="addITRGrid">
 												<tbody>
@@ -927,7 +934,7 @@ select[readonly].select2+.select2-container {
 							<div id="addressBookHeadData" aria-labelledby="addressBookHead"
 								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
 								<div class="card-body">
-									<form class="forms-sample">
+									<form class="forms-sample" autocomplete="off">
 
 										<div class="card-body">
 											<div class="table-responsive"
@@ -1010,7 +1017,7 @@ select[readonly].select2+.select2-container {
 																		size Max ${fileSize} MB</span></label><a
 																href="document/206AB - Declaration form ITR Filing.docx"
 																download>Download Template </a></td>
-															<td><label>Filled Updated VRF Form</label></td>
+															<td><label>Contract Document</label></td>
 															<td><input type="file" id="FUVFFile" name="FUVFFile"
 																class="form-control p-input" accept=".docx, .pdf">
 																<textarea id="FUVFFileText" rows="5"
@@ -1079,7 +1086,7 @@ select[readonly].select2+.select2-container {
 							<div id="queryBookHeadData" aria-labelledby="queryBookHead"
 								style="border-style: solid; border-width: 1px; border-color: #11aef6;">
 
-								<form class="">
+								<form class="" autocomplete="off">
 									<table class="table center-aligned-table" id="fromTable">
 										<tbody>
 											<tr class="container">
@@ -1102,7 +1109,7 @@ select[readonly].select2+.select2-container {
 							</div>
 
 							<div class="card-body">
-								<form id="queryForm" class="forms-sample">
+								<form id="queryForm" class="forms-sample" autocomplete="off">
 									<div class="col-md-12">
 										<div class="table-responsive">
 											<table class="table table-bordered table-hover"

@@ -127,4 +127,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value = "select users.status from users where users.bp_code=:bpCode ; ", nativeQuery = true)
 	String getVendorStatus(String bpCode);
 
+	@Query(value = "select username from users where username ILIKE :bpCode ", nativeQuery = true)
+	String checkUserName(String bpCode);
+
 }

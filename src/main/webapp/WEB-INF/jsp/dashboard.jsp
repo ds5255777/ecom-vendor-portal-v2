@@ -200,6 +200,7 @@
                                     <input type="hidden" id="inTransitCount" value="${ TotalInTransitTripCount }">
                                     <input type="hidden" id="closedCount" value="${ closedTripCount }">
                                     <input type="hidden" id="queryCount" value="${ queryTripCount }">
+                                    <input type="hidden" value="${ userStatus }" id="userStatus">
                                 </div>
                             </div>
                         </div>
@@ -235,7 +236,7 @@
                         <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="changePasswordButton" class="btn btn-primary" onclick="changePassword(document.getElementById('passwordConfirm').value)" disabled>Change Password</button>
+                        <button type="button" id="changePasswordButton" class="btn btn-primary"  disabled>Change Password</button>
                     </div>
                 </div>
             </div>

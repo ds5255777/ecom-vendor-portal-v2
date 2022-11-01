@@ -54,7 +54,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		userStatusList.add(GlobalConstants.ACTIVE_STATUS);
 		userStatusList.add(GlobalConstants.CHANGE_PASSWORD_STATUS);
 		
-		username = username.replaceAll("[^a-zA-Z0-9]", " ");
+		//username = username.replaceAll("[^a-zA-Z0-9]", " ");
 		
 		User user = userRepository.findByUsernameAndStatusIn(username, userStatusList);
 		if (user == null) {

@@ -248,10 +248,10 @@ select[readonly].select2+.select2-container {
 													placeholder="abc@ecomexpress.in"><span id="message"></span>
 													<input type="hidden" id="roleId" /></td>
 
-												<td><label for="Supplier Type">Supplier Code</label></td>
+												<td><label for="Supplier Type">Referral Email Id</label></td>
 												<td colspan="1"><input type="text"
-													class="form-control p-input" id="bpCode" name="bpCode"
-													placeholder="Supplier Code" disabled></td>
+													class="form-control p-input" id="referralEmailId" name="referralEmailId"
+													placeholder="Reference Person Email ID " ></td>
 											</tr>
 											<tr>
 
@@ -338,7 +338,7 @@ select[readonly].select2+.select2-container {
 												<td><label for="eInvoice">E-Invoice Applicable<span
 														class="required adHocRequired">*</span></label></td>	
 												<td><select class="form-control p-input"
-													id="eInvoiceApplicable" name="eInvoiceApplicable">
+													id="enInvApplicable" name="enInvApplicable">
 														<option value="">Select</option>
 														<c:forEach items="${adharLink}" var="link">
 

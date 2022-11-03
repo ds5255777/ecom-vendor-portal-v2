@@ -118,7 +118,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleId" style="height: 34px;">
+                                                    <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleId" style="height: 34px;" >
                                                         <c:forEach items="${role}" var="roleName">
                                                             <option value="${roleName.id}">${roleName.roleName}</option>
                                                         </c:forEach>
@@ -210,20 +210,20 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" maxlength="70" name="firstName" class="form-control" id="firstNameEdit" pattern="[a-zA-Z]+">
+                                                    <label for="exampleInputserverName1">First Name</label> <input type="text" maxlength="70" name="firstName" class="form-control" id="firstNameEdit" pattern="[a-zA-Z]+" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" maxlength="70" name="lastName" class="form-control" id="lastNameEdit" pattern="[a-zA-Z]+">
+                                                    <label for="exampleInputserverName1">Last Name</label> <input type="text" maxlength="70" name="lastName" class="form-control" id="lastNameEdit" pattern="[a-zA-Z]+" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Role</label> <select class="form-control" id="roleIdEdit" style="height: 34px;">
+                                                    <label for="exampleInputserverName1">Role</label> <select class="form-control" disabled="disabled" id="roleIdEdit" style="height: 34px;">
                                                         <c:forEach items="${role}" var="roleName">
 
-                                                            <option value="${roleName.id}">${roleName.roleName}</option>
+                                                            <option value="${roleName.id}" >${roleName.roleName}</option>
                                                         </c:forEach>
 
                                                     </select>

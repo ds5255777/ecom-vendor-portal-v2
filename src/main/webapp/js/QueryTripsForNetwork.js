@@ -601,6 +601,11 @@ function refreshValues() {
 				calcualteFormulae();
 				updateTripDataByNetworkTeam('Yes');
 
+			}else{
+				Toast.fire({
+					type: 'error',
+					title: 'This Route is not found in MDM, please contact finance department'
+				})
 			}
 		}
 

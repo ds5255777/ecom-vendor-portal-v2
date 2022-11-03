@@ -13,6 +13,7 @@ public class SupDetailsDTO {
 	private String vendorType;
 	private String introducedByName;
 	private String introducedByEmailID;
+	private String referralEmailId;
 	private String bpCode;
 	private String suppName;
 	private String aadharNumber;
@@ -21,7 +22,10 @@ public class SupDetailsDTO {
 	private String adharLinkStatus;
 	private String businessClassification;
 	private String siteDff;
-	private String eInvoiceApplicable;
+	
+	private String enInvApplicable;
+	
+	
 	private String opeUnitReqMap;
 	private String venStatus; 
 	private String invoiceCurrency;

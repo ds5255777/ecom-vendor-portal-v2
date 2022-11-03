@@ -45,6 +45,9 @@ public class SupDetails {
 
 	@Column(name = "supp_name")
 	private String suppName;
+	
+	@Column(name = "referral_email_id")
+	private String referralEmailId;
 
 	@Column(name = "aadhar_number")
 	private String aadharNumber;
@@ -56,7 +59,7 @@ public class SupDetails {
 	private String adharLinkStatus;
 	
 	@Column(name = "e_Invoice_Applicable")
-	private String eInvoiceApplicable;
+	private String enInvApplicable;
 	
 	private String businessClassification;
 	@Column(name = "site_dff")

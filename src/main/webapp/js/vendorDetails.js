@@ -129,6 +129,12 @@ $("#bpCode").focusout(function() {
 });
 
 
+$("#changePasswordButton").bind("click", function() {
+	debugger
+	changeVendorPassword();
+});
+
+
 
 $(document).ready(function() {
 	var bootstrapTooltip = $.fn.tooltip.noConflict();
@@ -299,7 +305,7 @@ function getData() {
 					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#\" class=\"checkVendorCode\">" + result[i].bpCode + "</a>";
 					var inactive = "<a href=\"#\" data-toggle=\"modal\"  tittle=\"In-Active Vendor\" data-target=\"#vendorValue\" class=\"inactiveVendor\" )\"> <i style=\"color:red;\" class=\"fas fa-user-slash\"></i>  </a>";
 					var active = "<a href=\"#\" data-toggle=\"modal\" tittle=\"Active Vendor\" data-target=\"#vendorValue\" class=\"activeVendor\" > <i class=\"fas fa-user\"></i>  </a>";
-
+					var changePassword = "<button type=\"button\" class=\"tripApprove btn btn-primary btn-xs\"  value=\"" + result[i].bpCode+ "\"> <i class=\"fas fa-key\"></i>  </button>";
 					tabledata.row.add([view,
 						result[i].suppName,
 						result[i].vendorType,
@@ -307,6 +313,7 @@ function getData() {
 						result[i].introducedByName,
 						result[i].introducedByEmailID,
 						result[i].flag,
+						changePassword,
 						inactive + " &nbsp;&nbsp; " + active]);
 				}
 				tabledata.draw();
@@ -324,6 +331,16 @@ function getData() {
 		}
 	});
 }
+
+
+$('#tabledata tbody').on('click', ".tripApprove", function() {
+	var userName=this.value;
+	$("#userID").val(userName);
+	$("#myModal").modal('show');
+});
+
+
+
 
 $('#tabledata tbody').on('click', ".checkVendorCode", function() {
 	var row = $(this).parents('tr')[0];

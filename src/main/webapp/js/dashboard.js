@@ -2,10 +2,19 @@ var csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*
 
 
 $(document).ready(function() {
-	if ('${ userStatus }' === 3) {
+	var userStatus = $("#userStatus").val();
+
+	if (userStatus == 3) {
 		$('#changePassword').modal('show');
 	}
 });
+
+
+
+$("#changePasswordButton").bind("click", function() {
+	changePassword(document.getElementById('passwordConfirm').value);
+});
+
 var dataLimit = [['${dataLimit}']];
 dataLimit = parseInt(dataLimit);
 
@@ -162,7 +171,8 @@ function changePassword(password) {
 	$.ajax({
 		type: "POST",
 		data: "",
-		url: "<%=GlobalUrl.changePassword%>" + "?password=" + password,
+		url: "userController/changePassword" + "?password=" + password,
+		headers: { 'X-XSRF-TOKEN': csrfToken },
 		dataType: "json",
 		contentType: "application/json",
 

@@ -59,6 +59,11 @@ $("#ITRFile1").bind("change", function() {
 
 $("#businessClassification").bind("change", function() {
 	MESMENumber();
+	showHideRequiredClass();
+});
+
+$("#mesmeNumber").bind("input", function() {
+	this.value = this.value.toUpperCase();
 });
 
 $("#aadharNumber").bind("input", function() {
@@ -174,9 +179,19 @@ function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
 				swal.fire("Alert", "Business Partner Name is mandatory", "warning")
 					.then((value) => { });
 			}
+			else if (controlName == "businessClassification") {
+
+				swal.fire("Alert", "Business Classification is mandatory", "warning")
+					.then((value) => { });
+			}
+			else if (controlName == "mesmeNumber") {
+
+				swal.fire("Alert", "MESME Certificate Number is mandatory", "warning")
+					.then((value) => { });
+			}
 			else if (controlName == "eInvoiceApplicable") {
 
-				swal.fire("Alert", "Select e-Invoice Status", "warning")
+				swal.fire("Alert", "E-Invoice Applicable is mandatory", "warning")
 					.then((value) => { });
 			}
 
@@ -295,14 +310,15 @@ $(document).ready(function() {
 	});
 });
 
+
+
 function showHideRequiredClass() {
-	if ($("#partnerType").val() == "Scheduled") {
-		$(".required").css("visibility", "visible");
-		$("#finishButton").attr("disabled", true);
+	debugger
+	if ($("#businessClassification").val() == "Other Enterprise") {
+		$(".msmeClass").css("visibility", "hidden");
 	} else {
-		$(".required").css("visibility", "hidden");
-		$(".adHocRequired").css("visibility", "visible");
-		$("#finishButton").attr("disabled", true);
+		$(".msmeClass").css("visibility", "visible");
+		
 	}
 }
 
@@ -313,13 +329,32 @@ function checkMand(stepNo, stepDirection) {
 	}
 
 	if (stepNo == 0) {
-		var mandFields = "introducedByName,introducedByEmailID,suppName,eInvoiceApplicable";
+		var mandFields = "introducedByName,introducedByEmailID,suppName,businessClassification";
 		var mandFieldsArr = mandFields.split(",");
 		for (i = 0; i < mandFieldsArr.length; i++) {
 			if (document.getElementById(mandFieldsArr[i]).value == '') {
 				notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
 				return false;
 			}
+		}
+		var businessClass = $("#businessClassification").val();
+		if (businessClass == "Micro Enterprise" || businessClass == "Medium Enterprise" || businessClass == "Small Enterprise") {
+			var mandFields = "mesmeNumber";
+			var mandFieldsArr = mandFields.split(",");
+			for (i = 0; i < mandFieldsArr.length; i++) {
+				if (document.getElementById(mandFieldsArr[i]).value == '') {
+					notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+					return false;
+				}
+			}
+		var mandFields = "eInvoiceApplicable";
+		var mandFieldsArr = mandFields.split(",");
+		for (i = 0; i < mandFieldsArr.length; i++) {
+			if (document.getElementById(mandFieldsArr[i]).value == '') {
+				notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+				return false;
+			}
+		}
 		}
 
 	} else if (stepNo == 1) {
@@ -1056,6 +1091,9 @@ function sendToServer() {
 	finalObj.vendorType = vendorTypeString;
 	
 	finalObj.creditTerms=$("#creditTerms").val();
+	
+	console.log(finalObj);
+	
 	
 	$('.loader').show();
 	

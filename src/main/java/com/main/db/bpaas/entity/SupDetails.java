@@ -1,6 +1,5 @@
 package com.main.db.bpaas.entity;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -45,7 +44,7 @@ public class SupDetails {
 
 	@Column(name = "supp_name")
 	private String suppName;
-	
+
 	@Column(name = "referral_email_id")
 	private String referralEmailId;
 
@@ -57,17 +56,17 @@ public class SupDetails {
 	private String tanNumber;
 	@Column(name = "adhar_link_status")
 	private String adharLinkStatus;
-	
+
 	@Column(name = "e_Invoice_Applicable")
 	private String enInvApplicable;
-	
+
 	private String businessClassification;
 	@Column(name = "site_dff")
 	private String siteDff;
 	@Column(name = "ope_unit_req_map")
 	private String opeUnitReqMap;
 	@Column(name = "ven_status")
-	private String venStatus; 
+	private String venStatus;
 
 	@Column(name = "invoice_currency")
 	private String invoiceCurrency;
@@ -82,14 +81,12 @@ public class SupDetails {
 	@Column(name = "delivery_terms")
 	private String deliveryTerms;
 
-
 	@Column(name = "tds_application")
 	private String tdsApplication;
 	@Column(name = "tds_section")
 	private String tdsSection;
 	@Column(name = "tds_rate")
 	private String tdsRate;
-
 
 	@Column(name = "fy_year1")
 	private String fyYear1;
@@ -124,7 +121,7 @@ public class SupDetails {
 	private String ihq;
 
 	@Column(name = "create_date")
-	private Date date = new Date();
+	private String createDate;
 
 	@Column(name = "flag")
 	private String flag;

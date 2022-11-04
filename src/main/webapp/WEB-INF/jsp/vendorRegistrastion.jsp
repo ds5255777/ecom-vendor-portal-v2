@@ -324,7 +324,7 @@ label {
 												<td><label for="eInvoice">E-Invoice Applicable<span
 														class="required adHocRequired">*</span></label></td>	
 												<td><select class="form-control p-input"
-													id="eInvoiceApplicable" name="eInvoiceApplicable">
+													id="enInvApplicable" name="enInvApplicable">
 														<option value="">Select</option>
 														<c:forEach items="${adharLink}" var="link">
 

@@ -1,5 +1,6 @@
 package com.main.db.bpaas.repo;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -85,5 +86,7 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 	@Query(value = "select bp_code from supdetails where supdetails.bp_code=:bpCode ; ", nativeQuery = true)
 	String checkBpCode(String bpCode);
 
+
+	List<SupDetails> findByCreateDateBetween(String fromDate, String toDate);
 
 }

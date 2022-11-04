@@ -212,6 +212,10 @@ function getData() {
 function getFilterData() {
 	var fromDate = $("#fromDate").val();
 	var toDate = $("#toDate").val();
+	
+	console.log(fromDate, "   ", toDate);
+	fromDate = moment(fromDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+	toDate = moment(toDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
 
 	console.log(fromDate, "   ", toDate);
 

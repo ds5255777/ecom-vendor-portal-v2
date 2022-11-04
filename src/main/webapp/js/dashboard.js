@@ -8,6 +8,10 @@ $(document).ready(function() {
 		$('#changePassword').modal('show');
 	}
 });
+$("#password").bind("input", function() {
+	debugger
+	pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+});
 
 
 
@@ -105,7 +109,7 @@ getDashBoardInformation();
 
 function getDashBoardInformation() {
 
-	
+
 	$.ajax({
 		type: "POST",
 		data: "",

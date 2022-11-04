@@ -78,6 +78,10 @@ $("#aadharNumber").bind("input", function() {
 	this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
 });
 
+$("#referralEmailId").bind("input", function() {
+	this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+});
+
 $("#panNumber").bind("input", function() {
 	this.value = this.value.toUpperCase();
 });
@@ -313,7 +317,6 @@ $(document).ready(function() {
 
 
 function showHideRequiredClass() {
-	debugger
 	if ($("#businessClassification").val() == "Other Enterprise") {
 		$(".msmeClass").css("visibility", "hidden");
 	} else {
@@ -612,6 +615,20 @@ $(document).ready(function() {
 			document.getElementById("introducedByEmailID").focus();
 			swal.fire("Alert", "Invalid Email ID", "warning");
 			document.getElementById("introducedByEmailID").focus();
+			return regex.test(inputvalues);
+		}
+	});
+	
+	$("#referralEmailId").change(function() {
+		debugger
+		var inputvalues = $(this).val();
+		var regex = /^[a-zA-Z0-9+_.-]*@ecomexpress.in$/;
+
+		if (!regex.test(inputvalues)) {
+			$("#referralEmailId").val("");
+			document.getElementById("referralEmailId").focus();
+			swal.fire("Alert", "Invalid Email ID", "warning");
+			document.getElementById("referralEmailId").focus();
 			return regex.test(inputvalues);
 		}
 	});
@@ -914,6 +931,7 @@ $(document).on({
 });
 
 function sendToServer() {
+	debugger
 	var addressDetailsArray = [];
 	var table = document.getElementById('addBookGrid');
 	var rowLength = table.rows.length;

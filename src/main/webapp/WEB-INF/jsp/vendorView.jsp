@@ -153,6 +153,14 @@ margin-bottom: 0px;
 									</div>
 									<div class="col-md-4">
 										<div class="form-group ">
+											<label>Referral Email Id<span class="text-danger"></span></label>
+
+											<input class="form-control-sm" type="text" name="referralEmailId"
+												id="referralEmailId" readonly style="width: 100%;">
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group ">
 											<label>Supplier Name<span class="text-danger"></span></label>
 
 											<input class="form-control-sm" type="text" name="suppName"
@@ -497,7 +505,7 @@ margin-bottom: 0px;
 						</div>
 					</div>
 
-					<div class="card card-primary" id="queryWindow"
+					<!-- <div class="card card-primary" id="queryWindow"
 						style="display: block;" style="margin-top: 1rem;">
 						<div class="card-header" style="padding: 5px 5px 0px 5px;">
 							<h4 class="card-title">Remarks</h4>
@@ -524,7 +532,7 @@ margin-bottom: 0px;
 								</div>
 							</form>
 						</div>
-					</div>
+					</div> -->
 
 					<div class="row">
 						<div class="col-md-3" style="display: no ne;" id="prosInvBtn">
@@ -536,14 +544,14 @@ margin-bottom: 0px;
 						<div class="col-md-3" style="display: none;" id="rejectInvBtn">
 							<button type="button" id="rejected"
 								style="margin-right: 10px; width: inherit"
-								class="btn btn-danger btn-lg">Rejected Request</button>
+								class="btn btn-danger btn-lg">Rejecte Request</button>
 						</div>
 
-						<div class="col-md-3" style="display: none;" id="raiseQueryDiv">
+						<!-- <div class="col-md-3" style="display: none;" id="raiseQueryDiv">
 							<button type="button" id="raiseQuery"
 								style="margin-right: 10px; width: inherit" value="raiseQuery"
 								class="btn btn-warning btn-lg">Raise Query</button>
-						</div>
+						</div> -->
 
 						<div class="col-md-3">
 							<button type="button" id="closeWindow"
@@ -552,7 +560,7 @@ margin-bottom: 0px;
 						</div>
 					</div>
 
-					<div class="card card-primary" style="margin-top: 1rem;">
+					<!-- <div class="card card-primary" style="margin-top: 1rem;">
 						<div class="card-header" style="padding: 5px 5px 0px 5px;">
 							<h4 class="card-title">Remarks List</h4>
 							<div class="card-tools">
@@ -586,7 +594,7 @@ margin-bottom: 0px;
 								</div>
 							</form>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</section>
 		</div>

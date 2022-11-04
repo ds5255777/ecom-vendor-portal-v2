@@ -70,8 +70,6 @@ public class AjaxController {
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		processID = "";
 		try {
-			String eInvoiceApplicable = supDetailsDto.getEnInvApplicable();
-			System.out.println(eInvoiceApplicable);
 			for (int i = 0; i < supDetailsDto.getAddressDetails().size(); i++) {
 				String state = supDetailsDto.getAddressDetails().get(i).getState();
 				String stCode = serviceManager.stateRepo.findByStateCode(state);
@@ -221,7 +219,7 @@ public class AjaxController {
 					serviceManager.detailsRepo
 							.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 					data.setData(processID);
-					//data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+					data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 				}
 			}
 		} catch (Exception e) {

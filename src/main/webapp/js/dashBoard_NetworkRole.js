@@ -59,7 +59,7 @@ var csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify(password),
-                    url: "<%=GlobalUrl.changePassword%>",
+                    url: "userController/changePassword",
                     dataType: "json",
                     headers: { 'X-XSRF-TOKEN': csrfToken },
                     contentType: "application/json",

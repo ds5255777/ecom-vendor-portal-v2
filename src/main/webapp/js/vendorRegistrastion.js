@@ -418,8 +418,8 @@ $("#addBookGridButt").click(function() {
 });
 
 
-$(document).on("click", ".us", function(){
-    $(this).closest("tr").remove();
+$(document).on("click", ".us", function() {
+	$(this).closest("tr").remove();
 });
 
 
@@ -460,8 +460,8 @@ $("#contactDetailsButt").click(function() {
 	}
 });
 
-$(document).on("click", ".removeContact", function(){
-    $(this).closest("tr").remove();
+$(document).on("click", ".removeContact", function() {
+	$(this).closest("tr").remove();
 });
 
 $("#addBankGridButt").click(function() {
@@ -503,8 +503,8 @@ $("#addBankGridButt").click(function() {
 	}
 });
 
-$(document).on("click", ".removeBank", function(){
-    $(this).closest("tr").remove();
+$(document).on("click", ".removeBank", function() {
+	$(this).closest("tr").remove();
 });
 
 $body = $("body");
@@ -617,7 +617,7 @@ $("#updateBtn").bind("click", function() {
 function sendToServer() {
 
 
-	var mandFields = "introducedByName,introducedByEmailID,bpCode,suppName,eInvoiceApplicable";
+	var mandFields = "introducedByName,introducedByEmailID,bpCode,suppName,enInvApplicable";
 	var mandFieldsArr = mandFields.split(",");
 	for (i = 0; i < mandFieldsArr.length; i++) {
 		if (document.getElementById(mandFieldsArr[i]).value == '') {
@@ -629,7 +629,7 @@ function sendToServer() {
 	var addressDetailsArray = [];
 	var table = document.getElementById('addBookGrid');
 	var rowLength = table.rows.length;
-
+	var vendorType = [];
 	for (var i = 1; i < rowLength; i += 1) {
 		var row = table.rows[i];
 		var objs = {
@@ -643,9 +643,11 @@ function sendToServer() {
 			"addDetails": row.cells[7].innerHTML
 		};
 		addressDetailsArray.push(objs);
+		vendorType.push(row.cells[4].innerHTML);
 	}
 
-	var partnerType = document.getElementById("partnerType").value
+	var vendorTypeString = vendorType.join(",");
+	//var partnerType = document.getElementById("partnerType").value
 
 	if (addressDetailsArray.length == 0) {
 
@@ -891,7 +893,8 @@ function sendToServer() {
 	finalObj.acknowledgementNumber1 = acknowledgementNumber1;
 	finalObj.acknowledgementNumber2 = acknowledgementNumber2;
 	finalObj.acknowledgementNumber3 = acknowledgementNumber3;
-
+	finalObj.vendorType = vendorTypeString;
+	console.log(finalObj);
 	$('.loader').show();
 
 	$.ajax({
@@ -972,7 +975,7 @@ function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
 				swal.fire("Alert", "Business Partner Name is mandatory", "warning")
 					.then((value) => { });
 			}
-			
+
 			else if (controlName == "eInvoiceApplicable") {
 
 				swal.fire("Alert", "Select e-Invoice Status", "warning")
@@ -1234,13 +1237,13 @@ function select() {
 	if (val == "Network") {
 		document.getElementById("partnerType").disabled = false;
 		document.getElementById("partnerType").value = "Scheduled";
-		
+
 		document.getElementById("selectSupplierType").style.visibility = "visible";
 		document.getElementById("selectPartnerType").style.visibility = "visible";
 	} else {
 		document.getElementById("partnerType").disabled = true;
 		document.getElementById("partnerType").value = "";
-		
+
 		document.getElementById("selectSupplierType").style.visibility = "hidden";
 		document.getElementById("selectPartnerType").style.visibility = "hidden";
 
@@ -1285,7 +1288,7 @@ function checkForExistingUserName() {
 		$.ajax({
 			type: "POST",
 			data: JSON.stringify(json),
-			url: "<%=GlobalUrl.checkForExistingUserName%>",
+			url: "userController/checkForExistingUserName",
 			dataType: "json",
 			contentType: "application/json",
 			async: false,

@@ -6,12 +6,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -250,6 +254,37 @@ public class RegistrationController {
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 
+		} catch (Exception e) {
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+		}
+		return gson.toJson(data);
+	}
+	
+	//filterVendorDetails
+	
+	@GetMapping({ "filterVendorDetails" })
+	public String filterInvoiceDetails(HttpServletRequest request,
+			@RequestParam(name = "startDate") String fromDate,
+			@RequestParam(name = "endDate") String toDate) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
+		logger.info(fromDate);
+		logger.info(toDate);
+		
+		  
+		try {
+//			Date date1=new SimpleDateFormat("yyyy-mm-dd").parse(fromDate); 
+//			Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(toDate); 
+			List<SupDetails> listOfVendorDetails=serviceManager.supDetailsRepo.findByCreateDateBetween(fromDate, toDate);
+			
+			// List<SupDetails> collect = listOfVendorDetails.stream().map(listOfVendor->
+			// this.serviceManager.modelMapper.map(listOfVendor,
+			// SupDetails.class)).collect(Collectors.toList());
+
+			data.setData(listOfVendorDetails);
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);

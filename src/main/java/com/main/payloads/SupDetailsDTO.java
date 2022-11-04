@@ -1,13 +1,14 @@
 package com.main.payloads;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import lombok.Data;
 
+import lombok.Data;
 
 @Data
 public class SupDetailsDTO {
-	
+
 	private Long id;
 	private String pid;
 	private String vendorType;
@@ -22,12 +23,11 @@ public class SupDetailsDTO {
 	private String adharLinkStatus;
 	private String businessClassification;
 	private String siteDff;
-	
+
 	private String enInvApplicable;
-	
-	
+
 	private String opeUnitReqMap;
-	private String venStatus; 
+	private String venStatus;
 	private String invoiceCurrency;
 	private String paymentCurrency;
 	private String creditTerms;
@@ -50,7 +50,7 @@ public class SupDetailsDTO {
 	private String nro;
 	private String sro;
 	private String ihq;
-	private Date date = new Date();
+	private String createDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 	private String flag;
 	private String addressPurchasingFlag;
 	private String addressPaymentFlag;
@@ -87,6 +87,5 @@ public class SupDetailsDTO {
 
 	String itraFileText3;
 	String itraFileName3;
-
 
 }

@@ -172,13 +172,13 @@ var csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*
         
         function changePassword(password){
         	console.log(document.getElementById('password').value);
-        	console.log("my password "+"<%=GlobalUrl.changePassword%>"+"?password="+password);
+        	//console.log("my password "+"<%=GlobalUrl.changePassword%>"+"?password="+password);
         	
         	
         	$.ajax({
                  type: "POST",
                  data: "",
-                 url: "<%=GlobalUrl.changePassword%>"+"?password="+password,
+                 url: "userController/changePassword" + "?password=" + password,
                  dataType: "json",
                  headers: { 'X-XSRF-TOKEN': csrfToken },
                  contentType: "application/json",

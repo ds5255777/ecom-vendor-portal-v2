@@ -282,7 +282,8 @@ public class FinanceController {
 			} else if (GlobalConstants.SET_TYPE_REGISTRATION.equalsIgnoreCase(entity.getType())) {
 				entity.setType(GlobalConstants.SET_TYPE_REGISTRATION);
 				if (GlobalConstants.ROLE_REGISTRATION_APPROVAL.equalsIgnoreCase(rolename)) {
-					serviceManager.supDetailsRepo.updateVendorStatus(GlobalConstants.QUERY_REQUEST_STATUS, getid);
+					//Change After changes in Query
+					serviceManager.supDetailsRepo.updateVendorStatus(GlobalConstants.REJECTED_REQUEST_STATUS, getid);
 					type = entity.getType();
 				}
 			}

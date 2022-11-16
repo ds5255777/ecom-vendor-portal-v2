@@ -505,10 +505,10 @@ margin-bottom: 0px;
 						</div>
 					</div>
 
-					<!-- <div class="card card-primary" id="queryWindow"
+					 <div class="card card-primary" id="queryWindow"
 						style="display: block;" style="margin-top: 1rem;">
 						<div class="card-header" style="padding: 5px 5px 0px 5px;">
-							<h4 class="card-title">Remarks</h4>
+							<h4 class="card-title">Comment</h4>
 							<div class="card-tools">
 								<button type="button" class="btn btn-tool"
 									data-card-widget="collapse" style="margin-right: 10px;">
@@ -521,7 +521,7 @@ margin-bottom: 0px;
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label class="col-sm-3">Remarks <span
+											<label class="col-sm-3">Comment <span
 												class="text-danger"></span></label>
 											<div class="col-sm-9">
 												<textarea class="form-control" id="comment" name="comment"
@@ -532,7 +532,7 @@ margin-bottom: 0px;
 								</div>
 							</form>
 						</div>
-					</div> -->
+					</div>
 
 					<div class="row">
 						<div class="col-md-3" style="display: no ne;" id="prosInvBtn">
@@ -560,7 +560,7 @@ margin-bottom: 0px;
 						</div>
 					</div>
 
-					<!-- <div class="card card-primary" style="margin-top: 1rem;">
+					 <div class="card card-primary" id="queryTableView" style="margin-top: 1rem;">
 						<div class="card-header" style="padding: 5px 5px 0px 5px;">
 							<h4 class="card-title">Remarks List</h4>
 							<div class="card-tools">
@@ -594,7 +594,7 @@ margin-bottom: 0px;
 								</div>
 							</form>
 						</div>
-					</div> -->
+					</div> 
 				</div>
 			</section>
 		</div>

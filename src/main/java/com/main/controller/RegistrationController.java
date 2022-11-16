@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.commonclasses.GlobalConstants;
+import com.main.db.bpaas.entity.EmailAuditLogs;
+import com.main.db.bpaas.entity.EmailConfiguration;
+import com.main.db.bpaas.entity.MailContent;
+import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.payloads.SupDetailsDTO;
 import com.main.servicemanager.ServiceManager;
@@ -173,10 +178,7 @@ public class RegistrationController {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)
 					|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
 
-				
-				
-				List<SupDetails> approvedVendor = serviceManager.supDetailsRepo
-						.findByVenStatus();
+				List<SupDetails> approvedVendor = serviceManager.supDetailsRepo.findByVenStatus();
 				data.setData(approvedVendor);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
@@ -215,25 +217,64 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/rejectedRequest" })
-	public String rejectedRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
+	public String rejectedRequest(Principal principal, @RequestBody String obj) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		JSONObject jsonObject = new JSONObject(obj);
+		String pid = jsonObject.optString("pid");
+		String comment = jsonObject.optString("comment");
+		String vandorMailId = jsonObject.optString("vandorMailId");
+		String introducedByEmailID=jsonObject.optString("introducedByEmailID");
 
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
 
-				serviceManager.supDetailsRepo.approveRequestByPid(supDetailsDto.getPid(),
-						GlobalConstants.REJECTED_REQUEST_STATUS);
+				serviceManager.supDetailsRepo.approveRequestByPid(pid, GlobalConstants.REJECTED_REQUEST_STATUS);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+
+				/* send onBoard email */
+
+				List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
+						.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+				EmailConfiguration emailConfiguration = emailList.get(0);
+
+				List<MailContent> mailType = serviceManager.mailContentRepo.findByType("Vendor Rejected");
+
+				SendEmail sendEmail = new SendEmail();
+				MailContent mailContent = mailType.get(0);
+				String emailBody = mailContent.getEmailBody();
+
+				emailBody = emailBody.replace("#VendorRefId#", pid);
+				emailBody = emailBody.replace("#Reason#", comment);
+
+				sendEmail.setMailfrom(emailConfiguration.getUserName());
+				sendEmail.setSendTo(vandorMailId);
+				sendEmail.setBcc(introducedByEmailID);
+				sendEmail.setSubject(mailContent.getSubject());
+				sendEmail.setEmailBody(emailBody);
+				sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+
+				serviceManager.sendEmailRepo.save(sendEmail);
+
+				EmailAuditLogs auditLogs = new EmailAuditLogs();
+				auditLogs.setMailFrom(emailConfiguration.getUserName());
+				auditLogs.setMailTo(vandorMailId);
+				sendEmail.setBcc(introducedByEmailID);
+				auditLogs.setMailSubject(mailContent.getSubject());
+				auditLogs.setMailMessage(emailBody);
+
+				serviceManager.emailAuditLogsRepo.save(auditLogs);
+
 			}
 
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
+
 		return gson.toJson(data);
 	}
 
@@ -260,25 +301,24 @@ public class RegistrationController {
 		}
 		return gson.toJson(data);
 	}
-	
-	//filterVendorDetails
-	
+
+	// filterVendorDetails
+
 	@GetMapping({ "filterVendorDetails" })
-	public String filterInvoiceDetails(HttpServletRequest request,
-			@RequestParam(name = "startDate") String fromDate,
+	public String filterInvoiceDetails(HttpServletRequest request, @RequestParam(name = "startDate") String fromDate,
 			@RequestParam(name = "endDate") String toDate) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		logger.info(fromDate);
 		logger.info(toDate);
-		
-		  
+
 		try {
 //			Date date1=new SimpleDateFormat("yyyy-mm-dd").parse(fromDate); 
 //			Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(toDate); 
-			List<SupDetails> listOfVendorDetails=serviceManager.supDetailsRepo.findByCreateDateBetween(fromDate, toDate);
-			
+			List<SupDetails> listOfVendorDetails = serviceManager.supDetailsRepo.findByCreateDateBetween(fromDate,
+					toDate);
+
 			// List<SupDetails> collect = listOfVendorDetails.stream().map(listOfVendor->
 			// this.serviceManager.modelMapper.map(listOfVendor,
 			// SupDetails.class)).collect(Collectors.toList());

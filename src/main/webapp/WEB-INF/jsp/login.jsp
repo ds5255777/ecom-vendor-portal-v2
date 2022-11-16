@@ -85,7 +85,7 @@
 
 
                 <br>
-                <button type="button" id="click" class="btn " value="Login" style="color: white; background-color: #204572;height: fit-content;cursor: pointer;">Login</button>
+                <button type="button" id="click" class="btn" value="Login" style="color: white; background-color: #204572;height: fit-content;cursor: pointer;">Login</button>
             </div>
             <sec:csrfInput />
         </form>

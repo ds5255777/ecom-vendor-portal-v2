@@ -331,7 +331,7 @@ function sendToServer() {
 		success: function(response) {
 
 			if (response.msg == 'success') {
-				swal.fire("", "Invoice Processed Sucessfully", "success", "OK").then(function() {
+				swal.fire("Invoice Processed Sucessfully","Process ID : " + response.data,  "success", "OK").then(function() {
 					window.opener.refereshList();
 					window.close();
 				});

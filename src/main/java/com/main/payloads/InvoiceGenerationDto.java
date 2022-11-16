@@ -4,11 +4,9 @@ import java.util.List;
 
 import com.main.db.bpaas.entity.InvoiceLineItem;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class InvoiceGenerationDto {
 
 	private Long id;
@@ -35,6 +33,7 @@ public class InvoiceGenerationDto {
 	private String ratePerKm;
 	private String taxableAmount;
 	private String taxAmount;
+	private String pid;
 	private List<InvoiceLineItem> invoiceLineItem;
 	private String invoiceFileName;
 	private String invoiceFileText;

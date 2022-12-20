@@ -129,8 +129,18 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query(value = "select username from users where username ILIKE :bpCode ", nativeQuery = true)
 	String checkUserName(String bpCode);
-	
+
 	@Query(value = "select email_id from users where username=:username ", nativeQuery = true)
 	String getUserMailId(String username);
+
+	@Query(value = "SELECT email_id FROM public.users where role_id=:i", nativeQuery = true)
+	List<String> findbyRoleId(int i);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "update users set password=:passwordUser where username=:bpCode and bp_code=:bpCode", nativeQuery = true)
+	void updateVendorPassword(@Param("bpCode") String bpCode, @Param("passwordUser") String passwordUser);
+
+	User findByBpCode(String bpCode);
 
 }

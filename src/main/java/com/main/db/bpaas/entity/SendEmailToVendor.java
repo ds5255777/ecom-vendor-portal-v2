@@ -25,8 +25,7 @@ public class SendEmailToVendor {
 	private String vendorType;
 	@Column(name = "region")
 	private String region;
-	@Column(name = "vendor_address")
-	private String vendorAddress;
+	
 	@Column(name = "creditTerms")
 	private String creditTerms;
 	@Column(name = "process_on")
@@ -35,5 +34,8 @@ public class SendEmailToVendor {
 	private String processBy;
 	@Column(name = "flag")
 	private Integer flag;
+	
+	@Column(name = "vendor_pid")
+	private String vendorPid;
 
 }

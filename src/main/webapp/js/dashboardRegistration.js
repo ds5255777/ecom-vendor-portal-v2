@@ -98,7 +98,7 @@ $('#tabledata tbody').on('click', ".clickPid", function() {
 
 function approvedRequest() {
 	$('.loader').show();
-
+debugger
 	document.getElementById("lastInvoice").innerHTML = "Approved Request";
 	document.getElementById("allRequest").style.display = "block";
 	$.ajax({
@@ -114,14 +114,14 @@ function approvedRequest() {
 				var result = data.data;
 				tabledata.clear();
 				for (var i = 0; i < result.length; i++) {
-					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#vendorValue\" class=\"onClickReg\"  >" + result[i][0] + "</button>";
+					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#vendorValue\" class=\"onClickReg\"  >" + result[i].pid + "</button>";
 					tabledata.row.add([
 						view,
-						result[i][1],
-						result[i][2],
-						result[i][3],
-						result[i][4],
-						result[i][5]]);
+						result[i].introducedByEmailID,
+						result[i].introducedByName,
+						result[i].suppName,
+						result[i].vendorType,
+						result[i].venStatus]);
 				}
 				tabledata.draw();
 				$("tbody").show();

@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.main.db.bpaas.entity.SupDetails;
@@ -58,6 +59,9 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 	List<SupDetails> findByVenStatus();
 
 	Integer countByVenStatus(String status);
+	
+	@Query(value = "select count(*) from supdetails where supdetails.ven_status in ('Approved','Update');", nativeQuery = true)
+	Integer countByVenStatusIn();
 
 	@Transactional
 	@Modifying
@@ -71,8 +75,10 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 
 	@Transactional
 	@Modifying
-	@Query(value = "update SupDetails set ven_status=:approvedRequestStatus,bp_code=:vendorCode where pid=:pid ; ", nativeQuery = true)
-	void approveRequestByPid(String vendorCode, String pid, String approvedRequestStatus);
+	@Query(value = "update SupDetails set ven_status=:approvedRequestStatus,bp_code=:vendorCode,processed_by=:userEmail,processed_on=:strDate where pid=:pid ; ", nativeQuery = true)
+	void approveRequestByPid(@Param("vendorCode") String vendorCode, @Param("pid") String pid,
+			@Param("userEmail") String userEmail, @Param("strDate") String strDate,
+			@Param("approvedRequestStatus") String approvedRequestStatus);
 
 	SupDetails findBybpCode(String bpCode);
 
@@ -84,7 +90,6 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 
 	@Query(value = "select bp_code from supdetails where supdetails.bp_code=:bpCode ; ", nativeQuery = true)
 	String checkBpCode(String bpCode);
-
 
 	List<SupDetails> findByCreateDateBetween(String fromDate, String toDate);
 

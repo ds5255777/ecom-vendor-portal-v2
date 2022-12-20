@@ -1,6 +1,7 @@
 package com.main.controller;
 
 import java.security.Principal;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -83,8 +84,7 @@ public class RegistrationController {
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
 
-				List<Object[]> users = serviceManager.supDetailsRepo
-						.findByPendingVenStatus(GlobalConstants.APPROVED_REQUEST_STATUS);
+				List<SupDetails> users = serviceManager.supDetailsRepo.findByVenStatus();
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 				data.setData(users);
 			}
@@ -192,21 +192,72 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/approveRequest" })
-	public String approveRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
+	public String approveRequest(Principal principal, @RequestBody SupDetailsDTO supDetailsDto,
+			HttpServletRequest request) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String vendorCode = "";
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		String userEmail = (String) request.getSession().getAttribute("userEmail");
 
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
 
+				Date date = new Date();
+				DateFormat dateFormat = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER);
+				String strDate = dateFormat.format(date);
 				vendorCode = generateVendorCode();
 
-				serviceManager.supDetailsRepo.approveRequestByPid(vendorCode, supDetailsDto.getPid(),
-						GlobalConstants.APPROVED_REQUEST_STATUS);
+				serviceManager.supDetailsRepo.approveRequestByPid(vendorCode, supDetailsDto.getPid(), userEmail,
+						strDate, GlobalConstants.APPROVED_REQUEST_STATUS);
+
+				/* send Approval email */
+
+				List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
+						.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+				EmailConfiguration emailConfiguration = emailList.get(0);
+
+				SupDetails supDetails = serviceManager.supDetailsRepo.findByPid(supDetailsDto.getPid());
+
+				String vendorEmail = supDetails.getContactDetails().get(0).getConEmail();
+				String introducerEmailID = supDetails.getIntroducedByEmailID();
+
+				List<String> findbyRoleId = serviceManager.userRepository.findbyRoleId(1);
+				String allEmail = "";
+				for (String string : findbyRoleId) {
+					allEmail = allEmail + string + ",";
+				}
+				System.out.println(allEmail + introducerEmailID);
+
+				List<MailContent> mailType = serviceManager.mailContentRepo.findByType("Vendor Approved");
+
+				SendEmail sendEmail = new SendEmail();
+				MailContent mailContent = mailType.get(0);
+				String emailBody = mailContent.getEmailBody();
+
+				emailBody = emailBody.replace("#VendorRefId#", supDetailsDto.getPid());
+				emailBody = emailBody.replace("#approvedDate#", strDate);
+
+				sendEmail.setMailfrom(emailConfiguration.getUserName());
+				sendEmail.setSendTo(vendorEmail);
+				sendEmail.setSendCc(allEmail + introducerEmailID);
+				sendEmail.setSubject(mailContent.getSubject());
+				sendEmail.setEmailBody(emailBody);
+				sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+
+				serviceManager.sendEmailRepo.save(sendEmail);
+
+				EmailAuditLogs auditLogs = new EmailAuditLogs();
+				auditLogs.setMailFrom(emailConfiguration.getUserName());
+				auditLogs.setMailTo(vendorEmail);
+				auditLogs.setMailCC(introducerEmailID);
+				auditLogs.setMailSubject(mailContent.getSubject());
+				auditLogs.setMailMessage(emailBody);
+
+				serviceManager.emailAuditLogsRepo.save(auditLogs);
+
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
 

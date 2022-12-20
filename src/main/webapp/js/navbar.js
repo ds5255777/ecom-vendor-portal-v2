@@ -13,6 +13,32 @@ $("#selectInvoicingStatus").on("change", function() {
 	GetSelectedInvoiceValue();
 });
 
+$("#changePasswordButton").bind("click", function() {
+	changePassword(document.getElementById('passwordConfirm').value);
+});
+
+
+
+$(function() {
+	$("#passwordConfirm").keyup(function() {
+		var password = $("#password").val();
+		var passwordConfirm = $("#passwordConfirm").val();
+		var passflag = $("#passflag").val();
+		if ($('#password').val() == $('#passwordConfirm').val() && passflag != "1") {
+			$('#divCheckPasswordMatch').html('Passwords match.').css('color', 'green');
+			// Enable #x	
+			$("#changePasswordButton").prop("disabled", false)
+
+		}
+		else {
+			$('#divCheckPasswordMatch').html('Passwords do not match!').css('color', 'red');
+			// Disable #x
+			$('#changePasswordButton').attr('disabled', true);
+			return;
+		}
+	});
+});
+
 function GetSelectedTextValue() {
 	var tripStatus = $("#selectTripStatus").val();
 	var selectStatus = $("#selectStatus").val();
@@ -206,4 +232,37 @@ function GetSelectedInvoiceValue() {
 			alert("failed, please try again leter");
 		}
 	});
+}
+
+function changePassword(password) {
+
+	$.ajax({
+		type: "POST",
+		data: "",
+		url: "userController/changePassword" + "?password=" + password,
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		dataType: "json",
+		contentType: "application/json",
+
+		success: function(data) {
+			$('.loader').hide();
+			$("#changePassword").modal('hide');
+			if (data.msg == "success") {
+				Swal.fire({
+					type: 'success',
+					title: 'Password Updated Successfully..'
+				})
+
+			} else {
+				Swal.fire({
+					type: 'error',
+					title: 'Try Again...'
+				})
+			}
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			alert("failed, please try again letter");
+		}
+	});
+
 }

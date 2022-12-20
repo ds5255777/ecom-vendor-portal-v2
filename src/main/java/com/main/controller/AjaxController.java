@@ -59,6 +59,12 @@ public class AjaxController {
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(AjaxController.class);
+	
+	public synchronized String generateVendorCode() {
+
+		String vendorCodePrefix = "Temp-";
+		return vendorCodePrefix.concat(new SimpleDateFormat("yyyyHHmmssSSS").format(new Date()));
+	}
 
 	@PostMapping("/SaveRegistration")
 	@Transactional
@@ -70,8 +76,6 @@ public class AjaxController {
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		processID = "";
 		try {
-			String eInvoiceApplicable = supDetailsDto.getEnInvApplicable();
-			System.out.println(eInvoiceApplicable);
 			for (int i = 0; i < supDetailsDto.getAddressDetails().size(); i++) {
 				String state = supDetailsDto.getAddressDetails().get(i).getState();
 				String stCode = serviceManager.stateRepo.findByStateCode(state);
@@ -86,6 +90,9 @@ public class AjaxController {
 			}
 			if (supDetailsDto.getId() == null) {
 				supDetailsDto.setVenStatus(GlobalConstants.PENDING_REQUEST_STATUS);
+
+				supDetailsDto.setCreateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+				supDetailsDto.setBpCode(generateVendorCode());
 				SupDetails supSaved = serviceManager.detailsRepo
 						.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 				Long id = supSaved.getId();
@@ -132,98 +139,101 @@ public class AjaxController {
 
 				serviceManager.emailAuditLogsRepo.save(auditLogs);
 
-			} else {
+			} else if (supDetailsDto.getVenStatus().equals(GlobalConstants.APPROVED_REQUEST_STATUS)) {
 
-				if (supDetailsDto.getVenStatus().equals(GlobalConstants.APPROVED_REQUEST_STATUS)) {
+				String vendorType = supDetailsDto.getVendorType();
 
-					String vendorType = supDetailsDto.getVendorType();
+				String[] arrOfVendorType = vendorType.split(",");
 
-					String[] arrOfVendorType = vendorType.split(",");
+				for (String w : arrOfVendorType) {
 
-					for (String w : arrOfVendorType) {
+					if (w.equals("FIXED ASSETS") || w.equals("Network")) {
 
-						if (w.equals("FIXED ASSETS") || w.equals("Network")) {
+						User us = new User();
+						String bpCode = supDetailsDto.getBpCode();
 
-							User us = new User();
-							String bpCode = supDetailsDto.getBpCode();
+						String passwordUser = UserServiceImpl.generateRandomPassword();
+						us.setBpCode(bpCode);
+						us.setUsername(bpCode);
+						us.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS);
+						us.setRoleId(2);
+						us.setVendorName(supDetailsDto.getSuppName());
+						us.setContactNo(supDetailsDto.getContactDetails().get(0).getConPhone());
+						us.setEmailId(supDetailsDto.getContactDetails().get(0).getConEmail());
 
-							String passwordUser = UserServiceImpl.generateRandomPassword();
-							us.setBpCode(bpCode);
-							us.setUsername(bpCode);
-							us.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS);
-							us.setRoleId(2);
-							us.setVendorName(supDetailsDto.getSuppName());
-							us.setContactNo(supDetailsDto.getContactDetails().get(0).getConPhone());
-							us.setEmailId(supDetailsDto.getContactDetails().get(0).getConEmail());
+						us.setFirstName(supDetailsDto.getContactDetails().get(0).getConFname());
+						us.setLastName(supDetailsDto.getContactDetails().get(0).getConLname());
+						us.setPassword(passwordUser);
+						supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
+						serviceManager.userService.save(us);
 
-							us.setFirstName(supDetailsDto.getContactDetails().get(0).getConFname());
-							us.setLastName(supDetailsDto.getContactDetails().get(0).getConLname());
-							us.setPassword(passwordUser);
-							supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
-							serviceManager.userService.save(us);
-
-							supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
-							serviceManager.detailsRepo
-									.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
-
-							/* send onBoard email */
-
-							List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
-									.findByIsActive(GlobalConstants.ACTIVE_STATUS);
-							EmailConfiguration emailConfiguration = emailList.get(0);
-
-							String vendorEmail = supDetailsDto.getContactDetails().get(0).getConEmail();
-
-							List<MailContent> mailType = serviceManager.mailContentRepo
-									.findByType("Send username And Password");
-
-							SendEmail sendEmail = new SendEmail();
-							MailContent mailContent = mailType.get(0);
-							String emailBody = mailContent.getEmailBody();
-
-							emailBody = emailBody.replace("#username#", bpCode);
-							emailBody = emailBody.replace("#password#", passwordUser);
-
-							sendEmail.setMailfrom(emailConfiguration.getUserName());
-							sendEmail.setSendTo(vendorEmail);
-							sendEmail.setSubject(mailContent.getSubject());
-							sendEmail.setEmailBody(emailBody);
-							sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
-
-							serviceManager.sendEmailRepo.save(sendEmail);
-
-							EmailAuditLogs auditLogs = new EmailAuditLogs();
-							auditLogs.setMailFrom(emailConfiguration.getUserName());
-							auditLogs.setMailTo(vendorEmail);
-							auditLogs.setMailSubject(mailContent.getSubject());
-							auditLogs.setMailMessage(emailBody);
-
-							serviceManager.emailAuditLogsRepo.save(auditLogs);
-						}
-					}
-					data.setData(processID);
-					data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
-
-				} else if (supDetailsDto.getVenStatus().equals(GlobalConstants.UPDATE_VENDOR)) {
-					supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
-
-					String bpCode = supDetailsDto.getBpCode();
-
-					String status = serviceManager.userRepository.getVendorStatus(bpCode);
-
-					if (status == null || status.equals("")) {
-						supDetailsDto.setFlag(GlobalConstants.SET_FLAG_IN_ACTIVE);
-					}
-
-					else if (status.equals("1")) {
 						supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
+						serviceManager.detailsRepo
+								.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
+
+						/* send onBoard email */
+
+						List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
+								.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+						EmailConfiguration emailConfiguration = emailList.get(0);
+
+						String vendorEmail = supDetailsDto.getContactDetails().get(0).getConEmail();
+
+						List<MailContent> mailType = serviceManager.mailContentRepo
+								.findByType("Send username And Password");
+
+						SendEmail sendEmail = new SendEmail();
+						MailContent mailContent = mailType.get(0);
+						String emailBody = mailContent.getEmailBody();
+
+						emailBody = emailBody.replace("#username#", bpCode);
+						emailBody = emailBody.replace("#password#", passwordUser);
+
+						sendEmail.setMailfrom(emailConfiguration.getUserName());
+						sendEmail.setSendTo(vendorEmail);
+						sendEmail.setSubject(mailContent.getSubject());
+						sendEmail.setEmailBody(emailBody);
+						sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+
+						serviceManager.sendEmailRepo.save(sendEmail);
+
+						EmailAuditLogs auditLogs = new EmailAuditLogs();
+						auditLogs.setMailFrom(emailConfiguration.getUserName());
+						auditLogs.setMailTo(vendorEmail);
+						auditLogs.setMailSubject(mailContent.getSubject());
+						auditLogs.setMailMessage(emailBody);
+
+						serviceManager.emailAuditLogsRepo.save(auditLogs);
+					} else {
+						supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
+						supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
+						serviceManager.detailsRepo
+								.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 					}
-					serviceManager.detailsRepo
-							.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
-					data.setData(processID);
-					//data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 				}
+				data.setData(processID);
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+
+			} else if (supDetailsDto.getVenStatus().equals(GlobalConstants.UPDATE_VENDOR)) {
+				supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
+
+				String bpCode = supDetailsDto.getBpCode();
+
+				String status = serviceManager.userRepository.getVendorStatus(bpCode);
+
+				if (null == status || status.equals("") || status.equals(GlobalConstants.INACTIVE_STATUS)) {
+					supDetailsDto.setFlag(GlobalConstants.SET_FLAG_IN_ACTIVE);
+				}
+
+				else if (status.equals(GlobalConstants.ACTIVE_STATUS)
+						|| status.equals(GlobalConstants.CHANGE_PASSWORD_STATUS)) {
+					supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
+				}
+				serviceManager.detailsRepo.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
+				data.setData(processID);
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
+
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
@@ -281,11 +291,11 @@ public class AjaxController {
 				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			}
 		}
-		if (null != supDetailsDto.getPANFileName()) {
-			fullFilePathWithName = filePath + File.separator + supDetailsDto.getPANFileName();
+		if (null != supDetailsDto.getPanFileName()) {
+			fullFilePathWithName = filePath + File.separator + supDetailsDto.getPanFileName();
 
 			Document doc = new Document();
-			doc.setDocName(supDetailsDto.getPANFileName());
+			doc.setDocName(supDetailsDto.getPanFileName());
 			doc.setDocPath(fullFilePathWithName);
 			doc.setStatus(GlobalConstants.ACTIVE_STATUS);
 			doc.setType(GlobalConstants.SET_TYPE_REGISTRATION);
@@ -293,7 +303,7 @@ public class AjaxController {
 			serviceManager.documentRepo.save(doc);
 
 			try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
-				String b64 = supDetailsDto.getPANFileName();
+				String b64 = supDetailsDto.getPanFileText();
 				byte[] decoder = Base64.getDecoder().decode(b64);
 
 				fos.write(decoder);

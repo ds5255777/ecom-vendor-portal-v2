@@ -81,22 +81,34 @@ public class UIController {
 			throws IOException, ParseException {
 		Base64.Decoder decoder = Base64.getDecoder();
 		String vendorEmail = new String(decoder.decode(request.getParameter("vendorEmail")));
-		if (!"".equalsIgnoreCase(vendorEmail)) {
-			String flag = request.getParameter("flag");
-			Integer flag1 = Integer.valueOf(flag);
-			String processOn = serviceManager.sendEmailToVendorRepo.processOn(flag1);
-			Date date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(processOn);
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(date1);
-			calendar.add(Calendar.HOUR_OF_DAY, linkExpireTimeInHours);
-			Date expiryDate = calendar.getTime();
-			if (expiryDate.before(new Date())) {
-				response.setContentType("text/html");
-				PrintWriter pwriter = response.getWriter();
-				pwriter.println(
-						"<font color=red>Link Expired! Please Contact With Administrator And Try Again...</font>");
-				pwriter.close();
+		logger.info(" vendor Email registartion >>>>>>>>>> {}", vendorEmail);
+		try {
+			if (!"".equalsIgnoreCase(vendorEmail)) {
+				String flag = request.getParameter("flag");
+				logger.info(" Flag >>>>>>>>>> {}", flag);
+				Integer flag1 = Integer.valueOf(flag);
+				logger.info(" Flag1 >>>>>>>>>> {}", flag1);
+				String processOn = serviceManager.sendEmailToVendorRepo.processOn(flag1);
+				Date date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(processOn);
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date1);
+				calendar.add(Calendar.HOUR_OF_DAY, linkExpireTimeInHours);
+				Date expiryDate = calendar.getTime();
+				logger.info(" expiryDate >>>>>>>>>> {}", expiryDate);
+				if (expiryDate.before(new Date())) {
+					response.setContentType("text/html");
+					PrintWriter pwriter = response.getWriter();
+					pwriter.println(
+							"<font color=red>Link Expired! Please Contact With Administrator And Try Again...</font>");
+					pwriter.close();
+				}
 			}
+		} catch (NumberFormatException e1) {
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e1);
+		} catch (ParseException e1) {
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e1);
+		} catch (IOException e1) {
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e1);
 		}
 		String vendorType1 = new String(decoder.decode(request.getParameter("vendorType")));
 		String[] strSplit = vendorType1.split(",");
@@ -105,17 +117,34 @@ public class UIController {
 		String creditTerms = new String(decoder.decode(request.getParameter("creditTerms")));
 		String processBy = new String(decoder.decode(request.getParameter("processBy")));
 		String processByEmailId = new String(decoder.decode(request.getParameter("processByEmailId")));
-
-		List<SupDetails> findAll = serviceManager.supDetailsRepo.findAll();
-		for (int i = 0; i < findAll.size(); i++) {
-			String vendorExitingEmail = findAll.get(i).getContactDetails().get(0).getConEmail();
-			if (vendorExitingEmail.equalsIgnoreCase(vendorEmail)) {
-				response.setContentType("text/html");
-				PrintWriter pwriter = response.getWriter();
-				pwriter.println(
-						"<font color=red>Vendor Already Exists ! Please Contact With Administrator And Try Again...</font>");
-				pwriter.close();
+		
+		logger.info(" Vendor email  {}", vendorEmail);
+		logger.info(" Vendor Type 2 {}", vendorType2);
+		logger.info(" Vendor region1 {}", region1);
+		logger.info(" Vendor creditTerms {}", creditTerms);
+		logger.info(" Vendor processBy {}", processBy);
+		logger.info(" Vendor processByEmailId {}", processByEmailId);
+		try {
+			List<SupDetails> findAll = serviceManager.supDetailsRepo.findAll();
+			for (int i = 0; i < findAll.size(); i++) {
+				String vendorExitingEmail = findAll.get(i).getContactDetails().get(0).getConEmail();
+				if (vendorExitingEmail.equalsIgnoreCase(vendorEmail)) {
+					String venStatus = findAll.get(i).getVenStatus();
+					System.out.println(venStatus);
+					if(!venStatus.equalsIgnoreCase(GlobalConstants.REJECTED_REQUEST_STATUS)) {
+					
+					response.setContentType("text/html");
+					PrintWriter pwriter = response.getWriter();
+					pwriter.println(
+							"<font color=red>Vendor Already Exists ! Please Contact With Administrator And Try Again...</font>");
+					pwriter.close();
+					}
+					
+				}
 			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 
 		model.addAttribute("vendorEmail", vendorEmail);
@@ -650,6 +679,8 @@ public class UIController {
 	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
 
 		String rolename = (String) request.getSession().getAttribute("role");
+		String uname = principal.getName();
+		
 		List<String> currency = serviceManager.currencyRepo.getCurrencyType();
 		List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
 		List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
@@ -664,9 +695,11 @@ public class UIController {
 		List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
 		List<String> flag = serviceManager.flagRepo.getFlag();
 		List<String> stateName = serviceManager.stateRepo.getStateName();
+		String userMailId = serviceManager.userRepository.getUserMailId(uname);
 
-		String uname = principal.getName();
+		
 		model.addAttribute("uname", uname);
+		model.addAttribute("userMailId", userMailId);
 
 		model.addAttribute("currency", currency);
 		model.addAttribute("business", business);

@@ -578,7 +578,7 @@ public class TripControllers {
 		try {
 			List<String> myList = new ArrayList<>(Arrays.asList(obj.split(",")));
 
-			serviceManager.tripDetailsRepo.getUpdateStatusSelectTrips(processedBy, processedOn, vendorTripStatus,
+			serviceManager.tripDetailsRepo.getUpdateStatusSelectTrips(processedBy, processedOn, GlobalConstants.VENDOR_TRIP_STATUS_APPROVED,
 					myList);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 

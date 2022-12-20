@@ -1,12 +1,6 @@
 var csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
 
 
-$(document).ready(function() {
-	var bootstrapTooltip = $.fn.tooltip.noConflict();
-	$.fn.bstooltip = bootstrapTooltip;
-	$('.quickHelp').bstooltip();
-})
-
 function myFunction() {
 	document.getElementById("myDropdown").classList.toggle("show");
 }
@@ -153,12 +147,10 @@ function addFormData() {
 		"region": region,
 		"creditTerms": $("#creditTerms").val()
 	}
-
-	console.log(json);
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(json),
-		url: "emailConfigurationController/sendEmailToVendor",
+		url: "commercialMailController/sendEmailToVendor",
 		dataType: "json",
 		headers: { 'X-XSRF-TOKEN': csrfToken },
 		contentType: "application/json",
@@ -206,7 +198,7 @@ function getData() {
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(json),
-		url: "emailConfigurationController/getAllSentEmail",
+		url: "commercialMailController/getAllSentEmail",
 		dataType: "json",
 		headers: { 'X-XSRF-TOKEN': csrfToken },
 		contentType: "application/json",
@@ -264,15 +256,10 @@ function getData() {
 }
 
 
-function inactiveActiveDeleteData(id) {
-
-	var json = {
-		"id": id,
-		"isActive": "0"
-	}
+function inactiveActiveDeleteData() {
 	$.ajax({
 		type: "POST",
-		data: JSON.stringify(json),
+		data: "",
 		url: "emailConfigurationController/updateEmailConfigurationSatatusByid",
 		dataType: "json",
 		headers: { 'X-XSRF-TOKEN': csrfToken },

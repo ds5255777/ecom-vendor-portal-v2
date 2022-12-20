@@ -1,13 +1,12 @@
 package com.main.payloads;
 
-import java.util.Date;
 import java.util.List;
-import lombok.Data;
 
+import lombok.Data;
 
 @Data
 public class SupDetailsDTO {
-	
+
 	private Long id;
 	private String pid;
 	private String vendorType;
@@ -22,12 +21,11 @@ public class SupDetailsDTO {
 	private String adharLinkStatus;
 	private String businessClassification;
 	private String siteDff;
-	
+
 	private String enInvApplicable;
-	
-	
+
 	private String opeUnitReqMap;
-	private String venStatus; 
+	private String venStatus;
 	private String invoiceCurrency;
 	private String paymentCurrency;
 	private String creditTerms;
@@ -50,7 +48,7 @@ public class SupDetailsDTO {
 	private String nro;
 	private String sro;
 	private String ihq;
-	private Date date = new Date();
+	private String createDate;
 	private String flag;
 	private String addressPurchasingFlag;
 	private String addressPaymentFlag;
@@ -60,8 +58,8 @@ public class SupDetailsDTO {
 	private List<ContactDetailsDTO> contactDetails;
 	String gstFileText;
 	String gstFileName;
-	String pANFileText;
-	String pANFileName;
+	String panFileText;
+	String panFileName;
 	String pdFileText;
 	String pdFileName;
 	String ccFileText;
@@ -87,6 +85,5 @@ public class SupDetailsDTO {
 
 	String itraFileText3;
 	String itraFileName3;
-
 
 }

@@ -5,9 +5,12 @@ $("#closeWindow").bind("click", function() {
 });
 
 
-$("#raiseQuery").bind("click", function() {
-	raiseQueryModel();
-});
+//$("#raiseQuery").bind("click", function() {
+	//raiseQueryModel();
+//});
+
+
+var vandorMailId="";
 
  const Toast = Swal.mixin({
 	toast: true,
@@ -79,6 +82,14 @@ function showHideButton() {
 		$("#queryWindow").css("display", "block");
 		$("#viewAttachmentDiv").css("display", "block");
 	}
+}
+
+showHideCommentTable();
+
+function showHideCommentTable(){
+	if (vendorType == "Approved Vendor"|| vendorType == "Vendor View") {
+		$("#queryTableView").css("display", "none");
+		}
 }
 
 function closeWin() {
@@ -225,7 +236,11 @@ function loadDetails() {
 						contactDetails[i].conLname,
 						contactDetails[i].conPhone,
 						contactDetails[i].conEmail]);
+						
+						vandorMailId=contactDetails[0].conEmail;
+				
 				}
+				
 				contactTable.draw();
 				$("tbody").show();
 				getQueryData();
@@ -337,10 +352,10 @@ function raiseQueryModel() {
 		success: function(response) {
 
 			if (response.msg == 'success') {
-				swal.fire("", "Remarks Sucessfully Submitted", "success", "OK").then(function() {
+				/*swal.fire("", "Remarks Sucessfully Submitted", "success", "OK").then(function() {
 					window.opener.refereshList();
 					window.close();
-				});
+				});*/
 				setTimeout(function(response) { }, 2000);
 			} else {
 				alert("failed");
@@ -380,6 +395,18 @@ $("#approve").click(function() {
 });
 
 $("#rejected").click(function() {
+	
+	var comment=$("#comment").val();
+	
+	if (comment === "" || comment === null || comment === '') {
+		Toast.fire({
+			type: 'error',
+			title: 'Enter Remarks'
+		});
+		document.getElementById("comment").focus();
+		return "";
+	}
+	
 	var pid = $("#pid").val();
 	Swal.fire({
 		title: 'Are you sure to reject?',
@@ -394,7 +421,7 @@ $("#rejected").click(function() {
 		test[0] = result;
 		var val = Object.values(test[0])
 		if (val == "true") {
-			rejectedVendor(pid);
+			rejectedVendor(pid,comment);
 
 
 		}
@@ -439,11 +466,16 @@ function approveVendor(pid) {
 }
 
 
-function rejectedVendor(pid) {
+function rejectedVendor(pid, comment) {
+	var introducedByEmailID=$("#introducedByEmailID").val();
+	
 	var finalObj = {
-		"pid": pid
+		"pid": pid,
+		"comment": comment,
+		"vandorMailId":vandorMailId,
+		"introducedByEmailID":introducedByEmailID
 	}
-
+	console.log(finalObj);
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(finalObj),
@@ -454,6 +486,7 @@ function rejectedVendor(pid) {
 		success: function(response) {
 
 			if (response.msg == 'success') {
+				raiseQueryModel();
 				swal.fire("", "Rejected Vendor Request", "success", "OK").then(function() {
 					window.opener.refereshList();
 					window.close();
@@ -503,7 +536,7 @@ function displayAttachmentForPoDetails() {
 					for (var i = 0; i < result.length; i++) {
 						$('#multipleAttachment').append($('<option/>').attr("value", result[i].docPath).text(result[i].docName));
 					}
-					$("#viewAttachmentPopUp").modal('show');
+					//$("#viewAttachmentPopUp").modal('show');
 
 				} else {
 					Toast.fire({
@@ -528,6 +561,7 @@ function displayAttachmentForPoDetails() {
 		}
 	});
 }
+
 
 $("#multipleAttachment").change(function() {
 

@@ -305,7 +305,7 @@ function getData() {
 					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#\" class=\"checkVendorCode\">" + result[i].bpCode + "</a>";
 					var inactive = "<a href=\"#\" data-toggle=\"modal\"  tittle=\"In-Active Vendor\" data-target=\"#vendorValue\" class=\"inactiveVendor\" )\"> <i style=\"color:red;\" class=\"fas fa-user-slash\"></i>  </a>";
 					var active = "<a href=\"#\" data-toggle=\"modal\" tittle=\"Active Vendor\" data-target=\"#vendorValue\" class=\"activeVendor\" > <i class=\"fas fa-user\"></i>  </a>";
-					var changePassword = "<button type=\"button\" class=\"tripApprove btn btn-primary btn-xs\"  value=\"" + result[i].bpCode+ "\"> <i class=\"fas fa-key\"></i>  </button>";
+					var changePassword = "<button type=\"button\" class=\"tripApprove btn btn-primary btn-xs\"  value=\"" + result[i].bpCode + "\"> <i class=\"fas fa-key\"></i>  </button>";
 					tabledata.row.add([view,
 						result[i].suppName,
 						result[i].vendorType,
@@ -334,7 +334,7 @@ function getData() {
 
 
 $('#tabledata tbody').on('click', ".tripApprove", function() {
-	var userName=this.value;
+	var userName = this.value;
 	$("#userID").val(userName);
 	$("#myModal").modal('show');
 });
@@ -1767,12 +1767,19 @@ function select() {
 }
 
 function MESMENumber() {
+	debugger
 	var busClassif = $("#businessClassification").val();
-	if (busClassif != "Other") {
-		document.getElementById("mesmeNumber").disabled = false;
-	} else {
+
+
+	if (busClassif == "Other Enterprise" || busClassif == "") {
+
 		document.getElementById("mesmeNumber").disabled = true;
 		document.getElementById("mesmeNumber").value = "";
+	}
+	else {
+		document.getElementById("mesmeNumber").disabled = false;
+		document.getElementById("mesmeNumber").value = "";
+
 	}
 }
 
@@ -1827,10 +1834,10 @@ function checkForExistingVendorCode() {
 	if (bpCode != "") {
 		var json = {
 			"bpCode": bpCode,
-			"suppName":suppName
-			
+			"suppName": suppName
+
 		}
-		
+
 		console.log(json);
 
 		$.ajax({

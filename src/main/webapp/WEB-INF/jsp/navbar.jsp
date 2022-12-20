@@ -57,14 +57,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group" style="padding-top: .3rem">
-                                    <select class="form-control" name="selectVendorCode" id="selectVendorCode"  style="height: 34px; width: 170px">
+                                    <select class="form-control" name="selectVendorCode" id="selectVendorCode" style="height: 34px; width: 170px">
                                         <option value="">Select Vendor Code</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group" style="padding-top: .3rem">
-                                    <select class="form-control" id="selectInvoicingStatus" name="selectInvoicingStatus"  style="height: 34px; width: 170px">
+                                    <select class="form-control" id="selectInvoicingStatus" name="selectInvoicingStatus" style="height: 34px; width: 170px">
                                         <option value="">Select Invoicing Status</option>
                                         <option value="In-Review">In-Review</option>
                                         <option value="Pending For Approval">Pending For
@@ -142,6 +142,15 @@
                 <li class="nav-item"><a class="nav-link">${userName}</a></li>
             </c:otherwise>
         </c:choose>
+
+
+       <!--  <li class="nav-item">
+
+            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter" title="Change Password" style="color: black; border: none;">
+                <i class="fas fa-key"></i>
+            </button>
+        </li> -->
+
         <li class="nav-item">
             <c:if test="${pageContext.request.userPrincipal.name != null}">
                 <form id="logoutForm" method="POST" action="${pageContext.request.contextPath}/logout">
@@ -154,6 +163,38 @@
         </li>
     </ul>
 </nav>
+
+<form role="form" id="changeUserPassword" autocomplete="off">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Change
+                        Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">New Password</label> <input type="hidden" id="passflag"> <input type="password" class="form-control p-input" id="password" name="password" placeholder="New Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Confirm Password </label> <input type="password" class="form-control p-input" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm Password">
+                    </div>
+                    <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
+                </div> -->
+                <div class="modal-footer">
+                    <button type="button" id="changePasswordButton" class="btn btn-primary" disabled>Change Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
 <script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 

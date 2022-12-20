@@ -179,7 +179,6 @@ public class InvoiceController {
 
 	@PostMapping("/saveInvoice")
 	public String saveInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationDto invoiceDto) {
-
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 
@@ -314,10 +313,10 @@ public class InvoiceController {
 
 			serviceManager.emailAuditLogsRepo.save(auditLogs);
 		}
+		data.setData(invoiceDto.getEcomInvoiceNumber());
 		data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		return gson.toJson(data);
-
 	}
 
 	@PostMapping("/updateInvoice")

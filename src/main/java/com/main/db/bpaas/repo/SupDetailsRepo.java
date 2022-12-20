@@ -86,4 +86,6 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 	String checkBpCode(String bpCode);
 
 
+	List<SupDetails> findByCreateDateBetween(String fromDate, String toDate);
+
 }

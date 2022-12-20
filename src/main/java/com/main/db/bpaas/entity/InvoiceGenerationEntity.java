@@ -84,6 +84,9 @@ public class InvoiceGenerationEntity {
 	private String taxableAmount;
 	@Column(name = "tax_amount")
 	private String taxAmount;
+	
+	@Column(name = "process_id")
+	private String pid;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn

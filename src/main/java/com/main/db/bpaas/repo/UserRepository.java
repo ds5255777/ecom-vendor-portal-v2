@@ -129,5 +129,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query(value = "select username from users where username ILIKE :bpCode ", nativeQuery = true)
 	String checkUserName(String bpCode);
+	
+	@Query(value = "select email_id from users where username=:username ", nativeQuery = true)
+	String getUserMailId(String username);
 
 }

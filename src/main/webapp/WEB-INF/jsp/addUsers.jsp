@@ -205,7 +205,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputserverName1">Password</label> <input type="password" maxlength="70" name="password" class="form-control" id="passwordEdit" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter">
+                                                    <label for="exampleInputserverName1">Password</label> <input type="password" maxlength="70" name="passwordEdit" class="form-control" id="passwordEdit" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">

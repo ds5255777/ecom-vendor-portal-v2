@@ -189,11 +189,12 @@ th, td, tr {
 														onchange="removeValCssByID(this)"><span
 														id="message"></span></td>
 
-													<td><label for="Supplier Type">Supplier Code</label></td>
-													<td colspan="1"><input type="hidden" id="id" name="id">
-														<input type="text" class="form-control p-input"
-														id="bpCode" name="bpCode"
-														placeholder="Supplier Code"></td>
+													<td><label for="Supplier Type">Referral Email
+															Id</label></td>
+													<td colspan="1"><input type="text"
+														class="form-control p-input" id="referralEmailId"
+														name="referralEmailId"
+														placeholder="Reference Person Email ID "></td>
 
 
 												</tr>
@@ -205,13 +206,13 @@ th, td, tr {
 
 
 
-													<td><label for="suppName">Supplier
-															Name<span class="required adHocRequired">*</span>
+													<td><label for="suppName">Legal Entity / Supplier Name<span
+															class="required adHocRequired">*</span>
 													</label></td>
 													<td colspan="1"><input type="text"
 														class="form-control p-input" id="suppName" name="suppName"
-														placeholder="Supplier Name" maxlength="50">
-														<input type="hidden" id="roleId"></td>
+														placeholder="Supplier Name" maxlength="50"> <input
+														type="hidden" id="roleId"></td>
 
 													<td><label for="businessClassification">Business
 															Classification</label></td>
@@ -287,21 +288,21 @@ th, td, tr {
 													<td colspan="1"><input type="text"
 														class="form-control p-input" id="tanNumber"
 														name="tanNumber" placeholder="TAN Number" maxlength="10"></td>
-														
+
 													<td><label for="eInvoice">E-Invoice Applicable<span
-														class="required adHocRequired">*</span></label></td>	
-												<td><select class="form-control p-input"
-													id="eInvoiceApplicable" name="eInvoiceApplicable">
-														<option value="">Select</option>
-														<c:forEach items="${adharLink}" var="link">
+															class="required adHocRequired">*</span></label></td>
+													<td><select class="form-control p-input"
+														id="enInvApplicable" name="enInvApplicable">
+															<option value="">Select</option>
+															<c:forEach items="${adharLink}" var="link">
 
-															<option value="${link}">${link}</option>
-														</c:forEach>
+																<option value="${link}">${link}</option>
+															</c:forEach>
 
-												</select></td>
+													</select></td>
 												</tr>
-												
-												<tr>	
+
+												<tr>
 
 													<td><label>Region<span
 															class="required adHocRequired"></span></label></td>
@@ -313,6 +314,12 @@ th, td, tr {
 																<option value="${reg}">${reg}</option>
 															</c:forEach>
 													</select></td>
+													<td><label for="Supplier Type">Supplier Code</label></td>
+													<td colspan="2"><input type="hidden" id="id" name="id">
+													<input type="hidden" id="createDate" name="createDate">
+														<input type="text" class="form-control p-input"
+														id="bpCode" name="bpCode" placeholder="Supplier Code"
+														style="text-align: center; font-size: x-large;"></td>
 
 												</tr>
 
@@ -1040,33 +1047,43 @@ th, td, tr {
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                <form role="form" id="changePassword1" autocomplete="off">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Change
-                            Password</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                    <div class="form-group">
-                            <label for="exampleInputEmail1">User Name</label> <input type="text" class="form-control p-input" id="userID" name="userID" readonly >
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">New Password</label> <input type="hidden" id="passflag"> <input type="password" class="form-control p-input" id="password" name="password" placeholder="New Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="changePasswordButton" class="btn btn-primary"  >Change Password</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<form role="form" id="changePassword1" autocomplete="off">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Change
+							Password</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="exampleInputEmail1">User Name</label> <input
+								type="text" class="form-control p-input" id="userID"
+								name="userID" readonly>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">New Password</label> <input
+								type="hidden" id="passflag"> <input type="password"
+								class="form-control p-input" id="password" name="password"
+								placeholder="New Password"
+								pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+								title="Must contain at least one number and one uppercase and lowercase letter"
+								required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="changePasswordButton"
+							class="btn btn-primary">Change Password</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
 
 

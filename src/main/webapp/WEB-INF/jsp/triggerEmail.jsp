@@ -185,6 +185,7 @@
                                                 <th class="bg-primary">Vendor Type</th>
                                                 <th class="bg-primary">Region</th>
                                                 <th class="bg-primary">Payment/Credit Terms</th>
+                                                <th class="bg-primary">Vendor Process ID</th>
                                                 <th class="bg-primary"> Email Process Date</th>
                                                 <th class="bg-primary"> Email Process By</th>
                                             </tr>

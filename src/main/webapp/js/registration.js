@@ -618,7 +618,7 @@ $(document).ready(function() {
 	$("#referralEmailId").change(function() {
 		var inputvalues = $(this).val();
 		//var regex = /^[a-zA-Z0-9+_.-]*@ecomexpress.in$/;
-
+		var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 		if (!regex.test(inputvalues)) {
 			$("#referralEmailId").val("");
 			document.getElementById("referralEmailId").focus();
@@ -843,10 +843,7 @@ $("#contactDetailsButt").click(function() {
 	if (abc == null || abc == "") {
 		swal.fire("Alert", "First Name is mandatory", "warning");
 		return false;
-	} else if (abc2 == null || abc2 == "") {
-		swal.fire("Alert", "Last Name is mandatory", "warning");
-		return false;
-	} else if (abc3 == null || abc3 == "") {
+	}  else if (abc3 == null || abc3 == "") {
 		swal.fire("Alert", "Phone Number is mandatory", "warning");
 		return false;
 	} else if (abc4 == null || abc4 == "") {
@@ -988,12 +985,11 @@ function sendToServer() {
 	var step1Obj = FormDataToJSON('stepOneForm');
 	var step6Obj = FormDataToJSON('stepSixForm');
 	var step7Obj = FormDataToJSON('stepSevenForm');
-	var step8Obj = FormDataToJSON('StepEightForm');
 	const finalObj = {
 		...step1Obj,
 		...step6Obj,
-		...step7Obj,
-		...step8Obj
+		...step7Obj
+		
 	};
 	finalObj.accountDetails = accountDetailsArray;
 	finalObj.addressDetails = addressDetailsArray;

@@ -563,7 +563,7 @@ margin-bottom: 0px;
 						</div>
 					</div>
 
-					 <div class="card card-primary" id="queryTableView" style="margin-top: 1rem;">
+					 <div class="card card-primary" id="queryTableView" style="margin-top: 1rem; display: none;">
 						<div class="card-header" style="padding: 5px 5px 0px 5px;">
 							<h4 class="card-title">Remarks List</h4>
 							<div class="card-tools">

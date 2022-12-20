@@ -7,6 +7,8 @@ import com.main.db.bpaas.entity.User;
 public interface UserService {
 
     void save(User user);
+    
+    User Update(User user, Integer id);
 
     User findByUsername(String username);
 

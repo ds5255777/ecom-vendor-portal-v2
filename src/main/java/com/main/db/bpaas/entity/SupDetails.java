@@ -59,6 +59,9 @@ public class SupDetails {
 
 	@Column(name = "e_Invoice_Applicable")
 	private String enInvApplicable;
+	
+	@Column(name = "commercial_flag")
+	private Integer commercialFlag;
 
 	private String businessClassification;
 	@Column(name = "site_dff")
@@ -108,6 +111,12 @@ public class SupDetails {
 
 	@Column(name = "section_Type")
 	private String sectionType;
+	
+	@Column(name = "processed_on")
+	private String processedOn;
+
+	@Column(name = "processed_by")
+	private String processedBy;
 
 	@Column(name = "ERO")
 	private String ero;

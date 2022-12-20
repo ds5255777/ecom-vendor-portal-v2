@@ -82,11 +82,12 @@ public class UIController {
 		Base64.Decoder decoder = Base64.getDecoder();
 		String vendorEmail = new String(decoder.decode(request.getParameter("vendorEmail")));
 		logger.info(" vendor Email registartion >>>>>>>>>> {}", vendorEmail);
+		Integer flag1 = 0;
 		try {
 			if (!"".equalsIgnoreCase(vendorEmail)) {
 				String flag = request.getParameter("flag");
 				logger.info(" Flag >>>>>>>>>> {}", flag);
-				Integer flag1 = Integer.valueOf(flag);
+				flag1 = Integer.valueOf(flag);
 				logger.info(" Flag1 >>>>>>>>>> {}", flag1);
 				String processOn = serviceManager.sendEmailToVendorRepo.processOn(flag1);
 				Date date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(processOn);
@@ -117,7 +118,7 @@ public class UIController {
 		String creditTerms = new String(decoder.decode(request.getParameter("creditTerms")));
 		String processBy = new String(decoder.decode(request.getParameter("processBy")));
 		String processByEmailId = new String(decoder.decode(request.getParameter("processByEmailId")));
-		
+
 		logger.info(" Vendor email  {}", vendorEmail);
 		logger.info(" Vendor Type 2 {}", vendorType2);
 		logger.info(" Vendor region1 {}", region1);
@@ -131,15 +132,15 @@ public class UIController {
 				if (vendorExitingEmail.equalsIgnoreCase(vendorEmail)) {
 					String venStatus = findAll.get(i).getVenStatus();
 					System.out.println(venStatus);
-					if(!venStatus.equalsIgnoreCase(GlobalConstants.REJECTED_REQUEST_STATUS)) {
-					
-					response.setContentType("text/html");
-					PrintWriter pwriter = response.getWriter();
-					pwriter.println(
-							"<font color=red>Vendor Already Exists ! Please Contact With Administrator And Try Again...</font>");
-					pwriter.close();
+					if (!venStatus.equalsIgnoreCase(GlobalConstants.REJECTED_REQUEST_STATUS)) {
+
+						response.setContentType("text/html");
+						PrintWriter pwriter = response.getWriter();
+						pwriter.println(
+								"<font color=red>Vendor Already Exists ! Please Contact With Administrator And Try Again...</font>");
+						pwriter.close();
 					}
-					
+
 				}
 			}
 		} catch (IOException e1) {
@@ -153,6 +154,7 @@ public class UIController {
 		model.addAttribute("creditTerms", creditTerms);
 		model.addAttribute("processBy", processBy);
 		model.addAttribute("processByEmailId", processByEmailId);
+		model.addAttribute("commercialFlag", flag1);
 
 		String pid = "";
 		try {
@@ -444,8 +446,7 @@ public class UIController {
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
 			Integer pendingRequest = serviceManager.supDetailsRepo
 					.countByVenStatus(GlobalConstants.PENDING_REQUEST_STATUS);
-			Integer approvedRequest = serviceManager.supDetailsRepo
-					.countByVenStatus(GlobalConstants.APPROVED_REQUEST_STATUS);
+			Integer approvedRequest = serviceManager.supDetailsRepo.countByVenStatusIn();
 			Integer rejectedRequest = serviceManager.supDetailsRepo
 					.countByVenStatus(GlobalConstants.REJECTED_REQUEST_STATUS);
 			Integer queryRequest = serviceManager.supDetailsRepo.countByVenStatus(GlobalConstants.QUERY_REQUEST_STATUS);
@@ -680,7 +681,7 @@ public class UIController {
 
 		String rolename = (String) request.getSession().getAttribute("role");
 		String uname = principal.getName();
-		
+
 		List<String> currency = serviceManager.currencyRepo.getCurrencyType();
 		List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
 		List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
@@ -697,7 +698,6 @@ public class UIController {
 		List<String> stateName = serviceManager.stateRepo.getStateName();
 		String userMailId = serviceManager.userRepository.getUserMailId(uname);
 
-		
 		model.addAttribute("uname", uname);
 		model.addAttribute("userMailId", userMailId);
 

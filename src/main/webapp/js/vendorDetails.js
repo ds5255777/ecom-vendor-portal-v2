@@ -129,9 +129,10 @@ $("#bpCode").focusout(function() {
 });
 
 
-$("#changePasswordButton").bind("click", function() {
+$("#changeVendorPassword").bind("click", function() {
 	debugger
-	changeVendorPassword();
+	var val = $("#password").val();
+	vendorPasswordChange(val);
 });
 
 
@@ -334,9 +335,14 @@ function getData() {
 
 
 $('#tabledata tbody').on('click', ".tripApprove", function() {
+
+	debugger
 	var userName = this.value;
-	$("#userID").val(userName);
-	$("#myModal").modal('show');
+	//$("#userID").val(userName);
+	$("#changePassword").modal('show');
+	//$("#password").val('');
+	
+	vendorPasswordChange(userName)
 });
 
 
@@ -1869,3 +1875,37 @@ function checkForExistingVendorCode() {
 	}
 	return vendorCodeCheckStatus;
 }
+
+function vendorPasswordChange(val) {
+	console.log(val);
+	var json={
+		"bpCode":val
+	}
+	$.ajax({
+		type: "POST",
+		data: JSON.stringify(json),
+		url: "userController/changeVenPass",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		async: false,
+		success: function(data) {
+			if (data.msg == 'exist') {
+				swal.fire("Alert", "<b>" + panNumber + "</b> This Pan Number is Already Exists", "warning");
+				document.getElementById("panNumber").focus();
+				$("#panNumber").val('');
+			} else if (data.msg == 'success') {
+				PanNumberCheckStatus = "true";
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			alert("failed, please try again");
+		}
+	});
+}
+

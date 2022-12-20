@@ -6,13 +6,13 @@ $("#closeWindow").bind("click", function() {
 
 
 //$("#raiseQuery").bind("click", function() {
-	//raiseQueryModel();
+//raiseQueryModel();
 //});
 
 
-var vandorMailId="";
+var vandorMailId = "";
 
- const Toast = Swal.mixin({
+const Toast = Swal.mixin({
 	toast: true,
 	position: 'top-end',
 	showConfirmButton: false,
@@ -86,10 +86,10 @@ function showHideButton() {
 
 showHideCommentTable();
 
-function showHideCommentTable(){
-	if (vendorType == "Approved Vendor"|| vendorType == "Vendor View") {
+function showHideCommentTable() {
+	if (vendorType == "Approved Vendor" || vendorType == "Vendor View") {
 		$("#queryTableView").css("display", "none");
-		}
+	}
 }
 
 function closeWin() {
@@ -236,11 +236,11 @@ function loadDetails() {
 						contactDetails[i].conLname,
 						contactDetails[i].conPhone,
 						contactDetails[i].conEmail]);
-						
-						vandorMailId=contactDetails[0].conEmail;
-				
+
+					vandorMailId = contactDetails[0].conEmail;
+
 				}
-				
+
 				contactTable.draw();
 				$("tbody").show();
 				getQueryData();
@@ -279,31 +279,35 @@ function getQueryData() {
 		contentType: "application/json",
 		success: function(response) {
 			if (response.msg == "success") {
-
+				debugger
 				if ("data" in response) {
 
 					var result = response.data;
 
-					tabledataQuery.clear();
-					var count = 0;
-					for (var i = 0; i < result.length; i++) {
-						if (!result[i].hasOwnProperty("raisedBy")) {
-							result[i].raisedBy = "";
+					if (result.length>0) {
+						$("#queryTableView").css("display", "block");
+						
+						tabledataQuery.clear();
+						var count = 0;
+						for (var i = 0; i < result.length; i++) {
+							if (!result[i].hasOwnProperty("raisedBy")) {
+								result[i].raisedBy = "";
+							}
+							if (!result[i].hasOwnProperty("role")) {
+								result[i].role = "";
+							}
+							if (!result[i].hasOwnProperty("raisedOn")) {
+								result[i].raisedOn = "";
+							}
+							if (!result[i].hasOwnProperty("comment")) {
+								result[i].comment = "";
+							}
+							count++;
+							tabledataQuery.row.add([count, result[i].raisedBy, result[i].role, result[i].raisedOn, result[i].comment]);
 						}
-						if (!result[i].hasOwnProperty("role")) {
-							result[i].role = "";
-						}
-						if (!result[i].hasOwnProperty("raisedOn")) {
-							result[i].raisedOn = "";
-						}
-						if (!result[i].hasOwnProperty("comment")) {
-							result[i].comment = "";
-						}
-						count++;
-						tabledataQuery.row.add([count, result[i].raisedBy, result[i].role, result[i].raisedOn, result[i].comment]);
+						tabledataQuery.draw();
+						$("tbody").show();
 					}
-					tabledataQuery.draw();
-					$("tbody").show();
 				}
 			} else {
 				Toast.fire({
@@ -395,9 +399,9 @@ $("#approve").click(function() {
 });
 
 $("#rejected").click(function() {
-	
-	var comment=$("#comment").val();
-	
+
+	var comment = $("#comment").val();
+
 	if (comment === "" || comment === null || comment === '') {
 		Toast.fire({
 			type: 'error',
@@ -406,7 +410,7 @@ $("#rejected").click(function() {
 		document.getElementById("comment").focus();
 		return "";
 	}
-	
+
 	var pid = $("#pid").val();
 	Swal.fire({
 		title: 'Are you sure to reject?',
@@ -421,7 +425,7 @@ $("#rejected").click(function() {
 		test[0] = result;
 		var val = Object.values(test[0])
 		if (val == "true") {
-			rejectedVendor(pid,comment);
+			rejectedVendor(pid, comment);
 
 
 		}
@@ -467,13 +471,13 @@ function approveVendor(pid) {
 
 
 function rejectedVendor(pid, comment) {
-	var introducedByEmailID=$("#introducedByEmailID").val();
-	
+	var introducedByEmailID = $("#introducedByEmailID").val();
+
 	var finalObj = {
 		"pid": pid,
 		"comment": comment,
-		"vandorMailId":vandorMailId,
-		"introducedByEmailID":introducedByEmailID
+		"vandorMailId": vandorMailId,
+		"introducedByEmailID": introducedByEmailID
 	}
 	console.log(finalObj);
 	$.ajax({

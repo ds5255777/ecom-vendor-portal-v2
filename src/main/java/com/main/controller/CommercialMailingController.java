@@ -2,8 +2,6 @@ package com.main.controller;
 
 import java.security.Principal;
 import java.security.SecureRandom;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Comparator;
@@ -83,11 +81,13 @@ public class CommercialMailingController {
 
 			MailContent mailContent = mailType.get(0);
 			emailBody = mailContent.getEmailBody();
-			Date date = new Date();
-			DateFormat dateFormat = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER);
-			String strDate = dateFormat.format(date);
+			/*
+			 * Date date = new Date(); DateFormat dateFormat = new
+			 * SimpleDateFormat(GlobalConstants.DATE_FORMATTER); String strDate =
+			 * dateFormat.format(date);
+			 */
 			emailBody = emailBody.replace("#URL_VENDOR_ONBOARD#", newmailLink);
-			emailBody = emailBody.replace("#OndordingDate#", strDate);
+			//emailBody = emailBody.replace("#OndordingDate#", strDate);
 
 			new Thread(new Runnable() {
 				@Override
@@ -95,7 +95,7 @@ public class CommercialMailingController {
 					try {
 						if (!emailList.isEmpty()) {
 							for (int i = 0; i < emailList.size(); i++) {
-								CommanFunction.sendEmail(emailList.get(i), entityDto.getVendorEmail(), "", "",
+								CommanFunction.sendEmail(emailList.get(i), entityDto.getVendorEmail(), introducerEmail, "",
 										"Ecom | Vendor Onboarding Link", "" + emailBody);
 							}
 						}

@@ -224,6 +224,9 @@ function getData() {
 					if (!result[i].hasOwnProperty("creditTerms")) {
 						result[i].creditTerms = "";
 					}
+					if (!result[i].hasOwnProperty("vendorPid")) {
+						result[i].vendorPid = "";
+					}
 					if (!result[i].hasOwnProperty("processOn")) {
 						result[i].processOn = "";
 					}
@@ -232,7 +235,7 @@ function getData() {
 					}
 
 
-					tabledata.row.add([result[i].vendorEmail, result[i].vendorType, result[i].region, result[i].creditTerms, result[i].processOn, result[i].processBy]);
+					tabledata.row.add([result[i].vendorEmail, result[i].vendorType, result[i].region, result[i].creditTerms, result[i].vendorPid, result[i].processOn, result[i].processBy]);
 
 				}
 

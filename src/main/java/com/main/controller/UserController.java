@@ -23,10 +23,15 @@ import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.bean.SupplierDTO;
 import com.main.commonclasses.GlobalConstants;
+import com.main.db.bpaas.entity.EmailAuditLogs;
+import com.main.db.bpaas.entity.EmailConfiguration;
+import com.main.db.bpaas.entity.MailContent;
+import com.main.db.bpaas.entity.SendEmail;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.User;
 import com.main.payloads.SupDetailsDTO;
 import com.main.payloads.UserDTO;
+import com.main.service.UserServiceImpl;
 import com.main.servicemanager.ServiceManager;
 
 @RequestMapping("/userController")
@@ -40,7 +45,7 @@ public class UserController {
 	private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@PostMapping({ "/saveUpdateUserDetails" })
-	public String saveUpdateUserDetails(Principal principal,@Valid @RequestBody UserDTO userDto) {
+	public String saveUpdateUserDetails(Principal principal, @Valid @RequestBody UserDTO userDto) {
 
 		logger.info("Log Some Information :  ");
 
@@ -61,7 +66,8 @@ public class UserController {
 						password = serviceManager.bCryptPasswordEncoder.encode(userDto.getPassword());
 					}
 					userDto.setPassword(password);
-					serviceManager.userRepository.updateUserDetails(password,userDto.getEmailId(),userDto.getContactNo(),userDto.getStatus(),userDto.getId(), userDto.getUsername());
+					serviceManager.userRepository.updateUserDetails(password, userDto.getEmailId(),
+							userDto.getContactNo(), userDto.getStatus(), userDto.getId(), userDto.getUsername());
 				}
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} catch (Exception e) {
@@ -200,21 +206,22 @@ public class UserController {
 //		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
-			try {
-				User us = serviceManager.userService.findByUsername(principal.getName());
-				us.setPassword(password);
-				us.setStatus(GlobalConstants.ACTIVE_STATUS);
-				serviceManager.userService.save(us);
-				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
-			} catch (Exception e) {
-				data.setMsg(GlobalConstants.ERROR_MESSAGE);
-				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
-			}
+		try {
+			User us = serviceManager.userService.findByUsername(principal.getName());
+			us.setPassword(password);
+			us.setStatus(GlobalConstants.ACTIVE_STATUS);
+			serviceManager.userService.save(us);
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+		} catch (Exception e) {
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+		}
 		return gson.toJson(data);
 	}
-	
+
 	@PostMapping({ "/changeVendorPassword" })
-	public String changeVendorPassword(Principal principal, @RequestParam(name = "password") String password,@RequestParam(name = "username") String username) {
+	public String changeVendorPassword(Principal principal, @RequestParam(name = "password") String password,
+			@RequestParam(name = "username") String username) {
 		logger.info("Log Some Information changePassword  ");
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
@@ -310,9 +317,7 @@ public class UserController {
 	public String setStatusOfVendorByBpCode(HttpServletRequest request, @RequestBody UserDTO user) {
 
 		logger.info("Log Some Information setStatusOfVendorByBpCode  ");
-		
-	
-		
+
 		String status = "";
 		DataContainer data = new DataContainer();
 		if (user.getStatus().equalsIgnoreCase("0")) {
@@ -320,7 +325,7 @@ public class UserController {
 		} else if (user.getStatus().equalsIgnoreCase("1")) {
 			status = GlobalConstants.SET_FLAG_TYPE_ACTIVE;
 		}
-		
+
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		try {
 
@@ -387,6 +392,70 @@ public class UserController {
 
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
+		} catch (Exception e) {
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+
+		}
+
+		return gson.toJson(data);
+	}
+
+	@PostMapping({ "/changeVenPass" })
+	public String changeVendorPassword(Principal principal, @RequestBody SupDetailsDTO supDetailsDto) {
+
+		logger.info("Log Some Information changeVendorPassword  ");
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
+		String userName = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+
+		try {
+			if (rolename.equals(GlobalConstants.ROLE_ADMIN)) {
+
+				String bpCode = supDetailsDto.getBpCode();
+				String passwordUser = UserServiceImpl.generateRandomPassword();
+				System.out.println(passwordUser);
+				User user=serviceManager.userRepository.findByBpCode(bpCode);
+				//serviceManager.userRepository.updateVendorPassword(bpCode, passwordUser);
+				//serviceManager.userService.Update(null)
+				
+				/* send onBoard email */
+
+				List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
+						.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+				EmailConfiguration emailConfiguration = emailList.get(0);
+
+				String vendorEmail = supDetailsDto.getContactDetails().get(0).getConEmail();
+
+				List<MailContent> mailType = serviceManager.mailContentRepo
+						.findByType("Send username And Password");
+
+				SendEmail sendEmail = new SendEmail();
+				MailContent mailContent = mailType.get(0);
+				String emailBody = mailContent.getEmailBody();
+
+				emailBody = emailBody.replace("#username#", bpCode);
+				emailBody = emailBody.replace("#password#", passwordUser);
+
+				sendEmail.setMailfrom(emailConfiguration.getUserName());
+				sendEmail.setSendTo(vendorEmail);
+				sendEmail.setSubject(mailContent.getSubject());
+				sendEmail.setEmailBody(emailBody);
+				sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+
+				serviceManager.sendEmailRepo.save(sendEmail);
+
+				EmailAuditLogs auditLogs = new EmailAuditLogs();
+				auditLogs.setMailFrom(emailConfiguration.getUserName());
+				auditLogs.setMailTo(vendorEmail);
+				auditLogs.setMailSubject(mailContent.getSubject());
+				auditLogs.setMailMessage(emailBody);
+
+				serviceManager.emailAuditLogsRepo.save(auditLogs);
+			}
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 

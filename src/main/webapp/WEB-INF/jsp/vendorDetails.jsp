@@ -187,7 +187,9 @@ th, td, tr {
 														name="introducedByEmailID" maxlength="50"
 														placeholder="abc@ecomexpress.in"
 														onchange="removeValCssByID(this)"><span
-														id="message"></span></td>
+														id="message"></span><input type="hidden" id="commercialFlag" name="commercialFlag"  />
+														<input type="hidden" id="processedBy" name="processedBy"  />
+													</td>
 
 													<td><label for="Supplier Type">Referral Email
 															Id</label></td>
@@ -1048,7 +1050,7 @@ th, td, tr {
 		</div>
 	</div>
 
-	<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal fade" id="changePassword" role="dialog">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<form role="form" id="changePassword1" autocomplete="off">
@@ -1077,7 +1079,7 @@ th, td, tr {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" id="changePasswordButton"
+						<button type="button" id="changeVendorPassword"
 							class="btn btn-primary">Change Password</button>
 					</div>
 				</form>

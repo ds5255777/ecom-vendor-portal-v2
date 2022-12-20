@@ -22,8 +22,12 @@ public class SupDetailsDTO {
 	private String businessClassification;
 	private String siteDff;
 
-	private String enInvApplicable;
+	private String processedOn;
 
+	private String processedBy;
+
+	private String enInvApplicable;
+	private Integer commercialFlag;
 	private String opeUnitReqMap;
 	private String venStatus;
 	private String invoiceCurrency;

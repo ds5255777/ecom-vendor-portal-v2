@@ -246,7 +246,10 @@ select[readonly].select2+.select2-container {
 													class="form-control p-input" id="introducedByEmailID"
 													name="introducedByEmailID" maxlength="50"
 													placeholder="abc@ecomexpress.in"><span id="message"></span>
-													<input type="hidden" id="roleId" /></td>
+													<input type="hidden" id="roleId" />
+													<input type="hidden" id="commercialFlag" name="commercialFlag" value="${commercialFlag }" />
+													
+													</td>
 
 												<td><label for="Supplier Type">Referral Email Id</label></td>
 												<td colspan="1"><input type="text"
@@ -282,6 +285,7 @@ select[readonly].select2+.select2-container {
 													class="form-control p-input" id="mesmeNumber"
 													maxlength="12" name="mesmeNumber"
 													placeholder="MESME Certificate Number" disabled="disabled"></td>
+													
 											</tr>
 
 											<tr class="">
@@ -531,7 +535,7 @@ select[readonly].select2+.select2-container {
 														placeholder="First Name" maxlength="30"></td>
 
 													<td><label for="lnameCon">Last Name<span
-															class="required adHocRequired">*</span></label></td>
+															class="required adHocRequired"></span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="conLname" name="conLname"
 														placeholder="Last Name" maxlength="30"></td>

@@ -31,14 +31,14 @@
 <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 <style>
-.split {
+/* .split {
 	height: 100%;
 	width: 50%;
 	position: fixed;
 	z-index: 1;
 	top: 0;
 	overflow-x: hidden;
-}
+} */
 
 .left {
 	left: 0;
@@ -103,7 +103,10 @@ margin-bottom: 0px;
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse text-sm">
-	<div class="split left wrapper">
+
+<div class="row">
+<div class="col-md-7">
+	<!-- <div class="split left wrapper"> -->
 		<nav
 			class="main-header navbar navbar-expand navbar-white navbar-light"
 			style="margin-left: 0px !important; background: #007BFF; padding: 0px 4px 0px 0px;">
@@ -134,7 +137,7 @@ margin-bottom: 0px;
 							<form id="stepOneForm" class="forms-sample">
 								<div class="row">
 
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group ">
 											<label>Introducer Name<span class="text-danger"></span></label>
 											<input class="form-control-sm" type="text" readonly
@@ -142,7 +145,7 @@ margin-bottom: 0px;
 												style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group ">
 											<label>Introducer Email ID<span class="text-danger"></span></label>
 
@@ -151,7 +154,7 @@ margin-bottom: 0px;
 												style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group ">
 											<label>Referral Email Id<span class="text-danger"></span></label>
 
@@ -159,15 +162,15 @@ margin-bottom: 0px;
 												id="referralEmailId" readonly style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group ">
-											<label>Supplier Name<span class="text-danger"></span></label>
+											<label>Legal Entity / Supplier Name<span class="text-danger"></span></label>
 
 											<input class="form-control-sm" type="text" name="suppName"
 												id="suppName" readonly style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Business Classification<span
 												class="text-danger"></span></label> <input type="text"
@@ -176,21 +179,21 @@ margin-bottom: 0px;
 												type="hidden" id="vendorType" value="${vendorType}">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>MESME Certificate Number</label> <input type="text"
 												class="form-control-sm" name="mesmeNumber" id="mesmeNumber"
 												style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Aadhar Number</label> <input class="form-control-sm"
 												name="aadharNumber" id="aadharNumber" type="text"
 												style="width: 100%;" readonly>
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Pan Number<span class="text-danger"> </span></label>
 
@@ -198,14 +201,14 @@ margin-bottom: 0px;
 												id="panNumber" type="text" style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>TAN Number<span class="text-danger"></span></label> <input
 												class="form-control-sm" type="text" name="tanNumber"
 												id="tanNumber" readonly style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Aadhar Link Status<span class="text-danger"></span></label>
 
@@ -214,7 +217,7 @@ margin-bottom: 0px;
 												style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Section Type<span class="text-danger"></span></label>
 
@@ -336,7 +339,7 @@ margin-bottom: 0px;
 						<div class="card-body">
 							<form id="stepTwoForm" class="forms-sample">
 								<div class="row">
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Invoice Currency<span class="text-danger"></span></label>
 
@@ -345,7 +348,7 @@ margin-bottom: 0px;
 												style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Payment Currency<span class="text-danger"></span></label>
 
@@ -354,7 +357,7 @@ margin-bottom: 0px;
 												style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Payment / Credit Terms<span
 												class="text-danger"></span></label> <input type="hidden" id="id"
@@ -363,7 +366,7 @@ margin-bottom: 0px;
 												class="form-control-sm" style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Payment Method<span class="text-danger"></span></label>
 
@@ -372,7 +375,7 @@ margin-bottom: 0px;
 												style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Terms Date Basis<span class="text-danger"></span></label>
 
@@ -381,7 +384,7 @@ margin-bottom: 0px;
 										</div>
 									</div>
 
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Delivery Terms<span class="text-danger"></span></label>
 
@@ -452,7 +455,7 @@ margin-bottom: 0px;
 						<div class="card-body">
 							<form id="stepFourForm" class="forms-sample">
 								<div class="row">
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Financial Year1<span class="text-danger"></span></label>
 
@@ -460,7 +463,7 @@ margin-bottom: 0px;
 												name="fyYear1" id="fyYear1" style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Acknowledgement Number1<span
 												class="text-danger"></span></label> <input class="form-control-sm"
@@ -468,7 +471,7 @@ margin-bottom: 0px;
 												id="acknowledgementNumber1" style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Financial Year2<span class="text-danger"></span></label>
 
@@ -476,7 +479,7 @@ margin-bottom: 0px;
 												name="fyYear2" id="fyYear2" style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Acknowledgement Number2<span
 												class="text-danger"></span></label> <input class="form-control-sm"
@@ -484,7 +487,7 @@ margin-bottom: 0px;
 												id="acknowledgementNumber2" style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Financial Year3<span class="text-danger"></span></label>
 
@@ -492,7 +495,7 @@ margin-bottom: 0px;
 												name="fyYear3" id="fyYear3" style="width: 100%;">
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Acknowledgement Number3<span
 												class="text-danger"></span></label> <input class="form-control-sm"
@@ -600,9 +603,12 @@ margin-bottom: 0px;
 		</div>
 
 		<aside class="control-sidebar control-sidebar-dark"></aside>
+	<!-- </div> -->
 	</div>
+	
+	<div class="col-md-5">
 
-	<div class="split right">
+	<!-- <div class="split right"> -->
 		<div class="form-group">
 			<label for="doc">Document Details</label> <select
 				class="form-control" id="multipleAttachment" style="height: 35px;">
@@ -612,6 +618,9 @@ margin-bottom: 0px;
 		<a id="ifrmameHref" target="_blank">Click Here to open doc in new
 			window</a>
 		<iframe id="pdfLink" title="pdfLink" style="height: 90%; width: 100%"></iframe>
+	</div>
+	<!-- </div> -->
+	
 	</div>
 
 	<script src="plugins/jquery/jquery.min.js"></script>

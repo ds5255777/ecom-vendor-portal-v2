@@ -536,7 +536,7 @@ function displayAttachmentForPoDetails() {
 					for (var i = 0; i < result.length; i++) {
 						$('#multipleAttachment').append($('<option/>').attr("value", result[i].docPath).text(result[i].docName));
 					}
-					$("#viewAttachmentPopUp").modal('show');
+					//$("#viewAttachmentPopUp").modal('show');
 
 				} else {
 					Toast.fire({
@@ -561,6 +561,7 @@ function displayAttachmentForPoDetails() {
 		}
 	});
 }
+
 
 $("#multipleAttachment").change(function() {
 

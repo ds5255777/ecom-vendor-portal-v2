@@ -1,7 +1,5 @@
 package com.main.payloads;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -50,7 +48,7 @@ public class SupDetailsDTO {
 	private String nro;
 	private String sro;
 	private String ihq;
-	private String createDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+	private String createDate;
 	private String flag;
 	private String addressPurchasingFlag;
 	private String addressPaymentFlag;
@@ -60,8 +58,8 @@ public class SupDetailsDTO {
 	private List<ContactDetailsDTO> contactDetails;
 	String gstFileText;
 	String gstFileName;
-	String pANFileText;
-	String pANFileName;
+	String panFileText;
+	String panFileName;
 	String pdFileText;
 	String pdFileName;
 	String ccFileText;

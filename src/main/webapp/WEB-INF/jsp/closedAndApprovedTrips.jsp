@@ -187,9 +187,10 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="modal-footer">
-                                    <input id="flipToInvoice" type="button" class="btn btn-primary" value="Flip to Invoice " />
-                                </div>
+                                 <div class="modal-footer">
+                                    <!-- <input id="flipToInvoice" type="button" class="btn btn-primary" value="Flip to Invoice " /> -->
+                                     <input id="invoiceProcess" type="button" style="width: inherit;" class="btn btn-primary" value="Flip to Invoice " />
+                                </div> 
                             </div>
                         </div>
                     </div>

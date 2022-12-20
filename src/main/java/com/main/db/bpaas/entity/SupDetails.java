@@ -151,9 +151,9 @@ public class SupDetails {
 	String gstFileName;
 
 	@Transient
-	String pANFileText;
+	String panFileText;
 	@Transient
-	String pANFileName;
+	String panFileName;
 
 	@Transient
 	String pdFileText;

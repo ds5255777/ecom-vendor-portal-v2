@@ -1,6 +1,5 @@
 function dateValidationCheck(date1, date2){	 
 	var check="false";		
-	debugger
 	if(date1 !="" && date2 !=""){
 		
 		date1=moment(date1, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD');

@@ -222,8 +222,8 @@ label {
 														class="required adHocRequired">*</span></label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="introducedByEmailID"
-													name="introducedByEmailID" maxlength="50"
-													placeholder="abc@ecomexpress.in"><span
+													name="introducedByEmailID" maxlength="50" value="${userMailId }"
+													placeholder="abc@ecomexpress.in" readonly><span
 													id="message"></span></td>
 
 												<td><label for="Supplier Type">Supplier Code</label></td>
@@ -239,14 +239,15 @@ label {
 											<tr>
 												<input type="hidden" id="roleId" />
 
-												<td><label for="suppName">Supplier Name<span
+												<td><label for="suppName">Legal Entity/Supplier Name<span
 														class="required adHocRequired">*</span></label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="suppName" name="suppName"
 													placeholder="Supplier Name" maxlength="50"></td>
 
 												<td><label for="businessClassification">Business
-														Classification</label></td>
+														Classification<span
+														class="required adHocRequired">*</span></label></td>
 												<td><select id="businessClassification"
 													name="businessClassification" class="form-control p-input">
 														<option value="">Select</option>
@@ -258,7 +259,8 @@ label {
 												</select></td>
 
 												<td><label for="mesmeNumber">MESME Certificate
-														Number</label></td>
+														Number<span
+														class="required adHocRequired">*</span></label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="mesmeNumber"
 													maxlength="12" name="mesmeNumber"

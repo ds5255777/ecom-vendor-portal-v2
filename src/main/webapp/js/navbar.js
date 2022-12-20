@@ -18,30 +18,6 @@ $("#changePasswordButton").bind("click", function() {
 });
 
 
-$('#changePassword1').validate({
-	rules: {
-		password: {
-			required: true
-		},
-		passwordConfirm: {
-			required: true
-		}
-	},
-	errorElement: 'span',
-	errorPlacement: function(error, element) {
-		error.addClass('invalid-feedback');
-		element.closest('.form-group').append(error);
-	},
-	highlight: function(element, errorClass, validClass) {
-		$(element).addClass('is-invalid');
-		document.getElementById("passflag").value = "1";
-
-	},
-	unhighlight: function(element, errorClass, validClass) {
-		$(element).removeClass('is-invalid');
-		document.getElementById("passflag").value = "0";
-	}
-});
 
 $(function() {
 	$("#passwordConfirm").keyup(function() {

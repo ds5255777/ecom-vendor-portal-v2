@@ -1,12 +1,7 @@
 package com.main.controller;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,8 +16,6 @@ import javax.servlet.http.HttpSession;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -186,15 +179,8 @@ public class InvoiceController {
 
 	@PostMapping("/saveInvoice")
 	public String saveInvoice(HttpServletRequest request, @RequestBody InvoiceGenerationDto invoiceDto) {
-
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
-
-		JSONArray docJson = new JSONArray();
-		JSONObject documentObj = new JSONObject();
-		String[] documentExtensionArray = null;
-		String filename = null;
-		String documentExtension = null;
 
 		String filePath = filepath + File.separator + invoiceDto.getEcomInvoiceNumber();
 		String fullFilePathWithName = "";
@@ -205,17 +191,6 @@ public class InvoiceController {
 		}
 
 		if (null != invoiceDto.getInvoiceFileName()) {
-
-			documentExtensionArray = invoiceDto.getInvoiceFileName().split("\\.(?=[^\\.]+$)");
-			filename = documentExtensionArray[0];
-			documentExtension = documentExtensionArray[1];
-
-			documentObj = new JSONObject();
-			documentObj.put("DocName", filename);
-			documentObj.put("Extension", documentExtension);
-			documentObj.put("Encoded", invoiceDto.getInvoiceFileText());
-			docJson.put(documentObj);
-
 			fullFilePathWithName = filePath + File.separator + invoiceDto.getInvoiceFileName();
 
 			try (FileOutputStream fos = new FileOutputStream(fullFilePathWithName);) {
@@ -240,16 +215,9 @@ public class InvoiceController {
 
 		}
 
-		if (null != invoiceDto.getDocumentFileOneName()) {
-			documentExtensionArray = invoiceDto.getDocumentFileOneName().split("\\.(?=[^\\.]+$)");
-			filename = documentExtensionArray[0];
-			documentExtension = documentExtensionArray[1];
+		if (null != invoiceDto.getDocumentFileOneName())
 
-			documentObj = new JSONObject();
-			documentObj.put("DocName", filename);
-			documentObj.put("Extension", documentExtension);
-			documentObj.put("Encoded", invoiceDto.getDocumentFileOneText());
-			docJson.put(documentObj);
+		{
 
 			fullFilePathWithName = filePath + File.separator + invoiceDto.getDocumentFileOneName();
 
@@ -271,18 +239,10 @@ public class InvoiceController {
 				data.setMsg(GlobalConstants.ERROR_MESSAGE);
 				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 			}
+
 		}
 
 		if (null != invoiceDto.getDocumentFileTwoName()) {
-			documentExtensionArray = invoiceDto.getDocumentFileTwoName().split("\\.(?=[^\\.]+$)");
-			filename = documentExtensionArray[0];
-			documentExtension = documentExtensionArray[1];
-
-			documentObj = new JSONObject();
-			documentObj.put("DocName", filename);
-			documentObj.put("Extension", documentExtension);
-			documentObj.put("Encoded", invoiceDto.getDocumentFileTwoText());
-			docJson.put(documentObj);
 
 			fullFilePathWithName = filePath + File.separator + invoiceDto.getDocumentFileTwoName();
 
@@ -306,138 +266,6 @@ public class InvoiceController {
 			}
 
 		}
-
-		// Vendor API calling
-		// String vendor = "";
-		String processID = "";
-		try {
-			String urldata = "http://65.1.184.148:8080/VendorPortal/portal/nonpo";
-			URL url = new URL(urldata);
-			System.out.println("In here*************");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-			// Header Details
-			JSONObject json = new JSONObject();
-
-			json.put("processid", "");
-			json.put("process_flow", "");
-			json.put("operating_Unit", "");
-			json.put("type1", "");
-			json.put("supp_name", invoiceDto.getVendorName());
-			json.put("supp_number", invoiceDto.getVendorCode());
-			json.put("supp_site_name", "");
-			json.put("inv_date", invoiceDto.getInvoiceDate());
-			json.put("inv_number", invoiceDto.getInvoiceNumber());
-			json.put("inv_currency", invoiceDto.getInvoiceCurrency());
-			json.put("gl_date1", "");
-			json.put("payment_currency", "");
-			json.put("header_des", "");
-			json.put("term_date", "");
-			json.put("terms", "");
-			json.put("payment_met", "");
-			json.put("pay_groups", "");
-			json.put("payment_rate_date", "");
-			json.put("payment_rate_type", "");
-			json.put("payment_rate", "");
-			json.put("match_action", "");
-			json.put("expenses", "");
-			json.put("payment_due_date", "");
-			json.put("company_code", "");
-			json.put("orignal_tax_inv_no", "");
-			json.put("orignal_tax_inv_date", "");
-			json.put("inv_amount_float", "");
-			json.put("batch_name", "");
-			json.put("month_1", "");
-			json.put("year_1", "");
-			json.put("state_1", "");
-
-			JSONArray arrayForLineItem = new JSONArray();
-			JSONObject nonPOLinesItem = null;
-
-			if (!invoiceDto.getInvoiceLineItem().isEmpty()) {
-
-				List<InvoiceLineItem> invoiceLineItem = invoiceDto.getInvoiceLineItem();
-
-				for (int i = 0; i < invoiceLineItem.size(); i++) {
-					nonPOLinesItem = new JSONObject();
-					nonPOLinesItem.put("number_no", i);
-					nonPOLinesItem.put("gross_amt", invoiceLineItem.get(i).getTotalFreight());
-					nonPOLinesItem.put("route_name", invoiceLineItem.get(i).getRoute());
-					nonPOLinesItem.put("vehicle_no", invoiceLineItem.get(i).getStandardVechicleType());
-					nonPOLinesItem.put("description", invoiceLineItem.get(i).getLineLevelDescription());
-					nonPOLinesItem.put("natural_account", "");
-					nonPOLinesItem.put("cost_center", "");
-					nonPOLinesItem.put("function_Function", "");
-					nonPOLinesItem.put("tds_section_code", "");
-					nonPOLinesItem.put("tds_tax_category", "");
-					nonPOLinesItem.put("gst_tax_category", "");
-					nonPOLinesItem.put("gst_tax_amount", "");
-					nonPOLinesItem.put("business_line", "");
-
-					arrayForLineItem.put(nonPOLinesItem);
-				}
-
-			}
-
-			json.put("NonPOLines", arrayForLineItem);
-			json.put("Documents", docJson);
-
-			System.out.println("JSON is ::" + json.toString());
-
-			conn.setRequestProperty("Accept", "application/json");
-			//conn.setRequestProperty("username","newgen");
-			//conn.setRequestProperty("password","VEnD0rP@4T89!");
-
-			conn.setRequestProperty("Content-Type", "application/json");
-			conn.setRequestProperty("Authorization", "Basic bmV3Z2VuOlZFbkQwclBANFQ4OSE=");
-			conn.setDoOutput(true);
-
-			OutputStream os = conn.getOutputStream();
-			os.write(json.toString().getBytes());
-			os.flush();
-
-			if (conn.getResponseCode() != 200) {
-				throw new RuntimeException("Failed : HTTP Error code : " + conn.getResponseCode());
-			} else {
-				System.out.println("conn.responsecode" + conn.getResponseCode());
-			}
-			InputStreamReader in = new InputStreamReader(conn.getInputStream());
-			BufferedReader br = new BufferedReader(in);
-			String finalOut = "";
-			String outputloop = "";
-			while ((outputloop = br.readLine()) != null) {
-				finalOut = finalOut + outputloop;
-				System.out.println("finalOut :\n" + finalOut);
-			}
-
-			System.out.println("Final output ::: " + finalOut);
-
-			if ("".equalsIgnoreCase(finalOut)) {
-				System.out.println("Error!!!!!!!!!Output from authentication web service is null");
-			} else {
-				System.out.println(" FinalOutput JSON in api ::: " + finalOut);
-			}
-			JSONObject jsonObject = new JSONObject(finalOut);
-			if (null != jsonObject) {
-				String statuscode = jsonObject.optString("Status");
-				if ("201".equalsIgnoreCase(statuscode)) {
-					processID = jsonObject.optString("ProcessID");
-
-					invoiceDto.setPid(processID);
-					System.out.println("   ------------" + processID);
-
-				}
-
-			}
-
-			conn.disconnect();
-			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
-			data.setData(processID);
-		} catch (Exception e) {
-			data.setMsg(GlobalConstants.ERROR_MESSAGE);
-			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
-		}
-
 		String ecomInvoiceNumber = invoiceDto.getEcomInvoiceNumber();
 
 		Long idByinvocienumber = serviceManager.invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
@@ -455,7 +283,7 @@ public class InvoiceController {
 			serviceManager.tripDetailsRepo.updateVendorTripStatusAgainsInvoiceNumber(ecomInvoiceNumber);
 			InvoiceGenerationEntity invoiceSave = this.serviceManager.modelMapper.map(invoiceDto,
 					InvoiceGenerationEntity.class);
-			// serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
+			serviceManager.invoiceGenerationEntityRepo.save(invoiceSave);
 		}
 
 		List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
@@ -485,9 +313,10 @@ public class InvoiceController {
 
 			serviceManager.emailAuditLogsRepo.save(auditLogs);
 		}
+		data.setData(invoiceDto.getEcomInvoiceNumber());
+		data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		return gson.toJson(data);
-
 	}
 
 	@PostMapping("/updateInvoice")

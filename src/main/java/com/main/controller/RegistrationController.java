@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -227,7 +228,7 @@ public class RegistrationController {
 		String pid = jsonObject.optString("pid");
 		String comment = jsonObject.optString("comment");
 		String vandorMailId = jsonObject.optString("vandorMailId");
-		String introducedByEmailID=jsonObject.optString("introducedByEmailID");
+		String introducedByEmailID = jsonObject.optString("introducedByEmailID");
 
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
@@ -319,11 +320,16 @@ public class RegistrationController {
 			List<SupDetails> listOfVendorDetails = serviceManager.supDetailsRepo.findByCreateDateBetween(fromDate,
 					toDate);
 
+			List<SupDetails> collect = listOfVendorDetails.stream()
+					.filter(p -> p.getVenStatus().equalsIgnoreCase(GlobalConstants.APPROVED_REQUEST_STATUS)
+							|| p.getVenStatus().equalsIgnoreCase(GlobalConstants.UPDATE_VENDOR))
+					.collect(Collectors.toList());
+
 			// List<SupDetails> collect = listOfVendorDetails.stream().map(listOfVendor->
 			// this.serviceManager.modelMapper.map(listOfVendor,
 			// SupDetails.class)).collect(Collectors.toList());
 
-			data.setData(listOfVendorDetails);
+			data.setData(collect);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);

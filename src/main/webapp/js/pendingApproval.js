@@ -606,7 +606,9 @@ function approvedTrips() {
 	var table = document.getElementById('tabledata');
 	var checkflag = [];
 	$("input:checkbox[name='option']:checked").each(function() {
-		checkflag.push($(this).val());
+		console.log($(this).val());
+		console.log(checkflag.push($(this).val().replace(" ", "")));
+		//checkflag.push($(this).val());
 	});
 
 	let values = checkflag.toString();
@@ -618,6 +620,7 @@ function approvedTrips() {
 		return;
 	}
 	console.log(values);
+	
 
 	json = {
 		"tripID": values,

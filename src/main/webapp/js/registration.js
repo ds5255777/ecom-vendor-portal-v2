@@ -78,9 +78,6 @@ $("#aadharNumber").bind("input", function() {
 	this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
 });
 
-$("#referralEmailId").bind("input", function() {
-	this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
-});
 
 $("#panNumber").bind("input", function() {
 	this.value = this.value.toUpperCase();
@@ -193,7 +190,7 @@ function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
 				swal.fire("Alert", "MESME Certificate Number is mandatory", "warning")
 					.then((value) => { });
 			}
-			else if (controlName == "eInvoiceApplicable") {
+			else if (controlName == "enInvApplicable") {
 
 				swal.fire("Alert", "E-Invoice Applicable is mandatory", "warning")
 					.then((value) => { });
@@ -321,7 +318,7 @@ function showHideRequiredClass() {
 		$(".msmeClass").css("visibility", "hidden");
 	} else {
 		$(".msmeClass").css("visibility", "visible");
-		
+
 	}
 }
 
@@ -350,7 +347,8 @@ function checkMand(stepNo, stepDirection) {
 					return false;
 				}
 			}
-		var mandFields = "eInvoiceApplicable";
+		}
+		var mandFields = "enInvApplicable";
 		var mandFieldsArr = mandFields.split(",");
 		for (i = 0; i < mandFieldsArr.length; i++) {
 			if (document.getElementById(mandFieldsArr[i]).value == '') {
@@ -358,8 +356,6 @@ function checkMand(stepNo, stepDirection) {
 				return false;
 			}
 		}
-		}
-
 	} else if (stepNo == 1) {
 		var addBookGridCount = $("#addBookGrid tr").length;
 		var contactDetailsGrid = $("#contactDetailsGrid tr").length;
@@ -618,11 +614,10 @@ $(document).ready(function() {
 			return regex.test(inputvalues);
 		}
 	});
-	
+
 	$("#referralEmailId").change(function() {
-		debugger
 		var inputvalues = $(this).val();
-		var regex = /^[a-zA-Z0-9+_.-]*@ecomexpress.in$/;
+		//var regex = /^[a-zA-Z0-9+_.-]*@ecomexpress.in$/;
 
 		if (!regex.test(inputvalues)) {
 			$("#referralEmailId").val("");
@@ -830,8 +825,8 @@ $("#addBookGridButt").click(function() {
 
 });
 
-$(document).on("click", ".removeAddress", function(){
-    $(this).closest("tr").remove();
+$(document).on("click", ".removeAddress", function() {
+	$(this).closest("tr").remove();
 });
 
 $("#addDocTypeButt").click(function() {
@@ -872,8 +867,8 @@ $("#contactDetailsButt").click(function() {
 	}
 });
 
-$(document).on("click", ".removeContact", function(){
-    $(this).closest("tr").remove();
+$(document).on("click", ".removeContact", function() {
+	$(this).closest("tr").remove();
 });
 
 $("#addBankGridButt").click(function() {
@@ -915,8 +910,8 @@ $("#addBankGridButt").click(function() {
 	}
 });
 
-$(document).on("click", ".removeBank", function(){
-    $(this).closest("tr").remove();
+$(document).on("click", ".removeBank", function() {
+	$(this).closest("tr").remove();
 });
 
 $body = $("body");
@@ -931,7 +926,7 @@ $(document).on({
 });
 
 function sendToServer() {
-	debugger
+
 	var addressDetailsArray = [];
 	var table = document.getElementById('addBookGrid');
 	var rowLength = table.rows.length;
@@ -1012,8 +1007,8 @@ function sendToServer() {
 		finalObj.pdFileText = $("#PDFileText").val();
 	}
 	if (document.getElementById("PANFile").files.length > 0) {
-		finalObj.pANFileName = document.getElementById("PANFile").files.item(0).name;
-		finalObj.pANFileText = $("#PANFileText").val();
+		finalObj.panFileName = document.getElementById("PANFile").files.item(0).name;
+		finalObj.panFileText = $("#PANFileText").val();
 	}
 	if (document.getElementById("CCFile").files.length > 0) {
 		finalObj.ccFileName = document.getElementById("CCFile").files.item(0).name;
@@ -1107,14 +1102,14 @@ function sendToServer() {
 	finalObj.acknowledgementNumber3 = acknowledgementNumber3;
 
 	finalObj.vendorType = vendorTypeString;
-	
-	finalObj.creditTerms=$("#creditTerms").val();
-	
+
+	finalObj.creditTerms = $("#creditTerms").val();
+
 	console.log(finalObj);
-	
-	
+
+
 	$('.loader').show();
-	
+
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(finalObj),
@@ -1491,13 +1486,13 @@ function select() {
 	if (val.toLowerCase() == "network") {
 		document.getElementById("partnerType").disabled = false;
 		document.getElementById("partnerType").value = "Scheduled";
-		
+
 		document.getElementById("selectSupplierType").style.visibility = "visible";
 		document.getElementById("selectPartnerType").style.visibility = "visible";
 	} else {
 		document.getElementById("partnerType").disabled = true;
 		document.getElementById("partnerType").value = "";
-		
+
 		document.getElementById("selectSupplierType").style.visibility = "hidden";
 		document.getElementById("selectPartnerType").style.visibility = "hidden";
 
@@ -1582,7 +1577,7 @@ function setVendorData(vendorEmail, vendorType1, region11, creditTerms1, process
 
 	$('#region').val(str);
 	$('#region').trigger('change');
-	
+
 	$("#conEmail").prop('readonly', false);
 	$("#introducedByName").val(processBy);
 	$("#introducedByEmailID").val(processByEmailId);

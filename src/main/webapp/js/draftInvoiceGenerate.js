@@ -6,7 +6,7 @@ function disableF5(e) {
 $(document).on("keydown", disableF5);
 
 $("#closeWindow").bind("click", function() {
-	window.close()
+	closeWin();
 });
 
 $("#deleteInvoice").bind("click", function() {
@@ -314,13 +314,13 @@ function sendToServer() {
 	tripLineArray.forEach((item) => {
 		item.id = null;
 	});
-	
+
 	finalObj.eInvoiceApplibale = $("#eInvoiceApplibale").val();
-	
+
 	console.log(finalObj);
 
 	finalObj.invoiceLineItem = tripLineArray;
-
+	debugger
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(finalObj),
@@ -331,7 +331,7 @@ function sendToServer() {
 		success: function(response) {
 
 			if (response.msg == 'success') {
-				swal.fire("Invoice Processed Sucessfully","Process ID : " + response.data,  "success", "OK").then(function() {
+				swal.fire("Invoice Processed Sucessfully", "Process ID : " + response.data, "success", "OK").then(function() {
 					window.opener.refereshList();
 					window.close();
 				});

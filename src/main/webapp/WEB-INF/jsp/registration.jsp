@@ -256,7 +256,7 @@ select[readonly].select2+.select2-container {
 											<tr>
 
 
-												<td><label for="suppName">Supplier Name<span
+												<td><label for="suppName">Legal Entity/Supplier Name<span
 														class="required adHocRequired">*</span></label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="suppName" name="suppName"

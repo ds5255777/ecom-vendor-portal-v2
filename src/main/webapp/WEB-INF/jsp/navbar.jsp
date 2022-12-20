@@ -144,12 +144,12 @@
         </c:choose>
 
 
-        <li class="nav-item">
+       <!--  <li class="nav-item">
 
             <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter" title="Change Password" style="color: black; border: none;">
                 <i class="fas fa-key"></i>
             </button>
-        </li>
+        </li> -->
 
         <li class="nav-item">
             <c:if test="${pageContext.request.userPrincipal.name != null}">
@@ -175,7 +175,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <!-- <div class="modal-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">New Password</label> <input type="hidden" id="passflag"> <input type="password" class="form-control p-input" id="password" name="password" placeholder="New Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter" required>
                     </div>
@@ -183,7 +183,7 @@
                         <label for="exampleInputEmail1">Confirm Password </label> <input type="password" class="form-control p-input" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm Password">
                     </div>
                     <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
-                </div>
+                </div> -->
                 <div class="modal-footer">
                     <button type="button" id="changePasswordButton" class="btn btn-primary" disabled>Change Password</button>
                 </div>

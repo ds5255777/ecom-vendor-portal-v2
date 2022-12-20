@@ -129,11 +129,17 @@ public class UIController {
 			for (int i = 0; i < findAll.size(); i++) {
 				String vendorExitingEmail = findAll.get(i).getContactDetails().get(0).getConEmail();
 				if (vendorExitingEmail.equalsIgnoreCase(vendorEmail)) {
+					String venStatus = findAll.get(i).getVenStatus();
+					System.out.println(venStatus);
+					if(!venStatus.equalsIgnoreCase(GlobalConstants.REJECTED_REQUEST_STATUS)) {
+					
 					response.setContentType("text/html");
 					PrintWriter pwriter = response.getWriter();
 					pwriter.println(
 							"<font color=red>Vendor Already Exists ! Please Contact With Administrator And Try Again...</font>");
 					pwriter.close();
+					}
+					
 				}
 			}
 		} catch (IOException e1) {
@@ -673,6 +679,8 @@ public class UIController {
 	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
 
 		String rolename = (String) request.getSession().getAttribute("role");
+		String uname = principal.getName();
+		
 		List<String> currency = serviceManager.currencyRepo.getCurrencyType();
 		List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
 		List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
@@ -687,9 +695,11 @@ public class UIController {
 		List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
 		List<String> flag = serviceManager.flagRepo.getFlag();
 		List<String> stateName = serviceManager.stateRepo.getStateName();
+		String userMailId = serviceManager.userRepository.getUserMailId(uname);
 
-		String uname = principal.getName();
+		
 		model.addAttribute("uname", uname);
+		model.addAttribute("userMailId", userMailId);
 
 		model.addAttribute("currency", currency);
 		model.addAttribute("business", business);

@@ -617,7 +617,7 @@ $("#updateBtn").bind("click", function() {
 function sendToServer() {
 
 
-	var mandFields = "introducedByName,introducedByEmailID,bpCode,suppName,enInvApplicable";
+	var mandFields = "introducedByName,introducedByEmailID,suppName,businessClassification";
 	var mandFieldsArr = mandFields.split(",");
 	for (i = 0; i < mandFieldsArr.length; i++) {
 		if (document.getElementById(mandFieldsArr[i]).value == '') {
@@ -625,6 +625,26 @@ function sendToServer() {
 			return false;
 		}
 	}
+
+	var businessClass = $("#businessClassification").val();
+	if (businessClass == "Micro Enterprise" || businessClass == "Medium Enterprise" || businessClass == "Small Enterprise") {
+		var mandFields = "mesmeNumber";
+		var mandFieldsArr = mandFields.split(",");
+		for (i = 0; i < mandFieldsArr.length; i++) {
+			if (document.getElementById(mandFieldsArr[i]).value == '') {
+				notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+				return false;
+			}
+		}
+	}
+	var mandFields = "enInvApplicable";
+		var mandFieldsArr = mandFields.split(",");
+		for (i = 0; i < mandFieldsArr.length; i++) {
+			if (document.getElementById(mandFieldsArr[i]).value == '') {
+				notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+				return false;
+			}
+		}
 
 	var addressDetailsArray = [];
 	var table = document.getElementById('addBookGrid');
@@ -773,8 +793,8 @@ function sendToServer() {
 		finalObj.pdFileText = $("#PDFileText").val();
 	}
 	if (document.getElementById("PANFile").files.length > 0) {
-		finalObj.pANFileName = document.getElementById("PANFile").files.item(0).name;
-		finalObj.pANFileText = $("#PANFileText").val();
+		finalObj.panFileName = document.getElementById("PANFile").files.item(0).name;
+		finalObj.panFileText = $("#PANFileText").val();
 	}
 	if (document.getElementById("CCFile").files.length > 0) {
 		finalObj.ccFileName = document.getElementById("CCFile").files.item(0).name;
@@ -825,8 +845,6 @@ function sendToServer() {
 
 
 	var values = document.getElementById("roleId").value;
-
-
 
 	finalObj.vendorType = values;
 
@@ -965,20 +983,26 @@ function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
 				swal.fire("Alert", "Introducer Email Id is mandatory", "warning")
 					.then((value) => { });
 			}
-			else if (controlName == "bpCode") {
 
-				swal.fire("Alert", "Business Partner Code is mandatory", "warning")
-					.then((value) => { });
-			}
 			else if (controlName == "suppName") {
 
 				swal.fire("Alert", "Business Partner Name is mandatory", "warning")
 					.then((value) => { });
 			}
+			else if (controlName == "businessClassification") {
 
-			else if (controlName == "eInvoiceApplicable") {
+				swal.fire("Alert", "Business Classification is mandatory", "warning")
+					.then((value) => { });
+			}
 
-				swal.fire("Alert", "Select e-Invoice Status", "warning")
+			else if (controlName == "mesmeNumber") {
+
+				swal.fire("Alert", "MESME Certificate Number is mandatory", "warning")
+					.then((value) => { });
+			}
+			else if (controlName == "enInvApplicable") {
+
+				swal.fire("Alert", "E-Invoice Applicable is mandatory", "warning")
 					.then((value) => { });
 			}
 

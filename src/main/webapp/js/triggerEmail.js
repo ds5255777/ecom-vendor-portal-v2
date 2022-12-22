@@ -212,30 +212,16 @@ function getData() {
 
 				for (var i = 0; i < result.length; i++) {
 
-					if (!result[i].hasOwnProperty("vendorEmail")) {
-						result[i].vendorEmail = "";
-					}
-					if (!result[i].hasOwnProperty("vendorType")) {
-						result[i].vendorType = "";
-					}
-					if (!result[i].hasOwnProperty("region")) {
-						result[i].region = "";
-					}
-					if (!result[i].hasOwnProperty("creditTerms")) {
-						result[i].creditTerms = "";
-					}
-					if (!result[i].hasOwnProperty("vendorPid")) {
-						result[i].vendorPid = "";
-					}
-					if (!result[i].hasOwnProperty("processOn")) {
-						result[i].processOn = "";
-					}
-					if (!result[i].hasOwnProperty("processBy")) {
-						result[i].processBy = "";
-					}
-
-
-					tabledata.row.add([result[i].vendorEmail, result[i].vendorType, result[i].region, result[i].creditTerms, result[i].vendorPid, result[i].processOn, result[i].processBy]);
+					tabledata.row.add([
+						i+1,
+						result[i][1], 
+						result[i][2], 
+						result[i][3],
+						result[i][4], 
+						result[i][5],
+						result[i][6],
+						result[i][7],
+						result[i][8]]);
 
 				}
 

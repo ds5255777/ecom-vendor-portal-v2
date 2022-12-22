@@ -139,7 +139,7 @@ label {
 }
 
 
-.msmeClass {
+.msmeClass, .pdDocClass {
 	color: red;
 }
 
@@ -960,7 +960,7 @@ select[readonly].select2+.select2-container {
 																	Download Template </a></td>
 
 															<td><label>Proprietorship Declaration<span
-																	class="required"></span></label></td>
+																	class="pdDocClass">*</span></label></td>
 															<td><input type="file" id="PDFile" name="PDFile"
 																class="form-control p-input" accept=".docx, .pdf">
 																<textarea id="PDFileText" rows="5"

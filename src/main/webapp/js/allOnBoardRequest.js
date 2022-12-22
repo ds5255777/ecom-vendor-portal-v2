@@ -1,6 +1,5 @@
 var csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
 
-
 const Toast = Swal.mixin({
 	toast: true,
 	position: 'top-end',
@@ -10,10 +9,15 @@ const Toast = Swal.mixin({
 var tabledata = $('#tabledata').DataTable({
 	"paging": false,
 	"lengthChange": false,
-	"searching": false,
-	"info": false,
+	"searching": true,
+	"info": true,
 	"autoWidth": false,
-	"aaSorting": []
+	"aaSorting": [],
+	 dom: 'Bfrtip',
+        buttons: [
+            'csv', 'excel'
+        ]
+	 
 });
 
 var globalProcessId = "";
@@ -35,13 +39,44 @@ function pendingRequest() {
 				tabledata.clear();
 				for (var i = 0; i < result.length; i++) {
 					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#vendorValue\" class=\"viewonboard\"  >" + result[i].pid + "</button>";
+
+					if (!result[i].hasOwnProperty("bpCode")) {
+						result[i].bpCode = "";
+					}
+					if (!result[i].hasOwnProperty("introducedByName")) {
+						result[i].introducedByName = "";
+					}
+					if (!result[i].hasOwnProperty("suppName")) {
+						result[i].suppName = "";
+					}
+					if (!result[i].hasOwnProperty("vendorType")) {
+						result[i].vendorType = "";
+					}
+					if (!result[i].hasOwnProperty("createDate")) {
+						result[i].createDate = "";
+					}
+					
+					if (!result[i].hasOwnProperty("venStatus")) {
+						result[i].venStatus = "";
+					}
+					if (!result[i].hasOwnProperty("processedOn")) {
+						result[i].processedOn = "";
+					}
+					if (!result[i].hasOwnProperty("processedBy")) {
+						result[i].processedBy = "";
+					}
+
 					tabledata.row.add([
 						view,
+						result[i].bpCode,
 						result[i].introducedByEmailID,
 						result[i].introducedByName,
 						result[i].suppName,
 						result[i].vendorType,
-						result[i].venStatus]);
+						result[i].createDate,
+						result[i].venStatus,
+						result[i].processedOn,
+						result[i].processedBy]);
 				}
 				tabledata.draw();
 				$("tbody").show();

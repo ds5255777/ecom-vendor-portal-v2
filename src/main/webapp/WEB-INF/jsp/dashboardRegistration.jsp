@@ -136,7 +136,7 @@
                                                 <th class="bg-primary">Introduced By Name</th>
                                                 <th class="bg-primary">Supplier Name</th>
                                                 <th class="bg-primary">Supplier Type</th>
-                                                <th class="bg-primary">Status</th>
+                                                <th class="bg-primary">Onboarding Date</th>
                                             </tr>
                                         </thead>
                                     </table>

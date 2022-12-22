@@ -50,12 +50,12 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 	@Query(value = "update SupDetails set pid=:pid where id=:id ; ", nativeQuery = true)
 	void updatePidInSupDetails(Long id, String pid);
 
-	@Query(value = "select supdetails.pid, introduced_by_email_id, introduced_by_name, supp_name,vendor_type, ven_status from supdetails where ven_status=:pendingRequestStatus Order By id Desc", nativeQuery = true)
+	@Query(value = "select supdetails.pid, introduced_by_email_id, introduced_by_name, supp_name,vendor_type, create_date from supdetails where ven_status=:pendingRequestStatus Order By id Desc", nativeQuery = true)
 	List<Object[]> findByPendingVenStatus(String pendingRequestStatus);
 
 	SupDetails findByPid(String pid);
 
-	@Query(value = "select * from supdetails where ven_status in ('Approved','Update');", nativeQuery = true)
+	@Query(value = "select * from supdetails where ven_status in ('Approved','Update') order by id desc;", nativeQuery = true)
 	List<SupDetails> findByVenStatus();
 
 	Integer countByVenStatus(String status);
@@ -68,10 +68,16 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 	@Query(value = "update SupDetails set ven_status=:queryRequestStatus where id=:getid ; ", nativeQuery = true)
 	void updateVendorStatus(String queryRequestStatus, Integer getid);
 
-	@Transactional
-	@Modifying
-	@Query(value = "update SupDetails set ven_status=:approvedRequestStatus where pid=:pid ; ", nativeQuery = true)
-	void approveRequestByPid(String pid, String approvedRequestStatus);
+	/*
+	 * @Transactional
+	 * 
+	 * @Modifying
+	 * 
+	 * @Query(value =
+	 * "update SupDetails set ven_status=:approvedRequestStatus where pid=:pid ; ",
+	 * nativeQuery = true) void approveRequestByPid(String pid, String
+	 * approvedRequestStatus);
+	 */
 
 	@Transactional
 	@Modifying

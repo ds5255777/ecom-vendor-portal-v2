@@ -171,6 +171,13 @@ margin-bottom: 0px;
 										</div>
 									</div>
 									<div class="col-md-3">
+										<div class="form-group ">
+											<label>Supplier Code<span class="text-danger"></span></label>
+
+											<input class="form-control-sm" type="text"id="bpCode" name="bpCode" readonly style="width: 100%;">
+										</div>
+									</div>
+									<div class="col-md-3">
 										<div class="form-group">
 											<label>Business Classification<span
 												class="text-danger"></span></label> <input type="text"

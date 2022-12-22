@@ -81,7 +81,7 @@ var tabledata = $('#tabledata').DataTable({
 			extend: 'excelHtml5',
 
 			exportOptions: {
-				columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+				columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
 			}
 		},
 		{
@@ -89,7 +89,7 @@ var tabledata = $('#tabledata').DataTable({
 			orientation: 'landscape',
 			pageSize: 'A4',
 			exportOptions: {
-				columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+				columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
 			},
 			customize: function(doc) {
 
@@ -222,62 +222,9 @@ function getData() {
 
 			$('.loader').hide();
 			if (data.msg == 'success') {
-
 				var result = data.data;
-				tabledata.clear();
+				showTableData(result);
 
-				for (var i = 0; i < result.length; i++) {
-
-					if (!result[i].hasOwnProperty("tripID")) {
-						result[i].tripID = "-";
-					}
-					if (!result[i].hasOwnProperty("route")) {
-						result[i].route = "-";
-					}
-					if (!result[i].hasOwnProperty("runType")) {
-						result[i].runType = "-";
-					}
-					if (!result[i].hasOwnProperty("vendorName")) {
-						result[i].vendorName = "-";
-					}
-					if (!result[i].hasOwnProperty("vendorCode")) {
-						result[i].vendorCode = "-";
-					}
-					if (!result[i].hasOwnProperty("runStatus")) {
-						result[i].runStatus = "-";
-					}
-					if (!result[i].hasOwnProperty("vendorTripStatus")) {
-						result[i].vendorTripStatus = "-";
-					}
-					if (!result[i].hasOwnProperty("actualDeparture")) {
-						result[i].actualDeparture = "-";
-					}
-					if (!result[i].hasOwnProperty("actualKM")) {
-						result[i].actualKM = "-";
-					}
-					if (!result[i].hasOwnProperty("standardKM")) {
-						result[i].standardKM = "-";
-					}
-					if (!result[i].hasOwnProperty("originHub")) {
-						result[i].originHub = "-";
-					}
-					if (!result[i].hasOwnProperty("destHub")) {
-						result[i].destHub = "-";
-					}
-					if (!result[i].hasOwnProperty("paymentStatus")) {
-						result[i].paymentStatus = "-";
-					}
-
-					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\"  class=\"tripIdView\" >" + result[i].tripID + "</a>";
-
-					var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode,
-						result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture,
-						result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, result[i].paymentStatus];
-
-					tabledata.row.add(tempString);
-				}
-				tabledata.draw();
-				$("tbody").show();
 			} else {
 				Toast.fire({
 					type: 'error',
@@ -409,7 +356,7 @@ function getFilterData() {
 	}
 	var dateReturnCheck = dateValidationCheck(fromDate, toDate);
 	if (dateReturnCheck == "false") {
-		
+
 
 		$('.loader').show();
 
@@ -431,58 +378,7 @@ function getFilterData() {
 				if (data.msg == 'success') {
 
 					var result = data.data;
-					tabledata.clear();
-
-					for (var i = 0; i < result.length; i++) {
-
-						if (!result[i].hasOwnProperty("tripID")) {
-							result[i].tripID = "-";
-						}
-						if (!result[i].hasOwnProperty("route")) {
-							result[i].route = "-";
-						}
-						if (!result[i].hasOwnProperty("runType")) {
-							result[i].runType = "-";
-						}
-						if (!result[i].hasOwnProperty("vendorName")) {
-							result[i].vendorName = "-";
-						}
-						if (!result[i].hasOwnProperty("vendorCode")) {
-							result[i].vendorCode = "-";
-						}
-						if (!result[i].hasOwnProperty("runStatus")) {
-							result[i].runStatus = "-";
-						}
-						if (!result[i].hasOwnProperty("vendorTripStatus")) {
-							result[i].vendorTripStatus = "-";
-						}
-						if (!result[i].hasOwnProperty("actualDeparture")) {
-							result[i].actualDeparture = "-";
-						}
-						if (!result[i].hasOwnProperty("actualKM")) {
-							result[i].actualKM = "-";
-						}
-						if (!result[i].hasOwnProperty("standardKM")) {
-							result[i].standardKM = "-";
-						}
-						if (!result[i].hasOwnProperty("originHub")) {
-							result[i].originHub = "-";
-						}
-						if (!result[i].hasOwnProperty("destHub")) {
-							result[i].destHub = "-";
-						}
-						if (!result[i].hasOwnProperty("paymentStatus")) {
-							result[i].paymentStatus = "-";
-						}
-
-						var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" value=\"" + result[i].tripID + "\" class=\"tripIdView\"  >" + result[i].tripID + "</a>";
-
-						var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, result[i].paymentStatus];
-
-						tabledata.row.add(tempString);
-					}
-					tabledata.draw();
-					$("tbody").show();
+					showTableData(result);
 				} else {
 					console.log(data);
 					Toast.fire({
@@ -541,58 +437,7 @@ function GetSelectedTextValue1() {
 			$('.loader').hide();
 			if (data.msg == "success") {
 				var result = data.data;
-				tabledata.clear();
-
-				for (var i = 0; i < result.length; i++) {
-
-					if (!result[i].hasOwnProperty("tripID")) {
-						result[i].tripID = "-";
-					}
-					if (!result[i].hasOwnProperty("route")) {
-						result[i].route = "-";
-					}
-					if (!result[i].hasOwnProperty("runType")) {
-						result[i].runType = "-";
-					}
-					if (!result[i].hasOwnProperty("vendorName")) {
-						result[i].vendorName = "-";
-					}
-					if (!result[i].hasOwnProperty("vendorCode")) {
-						result[i].vendorCode = "-";
-					}
-					if (!result[i].hasOwnProperty("runStatus")) {
-						result[i].runStatus = "-";
-					}
-					if (!result[i].hasOwnProperty("vendorTripStatus")) {
-						result[i].vendorTripStatus = "-";
-					}
-					if (!result[i].hasOwnProperty("actualDeparture")) {
-						result[i].actualDeparture = "-";
-					}
-					if (!result[i].hasOwnProperty("actualKM")) {
-						result[i].actualKM = "-";
-					}
-					if (!result[i].hasOwnProperty("standardKM")) {
-						result[i].standardKM = "-";
-					}
-					if (!result[i].hasOwnProperty("originHub")) {
-						result[i].originHub = "-";
-					}
-					if (!result[i].hasOwnProperty("destHub")) {
-						result[i].destHub = "-";
-					}
-					if (!result[i].hasOwnProperty("paymentStatus")) {
-						result[i].paymentStatus = "-";
-					}
-
-					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" value=\"" + result[i].tripID + "\" class=\"tripIdView\"  >" + result[i].tripID + "</a>";
-
-					var tempString = [view, result[i].route, result[i].runType, result[i].vendorName, result[i].vendorCode, result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture, result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, result[i].paymentStatus];
-
-					tabledata.row.add(tempString);
-				}
-				tabledata.draw();
-				$("tbody").show();
+				showTableData(result);
 			} else {
 				alert("failed");
 			}
@@ -601,4 +446,65 @@ function GetSelectedTextValue1() {
 			alert("failed, please try again");
 		}
 	});
+}
+
+function showTableData(result) {
+
+	tabledata.clear();
+
+	for (var i = 0; i < result.length; i++) {
+
+		if (!result[i].hasOwnProperty("tripID")) {
+			result[i].tripID = "-";
+		}
+		if (!result[i].hasOwnProperty("route")) {
+			result[i].route = "-";
+		}
+		if (!result[i].hasOwnProperty("runType")) {
+			result[i].runType = "-";
+		}
+		if (!result[i].hasOwnProperty("mode")) {
+			result[i].mode = "-";
+		}
+		if (!result[i].hasOwnProperty("vendorName")) {
+			result[i].vendorName = "-";
+		}
+		if (!result[i].hasOwnProperty("vendorCode")) {
+			result[i].vendorCode = "-";
+		}
+		if (!result[i].hasOwnProperty("runStatus")) {
+			result[i].runStatus = "-";
+		}
+		if (!result[i].hasOwnProperty("vendorTripStatus")) {
+			result[i].vendorTripStatus = "-";
+		}
+		if (!result[i].hasOwnProperty("actualDeparture")) {
+			result[i].actualDeparture = "-";
+		}
+		if (!result[i].hasOwnProperty("actualKM")) {
+			result[i].actualKM = "-";
+		}
+		if (!result[i].hasOwnProperty("standardKM")) {
+			result[i].standardKM = "-";
+		}
+		if (!result[i].hasOwnProperty("originHub")) {
+			result[i].originHub = "-";
+		}
+		if (!result[i].hasOwnProperty("destHub")) {
+			result[i].destHub = "-";
+		}
+		if (!result[i].hasOwnProperty("paymentStatus")) {
+			result[i].paymentStatus = "-";
+		}
+
+		var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\"  class=\"tripIdView\" >" + result[i].tripID + "</a>";
+
+		var tempString = [view, result[i].route, result[i].runType, result[i].mode, result[i].vendorName, result[i].vendorCode,
+			result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture,
+			result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, result[i].paymentStatus];
+
+		tabledata.row.add(tempString);
+	}
+	tabledata.draw();
+	$("tbody").show();
 }

@@ -57,19 +57,22 @@
                         <div class="col-md-12">
 
                             <div class="card card-primary  card-outline ">
-                                <div class="card-header">
-                                    <h3 class="card-title" id="lastInvoice" data-toggle="tooltip" data-placement="bottom"></h3>
-                                </div>
+                               
                                 <div class="card-body table-responsive p-0" style="height: 420px;">
                                     <table class="table table-head-fixed" id="tabledata">
                                         <thead>
                                             <tr>
                                                 <th class="bg-primary">Process Id</th>
+                                                 <th class="bg-primary">Vendor Code</th>
                                                 <th class="bg-primary">introduced by email id</th>
                                                 <th class="bg-primary">Introduced By Name</th>
                                                 <th class="bg-primary">Supplier Name</th>
                                                 <th class="bg-primary">Supplier Type</th>
+                                                 <th class="bg-primary">Onboarding Date</th>
                                                 <th class="bg-primary">Status</th>
+                                                <th class="bg-primary">Processed On</th>
+                                                <th class="bg-primary">Processed By</th>
+                                               
                                             </tr>
                                         </thead>
                                     </table>

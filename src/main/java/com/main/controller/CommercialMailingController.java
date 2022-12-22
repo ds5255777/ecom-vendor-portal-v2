@@ -4,11 +4,9 @@ import java.security.Principal;
 import java.security.SecureRandom;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -123,11 +121,15 @@ public class CommercialMailingController {
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
 
-			List<SendEmailToVendor> emailList = serviceManager.sendEmailToVendorRepo
+			List<Object[]> emailList = serviceManager.sendEmailToVendorRepo
 					.findByProcessBy(principal.getName());
-
-			List<SendEmailToVendor> collect = emailList.stream().sorted(Comparator.comparingInt(SendEmailToVendor::getId).reversed()).collect(Collectors.toList());
-			data.setData(collect);
+			
+			/*
+			 * List<SendEmailToVendor> collect =
+			 * emailList.stream().sorted(Comparator.comparingInt(SendEmailToVendor::getId).
+			 * reversed()).collect(Collectors.toList()); 
+			 */
+			data.setData(emailList);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {

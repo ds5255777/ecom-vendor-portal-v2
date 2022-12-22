@@ -232,6 +232,11 @@ function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
 				swal.fire("Alert", "MSME Certificate is mandatory", "warning")
 					.then((value) => { });
 			}
+			else if (controlName == "PDFile") {
+
+				swal.fire("Alert", "Proprietorship Declaration is mandatory", "warning")
+					.then((value) => { });
+			}
 			$("#" + controlName).focus();
 		} else {
 
@@ -268,6 +273,32 @@ $(document).ready(function() {
 									notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
 									return false;
 								}
+							}
+							debugger
+
+							var table = document.getElementById('addBankGrid');
+							var rowLength = table.rows.length;
+							var beneficiaryName;
+
+							for (var i = 1; i < rowLength; i += 1) {
+								var row = table.rows[i];
+								beneficiaryName = row.cells[1].innerHTML;
+							}
+
+							var suppName = $("#suppName").val();
+							//var beneficiaryName = $("#beneficiaryName").val();
+
+							if (suppName != beneficiaryName) {
+
+								var mandFields = "PDFile";
+								var mandFieldsArr = mandFields.split(",");
+								for (i = 0; i < mandFieldsArr.length; i++) {
+									if (document.getElementById(mandFieldsArr[i]).value == '') {
+										notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+										return false;
+									}
+								}
+
 							}
 						}
 
@@ -843,7 +874,7 @@ $("#contactDetailsButt").click(function() {
 	if (abc == null || abc == "") {
 		swal.fire("Alert", "First Name is mandatory", "warning");
 		return false;
-	}  else if (abc3 == null || abc3 == "") {
+	} else if (abc3 == null || abc3 == "") {
 		swal.fire("Alert", "Phone Number is mandatory", "warning");
 		return false;
 	} else if (abc4 == null || abc4 == "") {
@@ -869,6 +900,8 @@ $(document).on("click", ".removeContact", function() {
 });
 
 $("#addBankGridButt").click(function() {
+
+
 	var abc = document.getElementById('bankName').value;
 	var abc5 = document.getElementById('beneficiaryName').value;
 	var abc2 = document.getElementById('ifscCode').value;
@@ -904,6 +937,14 @@ $("#addBankGridButt").click(function() {
 		document.getElementById('accoutNumber').value = "";
 		document.getElementById('confirmedAccoutNumber').value = "";
 		document.getElementById('divCheckPasswordMatch').innerHTML = "";
+	}
+
+	var suppName = $("#suppName").val();
+
+	if (suppName != abc5) {
+		$(".pdDocClass").css("visibility", "visible");
+	} else {
+		$(".pdDocClass").css("visibility", "hidden");
 	}
 });
 
@@ -989,7 +1030,7 @@ function sendToServer() {
 		...step1Obj,
 		...step6Obj,
 		...step7Obj
-		
+
 	};
 	finalObj.accountDetails = accountDetailsArray;
 	finalObj.addressDetails = addressDetailsArray;

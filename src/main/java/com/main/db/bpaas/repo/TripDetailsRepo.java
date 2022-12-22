@@ -257,4 +257,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 			String lumpSomeAmount, double standardKM, double milage, double ratePerKm, double routeKms,
 			double fsBaseRate, double currentFuelRate, double fsDiff, double basicFreight, double totalFreight,
 			double fs, String vendorName, String vendorCode);
+
+	List<TripDetails> findByVendorTripStatusAndAssignToAndVendorCodeAndRunStatusInOrderByIdDesc(
+			String vendorTripStatusYetToBeApproved, String roleVendor, String userName, List<String> runStatusList);
 }

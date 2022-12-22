@@ -269,22 +269,29 @@ public class RegistrationController {
 	}
 
 	@PostMapping({ "/rejectedRequest" })
-	public String rejectedRequest(Principal principal, @RequestBody String obj) {
+	public String rejectedRequest(Principal principal, HttpServletRequest request, @RequestBody String obj) {
 
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		String userEmail = (String) request.getSession().getAttribute("userEmail");
+
 		JSONObject jsonObject = new JSONObject(obj);
 		String pid = jsonObject.optString("pid");
 		String comment = jsonObject.optString("comment");
+		String vendorCode = jsonObject.optString("bpCode");
 		String vandorMailId = jsonObject.optString("vandorMailId");
 		String introducedByEmailID = jsonObject.optString("introducedByEmailID");
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER);
+		String strDate = dateFormat.format(date);
 
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
 
-				serviceManager.supDetailsRepo.approveRequestByPid(pid, GlobalConstants.REJECTED_REQUEST_STATUS);
+				serviceManager.supDetailsRepo.approveRequestByPid(vendorCode, pid, userEmail, strDate,
+						GlobalConstants.REJECTED_REQUEST_STATUS);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 				/* send onBoard email */

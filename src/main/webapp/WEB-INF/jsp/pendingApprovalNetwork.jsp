@@ -160,13 +160,15 @@
                                         </div>
                                     </form>
                                     <div class="card-body table-responsive p-0" style="height: 100%;">
-                                        <table class="table table-head-fixed" id="tabledata1">
+                                        <table class="table nowrap table-head-fixed" id="tabledata1">
                                             <thead>
                                                 <tr>
                                                     <th class="bg-primary">Trip ID</th>
                                                     <th class="bg-primary">Route</th>
                                                     <th class="bg-primary">Vendor Name</th>
                                                     <th class="bg-primary">Vendor Code</th>
+                                                    <th class="bg-primary">Actual Departure</th>
+                                                    <th class="bg-primary">Mode</th>
                                                     <th class="bg-primary">Run Type</th>
                                                     <th class="bg-primary">Trip Status</th>
                                                     <th class="bg-primary">Vehicle Number</th>

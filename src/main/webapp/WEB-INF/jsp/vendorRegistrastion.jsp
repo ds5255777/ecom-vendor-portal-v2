@@ -135,7 +135,7 @@ label {
 	opacity: .5;
 }
 
-.required {
+.required, .pdDocClass{
 	color: red;
 }
 
@@ -522,7 +522,7 @@ label {
 														placeholder="First Name"></td>
 
 													<td><label for="lnameCon">Last Name<span
-															class="required adHocRequired">*</span></label></td>
+															class="required adHocRequired"></span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="conLname" name="conLname"
 														placeholder="Last Name"></td>
@@ -957,7 +957,7 @@ label {
 																	Download Template </a></td>
 
 															<td><label>Proprietorship Declaration<span
-																	class="required"></span></label></td>
+																	class="pdDocClass" style="visibility: hidden;">*</span></label></td>
 															<td><input type="file" id="PDFile" name="PDFile"
 																class="form-control p-input" accept=".docx, .pdf">
 																<textarea id="PDFileText" rows="5"

@@ -199,7 +199,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	@Query(value = "select DISTINCT vendor_name from users where role_id='2' order by vendor_name asc ", nativeQuery = true)
 	List<String> getVendorName();
 
-	List<TripDetails> findByVendorCode(String vendorCode);
+	List<TripDetails> findByVendorCodeOrderByIdDesc(String vendorCode);
 
 	@Query(value = "select * from Trip_Details where 1=1 and vendor_trip_status=:vendorTripStatus and run_status=:runStatus and vendor_code=:vendorCode", nativeQuery = true)
 	List<TripDetails> getTripsByFiltersRunStatusVendorTripStatus(String runStatus, String vendorTripStatus,
@@ -209,9 +209,9 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	List<TripDetails> getTripsByFiltersRunStatusVendorTripStatuspaymentStatus(String runStatus, String vendorTripStatus,
 			String paymentStatus, String vendorCode);
 
-	List<TripDetails> findByRunStatusAndVendorCode(String runInTransit, String userName);
+	List<TripDetails> findByRunStatusAndVendorCodeOrderByIdDesc(String runInTransit, String userName);
 
-	List<TripDetails> findByRunStatusAndVendorTripStatusAndVendorCode(String runClosed, String vendorTripStatusApproved,
+	List<TripDetails> findByRunStatusAndVendorTripStatusAndVendorCodeOrderByIdDesc(String runClosed, String vendorTripStatusApproved,
 			String userName);
 
 	List<TripDetails> findByRouteInAndVendorTripStatusAndVendorCode(List<String> routeList,
@@ -232,7 +232,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	List<TripDetails> findByVendorTripStatusAndRunStatusAndAssignToAndVendorCode(String vendorTripStatusYetToBeApproved,
 			String runClosed, String roleVendor, String userName);
 
-	@Query(value = "select  * from trip_details  where invoice_number=:invoiceNumber and vendor_code=:vendorCode ", nativeQuery = true)
+	@Query(value = "select  * from trip_details  where invoice_number=:invoiceNumber and vendor_code=:vendorCode order by id desc ", nativeQuery = true)
 	List<TripDetails> getTripStatusIsDraftInvoicing(String invoiceNumber, String vendorCode);
 
 	@Transactional

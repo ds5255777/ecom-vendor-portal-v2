@@ -472,7 +472,7 @@ margin-bottom: 0px;
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label>Acknowledgement Number1<span
+											<label>Ack. Number1<span
 												class="text-danger"></span></label> <input class="form-control-sm"
 												type="text" name="acknowledgementNumber1"
 												id="acknowledgementNumber1" style="width: 100%;">
@@ -488,7 +488,7 @@ margin-bottom: 0px;
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label>Acknowledgement Number2<span
+											<label>Ack. Number2<span
 												class="text-danger"></span></label> <input class="form-control-sm"
 												type="text" name="acknowledgementNumber2"
 												id="acknowledgementNumber2" style="width: 100%;">
@@ -504,7 +504,7 @@ margin-bottom: 0px;
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label>Acknowledgement Number3<span
+											<label>Ack. Number3<span
 												class="text-danger"></span></label> <input class="form-control-sm"
 												type="text" name="acknowledgementNumber3"
 												id="acknowledgementNumber3" style="width: 100%;">

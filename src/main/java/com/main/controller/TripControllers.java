@@ -127,14 +127,18 @@ public class TripControllers {
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 			try {
-				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo.findAll();
-				// List<SendEmailToVendor> collect =
-				// emailList.stream().sorted(Comparator.comparingInt(SendEmailToVendor::getId).reversed()).collect(Collectors.toList());
+				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo.findTopTrip();
 
-				List<TripDetails> listTrip = allTripDetailsList.stream()
-						.sorted(Comparator.comparing(TripDetails::getId).reversed()).collect(Collectors.toList());
+				/*
+				 * List<TripDetails> listTrip = allTripDetailsList.stream()
+				 * .sorted(Comparator.comparing(TripDetails::getId).reversed()).collect(
+				 * Collectors.toList());
+				 */
+				
 
-				data.setData(listTrip);
+				long count = serviceManager.tripDetailsRepo.count();
+				data.setData(allTripDetailsList);
+				data.setTotalRecord(count);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} catch (Exception e) {
 				data.setMsg(GlobalConstants.ERROR_MESSAGE);
@@ -143,17 +147,18 @@ public class TripControllers {
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 			String vendorCode = principal.getName();
 			try {
-				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo.findByVendorCodeOrderByIdDesc(vendorCode);
-				
-				  List<TripDetailsDto> listTrip = allTripDetailsList.stream() .map(trip ->
-				  this.serviceManager.modelMapper.map(trip, TripDetailsDto.class))
-				  .collect(Collectors.toList());
-				 
-					/*
-					 * List<TripDetails> listTrip =
-					 * allTripDetailsList.stream().sorted(Comparator.comparing(TripDetails::getId).
-					 * reversed()) .collect(Collectors.toList());
-					 */
+				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo
+						.findByVendorCodeOrderByIdDesc(vendorCode);
+
+				List<TripDetailsDto> listTrip = allTripDetailsList.stream()
+						.map(trip -> this.serviceManager.modelMapper.map(trip, TripDetailsDto.class))
+						.collect(Collectors.toList());
+
+				/*
+				 * List<TripDetails> listTrip =
+				 * allTripDetailsList.stream().sorted(Comparator.comparing(TripDetails::getId).
+				 * reversed()) .collect(Collectors.toList());
+				 */
 				data.setData(listTrip);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} catch (Exception e) {
@@ -695,5 +700,30 @@ public class TripControllers {
 		}
 
 		return gson.toJson(data);
+	}
+
+	@RequestMapping("/getPaginationDataOfVendor")
+	public String getPaginationDataOfVendor(@RequestBody TripDetailsDto obj) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+		try {
+
+			String dataSize = "100";
+
+			Integer fetchCount = obj.getId();
+			fetchCount = fetchCount - 1;
+			fetchCount = fetchCount * Integer.parseInt(dataSize.trim());
+
+			List<TripDetailsDto> vendorList = serviceManager.tripDetailsRepo.getTripDataByPagination(fetchCount,
+					Integer.parseInt(dataSize));
+
+			data.setData(vendorList);
+			data.setMsg("success");
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+		return gson.toJson(data).toString();
 	}
 }

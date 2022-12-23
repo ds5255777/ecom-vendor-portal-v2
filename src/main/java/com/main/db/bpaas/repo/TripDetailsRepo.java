@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.main.db.bpaas.entity.TripDetails;
+import com.main.payloads.TripDetailsDto;
 
 @Repository
 public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
@@ -260,4 +261,10 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
 	List<TripDetails> findByVendorTripStatusAndAssignToAndVendorCodeAndRunStatusInOrderByIdDesc(
 			String vendorTripStatusYetToBeApproved, String roleVendor, String userName, List<String> runStatusList);
+
+	@Query(value = "select * from trip_details where order by id desc OFFSET :fetchCount ROWS FETCH NEXT :dataSize ROWS ONLY; ", nativeQuery = true)
+	List<TripDetailsDto> getTripDataByPagination(@Param("fetchCount") Integer fetchCount, @Param("dataSize") int dataSize);
+
+	@Query(value = "select * from trip_details order by id desc limit 100 ; ", nativeQuery = true)
+	List<TripDetails> findTopTrip();
 }

@@ -66,9 +66,9 @@ var tabledataQuery = $('#tabledataQuery').DataTable({
 });
 
 var tabledata = $('#tabledata').DataTable({
-	"paging": true,
+	"paging": false,
 	"lengthChange": false,
-	"searching": true,
+	"searching": false,
 	"info": true,
 	"autoWidth": false,
 	"aaSorting": [],
@@ -198,45 +198,6 @@ $("#refreshDashboardButton").click(function(e) {
 	$('#fromDate').val('');
 	$('#toDate').val('');
 })
-
-getData();
-
-function getData() {
-
-	$('#selectTripStatus').val('');
-	$('#selectStatus').val('');
-	$('#selectPaymentStatus').val('');
-	$('#fromDate').val('');
-	$('#toDate').val('');
-
-	$('.loader').show();
-
-	$.ajax({
-		type: "POST",
-		data: "",
-		url: "tripControllers/getAllTripsDetails",
-		dataType: "json",
-		headers: { 'X-XSRF-TOKEN': csrfToken },
-		contentType: "application/json",
-		success: function(data) {
-
-			$('.loader').hide();
-			if (data.msg == 'success') {
-				var result = data.data;
-				showTableData(result);
-
-			} else {
-				Toast.fire({
-					type: 'error',
-					title: 'Failed.. Try Again..'
-				})
-			}
-		},
-		error: function(jqXHR, textStatue, errorThrown) {
-			alert("failed, please try again");
-		}
-	});
-}
 
 $('#tabledata tbody').on('click', ".tripIdView", function() {
 	var row = $(this).parents('tr')[0];
@@ -448,12 +409,52 @@ function GetSelectedTextValue1() {
 	});
 }
 
-function showTableData(result) {
+getData();
+
+function getData() {
+
+	$('#selectTripStatus').val('');
+	$('#selectStatus').val('');
+	$('#selectPaymentStatus').val('');
+	$('#fromDate').val('');
+	$('#toDate').val('');
+
+	$('.loader').show();
+
+	$.ajax({
+		type: "POST",
+		data: "",
+		url: "tripControllers/getAllTripsDetails",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		success: function(data) {
+
+			$('.loader').hide();
+			if (data.msg == 'success') {
+				showTableData(data, 1);
+
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			alert("failed, please try again");
+		}
+	});
+}
+
+function showTableData(data, pageNumber) {
+
+	var result = data.data;
+
+	pageNumber = parseInt(pageNumber);
 
 	tabledata.clear();
-
 	for (var i = 0; i < result.length; i++) {
-
 		if (!result[i].hasOwnProperty("tripID")) {
 			result[i].tripID = "-";
 		}
@@ -496,15 +497,128 @@ function showTableData(result) {
 		if (!result[i].hasOwnProperty("paymentStatus")) {
 			result[i].paymentStatus = "-";
 		}
-
 		var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\"  class=\"tripIdView\" >" + result[i].tripID + "</a>";
-
-		var tempString = [view, result[i].route, result[i].runType, result[i].mode, result[i].vendorName, result[i].vendorCode,
-			result[i].runStatus, result[i].vendorTripStatus, result[i].actualDeparture,
-			result[i].actualKM, result[i].standardKM, result[i].originHub, result[i].destHub, result[i].paymentStatus];
-
-		tabledata.row.add(tempString);
+		tabledata.row.add([view,
+			result[i].route,
+			result[i].runType,
+			result[i].mode,
+			result[i].vendorName,
+			result[i].vendorCode,
+			result[i].runStatus,
+			result[i].vendorTripStatus,
+			result[i].actualDeparture,
+			result[i].actualKM,
+			result[i].standardKM,
+			result[i].originHub,
+			result[i].destHub,
+			result[i].paymentStatus]);
 	}
 	tabledata.draw();
 	$("tbody").show();
+
+	var pageLength = parseInt(Math.round(data.totalRecord / 100));
+
+	var pageHtml = "";
+	for (var k = 1; k <= pageLength; k++) {
+
+		if (pageNumber == 1 && k == 1) {
+			pageHtml += "<li class=\"getPaginationData paginate_button page-item active\" id=\"pageId_" + k + "\" ><a  style=\"cursor: pointer;\" value=\"" + k + "\" aria-controls=\"tabledata\" data-dt-idx=\"" + k + "\" tabindex=\"" + k + "\" class=\"page-link\">" + k + "</a></li>";
+		}
+		else if (pageNumber == k) {
+			pageHtml += "<li class=\"getPaginationData paginate_button page-item active\" id=\"pageId_" + k + "\" ><a  style=\"cursor: pointer;\" value=\"" + k + "\" aria-controls=\"tabledata\" data-dt-idx=\"" + k + "\" tabindex=\"" + k + "\" class=\"page-link\">" + k + "</a></li>";
+		}
+		else {
+			pageHtml += "<li class=\"getPaginationData paginate_button page-item\" id=\"pageId_" + k + "\" ><a style=\"cursor: pointer;\" value=\"" + k + "\" aria-controls=\"tabledata\" data-dt-idx=\"" + k + "\" tabindex=\"" + k + "\" class=\"page-link\">" + k + "</a></li>";
+		}
+
+	}
+	var previousBtn = "";
+	var nextBtn = "";
+
+	var nextPageNmbr = pageNumber + 1;
+	var prvsPageNmbr = pageNumber - 1;
+
+	if (pageNumber == 1) {
+		previousBtn = "<li class=\"paginate_button page-item previous disabled\"  id=\"tabledata_previous\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"0\" tabindex=\"0\" class=\"page-link\">Previous</a></li>";
+	}
+	else {
+
+		previousBtn = "<li class=\"prvsPageNmbr paginate_button page-item previous\" value=\"" + prvsPageNmbr + "\" id=\"tabledata_previous\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"0\" tabindex=\"0\" class=\"page-link\">Previous</a></li>";
+	}
+
+	if (pageNumber == pageLength) {
+		nextBtn = "<li class=\"paginate_button page-item next disabled\" id=\"tabledata_next\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"2\" tabindex=\"0\" class=\"page-link\">Next</a></li>";
+	}
+	else {
+		nextBtn = "<li class=\"nextPageNmbr paginate_button page-item next\" value=\"" + nextPageNmbr + "\" id=\"tabledata_next\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"2\" tabindex=\"0\" class=\"page-link\">Next</a></li>";
+	}
+
+	var pagingHtml = "<div class=\"dataTables_paginate paging_simple_numbers\" ><ul class=\"pagination\">" +
+		previousBtn + pageHtml + nextBtn + "</ul></div>";
+
+
+	$("#pagingId").html(pagingHtml);
+
+}
+
+
+$('#tabledata tbody').on('click', ".getPaginationData", function() {
+	debugger
+	getPagination(this.value);
+
+});
+
+$('#tabledata tbody').on('click', ".prvsPageNmbr", function() {
+	debugger
+	getPagination(this.value);
+
+});
+
+$('#tabledata tbody').on('click', ".nextPageNmbr", function() {
+	debugger
+	getPagination(this.value);
+
+});
+
+function getPagination(pageNumber) {
+
+	debugger
+	var obj = {
+		"id": pageNumber
+	}
+
+	$('.loader').show();
+
+	$.ajax({
+		type: "POST",
+		data: JSON.stringify(obj),
+		url: "tripControllers/getPaginationDataOfVendor",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		success: function(data) {
+
+
+			$('.loader').hide();
+
+			if (data.msg == 'success') {
+				var result = data.data;
+				showTableData(data, pageNumber);
+
+			}
+			else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			$('.loader').hide();
+			alert("failed, please try again");
+		}
+
+	});
+
 }

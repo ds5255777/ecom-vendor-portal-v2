@@ -69,7 +69,7 @@ var tabledata = $('#tabledata').DataTable({
 	"paging": false,
 	"lengthChange": false,
 	"searching": false,
-	"info": true,
+	"info": false,
 	"autoWidth": false,
 	"aaSorting": [],
 	"scrollX": true,
@@ -286,7 +286,6 @@ function setTripStatus(tripId) {
 
 
 function getFilterData() {
-	debugger
 	$('#selectTripStatus').val('');
 	$('#selectStatus').val('');
 	$('#selectPaymentStatus').val('');
@@ -295,8 +294,6 @@ function getFilterData() {
 	var fromDate = $("#fromDate").val();
 	var toDate = $("#toDate").val();
 
-	fromDate = moment(fromDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
-	toDate = moment(toDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
 
 	if (fromDate == "" || fromDate == null) {
 		Toast.fire({
@@ -315,6 +312,10 @@ function getFilterData() {
 		document.getElementById("toDate").focus();
 		return;
 	}
+	fromDate = moment(fromDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+	toDate = moment(toDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+
+
 	var dateReturnCheck = dateValidationCheck(fromDate, toDate);
 	if (dateReturnCheck == "false") {
 
@@ -339,9 +340,8 @@ function getFilterData() {
 				if (data.msg == 'success') {
 
 					var result = data.data;
-					showTableData(result);
+					showTableData(data, 1);
 				} else {
-					console.log(data);
 					Toast.fire({
 						type: 'error',
 						title: 'Failed.. Try Again..'
@@ -398,7 +398,7 @@ function GetSelectedTextValue1() {
 			$('.loader').hide();
 			if (data.msg == "success") {
 				var result = data.data;
-				showTableData(result);
+				showDataInTable(result);
 			} else {
 				alert("failed");
 			}
@@ -448,6 +448,8 @@ function getData() {
 }
 
 function showTableData(data, pageNumber) {
+
+	
 
 	var result = data.data;
 
@@ -543,46 +545,67 @@ function showTableData(data, pageNumber) {
 	}
 	else {
 
-		previousBtn = "<li class=\"prvsPageNmbr paginate_button page-item previous\" value=\"" + prvsPageNmbr + "\" id=\"tabledata_previous\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"0\" tabindex=\"0\" class=\"page-link\">Previous</a></li>";
+		previousBtn = "<li class=\"prvsPageNumbr paginate_button page-item previous\" value=\"" + prvsPageNmbr + "\" id=\"tabledata_previous\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"0\" tabindex=\"0\" class=\"page-link\">Previous</a></li>";
 	}
-
 	if (pageNumber == pageLength) {
 		nextBtn = "<li class=\"paginate_button page-item next disabled\" id=\"tabledata_next\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"2\" tabindex=\"0\" class=\"page-link\">Next</a></li>";
 	}
 	else {
-		nextBtn = "<li class=\"nextPageNmbr paginate_button page-item next\" value=\"" + nextPageNmbr + "\" id=\"tabledata_next\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"2\" tabindex=\"0\" class=\"page-link\">Next</a></li>";
+		nextBtn = "<li class=\"nextPageNumbr paginate_button page-item next\" value=\"" + nextPageNmbr + "\" id=\"tabledata_next\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"2\" tabindex=\"0\" class=\"page-link\">Next</a></li>";
 	}
 
-	var pagingHtml = "<div class=\"dataTables_paginate paging_simple_numbers\" ><ul class=\"pagination\">" +
-		previousBtn + pageHtml + nextBtn + "</ul></div>";
+	var pageNumberShow = "<li class=\"paginate_button page-item active\" value=\"" + pageNumber + "\" ><button>" + pageNumber + "</button></li>";
 
+	var pagingHtml = "<div class=\"dataTables_paginate paging_simple_numbers\" ><ul class=\"pagination\">" +
+		previousBtn + pageNumberShow + nextBtn + "</ul></div>";
+
+	var infoHtml = "";
+	if (pageNumber == 1) {
+		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " + pageNumber * 1 + " to " + (pageNumber * 100) + " of " + data.totalRecord + " entries</div>";
+	} else {
+		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " +(((pageNumber-1) * 100)+1) + " to " + (pageNumber * 100) + " of " + data.totalRecord + " entries</div>";
+	}
+	if (pageNumber == pageLength){
+		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " +(((pageNumber-1) * 100)+1) + " to " + data.totalRecord + " of " + data.totalRecord + " entries</div>";
+	} 
+
+	$("#pageInfo").html(infoHtml);
 
 	$("#pagingId").html(pagingHtml);
+
+
 
 }
 
 
-$('#tabledata tbody').on('click', ".getPaginationData", function() {
-	debugger
+$('#tabledata tbody').on('click', ".nextPageNumbr", function() {
+	getPaginationData(this.value);
+
+});
+
+$("body").on("click", ".nextPageNumbr", function() {
+
 	getPagination(this.value);
 
 });
 
-$('#tabledata tbody').on('click', ".prvsPageNmbr", function() {
-	debugger
+$("body").on("click", ".prvsPageNumbr", function() {
+
 	getPagination(this.value);
 
 });
 
-$('#tabledata tbody').on('click', ".nextPageNmbr", function() {
-	debugger
-	getPagination(this.value);
+$("body").on("click", ".getPaginationData", function() {
+
+	var classVal = $(this).attr('id').split("_");
+	getPagination(classVal[1]);
 
 });
+
+
 
 function getPagination(pageNumber) {
 
-	debugger
 	var obj = {
 		"id": pageNumber
 	}
@@ -602,7 +625,7 @@ function getPagination(pageNumber) {
 			$('.loader').hide();
 
 			if (data.msg == 'success') {
-				var result = data.data;
+				//var result = data.data;
 				showTableData(data, pageNumber);
 
 			}

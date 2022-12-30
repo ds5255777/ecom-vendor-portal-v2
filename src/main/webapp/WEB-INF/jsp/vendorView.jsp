@@ -535,7 +535,7 @@ margin-bottom: 0px;
 												class="text-danger"></span></label>
 											<div class="col-sm-9">
 												<textarea class="form-control" id="comment" name="comment"
-													rows="3" maxlength="250" placeholder="Remarks if Any"></textarea>
+													rows="3" maxlength="500" placeholder="Remarks if Any"></textarea>
 											</div>
 										</div>
 									</div>

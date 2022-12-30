@@ -130,7 +130,6 @@ $("#bpCode").focusout(function() {
 
 
 $("#changeVendorPassword").bind("click", function() {
-	debugger
 	var val = $("#password").val();
 	vendorPasswordChange(val);
 });
@@ -336,7 +335,6 @@ function getData() {
 
 $('#tabledata tbody').on('click', ".tripApprove", function() {
 
-	debugger
 	var userName = this.value;
 	//$("#userID").val(userName);
 	$("#changePassword").modal('show');
@@ -711,7 +709,6 @@ function editData(bpCode) {
 					}
 
 				}
-
 
 				select();
 				var ero = result.ero;
@@ -1773,7 +1770,6 @@ function select() {
 }
 
 function MESMENumber() {
-	debugger
 	var busClassif = $("#businessClassification").val();
 
 
@@ -1833,7 +1829,6 @@ function checkForExistingPanNumber() {
 }
 
 function checkForExistingVendorCode() {
-	debugger
 	var vendorCodeCheckStatus = "false";
 	var bpCode = $("#bpCode").val();
 	var suppName = $("#suppName").val();

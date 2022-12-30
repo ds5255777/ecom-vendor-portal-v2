@@ -1,5 +1,7 @@
 var csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
 
+var globalList = [];
+
 function disableF5(e) {
 	if ((e.which || e.keyCode) == 116) e.preventDefault();
 };
@@ -200,7 +202,6 @@ var lumpsomeamount = parseFloat(0);
 
 function sendToServer() {
 
-	debugger
 	var invoiceDa = document.getElementById("invoiceDate").value;
 	if (invoiceDa === "" || invoiceDa === null || invoiceDa === '') {
 		Toast.fire({
@@ -221,9 +222,9 @@ function sendToServer() {
 		return "";
 	}
 
-	var eInvoice = $("#eInvoice").val();
+	var eInvoice = $("#enInvoiceApplibale").val();
 
-	if (eInvoice == "YES") {
+	if (eInvoice == "YES" || eInvoice == "Yes") {
 
 		var irnNumber = document.getElementById("irnNumber").value;
 		if (irnNumber === "" || irnNumber === null || irnNumber === '') {
@@ -315,12 +316,11 @@ function sendToServer() {
 		item.id = null;
 	});
 
-	finalObj.eInvoiceApplibale = $("#eInvoiceApplibale").val();
+	finalObj.eInvoiceApplibale = $("#enInvoiceApplibale").val();
 
 	console.log(finalObj);
 
 	finalObj.invoiceLineItem = tripLineArray;
-	debugger
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(finalObj),
@@ -397,93 +397,10 @@ function getTripDetails() {
 		success: function(response) {
 
 			if (response.msg == 'success') {
-				var result = response.data;
-				var action = "";
-				var textBox = "";
-				var taxableAmount = 0;
-				tripLineArray = result;
 
-				$('#prTable').DataTable().clear();
+				globalList = response.data,
 
-				for (var i = 0; i < result.length; i++) {
-
-					if (!result[i].hasOwnProperty("tripID")) {
-						result[i].tripID = "";
-					}
-					if (!result[i].hasOwnProperty("runType")) {
-						result[i].runType = "";
-					}
-					if (!result[i].hasOwnProperty("route")) {
-						result[i].route = "";
-					}
-					if (!result[i].hasOwnProperty("standardKM")) {
-						result[i].standardKM = "";
-					}
-					if (!result[i].hasOwnProperty("ratePerKm")) {
-						result[i].ratePerKm = "";
-					}
-					if (!result[i].hasOwnProperty("currentFuelRate")) {
-						result[i].currentFuelRate = "";
-					}
-					if (!result[i].hasOwnProperty("fsBaseRate")) {
-						result[i].fsBaseRate = "";
-					}
-					if (!result[i].hasOwnProperty("standardVechicleType")) {
-						result[i].standardVechicleType = "";
-					}
-					if (!result[i].hasOwnProperty("fsDiff")) {
-						result[i].fsDiff = "";
-					}
-					if (!result[i].hasOwnProperty("basicFreight")) {
-						result[i].basicFreight = "";
-					}
-					if (!result[i].hasOwnProperty("fs")) {
-						result[i].fs = "";
-					}
-					if (!result[i].hasOwnProperty("mileage")) {
-						result[i].mileage = "";
-					}
-					if (!result[i].hasOwnProperty("actualKM")) {
-						result[i].actualKM = "";
-					}
-					if (!result[i].hasOwnProperty("totalFreight")) {
-						result[i].totalFreight = "0";
-					}
-					if (!result[i].hasOwnProperty("lumpsomeamount")) {
-						result[i].lumpsomeamount = "0";
-					}
-
-					textBox = "<input type=\"text\" class=\"form-control\" id=\"inputField\" placeholder=\"Fill Description\" maxlength=\"100\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
-					action = "<button type=\"button\"  class=\"deleteTrip btn btn-primary btn-xs \" data-placement=\"bottom\" value=\"" + result[i].tripID + "\"  data-original-title=\"Click To Delete\" > <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
-					$('#prTable').DataTable().row.add(
-						[i + 1,
-						result[i].tripID,
-						result[i].runType,
-						result[i].route,
-						result[i].standardKM,
-						result[i].ratePerKm,
-						result[i].currentFuelRate,
-						result[i].fsBaseRate,
-						result[i].standardVechicleType,
-						result[i].fsDiff,
-						result[i].basicFreight,
-						result[i].fs,
-						result[i].mileage,
-						result[i].totalFreight,
-						result[i].lumpsomeamount,
-							textBox,
-							action]);
-					id = (result[i].id);
-					taxableAmount += parseFloat(result[i].totalFreight) + parseFloat(result[i].lumpsomeamount);
-				}
-
-				globalratePerKm = result[0].ratePerKm;
-				$("#ratePerKm").val(globalratePerKm);
-
-				$("#taxableAmount").val(parseFloat(taxableAmount).toFixed(2));
-				$('#prTable').DataTable().draw();
-				$("tbody").show();
-				calculateInvoice();
+					showTable(globalList);
 
 			} else {
 				alert("failed");
@@ -503,7 +420,7 @@ $('#prTable tbody').on('click', ".deleteTrip", function() {
 	deleteRow(this.value);
 });
 
-$("#inputField").bind("input", function() {
+$("#lineLevelDescription").bind("input", function() {
 	updateTextData('" + i + "', this.value);
 });
 
@@ -701,4 +618,117 @@ function checkForExistingInvoiceNumber() {
 		});
 	}
 	return invoiceCheckStatus;
+}
+
+function showTable(result) {
+	var action = "";
+	var textBox = "";
+	var taxableAmount = 0;
+	tripLineArray = result;
+
+	$('#prTable').DataTable().clear();
+
+
+
+	for (var i = 0; i < result.length; i++) {
+
+		if (!result[i].hasOwnProperty("tripID")) {
+			result[i].tripID = "";
+		}
+		if (!result[i].hasOwnProperty("runType")) {
+			result[i].runType = "";
+		}
+		if (!result[i].hasOwnProperty("route")) {
+			result[i].route = "";
+		}
+		if (!result[i].hasOwnProperty("standardKM")) {
+			result[i].standardKM = "";
+		}
+		if (!result[i].hasOwnProperty("ratePerKm")) {
+			result[i].ratePerKm = "";
+		}
+		if (!result[i].hasOwnProperty("currentFuelRate")) {
+			result[i].currentFuelRate = "";
+		}
+		if (!result[i].hasOwnProperty("fsBaseRate")) {
+			result[i].fsBaseRate = "";
+		}
+		if (!result[i].hasOwnProperty("standardVechicleType")) {
+			result[i].standardVechicleType = "";
+		}
+		if (!result[i].hasOwnProperty("fsDiff")) {
+			result[i].fsDiff = "";
+		}
+		if (!result[i].hasOwnProperty("basicFreight")) {
+			result[i].basicFreight = "";
+		}
+		if (!result[i].hasOwnProperty("fs")) {
+			result[i].fs = "";
+		}
+		if (!result[i].hasOwnProperty("mileage")) {
+			result[i].mileage = "";
+		}
+		if (!result[i].hasOwnProperty("actualKM")) {
+			result[i].actualKM = "";
+		}
+		if (!result[i].hasOwnProperty("totalFreight")) {
+			result[i].totalFreight = "0";
+		}
+		if (!result[i].hasOwnProperty("lumpsomeamount")) {
+			result[i].lumpsomeamount = "0";
+		}
+
+		if (null != result[i].lineLevelDescription) {
+			textBox = "<input type=\"text\" class=\"form-control\" id=\"lineLevelDescription\" placeholder=\"Fill Description\" maxlength=\"100\" value=\"" + result[i].lineLevelDescription + "\" style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
+		} else {
+			textBox = "<input type=\"text\" class=\"form-control\" id=\"lineLevelDescription\" placeholder=\"Fill Description\" maxlength=\"100\"  style=\" height: 25px;padding: 5px 5px 5px 1.5rem; \">";
+		}
+		action = "<button type=\"button\"  class=\"deleteTrip btn btn-primary btn-xs \" data-placement=\"bottom\" value=\"" + result[i].tripID + "\"  data-original-title=\"Click To Delete\" > <i class=\"nav-icon fas fa-trash\"> </i>  </button>";
+		$('#prTable').DataTable().row.add(
+			[i + 1,
+			result[i].tripID,
+			result[i].runType,
+			result[i].route,
+			result[i].standardKM,
+			result[i].ratePerKm,
+			result[i].currentFuelRate,
+			result[i].fsBaseRate,
+			result[i].standardVechicleType,
+			result[i].fsDiff,
+			result[i].basicFreight,
+			result[i].fs,
+			result[i].mileage,
+			result[i].totalFreight,
+			result[i].lumpsomeamount,
+				textBox,
+				action]);
+		id = (result[i].id);
+		taxableAmount += parseFloat(result[i].totalFreight) + parseFloat(result[i].lumpsomeamount);
+	}
+
+	globalratePerKm = result[0].ratePerKm;
+	$("#ratePerKm").val(globalratePerKm);
+
+	$("#taxableAmount").val(parseFloat(taxableAmount).toFixed(2));
+	$('#prTable').DataTable().draw();
+	$("tbody").show();
+	calculateInvoice();
+
+
+}
+
+$("#headerDes").bind("change", function() {
+	setSelect();
+});
+
+function setSelect() {
+	var defaultStatus = $("#headerDes").val();
+	for (var i = 0; i < globalList.length; i++) {
+
+		globalList[i].lineLevelDescription = defaultStatus;
+
+	}
+	showTable(globalList);
+
+
 }

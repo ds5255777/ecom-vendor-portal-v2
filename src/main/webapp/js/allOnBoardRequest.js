@@ -17,8 +17,14 @@ var tabledata = $('#tabledata').DataTable({
         buttons: [
             'csv', 'excel'
         ]
-	 
 });
+
+$('#searchData').on('keyup', function() {
+	tabledata.search(this.value).draw();
+});
+
+$('#tabledata_filter').css("display", "none");
+
 
 var globalProcessId = "";
 

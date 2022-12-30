@@ -157,8 +157,8 @@
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Type</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Standard KM</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Mode</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run Status</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual Departure (ATD)</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual Arrival (ATA)</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Origin Hub</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Destination Hub</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor Status</th>

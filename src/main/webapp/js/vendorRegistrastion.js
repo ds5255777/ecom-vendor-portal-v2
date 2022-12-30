@@ -60,6 +60,10 @@ $("#businessClassification").bind("change", function() {
 	MESMENumber();
 });
 
+$("#mesmeNumber").bind("input", function() {
+	this.value = this.value.toUpperCase();
+});
+
 $("#aadharNumber").bind("input", function() {
 	this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
 });
@@ -784,7 +788,7 @@ function sendToServer() {
 
 	if (suppNameReg != beneficiaryName) {
 
-		var mandFields = "PDFile";
+		var mandFields = "NMISFile";
 		var mandFieldsArr = mandFields.split(",");
 		for (i = 0; i < mandFieldsArr.length; i++) {
 			if (document.getElementById(mandFieldsArr[i]).value == '') {

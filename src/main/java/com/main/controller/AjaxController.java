@@ -166,188 +166,104 @@ public class AjaxController {
 
 			} else if (supDetailsDto.getVenStatus().equals(GlobalConstants.APPROVED_REQUEST_STATUS)) {
 
-				/* Admin Approved Vendor */
-				
 				String userEmail = (String) request.getSession().getAttribute("userEmail");
 
-				String vendorType = supDetailsDto.getVendorType();
+				User us = new User();
+				String bpCode = supDetailsDto.getBpCode();
 
-				String[] arrOfVendorType = vendorType.split(",");
+				String passwordUser = UserServiceImpl.generateRandomPassword();
+				us.setBpCode(bpCode);
+				us.setUsername(bpCode);
+				us.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS);
+				us.setRoleId(2);
+				us.setVendorName(supDetailsDto.getSuppName());
+				us.setContactNo(supDetailsDto.getContactDetails().get(0).getConPhone());
+				us.setEmailId(supDetailsDto.getContactDetails().get(0).getConEmail());
 
-				for (String w : arrOfVendorType) {
+				us.setFirstName(supDetailsDto.getContactDetails().get(0).getConFname());
+				us.setLastName(supDetailsDto.getContactDetails().get(0).getConLname());
+				us.setPassword(passwordUser);
+				serviceManager.userService.save(us);
 
-					if (w.equals("FIXED ASSETS") || w.equals("Network")) {
+				supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
+				supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
+				supDetailsDto.setProcessedBy(userEmail);
+				supDetailsDto.setProcessedOn(strDate);
+				serviceManager.detailsRepo.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 
-						User us = new User();
-						String bpCode = supDetailsDto.getBpCode();
+				List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
+						.findByIsActive(GlobalConstants.ACTIVE_STATUS);
+				EmailConfiguration emailConfiguration = emailList.get(0);
 
-						String passwordUser = UserServiceImpl.generateRandomPassword();
-						us.setBpCode(bpCode);
-						us.setUsername(bpCode);
-						us.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS);
-						us.setRoleId(2);
-						us.setVendorName(supDetailsDto.getSuppName());
-						us.setContactNo(supDetailsDto.getContactDetails().get(0).getConPhone());
-						us.setEmailId(supDetailsDto.getContactDetails().get(0).getConEmail());
+				String vendorEmail = supDetailsDto.getContactDetails().get(0).getConEmail();
 
-						us.setFirstName(supDetailsDto.getContactDetails().get(0).getConFname());
-						us.setLastName(supDetailsDto.getContactDetails().get(0).getConLname());
-						us.setPassword(passwordUser);
-						supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
-						serviceManager.userService.save(us);
+				try {
+					List<MailContent> mailType = serviceManager.mailContentRepo
+							.findByType("Send username And Password");
 
-						supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
-						supDetailsDto.setProcessedBy(userEmail);
-						supDetailsDto.setProcessedOn(strDate);
-						serviceManager.detailsRepo
-								.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
+					SendEmail sendEmail = new SendEmail();
+					MailContent mailContent = mailType.get(0);
+					String emailBody = mailContent.getEmailBody();
 
-						/* send onBoard email */
+					emailBody = emailBody.replace("#username#", bpCode);
+					emailBody = emailBody.replace("#password#", passwordUser);
 
-						List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
-								.findByIsActive(GlobalConstants.ACTIVE_STATUS);
-						EmailConfiguration emailConfiguration = emailList.get(0);
+					sendEmail.setMailfrom(emailConfiguration.getUserName());
+					sendEmail.setSendTo(vendorEmail);
+					sendEmail.setSubject(mailContent.getSubject());
+					sendEmail.setEmailBody(emailBody);
+					sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
 
-						String vendorEmail = supDetailsDto.getContactDetails().get(0).getConEmail();
+					serviceManager.sendEmailRepo.save(sendEmail);
 
-						try {
-							List<MailContent> mailType = serviceManager.mailContentRepo
-									.findByType("Send username And Password");
+					EmailAuditLogs auditLogs = new EmailAuditLogs();
+					auditLogs.setMailFrom(emailConfiguration.getUserName());
+					auditLogs.setMailTo(vendorEmail);
+					auditLogs.setMailSubject(mailContent.getSubject());
+					auditLogs.setMailMessage(emailBody);
 
-							SendEmail sendEmail = new SendEmail();
-							MailContent mailContent = mailType.get(0);
-							String emailBody = mailContent.getEmailBody();
+					serviceManager.emailAuditLogsRepo.save(auditLogs);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-							emailBody = emailBody.replace("#username#", bpCode);
-							emailBody = emailBody.replace("#password#", passwordUser);
+				try {
+					List<MailContent> mailType = serviceManager.mailContentRepo.findByType("confirmation mail");
 
-							sendEmail.setMailfrom(emailConfiguration.getUserName());
-							sendEmail.setSendTo(vendorEmail);
-							sendEmail.setSubject(mailContent.getSubject());
-							sendEmail.setEmailBody(emailBody);
-							sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
+					SendEmail sendEmail = new SendEmail();
+					MailContent mailContent = mailType.get(0);
+					String emailBody = mailContent.getEmailBody();
 
-							serviceManager.sendEmailRepo.save(sendEmail);
+					emailBody = emailBody.replace("#VendorRefId#", supDetailsDto.getPid());
+					emailBody = emailBody.replace("#vendorCode#", supDetailsDto.getBpCode());
+					emailBody = emailBody.replace("#vendorName#", supDetailsDto.getSuppName());
+					emailBody = emailBody.replace("#approvedDate#", strDate);
 
-							EmailAuditLogs auditLogs = new EmailAuditLogs();
-							auditLogs.setMailFrom(emailConfiguration.getUserName());
-							auditLogs.setMailTo(vendorEmail);
-							auditLogs.setMailSubject(mailContent.getSubject());
-							auditLogs.setMailMessage(emailBody);
+					String processedBy = supDetailsDto.getProcessedBy();
+					String emailId = supDetailsDto.getIntroducedByEmailID();
 
-							serviceManager.emailAuditLogsRepo.save(auditLogs);
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+//					introducerDetails.get
+					sendEmail.setMailfrom(emailConfiguration.getUserName());
+					sendEmail.setSendTo(vendorEmail);
+					sendEmail.setSendCc(processedBy + "," + emailId);
+					sendEmail.setSubject(mailContent.getSubject());
+					sendEmail.setEmailBody(emailBody);
+					sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
 
-						try {
-							List<MailContent> mailType = serviceManager.mailContentRepo.findByType("confirmation mail");
+					serviceManager.sendEmailRepo.save(sendEmail);
 
-							SendEmail sendEmail = new SendEmail();
-							MailContent mailContent = mailType.get(0);
-							String emailBody = mailContent.getEmailBody();
+					EmailAuditLogs auditLogs = new EmailAuditLogs();
+					auditLogs.setMailFrom(emailConfiguration.getUserName());
+					auditLogs.setMailTo(vendorEmail);
+					sendEmail.setSendCc(processedBy + "," + emailId);
+					auditLogs.setMailSubject(mailContent.getSubject());
+					auditLogs.setMailMessage(emailBody);
 
-							emailBody = emailBody.replace("#VendorRefId#", supDetailsDto.getPid());
-							emailBody = emailBody.replace("#vendorCode#", supDetailsDto.getBpCode());
-							emailBody = emailBody.replace("#vendorName#", supDetailsDto.getSuppName());
-							emailBody = emailBody.replace("#approvedDate#", strDate);
-
-							String processedBy = supDetailsDto.getProcessedBy();
-							Integer commercialFlag = supDetailsDto.getCommercialFlag();
-
-							SendEmailToVendor introducerDetails = serviceManager.sendEmailToVendorRepo
-									.findByFlag(commercialFlag);
-
-							User findByUsername = serviceManager.userService
-									.findByUsername(introducerDetails.getProcessBy());
-
-							String emailId = findByUsername.getEmailId();
-							System.out.println(findByUsername.getEmailId());
-
-//							introducerDetails.get
-							sendEmail.setMailfrom(emailConfiguration.getUserName());
-							sendEmail.setSendTo(vendorEmail);
-							sendEmail.setSendCc(processedBy + "," + emailId);
-							sendEmail.setSubject(mailContent.getSubject());
-							sendEmail.setEmailBody(emailBody);
-							sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
-
-							serviceManager.sendEmailRepo.save(sendEmail);
-
-							EmailAuditLogs auditLogs = new EmailAuditLogs();
-							auditLogs.setMailFrom(emailConfiguration.getUserName());
-							auditLogs.setMailTo(vendorEmail);
-							sendEmail.setSendCc(processedBy + "," + emailId);
-							auditLogs.setMailSubject(mailContent.getSubject());
-							auditLogs.setMailMessage(emailBody);
-
-							serviceManager.emailAuditLogsRepo.save(auditLogs);
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-					} else {
-						supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
-						supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
-						supDetailsDto.setProcessedBy(userEmail);
-						supDetailsDto.setProcessedOn(strDate);
-						serviceManager.detailsRepo
-								.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
-						List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
-								.findByIsActive(GlobalConstants.ACTIVE_STATUS);
-						EmailConfiguration emailConfiguration = emailList.get(0);
-
-						String vendorEmail = supDetailsDto.getContactDetails().get(0).getConEmail();
-
-						try {
-							List<MailContent> mailType = serviceManager.mailContentRepo.findByType("confirmation mail");
-
-							SendEmail sendEmail = new SendEmail();
-							MailContent mailContent = mailType.get(0);
-							String emailBody = mailContent.getEmailBody();
-
-							emailBody = emailBody.replace("#VendorRefId#", supDetailsDto.getPid());
-							emailBody = emailBody.replace("#vendorCode#", supDetailsDto.getBpCode());
-							emailBody = emailBody.replace("#vendorName#", supDetailsDto.getSuppName());
-							emailBody = emailBody.replace("#approvedDate#", strDate);
-
-							String processedBy = supDetailsDto.getProcessedBy();
-							Integer commercialFlag = supDetailsDto.getCommercialFlag();
-
-							SendEmailToVendor introducerDetails = serviceManager.sendEmailToVendorRepo
-									.findByFlag(commercialFlag);
-
-							User findByUsername = serviceManager.userService
-									.findByUsername(introducerDetails.getProcessBy());
-
-							String emailId = findByUsername.getEmailId();
-							System.out.println(findByUsername.getEmailId());
-
-//							introducerDetails.get
-							sendEmail.setMailfrom(emailConfiguration.getUserName());
-							sendEmail.setSendTo(vendorEmail);
-							sendEmail.setSendCc(processedBy + "," + emailId);
-							sendEmail.setSubject(mailContent.getSubject());
-							sendEmail.setEmailBody(emailBody);
-							sendEmail.setStatus(GlobalConstants.EMAIL_STATUS_SENDING);
-
-							serviceManager.sendEmailRepo.save(sendEmail);
-
-							EmailAuditLogs auditLogs = new EmailAuditLogs();
-							auditLogs.setMailFrom(emailConfiguration.getUserName());
-							auditLogs.setMailTo(vendorEmail);
-							sendEmail.setSendCc(processedBy + "," + emailId);
-							auditLogs.setMailSubject(mailContent.getSubject());
-							auditLogs.setMailMessage(emailBody);
-
-							serviceManager.emailAuditLogsRepo.save(auditLogs);
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
+					serviceManager.emailAuditLogsRepo.save(auditLogs);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				data.setData(processID);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
@@ -356,7 +272,6 @@ public class AjaxController {
 				supDetailsDto.setVenStatus(GlobalConstants.UPDATE_VENDOR);
 
 				String bpCode = supDetailsDto.getBpCode();
-				
 
 				String status = serviceManager.userRepository.getVendorStatus(bpCode);
 
@@ -368,8 +283,7 @@ public class AjaxController {
 						|| status.equals(GlobalConstants.CHANGE_PASSWORD_STATUS)) {
 					supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
 				}
-				
-				
+
 				serviceManager.detailsRepo.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 				data.setData(processID);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);

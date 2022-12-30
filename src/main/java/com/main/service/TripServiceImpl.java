@@ -1,8 +1,10 @@
 package com.main.service;
 
+import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.repo.TripDetailsRepo;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,27 @@ public class TripServiceImpl implements TripService {
 
 		if ("".equalsIgnoreCase(vendorTripStatus) && "".equalsIgnoreCase(paymentStatus)
 				&& !"".equalsIgnoreCase(vendorCode)) {
+
+			List<String> runStatusList = new ArrayList<>();
+
+			if (runStatus.equalsIgnoreCase(GlobalConstants.RUN_IN_TRANSIT)) {
+
+				runStatusList.add("CLOSED");
+				runStatusList.add("Closed");
+				runStatusList.add("closed");
+				runStatusList.add("CANCELLED");
+				runStatusList.add("cancelled");
+				runStatusList.add("Cancelled");
+
+				return tripDetailsRepo.findByVendorCodeAndRunStatusNotInOrderByIdDesc(vendorCode, runStatusList);
+
+			} else if (runStatus.equalsIgnoreCase(GlobalConstants.RUN_CLOSED)) {
+
+				return tripDetailsRepo.findByRunStatusIgnoreCaseAndVendorCodeOrderByIdDesc(runStatus, vendorCode);
+
+			}
+
+			// tripDetailsRepo.findbyVendorCodeAndRunStatusIgnoreCase(vendorCode,runStatus);
 			return tripDetailsRepo.getTripsByFiltersVendorRunStatus(runStatus, vendorCode);
 		}
 		if (!"".equalsIgnoreCase(runStatus) && !"".equalsIgnoreCase(vendorTripStatus)

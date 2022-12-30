@@ -30,10 +30,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.main.commonclasses.GlobalConstants;
+import com.main.db.bpaas.entity.AddressDetails;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.InvoiceNumber;
-import com.main.db.bpaas.entity.PoDetails;
-import com.main.db.bpaas.entity.PoLineDetails;
 import com.main.db.bpaas.entity.RolesEntity;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.TripDetails;
@@ -247,42 +246,23 @@ public class UIController {
 
 	@GetMapping({ "/", "/dashboard" })
 	public String dashboard(Model model, Principal principal, String error, String logout, HttpServletRequest request) {
-
 		User us = serviceManager.userService.findByUsername(principal.getName());
 		String rolename = us.getRolesObj().getRoleName();
-		String bpCode = serviceManager.userRepository.getBpCode(principal.getName());
-		model.addAttribute("role", rolename);
-		model.addAttribute("username", principal.getName());
-
-		int count = 0;
-		serviceManager.userRepository.updateAttemptCount(principal.getName(), count);
-
-		if (null == bpCode) {
-			bpCode = "";
-		}
-
-		String vendorType = serviceManager.supDetailsRepo.findVendorType(bpCode);
-		if (null == vendorType || "".equals(vendorType)) {
-			vendorType = "vendor";
-		}
-
-		model.addAttribute("dataLimit", dataLimit);
-
 		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
-
-			List<TripDetails> totalTripCount = serviceManager.tripDetailsRepo.findAll();
-			model.addAttribute("totalTripCount", totalTripCount.size());
-
-			List<TripDetails> allApprovedTripscount = serviceManager.tripService
-					.findAllTripsByStatus("Yet To Be Approved");
-			model.addAttribute("ApprovedTripscount", allApprovedTripscount.size());
-
-			List<TripDetails> yetTobeApproved = serviceManager.tripService.findAllTripsByStatus("");
-			model.addAttribute("yetTobeApproved", yetTobeApproved.size());
-
-			List<TripDetails> getTripCountForQueryAdhoc = serviceManager.tripDetailsRepo
-					.getQueryTripsForNetwork("Query");
-			model.addAttribute("getTripCountForQueryAdhoc", getTripCountForQueryAdhoc.size());
+			long allTripCount = serviceManager.tripDetailsRepo.count();
+			model.addAttribute("totalTripCount", allTripCount);
+			Integer allApprovedTripscount = serviceManager.tripDetailsRepo.countByVendorTripStatusAndAssignToAndRunType(
+					GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED, GlobalConstants.ROLE_VENDOR,
+					GlobalConstants.ADHOC_TYPE_TRIPS);
+			model.addAttribute("ApprovedTripscount", allApprovedTripscount);
+			Integer yetTobeApproved = serviceManager.tripDetailsRepo
+					.countByVendorTripStatusAndAssignToAndRunTypeAndRunStatusIgnoreCase(
+							GlobalConstants.NETWORK_TRIP_STATUS_YET_TO_APPROVED_NETWORK, GlobalConstants.ROLE_NETWORK,
+							GlobalConstants.ADHOC_TYPE_TRIPS, GlobalConstants.RUN_CLOSED);
+			model.addAttribute("yetTobeApproved", yetTobeApproved);
+			Integer getTripCountForQueryAdhoc = serviceManager.tripDetailsRepo
+					.countByVendorTripStatus(GlobalConstants.QUERY_REQUEST_STATUS);
+			model.addAttribute("getTripCountForQueryAdhoc", getTripCountForQueryAdhoc);
 
 			int getInClosedTripCountForAdhoc = serviceManager.tripDetailsRepo
 					.getInTransitTripCountByRunTypeAndRunStatus("Adhoc", "Closed");
@@ -335,91 +315,6 @@ public class UIController {
 
 			return "dashBoard_AdminRole";
 
-		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
-
-			String vendorCode = principal.getName();
-			int totalTripCount = serviceManager.tripDetailsRepo.getTripCount(vendorCode);
-			int totalCloseTripCount = serviceManager.invoiceGenerationEntityRepo.getQueryInvoiceCount(vendorCode);
-			int totalInTransitTripCount = serviceManager.tripDetailsRepo.getInTransitTripCount(vendorCode);
-			int closedTripCount = serviceManager.tripDetailsRepo.getCloseTripCount(vendorCode);
-			int queryTripCount = serviceManager.tripDetailsRepo.getQueryTripCount(vendorCode);
-
-			long processInvoice = serviceManager.invoiceGenerationEntityRepo.getPendingInvoiceCount(vendorCode);
-			int approveInvoice = serviceManager.invoiceGenerationEntityRepo.getApproveInvoiceCount(vendorCode);
-			int draftInvoice = serviceManager.invoiceGenerationEntityRepo.getDraftInvoiceCount(vendorCode);
-
-			model.addAttribute("role", rolename);
-			model.addAttribute("totalTripCount", totalTripCount);
-			model.addAttribute("TotalCloseTripCount", totalCloseTripCount);
-			model.addAttribute("TotalInTransitTripCount", totalInTransitTripCount);
-			model.addAttribute("pendingInvoice", processInvoice);
-			model.addAttribute("approveInvoice", approveInvoice);
-			model.addAttribute("draftInvoice", draftInvoice);
-			model.addAttribute("userStatus", us.getStatus());
-			model.addAttribute("closedTripCount", closedTripCount);
-			model.addAttribute("queryTripCount", queryTripCount);
-
-			request.setAttribute("vendorType", vendorType);
-			model.addAttribute("vendorType", vendorType);
-			model.addAttribute("role", rolename);
-
-			if (vendorType.equalsIgnoreCase("Fixed Asset") || vendorType.equalsIgnoreCase("FIXED ASSETS")) {
-
-				rolename = (String) request.getSession().getAttribute("role");
-				vendorCode = (String) request.getSession().getAttribute("userName");
-				String processBy = principal.getName();
-				Date proceessOn = new Date();
-				List<PoDetails> details1 = new ArrayList<>();
-				List<PoDetails> details = serviceManager.podetailsRepo.getAllUnProcessPo(vendorCode);
-
-				for (int i = 0; i < details.size(); i++) {
-					List<PoLineDetails> podet = details.get(i).getPoline();
-					String pono = details.get(i).getPoNo();
-					float remaningquantity = 0;
-					for (int j = 0; j < podet.size(); j++) {
-						remaningquantity = remaningquantity + Float.parseFloat(podet.get(j).getRemaningQuatity());
-					}
-					if (remaningquantity != 0.0 || remaningquantity != 0.00 || remaningquantity != 0) {
-						details1.add(details.get(i));
-					} else {
-						serviceManager.podetailsRepo.updateVendorPoStatusAgainsInvoiceNumber(pono, proceessOn,
-								processBy);
-					}
-				}
-
-				int totalAllPoCount = serviceManager.podetailsRepo.getAllPoCount(vendorCode);
-				model.addAttribute("totalAllPoCount", totalAllPoCount);
-
-				int totalProcessPoCount = serviceManager.podetailsRepo.getAllProcessPoCount(vendorCode);
-				model.addAttribute("totalProcessPoCount", totalProcessPoCount);
-				int totalUnprocessPOCount = serviceManager.podetailsRepo.getAllUnProcessPoCount(vendorCode);
-				model.addAttribute("totalUnprocessPOCount", totalUnprocessPOCount);
-				int totalQueryCount = serviceManager.podetailsRepo.getAllQueryCount(vendorCode);
-				model.addAttribute("totalQueryCount", totalQueryCount);
-
-				int totalInvoiceCount = serviceManager.poinvoiceRepo.getAllInvoiceCount(vendorCode);
-				model.addAttribute("totalInvoiceCount", totalInvoiceCount);
-
-				int allPOcount = serviceManager.poinvoiceRepo.getAllPOcount(vendorCode);
-				model.addAttribute("allPOcount", allPOcount);
-
-				int totalDraftInvoiceCount = serviceManager.poinvoiceRepo.getTotalDraftInvoiceCount(vendorCode);
-				model.addAttribute("totalDraftInvoiceCount", totalDraftInvoiceCount);
-
-				model.addAttribute("userStatus", us.getStatus());
-				model.addAttribute("dataLimit", dataLimit);
-
-				if (rolename.equalsIgnoreCase("Vendor")) {
-
-					return "dashboard_Po";
-
-				} else {
-					return "";
-				}
-			}
-
-			return "dashboard";
-
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE)
 				|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_FINANCE_HEAD)) {
 			long allInvoice = serviceManager.invoiceGenerationEntityRepo.getCountForAllInvoice();
@@ -441,6 +336,88 @@ public class UIController {
 			model.addAttribute("queryCount", queryCount);
 			model.addAttribute("role", rolename);
 			return "dashBoard_Finance";
+		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+			String bpCode = us.getBpCode();
+			String username = us.getUsername();
+			String name = principal.getName();
+
+			if (bpCode.equalsIgnoreCase(name) && username.equalsIgnoreCase(name)) {
+				SupDetails vendorDetails = serviceManager.supDetailsRepo.findBybpCode(bpCode);
+
+				String vendorType = null;
+				if (null != vendorDetails) {
+					List<AddressDetails> addressDetails = vendorDetails.getAddressDetails();
+					for (int i = 0; i < addressDetails.size(); i++) {
+						vendorType = addressDetails.get(i).getVendorType();
+					}
+				}
+				if (null != vendorType) {
+					if (vendorType.equalsIgnoreCase(GlobalConstants.VENDOR_NETWORK)) {
+
+						int totalTripCount = serviceManager.tripDetailsRepo.getTripCount(bpCode);
+						int totalCloseTripCount = serviceManager.invoiceGenerationEntityRepo
+								.getQueryInvoiceCount(bpCode);
+						int totalInTransitTripCount = serviceManager.tripDetailsRepo.getInTransitTripCount(bpCode);
+						int closedTripCount = serviceManager.tripDetailsRepo.getCloseTripCount(bpCode);
+						int queryTripCount = serviceManager.tripDetailsRepo.getQueryTripCount(bpCode);
+
+						long processInvoice = serviceManager.invoiceGenerationEntityRepo.getPendingInvoiceCount(bpCode);
+						int approveInvoice = serviceManager.invoiceGenerationEntityRepo.getApproveInvoiceCount(bpCode);
+						int draftInvoice = serviceManager.invoiceGenerationEntityRepo.getDraftInvoiceCount(bpCode);
+
+						model.addAttribute("role", rolename);
+						model.addAttribute("totalTripCount", totalTripCount);
+						model.addAttribute("TotalCloseTripCount", totalCloseTripCount);
+						model.addAttribute("TotalInTransitTripCount", totalInTransitTripCount);
+						model.addAttribute("pendingInvoice", processInvoice);
+						model.addAttribute("approveInvoice", approveInvoice);
+						model.addAttribute("draftInvoice", draftInvoice);
+						model.addAttribute("userStatus", us.getStatus());
+						model.addAttribute("closedTripCount", closedTripCount);
+						model.addAttribute("queryTripCount", queryTripCount);
+
+						request.setAttribute("vendorType", vendorType);
+						model.addAttribute("vendorType", vendorType);
+						model.addAttribute("role", rolename);
+
+						return "dashboard";
+
+					} else if (vendorType.equalsIgnoreCase(GlobalConstants.VENDOR_FIXED_ASSETS)) {
+
+						int totalAllPoCount = serviceManager.podetailsRepo.getAllPoCount(bpCode);
+						model.addAttribute("totalAllPoCount", totalAllPoCount);
+
+						int totalProcessPoCount = serviceManager.podetailsRepo.getAllProcessPoCount(bpCode);
+						model.addAttribute("totalProcessPoCount", totalProcessPoCount);
+						int totalUnprocessPOCount = serviceManager.podetailsRepo.getAllUnProcessPoCount(bpCode);
+						model.addAttribute("totalUnprocessPOCount", totalUnprocessPOCount);
+						int totalQueryCount = serviceManager.podetailsRepo.getAllQueryCount(bpCode);
+						model.addAttribute("totalQueryCount", totalQueryCount);
+
+						int totalInvoiceCount = serviceManager.poinvoiceRepo.getAllInvoiceCount(bpCode);
+						model.addAttribute("totalInvoiceCount", totalInvoiceCount);
+
+						int allPOcount = serviceManager.poinvoiceRepo.getAllPOcount(bpCode);
+						model.addAttribute("allPOcount", allPOcount);
+
+						int totalDraftInvoiceCount = serviceManager.poinvoiceRepo.getTotalDraftInvoiceCount(bpCode);
+						model.addAttribute("totalDraftInvoiceCount", totalDraftInvoiceCount);
+
+						model.addAttribute("userStatus", us.getStatus());
+						model.addAttribute("dataLimit", dataLimit);
+						request.setAttribute("vendorType", vendorType);
+						model.addAttribute("vendorType", vendorType);
+
+						return "dashboard_Po";
+
+					} else {
+
+						return "poInvoiceDetails";
+					}
+
+				}
+			}
+
 		} else if (rolename.equalsIgnoreCase("Audit")) {
 			return "";
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
@@ -744,10 +721,13 @@ public class UIController {
 
 	@GetMapping("/pendingApprovalNetwork")
 	public String pendingApprovalNetwork(Model model, Principal principal) {
-		List<TripDetails> yetTobeApproved = serviceManager.tripService.findAllTripsByStatus("");
-		List<String> vendorNamefortrips = serviceManager.tripDetailsRepo.getVendorName();
-		model.addAttribute("vendorNamefortrips", vendorNamefortrips);
-		model.addAttribute("yetTobeApprovedAllDetails", yetTobeApproved);
+		/*
+		 * List<TripDetails> yetTobeApproved =
+		 * serviceManager.tripService.findAllTripsByStatus(""); List<String>
+		 * vendorNamefortrips = serviceManager.tripDetailsRepo.getVendorName();
+		 * model.addAttribute("vendorNamefortrips", vendorNamefortrips);
+		 * model.addAttribute("yetTobeApprovedAllDetails", yetTobeApproved);
+		 */
 		model.addAttribute("dataLimit", dataLimit);
 		return "pendingApprovalNetwork";
 	}

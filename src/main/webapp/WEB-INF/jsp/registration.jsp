@@ -263,7 +263,7 @@ select[readonly].select2+.select2-container {
 														class="required adHocRequired">*</span></label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="suppName" name="suppName"
-													placeholder="Supplier Name" maxlength="50"></td>
+													placeholder="Supplier Name" maxlength="200"></td>
 
 												<td><label for="businessClassification">Business
 														Classification<span
@@ -283,7 +283,7 @@ select[readonly].select2+.select2-container {
 														class="msmeClass" style="visibility: hidden;">*</span></label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="mesmeNumber"
-													maxlength="12" name="mesmeNumber"
+													maxlength="19" name="mesmeNumber"
 													placeholder="MESME Certificate Number" disabled="disabled"></td>
 													
 											</tr>
@@ -311,7 +311,7 @@ select[readonly].select2+.select2-container {
 												</select></td>
 
 												<td><label>Section Type<span
-														class="required adHocRequired"></span></label></td>
+														class="required adHocRequired">*</span></label></td>
 
 												<td><select class="form-control p-input"
 													id="sectionType" name="sectionType">
@@ -532,13 +532,13 @@ select[readonly].select2+.select2-container {
 															class="required adHocRequired">*</span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="conFname" name="conFname"
-														placeholder="First Name" maxlength="30"></td>
+														placeholder="First Name" maxlength="50"></td>
 
 													<td><label for="lnameCon">Last Name<span
 															class="required adHocRequired"></span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="conLname" name="conLname"
-														placeholder="Last Name" maxlength="30"></td>
+														placeholder="Last Name"  maxlength="50"></td>
 
 													<td><label for="phno">Phone Number<span
 															class="required adHocRequired">*</span></label></td>
@@ -553,7 +553,7 @@ select[readonly].select2+.select2-container {
 															class="required adHocRequired">*</span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="conEmail" name="conEmail"
-														placeholder="Email ID"></td>
+														placeholder="Email ID"  maxlength="50"></td>
 													<td></td>
 													<td></td>
 													<td>
@@ -959,8 +959,7 @@ select[readonly].select2+.select2-container {
 																href="document/GST Declaration.zip" download>
 																	Download Template </a></td>
 
-															<td><label>Proprietorship Declaration<span
-																	class="pdDocClass">*</span></label></td>
+															<td><label>Proprietorship Declaration</label></td>
 															<td><input type="file" id="PDFile" name="PDFile"
 																class="form-control p-input" accept=".docx, .pdf">
 																<textarea id="PDFileText" rows="5"
@@ -1057,7 +1056,7 @@ select[readonly].select2+.select2-container {
 																	declaration would be required if name mentioned in all
 
 																	document is not same including spelling error<span
-																	class="required"></span>
+																	class="pdDocClass">*</span>
 															</label></td>
 															<td><input type="file" id="NMISFile" name="NMISFile"
 																class="form-control p-input" accept=".docx, .pdf">

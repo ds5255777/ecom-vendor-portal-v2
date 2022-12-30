@@ -190,6 +190,11 @@ function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
 				swal.fire("Alert", "MESME Certificate Number is mandatory", "warning")
 					.then((value) => { });
 			}
+			else if (controlName == "sectionType") {
+
+				swal.fire("Alert", "Section Type is mandatory", "warning")
+					.then((value) => { });
+			}
 			else if (controlName == "enInvApplicable") {
 
 				swal.fire("Alert", "E-Invoice Applicable is mandatory", "warning")
@@ -232,9 +237,9 @@ function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
 				swal.fire("Alert", "MSME Certificate is mandatory", "warning")
 					.then((value) => { });
 			}
-			else if (controlName == "PDFile") {
+			else if (controlName == "NMISFile") {
 
-				swal.fire("Alert", "Proprietorship Declaration is mandatory", "warning")
+				swal.fire("Alert", "Name mismatch is mandatory", "warning")
 					.then((value) => { });
 			}
 			$("#" + controlName).focus();
@@ -274,7 +279,6 @@ $(document).ready(function() {
 									return false;
 								}
 							}
-							debugger
 
 							var table = document.getElementById('addBankGrid');
 							var rowLength = table.rows.length;
@@ -290,7 +294,7 @@ $(document).ready(function() {
 
 							if (suppName != beneficiaryName) {
 
-								var mandFields = "PDFile";
+								var mandFields = "NMISFile";
 								var mandFieldsArr = mandFields.split(",");
 								for (i = 0; i < mandFieldsArr.length; i++) {
 									if (document.getElementById(mandFieldsArr[i]).value == '') {
@@ -379,7 +383,7 @@ function checkMand(stepNo, stepDirection) {
 				}
 			}
 		}
-		var mandFields = "enInvApplicable";
+		var mandFields = "sectionType,enInvApplicable";
 		var mandFieldsArr = mandFields.split(",");
 		for (i = 0; i < mandFieldsArr.length; i++) {
 			if (document.getElementById(mandFieldsArr[i]).value == '') {

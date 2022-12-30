@@ -213,7 +213,7 @@ th, td, tr {
 													</label></td>
 													<td colspan="1"><input type="text"
 														class="form-control p-input" id="suppName" name="suppName"
-														placeholder="Supplier Name" maxlength="50"> <input
+														placeholder="Supplier Name" maxlength="200"> <input
 														type="hidden" id="roleId"></td>
 
 													<td><label for="businessClassification">Business
@@ -232,7 +232,7 @@ th, td, tr {
 															Number</label></td>
 													<td colspan="1"><input type="text"
 														class="form-control p-input" id="mesmeNumber"
-														maxlength="12" name="mesmeNumber"
+														maxlength="19" name="mesmeNumber"
 														placeholder="MESME Certificate Number" disabled="disabled"></td>
 												</tr>
 
@@ -482,13 +482,13 @@ th, td, tr {
 																	class="required adHocRequired">*</span></label></td>
 															<td colspan="2"><input type="text"
 																class="form-control p-input" id="conFname"
-																name="conFname" placeholder="First Name"></td>
+																name="conFname" placeholder="First Name"  maxlength="50"></td>
 
 															<td><label for="lnameCon">Last Name<span
 																	class="required adHocRequired">*</span></label></td>
 															<td colspan="2"><input type="text"
 																class="form-control p-input" id="conLname"
-																name="conLname" placeholder="Last Name"></td>
+																name="conLname" placeholder="Last Name"  maxlength="50"></td>
 
 															<td><label for="phno">Phone Number<span
 																	class="required adHocRequired">*</span></label></td>
@@ -504,7 +504,7 @@ th, td, tr {
 																	class="required adHocRequired">*</span></label></td>
 															<td colspan="2"><input type="text"
 																class="form-control p-input" id="conEmail"
-																name="conEmail" placeholder="Email"></td>
+																name="conEmail" placeholder="Email"  maxlength="50"></td>
 															<td></td>
 															<td></td>
 															<td>

@@ -418,10 +418,10 @@ public class UserController {
 				String bpCode = supDetailsDto.getBpCode();
 				String passwordUser = UserServiceImpl.generateRandomPassword();
 				System.out.println(passwordUser);
-				User user=serviceManager.userRepository.findByBpCode(bpCode);
-				//serviceManager.userRepository.updateVendorPassword(bpCode, passwordUser);
-				//serviceManager.userService.Update(null)
-				
+				User user = serviceManager.userRepository.findByBpCode(bpCode);
+				// serviceManager.userRepository.updateVendorPassword(bpCode, passwordUser);
+				// serviceManager.userService.Update(null)
+
 				/* send onBoard email */
 
 				List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
@@ -430,8 +430,7 @@ public class UserController {
 
 				String vendorEmail = supDetailsDto.getContactDetails().get(0).getConEmail();
 
-				List<MailContent> mailType = serviceManager.mailContentRepo
-						.findByType("Send username And Password");
+				List<MailContent> mailType = serviceManager.mailContentRepo.findByType("Send username And Password");
 
 				SendEmail sendEmail = new SendEmail();
 				MailContent mailContent = mailType.get(0);

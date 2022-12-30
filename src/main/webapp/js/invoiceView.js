@@ -177,27 +177,29 @@ function getQueryData() {
 				if ("data" in response) {
 
 					var result = response.data;
-
-					tabledataQuery.clear();
-					var count = 0;
-					for (var i = 0; i < result.length; i++) {
-						if (!result[i].hasOwnProperty("raisedBy")) {
-							result[i].raisedBy = "";
+					if (result.length > 0) {
+						$("#queryTableView").css("display", "block");
+						tabledataQuery.clear();
+						var count = 0;
+						for (var i = 0; i < result.length; i++) {
+							if (!result[i].hasOwnProperty("raisedBy")) {
+								result[i].raisedBy = "";
+							}
+							if (!result[i].hasOwnProperty("role")) {
+								result[i].role = "";
+							}
+							if (!result[i].hasOwnProperty("raisedOn")) {
+								result[i].raisedOn = "";
+							}
+							if (!result[i].hasOwnProperty("comment")) {
+								result[i].comment = "";
+							}
+							count++;
+							tabledataQuery.row.add([count, result[i].raisedBy, result[i].role, result[i].raisedOn, result[i].comment]);
 						}
-						if (!result[i].hasOwnProperty("role")) {
-							result[i].role = "";
-						}
-						if (!result[i].hasOwnProperty("raisedOn")) {
-							result[i].raisedOn = "";
-						}
-						if (!result[i].hasOwnProperty("comment")) {
-							result[i].comment = "";
-						}
-						count++;
-						tabledataQuery.row.add([count, result[i].raisedBy, result[i].role, result[i].raisedOn, result[i].comment]);
+						tabledataQuery.draw();
+						$("tbody").show();
 					}
-					tabledataQuery.draw();
-					$("tbody").show();
 				}
 			} else {
 				Toast.fire({

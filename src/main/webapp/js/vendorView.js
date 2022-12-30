@@ -279,7 +279,6 @@ function getQueryData() {
 		contentType: "application/json",
 		success: function(response) {
 			if (response.msg == "success") {
-				debugger
 				if ("data" in response) {
 
 					var result = response.data;

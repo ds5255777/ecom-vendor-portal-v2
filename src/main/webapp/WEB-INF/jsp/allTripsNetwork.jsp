@@ -203,6 +203,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
+                            <div id="pageInfo" style="float: left;"></div>
 											<div id="pagingId" style="float: right;"></div>
 
 										</div>

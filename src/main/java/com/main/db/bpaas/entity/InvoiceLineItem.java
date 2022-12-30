@@ -64,7 +64,7 @@ public class InvoiceLineItem {
 	@Column(name = "lumpsome_amount")
 	private String lumpsomeamount;
 
-	@Column(name = "line_level_description")
+	@Column(name = "line_level_description", columnDefinition = "TEXT")
 	private String lineLevelDescription;
 
 	@Transient

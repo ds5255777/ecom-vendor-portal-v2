@@ -98,7 +98,6 @@ function validateOnsubit() {
 
 function validateOnClick() {
 
-debugger
 	var username = document.getElementById("username").value;
 	if (localStorage.clickcount) {
 		window.localStorage.setItem('username', username);

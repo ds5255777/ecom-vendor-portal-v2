@@ -11,7 +11,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.main.db.bpaas.entity.TripDetails;
-import com.main.payloads.TripDetailsDto;
 
 @Repository
 public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
@@ -37,7 +36,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	@Query(value = "SELECT  count(*)  FROM trip_details where vendor_trip_status='Query' and vendor_code=? ", nativeQuery = true)
 	int getQueryTripCount(String vendorCode);
 
-	@Query(value = "select count(*) from Trip_Details where run_status='In-Transit' and vendor_code=?", nativeQuery = true)
+	@Query(value = "select count(*) from trip_details where vendor_code=? and upper(run_status)  not in('CLOSED','CANCELLED') ", nativeQuery = true)
 	int getInTransitTripCount(String vendorCode);
 
 	@Query(value = "select count(*) from trip_details where run_type='Adhoc' and vendor_trip_status='Approved' and vendor_code=?", nativeQuery = true)
@@ -104,7 +103,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
 	TripDetails findByTripID(String tripID);
 
-	List<TripDetails> findByActualDepartureBetween(@Param("startDate") String startDate,
+	List<TripDetails> findByActualDepartureBetweenOrderByIdDesc(@Param("startDate") String startDate,
 			@Param("endDate") String endDate);
 
 	@Query(value = "select  * from trip_details  where invoice_number=:invoiceNumber ", nativeQuery = true)
@@ -210,13 +209,13 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	List<TripDetails> getTripsByFiltersRunStatusVendorTripStatuspaymentStatus(String runStatus, String vendorTripStatus,
 			String paymentStatus, String vendorCode);
 
-	List<TripDetails> findByRunStatusAndVendorCodeOrderByIdDesc(String runInTransit, String userName);
+	List<TripDetails> findByRunStatusIgnoreCaseAndVendorCodeOrderByIdDesc(String runInTransit, String userName);
 
-	List<TripDetails> findByRunStatusAndVendorTripStatusAndVendorCodeOrderByIdDesc(String runClosed, String vendorTripStatusApproved,
+	List<TripDetails> findByRunStatusIgnoreCaseAndVendorTripStatusAndVendorCodeOrderByIdDesc(String runClosed, String vendorTripStatusApproved,
 			String userName);
 
-	List<TripDetails> findByRouteInAndVendorTripStatusAndVendorCode(List<String> routeList,
-			String vendorTripStatusApproved, String vendorCode);
+	List<TripDetails> findByRouteInAndVendorTripStatusAndVendorCodeAndRunStatusIgnoreCase(List<String> routeList,
+			String vendorTripStatusApproved, String vendorCode, String runStatus);
 
 	List<TripDetails> findByOriginHubAndVendorTripStatusAndVendorCode(String columnValue,
 			String vendorTripStatusApproved, String vendorCode);
@@ -227,10 +226,9 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	List<TripDetails> findByRunTypeAndVendorTripStatusAndVendorCode(String columnValue, String vendorTripStatusApproved,
 			String vendorCode);
 
-	List<TripDetails> findByVehicleNumberAndVendorTripStatusAndVendorCode(String columnValue,
-			String vendorTripStatusApproved, String vendorCode);
+	
 
-	List<TripDetails> findByVendorTripStatusAndRunStatusAndAssignToAndVendorCode(String vendorTripStatusYetToBeApproved,
+	List<TripDetails> findByVendorTripStatusAndRunStatusIgnoreCaseAndAssignToAndVendorCodeOrderByIdDesc(String vendorTripStatusYetToBeApproved,
 			String runClosed, String roleVendor, String userName);
 
 	@Query(value = "select  * from trip_details  where invoice_number=:invoiceNumber and vendor_code=:vendorCode order by id desc ", nativeQuery = true)
@@ -262,9 +260,24 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	List<TripDetails> findByVendorTripStatusAndAssignToAndVendorCodeAndRunStatusInOrderByIdDesc(
 			String vendorTripStatusYetToBeApproved, String roleVendor, String userName, List<String> runStatusList);
 
-	@Query(value = "select * from trip_details where order by id desc OFFSET :fetchCount ROWS FETCH NEXT :dataSize ROWS ONLY; ", nativeQuery = true)
-	List<TripDetailsDto> getTripDataByPagination(@Param("fetchCount") Integer fetchCount, @Param("dataSize") int dataSize);
+	@Query(value = "select * from trip_details ORDER by id desc OFFSET :fetchCount ROWS FETCH NEXT :dataSize ROWS ONLY ; ", nativeQuery = true)
+	List<TripDetails> getTripDataByPagination(@Param("fetchCount") Integer fetchCount, @Param("dataSize") Integer dataSize);
 
 	@Query(value = "select * from trip_details order by id desc limit 100 ; ", nativeQuery = true)
 	List<TripDetails> findTopTrip();
+
+	List<TripDetails> findByVendorCodeAndRunStatusNotInOrderByIdDesc(String userName, List<String> runStatusList);
+
+	List<TripDetails> findByVehicleNumberAndVendorTripStatusAndVendorCodeAndRunStatusIgnoreCase(String columnValue,
+			String vendorTripStatusApproved, String vendorCode, String runClosed);
+
+	Integer countByVendorTripStatusAndAssignToAndRunType(String vendorTripStatusYetToBeApproved, String roleVendor,
+			String adhocTypeTrips);
+
+	Integer countByVendorTripStatusAndAssignToAndRunTypeAndRunStatusIgnoreCase(String vendorTripStatusYetToBeApproved,
+			String roleNetwork, String adhocTypeTrips, String runClosed);
+
+	Integer countByVendorTripStatus(String queryRequestStatus);
+
+	long countByActualDepartureBetween(String fromDate, String toDate);
 }

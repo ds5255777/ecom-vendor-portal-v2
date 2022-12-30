@@ -9,7 +9,6 @@ $(document).ready(function() {
 	}
 });
 $("#password").bind("input", function() {
-	debugger
 	pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 });
 

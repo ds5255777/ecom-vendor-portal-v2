@@ -443,7 +443,7 @@ function selectDropDownValue() {
 						result[i].totalFreight = "-";
 					}
 
-					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
+					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" class=\"tripIdView\" )\" >" + result[i].tripID + "</a>";
 					var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\"" + result[i].tripID + "\" ><\div>";
 
 					tabledata.row.add([checkbox,

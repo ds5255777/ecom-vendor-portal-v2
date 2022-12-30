@@ -108,8 +108,8 @@ function GetSelectedTextValue() {
 						result[i].paymentStatus = "-";
 					}
 
-					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"setTripStatus('" + result[i].tripID + "')\" >" + result[i].tripID + "</button>";
-
+					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" value=\"" + result[i].tripID + "\" class=\"tripIdView\"  >" + result[i].tripID + "</a>";
+					
 					tabledata.row.add([view,
 						result[i].route,
 						result[i].runType,
@@ -215,8 +215,8 @@ function GetSelectedInvoiceValue() {
 					if (!result[i].hasOwnProperty("ecomInvoiceNumber")) {
 						result[i].invoiceStatus = "";
 					}
-					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].ecomInvoiceNumber + "','All Invoices')\" >" + result[i].ecomInvoiceNumber + "</button>";
-
+					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" value=\"" + result[i].tripID + "\" class=\"tripIdView\"  >" + result[i].tripID + "</a>";
+					
 					tabledata.row.add([view, result[i].invoiceNumber, result[i].vendorCode, result[i].vendorName, result[i].invoiceReceivingDate, result[i].invoiceDate, result[i].invoiceAmount, result[i].invoiceStatus]);
 				}
 				tabledata.draw();

@@ -80,6 +80,24 @@
 
 
 				</c:if>
+				
+				<c:if test="${!vendorType.equalsIgnoreCase(typeOfVendor) }">
+				
+					<li class="nav-item"><a
+						href="${pageContext.request.contextPath}/invoiceVendor" target="_blank"
+						class="nav-link
+                                        <% if (request.getParameter("pagename").equalsIgnoreCase("invoiceVendor")) {
+                                                out.print("active");
+                                            }%>
+                                        ">
+							<i class="nav-icon fas fa-tachometer-alt"> </i>
+							<p>Invoice Submit</p>
+					</a>
+						<hr></li>
+				
+				
+				
+				</c:if>
 
 
 				<li class="nav-item has-treeview"><a href="#" class="nav-link">

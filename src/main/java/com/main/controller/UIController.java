@@ -1032,8 +1032,68 @@ public class UIController {
 		return "allOnBoardRequest";
 	}
 
+	@GetMapping("/invoiceVendor")
+	public String invoiceVendor(Model model, HttpServletRequest request, Principal principal) {
+
+		String userName = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+
+			SupDetails vendorDetails = serviceManager.supDetailsRepo.findBybpCode(userName);
+
+			if (null != vendorDetails) {
+
+				if (vendorDetails.getAddressDetails().get(0).getVendorType()
+						.equalsIgnoreCase(GlobalConstants.VENDOR_NETWORK)
+						&& vendorDetails.getAddressDetails().get(0).getVendorType()
+								.equalsIgnoreCase(GlobalConstants.VENDOR_FIXED_ASSETS)) {
+
+					return "error";
+				}
+
+				String invoiceNumber = "";
+				invoiceNumber = generateInvoiceNumber();
+				InvoiceNumber inNumber = new InvoiceNumber();
+				inNumber.setEcomInvoiceNumber(invoiceNumber);
+				inNumber.setStatus("Used_Other_Ven_Invoice");
+				// serviceManager.invoiceNumberRepo.save(inNumber);
+				model.addAttribute("invoiceNumber", invoiceNumber);
+
+				List<String> listSiteCode = new ArrayList<>();
+				for (int i = 0; i < vendorDetails.getAddressDetails().size(); i++) {
+					String supplierSiteCode = vendorDetails.getAddressDetails().get(i).getSupplierSiteCode();
+					listSiteCode.add(supplierSiteCode);
+				}
+				model.addAttribute("supplierSiteCode", listSiteCode);
+
+				List<String> venAccNumber = new ArrayList<>();
+				for (int i = 0; i < vendorDetails.getAccountDetails().size(); i++) {
+					String accNumber = vendorDetails.getAccountDetails().get(i).getAccoutNumber();
+					venAccNumber.add(accNumber);
+				}
+				model.addAttribute("accountNumber", venAccNumber);
+				
+				model.addAttribute("creidtTerms", vendorDetails.getCreditTerms());
+				
+				model.addAttribute("paymentMethod", vendorDetails.getPaymentMethod());
+				
+				model.addAttribute("fileSize", fileSize);
+
+				return "invoiceVendor";
+			}
+		}
+		return "error";
+	}
+
 	@GetMapping("/users")
 	public String users(Model model, HttpServletRequest request, Principal principal) {
+
+		return "error";
+	}
+
+	@GetMapping("/users/**")
+	public String usersError(Model model, HttpServletRequest request, Principal principal) {
 
 		return "error";
 	}

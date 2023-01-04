@@ -1057,7 +1057,7 @@ public class UIController {
 				InvoiceNumber inNumber = new InvoiceNumber();
 				inNumber.setEcomInvoiceNumber(invoiceNumber);
 				inNumber.setStatus("Used_Other_Ven_Invoice");
-				// serviceManager.invoiceNumberRepo.save(inNumber);
+				serviceManager.invoiceNumberRepo.save(inNumber);
 				model.addAttribute("invoiceNumber", invoiceNumber);
 
 				List<String> listSiteCode = new ArrayList<>();
@@ -1073,6 +1073,8 @@ public class UIController {
 					venAccNumber.add(accNumber);
 				}
 				model.addAttribute("accountNumber", venAccNumber);
+				
+				model.addAttribute("vendorCode", vendorDetails.getBpCode());
 				
 				model.addAttribute("creidtTerms", vendorDetails.getCreditTerms());
 				

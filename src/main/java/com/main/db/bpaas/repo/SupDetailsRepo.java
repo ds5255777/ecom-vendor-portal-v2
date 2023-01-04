@@ -24,7 +24,7 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 	@Query(value = "select pid from sup_details", nativeQuery = true)
 	List<String> findByPid();
 
-	@Query(value = "SELECT supp_name,bp_code,businessclassification, vendor_type, ven_status, supdetails.introduced_by_name, supdetails.introduced_by_email_id, flag FROM supdetails where ven_status in('Approved','Update') ", nativeQuery = true)
+	@Query(value = "SELECT supp_name,bp_code,businessclassification, vendor_type, ven_status, supdetails.introduced_by_name, supdetails.introduced_by_email_id, flag FROM supdetails where ven_status in('Approved','Update') order by id desc", nativeQuery = true)
 	List<Object[]> getAllInActiveVendor();
 
 	@Query(value = "select * from SupDetails where bp_code=:bpCode  ", nativeQuery = true)

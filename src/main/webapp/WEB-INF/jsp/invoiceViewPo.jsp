@@ -78,7 +78,7 @@
                                             </label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" placeholder="Invoice Number" name="vendorInvoiceNumber" id="vendorInvoiceNumber" maxlength="70" style="width: 100%;">
-
+												<input type="hidden" id="status" value="${status }">
                                             </div>
                                         </div>
                                     </div>
@@ -196,7 +196,7 @@
                         </div>
                     </div>
 
-                    <div class="card card-primary">
+                    <div class="card card-primary" id="lineItems" style="display: none;">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">Line Item's</h4>
                             <div class="card-tools">
@@ -303,8 +303,10 @@
                     </div>
                     <div class="form-group text-center">
                         <div class="col-md-3"></div>
-                        <button type="button" id="viewAttachment" onclick="displayAttachmentForPoDetails()" value="viewAttachment" class="btn btn-primary btn-lg">View Attachments</button>
-                        <button type="button" onclick="closeWin()" class="btn btn-info btn-lg">Close</button>
+							<button type="button" id="viewAttachment" value="viewAttachment" class="btn btn-primary btn-lg">View Attachments</button>
+							 <button type="button" id="closeWindow" class="btn btn-info btn-lg">Close</button>
+							 
+                        <!-- <button type="button" onclick="closeWin()" class="btn btn-info btn-lg">Close</button> -->
                     </div>
                     <div class="modal fade" id="viewAttachmentPopUp" role="dialog">
                         <div class="modal-dialog " style="max-width: 1300px;">

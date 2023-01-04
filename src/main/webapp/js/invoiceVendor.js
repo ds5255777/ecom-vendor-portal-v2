@@ -1,3 +1,6 @@
+var csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+
+
 $.widget.bridge('uibutton', $.ui.button);
 $.widget.bridge('uitooltip', $.ui.tooltip);
 
@@ -223,15 +226,12 @@ function createLineItem() {
 		"hsn": hsn,
 		"quantity": quantity,
 		"rate": rate,
-		"unit": $("#unit option:selected").text(),
-		"unitId": $("#unit").val(),
 		"value": value
 	}
 	lineItem.push(lineDetails);
 	$("#materialDescription").val("");
 	$("#hsn").val("");
 	$("#quantity").val("");
-	$("#unit").val("");
 	$("#rate").val("");
 	$("#value").val("");
 	showTable();
@@ -317,6 +317,15 @@ function onValidateFile(id) {
 
 function sendToServer() {
 
+	var invoiceNum = document.getElementById("vendorInvoiceNumber").value;
+	if (invoiceNum === "" || invoiceNum === null || invoiceNum === '') {
+		Toast.fire({
+			type: 'error',
+			title: 'Fill Invoice Number'
+		});
+		document.getElementById("vendorInvoiceNumber").focus();
+		return "";
+	}
 	var invoiceDa = document.getElementById("invoiceDate").value;
 	if (invoiceDa === "" || invoiceDa === null || invoiceDa === '') {
 		Toast.fire({
@@ -327,47 +336,33 @@ function sendToServer() {
 		return "";
 	}
 
-	var invoiceNu = document.getElementById("invoiceNumber").value;
-	if (invoiceNu === "" || invoiceNu === null || invoiceNu === '') {
+	var supplierSite = document.getElementById("supplierSite").value;
+	if (supplierSite === "" || supplierSite === null || supplierSite === '') {
 		Toast.fire({
 			type: 'error',
-			title: 'Fill Invoice Number'
+			title: 'Select Site'
 		});
-		document.getElementById("invoiceNumber").focus();
+		document.getElementById("supplierSite").focus();
 		return "";
 	}
 
-	var eInvoice = $("#enInvoiceApplibale").val();
 
-	if (eInvoice == "YES" || eInvoice == "Yes") {
-
-		var irnNumber = document.getElementById("irnNumber").value;
-		if (irnNumber === "" || irnNumber === null || irnNumber === '') {
-			Toast.fire({
-				type: 'error',
-				title: 'Fill IRN Number'
-			});
-			document.getElementById("irnNumber").focus();
-			return "";
-		}
-	}
-
-	var hsnCode = document.getElementById("hsnCode").value;
+	var hsnCode = document.getElementById("remitToBankAccountNumber").value;
 	if (hsnCode === "" || hsnCode === null || hsnCode === '') {
 		Toast.fire({
 			type: 'error',
 			title: 'Fill HSN Code'
 		});
-		document.getElementById("hsnCode").focus();
+		document.getElementById("remitToBankAccountNumber").focus();
 		return "";
 	}
 
-	var invoiceCheckStatus = checkForExistingInvoiceNumber();
+	//	var invoiceCheckStatus = checkForExistingInvoiceNumber();
 
-	if (invoiceCheckStatus == "false") {
+	//if (invoiceCheckStatus == "false") {
 
-		return;
-	}
+	//return;
+	//}
 
 	var invoiceDoc = document.getElementById("InvoiceUpload").value;
 	if (invoiceDoc === "" || invoiceDoc === null || invoiceDoc === '') {
@@ -379,32 +374,14 @@ function sendToServer() {
 		return "";
 	}
 
-	var docOne = document.getElementById("DocumentFileOne").value;
-	if (docOne === "" || docOne === null || docOne === '') {
-		Toast.fire({
-			type: 'error',
-			title: 'Upload Summary Sheet'
-		});
-		document.getElementById("docOne").focus();
-		return "";
-	}
 
-	var docTwo = document.getElementById("DocumentFileTwo").value;
-	if (docTwo === "" || docTwo === null || docTwo === '') {
-		Toast.fire({
-			type: 'error',
-			title: 'Upload FS Calculation Sheet'
-		});
-		document.getElementById("docTwo").focus();
-		return "";
-	}
-	if (tripLineArray.length === 0) {
+	/*if (tripLineArray.length === 0) {
 		Toast.fire({
 			type: 'error',
 			title: 'Select More Then One Trips'
 		});
 		return "";
-	}
+	}*/
 
 
 
@@ -419,27 +396,24 @@ function sendToServer() {
 		finalObj.invoiceFileName = document.getElementById("InvoiceUpload").files.item(0).name;
 		finalObj.invoiceFileText = $("#InvoiceFileText").val();
 	}
-	if (document.getElementById("DocumentFileOne").files.length > 0) {
-		finalObj.documentFileOneName = document.getElementById("DocumentFileOne").files.item(0).name;
-		finalObj.documentFileOneText = $("#DocumentFileOneText").val();
-	}
-	if (document.getElementById("DocumentFileTwo").files.length > 0) {
-		finalObj.documentFileTwoName = document.getElementById("DocumentFileTwo").files.item(0).name;
-		finalObj.documentFileTwoText = $("#DocumentFileTwoText").val();
-	}
-	tripLineArray.forEach((item) => {
+
+	finalObj.invoiceNumber = $("#ecomInvoiceNumber").val();
+
+	/*tripLineArray.forEach((item) => {
 		item.id = null;
-	});
+	});*/
 
-	finalObj.eInvoiceApplibale = $("#enInvoiceApplibale").val();
+	//finalObj.eInvoiceApplibale = $("#enInvoiceApplibale").val();
+	finalObj.invoiceLineItem = lineItem;
+	debugger
 
-	console.log(finalObj);
+	console.log("----------------------------", finalObj);
 
-	finalObj.invoiceLineItem = tripLineArray;
+	
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(finalObj),
-		url: "invoiceController/saveInvoice",
+		url: "PoInvoiceContoller/savePoInvoice",
 		dataType: "json",
 		headers: { 'X-XSRF-TOKEN': csrfToken },
 		contentType: "application/json",
@@ -447,7 +421,6 @@ function sendToServer() {
 
 			if (response.msg == 'success') {
 				swal.fire("Invoice Processed Sucessfully", "Process ID : " + response.data, "success", "OK").then(function() {
-					window.opener.refereshList();
 					window.close();
 				});
 				setTimeout(function(response) { }, 2000);
@@ -499,3 +472,8 @@ function discardInvoice() {
 		}
 	});
 }
+
+
+
+
+///lineItem.value

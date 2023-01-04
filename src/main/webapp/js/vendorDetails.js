@@ -130,6 +130,7 @@ $("#bpCode").focusout(function() {
 
 
 $("#changeVendorPassword").bind("click", function() {
+	
 	var val = $("#password").val();
 	vendorPasswordChange(val);
 });
@@ -265,7 +266,7 @@ function getData() {
 		contentType: "application/json",
 		async: false,
 		success: function(data) {
-
+			
 			if (data.msg == 'success') {
 				var lastName = "";
 				result = data.data;
@@ -303,9 +304,19 @@ function getData() {
 
 
 					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#\" class=\"checkVendorCode\">" + result[i].bpCode + "</a>";
-					var inactive = "<a href=\"#\" data-toggle=\"modal\"  tittle=\"In-Active Vendor\" data-target=\"#vendorValue\" class=\"inactiveVendor\" )\"> <i style=\"color:red;\" class=\"fas fa-user-slash\"></i>  </a>";
-					var active = "<a href=\"#\" data-toggle=\"modal\" tittle=\"Active Vendor\" data-target=\"#vendorValue\" class=\"activeVendor\" > <i class=\"fas fa-user\"></i>  </a>";
-					var changePassword = "<button type=\"button\" class=\"tripApprove btn btn-primary btn-xs\"  value=\"" + result[i].bpCode + "\"> <i class=\"fas fa-key\"></i>  </button>";
+					if (result[i].flag == "Active") {
+						var changePassword = "<button type=\"button\" id=\"" + result[i].bpCode + "\" style=\"display: block\" class=\"tripApprove btn btn-primary btn-xs\"  value=\"" + result[i].bpCode + "\"> <i class=\"fas fa-key\"></i>  </button>";
+					} else {
+						var changePassword = "<button type=\"button\" id=\"" + result[i].bpCode + "\" style=\"display: none\" class=\"tripApprove btn btn-primary btn-xs\"  value=\"" + result[i].bpCode + "\"> <i class=\"fas fa-key\"></i>  </button>";
+					}
+					if (result[i].flag == "Active") {
+						var button = "<a href=\"#\" data-toggle=\"modal\"  tittle=\"In-Active Vendor\" data-target=\"#vendorValue\" class=\"inactiveVendor\" )\"> <i style=\"color:red;\" class=\"fas fa-user-slash\"></i>  </a>";
+					} else if (result[i].flag == "In-Active"){
+						var button = "<a href=\"#\" data-toggle=\"modal\" tittle=\"Active Vendor\" data-target=\"#vendorValue\" class=\"activeVendor\" > <i class=\"fas fa-user\"></i>  </a>";
+					}else if (result[i].flag == ""){
+						var button = "";
+					}
+
 					tabledata.row.add([view,
 						result[i].suppName,
 						result[i].vendorType,
@@ -314,7 +325,7 @@ function getData() {
 						result[i].introducedByEmailID,
 						result[i].flag,
 						changePassword,
-						inactive + " &nbsp;&nbsp; " + active]);
+						button]);
 				}
 				tabledata.draw();
 				$("tbody").show();
@@ -335,11 +346,12 @@ function getData() {
 
 $('#tabledata tbody').on('click', ".tripApprove", function() {
 
+	
 	var userName = this.value;
 	//$("#userID").val(userName);
 	$("#changePassword").modal('show');
 	//$("#password").val('');
-	
+
 	vendorPasswordChange(userName)
 });
 
@@ -709,6 +721,7 @@ function editData(bpCode) {
 					}
 
 				}
+
 
 				select();
 				var ero = result.ero;
@@ -1770,6 +1783,7 @@ function select() {
 }
 
 function MESMENumber() {
+	
 	var busClassif = $("#businessClassification").val();
 
 
@@ -1829,6 +1843,7 @@ function checkForExistingPanNumber() {
 }
 
 function checkForExistingVendorCode() {
+	
 	var vendorCodeCheckStatus = "false";
 	var bpCode = $("#bpCode").val();
 	var suppName = $("#suppName").val();
@@ -1873,8 +1888,8 @@ function checkForExistingVendorCode() {
 
 function vendorPasswordChange(val) {
 	console.log(val);
-	var json={
-		"bpCode":val
+	var json = {
+		"bpCode": val
 	}
 	$.ajax({
 		type: "POST",

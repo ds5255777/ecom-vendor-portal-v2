@@ -79,6 +79,15 @@
                         <div class="card-body">
                             <form id="stepOneForm" class="forms-sample" autocomplete="off">
                                 <div class="row">
+                                
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Partner Code<span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" name="vendorCode" id="vendorCode" value="${vendorCode }" readonly class="form-control-sm" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="col-md-3">
                                         <div class="form-group row">
@@ -95,7 +104,7 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Inv. Type<span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Inv. Type<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
 
                                                 <select class="form-control-sm select2" style="width: 100%;" id="invoiceType" name="invoiceType" readonly>
@@ -128,7 +137,7 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Inv.Currency <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Inv.Currency <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency" readonly>
                                                     <option value="INR" readonly>INR</option>
@@ -140,7 +149,7 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Inv.Amount <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Inv.Amount <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" placeholder="Invoice Amount" onkeypress="return event.charCode >= 46 && event.charCode <= 57" maxlength="70" name="invoiceAmount" id="invoiceAmount" style="width: 100%;" readonly>
                                             </div>
@@ -152,7 +161,7 @@
                                             <label class="col-sm-5">Supplier Site <span class="text-danger">*</span></label>
                                             <div class="col-sm-7">
                                                <!--  <input class="form-control-sm" type="text" placeholder="Supplier Site" name="supplierSite" id="supplierSite" readonly style="width: 100%;"> -->
-                                                <select id="terms" name="terms" style="width: 100%;"  class="form-control-sm select2" placeholder="Payment / Credit Terms">
+                                                <select id="supplierSite" name="supplierSite" style="width: 100%;"  class="form-control-sm select2">
                                                     <option value="">Select</option>
                                                     <c:forEach items="${supplierSiteCode}" var="pay">
 
@@ -238,15 +247,44 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Header Desc.</label>
+                                            <div class="col-sm-7">
+                                            
+                                            <input type="text" name="headerDes" id="headerDes" class="form-control-sm" style="width: 100%;">
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Process Flow</label>
+                                            <div class="col-sm-7">
+                                            
+                                            <input type="text" name="processFlow" id="processFlow" readonly class="form-control-sm" style="width: 100%;">
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Operating Unit</label>
+                                            <div class="col-sm-7">
+                                            
+                                            <input type="text" name="operatingUnit" id="operatingUnit" readonly class="form-control-sm" style="width: 100%;">
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                    
-                   <div class="card card-primary">
+                   <div class="card card-primary" style="display: none;">
 							<div class="card-header" style="padding: 5px 0px 0px 11px;">
-								<h3 class="card-title" style="font-size: 15px;">Material
-									Details</h3>
+								<h3 class="card-title" style="font-size: 15px;">Line Item's</h3>
 								<div class="card-tools" style="padding-right: 15px;">
 
 									<button type="button" class="btn btn-tool"

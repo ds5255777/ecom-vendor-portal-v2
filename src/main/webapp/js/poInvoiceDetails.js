@@ -1,6 +1,7 @@
 var csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
 
-
+$.widget.bridge('uibutton', $.ui.button);
+$.widget.bridge('uitooltip', $.ui.tooltip);
 
 const Toast = Swal.mixin({
 	toast: true,
@@ -145,7 +146,7 @@ function getData() {
 					}
 
 
-					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getInvoiceDataFormDataByInvoiceNumber('" + result[i].invoiceNumber + "')\" >" + result[i].invoiceNumber + "</button>";
+					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" class=\"allIncEdit\">" + result[i].invoiceNumber + "</button>";
 
 					tabledata.row.add([view, result[i].poNumber, result[i].vendorInvoiceNumber, result[i].invoiceType, result[i].supplierSite, result[i].invoiceDate, result[i].invoiceAmount, result[i].status]);
 				}
@@ -163,6 +164,15 @@ function getData() {
 		}
 	});
 }
+
+$('#tabledata tbody').on('click', ".allIncEdit", function() {
+	var row = $(this).parents('tr')[0];
+	//console.log(row.cells[0].innerText);
+	//console.log(tabledata.row(row).data().id);
+	
+	
+	getInvoiceDataFormDataByInvoiceNumber((row.cells[0].innerText));
+});
 
 function getInvoiceDataFormDataByInvoiceNumber(id) {
 	$('.loader').show();

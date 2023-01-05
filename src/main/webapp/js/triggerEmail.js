@@ -1,6 +1,5 @@
 var csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
 
-
 function myFunction() {
 	document.getElementById("myDropdown").classList.toggle("show");
 }
@@ -31,10 +30,10 @@ var tabledata = $('#tabledata').DataTable({
 	"scrollX": true
 });
 $(document).ready(function() {
+	getData();
 	$('.js-example-basic-multiple1').select2({
 		zplaceholder: "Select Region",
 		allowClear: true
-
 	});
 
 });
@@ -46,15 +45,13 @@ const Toast = Swal.mixin({
 	timer: 3000
 });
 
-
 $.validator.setDefaults({
 	submitHandler: function() {
 		addFormData();
-
 	}
 });
-$('#addForm').validate({
 
+$('#addForm').validate({
 	rules: {
 		vendorEmail: {
 			required: true,
@@ -62,20 +59,14 @@ $('#addForm').validate({
 		},
 		vendorType: {
 			required: true
-
 		},
 		region: {
-
 			required: true
-
 		},
 		creditTerms: {
 			required: true
-
 		}
-
 	},
-
 	errorElement: 'span',
 	errorPlacement: function(error, element) {
 		error.addClass('invalid-feedback');
@@ -92,11 +83,10 @@ $('#addForm').validate({
 $.validator.setDefaults({
 	submitHandler: function() {
 		updateFormData();
-
 	}
 });
-$('#updateForm').validate({
 
+$('#updateForm').validate({
 	rules: {
 		userName: {
 			required: true,
@@ -104,20 +94,14 @@ $('#updateForm').validate({
 		},
 		password: {
 			required: true
-
 		},
 		serverName: {
-
 			required: true
-
 		},
 		smtpPort: {
 			required: true
-
 		}
-
 	},
-
 	errorElement: 'span',
 	errorPlacement: function(error, element) {
 		error.addClass('invalid-feedback');
@@ -131,18 +115,15 @@ $('#updateForm').validate({
 	}
 });
 
-
 var id = "";
 var status = "";
 
-
-
 function addFormData() {
-
+	$('.loader').show();
 	var region = $("#region").val().toString();
-
+	var venEmail=$("#vendorEmail").val();
 	var json = {
-		"vendorEmail": $("#vendorEmail").val(),
+		"vendorEmail": venEmail,
 		"vendorType": $("#vendorType").val().toString(),
 		"region": region,
 		"creditTerms": $("#creditTerms").val()
@@ -154,21 +135,16 @@ function addFormData() {
 		dataType: "json",
 		headers: { 'X-XSRF-TOKEN': csrfToken },
 		contentType: "application/json",
-		async: false,
 		success: function(data) {
 			$('.loader').hide();
 			if (data.msg == 'success') {
-
 				$('#addForm')[0].reset();
-
-
-				swal.fire("Email sent sucessfully", "", "success", "OK").then(function() {
+				swal.fire("Email sent sucessfully, Vendor Mail-id : "+venEmail, "", "success", "OK").then(function() {
 					$('#region').val("");
 					$('#region').trigger('change');
 					$('#vendorType').val("");
 					$('#vendorType').trigger('change');
 				});
-
 				getData();
 			} else {
 				Toast.fire({
@@ -176,25 +152,18 @@ function addFormData() {
 					title: 'Failed.. Try Again..'
 				})
 			}
-
 		},
 		error: function(jqXHR, textStatue, errorThrown) {
 			alert("failed, please try again");
 		}
-
 	});
-
 }
 
-getData();
-
 function getData() {
-
-
+	$('.loader').show();
 	var json = {
 		"isActive": "1"
 	}
-
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(json),
@@ -202,96 +171,34 @@ function getData() {
 		dataType: "json",
 		headers: { 'X-XSRF-TOKEN': csrfToken },
 		contentType: "application/json",
-		async: false,
 		success: function(data) {
-
+			$('.loader').hide();
 			if (data.msg == 'success') {
-
 				var result = data.data;
 				tabledata.clear();
-
 				for (var i = 0; i < result.length; i++) {
-
-					if (!result[i].hasOwnProperty("vendorEmail")) {
-						result[i].vendorEmail = "";
-					}
-					if (!result[i].hasOwnProperty("vendorType")) {
-						result[i].vendorType = "";
-					}
-					if (!result[i].hasOwnProperty("region")) {
-						result[i].region = "";
-					}
-					if (!result[i].hasOwnProperty("creditTerms")) {
-						result[i].creditTerms = "";
-					}
-					if (!result[i].hasOwnProperty("vendorPid")) {
-						result[i].vendorPid = "";
-					}
-					if (!result[i].hasOwnProperty("processOn")) {
-						result[i].processOn = "";
-					}
-					if (!result[i].hasOwnProperty("processBy")) {
-						result[i].processBy = "";
-					}
-
-
-					tabledata.row.add([result[i].vendorEmail, result[i].vendorType, result[i].region, result[i].creditTerms, result[i].vendorPid, result[i].processOn, result[i].processBy]);
-
+					tabledata.row.add([
+						i + 1,
+						result[i][1],
+						result[i][2],
+						result[i][3],
+						result[i][4],
+						result[i][5],
+						result[i][6],
+						result[i][7],
+						result[i][8]]);
 				}
-
 				tabledata.draw();
 				$("tbody").show();
-
 			} else {
 				Toast.fire({
 					type: 'error',
 					title: 'Failed.. Try Again..'
 				})
 			}
-
 		},
 		error: function(jqXHR, textStatue, errorThrown) {
 			alert("failed, please try again");
 		}
-
 	});
-
-}
-
-
-function inactiveActiveDeleteData() {
-	$.ajax({
-		type: "POST",
-		data: "",
-		url: "emailConfigurationController/updateEmailConfigurationSatatusByid",
-		dataType: "json",
-		headers: { 'X-XSRF-TOKEN': csrfToken },
-		contentType: "application/json",
-		async: false,
-		success: function(data) {
-
-			if (data.msg == 'success') {
-
-				Toast.fire({
-					type: 'success',
-					title: 'Deleted Successfully..'
-				})
-
-
-				getData();
-			} else {
-				Toast.fire({
-					type: 'error',
-					title: 'Failed.. Try Again..'
-				})
-			}
-
-		},
-		error: function(jqXHR, textStatue, errorThrown) {
-			alert("failed, please try again");
-		}
-
-	});
-
-
 }

@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,14 +62,16 @@ public class TripControllers {
 		String userName = principal.getName();
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 		try {
-			fromDate=fromDate.replace(",","");
-			
+			fromDate = fromDate.replace(",", "");
+
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 				List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-						.findByActualDepartureBetween(fromDate, toDate);
+						.findByActualDepartureBetweenOrderByIdDesc(fromDate, toDate);
 				List<TripDetailsDto> collect = getListByDateFilter.stream()
 						.map(filterList -> this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
 						.collect(Collectors.toList());
+				long count = serviceManager.tripDetailsRepo.countByActualDepartureBetween(fromDate, toDate);
+				data.setTotalRecord(count);
 				data.setData(collect);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
@@ -101,7 +104,7 @@ public class TripControllers {
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo
-						.findByRunStatusAndVendorCode(GlobalConstants.RUN_CLOSED, userName);
+						.findByRunStatusIgnoreCaseAndVendorCodeOrderByIdDesc(GlobalConstants.RUN_CLOSED, userName);
 				List<TripDetailsDto> closeTripList = allTripDetailsList.stream()
 						.map(closeTrip -> this.serviceManager.modelMapper.map(closeTrip, TripDetailsDto.class))
 						.collect(Collectors.toList());
@@ -126,11 +129,11 @@ public class TripControllers {
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_NETWORK)) {
 			try {
-				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo.findAll();
-				List<TripDetailsDto> listTrip = allTripDetailsList.stream()
-						.map(allTrip -> this.serviceManager.modelMapper.map(allTrip, TripDetailsDto.class))
-						.collect(Collectors.toList());
-				data.setData(listTrip);
+				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo.findTopTrip();
+
+				long count = serviceManager.tripDetailsRepo.count();
+				data.setData(allTripDetailsList);
+				data.setTotalRecord(count);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} catch (Exception e) {
 				data.setMsg(GlobalConstants.ERROR_MESSAGE);
@@ -139,7 +142,9 @@ public class TripControllers {
 		} else if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 			String vendorCode = principal.getName();
 			try {
-				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo.findByVendorCode(vendorCode);
+				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo
+						.findByVendorCodeOrderByIdDesc(vendorCode);
+
 				List<TripDetailsDto> listTrip = allTripDetailsList.stream()
 						.map(trip -> this.serviceManager.modelMapper.map(trip, TripDetailsDto.class))
 						.collect(Collectors.toList());
@@ -165,8 +170,8 @@ public class TripControllers {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 
 				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo
-						.findByRunStatusAndVendorTripStatusAndVendorCode(GlobalConstants.RUN_CLOSED,
-								GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, userName);
+						.findByRunStatusIgnoreCaseAndVendorTripStatusAndVendorCodeOrderByIdDesc(
+								GlobalConstants.RUN_CLOSED, GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, userName);
 				List<TripDetailsDto> closeAndTripList = allTripDetailsList.stream()
 						.map(closeAndApproveTrip -> this.serviceManager.modelMapper.map(closeAndApproveTrip,
 								TripDetailsDto.class))
@@ -192,8 +197,21 @@ public class TripControllers {
 		try {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 
+				List<String> runStatusList = new ArrayList<>();
+				runStatusList.add("CLOSED");
+				runStatusList.add("Closed");
+				runStatusList.add("closed");
+				runStatusList.add("CANCELLED");
+				runStatusList.add("cancelled");
+				runStatusList.add("Cancelled");
+
+				// findByAgeNotIn(Collection<Age> ages)
+
+				// .findByVendorTripStatusAndAssignToAndVendorCodeAndRunStatusInOrderByIdDesc(
+				// findByVendorCodeAndRunStatusNotInOrderByIdDesc(userName, runStatusList)
+
 				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo
-						.findByRunStatusAndVendorCode(GlobalConstants.RUN_IN_TRANSIT, userName);
+						.findByVendorCodeAndRunStatusNotInOrderByIdDesc(userName, runStatusList);
 				List<TripDetailsDto> inTransitTripList = allTripDetailsList.stream()
 						.map(inTransitTrip -> this.serviceManager.modelMapper.map(inTransitTrip, TripDetailsDto.class))
 						.collect(Collectors.toList());
@@ -331,7 +349,7 @@ public class TripControllers {
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 
 				List<TripDetails> pendingApprovalTrip = serviceManager.tripDetailsRepo
-						.findByVendorTripStatusAndRunStatusAndAssignToAndVendorCode(
+						.findByVendorTripStatusAndRunStatusIgnoreCaseAndAssignToAndVendorCodeOrderByIdDesc(
 								GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED, GlobalConstants.RUN_CLOSED,
 								GlobalConstants.ROLE_VENDOR, userName);
 				List<TripDetailsDto> pendingApprovalTripList = pendingApprovalTrip.stream()
@@ -341,6 +359,7 @@ public class TripControllers {
 
 				data.setData(pendingApprovalTripList);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+
 			}
 		} catch (Exception e) {
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
@@ -496,8 +515,9 @@ public class TripControllers {
 				if (columnName.equals("route")) {
 					List<String> routeList = Arrays.asList(columnValue.split(","));
 					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-							.findByRouteInAndVendorTripStatusAndVendorCode(routeList,
-									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
+							.findByRouteInAndVendorTripStatusAndVendorCodeAndRunStatusIgnoreCase(routeList,
+									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode,
+									GlobalConstants.RUN_CLOSED);
 					List<TripDetailsDto> filterByRoute = getListByDateFilter.stream().map(
 							filterInRoot -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
 							.collect(Collectors.toList());
@@ -528,8 +548,9 @@ public class TripControllers {
 					data.setData(filterByRoute);
 				} else if (columnName.equals("vehicle_number")) {
 					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-							.findByVehicleNumberAndVendorTripStatusAndVendorCode(columnValue,
-									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode);
+							.findByVehicleNumberAndVendorTripStatusAndVendorCodeAndRunStatusIgnoreCase(columnValue,
+									GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, vendorCode,
+									GlobalConstants.RUN_CLOSED);
 					List<TripDetailsDto> filterByRoute = getListByDateFilter.stream().map(
 							filterInRoot -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
 							.collect(Collectors.toList());
@@ -540,16 +561,18 @@ public class TripControllers {
 				if (columnName.equals("route")) {
 					List<String> routeList = Arrays.asList(columnValue.split(","));
 					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-							.findByRouteInAndVendorTripStatusAndVendorCode(routeList,
-									GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED, vendorCode);
+							.findByRouteInAndVendorTripStatusAndVendorCodeAndRunStatusIgnoreCase(routeList,
+									GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED, vendorCode,
+									GlobalConstants.RUN_CLOSED);
 					List<TripDetailsDto> filterByRoute = getListByDateFilter.stream().map(
 							filterInRoot -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
 							.collect(Collectors.toList());
 					data.setData(filterByRoute);
 				} else if (columnName.equals("vehicle_number")) {
 					List<TripDetails> getListByDateFilter = serviceManager.tripDetailsRepo
-							.findByVehicleNumberAndVendorTripStatusAndVendorCode(columnValue,
-									GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED, vendorCode);
+							.findByVehicleNumberAndVendorTripStatusAndVendorCodeAndRunStatusIgnoreCase(columnValue,
+									GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED, vendorCode,
+									GlobalConstants.RUN_CLOSED);
 					List<TripDetailsDto> filterByRoute = getListByDateFilter.stream().map(
 							filterInRoot -> this.serviceManager.modelMapper.map(filterInRoot, TripDetailsDto.class))
 							.collect(Collectors.toList());
@@ -578,8 +601,8 @@ public class TripControllers {
 		try {
 			List<String> myList = new ArrayList<>(Arrays.asList(obj.split(",")));
 
-			serviceManager.tripDetailsRepo.getUpdateStatusSelectTrips(processedBy, processedOn, GlobalConstants.VENDOR_TRIP_STATUS_APPROVED,
-					myList);
+			serviceManager.tripDetailsRepo.getUpdateStatusSelectTrips(processedBy, processedOn,
+					GlobalConstants.VENDOR_TRIP_STATUS_APPROVED, myList);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
 		} catch (Exception e) {
@@ -618,9 +641,13 @@ public class TripControllers {
 		try {
 			List<TripDetails> approvedTrips = serviceManager.tripDetailsRepo
 					.getQueryTripsForNetwork(GlobalConstants.VENDOR_TRIP_STATUS_QUERY);
-			List<TripDetailsDto> collect = approvedTrips.stream()
-					.map(filterList -> this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
-					.collect(Collectors.toList());
+			/*
+			 * List<TripDetailsDto> collect = approvedTrips.stream() .map(filterList ->
+			 * this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
+			 * .collect(Collectors.toList());
+			 */
+			List<TripDetails> collect = approvedTrips.stream()
+					.sorted(Comparator.comparingInt(TripDetails::getId).reversed()).collect(Collectors.toList());
 			data.setData(collect);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
@@ -659,9 +686,13 @@ public class TripControllers {
 
 		try {
 			List<TripDetails> approvedTrips = serviceManager.tripService.findAllTripsByStatus("");
-			List<TripDetailsDto> collect = approvedTrips.stream()
-					.map(filterList -> this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
-					.collect(Collectors.toList());
+			List<TripDetails> collect = approvedTrips.stream()
+					.sorted(Comparator.comparingInt(TripDetails::getId).reversed()).collect(Collectors.toList());
+			/*
+			 * List<TripDetailsDto> collect = approvedTrips.stream() .map(filterList ->
+			 * this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
+			 * .collect(Collectors.toList());
+			 */
 			data.setData(collect);
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 
@@ -670,5 +701,30 @@ public class TripControllers {
 		}
 
 		return gson.toJson(data);
+	}
+
+	@RequestMapping("/getPaginationDataOfVendor")
+	public String getPaginationDataOfVendor(@RequestBody TripDetailsDto obj) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+		try {
+
+			Integer dataSize = 100;
+
+			Integer fetchCount = obj.getId();
+			fetchCount = fetchCount - 1;
+			fetchCount = fetchCount * dataSize;
+
+			List<TripDetails> vendorList = serviceManager.tripDetailsRepo.getTripDataByPagination(fetchCount, dataSize);
+			long count = serviceManager.tripDetailsRepo.count();
+			data.setData(vendorList);
+			data.setTotalRecord(count);
+			data.setMsg("success");
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+		return gson.toJson(data).toString();
 	}
 }

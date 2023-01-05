@@ -15,8 +15,11 @@ import com.main.db.bpaas.entity.SendEmailToVendor;
 @Repository
 public interface SendEmailToVendorRepo extends JpaRepository<SendEmailToVendor, Integer> {
 
-	@Query(value = "select * from send_email_vendor where process_by=?", nativeQuery = true)
-	List<SendEmailToVendor> findByProcessBy(String processBy);
+	@Query(value = "select send_email_vendor.id, send_email_vendor.vendor_email, send_email_vendor.vendor_type, send_email_vendor.region, send_email_vendor.creditterms,\r\n"
+			+ "send_email_vendor.vendor_pid,sup.bp_code,sup.ven_status,send_email_vendor.process_on\r\n"
+			+ "from supdetails sup Right join send_email_vendor\r\n"
+			+ "on sup.pid = send_email_vendor.vendor_pid where send_email_vendor.process_by=:processBy ORDER BY id desc ;", nativeQuery = true)
+	List<Object[]> findByProcessBy(String processBy);
 	
 	@Query(value = "select process_on from send_email_vendor where flag=?", nativeQuery = true)
 	String processOn(Integer flag);

@@ -76,7 +76,7 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Partner Name <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Partner Name <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" name="vendorName" id="vendorName" readonly value="${vendorName }" style="width: 100%;">
                                                 <input type="hidden" id="listOfSelectTrips" value="${listofTrips}">
@@ -86,7 +86,7 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Partner Code <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Partner Code <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" placeholder="Business Partner Code" name="vendorCode" readonly value="${userName }" id="vendorCode" style="width: 100%;">
                                             </div>
@@ -94,7 +94,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Invoice Currency <span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">Invoice Currency <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <select class="form-control-sm select2" style="width: 100%;" id="invoiceCurrency" name="invoiceCurrency">
                                                     <option value="INR">INR</option>
@@ -132,14 +132,14 @@
                                         <div class="form-group row">
                                             <label class="col-sm-5">e-Invoice Applicable</label>
                                             <div class="col-sm-7">
-                                                <input type="text" name="eInvoiceApplibale" id="eInvoiceApplibale" value="${eInvoiceStatus }"  class="form-control-sm" style="width: 100%;" readonly>
+                                                <input type="text" name="enInvoiceApplibale" id="enInvoiceApplibale" value="${eInvoiceStatus }"  class="form-control-sm" style="width: 100%;" readonly>
                                             </div>
                                         </div>
                                     </div>
                                     
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">IRN Number<span class="text-danger">*</span></label>
+                                            <label class="col-sm-5">IRN Number<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input type="text" name="irnNumber" placeholder="IRN Number" class="form-control-sm" maxlength="70" style="width: 100%;" id="irnNumber" >
                                             </div>
@@ -155,6 +155,23 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-3" style="display: none;">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Process Flow<span class="text-danger"> *</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="processFlow" id="processFlow" type="text" value="Network & Fleet" placeholder="Process Flow" style="width: 100%;" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="display: none;">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Operating Unit<span class="text-danger"> *</span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" name="operatingUnit" id="operatingUnit" type="text" placeholder="Operating Unit" style="width: 100%;" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                     <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Taxable Amount</label>
@@ -206,6 +223,15 @@
                                             <label class="col-sm-5">Invoice Amount <span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="number" name="invoiceAmount" id="invoiceAmount" placeholder="Invoice Amount" readonly style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Header Desc.<span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" name="headerDes" id="headerDes" maxlength="100" placeholder="Header Description" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>

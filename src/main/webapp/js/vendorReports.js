@@ -202,8 +202,8 @@ function getData() {
 						if (!result[i].hasOwnProperty("ero")) {
 							result[i].ero = "";
 						}
-						if (!result[i].hasOwnProperty("dhq")) {
-							result[i].dhq = "";
+						if (!result[i].hasOwnProperty("ihq")) {
+							result[i].ihq = "";
 						}
 						if (!result[i].hasOwnProperty("sectionType")) {
 							result[i].sectionType = "";
@@ -282,7 +282,7 @@ function getData() {
 							result[i].wro,
 							result[i].nro,
 							result[i].ero,
-							result[i].dhq,
+							result[i].ihq,
 							result[i].sectionType + "-IND",
 							"",
 							result[i].sectionType + "-IND",

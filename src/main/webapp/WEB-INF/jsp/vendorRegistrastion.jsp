@@ -135,7 +135,7 @@ label {
 	opacity: .5;
 }
 
-.required {
+.required, .pdDocClass{
 	color: red;
 }
 
@@ -243,7 +243,7 @@ label {
 														class="required adHocRequired">*</span></label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="suppName" name="suppName"
-													placeholder="Supplier Name" maxlength="50"></td>
+													placeholder="Supplier Name" maxlength="200"></td>
 
 												<td><label for="businessClassification">Business
 														Classification<span
@@ -263,7 +263,7 @@ label {
 														class="required adHocRequired">*</span></label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="mesmeNumber"
-													maxlength="12" name="mesmeNumber"
+													maxlength="19" name="mesmeNumber"
 													placeholder="MESME Certificate Number" disabled="disabled"></td>
 											</tr>
 
@@ -519,13 +519,13 @@ label {
 															class="required adHocRequired">*</span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="conFname" name="conFname"
-														placeholder="First Name"></td>
+														placeholder="First Name" maxlength="50"></td>
 
 													<td><label for="lnameCon">Last Name<span
-															class="required adHocRequired">*</span></label></td>
+															class="required adHocRequired"></span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="conLname" name="conLname"
-														placeholder="Last Name"></td>
+														placeholder="Last Name"  maxlength="50"></td>
 
 													<td><label for="phno">Phone Number<span
 															class="required adHocRequired">*</span></label></td>
@@ -540,7 +540,7 @@ label {
 															class="required adHocRequired">*</span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="conEmail" name="conEmail"
-														placeholder="Email"></td>
+														placeholder="Email"  maxlength="50"></td>
 													<td></td>
 													<td></td>
 													<td>
@@ -956,8 +956,7 @@ label {
 																href="document/GST Declaration.zip" download>
 																	Download Template </a></td>
 
-															<td><label>Proprietorship Declaration<span
-																	class="required"></span></label></td>
+															<td><label>Proprietorship Declaration</label></td>
 															<td><input type="file" id="PDFile" name="PDFile"
 																class="form-control p-input" accept=".docx, .pdf">
 																<textarea id="PDFileText" rows="5"
@@ -1053,7 +1052,7 @@ label {
 																	declaration would be required if name mentioned in all
 
 																	document is not same including spelling error<span
-																	class="required"></span>
+																	class="pdDocClass" style="visibility: hidden;">*</span>
 															</label></td>
 															<td><input type="file" id="NMISFile" name="NMISFile"
 																class="form-control p-input" accept=".docx, .pdf">

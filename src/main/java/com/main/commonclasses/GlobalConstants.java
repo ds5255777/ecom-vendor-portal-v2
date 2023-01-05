@@ -78,4 +78,11 @@ public class GlobalConstants {
 	public static final String DATE_FORMATTER_DD_MM_YYYY="dd-MM-yyyy";
 	public static final String DATE_FORMATTER_YYYY_MM_DD="yyyy-MM-dd";
 	
+	
+	public static final String VENDOR_NETWORK="Network";
+	public static final String VENDOR_COURIER="COURIER";
+	public static final String VENDOR_EMPLOYEE_NOMINEE="EMPLOYEE NOMINEE";
+	public static final String VENDOR_RENT="RENT";
+	public static final String VENDOR_FIXED_ASSETS="FIXED ASSETS";
+	public static final String VENDOR_OTHER_EXPENSES="OTHER EXPENSES";
 }

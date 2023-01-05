@@ -44,7 +44,7 @@ public class InvoiceGenerationEntity {
 	private String invoiceReceivingDate;
 	
 	@Column(name = "e_invoice")
-	private String eInvoiceApplibale;
+	private String enInvoiceApplibale;
 	
 	@Column(name = "irn_number")
 	private String irnNumber;
@@ -55,6 +55,15 @@ public class InvoiceGenerationEntity {
 	
 	@Column(name = "assign_to")
 	private String assignTo;
+	
+	@Column(name = "process_flow")
+	private String processFlow;
+	
+	@Column(name = "operating_unit")
+	private String operatingUnit;
+	
+	@Column(name = "header_des", columnDefinition = "TEXT")
+	private String headerDes;
 
 	@Column(name = "processed_On")
 	private String processedOn;

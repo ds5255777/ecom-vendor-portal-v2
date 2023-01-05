@@ -30,7 +30,7 @@ var tabledata = $('#tabledata').DataTable({
 			extend: 'excelHtml5',
 
 			exportOptions: {
-				columns: [0, 1, 2, 3, 4, 5],
+				columns: [0, 1, 2, 3, 4, 5, 6, 7],
 			}
 		},
 		{
@@ -38,7 +38,7 @@ var tabledata = $('#tabledata').DataTable({
 			orientation: 'landscape',
 			pageSize: 'A4',
 			exportOptions: {
-				columns: [0, 1, 2, 3, 4, 5],
+				columns: [0, 1, 2, 3, 4, 5, 6, 7],
 			},
 			customize: function(doc) {
 

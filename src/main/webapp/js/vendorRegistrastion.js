@@ -60,6 +60,10 @@ $("#businessClassification").bind("change", function() {
 	MESMENumber();
 });
 
+$("#mesmeNumber").bind("input", function() {
+	this.value = this.value.toUpperCase();
+});
+
 $("#aadharNumber").bind("input", function() {
 	this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
 });
@@ -437,9 +441,6 @@ $("#contactDetailsButt").click(function() {
 	if (abc == null || abc == "") {
 		swal.fire("Alert", "First Name is mandatory !", "warning");
 		return false;
-	} else if (abc2 == null || abc2 == "") {
-		swal.fire("Alert", "Last Name is mandatory !", "warning");
-		return false;
 	} else if (abc3 == null || abc3 == "") {
 		swal.fire("Alert", "Phone Number is mandatory !", "warning");
 		return false;
@@ -500,6 +501,14 @@ $("#addBankGridButt").click(function() {
 		document.getElementById('accoutNumber').value = "";
 		document.getElementById('confirmedAccoutNumber').value = "";
 		document.getElementById('divCheckPasswordMatch').innerHTML = "";
+	}
+
+	var suppName = $("#suppName").val();
+
+	if (suppName != abc5) {
+		$(".pdDocClass").css("visibility", "visible");
+	} else {
+		$(".pdDocClass").css("visibility", "hidden");
 	}
 });
 
@@ -638,13 +647,13 @@ function sendToServer() {
 		}
 	}
 	var mandFields = "enInvApplicable";
-		var mandFieldsArr = mandFields.split(",");
-		for (i = 0; i < mandFieldsArr.length; i++) {
-			if (document.getElementById(mandFieldsArr[i]).value == '') {
-				notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
-				return false;
-			}
+	var mandFieldsArr = mandFields.split(",");
+	for (i = 0; i < mandFieldsArr.length; i++) {
+		if (document.getElementById(mandFieldsArr[i]).value == '') {
+			notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+			return false;
 		}
+	}
 
 	var addressDetailsArray = [];
 	var table = document.getElementById('addBookGrid');
@@ -763,6 +772,31 @@ function sendToServer() {
 			notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
 			return false;
 		}
+	}
+
+	var bankTable = document.getElementById('addBankGrid');
+	var rowLengthBank = bankTable.rows.length;
+	var beneficiaryName;
+
+	for (var i = 1; i < rowLengthBank; i += 1) {
+		var row = bankTable.rows[i];
+		beneficiaryName = row.cells[1].innerHTML;
+	}
+
+	var suppNameReg = $("#suppName").val();
+	//var beneficiaryName = $("#beneficiaryName").val();
+
+	if (suppNameReg != beneficiaryName) {
+
+		var mandFields = "NMISFile";
+		var mandFieldsArr = mandFields.split(",");
+		for (i = 0; i < mandFieldsArr.length; i++) {
+			if (document.getElementById(mandFieldsArr[i]).value == '') {
+				notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+				return false;
+			}
+		}
+
 	}
 
 

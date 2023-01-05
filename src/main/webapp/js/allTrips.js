@@ -337,7 +337,7 @@ function getFilterData() {
 	$('#selectPaymentStatus').val('');
 
 
-	if (fromDate == "" || fromDate == null) {
+	if (fromDate == "" || fromDate == null || fromDate=="Invalid date") {
 		Toast.fire({
 			type: 'error',
 			title: 'Please Select Start Date..'
@@ -346,7 +346,7 @@ function getFilterData() {
 		return;
 	}
 
-	if (toDate == "" || toDate == null) {
+	if (toDate == "" || toDate == null || toDate=="Invalid date") {
 		Toast.fire({
 			type: 'error',
 			title: 'Please Select End Date..'

@@ -98,7 +98,6 @@ $('#tabledata tbody').on('click', ".clickPid", function() {
 
 function approvedRequest() {
 	$('.loader').show();
-debugger
 	document.getElementById("lastInvoice").innerHTML = "Approved Request";
 	document.getElementById("allRequest").style.display = "block";
 	$.ajax({
@@ -121,7 +120,7 @@ debugger
 						result[i].introducedByName,
 						result[i].suppName,
 						result[i].vendorType,
-						result[i].venStatus]);
+						result[i].createDate]);
 				}
 				tabledata.draw();
 				$("tbody").show();

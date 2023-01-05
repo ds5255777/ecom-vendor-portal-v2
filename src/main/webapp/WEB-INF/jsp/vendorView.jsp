@@ -88,6 +88,11 @@ body.loading .modal {
 	padding: 0.5rem 1.25rem 0.5rem 1.25rem;
 }
 
+table td{
+border: 1px solid black !important;
+}
+
+
 .row {
 	margin-bottom: 0.5rem !important;
 }
@@ -168,6 +173,13 @@ margin-bottom: 0px;
 
 											<input class="form-control-sm" type="text" name="suppName"
 												id="suppName" readonly style="width: 100%;">
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group ">
+											<label>Supplier Code<span class="text-danger"></span></label>
+
+											<input class="form-control-sm" type="text"id="bpCode" name="bpCode" readonly style="width: 100%;">
 										</div>
 									</div>
 									<div class="col-md-3">
@@ -465,7 +477,7 @@ margin-bottom: 0px;
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label>Acknowledgement Number1<span
+											<label>Ack. Number1<span
 												class="text-danger"></span></label> <input class="form-control-sm"
 												type="text" name="acknowledgementNumber1"
 												id="acknowledgementNumber1" style="width: 100%;">
@@ -481,7 +493,7 @@ margin-bottom: 0px;
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label>Acknowledgement Number2<span
+											<label>Ack. Number2<span
 												class="text-danger"></span></label> <input class="form-control-sm"
 												type="text" name="acknowledgementNumber2"
 												id="acknowledgementNumber2" style="width: 100%;">
@@ -497,7 +509,7 @@ margin-bottom: 0px;
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label>Acknowledgement Number3<span
+											<label>Ack. Number3<span
 												class="text-danger"></span></label> <input class="form-control-sm"
 												type="text" name="acknowledgementNumber3"
 												id="acknowledgementNumber3" style="width: 100%;">
@@ -528,7 +540,7 @@ margin-bottom: 0px;
 												class="text-danger"></span></label>
 											<div class="col-sm-9">
 												<textarea class="form-control" id="comment" name="comment"
-													rows="3" maxlength="250" placeholder="Remarks if Any"></textarea>
+													rows="3" maxlength="500" placeholder="Remarks if Any"></textarea>
 											</div>
 										</div>
 									</div>

@@ -279,7 +279,6 @@ function getQueryData() {
 		contentType: "application/json",
 		success: function(response) {
 			if (response.msg == "success") {
-				debugger
 				if ("data" in response) {
 
 					var result = response.data;
@@ -472,9 +471,11 @@ function approveVendor(pid) {
 
 function rejectedVendor(pid, comment) {
 	var introducedByEmailID = $("#introducedByEmailID").val();
+	var bpCode=$("#bpCode").val();
 
 	var finalObj = {
 		"pid": pid,
+		"bpCode":bpCode,
 		"comment": comment,
 		"vandorMailId": vandorMailId,
 		"introducedByEmailID": introducedByEmailID

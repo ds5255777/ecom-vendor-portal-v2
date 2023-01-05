@@ -566,11 +566,11 @@ function selectDropDownValue() {
 						result[i].actualArrival = "";
 					}
 
-					var approve = "<button type=\"button\" class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#myModal\" onclick=\"setTripStatus('" + result[i].tripID + "')\" ><i class=\"nav-icon fas fa-pencil-square-o\"> </i> </button>";
+					var approve = "<button type=\"button\" class=\"tripApprove btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#myModal\" value=\"" + result[i].tripID + "\"><i class=\"nav-icon fas fa-pencil-square-o\"> </i> </button>";
 
-					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" onclick=\"getTripDataFormDataByTripId('" + result[i].tripID + "')\" >" + result[i].tripID + "</a>";
+					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\" class=\"tripIdView\"  >" + result[i].tripID + "</a>";
 
-					var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\"" + result[i].tripID + "\" ><\div>";
+					var checkbox = "<div class=\"mailbox-messages\"><input type=\"checkbox\" name=\"option\" value=\"" + result[i].tripID + " \" ><\div>";
 
 					tabledata.row.add([
 						checkbox,

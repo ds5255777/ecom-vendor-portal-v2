@@ -221,7 +221,7 @@
                                                 <th class="bg-primary">WRO</th>
                                                 <th class="bg-primary">NRO</th>
                                                 <th class="bg-primary">ERO</th>
-                                                <th class="bg-primary">DHQ</th>
+                                                <th class="bg-primary">IHQ</th>
                                                 <th class="bg-primary">SECTION_TYPE</th>
                                                 <th class="bg-primary">SECTION_CODE</th>
                                                 <th class="bg-primary">TDS_VENDOR_TYPE_LOOKUP_CODE</th>

@@ -179,11 +179,6 @@
     </div>
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-        $.widget.bridge('uitooltip', $.ui.tooltip);
-
-    </script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/sparklines/sparkline.js"></script>
     <script src="plugins/moment/moment.min.js"></script>

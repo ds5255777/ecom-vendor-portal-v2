@@ -151,8 +151,8 @@ function getData() {
 					if (!result[i].hasOwnProperty("actualDeparture")) {
 						result[i].actualDeparture = "";
 					}
-					if (!result[i].hasOwnProperty("actualArrival")) {
-						result[i].actualArrival = "";
+					if (!result[i].hasOwnProperty("runStatus")) {
+						result[i].runStatus = "";
 					}
 					if (!result[i].hasOwnProperty("originHub")) {
 						result[i].originHub = "";
@@ -168,8 +168,8 @@ function getData() {
 
 
 
-					tabledata.row.add([view, result[i].route, result[i].runType, result[i].standardKM, result[i].mode, result[i].actualDeparture,
-						result[i].actualArrival, result[i].originHub, result[i].destHub, result[i].vendorTripStatus]);
+					tabledata.row.add([view, result[i].route, result[i].runType, result[i].standardKM, result[i].mode,result[i].runStatus, result[i].actualDeparture,
+						 result[i].originHub, result[i].destHub, result[i].vendorTripStatus]);
 
 
 				}

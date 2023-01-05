@@ -52,7 +52,7 @@ public interface InvoiceGenerationEntityRepo extends JpaRepository<InvoiceGenera
 	@Query(value = "select count(*) from invoice_generation where invoice_status='Approved' and vendor_code=? ", nativeQuery = true)
 	int getApproveInvoiceCount(String vendorCode);
 
-	@Query(value = "select count(*) from invoice_generation", nativeQuery = true)
+	@Query(value = "select count(*) from invoice_generation where invoice_status in('Approved','Pending For Approval','In-Review')", nativeQuery = true)
 	int getCountForAllInvoices();
 
 	@Query(value = "select count(*) from invoice_generation where invoice_status='Processed'", nativeQuery = true)

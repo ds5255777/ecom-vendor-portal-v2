@@ -54,7 +54,7 @@ var tabledata = $('#tabledata1').DataTable({
 		{
 			extend: 'excelHtml5',
 			exportOptions: {
-				columns: [0, 1, 2, 3, 4, 5, 6],
+				columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
 			}
 		},
 		{
@@ -62,7 +62,7 @@ var tabledata = $('#tabledata1').DataTable({
 			orientation: 'landscape',
 			pageSize: 'A4',
 			exportOptions: {
-				columns: [0, 1, 2, 3, 4, 5, 6],
+				columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
 			},
 			customize: function(doc) {
 
@@ -159,6 +159,12 @@ function getData() {
 					if (!result[i].hasOwnProperty("vendorCode")) {
 						result[i].vendorCode = "-";
 					}
+					if (!result[i].hasOwnProperty("actualDeparture")) {
+						result[i].actualDeparture = "-";
+					}
+					if (!result[i].hasOwnProperty("mode")) {
+						result[i].mode = "-";
+					}
 					if (!result[i].hasOwnProperty("runType")) {
 						result[i].runType = "-";
 					}
@@ -174,6 +180,8 @@ function getData() {
 						result[i].route,
 						result[i].vendorName,
 						result[i].vendorCode,
+						result[i].actualDeparture,
+						result[i].mode,
 						result[i].runType,
 						result[i].runStatus,
 						result[i].vehicleNumber];

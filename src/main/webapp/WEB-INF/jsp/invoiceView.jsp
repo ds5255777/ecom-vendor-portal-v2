@@ -128,6 +128,23 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
+                                            <label class="col-sm-5">e-Invoice Applicable</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" name="enInvoiceApplibale" id="enInvoiceApplibale"   class="form-control-sm" style="width: 100%;" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">IRN Number<span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" name="irnNumber" placeholder="IRN Number" class="form-control-sm" maxlength="70" style="width: 100%;" id="irnNumber" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
                                             <label class="col-sm-5">HSN Code<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" name="hsnCode" id="hsnCode" type="text" placeholder="HSN Code" style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="8">
@@ -192,12 +209,37 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
+                                            <label class="col-sm-5">Header Desc.<span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" name="headerDes" id="headerDes"  placeholder="Header Description" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Process Flow<span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" name="processFlow" id="processFlow" maxlength="100" placeholder="Header Description" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-5">Operating Unit<span class="text-danger"></span></label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control-sm" type="text" name="operatingUnit" id="operatingUnit" maxlength="100" placeholder="Header Description" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
                                             <label class="col-sm-5">Invoice Status<span class="text-danger"></span></label>
                                             <div class="col-sm-7">
                                                 <input class="form-control-sm" type="text" name="invoiceStatus" id="invoiceStatus" placeholder="Invoice Amount" readonly style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
+                                    
 
                                 </div>
                             </form>
@@ -280,7 +322,7 @@
                             <button type="button" id="closeWindow" class="btn btn-info btn-lg">Close</button>
                         </div>
                     </div>
-                    <div class="card card-primary" style="margin-top: 1rem;">
+                    <div class="card card-primary" id="queryTableView" style="margin-top: 1rem; display: none">
                         <div class="card-header" style="padding: 5px 5px 0px 5px;">
                             <h4 class="card-title">Remarks List</h4>
                             <div class="card-tools">

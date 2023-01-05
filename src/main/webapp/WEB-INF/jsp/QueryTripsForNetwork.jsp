@@ -161,6 +161,8 @@
                                                     <th class="bg-primary">Route</th>
                                                     <th class="bg-primary">Vendor Name</th>
                                                     <th class="bg-primary">Vendor Code</th>
+                                                    <th class="bg-primary">Actual Departure</th>
+                                                    <th class="bg-primary">Mode</th>
                                                     <th class="bg-primary">Run Type</th>
                                                     <th class="bg-primary">Trip Status</th>
                                                     <th class="bg-primary">Vehicle Number</th>

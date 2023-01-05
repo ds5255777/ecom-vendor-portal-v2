@@ -13,5 +13,7 @@ public class DataContainer {
 	private String msg;
 	private Object forward;
 	private Object backward;
+	
+	private Long totalRecord;
 
 }

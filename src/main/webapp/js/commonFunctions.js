@@ -36,9 +36,9 @@ $(document).keypress(
 		  function(event){
 			  
 			  
-		    if (event.which == '13') {
-		      event.preventDefault();
-		    }
+		    //if (event.which == '13') {
+		      //event.preventDefault();
+		    //}
 		    
 		    if (event.which == '33'){  event.preventDefault();}
 		    if (event.which == '35'){  event.preventDefault();}

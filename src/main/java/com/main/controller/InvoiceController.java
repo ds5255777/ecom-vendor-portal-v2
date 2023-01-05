@@ -39,6 +39,7 @@ import com.main.db.bpaas.entity.MailContent;
 import com.main.db.bpaas.entity.PoInvoiceDetails;
 import com.main.db.bpaas.entity.QueryEntity;
 import com.main.db.bpaas.entity.SendEmail;
+import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.payloads.InvoiceGenerationDto;
 import com.main.payloads.PoInvoiceDetailsDTO;
@@ -269,6 +270,38 @@ public class InvoiceController {
 		String ecomInvoiceNumber = invoiceDto.getEcomInvoiceNumber();
 
 		Long idByinvocienumber = serviceManager.invoiceGenerationEntityRepo.getIdByinvocienumber(ecomInvoiceNumber);
+
+		SupDetails vendorDetails = serviceManager.supDetailsRepo.findBybpCode(invoiceDto.getVendorCode());
+
+		String ihq = vendorDetails.getIhq();
+		String ero = vendorDetails.getEro();
+		String wro = vendorDetails.getWro();
+		String nro = vendorDetails.getNro();
+		String sro = vendorDetails.getSro();
+
+		if (null != ihq) {
+			invoiceDto.setOperatingUnit("IHQ");
+		}
+		if (null != ero) {
+			String operatingUnit = invoiceDto.getOperatingUnit();
+			operatingUnit = operatingUnit + ",ERO";
+			invoiceDto.setOperatingUnit(operatingUnit);
+		}
+		if (null != wro) {
+			String operatingUnit = invoiceDto.getOperatingUnit();
+			operatingUnit = operatingUnit + ",WRO";
+			invoiceDto.setOperatingUnit("WRO");
+		}
+		if (null != nro) {
+			String operatingUnit = invoiceDto.getOperatingUnit();
+			operatingUnit = operatingUnit + ",NRO";
+			invoiceDto.setOperatingUnit("NRO");
+		}
+		if (null != sro) {
+			String operatingUnit = invoiceDto.getOperatingUnit();
+			operatingUnit = operatingUnit + ",SRO";
+			invoiceDto.setOperatingUnit("SRO");
+		}
 
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");

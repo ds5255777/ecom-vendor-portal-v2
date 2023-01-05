@@ -9,6 +9,8 @@ $(document).ready(function() {
 var dataLimit = '${dataLimit}';
 dataLimit = parseInt(dataLimit);
 
+var vendorType = $("#vendorType").val();
+
 
 $('#changePassword1').validate({
 	rules: {

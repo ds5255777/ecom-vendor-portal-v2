@@ -174,6 +174,7 @@
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Route</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Run
                                                     Type</th>
+                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Mode</th>    
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor
                                                     Name</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vendor
@@ -201,6 +202,11 @@
                                     </table>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                            <div id="pageInfo" style="float: left;"></div>
+											<div id="pagingId" style="float: right;"></div>
+
+										</div>
                         </div>
                     </div>
                 </div>

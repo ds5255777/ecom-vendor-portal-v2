@@ -88,6 +88,11 @@ body.loading .modal {
 	padding: 0.5rem 1.25rem 0.5rem 1.25rem;
 }
 
+table td{
+border: 1px solid black !important;
+}
+
+
 .row {
 	margin-bottom: 0.5rem !important;
 }

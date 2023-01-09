@@ -418,17 +418,23 @@ public class UserController {
 				String bpCode = supDetailsDto.getBpCode();
 				String passwordUser = UserServiceImpl.generateRandomPassword();
 				System.out.println(passwordUser);
-				User user = serviceManager.userRepository.findByBpCode(bpCode);
-				// serviceManager.userRepository.updateVendorPassword(bpCode, passwordUser);
-				// serviceManager.userService.Update(null)
+				User userDetails = serviceManager.userRepository.findByBpCode(bpCode);
+				logger.info("This vendor Change Password by Admin {}---", bpCode);
+				logger.info("This vendor Change Password by Admin {}---", userDetails.getEmailId());
+				userDetails.setPassword(passwordUser);
+				userDetails.setStatus(GlobalConstants.CHANGE_PASSWORD_STATUS);
+				serviceManager.userService.save(userDetails);
+				SupDetails vendDetails = serviceManager.supDetailsRepo.findBybpCode(bpCode);
 
-				/* send onBoard email */
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+
+				/* send password on mail */
 
 				List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
 						.findByIsActive(GlobalConstants.ACTIVE_STATUS);
 				EmailConfiguration emailConfiguration = emailList.get(0);
 
-				String vendorEmail = supDetailsDto.getContactDetails().get(0).getConEmail();
+				String vendorEmail = vendDetails.getContactDetails().get(0).getConEmail();
 
 				List<MailContent> mailType = serviceManager.mailContentRepo.findByType("Send username And Password");
 

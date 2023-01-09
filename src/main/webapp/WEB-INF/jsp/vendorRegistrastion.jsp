@@ -135,7 +135,7 @@ label {
 	opacity: .5;
 }
 
-.required, .pdDocClass{
+.required, .pdDocClass, .cancelledChequeMend{
 	color: red;
 }
 
@@ -295,7 +295,7 @@ label {
 												</select></td>
 
 												<td><label>Section Type<span
-														class="required adHocRequired"></span></label></td>
+														class="required adHocRequired">*</span></label></td>
 
 												<td><select class="form-control p-input"
 													id="sectionType" name="sectionType">
@@ -340,7 +340,7 @@ label {
 											<tr>
 											
 											<td><label>Region<span
-														class="required adHocRequired"></span></label></td>
+														class="required adHocRequired">*</span></label></td>
 
 												<td style="width: auto"><select
 													class="js-example-basic-multiple1 select2" name="region[]"
@@ -579,7 +579,94 @@ label {
 						</div>
 					</div>
 					<div id="step-3" class="">
-						<div class="card" style="margin-bottom: 10px;">
+					
+					<div class="card" style="margin-bottom: 10px;">
+							<div class="card-header" id="addressBookHead"
+								style="background: #1991eb; color: #ffffff;">
+								<h6 class="mb-0">Invoice Payment Terms</h6>
+							</div>
+							<div id="addressBookHeadData" aria-labelledby="addressBookHead"
+								style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+								<div class="card-body" style="margin-bottom: 10px;">
+									<form id="stepSixForm" class="forms-sample">
+										<table class="table center-aligned-table" id="fromTable"
+											name="fromTable">
+											<thead>
+											</thead>
+											<tbody>
+												<tr class="">
+													<td><label for="invoiceCurrency">Invoice
+															Currency<span class="required adHocRequired">*</span>
+													</label></td>
+													<td colspan="2"><select id="invoiceCurrency"
+														name="invoiceCurrency" class="form-control p-input">
+															<c:forEach items="${currency}" var="cur">
+
+																<option value="${cur}">${cur}</option>
+															</c:forEach>
+
+													</select></td>
+
+													<td><label for="paymentCurrency">Payment
+															Currency<span class="required adHocRequired">*</span>
+													</label></td>
+													<td colspan="2"><select id="paymentCurrency"
+														name="paymentCurrency" class="form-control p-input">
+															<c:forEach items="${currency}" var="cur">
+
+																<option value="${cur}">${cur}</option>
+															</c:forEach>
+													</select></td>
+
+													<td><label for="creditTerms">Payment / Credit
+															Terms<span class="required adHocRequired">*</span>
+													</label></td>
+													<td><select id="creditTerms" name="creditTerms"
+														class="form-control p-input">
+															<option value="">Select</option>
+															<c:forEach items="${payment}" var="pay">
+
+																<option value="${pay}">${pay}</option>
+															</c:forEach>
+
+													</select></td>
+
+												</tr>
+												<tr class="">
+													<td><label for="paymentMethod">Payment Method<span
+															class="required adHocRequired">*</span></label></td>
+
+													<td colspan="2"><select id="paymentMethod"
+														name="paymentMethod" class="form-control p-input">
+															<option value="">Select</option>
+															<c:forEach items="${paymentMethod}" var="met">
+																<option value="${met}">${met}</option>
+															</c:forEach>
+													</select></td>
+
+													<td><label for="dateBasis">Terms Date Basis</label></td>
+													<td colspan="2"><input type="text"
+														class="form-control p-input" id="dateBasis"
+														name="dateBasis" placeholder="Terms Date Basis"
+														maxlength="150"></td>
+													<td><label for="deliveryTerms">Delivery Terms</label></td>
+													<td colspan="2"><input type="text"
+														class="form-control p-input" id="deliveryTerms"
+														name="deliveryTerms" placeholder="Delivery Terms"
+														maxlength="150"></td>
+
+
+												</tr>
+
+											</tbody>
+										</table>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					
+						<div class="card" id="bankDetails" style="margin-bottom: 10px;display: none;">
 							<div class="card-header" id="addressBookHead"
 								style="background: #1991eb; color: #ffffff;">
 								<h6 class="mb-0">Bank Details</h6>
@@ -670,7 +757,7 @@ label {
 															<th>Action</th>
 														</tr>
 													</thead>
-													<tbody>
+													<tbody id="bankDetailsTable">
 													</tbody>
 												</table>
 											</div>
@@ -679,94 +766,6 @@ label {
 								</div>
 							</div>
 						</div>
-
-						<div class="card" style="margin-bottom: 10px;">
-							<div class="card-header" id="addressBookHead"
-								style="background: #1991eb; color: #ffffff;">
-								<h6 class="mb-0">Invoice Payment Terms</h6>
-							</div>
-							<div id="addressBookHeadData" aria-labelledby="addressBookHead"
-								style="border-style: solid; border-width: 1px; border-color: #1991eb;">
-								<div class="card-body" style="margin-bottom: 10px;">
-									<form id="stepSixForm" class="forms-sample">
-										<table class="table center-aligned-table" id="fromTable"
-											name="fromTable">
-											<thead>
-											</thead>
-											<tbody>
-												<tr class="">
-													<td><label for="invoiceCurrency">Invoice
-															Currency<span class="required adHocRequired">*</span>
-													</label></td>
-													<td colspan="2"><select id="invoiceCurrency"
-														name="invoiceCurrency" class="form-control p-input">
-															<c:forEach items="${currency}" var="cur">
-
-																<option value="${cur}">${cur}</option>
-															</c:forEach>
-
-													</select></td>
-
-													<td><label for="paymentCurrency">Payment
-															Currency<span class="required adHocRequired">*</span>
-													</label></td>
-													<td colspan="2"><select id="paymentCurrency"
-														name="paymentCurrency" class="form-control p-input">
-															<c:forEach items="${currency}" var="cur">
-
-																<option value="${cur}">${cur}</option>
-															</c:forEach>
-													</select></td>
-
-													<td><label for="creditTerms">Payment / Credit
-															Terms<span class="required adHocRequired">*</span>
-													</label></td>
-													<td><select id="creditTerms" name="creditTerms"
-														class="form-control p-input">
-															<option value="">Select</option>
-															<c:forEach items="${payment}" var="pay">
-
-																<option value="${pay}">${pay}</option>
-															</c:forEach>
-
-													</select></td>
-
-												</tr>
-												<tr class="">
-													<td><label for="paymentMethod">Payment Method<span
-															class="required adHocRequired">*</span></label></td>
-
-													<td colspan="2"><select id="paymentMethod"
-														name="paymentMethod" class="form-control p-input">
-
-															<c:forEach items="${paymentMethod}" var="met">
-																<option value="${met}">${met}</option>
-															</c:forEach>
-													</select></td>
-
-													<td><label for="dateBasis">Terms Date Basis</label></td>
-													<td colspan="2"><input type="text"
-														class="form-control p-input" id="dateBasis"
-														name="dateBasis" placeholder="Terms Date Basis"
-														maxlength="150"></td>
-													<td><label for="deliveryTerms">Delivery Terms</label></td>
-													<td colspan="2"><input type="text"
-														class="form-control p-input" id="deliveryTerms"
-														name="deliveryTerms" placeholder="Delivery Terms"
-														maxlength="150"></td>
-
-
-												</tr>
-
-											</tbody>
-										</table>
-
-									</form>
-								</div>
-							</div>
-						</div>
-
-
 					</div>
 					<div id="step-4" class="">
 						<div class="card" style="margin-bottom: 10px;">
@@ -978,7 +977,7 @@ label {
 																		size Max ${fileSize} MB</span></label></td>
 
 															<td><label>Cancelled Cheque/ Passbook/ Bank
-																	Statement<span class="required">*</span>
+																	Statement<span class="cancelledChequeMend" style=" visibility: hidden;">*</span>
 															</label></td>
 															<td><input type="file" id="CCFile" name="CCFile"
 																class="form-control p-input" accept=".docx, .pdf">

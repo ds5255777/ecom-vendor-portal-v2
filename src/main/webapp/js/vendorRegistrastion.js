@@ -177,9 +177,8 @@ function showHideRequiredClass() {
 }
 
 function checkMand(stepNo) {
-
 	if (stepNo == 0) {
-		var mandFields = "introducedByName,introducedByEmailID,suppName,eInvoiceApplicable";
+		var mandFields = "introducedByName,introducedByEmailID,suppName,sectionType,eInvoiceApplicable";
 		var mandFieldsArr = mandFields.split(",");
 		for (i = 0; i < mandFieldsArr.length; i++) {
 			if (document.getElementById(mandFieldsArr[i]).value == '') {
@@ -625,7 +624,6 @@ $("#updateBtn").bind("click", function() {
 
 function sendToServer() {
 
-
 	var mandFields = "introducedByName,introducedByEmailID,suppName,businessClassification";
 	var mandFieldsArr = mandFields.split(",");
 	for (i = 0; i < mandFieldsArr.length; i++) {
@@ -646,7 +644,7 @@ function sendToServer() {
 			}
 		}
 	}
-	var mandFields = "enInvApplicable";
+	var mandFields = "sectionType,enInvApplicable,region";
 	var mandFieldsArr = mandFields.split(",");
 	for (i = 0; i < mandFieldsArr.length; i++) {
 		if (document.getElementById(mandFieldsArr[i]).value == '') {
@@ -705,28 +703,42 @@ function sendToServer() {
 		return false;
 	}
 
-	var accountDetailsArray = [];
-	table = document.getElementById('addBankGrid');
-	rowLength = table.rows.length;
-
-	for (var i = 1; i < rowLength; i += 1) {
-		var row = table.rows[i];
-
-		var pushObj = {
-			"bankName": row.cells[0].innerHTML,
-			"beneficiaryName": row.cells[1].innerHTML,
-			"ifscCode": row.cells[2].innerHTML,
-			"accoutCurrency": row.cells[3].innerHTML,
-			"accoutNumber": row.cells[4].innerHTML,
-			"accoutName": row.cells[5].innerHTML
+	var mandFields = "invoiceCurrency,paymentCurrency,creditTerms,paymentMethod";
+	var mandFieldsArr = mandFields.split(",");
+	for (i = 0; i < mandFieldsArr.length; i++) {
+		if (document.getElementById(mandFieldsArr[i]).value == '') {
+			notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+			return false;
 		}
-		accountDetailsArray.push(pushObj);
 	}
 
-	if (accountDetailsArray.length == 0) {
+	var paymentMethod = $("#paymentMethod").val();
 
-		swal.fire("Alert", "Please Add Account Details", "warning")
-		return false;
+	if (paymentMethod == "NEFT") {
+
+		var accountDetailsArray = [];
+		table = document.getElementById('addBankGrid');
+		rowLength = table.rows.length;
+
+		for (var i = 1; i < rowLength; i += 1) {
+			var row = table.rows[i];
+
+			var pushObj = {
+				"bankName": row.cells[0].innerHTML,
+				"beneficiaryName": row.cells[1].innerHTML,
+				"ifscCode": row.cells[2].innerHTML,
+				"accoutCurrency": row.cells[3].innerHTML,
+				"accoutNumber": row.cells[4].innerHTML,
+				"accoutName": row.cells[5].innerHTML
+			}
+			accountDetailsArray.push(pushObj);
+		}
+
+		if (accountDetailsArray.length == 0) {
+
+			swal.fire("Alert", "Please Add Account Details", "warning")
+			return false;
+		}
 	}
 
 
@@ -745,14 +757,7 @@ function sendToServer() {
 		itrDetailsArray.push(pushItrObj);
 	}
 
-	var mandFields = "invoiceCurrency,paymentCurrency,creditTerms,paymentMethod";
-	var mandFieldsArr = mandFields.split(",");
-	for (i = 0; i < mandFieldsArr.length; i++) {
-		if (document.getElementById(mandFieldsArr[i]).value == '') {
-			notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
-			return false;
-		}
-	}
+
 	if ($("#tdsApplication").val() == "Yes") {
 		var mandFields = "tdsSection,tdsRate";
 		var mandFieldsArr = mandFields.split(",");
@@ -764,7 +769,7 @@ function sendToServer() {
 		}
 	}
 
-	var mandFields = "CCFile,ITRFile,MSMECFile";
+	var mandFields = "ITRFile,MSMECFile";
 	var mandFieldsArr = mandFields.split(",");
 
 	for (i = 0; i < mandFieldsArr.length; i++) {
@@ -772,6 +777,21 @@ function sendToServer() {
 			notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
 			return false;
 		}
+	}
+
+	var paymentMethod = $("#paymentMethod").val();
+
+	if (paymentMethod == "NEFT") {
+
+		var mandFields = "CCFile";
+		var mandFieldsArr = mandFields.split(",");
+		for (i = 0; i < mandFieldsArr.length; i++) {
+			if (document.getElementById(mandFieldsArr[i]).value == '') {
+				notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+				return false;
+			}
+		}
+
 	}
 
 	var bankTable = document.getElementById('addBankGrid');
@@ -783,20 +803,25 @@ function sendToServer() {
 		beneficiaryName = row.cells[1].innerHTML;
 	}
 
-	var suppNameReg = $("#suppName").val();
-	//var beneficiaryName = $("#beneficiaryName").val();
-
-	if (suppNameReg != beneficiaryName) {
-
-		var mandFields = "NMISFile";
-		var mandFieldsArr = mandFields.split(",");
-		for (i = 0; i < mandFieldsArr.length; i++) {
-			if (document.getElementById(mandFieldsArr[i]).value == '') {
-				notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
-				return false;
-			}
+	if (rowLengthBank > 1) {
+		$(".pdDocClass").css("visibility", "hidden");
+		for (var i = 1; i < rowLength; i += 1) {
+			var row = table.rows[i];
+			beneficiaryName = row.cells[1].innerHTML;
 		}
 
+		var suppName = $("#suppName").val();
+
+		if (suppName != beneficiaryName) {
+			var mandFields = "NMISFile";
+			var mandFieldsArr = mandFields.split(",");
+			for (i = 0; i < mandFieldsArr.length; i++) {
+				if (document.getElementById(mandFieldsArr[i]).value == '') {
+					notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+					return false;
+				}
+			}
+		}
 	}
 
 
@@ -1034,6 +1059,11 @@ function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
 				swal.fire("Alert", "MESME Certificate Number is mandatory", "warning")
 					.then((value) => { });
 			}
+			else if (controlName == "sectionType") {
+
+				swal.fire("Alert", "Section Type is mandatory", "warning")
+					.then((value) => { });
+			}
 			else if (controlName == "enInvApplicable") {
 
 				swal.fire("Alert", "E-Invoice Applicable is mandatory", "warning")
@@ -1043,6 +1073,11 @@ function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
 			else if (controlName == "panNumber") {
 
 				swal.fire("Alert", "PAN Number is mandatory", "warning")
+					.then((value) => { });
+			}
+			else if (controlName == "region") {
+
+				swal.fire("Alert", "Region is mandatory", "warning")
 					.then((value) => { });
 			}
 
@@ -1383,3 +1418,22 @@ function checkForExistingUserName() {
 	return usernameCheckStatus;
 }
 
+
+$("#paymentMethod").bind("change", function() {
+	addBendDetails();
+});
+
+function addBendDetails() {
+	var paymentMethod = $("#paymentMethod").val();
+
+	if (paymentMethod == "NEFT") {
+		$("#bankDetails").css("display", "block");
+		$(".cancelledChequeMend").css("visibility", "visible");
+
+	} else {
+		$("#bankDetailsTable tr").remove();
+		$(".pdDocClass").css("visibility", "hidden");
+		$("#bankDetails").css("display", "none");
+		$(".cancelledChequeMend").css("visibility", "hidden");
+	}
+}

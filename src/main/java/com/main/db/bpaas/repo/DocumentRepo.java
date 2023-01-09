@@ -9,5 +9,8 @@ import com.main.db.bpaas.entity.Document;
 public interface DocumentRepo extends JpaRepository<Document, Integer> {
 
 	List<Document> findByTypeAndForeignKeyOrderByIdDesc(String type, String foreignKey);
+	
+	List<Document> findByForeignKeyAndType(String pid, String setTypeRegistration);
+
 
 }

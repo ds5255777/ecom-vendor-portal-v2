@@ -1,5 +1,7 @@
 var csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
 
+var pageContext = $("#pageContext").val();
+
 $("#GSTFile").bind("change", function() {
 	removeValCssByID(this), handleFileSelect(event, 'GSTFileText', 'GSTFile'), onValidateFile('GSTFile');
 });
@@ -130,7 +132,7 @@ $("#bpCode").focusout(function() {
 
 
 $("#changeVendorPassword").bind("click", function() {
-	
+
 	var val = $("#password").val();
 	vendorPasswordChange(val);
 });
@@ -266,7 +268,7 @@ function getData() {
 		contentType: "application/json",
 		async: false,
 		success: function(data) {
-			
+
 			if (data.msg == 'success') {
 				var lastName = "";
 				result = data.data;
@@ -301,6 +303,7 @@ function getData() {
 					if (!result[i].hasOwnProperty("flag")) {
 						result[i].flag = "";
 					}
+					var download = "<a href=\"#\" data-toggle=\"modal\"  tittle=\"In-Active Vendor\" data-target=\"#vendorValue\" class=\"downladZipFile\" > <i class=\"fas fa-file-export\"></i>  </a>";
 
 
 					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#\" class=\"checkVendorCode\">" + result[i].bpCode + "</a>";
@@ -310,10 +313,10 @@ function getData() {
 						var changePassword = "<button type=\"button\" id=\"" + result[i].bpCode + "\" style=\"display: none\" class=\"tripApprove btn btn-primary btn-xs\"  value=\"" + result[i].bpCode + "\"> <i class=\"fas fa-key\"></i>  </button>";
 					}
 					if (result[i].flag == "Active") {
-						var button = "<a href=\"#\" data-toggle=\"modal\"  tittle=\"In-Active Vendor\" data-target=\"#vendorValue\" class=\"inactiveVendor\" )\"> <i style=\"color:red;\" class=\"fas fa-user-slash\"></i>  </a>";
-					} else if (result[i].flag == "In-Active"){
+						var button = "<a href=\"#\" data-toggle=\"modal\"  tittle=\"In-Active Vendor\" data-target=\"#vendorValue\" class=\"inactiveVendor\" > <i style=\"color:red;\" class=\"fas fa-user-slash\"></i>  </a>";
+					} else if (result[i].flag == "In-Active") {
 						var button = "<a href=\"#\" data-toggle=\"modal\" tittle=\"Active Vendor\" data-target=\"#vendorValue\" class=\"activeVendor\" > <i class=\"fas fa-user\"></i>  </a>";
-					}else if (result[i].flag == ""){
+					} else if (result[i].flag == "") {
 						var button = "";
 					}
 
@@ -324,6 +327,7 @@ function getData() {
 						result[i].introducedByName,
 						result[i].introducedByEmailID,
 						result[i].flag,
+						download,
 						changePassword,
 						button]);
 				}
@@ -345,15 +349,35 @@ function getData() {
 
 
 $('#tabledata tbody').on('click', ".tripApprove", function() {
-
-	
 	var userName = this.value;
 	//$("#userID").val(userName);
-	$("#changePassword").modal('show');
+	//$("#changePassword").modal('show');
 	//$("#password").val('');
-
-	vendorPasswordChange(userName)
+	changeVendorPass(userName);
 });
+
+
+function changeVendorPass(userName) {
+
+
+	Swal.fire({
+		title: 'Are you sure want to Reset Vendor password.?',
+		text: "Vendor Name : " + userName,
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Yes'
+	}).then((result) => {
+		let test = [1];
+		test[0] = result;
+		var val = Object.values(test[0])
+		if (val == "true") {
+			vendorPasswordChange(userName);
+		}
+	})
+
+}
 
 
 
@@ -379,6 +403,24 @@ $('#tabledata tbody').on('click', ".activeVendor", function() {
 	//console.log(tabledata.row(row).data().id);
 	activeVendor(row.cells[0].innerText, row.rowIndex, row.cells[1].innerText);
 });
+
+$('#tabledata tbody').on('click', ".downladZipFile", function() {
+	var row = $(this).parents('tr')[0];
+	console.log(row.cells[0].innerText);
+	//console.log(tabledata.row(row).data().id);
+	downladZipFile(row.cells[0].innerText);
+});
+
+function downladZipFile(vendorCode) {
+
+	console.log(pageContext+'/downloadZip?vendorCode=' + vendorCode);
+
+	$('.loader').show();
+	$('#pdfLink').attr('src', pageContext+'/downloadZip?vendorCode=' + vendorCode);
+	$('.loader').hide();
+
+}
+
 
 function inActiveVendor(bpcode, index, name) {
 
@@ -1068,7 +1110,6 @@ $(document).on({
 
 function sendToServer() {
 
-
 	var txtPANCard = document.getElementById("panNumber");
 	var lblPANCard = document.getElementById("lblPANCard")
 	var regex = /([A-Z]){5}([0-9]){4}([A-Z]){1}$/;
@@ -1137,29 +1178,32 @@ function sendToServer() {
 		return regex.test(inputvalues);
 	}
 
-	var accountDetailsArray = [];
-	table = document.getElementById('addBankGrid');
-	rowLength = table.rows.length;
+	var paymentMethod = $("#paymentMethod").val();
+	if (paymentMethod == "NEFT") {
+		var accountDetailsArray = [];
+		table = document.getElementById('addBankGrid');
+		rowLength = table.rows.length;
 
-	for (var i = 1; i < rowLength; i += 1) {
-		var row = table.rows[i];
+		for (var i = 1; i < rowLength; i += 1) {
+			var row = table.rows[i];
 
-		var pushObj = {
-			"bankName": row.cells[0].innerHTML,
-			"beneficiaryName": row.cells[1].innerHTML,
-			"ifscCode": row.cells[2].innerHTML,
-			"accoutCurrency": row.cells[3].innerHTML,
-			"accoutNumber": row.cells[4].innerHTML,
-			"accoutName": row.cells[5].innerHTML,
+			var pushObj = {
+				"bankName": row.cells[0].innerHTML,
+				"beneficiaryName": row.cells[1].innerHTML,
+				"ifscCode": row.cells[2].innerHTML,
+				"accoutCurrency": row.cells[3].innerHTML,
+				"accoutNumber": row.cells[4].innerHTML,
+				"accoutName": row.cells[5].innerHTML,
+			}
+			accountDetailsArray.push(pushObj);
 		}
-		accountDetailsArray.push(pushObj);
-	}
 
-	if (accountDetailsArray.length == 0 && partnerType != "Ad-Hoc") {
+		if (accountDetailsArray.length == 0 && partnerType != "Ad-Hoc") {
 
 
-		swal.fire("Alert", "please add accountDetails", "warning")
-		return regex.test(inputvalues);
+			swal.fire("Alert", "please add accountDetails", "warning")
+			return regex.test(inputvalues);
+		}
 	}
 
 
@@ -1783,7 +1827,7 @@ function select() {
 }
 
 function MESMENumber() {
-	
+
 	var busClassif = $("#businessClassification").val();
 
 
@@ -1843,7 +1887,7 @@ function checkForExistingPanNumber() {
 }
 
 function checkForExistingVendorCode() {
-	
+
 	var vendorCodeCheckStatus = "false";
 	var bpCode = $("#bpCode").val();
 	var suppName = $("#suppName").val();
@@ -1900,12 +1944,9 @@ function vendorPasswordChange(val) {
 		contentType: "application/json",
 		async: false,
 		success: function(data) {
-			if (data.msg == 'exist') {
-				swal.fire("Alert", "<b>" + panNumber + "</b> This Pan Number is Already Exists", "warning");
-				document.getElementById("panNumber").focus();
-				$("#panNumber").val('');
-			} else if (data.msg == 'success') {
-				PanNumberCheckStatus = "true";
+			debugger
+			if (data.msg == 'success') {
+				swal.fire("", "<b>" + val + "</b><br> Password send successfully", "success");
 			} else {
 				Toast.fire({
 					type: 'error',
@@ -1919,3 +1960,55 @@ function vendorPasswordChange(val) {
 	});
 }
 
+  function viewAttachment(){
+			
+			$("#pdfLink").contents().find("body").html("");
+			$('#pdfLink').attr('src', '');
+		    $('#ifrmameHref').attr('href', '');
+			
+			$("#viewAttachmentPopUp").modal('show');													
+			$("#multipleAttachment").empty();
+				
+				var docNameList = "";
+				var docPathList = "";
+				
+				$("#multipleAttachment").empty();
+					var option = "";
+				
+							for (var i = 0; i < documentArray2.length; i++) {
+					            option += " <option value='" + documentArray2[i].file + "'>" + documentArray2[i].filename + "</option>"
+					        }									
+						
+						$("#multipleAttachment").append(option);							
+					
+						  var fileName = $("#multipleAttachment option:selected").text();
+						    var filePath = $("#multipleAttachment").val();
+						  					
+					 fileName = encodeURIComponent(fileName);
+				     filePath = encodeURIComponent(filePath);					    
+				    var ctx = $("#contextPathURL").val();
+				    var urlPath = "<%=GlobalUrl.getDoc%>"					    
+				    var urlpath = ctx + "/"+urlPath+"?name=" + fileName+"&path="+filePath;
+
+					$('#pdfLink').attr('src', urlpath);
+				    $('#ifrmameHref').attr('href', urlpath);
+		}
+		
+
+		$("#multipleAttachment").change(function () {
+		    var fileNameAndPath = $("#multipleAttachment").val();			    
+			//debugger;
+		    var fileName = $("#multipleAttachment option:selected").text();
+		    var filePath = $("#multipleAttachment").val();
+		    
+		     fileName = encodeURIComponent(fileName);
+		     filePath = encodeURIComponent(filePath);
+		    var ctx = $("#contextPathURL").val();
+		    
+		    var urlPath = "<%=GlobalUrl.getDoc %>"
+			var urlpath = ctx + "/"+urlPath+"?name=" + fileName+"&path="+filePath;
+		    
+		    $('#pdfLink').attr('src', urlpath);
+		    $('#ifrmameHref').attr('href', urlpath);
+
+		});	

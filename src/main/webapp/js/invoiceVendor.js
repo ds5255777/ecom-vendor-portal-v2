@@ -405,7 +405,6 @@ function sendToServer() {
 
 	//finalObj.eInvoiceApplibale = $("#enInvoiceApplibale").val();
 	finalObj.invoiceLineItem = lineItem;
-	debugger
 
 	console.log("----------------------------", finalObj);
 

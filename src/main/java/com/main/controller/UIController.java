@@ -2,6 +2,7 @@ package com.main.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
@@ -15,6 +16,8 @@ import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.main.commonclasses.GlobalConstants;
 import com.main.db.bpaas.entity.AddressDetails;
+import com.main.db.bpaas.entity.Document;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.InvoiceNumber;
 import com.main.db.bpaas.entity.RolesEntity;
@@ -51,8 +55,14 @@ public class UIController {
 	@Value("${dataLimit}")
 	public String dataLimit;
 
+	@Value("${zipFileLocation}")
+	public String zipFileLocation;
+
 	@Value("${linkExpireTimeInHours}")
 	public Integer linkExpireTimeInHours;
+
+	@Value("${spring.profiles.active}")
+	public String profile;
 
 	@Autowired
 	private ServiceManager serviceManager;
@@ -127,19 +137,27 @@ public class UIController {
 		try {
 			List<SupDetails> findAll = serviceManager.supDetailsRepo.findAll();
 			for (int i = 0; i < findAll.size(); i++) {
-				String vendorExitingEmail = findAll.get(i).getContactDetails().get(0).getConEmail();
-				if (vendorExitingEmail.equalsIgnoreCase(vendorEmail)) {
-					String venStatus = findAll.get(i).getVenStatus();
-					System.out.println(venStatus);
-					if (!venStatus.equalsIgnoreCase(GlobalConstants.REJECTED_REQUEST_STATUS)) {
+				String vendorExitingEmail = null;
+				for (int j = 0; j < findAll.get(i).getContactDetails().size(); j++) {
+					if (null != findAll.get(i).getContactDetails().get(j).getConEmail())
+						vendorExitingEmail = findAll.get(i).getContactDetails().get(j).getConEmail();
+				}
+				if (null != vendorExitingEmail) {
+					System.out.println("Mail Id is :" + findAll.get(i).getContactDetails().get(0).getConEmail());
 
-						response.setContentType("text/html");
-						PrintWriter pwriter = response.getWriter();
-						pwriter.println(
-								"<font color=red>Vendor Already Exists ! Please Contact With Administrator And Try Again...</font>");
-						pwriter.close();
+					if (vendorExitingEmail.equalsIgnoreCase(vendorEmail)) {
+						String venStatus = findAll.get(i).getVenStatus();
+						System.out.println("Vendor Status ::: " + venStatus);
+						if (!venStatus.equalsIgnoreCase(GlobalConstants.REJECTED_REQUEST_STATUS)) {
+
+							response.setContentType("text/html");
+							PrintWriter pwriter = response.getWriter();
+							pwriter.println(
+									"<font color=red>Vendor Already Exists ! Please Contact With Administrator And Try Again...</font>");
+							pwriter.close();
+						}
+
 					}
-
 				}
 			}
 		} catch (IOException e1) {
@@ -634,7 +652,8 @@ public class UIController {
 		model.addAttribute("stateName", stateName);
 		model.addAttribute("dataLimit", dataLimit);
 
-		if (rolename.equalsIgnoreCase("Admin")) {
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)
+				|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
 
 			return "vendorDetails";
 		}
@@ -1073,13 +1092,13 @@ public class UIController {
 					venAccNumber.add(accNumber);
 				}
 				model.addAttribute("accountNumber", venAccNumber);
-				
+
 				model.addAttribute("vendorCode", vendorDetails.getBpCode());
-				
+
 				model.addAttribute("creidtTerms", vendorDetails.getCreditTerms());
-				
+
 				model.addAttribute("paymentMethod", vendorDetails.getPaymentMethod());
-				
+
 				model.addAttribute("fileSize", fileSize);
 
 				return "invoiceVendor";
@@ -1098,6 +1117,109 @@ public class UIController {
 	public String usersError(Model model, HttpServletRequest request, Principal principal) {
 
 		return "error";
+	}
+
+	@GetMapping("/downloadZip")
+	void downloadDoc(HttpServletResponse response, HttpServletRequest request,
+			@RequestParam("vendorCode") String vendorCode) {
+		try {
+			String uri = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/";
+			File zipfolder = new File(zipFileLocation);
+			if (!zipfolder.exists()) {
+				zipfolder.mkdirs();
+			}
+			String zipFile = zipFileLocation + "/" + new SimpleDateFormat("yyyy-MM-ddHHmmssSSS").format(new Date())
+					+ ".zip";
+
+			SupDetails vendorDetails = serviceManager.supDetailsRepo.findBybpCode(vendorCode);
+
+			String pid = vendorDetails.getPid();
+
+			List<Document> docListObj = serviceManager.documentRepo.findByForeignKeyAndType(vendorDetails.getPid(),
+					GlobalConstants.SET_TYPE_REGISTRATION);
+
+			tryForZip(zipFile, docListObj, pid);
+			File file = new File(zipFile);
+			if (file.exists()) {
+				tryForZipDwnld(file, response, uri);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void tryForZip(String zipFile, List<Document> docListObj, String parentDirName) {
+		try (FileOutputStream fos = new FileOutputStream(zipFile); ZipOutputStream zos = new ZipOutputStream(fos);) {
+			if (!docListObj.isEmpty()) {
+				System.out.println(docListObj.size());
+				for (int i = 0; i < docListObj.size(); i++) {
+					/*
+					 * List<String> filePath =
+					 * serviceManager.documentRepo.getPathByForeignKeyAndTypeAndStatus(
+					 * parentDirName, GlobalConstants.ACTIVE_STATUS,
+					 * GlobalConstants.SET_TYPE_REGISTRATION);
+					 */
+					// SfilePath=docListObj.get(i).getDocPath();
+
+					zipWholeDirectory(zos, new File(docListObj.get(i).getDocPath()), parentDirName);
+
+				}
+			}
+			zos.flush();
+			fos.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void tryForZipDwnld(File file, HttpServletResponse response, String uri) {
+		try (FileInputStream inputStream = new FileInputStream(file);) {
+			response.setContentType("application/.zip");
+			response.setContentLength((int) file.length());
+			response.setHeader("Content-Disposition", "inline;filename=\"" + file.getName() + "\"");
+			response.setHeader("Content-Security-Policy", "frame-ancestors " + uri + " ");
+			FileCopyUtils.copy(inputStream, response.getOutputStream());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void zipWholeDirectory(ZipOutputStream zos, File fileToZip, String parentDirectoryName) throws Exception {
+		if (fileToZip == null || !fileToZip.exists()) {
+			return;
+		}
+		String zipEntryName = parentDirectoryName;
+		// If we are dealing with a directory:
+		if (fileToZip.isDirectory()) {
+			if (parentDirectoryName == null) // if parentDirectory is null, that means it's the first iteration of the
+												// recursion, so we do not include the first container folder
+			{
+				zipEntryName = "";
+			}
+			for (File file : fileToZip.listFiles()) // we iterate over all the folders/files and archive them by keeping
+													// the structure too.
+			{
+				zipWholeDirectory(zos, file, zipEntryName);
+			}
+		} else {
+			single(zos, fileToZip, zipEntryName);
+		}
+	}
+
+	public void single(ZipOutputStream zos, File fileToZip, String parentDirectoryName) throws IOException {
+		File fileToBeZipped = new File(fileToZip.getAbsolutePath());
+		try (FileInputStream fis = new FileInputStream(fileToBeZipped);) {
+			byte[] buffer = new byte[1024];
+			zos.putNextEntry(new ZipEntry(
+					GlobalConstants.SET_TYPE_REGISTRATION + "/" + parentDirectoryName + "/" + fileToZip.getName()));
+			int length;
+			while ((length = fis.read(buffer)) > 0) {
+				zos.write(buffer, 0, length);
+			}
+			zos.closeEntry();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

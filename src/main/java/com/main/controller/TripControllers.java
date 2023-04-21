@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -639,17 +638,33 @@ public class TripControllers {
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 
 		try {
-			List<TripDetails> approvedTrips = serviceManager.tripDetailsRepo
-					.getQueryTripsForNetwork(GlobalConstants.VENDOR_TRIP_STATUS_QUERY);
+
 			/*
+			 * List<TripDetails> approvedTrips = serviceManager.tripDetailsRepo
+			 * .getQueryTripsForNetwork(GlobalConstants.VENDOR_TRIP_STATUS_QUERY);
+			 * 
 			 * List<TripDetailsDto> collect = approvedTrips.stream() .map(filterList ->
 			 * this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
 			 * .collect(Collectors.toList());
+			 * 
+			 * List<TripDetails> collect = approvedTrips.stream()
+			 * .sorted(Comparator.comparingInt(TripDetails::getId).reversed()).collect(
+			 * Collectors.toList()); data.setData(collect);
+			 * data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			 */
-			List<TripDetails> collect = approvedTrips.stream()
-					.sorted(Comparator.comparingInt(TripDetails::getId).reversed()).collect(Collectors.toList());
-			data.setData(collect);
-			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+			try {
+				List<TripDetails> allTripDetailsList = serviceManager.tripDetailsRepo
+						.getQueryTripsForNetwork(GlobalConstants.VENDOR_TRIP_STATUS_QUERY);
+				;
+
+				long count = serviceManager.tripDetailsRepo.countByVendorTripStatus(GlobalConstants.VENDOR_TRIP_STATUS_QUERY);
+				data.setData(allTripDetailsList);
+				data.setTotalRecord(count);
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+			} catch (Exception e) {
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+			}
 
 		} catch (Exception e) {
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
@@ -685,16 +700,33 @@ public class TripControllers {
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 
 		try {
-			List<TripDetails> approvedTrips = serviceManager.tripService.findAllTripsByStatus("");
-			List<TripDetails> collect = approvedTrips.stream()
-					.sorted(Comparator.comparingInt(TripDetails::getId).reversed()).collect(Collectors.toList());
 			/*
+			 * List<TripDetails> approvedTrips =
+			 * serviceManager.tripService.findAllTripsByStatus(""); List<TripDetails>
+			 * collect = approvedTrips.stream()
+			 * .sorted(Comparator.comparingInt(TripDetails::getId).reversed()).collect(
+			 * Collectors.toList());
+			 * 
 			 * List<TripDetailsDto> collect = approvedTrips.stream() .map(filterList ->
 			 * this.serviceManager.modelMapper.map(filterList, TripDetailsDto.class))
 			 * .collect(Collectors.toList());
+			 * 
+			 * data.setData(collect); data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			 */
-			data.setData(collect);
-			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+
+			try {
+				List<TripDetails> allTripDetailsList = serviceManager.tripService.findAllTripsByStatus("");
+
+				long count = serviceManager.tripDetailsRepo.countByVendorTripStatusAndAssignToAndRunTypeAndRunStatusIgnoreCase(
+						GlobalConstants.NETWORK_TRIP_STATUS_YET_TO_APPROVED_NETWORK, GlobalConstants.ROLE_NETWORK,
+						GlobalConstants.ADHOC_TYPE_TRIPS, GlobalConstants.RUN_CLOSED);
+				data.setData(allTripDetailsList);
+				data.setTotalRecord(count);
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+			} catch (Exception e) {
+				data.setMsg(GlobalConstants.ERROR_MESSAGE);
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+			}
 
 		} catch (Exception e) {
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
@@ -703,7 +735,7 @@ public class TripControllers {
 		return gson.toJson(data);
 	}
 
-	@RequestMapping("/getPaginationDataOfVendor")
+	@PostMapping("/getPaginationDataOfVendor")
 	public String getPaginationDataOfVendor(@RequestBody TripDetailsDto obj) {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -718,6 +750,61 @@ public class TripControllers {
 
 			List<TripDetails> vendorList = serviceManager.tripDetailsRepo.getTripDataByPagination(fetchCount, dataSize);
 			long count = serviceManager.tripDetailsRepo.count();
+			data.setData(vendorList);
+			data.setTotalRecord(count);
+			data.setMsg("success");
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+		return gson.toJson(data).toString();
+	}
+
+	@PostMapping("/getPaginationDataOfQueryTrip")
+	public String getPaginationDataOfQueryTrip(@RequestBody TripDetailsDto obj) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+		try {
+
+			Integer dataSize = 100;
+
+			Integer fetchCount = obj.getId();
+			fetchCount = fetchCount - 1;
+			fetchCount = fetchCount * dataSize;
+
+			List<TripDetails> vendorList = serviceManager.tripDetailsRepo.getQueryTripDataByPagination(fetchCount,
+					dataSize);
+			long count = serviceManager.tripDetailsRepo.countByVendorTripStatus(GlobalConstants.VENDOR_TRIP_STATUS_QUERY);
+			data.setData(vendorList);
+			data.setTotalRecord(count);
+			data.setMsg("success");
+		} catch (Exception e) {
+			data.setMsg("error");
+			e.printStackTrace();
+		}
+		return gson.toJson(data).toString();
+	}
+	
+	@PostMapping("/getPaginationPendingApproval")
+	public String getPaginationPendingApproval(@RequestBody TripDetailsDto obj) {
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+		try {
+
+			Integer dataSize = 100;
+
+			Integer fetchCount = obj.getId();
+			fetchCount = fetchCount - 1;
+			fetchCount = fetchCount * dataSize;
+
+			List<TripDetails> vendorList = serviceManager.tripDetailsRepo.getPendingApprovalDataByPagination(fetchCount,
+					dataSize);
+			long count = serviceManager.tripDetailsRepo.countByVendorTripStatusAndAssignToAndRunTypeAndRunStatusIgnoreCase(
+					GlobalConstants.NETWORK_TRIP_STATUS_YET_TO_APPROVED_NETWORK, GlobalConstants.ROLE_NETWORK,
+					GlobalConstants.ADHOC_TYPE_TRIPS, GlobalConstants.RUN_CLOSED);
+			
 			data.setData(vendorList);
 			data.setTotalRecord(count);
 			data.setMsg("success");

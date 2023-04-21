@@ -118,7 +118,10 @@ tbody {
 			<div class="content-header" style="padding: 0px;">
 				<div class="container-fluid">
 					<div class="row mb-2">
-						<div class="col-sm-6"></div>
+						<div class="col-sm-6">
+						<input type="hidden" id="pageContext" value="${pageContext.request.contextPath}">
+							
+						</div>
 						<div class="col-sm-6"></div>
 					</div>
 				</div>
@@ -145,7 +148,7 @@ tbody {
                                         </div>
                                     </form>
 									
-									<table class="table table-head-fixed" id="tabledata">
+									<table class="display nowrap table table-head-fixed table-hover" id="tabledata">
                                         <thead>
                                             <tr>
                                                 <th class="bg-primary">Process Id</th>
@@ -158,6 +161,7 @@ tbody {
                                                 <th class="bg-primary">Status</th>
                                                 <th class="bg-primary">Processed On</th>
                                                 <th class="bg-primary">Processed By</th>
+                                                <th class="bg-primary">Export</th>
                                                
                                             </tr>
                                         </thead>
@@ -169,6 +173,14 @@ tbody {
 				</div>
 			</section>
 		</div>
+		<div class="container-fluid panel2" style="display: none;">
+                        <div class="row">                            
+                            <div class="col-lg-12" style="height: 400px;">
+                            <a id="ifrmameHref"   target="_blank">Click Here to open doc in new window</a>
+                                <iframe id="pdfLink" style="height:100%; width:100%"  ></iframe>
+                            </div>
+                        </div>
+                    </div>
 	</div>
 	<script src="plugins/jquery/jquery.min.js"></script>
 	<script src="plugins/jquery-ui/jquery-ui.min.js"></script>

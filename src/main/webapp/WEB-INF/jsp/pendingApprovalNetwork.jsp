@@ -191,6 +191,11 @@
                                         </table>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                            <div id="pageInfo" style="float: left;"></div>
+											<div id="pagingId" style="float: right;"></div>
+
+										</div>
                             </div>
                         </div>
                     </div>
@@ -543,7 +548,7 @@
                                                 </div>
                                             </div>
                                         </table>
-                                        <div class=" card-primary">
+                                        <div class=" card-primary" >
                                             <div class="card card-primary ">
                                                 <div class="card-header" style="padding: 4px 0px 4px 4px;">
                                                     <h3 class="card-title" style="font-size: 15px;">Trips Query</h3>

@@ -185,6 +185,7 @@
                                                     Status</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual
                                                     Departure</th>
+                                                    <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Vehicle Size</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Actual
                                                     KM</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Std.
@@ -193,8 +194,7 @@
                                                     Hub</th>
                                                 <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Destination
                                                     Hub</th>
-                                                <th class="bg-primary" style="padding: 5px 5px 5px 1.5rem;">Payment
-                                                    Status</th>
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>

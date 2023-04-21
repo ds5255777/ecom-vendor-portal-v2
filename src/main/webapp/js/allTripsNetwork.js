@@ -59,7 +59,7 @@ var currentDate = '${currentDate}';
 var tabledataQuery = $('#tabledataQuery').DataTable({
 	"paging": false,
 	"lengthChange": false,
-	"searching": false,
+	"searching": true,
 	"info": false,
 	"autoWidth": false,
 	"aaSorting": []
@@ -68,7 +68,7 @@ var tabledataQuery = $('#tabledataQuery').DataTable({
 var tabledata = $('#tabledata').DataTable({
 	"paging": false,
 	"lengthChange": false,
-	"searching": false,
+	"searching": true,
 	"info": false,
 	"autoWidth": false,
 	"aaSorting": [],
@@ -410,17 +410,13 @@ function GetSelectedTextValue1() {
 }
 
 getData();
-
 function getData() {
-
 	$('#selectTripStatus').val('');
 	$('#selectStatus').val('');
 	$('#selectPaymentStatus').val('');
 	$('#fromDate').val('');
 	$('#toDate').val('');
-
 	$('.loader').show();
-
 	$.ajax({
 		type: "POST",
 		data: "",
@@ -429,11 +425,9 @@ function getData() {
 		headers: { 'X-XSRF-TOKEN': csrfToken },
 		contentType: "application/json",
 		success: function(data) {
-
 			$('.loader').hide();
 			if (data.msg == 'success') {
 				showTableData(data, 1);
-
 			} else {
 				Toast.fire({
 					type: 'error',
@@ -448,13 +442,8 @@ function getData() {
 }
 
 function showTableData(data, pageNumber) {
-
-	
-
 	var result = data.data;
-
 	pageNumber = parseInt(pageNumber);
-
 	tabledata.clear();
 	for (var i = 0; i < result.length; i++) {
 		if (!result[i].hasOwnProperty("tripID")) {
@@ -487,6 +476,9 @@ function showTableData(data, pageNumber) {
 		if (!result[i].hasOwnProperty("actualKM")) {
 			result[i].actualKM = "-";
 		}
+		if (!result[i].hasOwnProperty("standardVechicleType")) {
+			result[i].standardVechicleType = "-";
+		}
 		if (!result[i].hasOwnProperty("standardKM")) {
 			result[i].standardKM = "-";
 		}
@@ -496,9 +488,7 @@ function showTableData(data, pageNumber) {
 		if (!result[i].hasOwnProperty("destHub")) {
 			result[i].destHub = "-";
 		}
-		if (!result[i].hasOwnProperty("paymentStatus")) {
-			result[i].paymentStatus = "-";
-		}
+		
 		var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\"  class=\"tripIdView\" >" + result[i].tripID + "</a>";
 		tabledata.row.add([view,
 			result[i].route,
@@ -509,11 +499,11 @@ function showTableData(data, pageNumber) {
 			result[i].runStatus,
 			result[i].vendorTripStatus,
 			result[i].actualDeparture,
+			result[i].standardVechicleType,
 			result[i].actualKM,
 			result[i].standardKM,
 			result[i].originHub,
-			result[i].destHub,
-			result[i].paymentStatus]);
+			result[i].destHub]);
 	}
 	tabledata.draw();
 	$("tbody").show();

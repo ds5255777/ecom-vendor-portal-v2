@@ -62,6 +62,7 @@ $("#businessClassification").bind("change", function() {
 
 $("#mesmeNumber").bind("input", function() {
 	this.value = this.value.toUpperCase();
+	//this.value = this.value.replace(/[^0-9A-Z]/g, '').replace(/(\..*)\./g, '$1');
 });
 
 $("#aadharNumber").bind("input", function() {
@@ -74,6 +75,18 @@ $("#aadharNumber").bind("blur", function() {
 
 $("#panNumber").bind("input", function() {
 	this.value = this.value.toUpperCase();
+});
+
+$("#city").bind("input", function() {
+	this.value = this.value.replace(/[^0-9a-zA-Z\s]/ig, '').replace(/\s{2,}/g, ' ');
+});
+
+$("#addDetails").bind("input", function() {
+	this.value = this.value.replace(/[^a-zA-Z\s,/-_.-]/ig, '').replace(/\s{2,}/g, ' ');
+});
+
+$("#suppName").bind("input", function() {
+	this.value = this.value.replace(/[^a-zA-Z\s,./]/ig, '').replace(/\s{2,}/g, ' ');
 });
 
 $("#tanNumber").bind("input", function() {
@@ -105,11 +118,17 @@ $("#ifscCode").bind("input", function() {
 });
 
 $("#accoutNumber").bind("keypress", function() {
-	return event.charCode >= 48 && event.charCode <= 57;
+	return event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 112;
+});
+$("#accoutNumber").bind("input", function() {
+	this.value = this.value.toUpperCase();
 });
 
 $("#confirmedAccoutNumber").bind("keypress", function() {
-	return event.charCode >= 48 && event.charCode <= 57;
+	return event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 112;
+});
+$("#confirmedAccoutNumber").bind("input", function() {
+	this.value = this.value.toUpperCase();
 });
 
 $("#tdsApplication").bind("change", function() {
@@ -117,7 +136,7 @@ $("#tdsApplication").bind("change", function() {
 });
 
 $("#tdsRate").bind("keypress", function() {
-	return event.charCode >= 48 && event.charCode <= 57 || event.charCode <= 46;
+	return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46;
 });
 
 
@@ -797,22 +816,17 @@ function sendToServer() {
 	var bankTable = document.getElementById('addBankGrid');
 	var rowLengthBank = bankTable.rows.length;
 	var beneficiaryName;
-
-	for (var i = 1; i < rowLengthBank; i += 1) {
-		var row = bankTable.rows[i];
-		beneficiaryName = row.cells[1].innerHTML;
-	}
+	/*for (var i = 0; i < rowLengthBank; i++) {
+		//var row = bankTable.rows[i];
+		beneficiaryName = bankTable.rows[0].innerHTML;
+	}*/
 
 	if (rowLengthBank > 1) {
-		$(".pdDocClass").css("visibility", "hidden");
-		for (var i = 1; i < rowLength; i += 1) {
-			var row = table.rows[i];
-			beneficiaryName = row.cells[1].innerHTML;
-		}
+		beneficiaryName = document.getElementById('bankDetailsTable').rows[0].cells[1].innerHTML;
 
 		var suppName = $("#suppName").val();
 
-		if (suppName != beneficiaryName) {
+		if (suppName.toUpperCase() != beneficiaryName.toUpperCase()) {
 			var mandFields = "NMISFile";
 			var mandFieldsArr = mandFields.split(",");
 			for (i = 0; i < mandFieldsArr.length; i++) {
@@ -966,6 +980,8 @@ function sendToServer() {
 	finalObj.fyYear1 = fyYear1;
 	finalObj.fyYear2 = fyYear2;
 	finalObj.fyYear3 = fyYear3;
+
+	finalObj.flag = "Inactive";
 
 	finalObj.acknowledgementNumber1 = acknowledgementNumber1;
 	finalObj.acknowledgementNumber2 = acknowledgementNumber2;
@@ -1217,7 +1233,7 @@ $("#suppName").keypress(function(event) {
 });
 
 
-$("#city").keypress(function(event) {
+$("#city_WUIW").keypress(function(event) {
 	var inputValue = event.which;
 	if (inputValue == 8) {
 
@@ -1436,4 +1452,173 @@ function addBendDetails() {
 		$("#bankDetails").css("display", "none");
 		$(".cancelledChequeMend").css("visibility", "hidden");
 	}
+}
+
+// Initializes  input( name of states)
+// with a typeahead
+var $input = $(".typeahead");
+$input.typeahead({
+	source: [
+		"Aditya Birla Idea Payments Bank Ltd",
+		"Airtel Payments Bank Ltd",
+		"Andhra Pradesh GVB",
+		"Andhra Pragathi Grameena Bank",
+		"Arunachal Pradesh Rural Bank",
+		"Aryavart Bank",
+		"Assam Gramin Vikash Bank",
+		"Au Small Finance Bank Ltd",
+		"Axis Bank Ltd",
+		"Bandhan Bank Ltd",
+		"Bangiya Gramin Vikash Bank",
+		"Bank of Baroda",
+		"Bank of India",
+		"Bank of Maharashtra",
+		"Baroda Gujarat Gramin Bank",
+		"Baroda Rajasthan Kshetriya Gramin Bank",
+		"Baroda Uttar Pradesh Gramin Bank",
+		"Canara Bank",
+		"Capital Small Finance Bank Ltd",
+		"Central Bank of India",
+		"Chaitanya Godavari GB",
+		"Chhattisgarh Rajya Gramin Bank",
+		"City Union Bank Ltd",
+		"Coastal Local Area Bank Ltd",
+		"CSB Bank Limited",
+		"Dakshin Bihar Gramin Bank",
+		"DCB Bank Ltd",
+		"Dhanlaxmi Bank Ltd",
+		"Ellaquai Dehati Bank",
+		"Equitas Small Finance Bank Ltd",
+		"ESAF Small Finance Bank Ltd",
+		"Export-Import Bank of India",
+		"Federal Bank Ltd",
+		"Fincare Small Finance Bank Ltd",
+		"Fino Payments Bank Ltd",
+		"HDFC Bank Ltd",
+		"Himachal Pradesh Gramin Bank",
+		"HSBC Bank",
+		"ICICI Bank Ltd",
+		"IDBI Bank Limited",
+		"IDFC FIRST Bank Limited",
+		"India Post Payments Bank Ltd",
+		"Indian Bank",
+		"Indian Overseas Bank",
+		"IndusInd Bank Ltd",
+		"J&K Grameen Bank",
+		"Jammu & Kashmir Bank Ltd",
+		"Jana Small Finance Bank Ltd",
+		"Jharkhand Rajya Gramin Bank",
+		"Jio Payments Bank Ltd",
+		"Karnataka Bank Ltd",
+		"Karnataka Gramin Bank",
+		"Karnataka Vikas Gramin Bank",
+		"Karur Vysya Bank Ltd",
+		"Kashi Gomti Samyut Gramin Bank",
+		"Kerala Gramin Bank",
+		"Kotak Mahindra Bank Ltd",
+		"Krishna Bhima Samruddhi LAB Ltd",
+		"Lakshmi Vilas Bank Ltd",
+		"Madhya Pradesh Gramin Bank",
+		"Madhyanchal Gramin Bank",
+		"Maharashtra GB",
+		"Manipur Rural Bank",
+		"Meghalaya Rural Bank",
+		"Mizoram Rural Bank",
+		"Nagaland Rural Bank",
+		"Nainital Bank Ltd",
+		"National Bank for Agriculture and Rural Development",
+		"National Housing Bank",
+		"North East Small Finance Bank Ltd",
+		"NSDL Payments Bank Limited",
+		"Odisha Gramya Bank",
+		"Paschim Banga Gramin Bank",
+		"Paytm Payments Bank Ltd",
+		"Prathama U.P. Gramin Bank",
+		"Puduvai Bharathiar Grama Bank",
+		"Punjab & Sind Bank",
+		"Punjab Gramin Bank",
+		"Punjab National Bank",
+		"Purvanchal Bank",
+		"Rajasthan Marudhara Gramin Bank",
+		"RBL Bank Ltd",
+		"Saptagiri Grameena Bank",
+		"Sarva Haryana Gramin Bank",
+		"Saurashtra Gramin Bank",
+		"Small Industries Development Bank of India",
+		"South Indian Bank Ltd",
+		"State Bank of India",
+		"Subhadra Local Bank Ltd",
+		"Suryoday Small Finance Bank Ltd",
+		"Tamil Nadu Grama Bank",
+		"Tamilnad Mercantile Bank Ltd",
+		"Telangana Grameena Bank",
+		"Tripura Gramin Bank",
+		"UCO Bank",
+		"Ujjivan Small Finance Bank Ltd",
+		"Union Bank of India",
+		"Utkal Grameen Bank",
+		"Utkarsh Small Finance Bank Ltd",
+		"Uttar Bihar Gramin Bank",
+		"Uttarakhand Gramin Bank",
+		"Uttar Banga Kshetriya Gramin Bank",
+		"Vidharbha Konkan Gramin Bank",
+		"YES Bank Ltd",
+	],
+	autoSelect: true,
+});
+
+$input.change(function() {
+	var current = $input.typeahead("getActive");
+	matches = [];
+
+	if (current) {
+
+		// Some item from your input matches
+		// with entered data
+		if (current.name == $input.val()) {
+			matches.push(current.name);
+		}
+	}
+});
+
+$("#panNumber").focusout(function() {
+	checkForExistingPanNumber();
+});
+function checkForExistingPanNumber() {
+	var PanNumberCheckStatus = "false";
+	var panNumber = $("#panNumber").val();
+	if (panNumber != "") {
+		var json = {
+			"panNumber": panNumber,
+			"flag": "Active"
+		}
+
+		$.ajax({
+			type: "GET",
+			data: json,
+			url: "ajaxController/checkExistingPan",
+			dataType: "json",
+			headers: { 'X-XSRF-TOKEN': csrfToken },
+			contentType: "application/json",
+			async: false,
+			success: function(data) {
+				if (data.msg == 'exist') {
+					swal.fire("Alert", "<b>" + panNumber + "</b> This Pan Number is Already Exists", "warning");
+					document.getElementById("panNumber").focus();
+					$("#panNumber").val('');
+				} else if (data.msg == 'success') {
+					PanNumberCheckStatus = "true";
+				} else {
+					Toast.fire({
+						type: 'error',
+						title: 'Failed.. Try Again..'
+					})
+				}
+			},
+			error: function(jqXHR, textStatue, errorThrown) {
+				alert("failed, please try again");
+			}
+		});
+	}
+	return PanNumberCheckStatus;
 }

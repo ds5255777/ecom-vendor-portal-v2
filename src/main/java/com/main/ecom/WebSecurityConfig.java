@@ -67,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
     		http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
         
 //    	http.headers().frameOptions().disable();
-  //       http.csrf().disable();
+         http.csrf().disable();
     }
     
  

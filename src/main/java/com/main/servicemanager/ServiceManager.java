@@ -57,8 +57,8 @@ public class ServiceManager {
 	@Autowired
 	public EmailConfigurationRepository emailConfigurationRepository;
 
-	@Autowired
-	public SupDetailsRepo detailsRepo;
+//	@Autowired
+//	public SupDetailsRepo detailsRepo;
 
 	@Autowired
 	public SecurityService securityService;

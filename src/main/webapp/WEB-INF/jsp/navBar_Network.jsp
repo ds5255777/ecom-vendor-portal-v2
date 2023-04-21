@@ -26,17 +26,17 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group" style="padding-top: .3rem">
-                                    <select class="form-control" id="selectStatus" name="selectStatus" onchange="GetSelectedTextValue1()" style="height: 34px; width: 170px">
-                                        <option value="">Select Vendor Status</option>
+                            <div class="col-md-4" >
+                                <div class="form-group" style="padding-top: .3rem;display: none;">
+                                    <select class="form-control" id="selectPaymentStatus" name="selectPaymentStatus" onchange="GetSelectedTextValue1()" style="height: 34px; width: 170px">
+                                        <option value="">Select Invoicing Status</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group" style="padding-top: .3rem">
-                                    <select class="form-control" id="selectPaymentStatus" name="selectPaymentStatus" onchange="GetSelectedTextValue1()" style="height: 34px; width: 170px">
-                                        <option value="">Select Invoicing Status</option>
+                                    <select class="form-control" id="selectStatus" name="selectStatus" onchange="GetSelectedTextValue1()" style="height: 34px; width: 170px">
+                                        <option value="">Select Vendor Status</option>
                                     </select>
                                 </div>
                             </div>
@@ -55,6 +55,16 @@
 
         <li class="nav-item"><a class="nav-link">${userName}</a></li>
 
+        <%-- <li class="nav-item">
+            <c:if test="${pageContext.request.userPrincipal.name != null}">
+                <form id="logoutForm" method="POST" action="${pageContext.request.contextPath}/logout">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+
+                <a href="#" class="nav-link" data-toggle="dropdown" id="invalidateForm"> <i class="fa fa-power-off fa-lg" style="color: #C62625;"></i>
+                </a>
+            </c:if>
+        </li> --%>
         <li class="nav-item">
             <c:if test="${pageContext.request.userPrincipal.name != null}">
                 <form id="logoutForm" method="POST" action="${pageContext.request.contextPath}/logout">
@@ -69,3 +79,4 @@
 </nav>
 <script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="js/navBar_Network.js"></script>

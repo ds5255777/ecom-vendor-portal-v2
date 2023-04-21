@@ -86,14 +86,19 @@ public class AjaxController {
 
 			for (int i = 0; i < supDetailsDto.getAddressDetails().size(); i++) {
 				String state = supDetailsDto.getAddressDetails().get(i).getState();
-				String stCode = serviceManager.stateRepo.findByStateCode(state);
+				if (null != state) {
+					String stCode = serviceManager.stateRepo.findByStateCode(state);
 
-				String partnerType = supDetailsDto.getAddressDetails().get(i).getVendorType();
-				String glCode = serviceManager.businessPartnerTypeRepo.getGlCodeByPartnerType(partnerType);
-				if (!partnerType.isEmpty()) {
-					String typeCode = serviceManager.businessPartnerTypeRepo.findByTypeCode(partnerType);
-					supDetailsDto.getAddressDetails().get(i).setSupplierSiteCode(stCode.concat("_" + typeCode));
-					supDetailsDto.getAddressDetails().get(i).setGlCode(glCode);
+					String partnerType = supDetailsDto.getAddressDetails().get(i).getVendorType();
+					String glCode = serviceManager.businessPartnerTypeRepo.getGlCodeByPartnerType(partnerType);
+					if (!partnerType.isEmpty()) {
+						String typeCode = serviceManager.businessPartnerTypeRepo.findByTypeCode(partnerType);
+						supDetailsDto.getAddressDetails().get(i).setSupplierSiteCode(stCode.concat("_" + typeCode));
+						supDetailsDto.getAddressDetails().get(i).setGlCode(glCode);
+					}
+				}else {
+					supDetailsDto.getAddressDetails().get(i).setSupplierSiteCode("Head Office");
+					supDetailsDto.getAddressDetails().get(i).setGlCode("203101");
 				}
 			}
 
@@ -104,11 +109,11 @@ public class AjaxController {
 				supDetailsDto.setCreateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
 				supDetailsDto.setBpCode(generateVendorCode());
-				SupDetails supSaved = serviceManager.detailsRepo
+				SupDetails supSaved = serviceManager.supDetailsRepo
 						.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 				Long id = supSaved.getId();
 				processID = GlobalConstants.VENDOR_PID_PREFIX + id + GlobalConstants.VENDOR_PID_SUFFIX;
-				serviceManager.detailsRepo.updatePidInSupDetails(id, processID);
+				serviceManager.supDetailsRepo.updatePidInSupDetails(id, processID);
 				data.setData(processID);
 
 				SendEmailToVendor commTeamDetails = serviceManager.sendEmailToVendorRepo
@@ -189,7 +194,7 @@ public class AjaxController {
 				supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
 				supDetailsDto.setProcessedBy(userEmail);
 				supDetailsDto.setProcessedOn(strDate);
-				serviceManager.detailsRepo.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
+				serviceManager.supDetailsRepo.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 
 				List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
 						.findByIsActive(GlobalConstants.ACTIVE_STATUS);
@@ -284,7 +289,8 @@ public class AjaxController {
 					supDetailsDto.setFlag(GlobalConstants.SET_FLAG_TYPE_ACTIVE);
 				}
 
-				serviceManager.detailsRepo.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
+				serviceManager.supDetailsRepo
+						.save(this.serviceManager.modelMapper.map(supDetailsDto, SupDetails.class));
 				data.setData(processID);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}

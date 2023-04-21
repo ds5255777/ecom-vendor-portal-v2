@@ -20,6 +20,48 @@ $("#lumpsum").bind("change", function() {
 	lumpsomePropertyChange();
 });
 
+
+
+$("#actualKM").bind("input", function() {
+	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
+});
+
+$("#standardKM").bind("input", function() {
+	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
+});
+
+$("#mileage").bind("input", function() {
+	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
+});
+
+$("#ratePerKm").bind("input", function() {
+	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
+});
+$("#routeKms").bind("input", function() {
+	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
+});
+$("#fsBaseRate").bind("input", function() {
+	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
+});
+$("#currentFuelRate").bind("input", function() {
+	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
+});
+$("#fsDiff").bind("input", function() {
+	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
+});
+$("#fs").bind("input", function() {
+	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
+});
+$("#basicFreight").bind("input", function() {
+	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
+});
+$("#totalFreight").bind("input", function() {
+	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
+});
+
+
+
+
 var dataLimit = '${dataLimit}';
 dataLimit = parseInt(dataLimit);
 
@@ -41,14 +83,13 @@ const Toast = Swal.mixin({
 	timer: 3000
 });
 var tabledata = $('#tabledata1').DataTable({
-	"paging": true,
+	"paging": false,
 	"lengthChange": false,
 	"searching": true,
-	"info": true,
+	"info": false,
 	"autoWidth": false,
 	"aaSorting": [],
-	"scrollX": true,
-	"pageLength": 100,
+	"scrollX": false,
 	dom: 'Bfrtip',
 	buttons: [
 		{
@@ -142,54 +183,7 @@ function getData() {
 			$('.loader').hide();
 			if (data.msg == 'success') {
 
-				var result = data.data;
-				tabledata.clear();
-
-				for (var i = 0; i < result.length; i++) {
-
-					if (!result[i].hasOwnProperty("tripID")) {
-						result[i].tripID = "-";
-					}
-					if (!result[i].hasOwnProperty("route")) {
-						result[i].route = "-";
-					}
-					if (!result[i].hasOwnProperty("vendorName")) {
-						result[i].vendorName = "-";
-					}
-					if (!result[i].hasOwnProperty("vendorCode")) {
-						result[i].vendorCode = "-";
-					}
-					if (!result[i].hasOwnProperty("actualDeparture")) {
-						result[i].actualDeparture = "-";
-					}
-					if (!result[i].hasOwnProperty("mode")) {
-						result[i].mode = "-";
-					}
-					if (!result[i].hasOwnProperty("runType")) {
-						result[i].runType = "-";
-					}
-					if (!result[i].hasOwnProperty("vehicleNumber")) {
-						result[i].vehicleNumber = "-";
-					}
-
-
-
-					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\"  class=\"tripIdView\" >" + result[i].tripID + "</a>";
-
-					var tempString = [view,
-						result[i].route,
-						result[i].vendorName,
-						result[i].vendorCode,
-						result[i].actualDeparture,
-						result[i].mode,
-						result[i].runType,
-						result[i].runStatus,
-						result[i].vehicleNumber];
-
-					tabledata.row.add(tempString);
-				}
-				tabledata.draw();
-				$("tbody").show();
+				showTableData(data, 1);
 			} else {
 				Toast.fire({
 					type: 'error',
@@ -204,6 +198,7 @@ function getData() {
 }
 
 $('#tabledata1 tbody').on('click', ".tripIdView", function() {
+
 	var row = $(this).parents('tr')[0];
 	//console.log(row.cells[0].innerText);
 	//console.log(tabledata.row(row).data().id);
@@ -215,6 +210,8 @@ function setTripStatus(tripId, vendorNameOfTrip) {
 	var json = {
 		"tripID": tripId
 	}
+
+	vendorNameOfTrip = vendorNameOfTrip.toUpperCase();
 
 	$.ajax({
 		type: "POST",
@@ -335,7 +332,6 @@ function lumpsomePropertyChange() {
 function updateTripDataByNetworkTeam() {
 	var ratePerKm = document.getElementById("ratePerKm").value;
 	var milage = document.getElementById("mileage").value;
-
 	var routeKms = document.getElementById("routeKms").value;
 	var fsBaseRate = document.getElementById("fsBaseRate").value;
 	var currentFuelRate = document.getElementById("currentFuelRate").value;
@@ -349,6 +345,42 @@ function updateTripDataByNetworkTeam() {
 	var fs = document.getElementById("fs").value;
 	var vendorName = document.getElementById("vendorName").value
 	var vendorCode = document.getElementById("vendorCode").value
+	var standardKM = document.getElementById("standardKM").value
+	var actualKM = document.getElementById("actualKM").value
+	
+	if (vendorName === "" || vendorName === null || vendorName === '') {
+		Toast.fire({
+			type: 'error',
+			title: 'Select Vendor.!'
+		});
+		document.getElementById("vendorName").focus();
+		return "";
+	}
+	
+	if (vendorCode === "" || vendorCode === null || vendorCode === '') {
+		Toast.fire({
+			type: 'error',
+			title: 'Select Vendor.!'
+		});
+		document.getElementById("vendorName").focus();
+		return "";
+	}
+	if (standardKM === "" || standardKM === null || standardKM === '') {
+		Toast.fire({
+			type: 'error',
+			title: 'Standard KM cannot be empty!! '
+		});
+		document.getElementById("standardKM").focus();
+		return "";
+	}
+	if (actualKM === "" || actualKM === null || actualKM === '') {
+		Toast.fire({
+			type: 'error',
+			title: 'Actual KM cannot be empty!! '
+		});
+		document.getElementById("actualKM").focus();
+		return "";
+	}
 
 	if (milage === "" || milage === null || milage === '') {
 		Toast.fire({
@@ -515,21 +547,67 @@ function updateTripDataByNetworkTeam() {
 }
 
 function calcualteFormulae() {
+	debugger
 	var currentFuelRate = document.getElementById("currentFuelRate").value;
 	var fsBaseRate = document.getElementById("fsBaseRate").value;
 	var standKMS = document.getElementById("standardKM").value;
 	var ratePerKm = document.getElementById("ratePerKm").value;
-
-	var fsCal = parseFloat(currentFuelRate) - parseFloat(fsBaseRate);
-	var basicFreight = parseFloat(standKMS) * parseFloat(ratePerKm);
-	document.getElementById("basicFreight").value = basicFreight.toFixed(2);
-
 	var mileage = document.getElementById("mileage").value;
 	var routeKms = document.getElementById("routeKms").value;
-	var fs = (parseFloat(fsCal) / parseFloat(mileage)) * parseFloat(routeKms);
+	if (mileage === "" || mileage === null || mileage === '') {
+		Toast.fire({
+			type: 'error',
+			title: 'Mileage cannot be empty!! '
+		});
+		document.getElementById("mileage").focus();
+		return "";
+	}
+	if (ratePerKm === "" || ratePerKm === null || ratePerKm === '') {
+		Toast.fire({
+			type: 'error',
+			title: 'Please chcek the Value of Rate Per KM'
+		});
+		document.getElementById("ratePerKm").focus();
+		return "";
+	}
+
+	if (routeKms === "" || routeKms === null || routeKms === '') {
+		Toast.fire({
+			type: 'error',
+			title: 'Billable Kms cannot be empty!!'
+		});
+		document.getElementById("routeKms").focus();
+		return "";
+	}
+
+	if (fsBaseRate === "" || fsBaseRate === null || fsBaseRate === '') {
+		Toast.fire({
+			type: 'error',
+			title: 'Please chcek the Value of Fs Base Rate'
+		});
+		document.getElementById("fsBaseRate").focus();
+		return "";
+	}
+	
+	if (currentFuelRate === "" || currentFuelRate === null || currentFuelRate === '') {
+		Toast.fire({
+			type: 'error',
+			title: 'Current Fuel Rate cannot be empty!!'
+		});
+		document.getElementById("currentFuelRate").focus();
+		return "";
+	}
+	
+	
+	var fsCal = Number(currentFuelRate) - Number(fsBaseRate);
+	var basicFreight = Number(standKMS) * Number(ratePerKm);
+	document.getElementById("basicFreight").value = basicFreight.toFixed(2);
+
+
+	var fs = (Number(fsCal) / Number(mileage)) * Number(routeKms);
 	document.getElementById("fs").value = fs.toFixed(2);
 
-	var totalFreight = parseFloat(basicFreight) + parseFloat(fs);
+	var totalFreight = Number(basicFreight) + Number(fs);
 	document.getElementById("totalFreight").value = totalFreight.toFixed(2);
 
 }
@@ -542,8 +620,9 @@ $(document).ready(function() {
 });
 
 function getBpCode() {
-	var vendorName = $("#vendorName").val();
 
+	var vendorName = $("#vendorName").val();
+	console.log(vendorName);
 	var json = {
 		"vendorName": vendorName
 	}
@@ -575,4 +654,181 @@ function getBpCode() {
 			})
 		}
 	});
-}                                                    	
+}
+
+function showTableData(data, pageNumber) {
+	var result = data.data;
+	pageNumber = parseInt(pageNumber);
+	tabledata.clear();
+
+	for (var i = 0; i < result.length; i++) {
+
+		if (!result[i].hasOwnProperty("tripID")) {
+			result[i].tripID = "-";
+		}
+		if (!result[i].hasOwnProperty("route")) {
+			result[i].route = "-";
+		}
+		if (!result[i].hasOwnProperty("vendorName")) {
+			result[i].vendorName = "-";
+		}
+		if (!result[i].hasOwnProperty("vendorCode")) {
+			result[i].vendorCode = "-";
+		}
+		if (!result[i].hasOwnProperty("actualDeparture")) {
+			result[i].actualDeparture = "-";
+		}
+		if (!result[i].hasOwnProperty("mode")) {
+			result[i].mode = "-";
+		}
+		if (!result[i].hasOwnProperty("runType")) {
+			result[i].runType = "-";
+		}
+		if (!result[i].hasOwnProperty("vehicleNumber")) {
+			result[i].vehicleNumber = "-";
+		}
+
+
+
+		var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\"  class=\"tripIdView\" >" + result[i].tripID + "</a>";
+
+		var tempString = [view,
+			result[i].route,
+			result[i].vendorName,
+			result[i].vendorCode,
+			result[i].actualDeparture,
+			result[i].mode,
+			result[i].runType,
+			result[i].runStatus,
+			result[i].vehicleNumber];
+
+		tabledata.row.add(tempString);
+	}
+	tabledata.draw();
+	$("tbody").show();
+	var pageLength = parseInt(Math.round(data.totalRecord / 100));
+
+	var pageHtml = "";
+	for (var k = 1; k <= pageLength; k++) {
+
+		if (pageNumber == 1 && k == 1) {
+			pageHtml += "<li class=\"getPaginationData paginate_button page-item active\" id=\"pageId_" + k + "\" ><a  style=\"cursor: pointer;\" value=\"" + k + "\" aria-controls=\"tabledata\" data-dt-idx=\"" + k + "\" tabindex=\"" + k + "\" class=\"page-link\">" + k + "</a></li>";
+		}
+		else if (pageNumber == k) {
+			pageHtml += "<li class=\"getPaginationData paginate_button page-item active\" id=\"pageId_" + k + "\" ><a  style=\"cursor: pointer;\" value=\"" + k + "\" aria-controls=\"tabledata\" data-dt-idx=\"" + k + "\" tabindex=\"" + k + "\" class=\"page-link\">" + k + "</a></li>";
+		}
+		else {
+			pageHtml += "<li class=\"getPaginationData paginate_button page-item\" id=\"pageId_" + k + "\" ><a style=\"cursor: pointer;\" value=\"" + k + "\" aria-controls=\"tabledata\" data-dt-idx=\"" + k + "\" tabindex=\"" + k + "\" class=\"page-link\">" + k + "</a></li>";
+		}
+
+	}
+	var previousBtn = "";
+	var nextBtn = "";
+
+	var nextPageNmbr = pageNumber + 1;
+	var prvsPageNmbr = pageNumber - 1;
+
+	if (pageNumber == 1) {
+		previousBtn = "<li class=\"paginate_button page-item previous disabled\"  id=\"tabledata_previous\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"0\" tabindex=\"0\" class=\"page-link\">Previous</a></li>";
+	}
+	else {
+
+		previousBtn = "<li class=\"prvsPageNumbr paginate_button page-item previous\" value=\"" + prvsPageNmbr + "\" id=\"tabledata_previous\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"0\" tabindex=\"0\" class=\"page-link\">Previous</a></li>";
+	}
+	if (pageNumber == pageLength) {
+		nextBtn = "<li class=\"paginate_button page-item next disabled\" id=\"tabledata_next\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"2\" tabindex=\"0\" class=\"page-link\">Next</a></li>";
+	}
+	else {
+		nextBtn = "<li class=\"nextPageNumbr paginate_button page-item next\" value=\"" + nextPageNmbr + "\" id=\"tabledata_next\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"2\" tabindex=\"0\" class=\"page-link\">Next</a></li>";
+	}
+
+	var pageNumberShow = "<li class=\"paginate_button page-item active\" value=\"" + pageNumber + "\" ><button>" + pageNumber + "</button></li>";
+
+	var pagingHtml = "<div class=\"dataTables_paginate paging_simple_numbers\" ><ul class=\"pagination\">" +
+		previousBtn + pageNumberShow + nextBtn + "</ul></div>";
+
+	var infoHtml = "";
+	if (pageNumber == 1) {
+		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " + pageNumber * 1 + " to " + (pageNumber * 100) + " of " + data.totalRecord + " entries</div>";
+	} else {
+		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " + (((pageNumber - 1) * 100) + 1) + " to " + (pageNumber * 100) + " of " + data.totalRecord + " entries</div>";
+	}
+	if (pageNumber == pageLength) {
+		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " + (((pageNumber - 1) * 100) + 1) + " to " + data.totalRecord + " of " + data.totalRecord + " entries</div>";
+	}
+
+	$("#pageInfo").html(infoHtml);
+
+	$("#pagingId").html(pagingHtml);
+}
+
+
+
+
+
+
+$('#tabledata tbody').on('click', ".nextPageNumbr", function() {
+	getPaginationData(this.value);
+
+});
+
+$("body").on("click", ".nextPageNumbr", function() {
+
+	getPagination(this.value);
+
+});
+
+$("body").on("click", ".prvsPageNumbr", function() {
+
+	getPagination(this.value);
+
+});
+
+$("body").on("click", ".getPaginationData", function() {
+
+	var classVal = $(this).attr('id').split("_");
+	getPagination(classVal[1]);
+
+});
+
+function getPagination(pageNumber) {
+
+	var obj = {
+		"id": pageNumber
+	}
+
+	$('.loader').show();
+
+	$.ajax({
+		type: "POST",
+		data: JSON.stringify(obj),
+		url: "tripControllers/getPaginationPendingApproval",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		success: function(data) {
+
+
+			$('.loader').hide();
+
+			if (data.msg == 'success') {
+				//var result = data.data;
+				showTableData(data, pageNumber);
+
+			}
+			else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			$('.loader').hide();
+			alert("failed, please try again");
+		}
+
+	});
+
+}

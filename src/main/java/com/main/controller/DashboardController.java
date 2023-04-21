@@ -249,6 +249,8 @@ public class DashboardController {
 		try {
 			JSONObject jsonObject = new JSONObject(reqObj);
 			String vendorName = jsonObject.optString("vendorName");
+			String vendorCode = serviceManager.supDetailsRepo.getVendorCode(vendorName);
+			System.out.println(vendorCode);
 			data.setData(serviceManager.supDetailsRepo.getVendorCode(vendorName));
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 

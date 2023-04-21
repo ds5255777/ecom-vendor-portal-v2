@@ -93,7 +93,10 @@ public class TripServiceImpl implements TripService {
 
 		if (!"".equalsIgnoreCase(runStatus) && "".equalsIgnoreCase(vendorTripStatus)
 				&& "".equalsIgnoreCase(paymentStatus)) {
-			return tripDetailsRepo.getTripsByFiltersVendorRunStatus(runStatus);
+			if (!runStatus.equalsIgnoreCase(GlobalConstants.RUN_CLOSED))
+				return tripDetailsRepo.getTripsByFiltersVendorRunStatus();
+			else
+				return tripDetailsRepo.findByRunStatus(GlobalConstants.RUN_CLOSED);
 		} else if (!"".equalsIgnoreCase(runStatus) && !"".equalsIgnoreCase(vendorTripStatus)
 				&& "".equalsIgnoreCase(paymentStatus)) {
 			return tripDetailsRepo.getTripsByFiltersRunStatusVendorTripStatus(runStatus, vendorTripStatus);

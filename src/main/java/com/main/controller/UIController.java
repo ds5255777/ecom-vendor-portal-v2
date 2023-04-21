@@ -16,6 +16,7 @@ import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -41,6 +42,7 @@ import com.main.db.bpaas.entity.RolesEntity;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.entity.User;
+import com.main.db.bpaas.repo.SupDetailsTransactionRepo;
 import com.main.servicemanager.ServiceManager;
 
 @Controller
@@ -66,6 +68,9 @@ public class UIController {
 
 	@Autowired
 	private ServiceManager serviceManager;
+
+	@Autowired
+	private SupDetailsTransactionRepo supRepo;
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(UIController.class);
@@ -278,7 +283,7 @@ public class UIController {
 							GlobalConstants.NETWORK_TRIP_STATUS_YET_TO_APPROVED_NETWORK, GlobalConstants.ROLE_NETWORK,
 							GlobalConstants.ADHOC_TYPE_TRIPS, GlobalConstants.RUN_CLOSED);
 			model.addAttribute("yetTobeApproved", yetTobeApproved);
-			Integer getTripCountForQueryAdhoc = serviceManager.tripDetailsRepo
+			Long getTripCountForQueryAdhoc = serviceManager.tripDetailsRepo
 					.countByVendorTripStatus(GlobalConstants.QUERY_REQUEST_STATUS);
 			model.addAttribute("getTripCountForQueryAdhoc", getTripCountForQueryAdhoc);
 
@@ -444,11 +449,14 @@ public class UIController {
 			Integer approvedRequest = serviceManager.supDetailsRepo.countByVenStatusIn();
 			Integer rejectedRequest = serviceManager.supDetailsRepo
 					.countByVenStatus(GlobalConstants.REJECTED_REQUEST_STATUS);
-			Integer queryRequest = serviceManager.supDetailsRepo.countByVenStatus(GlobalConstants.QUERY_REQUEST_STATUS);
+			// Integer queryRequest =
+			// serviceManager.supDetailsRepo.countByVenStatus(GlobalConstants.QUERY_REQUEST_STATUS);
+			Integer profileUpdate = supRepo.countByVenStatus(GlobalConstants.UPDATING_REQUEST_STATUS);
 			model.addAttribute("pendingRequest", pendingRequest);
 			model.addAttribute("approvedRequest", approvedRequest);
 			model.addAttribute("rejectedRequest", rejectedRequest);
-			model.addAttribute("queryRequest", queryRequest);
+			// model.addAttribute("queryRequest", queryRequest);
+			model.addAttribute("profileUpdate", profileUpdate);
 			model.addAttribute("role", rolename);
 			return "dashboardRegistration";
 		} else if (rolename.equalsIgnoreCase("Commercial Team")) {
@@ -614,47 +622,44 @@ public class UIController {
 	@GetMapping("/vendorDetails")
 	public String vendorDetails(Model model, Principal principal, HttpServletRequest request) {
 		String rolename = (String) request.getSession().getAttribute("role");
-		List<String> currency = serviceManager.currencyRepo.getCurrencyType();
-		List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
-		List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
-		List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
-		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
-		List<String> country = serviceManager.countryRepo.getCountry();
-		List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
-		List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
-		List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
-		List<String> region = serviceManager.regionRepo.getRegion();
-		List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
-		List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
-		List<String> flag = serviceManager.flagRepo.getFlag();
-		List<String> stateName = serviceManager.stateRepo.getStateName();
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
+			List<String> currency = serviceManager.currencyRepo.getCurrencyType();
+			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+			List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
+			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
+			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+			List<String> country = serviceManager.countryRepo.getCountry();
+			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
+			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
+			List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
+			List<String> region = serviceManager.regionRepo.getRegion();
+			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
+			List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
+			List<String> flag = serviceManager.flagRepo.getFlag();
+			List<String> stateName = serviceManager.stateRepo.getStateName();
 
-		model.addAttribute("currency", currency);
-		model.addAttribute("business", business);
-		model.addAttribute("partner", partner);
-		model.addAttribute("classification", classification);
-		model.addAttribute("payment", payment);
-		model.addAttribute("country", country);
-		model.addAttribute("tdsCode", tdsCode);
-		model.addAttribute("financialYear", financialYear);
+			model.addAttribute("currency", currency);
+			model.addAttribute("business", business);
+			model.addAttribute("partner", partner);
+			model.addAttribute("classification", classification);
+			model.addAttribute("payment", payment);
+			model.addAttribute("country", country);
+			model.addAttribute("tdsCode", tdsCode);
+			model.addAttribute("financialYear", financialYear);
 
-		model.addAttribute("fileSize", fileSize);
+			model.addAttribute("fileSize", fileSize);
 
-		model.addAttribute("maxFileSize", maxFileSize);
-		model.addAttribute("fileSize", fileSize);
-		model.addAttribute("maxFileSize", maxFileSize);
-		model.addAttribute("fileSize", fileSize);
-		model.addAttribute("adharLink", adharLinkStatus);
-		model.addAttribute("region", region);
-		model.addAttribute("sectionType", sectionType);
-		model.addAttribute("paymentMethod", paymentMethod);
-		model.addAttribute("flag", flag);
-		model.addAttribute("stateName", stateName);
-		model.addAttribute("dataLimit", dataLimit);
-
-		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)
-				|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
-
+			model.addAttribute("maxFileSize", maxFileSize);
+			model.addAttribute("fileSize", fileSize);
+			model.addAttribute("maxFileSize", maxFileSize);
+			model.addAttribute("fileSize", fileSize);
+			model.addAttribute("adharLink", adharLinkStatus);
+			model.addAttribute("region", region);
+			model.addAttribute("sectionType", sectionType);
+			model.addAttribute("paymentMethod", paymentMethod);
+			model.addAttribute("flag", flag);
+			model.addAttribute("stateName", stateName);
+			model.addAttribute("dataLimit", dataLimit);
 			return "vendorDetails";
 		}
 		return "";
@@ -740,13 +745,13 @@ public class UIController {
 
 	@GetMapping("/pendingApprovalNetwork")
 	public String pendingApprovalNetwork(Model model, Principal principal) {
-		/*
-		 * List<TripDetails> yetTobeApproved =
-		 * serviceManager.tripService.findAllTripsByStatus(""); List<String>
-		 * vendorNamefortrips = serviceManager.tripDetailsRepo.getVendorName();
-		 * model.addAttribute("vendorNamefortrips", vendorNamefortrips);
-		 * model.addAttribute("yetTobeApprovedAllDetails", yetTobeApproved);
-		 */
+
+		// List<TripDetails> yetTobeApproved =
+		// serviceManager.tripService.findAllTripsByStatus("");
+		List<String> vendorNamefortrips = serviceManager.tripDetailsRepo.getVendorName();
+		model.addAttribute("vendorNamefortrips", vendorNamefortrips.stream().map(vendorList -> vendorList.toUpperCase()).collect(Collectors.toList()));
+		// model.addAttribute("yetTobeApprovedAllDetails", yetTobeApproved);
+
 		model.addAttribute("dataLimit", dataLimit);
 		return "pendingApprovalNetwork";
 	}
@@ -764,11 +769,12 @@ public class UIController {
 
 	@GetMapping("/QueryTripsForNetwork")
 	public String queryTripsForNetwork(Model model, Principal principal) {
-		List<TripDetails> allDetailsForNetwork = serviceManager.tripDetailsRepo.getQueryTripsForNetwork("Query");
+		// List<TripDetails> allDetailsForNetwork =
+		// serviceManager.tripDetailsRepo.getQueryTripsForNetwork("Query");
 		List<String> vendorNamefortripsQuery = serviceManager.tripDetailsRepo.getVendorName();
-		model.addAttribute("vendorNamefortripsQuery", vendorNamefortripsQuery);
-		model.addAttribute("AllDetailsForNetwork", allDetailsForNetwork);
-		model.addAttribute("dataLimit", dataLimit);
+		model.addAttribute("vendorNamefortripsQuery", vendorNamefortripsQuery.stream().map(vendorList -> vendorList.toUpperCase()).collect(Collectors.toList()));
+//		model.addAttribute("AllDetailsForNetwork", allDetailsForNetwork);
+//		model.addAttribute("dataLimit", dataLimit);
 		return "QueryTripsForNetwork";
 	}
 
@@ -998,21 +1004,24 @@ public class UIController {
 	void getDoc(HttpServletResponse response, HttpServletRequest request, @RequestParam("name") String name,
 			@RequestParam("path") String path) throws IOException {
 
-		File file = new File(path);
-		try (FileInputStream inputStream = new FileInputStream(file)) {
-			String[] docNameExtensionArray = name.split("\\.");
-			String docNameExtension = docNameExtensionArray[docNameExtensionArray.length - 1];
-			String uri = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/";
+		if (null != path && !path.equals("")) {
+			File file = new File(path);
+			try (FileInputStream inputStream = new FileInputStream(file)) {
+				String[] docNameExtensionArray = name.split("\\.");
+				String docNameExtension = docNameExtensionArray[docNameExtensionArray.length - 1];
+				String uri = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+						+ "/";
 
-			response.setContentType("application/" + docNameExtension);
+				response.setContentType("application/" + docNameExtension);
 
-			response.setContentLength((int) file.length());
-			response.setHeader("Content-Disposition", "inline;filename=\"" + name + "\"");
-			response.setHeader("Content-Security-Policy", "frame-ancestors " + uri + " ");
-			FileCopyUtils.copy(inputStream, response.getOutputStream());
+				response.setContentLength((int) file.length());
+				response.setHeader("Content-Disposition", "inline;filename=\"" + name + "\"");
+				response.setHeader("Content-Security-Policy", "frame-ancestors " + uri + " ");
+				FileCopyUtils.copy(inputStream, response.getOutputStream());
 
-		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+			} catch (Exception e) {
+				logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+			}
 		}
 	}
 
@@ -1037,6 +1046,17 @@ public class UIController {
 		model.addAttribute("vendorType", vendorType);
 		model.addAttribute("pid", pid);
 		return "vendorView";
+	}
+	
+	@GetMapping("/vendorUpdateView")
+	public String vendorUpdateView(Model model, HttpServletRequest request, Principal principal) {
+
+		Base64.Decoder decoder = Base64.getDecoder();
+		String pid = new String(decoder.decode(request.getParameter("pid")));
+		String vendorType = new String(decoder.decode(request.getParameter("status")));
+		model.addAttribute("vendorType", vendorType);
+		model.addAttribute("pid", pid);
+		return "vendorUpdateView";
 	}
 
 	@GetMapping("/vendorReports")
@@ -1105,6 +1125,53 @@ public class UIController {
 			}
 		}
 		return "error";
+	}
+
+	@GetMapping("/vendorProfile")
+	public String vendorProfile(Model model, Principal principal, HttpServletRequest request) {
+		String rolename = (String) request.getSession().getAttribute("role");
+
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_VENDOR)) {
+			List<String> currency = serviceManager.currencyRepo.getCurrencyType();
+			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+			List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
+			List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
+			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+			List<String> country = serviceManager.countryRepo.getCountry();
+			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
+			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
+			List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
+			List<String> region = serviceManager.regionRepo.getRegion();
+			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
+			List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
+			List<String> flag = serviceManager.flagRepo.getFlag();
+			List<String> stateName = serviceManager.stateRepo.getStateName();
+
+			model.addAttribute("currency", currency);
+			model.addAttribute("business", business);
+			model.addAttribute("partner", partner);
+			model.addAttribute("classification", classification);
+			model.addAttribute("payment", payment);
+			model.addAttribute("country", country);
+			model.addAttribute("tdsCode", tdsCode);
+			model.addAttribute("financialYear", financialYear);
+
+			model.addAttribute("fileSize", fileSize);
+
+			model.addAttribute("maxFileSize", maxFileSize);
+			model.addAttribute("fileSize", fileSize);
+			model.addAttribute("maxFileSize", maxFileSize);
+			model.addAttribute("fileSize", fileSize);
+			model.addAttribute("adharLink", adharLinkStatus);
+			model.addAttribute("region", region);
+			model.addAttribute("sectionType", sectionType);
+			model.addAttribute("paymentMethod", paymentMethod);
+			model.addAttribute("flag", flag);
+			model.addAttribute("stateName", stateName);
+			model.addAttribute("dataLimit", dataLimit);
+			return "vendorProfile";
+		}
+		return "";
 	}
 
 	@GetMapping("/users")

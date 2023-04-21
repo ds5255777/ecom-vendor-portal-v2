@@ -1,26 +1,28 @@
-var csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
-
-
-
 createCaptcha2();
 
-$( "#captchaClick" ).bind( "click", function() {
- createCaptcha2();
+$("#captchaClick").bind("click", function() {
+	createCaptcha2();
 });
 
-$( "#click" ).bind( "click", function() {
- validateOnsubit();
+$("#click").bind("click", function() {
+	validateOnsubit();
 });
 
-$( document ).ready(function() {
-     const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
+$(document).ready(function() {
+	const Toast = Swal.mixin({
+		toast: true,
+		position: 'top-end',
+		showConfirmButton: false,
+		timer: 3000
+	});
 });
 
+document.addEventListener("keydown", function(event) {
+  // event.keyCode is deprecated, use event.key instead
+  if (event.key === "Enter") {
+    validateOnsubit();
+  } 
+});
 
 function createCaptcha2() {
 	//clear the contents of captcha div first 
@@ -47,10 +49,9 @@ function createCaptcha2() {
 	code = captcha.join("");
 	document.getElementById("captcha2").appendChild(canv); // adds the canvas to the body element
 }
+
 function validateCaptcha2() {
-
 	var check = false;
-
 	if (document.getElementById("captchaInput").value == code) {
 		check = true;
 	} else {
@@ -63,7 +64,6 @@ function validateCaptcha2() {
 }
 
 function validateOnsubit() {
-
 	var username = document.getElementById("username").value;
 	if (username === "" || username === null || username === '') {
 		swal.fire("", "Enter a Username", "warning");
@@ -86,27 +86,7 @@ function validateOnsubit() {
 	}
 
 	var captchaReturnType = validateCaptcha2();
-	//validateOnClick();
 	if (captchaReturnType) {
-
 		$("#target").submit();
 	}
-
-}
-
-
-
-function validateOnClick() {
-
-	var username = document.getElementById("username").value;
-	if (localStorage.clickcount) {
-		window.localStorage.setItem('username', username);
-		var val1 = window.localStorage.getItem("username");
-		console.log(val1);
-		localStorage.clickcount = Number(localStorage.clickcount) + 1;
-	} else {
-		localStorage.clickcount = 1;
-	}
-
-	document.getElementById("demo").innerHTML = localStorage.clickcount;
 }

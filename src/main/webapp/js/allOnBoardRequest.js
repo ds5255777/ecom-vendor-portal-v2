@@ -1,5 +1,8 @@
 var csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
 
+var pageContext = $("#pageContext").val();
+
+
 const Toast = Swal.mixin({
 	toast: true,
 	position: 'top-end',
@@ -71,6 +74,9 @@ function pendingRequest() {
 					if (!result[i].hasOwnProperty("processedBy")) {
 						result[i].processedBy = "";
 					}
+					
+					var download = "<a href=\"#\" data-toggle=\"modal\"  tittle=\"In-Active Vendor\" data-target=\"#vendorValue\" class=\"downladZipFile\" > <i class=\"fas fa-file-export\"></i>  </a>";
+
 
 					tabledata.row.add([
 						view,
@@ -82,7 +88,8 @@ function pendingRequest() {
 						result[i].createDate,
 						result[i].venStatus,
 						result[i].processedOn,
-						result[i].processedBy]);
+						result[i].processedBy,
+						download]);
 				}
 				tabledata.draw();
 				$("tbody").show();
@@ -97,6 +104,23 @@ function pendingRequest() {
 			alert("failed, please try again");
 		}
 	});
+}
+
+$('#tabledata tbody').on('click', ".downladZipFile", function() {
+	var row = $(this).parents('tr')[0];
+	console.log(row.cells[1].innerText);
+	//console.log(tabledata.row(row).data().id);
+	downladZipFile(row.cells[1].innerText);
+});
+
+function downladZipFile(vendorCode) {
+
+	console.log(pageContext+'/downloadZip?vendorCode=' + vendorCode);
+
+	$('.loader').show();
+	$('#pdfLink').attr('src', pageContext+'/downloadZip?vendorCode=' + vendorCode);
+	$('.loader').hide();
+
 }
 
 function setVenRegStatus(pid) {

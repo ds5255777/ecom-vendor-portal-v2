@@ -183,7 +183,7 @@
 
 
 
-                                    <div class="col-md-3">
+                                    <!-- <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-sm-5">Pay. Currency<span class="text-danger"> *</span></label>
                                             <div class="col-sm-7">
@@ -195,7 +195,7 @@
                                             </div>
 
                                         </div>
-                                    </div>
+                                    </div> -->
 
 
                                     <!-- <div class="col-md-3">
@@ -249,7 +249,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-5">Header Desc.</label>
+                                            <label class="col-sm-5">Item Desc.</label>
                                             <div class="col-sm-7">
                                             
                                             <input type="text" name="headerDes" id="headerDes" class="form-control-sm" style="width: 100%;">

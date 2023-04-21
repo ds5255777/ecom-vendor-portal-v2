@@ -47,7 +47,6 @@
         <jsp:include page="navbar_po.jsp?pagename= Dashboard" />
         <%
 		} else if (Arrays.asList(strArray).contains("Network")) {
-		System.out.println("vendor type 2: " + strArray);
 		%>
         <jsp:include page="navbar.jsp?pagename=Dashboard" />
         <%

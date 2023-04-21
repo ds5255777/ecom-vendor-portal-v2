@@ -153,7 +153,7 @@
                                         </div>
                                     </form>
                                     <div class="card-body table-responsive p-0" style="width:100%;">
-                                        <table class="table table-head-fixed" id="tabledata1">
+                                        <table class="display nowrap table table-bordered table-hover table-head-fixed" id="tabledata1">
                                             <thead>
                                                 <tr>
 
@@ -190,7 +190,11 @@
                                         </table>
                                     </div>
                                 </div>
+<div class="col-md-12">
+                            <div id="pageInfo" style="float: left;"></div>
+											<div id="pagingId" style="float: right;"></div>
 
+										</div>
                             </div>
                         </div>
                     </div>

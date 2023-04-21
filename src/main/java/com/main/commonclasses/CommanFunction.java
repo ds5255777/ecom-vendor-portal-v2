@@ -81,7 +81,7 @@ public class CommanFunction {
 			Transport.send(message);
 
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error("Mail Not Send sendEmail Api :::: {}", e);
 		}
 
 	}
@@ -147,7 +147,7 @@ public class CommanFunction {
 			Transport.send(message);
 
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE, e);
+			logger.error("Mail not send sendEmailWithAttachment API :::: {}", e);
 		}
 
 	}

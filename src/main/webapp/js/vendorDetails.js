@@ -224,7 +224,11 @@ var tabledata = $('#tabledata').DataTable({
 	"autoWidth": false,
 	"aaSorting": [],
 	"scrollX": true,
-	"pageLength": 100
+	"pageLength": 100,
+	dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
 });
 $(document).ready(function() {
 	$('.js-example-basic-multiple1').select2({
@@ -1442,9 +1446,8 @@ function sendToServer() {
 			//$('userModal').hide();
 			if (response.msg == 'success') {
 
-				swal.fire("Thanks", "Vendor Update  Sucessfully", "success", "OK").then(function() {
-					window.location = "vendorDetails";
-				});
+				swal.fire("Thanks", "Vendor Update  Sucessfully", "success", "OK");
+				$("#userModal").modal('hide');
 
 
 				setTimeout(function(response) {
@@ -1944,7 +1947,6 @@ function vendorPasswordChange(val) {
 		contentType: "application/json",
 		async: false,
 		success: function(data) {
-			debugger
 			if (data.msg == 'success') {
 				swal.fire("", "<b>" + val + "</b><br> Password send successfully", "success");
 			} else {
@@ -1997,7 +1999,6 @@ function vendorPasswordChange(val) {
 
 		$("#multipleAttachment").change(function () {
 		    var fileNameAndPath = $("#multipleAttachment").val();			    
-			//debugger;
 		    var fileName = $("#multipleAttachment option:selected").text();
 		    var filePath = $("#multipleAttachment").val();
 		    

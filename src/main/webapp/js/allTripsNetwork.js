@@ -59,7 +59,7 @@ var currentDate = '${currentDate}';
 var tabledataQuery = $('#tabledataQuery').DataTable({
 	"paging": false,
 	"lengthChange": false,
-	"searching": true,
+	"searching": false,
 	"info": false,
 	"autoWidth": false,
 	"aaSorting": []
@@ -197,6 +197,8 @@ $("#refreshDashboardButton").click(function(e) {
 	$('#selectPaymentStatus').val('');
 	$('#fromDate').val('');
 	$('#toDate').val('');
+	$("#pageInfo").css("display", "block");
+	$("#pagingId").css("display", "block");
 })
 
 $('#tabledata tbody').on('click', ".tripIdView", function() {
@@ -338,7 +340,8 @@ function getFilterData() {
 			success: function(data) {
 				$('.loader').hide();
 				if (data.msg == 'success') {
-
+					$("#pageInfo").css("display", "none");
+					$("#pagingId").css("display", "none");
 					var result = data.data;
 					showTableData(data, 1);
 				} else {
@@ -488,7 +491,7 @@ function showTableData(data, pageNumber) {
 		if (!result[i].hasOwnProperty("destHub")) {
 			result[i].destHub = "-";
 		}
-		
+
 		var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\"  class=\"tripIdView\" >" + result[i].tripID + "</a>";
 		tabledata.row.add([view,
 			result[i].route,
@@ -553,11 +556,11 @@ function showTableData(data, pageNumber) {
 	if (pageNumber == 1) {
 		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " + pageNumber * 1 + " to " + (pageNumber * 100) + " of " + data.totalRecord + " entries</div>";
 	} else {
-		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " +(((pageNumber-1) * 100)+1) + " to " + (pageNumber * 100) + " of " + data.totalRecord + " entries</div>";
+		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " + (((pageNumber - 1) * 100) + 1) + " to " + (pageNumber * 100) + " of " + data.totalRecord + " entries</div>";
 	}
-	if (pageNumber == pageLength){
-		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " +(((pageNumber-1) * 100)+1) + " to " + data.totalRecord + " of " + data.totalRecord + " entries</div>";
-	} 
+	if (pageNumber == pageLength) {
+		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " + (((pageNumber - 1) * 100) + 1) + " to " + data.totalRecord + " of " + data.totalRecord + " entries</div>";
+	}
 
 	$("#pageInfo").html(infoHtml);
 

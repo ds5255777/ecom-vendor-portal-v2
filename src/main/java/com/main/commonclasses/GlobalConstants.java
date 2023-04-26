@@ -89,4 +89,6 @@ public class GlobalConstants {
 	public static final String VENDOR_OTHER_EXPENSES="OTHER EXPENSES";
 	
 	public static final String VENDOR_NEW_FILE="update_";
-}
+
+
+	public static final String STATUS_ACTIVE="Active";}

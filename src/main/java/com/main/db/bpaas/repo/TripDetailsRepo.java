@@ -103,7 +103,7 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
 	TripDetails findByTripID(String tripID);
 
-	List<TripDetails> findByActualDepartureBetweenOrderByIdDesc(@Param("startDate") String startDate,
+	List<TripDetails> findByActualDepartureBetweenOrderByTripIDDesc(@Param("startDate") String startDate,
 			@Param("endDate") String endDate);
 
 	@Query(value = "select  * from trip_details  where invoice_number=:invoiceNumber ", nativeQuery = true)
@@ -147,8 +147,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	@Query(value = "SELECT * FROM trip_details where trip_id =:tripID ; ", nativeQuery = true)
 	List<TripDetails> findTripsByID(@Param("tripID") String tripID);
 
-	@Query(value = "select * from Trip_Details where vendor_trip_status =:vendorTripStatus order by id desc limit 100 ;", nativeQuery = true)
-	List<TripDetails> getQueryTripsForNetwork(@Param("vendorTripStatus")String vendorTripStatus);
+//	@Query(value = "select * from Trip_Details where vendor_trip_status =:vendorTripStatus order by id desc limit 100 ;", nativeQuery = true)
+//	List<TripDetails> getQueryTripsForNetwork(@Param("vendorTripStatus") String vendorTripStatus);
 
 	@Transactional
 	@Modifying
@@ -194,7 +194,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	@Query(value = "select * from trip_details where vendor_trip_status='Yet To Be Approved' and assign_to = 'Vendor'", nativeQuery = true)
 	List<TripDetails> getAllPendingTrip();
 
-	List<TripDetails> findByVendorCodeAndActualDepartureBetween(String vendorCode, String fromDate, String toDate);
+	List<TripDetails> findByVendorCodeAndActualDepartureBetweenOrderByTripIDDesc(String vendorCode, String fromDate,
+			String toDate);
 
 	@Query(value = "select DISTINCT vendor_name from users where role_id='2' order by vendor_name asc ", nativeQuery = true)
 	List<String> getVendorName();
@@ -211,8 +212,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
 	List<TripDetails> findByRunStatusIgnoreCaseAndVendorCodeOrderByIdDesc(String runInTransit, String userName);
 
-	List<TripDetails> findByRunStatusIgnoreCaseAndVendorTripStatusAndVendorCodeOrderByIdDesc(String runClosed, String vendorTripStatusApproved,
-			String userName);
+	List<TripDetails> findByRunStatusIgnoreCaseAndVendorTripStatusAndVendorCodeOrderByIdDesc(String runClosed,
+			String vendorTripStatusApproved, String userName);
 
 	List<TripDetails> findByRouteInAndVendorTripStatusAndVendorCodeAndRunStatusIgnoreCase(List<String> routeList,
 			String vendorTripStatusApproved, String vendorCode, String runStatus);
@@ -226,10 +227,8 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 	List<TripDetails> findByRunTypeAndVendorTripStatusAndVendorCode(String columnValue, String vendorTripStatusApproved,
 			String vendorCode);
 
-	
-
-	List<TripDetails> findByVendorTripStatusAndRunStatusIgnoreCaseAndAssignToAndVendorCodeOrderByIdDesc(String vendorTripStatusYetToBeApproved,
-			String runClosed, String roleVendor, String userName);
+	List<TripDetails> findByVendorTripStatusAndRunStatusIgnoreCaseAndAssignToAndVendorCodeOrderByIdDesc(
+			String vendorTripStatusYetToBeApproved, String runClosed, String roleVendor, String userName);
 
 	@Query(value = "select  * from trip_details  where invoice_number=:invoiceNumber and vendor_code=:vendorCode order by id desc ", nativeQuery = true)
 	List<TripDetails> getTripStatusIsDraftInvoicing(String invoiceNumber, String vendorCode);
@@ -261,10 +260,12 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 			String vendorTripStatusYetToBeApproved, String roleVendor, String userName, List<String> runStatusList);
 
 	@Query(value = "select * from trip_details ORDER by id desc OFFSET :fetchCount ROWS FETCH NEXT :dataSize ROWS ONLY ; ", nativeQuery = true)
-	List<TripDetails> getTripDataByPagination(@Param("fetchCount") Integer fetchCount, @Param("dataSize") Integer dataSize);
+	List<TripDetails> getTripDataByPagination(@Param("fetchCount") Integer fetchCount,
+			@Param("dataSize") Integer dataSize);
 
 	@Query(value = "select * from trip_details  where vendor_trip_status='Query' ORDER by id desc OFFSET :fetchCount ROWS FETCH NEXT :dataSize ROWS ONLY ; ", nativeQuery = true)
-	List<TripDetails> getQueryTripDataByPagination(@Param("fetchCount") Integer fetchCount, @Param("dataSize") Integer dataSize);
+	List<TripDetails> getQueryTripDataByPagination(@Param("fetchCount") Integer fetchCount,
+			@Param("dataSize") Integer dataSize);
 
 	@Query(value = "select * from trip_details order by id desc limit 100 ; ", nativeQuery = true)
 	List<TripDetails> findTopTrip();
@@ -286,10 +287,27 @@ public interface TripDetailsRepo extends JpaRepository<TripDetails, Integer> {
 
 	long countByVendorTripStatus(String queryRequestStatus);
 
-	
 	@Query(value = "SELECT * FROM trip_details where vendor_trip_status = 'Yet To Be Approved By Network Team' and assign_to = 'Network' and run_type='Adhoc' and run_status = 'Closed' ORDER by id desc OFFSET :fetchCount ROWS FETCH NEXT :dataSize ROWS ONLY ;", nativeQuery = true)
-	List<TripDetails> getPendingApprovalDataByPagination(@Param("fetchCount") Integer fetchCount, @Param("dataSize") Integer dataSize);
+	List<TripDetails> getPendingApprovalDataByPagination(@Param("fetchCount") Integer fetchCount,
+			@Param("dataSize") Integer dataSize);
 
 	List<TripDetails> findByRunStatus(String runClosed);
+
+	// List<TripDetails> findTop100ByTripIDContaining(String tripId);
+
+	List<TripDetails> findByActualDepartureBetweenAndVendorTripStatusAndAssignToAndRunTypeAndRunStatusIgnoreCaseOrderByIdDesc(
+			String fromDate, String toDate, String networkTripStatusYetToApprovedNetwork, String vendorNetwork,
+			String adhocTypeTrips, String runClosed);
+
+	List<TripDetails> findTop100ByVendorTripStatusAndAssignToAndRunTypeAndRunStatusIgnoreCaseAndTripIDContaining(
+			String networkTripStatusYetToApprovedNetwork, String vendorNetwork, String adhocTypeTrips, String runClosed,
+			String tripId);
+
+	List<TripDetails> findTop100ByVendorTripStatusOrderByIdDesc(String vendorTripStatusQuery);
+
+	List<TripDetails> findByActualDepartureBetweenAndVendorTripStatusOrderByIdDesc(String fromDate, String toDate,
+			String vendorTripStatusQuery);
+
+	List<TripDetails> findTop100ByVendorTripStatusAndTripIDContaining(String vendorTripStatusQuery, String tripId);
 
 }

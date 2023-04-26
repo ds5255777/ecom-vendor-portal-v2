@@ -86,7 +86,7 @@ $("#addDetails").bind("input", function() {
 });
 
 $("#suppName").bind("input", function() {
-	this.value = this.value.replace(/[^a-zA-Z\s,./]/ig, '').replace(/\s{2,}/g, ' ');
+	this.value = this.value.replace(/[^0-9a-zA-Z-\s,._/]/ig, '').replace(/\s{2,}/g, ' ');
 });
 
 $("#tanNumber").bind("input", function() {
@@ -1225,12 +1225,12 @@ $(document).ready(function() {
 });
 
 
-$("#suppName").keypress(function(event) {
+/*$("#suppName").keypress(function(event) {
 	var inputValue = event.which;
-	if (!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0) && !(inputValue >= 37 && inputValue <= 47)) {
+	if (!(inputValue >= 48 && inputValue <= 122) && (inputValue != 32 && inputValue != 0) && !(inputValue >= 33 && inputValue <= 47)) {
 		event.preventDefault();
 	}
-});
+});*/
 
 
 $("#city_WUIW").keypress(function(event) {

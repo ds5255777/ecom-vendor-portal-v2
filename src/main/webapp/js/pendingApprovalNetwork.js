@@ -20,8 +20,6 @@ $("#lumpsum").bind("change", function() {
 	lumpsomePropertyChange();
 });
 
-
-
 $("#actualKM").bind("input", function() {
 	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
 });
@@ -37,31 +35,36 @@ $("#mileage").bind("input", function() {
 $("#ratePerKm").bind("input", function() {
 	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
 });
+
 $("#routeKms").bind("input", function() {
 	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
 });
+
 $("#fsBaseRate").bind("input", function() {
 	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
 });
+
 $("#currentFuelRate").bind("input", function() {
 	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
 });
+
 $("#fsDiff").bind("input", function() {
 	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
 });
+
 $("#fs").bind("input", function() {
 	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
 });
+
 $("#basicFreight").bind("input", function() {
 	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
 });
+
 $("#totalFreight").bind("input", function() {
 	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
 });
 
-
-
-
+var currentDate = '${currentDate}';
 var dataLimit = '${dataLimit}';
 dataLimit = parseInt(dataLimit);
 
@@ -74,6 +77,23 @@ var tabledataQuery = $('#tabledataQuery').DataTable({
 	"aaSorting": []
 });
 
+$('#fromDate').datepicker({
+	dateFormat: 'dd-mm-yy',
+	changeMonth: true,
+	changeYear: true,
+	maxDate: currentDate
+});
+
+$('#toDate').datepicker({
+	dateFormat: 'dd-mm-yy',
+	changeMonth: true,
+	changeYear: true,
+	maxDate: currentDate
+});
+
+$("#searchTripByDate").bind("click", function() {
+	getFilterData();
+});
 
 $('#tripValue').modal("hide");
 const Toast = Swal.mixin({
@@ -82,6 +102,7 @@ const Toast = Swal.mixin({
 	showConfirmButton: false,
 	timer: 3000
 });
+
 var tabledata = $('#tabledata1').DataTable({
 	"paging": false,
 	"lengthChange": false,
@@ -347,7 +368,7 @@ function updateTripDataByNetworkTeam() {
 	var vendorCode = document.getElementById("vendorCode").value
 	var standardKM = document.getElementById("standardKM").value
 	var actualKM = document.getElementById("actualKM").value
-	
+
 	if (vendorName === "" || vendorName === null || vendorName === '') {
 		Toast.fire({
 			type: 'error',
@@ -356,21 +377,13 @@ function updateTripDataByNetworkTeam() {
 		document.getElementById("vendorName").focus();
 		return "";
 	}
-	
+
 	if (vendorCode === "" || vendorCode === null || vendorCode === '') {
 		Toast.fire({
 			type: 'error',
 			title: 'Select Vendor.!'
 		});
 		document.getElementById("vendorName").focus();
-		return "";
-	}
-	if (standardKM === "" || standardKM === null || standardKM === '') {
-		Toast.fire({
-			type: 'error',
-			title: 'Standard KM cannot be empty!! '
-		});
-		document.getElementById("standardKM").focus();
 		return "";
 	}
 	if (actualKM === "" || actualKM === null || actualKM === '') {
@@ -381,7 +394,14 @@ function updateTripDataByNetworkTeam() {
 		document.getElementById("actualKM").focus();
 		return "";
 	}
-
+	if (standardKM === "" || standardKM === null || standardKM === '') {
+		Toast.fire({
+			type: 'error',
+			title: 'Standard KM cannot be empty!! '
+		});
+		document.getElementById("standardKM").focus();
+		return "";
+	}
 	if (milage === "" || milage === null || milage === '') {
 		Toast.fire({
 			type: 'error',
@@ -390,8 +410,6 @@ function updateTripDataByNetworkTeam() {
 		document.getElementById("mileage").focus();
 		return "";
 	}
-
-
 	if (ratePerKm === "" || ratePerKm === null || ratePerKm === '') {
 		Toast.fire({
 			type: 'error',
@@ -400,7 +418,6 @@ function updateTripDataByNetworkTeam() {
 		document.getElementById("ratePerKm").focus();
 		return "";
 	}
-
 	if (routeKms === "" || routeKms === null || routeKms === '') {
 		Toast.fire({
 			type: 'error',
@@ -409,16 +426,6 @@ function updateTripDataByNetworkTeam() {
 		document.getElementById("routeKms").focus();
 		return "";
 	}
-
-	if (currentFuelRate === "" || currentFuelRate === null || currentFuelRate === '') {
-		Toast.fire({
-			type: 'error',
-			title: 'Current Fuel Rate cannot be empty!!'
-		});
-		document.getElementById("currentFuelRate").focus();
-		return "";
-	}
-
 	if (fsBaseRate === "" || fsBaseRate === null || fsBaseRate === '') {
 		Toast.fire({
 			type: 'error',
@@ -427,7 +434,14 @@ function updateTripDataByNetworkTeam() {
 		document.getElementById("fsBaseRate").focus();
 		return "";
 	}
-
+	if (currentFuelRate === "" || currentFuelRate === null || currentFuelRate === '') {
+		Toast.fire({
+			type: 'error',
+			title: 'Current Fuel Rate cannot be empty!!'
+		});
+		document.getElementById("currentFuelRate").focus();
+		return "";
+	}
 	if (fsDiff === "" || fsDiff === null || fsDiff === '') {
 		Toast.fire({
 			type: 'error',
@@ -445,7 +459,6 @@ function updateTripDataByNetworkTeam() {
 
 	if (checkedValue != '' || checkedValue != "") {
 		checkedValue = 'unchecked';
-
 		if (basicFreight === "" || basicFreight === null || basicFreight === '') {
 			Toast.fire({
 				type: 'error',
@@ -454,7 +467,6 @@ function updateTripDataByNetworkTeam() {
 			document.getElementById("basicFreight").focus();
 			return "";
 		}
-
 		if (totalFreight === "" || totalFreight === null || totalFreight === '') {
 			Toast.fire({
 				type: 'error',
@@ -463,7 +475,6 @@ function updateTripDataByNetworkTeam() {
 			document.getElementById("totalFreight").focus();
 			return "";
 		}
-
 		if (fs === "" || fs === null || fs === '') {
 			Toast.fire({
 				type: 'error',
@@ -472,7 +483,6 @@ function updateTripDataByNetworkTeam() {
 			document.getElementById("fs").focus();
 			return "";
 		}
-
 	} else {
 		if (AmountLumpSum === '' || AmountLumpSum === null || AmountLumpSum === '0' || AmountLumpSum === '0.0') {
 			Toast.fire({
@@ -504,16 +514,28 @@ function updateTripDataByNetworkTeam() {
 		"processedOn": dateTime,
 		"LumpSomeAmount": document.getElementById("AmountLumpSum").value,
 		"AssigenedTo": "Vendor",
-		"fs": fs,
-		"totalFreight": totalFreight,
-		"basicFreight": basicFreight,
 		"commentsby": comments_by_User,
 		"Query": "No",
+		"type": "Trip",
 		"vendorName": vendorName,
 		"vendorCode": vendorCode,
-		"type": "Trip"
-
+		"route":$("#route").val(),
+		"vehicleNumber":$("#vehicleNumber").val(),
+		"actualKM":$("#actualKM").val(),
+		"standardKM":$("#standardKM").val(),
+		"mileage":$("#mileage").val(),
+		"ratePerKm":$("#ratePerKm").val(),
+		"routeKms":$("#routeKms").val(),
+		"fsBaseRate":$("#fsBaseRate").val(),
+		"currentFuelRate":$("#currentFuelRate").val(),
+		"fsDiff":$("#fsDiff").val(),
+		"basicFreight": basicFreight,
+		"fs": fs,
+		"totalFreight": totalFreight
 	}
+	debugger
+	console.log(obj);
+	
 
 	$.ajax({
 		type: "POST",
@@ -547,13 +569,24 @@ function updateTripDataByNetworkTeam() {
 }
 
 function calcualteFormulae() {
-	debugger
 	var currentFuelRate = document.getElementById("currentFuelRate").value;
 	var fsBaseRate = document.getElementById("fsBaseRate").value;
 	var standKMS = document.getElementById("standardKM").value;
 	var ratePerKm = document.getElementById("ratePerKm").value;
 	var mileage = document.getElementById("mileage").value;
 	var routeKms = document.getElementById("routeKms").value;
+	var actualKM = document.getElementById("actualKM").value;
+
+	if (actualKM === "" || actualKM === null || actualKM === '') {
+		Toast.fire({
+			type: 'error',
+			title: 'Actual KM cannot be empty!! '
+		});
+		document.getElementById("actualKM").focus();
+		return "";
+	}
+
+
 	if (mileage === "" || mileage === null || mileage === '') {
 		Toast.fire({
 			type: 'error',
@@ -588,7 +621,7 @@ function calcualteFormulae() {
 		document.getElementById("fsBaseRate").focus();
 		return "";
 	}
-	
+
 	if (currentFuelRate === "" || currentFuelRate === null || currentFuelRate === '') {
 		Toast.fire({
 			type: 'error',
@@ -597,9 +630,11 @@ function calcualteFormulae() {
 		document.getElementById("currentFuelRate").focus();
 		return "";
 	}
-	
-	
+
+
 	var fsCal = Number(currentFuelRate) - Number(fsBaseRate);
+	document.getElementById("fsDiff").value = fsCal.toFixed(2);
+
 	var basicFreight = Number(standKMS) * Number(ratePerKm);
 	document.getElementById("basicFreight").value = basicFreight.toFixed(2);
 
@@ -832,3 +867,109 @@ function getPagination(pageNumber) {
 	});
 
 }
+
+function getFilterData() {
+
+	var fromDate = $("#fromDate").val();
+	var toDate = $("#toDate").val();
+
+	fromDate = moment(fromDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+	toDate = moment(toDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+
+	$('#selectTripStatus').val('');
+	$('#selectStatus').val('');
+	$('#selectPaymentStatus').val('');
+
+
+	if (fromDate == "" || fromDate == null || fromDate == "Invalid date") {
+		Toast.fire({
+			type: 'error',
+			title: 'Please Select Start Date..'
+		});
+		document.getElementById("fromDate").focus();
+		return;
+	}
+
+	if (toDate == "" || toDate == null || toDate == "Invalid date") {
+		Toast.fire({
+			type: 'error',
+			title: 'Please Select End Date..'
+		});
+		document.getElementById("toDate").focus();
+		return;
+	}
+	var dateReturnCheck = dateValidationCheck(fromDate, toDate);
+	if (dateReturnCheck == "false") {
+		$('.loader').show();
+		$.ajax({
+			type: "GET",
+			data: {
+				"actualDeparture": fromDate.concat(" ", "00:00:00"),
+				"actualArrival": toDate.concat(" ", "23:59:59"),
+				"pageName": "pendingApproval"
+			},
+			url: "tripControllers/filterDetails",
+			dataType: "json",
+			headers: { 'X-XSRF-TOKEN': csrfToken },
+			contentType: "application/json",
+			success: function(data) {
+				$('.loader').hide();
+				if (data.msg == 'success') {
+					$("#pageInfo").css("display", "none");
+					$("#pagingId").css("display", "none");
+					showTableData(data, 1);
+				} else {
+					Toast.fire({
+						type: 'error',
+						title: 'Failed.. Try Again..'
+					})
+				}
+			},
+			error: function(jqXHR, textStatue, errorThrown) {
+				$('.loader').hide();
+				Toast.fire({
+					type: 'error',
+					title: '.. Try Again..'
+				})
+			}
+		});
+	} else {
+		Toast.fire({
+			type: 'error',
+			title: 'Start Date Less than End Date.'
+		});
+		$('#fromDate').val('');
+		document.getElementById("fromDate").focus();
+		return;
+	}
+}
+
+$(document).ready(function() {
+	$("#search-box").keyup(function() {
+		$.ajax({
+			type: "GET",
+			url: "tripControllers/getAllSearchRecord",
+			data: 'tripId=' + $(this).val() + '&pageName=pendingApproval',
+			dataType: "json",
+			headers: { 'X-XSRF-TOKEN': csrfToken },
+			contentType: "application/json",
+			beforeSend: function() {
+				$("#search-box").css("background", "#FFF url(/EcomVendorPortal/dist/img/spinner.gif) no-repeat 1px");
+			},
+			success: function(data) {
+				$("#search-box").css("background", "#FFF");
+				$('.loader').hide();
+				if (data.msg == 'success') {
+					$("#pageInfo").css("display", "none");
+					$("#pagingId").css("display", "none");
+					showTableData(data, 1);
+				} else {
+					Toast.fire({
+						type: 'error',
+						title: 'Failed.. Try Again..'
+					})
+				}
+			}
+		});
+	});
+});

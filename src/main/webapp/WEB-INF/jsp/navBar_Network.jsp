@@ -16,7 +16,7 @@
                     </button>
 
                 </li>
-                <div class="input-group-prepend">
+                <!-- <div class="input-group-prepend">
                     <form role="form" id="addForm" autocomplete="off">
                         <div class="row">
                             <div class="col-md-4">
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> -->
             </c:when>
 
             <c:otherwise>

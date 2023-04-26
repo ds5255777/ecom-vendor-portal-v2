@@ -142,7 +142,7 @@ $("#addDetails").bind("input", function() {
 });
 
 $("#suppName").bind("input", function() {
-	this.value = this.value.replace(/[^a-zA-Z\s,./]/ig, '').replace(/\s{2,}/g, ' ');
+	this.value = this.value.replace(/[^0-9a-zA-Z-\s,._/]/ig, '').replace(/\s{2,}/g, ' ');
 });
 
 
@@ -598,11 +598,8 @@ $(document).ready(function() {
 
 	/*$(document).ready(function() {
 		$("#suppName").keypress(function(event) {
-
 			var inputValue = event.which;
-
 			if (inputValue == 8) {
-
 			} else if (!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0) && !(inputValue >= 37 && inputValue <= 47)) {
 				event.preventDefault();
 			}

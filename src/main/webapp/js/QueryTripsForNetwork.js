@@ -19,7 +19,7 @@ $("#lumpsum").bind("click", function() {
 	lumpsomePropertyChange();
 });
 
-
+var currentDate = '${currentDate}';
 var dataLimit = '${dataLimit}';
 dataLimit = parseInt(dataLimit);
 
@@ -32,6 +32,23 @@ var tabledataQuery = $('#queryTabledata').DataTable({
 	"aaSorting": []
 });
 
+$('#fromDate').datepicker({
+	dateFormat: 'dd-mm-yy',
+	changeMonth: true,
+	changeYear: true,
+	maxDate: currentDate
+});
+
+$('#toDate').datepicker({
+	dateFormat: 'dd-mm-yy',
+	changeMonth: true,
+	changeYear: true,
+	maxDate: currentDate
+});
+
+$("#searchTripByDate").bind("click", function() {
+	getFilterData();
+});
 
 $('#tripValue').modal("hide");
 const Toast = Swal.mixin({
@@ -171,7 +188,7 @@ function setTripStatus(tripId, vendorNameOfTrip) {
 	var json = {
 		"tripID": tripId
 	}
-	
+
 	vendorNameOfTrip = vendorNameOfTrip.toUpperCase();
 
 	$.ajax({
@@ -310,7 +327,7 @@ function updateTripDataByNetworkTeam(query) {
 	var fs = document.getElementById("fs").value;
 	var vendorName = document.getElementById("vendorName").value;
 	var vendorCode = document.getElementById("vendorCode").value;
-
+	var actualKM= $("#actualKM").val();
 	if (milage === "" || milage === null || milage === '') {
 		Toast.fire({
 			type: 'error',
@@ -435,6 +452,7 @@ function updateTripDataByNetworkTeam(query) {
 	var standardKM = document.getElementById("standardKM").value;
 
 	var obj = {
+		"mileage":milage,
 		"tripID": document.getElementById("tripID").value,
 		"processedBy": 'NetworkTeam',
 		"processedOn": dateTime,
@@ -454,6 +472,7 @@ function updateTripDataByNetworkTeam(query) {
 		"Query": query,
 		"vendorName": vendorName,
 		"vendorCode": vendorCode,
+		"actualKM": actualKM,
 		"type": "Trip"
 	}
 	console.log(obj);
@@ -516,11 +535,12 @@ function calcualteFormulae() {
 function refreshValues() {
 	var route = document.getElementById("route").value;//route
 	var vendorCode = document.getElementById("vendorCode").value;
+	var standardVechicleType = document.getElementById("standardVechicleType").value;
 	var obj = {
 		"route": route,
-		"vendorCode": vendorCode
+		"vendorCode": vendorCode,
+		"standardVechicleType": standardVechicleType
 	}
-
 
 	$.ajax({
 		type: "POST",
@@ -773,3 +793,116 @@ function getPagination(pageNumber) {
 	});
 
 }
+
+function getFilterData() {
+
+	var fromDate = $("#fromDate").val();
+	var toDate = $("#toDate").val();
+	var vendorCode = $("#vendorCode").val();
+
+	fromDate = moment(fromDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+	toDate = moment(toDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+
+	$('#selectTripStatus').val('');
+	$('#selectStatus').val('');
+	$('#selectPaymentStatus').val('');
+
+
+	if (fromDate == "" || fromDate == null || fromDate == "Invalid date") {
+		Toast.fire({
+			type: 'error',
+			title: 'Please Select Start Date..'
+		});
+		document.getElementById("fromDate").focus();
+		return;
+	}
+
+	if (toDate == "" || toDate == null || toDate == "Invalid date") {
+		Toast.fire({
+			type: 'error',
+			title: 'Please Select End Date..'
+		});
+		document.getElementById("toDate").focus();
+		return;
+	}
+
+	var dateReturnCheck = dateValidationCheck(fromDate, toDate);
+	if (dateReturnCheck == "false") {
+
+		$('.loader').show();
+
+
+		$.ajax({
+			type: "GET",
+			data: {
+				"actualDeparture": fromDate.concat(" ", "00:00:00"),
+				"actualArrival": toDate.concat(" ", "23:59:59"),
+				"pageName": "queryTrips"
+			},
+			url: "tripControllers/filterDetails",
+			dataType: "json",
+			headers: { 'X-XSRF-TOKEN': csrfToken },
+			contentType: "application/json",
+
+			success: function(data) {
+				$('.loader').hide();
+				if (data.msg == 'success') {
+					$("#pageInfo").css("display", "none");
+					$("#pagingId").css("display", "none");
+					showTableData(data, 1);
+				} else {
+					Toast.fire({
+						type: 'error',
+						title: 'Failed.. Try Again..'
+					})
+				}
+
+			},
+			error: function(jqXHR, textStatue, errorThrown) {
+				$('.loader').hide();
+				Toast.fire({
+					type: 'error',
+					title: '.. Try Again..'
+				})
+			}
+
+		});
+	} else {
+		Toast.fire({
+			type: 'error',
+			title: 'Start Date Less than End Date.'
+		});
+		$('#fromDate').val('');
+		document.getElementById("fromDate").focus();
+		return;
+	}
+}
+
+$(document).ready(function() {
+	$("#search-box").keyup(function() {
+		$.ajax({
+			type: "GET",
+			url: "tripControllers/getAllSearchRecord",
+			data: 'tripId=' + $(this).val() + '&pageName=queryTrips',
+			dataType: "json",
+			headers: { 'X-XSRF-TOKEN': csrfToken },
+			contentType: "application/json",
+			beforeSend: function() {
+				$("#search-box").css("background", "#FFF url(/LoaderIcon.gif) no-repeat 165px");
+			},
+			success: function(data) {
+				$('.loader').hide();
+				if (data.msg == 'success') {
+					$("#pageInfo").css("display", "none");
+					$("#pagingId").css("display", "none");
+					showTableData(data, 1);
+				} else {
+					Toast.fire({
+						type: 'error',
+						title: 'Failed.. Try Again..'
+					})
+				}
+			}
+		});
+	});
+});

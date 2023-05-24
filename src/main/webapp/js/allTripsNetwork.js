@@ -68,7 +68,7 @@ var tabledataQuery = $('#tabledataQuery').DataTable({
 var tabledata = $('#tabledata').DataTable({
 	"paging": false,
 	"lengthChange": false,
-	"searching": false,
+	"searching": true,
 	"info": false,
 	"autoWidth": false,
 	"aaSorting": [],
@@ -197,6 +197,8 @@ $("#refreshDashboardButton").click(function(e) {
 	$('#selectPaymentStatus').val('');
 	$('#fromDate').val('');
 	$('#toDate').val('');
+	$("#pageInfo").css("display", "block");
+	$("#pagingId").css("display", "block");
 })
 
 $('#tabledata tbody').on('click', ".tripIdView", function() {
@@ -338,7 +340,8 @@ function getFilterData() {
 			success: function(data) {
 				$('.loader').hide();
 				if (data.msg == 'success') {
-
+					$("#pageInfo").css("display", "none");
+					$("#pagingId").css("display", "none");
 					var result = data.data;
 					showTableData(data, 1);
 				} else {
@@ -410,17 +413,13 @@ function GetSelectedTextValue1() {
 }
 
 getData();
-
 function getData() {
-
 	$('#selectTripStatus').val('');
 	$('#selectStatus').val('');
 	$('#selectPaymentStatus').val('');
 	$('#fromDate').val('');
 	$('#toDate').val('');
-
 	$('.loader').show();
-
 	$.ajax({
 		type: "POST",
 		data: "",
@@ -429,11 +428,9 @@ function getData() {
 		headers: { 'X-XSRF-TOKEN': csrfToken },
 		contentType: "application/json",
 		success: function(data) {
-
 			$('.loader').hide();
 			if (data.msg == 'success') {
 				showTableData(data, 1);
-
 			} else {
 				Toast.fire({
 					type: 'error',
@@ -448,13 +445,8 @@ function getData() {
 }
 
 function showTableData(data, pageNumber) {
-
-	
-
 	var result = data.data;
-
 	pageNumber = parseInt(pageNumber);
-
 	tabledata.clear();
 	for (var i = 0; i < result.length; i++) {
 		if (!result[i].hasOwnProperty("tripID")) {
@@ -487,6 +479,9 @@ function showTableData(data, pageNumber) {
 		if (!result[i].hasOwnProperty("actualKM")) {
 			result[i].actualKM = "-";
 		}
+		if (!result[i].hasOwnProperty("standardVechicleType")) {
+			result[i].standardVechicleType = "-";
+		}
 		if (!result[i].hasOwnProperty("standardKM")) {
 			result[i].standardKM = "-";
 		}
@@ -496,9 +491,7 @@ function showTableData(data, pageNumber) {
 		if (!result[i].hasOwnProperty("destHub")) {
 			result[i].destHub = "-";
 		}
-		if (!result[i].hasOwnProperty("paymentStatus")) {
-			result[i].paymentStatus = "-";
-		}
+
 		var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\"  class=\"tripIdView\" >" + result[i].tripID + "</a>";
 		tabledata.row.add([view,
 			result[i].route,
@@ -509,11 +502,11 @@ function showTableData(data, pageNumber) {
 			result[i].runStatus,
 			result[i].vendorTripStatus,
 			result[i].actualDeparture,
+			result[i].standardVechicleType,
 			result[i].actualKM,
 			result[i].standardKM,
 			result[i].originHub,
-			result[i].destHub,
-			result[i].paymentStatus]);
+			result[i].destHub]);
 	}
 	tabledata.draw();
 	$("tbody").show();
@@ -563,11 +556,11 @@ function showTableData(data, pageNumber) {
 	if (pageNumber == 1) {
 		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " + pageNumber * 1 + " to " + (pageNumber * 100) + " of " + data.totalRecord + " entries</div>";
 	} else {
-		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " +(((pageNumber-1) * 100)+1) + " to " + (pageNumber * 100) + " of " + data.totalRecord + " entries</div>";
+		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " + (((pageNumber - 1) * 100) + 1) + " to " + (pageNumber * 100) + " of " + data.totalRecord + " entries</div>";
 	}
-	if (pageNumber == pageLength){
-		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " +(((pageNumber-1) * 100)+1) + " to " + data.totalRecord + " of " + data.totalRecord + " entries</div>";
-	} 
+	if (pageNumber == pageLength) {
+		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " + (((pageNumber - 1) * 100) + 1) + " to " + data.totalRecord + " of " + data.totalRecord + " entries</div>";
+	}
 
 	$("#pageInfo").html(infoHtml);
 

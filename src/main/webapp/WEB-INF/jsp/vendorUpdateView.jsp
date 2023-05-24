@@ -143,31 +143,6 @@ border: 1px solid black !important;
 
 									<div class="col-md-3">
 										<div class="form-group ">
-											<label>Introducer Name<span class="text-danger"></span></label>
-											<input class="form-control-sm" type="text" readonly
-												name="introducedByName" id="introducedByName"
-												style="width: 100%;">
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group ">
-											<label>Introducer Email ID<span class="text-danger"></span></label>
-
-											<input class="form-control-sm" type="text"
-												name="introducedByEmailID" id="introducedByEmailID" readonly
-												style="width: 100%;">
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group ">
-											<label>Referral Email Id<span class="text-danger"></span></label>
-
-											<input class="form-control-sm" type="text" name="referralEmailId"
-												id="referralEmailId" readonly style="width: 100%;">
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group ">
 											<label>Legal Entity / Supplier Name<span class="text-danger"></span></label>
 
 											<input class="form-control-sm" type="text" name="suppName"
@@ -662,7 +637,7 @@ border: 1px solid black !important;
 	<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
 	<script src="plugins/jquery-validation/additional-methods.min.js"></script>
 	<script src="plugins/select2/js/select2.full.min.js"></script>
-	<script src="js/vendorView.js"></script>
+	<script src="js/vendorUpdateView.js"></script>
 
 
 </body>

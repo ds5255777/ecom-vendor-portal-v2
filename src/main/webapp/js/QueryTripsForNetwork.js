@@ -7,7 +7,7 @@ $("#recalculate").bind("click", function() {
 	refreshValues();
 });
 
-$("#vendorName").bind("click", function() {
+$("#vendorName").bind("change", function() {
 	getBpCode();
 });
 
@@ -19,7 +19,7 @@ $("#lumpsum").bind("click", function() {
 	lumpsomePropertyChange();
 });
 
-
+var currentDate = '${currentDate}';
 var dataLimit = '${dataLimit}';
 dataLimit = parseInt(dataLimit);
 
@@ -32,6 +32,23 @@ var tabledataQuery = $('#queryTabledata').DataTable({
 	"aaSorting": []
 });
 
+$('#fromDate').datepicker({
+	dateFormat: 'dd-mm-yy',
+	changeMonth: true,
+	changeYear: true,
+	maxDate: currentDate
+});
+
+$('#toDate').datepicker({
+	dateFormat: 'dd-mm-yy',
+	changeMonth: true,
+	changeYear: true,
+	maxDate: currentDate
+});
+
+$("#searchTripByDate").bind("click", function() {
+	getFilterData();
+});
 
 $('#tripValue').modal("hide");
 const Toast = Swal.mixin({
@@ -42,14 +59,13 @@ const Toast = Swal.mixin({
 });
 
 var tabledata = $('#tabledata1').DataTable({
-	"paging": true,
+	"paging": false,
 	"lengthChange": false,
 	"searching": true,
-	"info": true,
+	"info": false,
 	"autoWidth": false,
 	"aaSorting": [],
-	"scrollX": true,
-	"pageLength": 100,
+	"scrollX": false,
 	dom: 'Bfrtip',
 	buttons: [
 
@@ -132,11 +148,9 @@ $('#tabledata1_filter').css("display", "none");
 var globalTripId = "";
 
 getData();
+
 function getData() {
-
-
 	$('.loader').show();
-
 	$.ajax({
 		type: "POST",
 		data: "",
@@ -147,55 +161,7 @@ function getData() {
 		success: function(data) {
 			$('.loader').hide();
 			if (data.msg == 'success') {
-
-				var result = data.data;
-				tabledata.clear();
-
-				for (var i = 0; i < result.length; i++) {
-
-					if (!result[i].hasOwnProperty("tripID")) {
-						result[i].tripID = "-";
-					}
-					if (!result[i].hasOwnProperty("route")) {
-						result[i].route = "-";
-					}
-					if (!result[i].hasOwnProperty("vendorName")) {
-						result[i].vendorName = "-";
-					}
-					if (!result[i].hasOwnProperty("vendorCode")) {
-						result[i].vendorCode = "-";
-					}
-					if (!result[i].hasOwnProperty("actualDeparture")) {
-						result[i].actualDeparture = "-";
-					}
-					if (!result[i].hasOwnProperty("mode")) {
-						result[i].mode = "-";
-					}
-					if (!result[i].hasOwnProperty("runType")) {
-						result[i].runType = "-";
-					}
-					if (!result[i].hasOwnProperty("vehicleNumber")) {
-						result[i].vehicleNumber = "-";
-					}
-
-
-
-					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\"  class=\"tripIdView\" >" + result[i].tripID + "</a>";
-
-					var tempString = [view,
-						result[i].route,
-						result[i].vendorName,
-						result[i].vendorCode,
-						result[i].actualDeparture,
-						result[i].mode,
-						result[i].runType,
-						result[i].runStatus,
-						result[i].vehicleNumber];
-
-					tabledata.row.add(tempString);
-				}
-				tabledata.draw();
-				$("tbody").show();
+				showTableData(data, 1);
 			} else {
 				Toast.fire({
 					type: 'error',
@@ -222,6 +188,8 @@ function setTripStatus(tripId, vendorNameOfTrip) {
 	var json = {
 		"tripID": tripId
 	}
+
+	vendorNameOfTrip = vendorNameOfTrip.toUpperCase();
 
 	$.ajax({
 		type: "POST",
@@ -359,7 +327,7 @@ function updateTripDataByNetworkTeam(query) {
 	var fs = document.getElementById("fs").value;
 	var vendorName = document.getElementById("vendorName").value;
 	var vendorCode = document.getElementById("vendorCode").value;
-
+	var actualKM= $("#actualKM").val();
 	if (milage === "" || milage === null || milage === '') {
 		Toast.fire({
 			type: 'error',
@@ -484,6 +452,7 @@ function updateTripDataByNetworkTeam(query) {
 	var standardKM = document.getElementById("standardKM").value;
 
 	var obj = {
+		"mileage":milage,
 		"tripID": document.getElementById("tripID").value,
 		"processedBy": 'NetworkTeam',
 		"processedOn": dateTime,
@@ -503,6 +472,7 @@ function updateTripDataByNetworkTeam(query) {
 		"Query": query,
 		"vendorName": vendorName,
 		"vendorCode": vendorCode,
+		"actualKM": actualKM,
 		"type": "Trip"
 	}
 	console.log(obj);
@@ -565,11 +535,12 @@ function calcualteFormulae() {
 function refreshValues() {
 	var route = document.getElementById("route").value;//route
 	var vendorCode = document.getElementById("vendorCode").value;
+	var standardVechicleType = document.getElementById("standardVechicleType").value;
 	var obj = {
 		"route": route,
-		"vendorCode": vendorCode
+		"vendorCode": vendorCode,
+		"standardVechicleType": standardVechicleType
 	}
-
 
 	$.ajax({
 		type: "POST",
@@ -609,7 +580,7 @@ function refreshValues() {
 				calcualteFormulae();
 				updateTripDataByNetworkTeam('Yes');
 
-			}else{
+			} else {
 				Toast.fire({
 					type: 'error',
 					title: 'This Route is not found in MDM, please contact finance department'
@@ -655,4 +626,283 @@ function getBpCode() {
 			})
 		}
 	});
-}              
+}
+
+function showTableData(data, pageNumber) {
+	var result = data.data;
+	pageNumber = parseInt(pageNumber);
+	tabledata.clear();
+	for (var i = 0; i < result.length; i++) {
+		if (!result[i].hasOwnProperty("tripID")) {
+			result[i].tripID = "-";
+		}
+		if (!result[i].hasOwnProperty("route")) {
+			result[i].route = "-";
+		}
+		if (!result[i].hasOwnProperty("vendorName")) {
+			result[i].vendorName = "-";
+		}
+		if (!result[i].hasOwnProperty("vendorCode")) {
+			result[i].vendorCode = "-";
+		}
+		if (!result[i].hasOwnProperty("actualDeparture")) {
+			result[i].actualDeparture = "-";
+		}
+		if (!result[i].hasOwnProperty("mode")) {
+			result[i].mode = "-";
+		}
+		if (!result[i].hasOwnProperty("runType")) {
+			result[i].runType = "-";
+		}
+		if (!result[i].hasOwnProperty("vehicleNumber")) {
+			result[i].vehicleNumber = "-";
+		}
+		var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#tripValue\"  class=\"tripIdView\" >" + result[i].tripID + "</a>";
+		var tempString = [view,
+			result[i].route,
+			result[i].vendorName,
+			result[i].vendorCode,
+			result[i].actualDeparture,
+			result[i].mode,
+			result[i].runType,
+			result[i].runStatus,
+			result[i].vehicleNumber];
+		tabledata.row.add(tempString);
+	}
+	tabledata.draw();
+	$("tbody").show();
+
+	var pageLength = parseInt(Math.round(data.totalRecord / 100));
+
+	var pageHtml = "";
+	for (var k = 1; k <= pageLength; k++) {
+
+		if (pageNumber == 1 && k == 1) {
+			pageHtml += "<li class=\"getPaginationData paginate_button page-item active\" id=\"pageId_" + k + "\" ><a  style=\"cursor: pointer;\" value=\"" + k + "\" aria-controls=\"tabledata\" data-dt-idx=\"" + k + "\" tabindex=\"" + k + "\" class=\"page-link\">" + k + "</a></li>";
+		}
+		else if (pageNumber == k) {
+			pageHtml += "<li class=\"getPaginationData paginate_button page-item active\" id=\"pageId_" + k + "\" ><a  style=\"cursor: pointer;\" value=\"" + k + "\" aria-controls=\"tabledata\" data-dt-idx=\"" + k + "\" tabindex=\"" + k + "\" class=\"page-link\">" + k + "</a></li>";
+		}
+		else {
+			pageHtml += "<li class=\"getPaginationData paginate_button page-item\" id=\"pageId_" + k + "\" ><a style=\"cursor: pointer;\" value=\"" + k + "\" aria-controls=\"tabledata\" data-dt-idx=\"" + k + "\" tabindex=\"" + k + "\" class=\"page-link\">" + k + "</a></li>";
+		}
+
+	}
+	var previousBtn = "";
+	var nextBtn = "";
+
+	var nextPageNmbr = pageNumber + 1;
+	var prvsPageNmbr = pageNumber - 1;
+
+	if (pageNumber == 1) {
+		previousBtn = "<li class=\"paginate_button page-item previous disabled\"  id=\"tabledata_previous\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"0\" tabindex=\"0\" class=\"page-link\">Previous</a></li>";
+	}
+	else {
+
+		previousBtn = "<li class=\"prvsPageNumbr paginate_button page-item previous\" value=\"" + prvsPageNmbr + "\" id=\"tabledata_previous\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"0\" tabindex=\"0\" class=\"page-link\">Previous</a></li>";
+	}
+	if (pageNumber == pageLength) {
+		nextBtn = "<li class=\"paginate_button page-item next disabled\" id=\"tabledata_next\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"2\" tabindex=\"0\" class=\"page-link\">Next</a></li>";
+	}
+	else {
+		nextBtn = "<li class=\"nextPageNumbr paginate_button page-item next\" value=\"" + nextPageNmbr + "\" id=\"tabledata_next\"><a style=\"cursor: pointer;\" aria-controls=\"tabledata\" data-dt-idx=\"2\" tabindex=\"0\" class=\"page-link\">Next</a></li>";
+	}
+
+	var pageNumberShow = "<li class=\"paginate_button page-item active\" value=\"" + pageNumber + "\" ><button>" + pageNumber + "</button></li>";
+
+	var pagingHtml = "<div class=\"dataTables_paginate paging_simple_numbers\" ><ul class=\"pagination\">" +
+		previousBtn + pageNumberShow + nextBtn + "</ul></div>";
+
+	var infoHtml = "";
+	if (pageNumber == 1) {
+		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " + pageNumber * 1 + " to " + (pageNumber * 100) + " of " + data.totalRecord + " entries</div>";
+	} else {
+		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " + (((pageNumber - 1) * 100) + 1) + " to " + (pageNumber * 100) + " of " + data.totalRecord + " entries</div>";
+	}
+	if (pageNumber == pageLength) {
+		infoHtml = "<div class=\"dataTables_info\" id=\"tabledata1_info\" role=\"status\" aria-live=\"polite\">Showing " + (((pageNumber - 1) * 100) + 1) + " to " + data.totalRecord + " of " + data.totalRecord + " entries</div>";
+	}
+
+	$("#pageInfo").html(infoHtml);
+
+	$("#pagingId").html(pagingHtml);
+}
+
+$('#tabledata tbody').on('click', ".nextPageNumbr", function() {
+	getPaginationData(this.value);
+
+});
+
+$("body").on("click", ".nextPageNumbr", function() {
+
+	getPagination(this.value);
+
+});
+
+$("body").on("click", ".prvsPageNumbr", function() {
+
+	getPagination(this.value);
+
+});
+
+$("body").on("click", ".getPaginationData", function() {
+
+	var classVal = $(this).attr('id').split("_");
+	getPagination(classVal[1]);
+
+});
+
+function getPagination(pageNumber) {
+
+	var obj = {
+		"id": pageNumber
+	}
+
+	$('.loader').show();
+
+	$.ajax({
+		type: "POST",
+		data: JSON.stringify(obj),
+		url: "tripControllers/getPaginationDataOfQueryTrip",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		success: function(data) {
+
+
+			$('.loader').hide();
+
+			if (data.msg == 'success') {
+				//var result = data.data;
+				showTableData(data, pageNumber);
+
+			}
+			else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			$('.loader').hide();
+			alert("failed, please try again");
+		}
+
+	});
+
+}
+
+function getFilterData() {
+
+	var fromDate = $("#fromDate").val();
+	var toDate = $("#toDate").val();
+	var vendorCode = $("#vendorCode").val();
+
+	fromDate = moment(fromDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+	toDate = moment(toDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+
+	$('#selectTripStatus').val('');
+	$('#selectStatus').val('');
+	$('#selectPaymentStatus').val('');
+
+
+	if (fromDate == "" || fromDate == null || fromDate == "Invalid date") {
+		Toast.fire({
+			type: 'error',
+			title: 'Please Select Start Date..'
+		});
+		document.getElementById("fromDate").focus();
+		return;
+	}
+
+	if (toDate == "" || toDate == null || toDate == "Invalid date") {
+		Toast.fire({
+			type: 'error',
+			title: 'Please Select End Date..'
+		});
+		document.getElementById("toDate").focus();
+		return;
+	}
+
+	var dateReturnCheck = dateValidationCheck(fromDate, toDate);
+	if (dateReturnCheck == "false") {
+
+		$('.loader').show();
+
+
+		$.ajax({
+			type: "GET",
+			data: {
+				"actualDeparture": fromDate.concat(" ", "00:00:00"),
+				"actualArrival": toDate.concat(" ", "23:59:59"),
+				"pageName": "queryTrips"
+			},
+			url: "tripControllers/filterDetails",
+			dataType: "json",
+			headers: { 'X-XSRF-TOKEN': csrfToken },
+			contentType: "application/json",
+
+			success: function(data) {
+				$('.loader').hide();
+				if (data.msg == 'success') {
+					$("#pageInfo").css("display", "none");
+					$("#pagingId").css("display", "none");
+					showTableData(data, 1);
+				} else {
+					Toast.fire({
+						type: 'error',
+						title: 'Failed.. Try Again..'
+					})
+				}
+
+			},
+			error: function(jqXHR, textStatue, errorThrown) {
+				$('.loader').hide();
+				Toast.fire({
+					type: 'error',
+					title: '.. Try Again..'
+				})
+			}
+
+		});
+	} else {
+		Toast.fire({
+			type: 'error',
+			title: 'Start Date Less than End Date.'
+		});
+		$('#fromDate').val('');
+		document.getElementById("fromDate").focus();
+		return;
+	}
+}
+
+$(document).ready(function() {
+	$("#search-box").keyup(function() {
+		$.ajax({
+			type: "GET",
+			url: "tripControllers/getAllSearchRecord",
+			data: 'tripId=' + $(this).val() + '&pageName=queryTrips',
+			dataType: "json",
+			headers: { 'X-XSRF-TOKEN': csrfToken },
+			contentType: "application/json",
+			beforeSend: function() {
+				$("#search-box").css("background", "#FFF url(/LoaderIcon.gif) no-repeat 165px");
+			},
+			success: function(data) {
+				$('.loader').hide();
+				if (data.msg == 'success') {
+					$("#pageInfo").css("display", "none");
+					$("#pagingId").css("display", "none");
+					showTableData(data, 1);
+				} else {
+					Toast.fire({
+						type: 'error',
+						title: 'Failed.. Try Again..'
+					})
+				}
+			}
+		});
+	});
+});

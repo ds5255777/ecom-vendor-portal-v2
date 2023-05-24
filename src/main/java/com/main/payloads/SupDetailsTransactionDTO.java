@@ -5,14 +5,11 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class SupDetailsDTO {
+public class SupDetailsTransactionDTO {
 
 	private Long id;
 	private String pid;
 	private String vendorType;
-	private String introducedByName;
-	private String introducedByEmailID;
-	private String referralEmailId;
 	private String bpCode;
 	private String suppName;
 	private String aadharNumber;
@@ -20,16 +17,12 @@ public class SupDetailsDTO {
 	private String tanNumber;
 	private String adharLinkStatus;
 	private String businessClassification;
-	private String siteDff;
-	private String region;
 
 	private String processedOn;
 
 	private String processedBy;
 
 	private String enInvApplicable;
-	private Integer commercialFlag;
-	private String opeUnitReqMap;
 	private String venStatus;
 	private String invoiceCurrency;
 	private String paymentCurrency;
@@ -54,13 +47,9 @@ public class SupDetailsDTO {
 	private String sro;
 	private String ihq;
 	private String createDate;
-	private String flag;
-	private String addressPurchasingFlag;
-	private String addressPaymentFlag;
-	private String invoicePrevalidatedFlag;
-	private List<AccountDetailsDTO> accountDetails;
-	private List<AddressDetailsDTO> addressDetails;
-	private List<ContactDetailsDTO> contactDetails;
+	private List<AccountDetailsTransactionDTO> accountDetails;
+	private List<AddressDetailsTransactionDTO> addressDetails;
+	private List<ContactDetailsTransactionDTO> contactDetails;
 	String gstFileText;
 	String gstFileName;
 	String panFileText;

@@ -22,6 +22,8 @@ public class GlobalConstants {
 	public static final String REJECTED_REQUEST_STATUS = "Rejected";
 	public static final String QUERY_REQUEST_STATUS = "Query";
 	public static final String UPDATE_VENDOR = "Update";
+	
+	public static final String UPDATING_REQUEST_STATUS = "Profile Update";
 
 	public static final String ROLE_FINANCE_HEAD = "Finance Head";
 	public static final String ROLE_ADMIN = "Admin";
@@ -85,4 +87,8 @@ public class GlobalConstants {
 	public static final String VENDOR_RENT="RENT";
 	public static final String VENDOR_FIXED_ASSETS="FIXED ASSETS";
 	public static final String VENDOR_OTHER_EXPENSES="OTHER EXPENSES";
-}
+	
+	public static final String VENDOR_NEW_FILE="update_";
+
+
+	public static final String STATUS_ACTIVE="Active";}

@@ -175,6 +175,11 @@ select[readonly].select2+.select2-container {
 	pointer-events: none;
 	touch-action: none;
 }
+.typeahead {
+	width: 20%;
+	top: 60px !important;
+	left: 50px !important;
+}
 </style>
 
 
@@ -693,9 +698,9 @@ select[readonly].select2+.select2-container {
 												<tr class="">
 													<td><label for="bankName">Bank Name<span
 															class="required adHocRequired">*</span></label></td>
-													<td colspan="2"><input type="text"
-														class="form-control p-input" id="bankName" name="bankName"
-														placeholder="Bank Name" maxlength="200"></td>
+													<td colspan="2"><input type="text" class="typeahead form-control p-input" 
+           											data-provide="typeahead" id="bankName" name="bankName"
+														placeholder="Bank Name" maxlength="200" style="width: 100%"></td>
 
 													<td><label for="bankName">Beneficiary Name<span
 															class="required adHocRequired">*</span></label></td>
@@ -1152,7 +1157,7 @@ select[readonly].select2+.select2-container {
 	<script src="plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
 	<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-
+	<script src="js/bootstrap3-typeahead.min.js"></script>
 
 	<script src="js/jquery.smartWizard.min.js"></script>
 	<script src="plugins/popper/umd/popper.min.js"></script>

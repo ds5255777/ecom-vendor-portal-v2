@@ -1,152 +1,594 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head lang="en">
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>${titleName}|VendorDetails</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${titleName}|vendorProfile</title>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 <link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<link rel="stylesheet"
-	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+	href="plugins/daterangepicker/daterangepicker.css">
 <link rel="stylesheet"
 	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-<link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-<link rel="stylesheet" href="dist/css/adminlte.min.css">
 <link rel="stylesheet"
-	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-<link rel="stylesheet"
-	href="plugins/daterangepicker/daterangepicker.css">
-<link rel="stylesheet" type="text/css"
-	href="plugins/jquery-ui/jquery-ui.min.css">
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
 <link rel="stylesheet"
 	href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<link rel="stylesheet" href="dist/css/adminlte.min.css">
 <link rel="stylesheet"
-	href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+	href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet"
-	href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+	href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet"
+	href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+<link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 <style>
-label {
-	font-weight: 500;
-	margin-bottom: 1px;
+/* .split {
+	height: 100%;
+	width: 50%;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	overflow-x: hidden;
+} */
+.left {
+	left: 0;
 }
 
-.form-control {
-	height: 35px;
-	font-size: 14px;
+.right {
+	right: 0;
 }
 
-tbody {
-	font-size: 12.9px;
+div.fixed {
+	position: fixed;
+	bottom: 10px;
+	width: 50%;
+	border: 1px solid black;
+}
+
+.modalLoad {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: rgba(255, 255, 255, .8)
+		url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+}
+
+body.loading .modal {
+	overflow: hidden;
+}
+
+body.loading .modal {
+	display: block;
 }
 
 .table td, .table th {
-	vertical-align: top;
-	border-top: 1px solid #dee2e6;
-	padding: 5px 5px 0px 1.5rem;
+	padding: 1px !important;
 }
 
+.form-control-sm {
+	border-width: 1px;
+	border-color: #e3e6ea;
+}
+
+.card-body {
+	padding: 0.5rem 1.25rem 0.5rem 1.25rem;
+}
+
+.row {
+	margin-bottom: 0.5rem !important;
+}
+
+label {
+	margin-bottom: 0px;
+}
+
+.form-group {
+	margin-bottom: 0px;
+}
 .select2 {
 	width: 100% !important;
 }
-
-.PAN {
-	text-transform: uppercase;
-}
-
-.error {
-	color: Red;
-	visibility: hidden;
-}
-
-.required {
-	color: red;
-}
-
-.select2-container--default .select2-selection--multiple .select2-selection__choice
-	{
-	color: black;
-}
-
 th, td, tr {
 	border-style: hidden;
+}
+.required,.adHocRequired {
+	color: red;
+}
+.select2-selection__clear{
+    display: none;
 }
 </style>
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini sidebar-collapse text-sm">
 	<jsp:include page="loader.jsp" />
 	<div class="wrapper">
-		<jsp:include page="navbar.jsp?pagename=Vendor Details" />
-		<jsp:include page="sidebar_Admin.jsp?pagename=Vendor Details" />
+		<jsp:include page="navbar.jsp?pagename=vendorProfile" />
+		<jsp:include page="sidebar_Vendor.jsp?pagename=vendorProfile" />
 		<div class="content-wrapper">
-			<div class="content-header" style="padding: 0px;">
-				<div class="container-fluid">
-					<div class="row mb-2">
-						<div class="col-sm-6">
-							<div class="input-group-prepend">
-							<input type="hidden" id="pageContext" value="${pageContext.request.contextPath}">
-							</div>
-						</div>
-						<div class="col-sm-6">
-							<ol class="breadcrumb float-sm-right">
-							</ol>
-						</div>
-					</div>
-				</div>
-			</div>
+
 			<section class="content">
 				<div class="container-fluid">
+
 					<div class="row">
-						<div class="col-md-12">
-							<div class="card card-primary"></div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-12">
-							<div class="card card-primary">
-								<div class="card-body">
-									<table id="tabledata" class="table table-bordered table-hover">
-										<thead>
-											<tr>
-												<th class="bg-primary">Ven. code</th>
-												<th class="bg-primary">Sup.Name</th>
-												<th class="bg-primary">Sup.Type</th>
-												<th class="bg-primary">Business Class.</th>
-												<th class="bg-primary">Introducer Name</th>
-												<th class="bg-primary">Introducer Email</th>
-												<th class="bg-primary">Status</th>
-												<th class="bg-primary">Export</th>
-												<th class="bg-primary">Change Password</th>
-												<th class="bg-primary">Action</th>
-											</tr>
-										</thead>
-									</table>
+
+						<div class="content-wrapper" style="margin-left: 0px !important;">
+							<section class="content" style="overflow: hidden;">
+								<div class="container-fluid">
+									<div class="card card-primary" style="margin-top: 1rem;">
+										<div class="card-header" style="padding: 5px 5px 0px 5px;">
+											<h4 class="card-title">Basic Details</h4>
+											<div class="card-tools">
+												<button type="button" class="btn btn-tool"
+													data-card-widget="collapse" style="margin-right: 10px;">
+													<i class="fas fa-minus"></i>
+												</button>
+											</div>
+										</div>
+										<div class="card-body">
+											<form id="stepOneForm" class="forms-sample">
+												<div class="row">
+													<div class="col-md-2">
+														<div class="form-group ">
+															<label>Legal Entity / Supplier Name<span
+																class="text-danger"></span></label> <input
+																class="form-control-sm" type="text" name="suppName"
+																id="suppName" readonly style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group ">
+															<label>Supplier Code<span class="text-danger"></span></label>
+															<input type="hidden" id="suppNames" value="${userName}">
+															<input class="form-control-sm" type="text" id="bpCode"
+																name="bpCode" readonly style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Business Classification<span
+																class="text-danger"></span></label> <input type="text"
+																class="form-control-sm" name="businessClassification"
+																id="businessClassification" style="width: 100%;">
+															<input type="hidden" id="vendorType"
+																value="${vendorType}">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>MESME Certificate Number</label> <input
+																type="text" class="form-control-sm" name="mesmeNumber"
+																id="mesmeNumber" style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Aadhar Number</label> <input
+																class="form-control-sm" name="aadharNumber"
+																id="aadharNumber" type="text" style="width: 100%;"
+																readonly>
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Pan Number<span class="text-danger">
+															</span></label> <input class="form-control-sm" name="panNumber"
+																id="panNumber" type="text" style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>TAN Number<span class="text-danger"></span></label>
+															<input class="form-control-sm" type="text"
+																name="tanNumber" id="tanNumber" readonly
+																style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Aadhar Link Status<span
+																class="text-danger"></span></label> <input
+																class="form-control-sm" type="text"
+																name="adharLinkStatus" id="adharLinkStatus" readonly
+																style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Section Type<span class="text-danger"></span></label>
+
+															<input class="form-control-sm" type="text"
+																name="sectionType" id="sectionType" readonly
+																style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>E-Invoice Applicable<span
+																class="text-danger"></span></label> <input
+																class="form-control-sm" type="text"
+																name="enInvApplicable" id="enInvApplicable" readonly
+																style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Region<span class="text-danger"></span></label> <input
+																type="hidden" name="pid" id="pid"> <input
+																class="form-control-sm" type="text" name="region"
+																id="region" readonly style="width: 100%;">
+														</div>
+													</div>
+
+												</div>
+											</form>
+										</div>
+									</div>
+									<div class="card card-primary">
+										<div class="card-header" style="padding: 5px 5px 0px 5px;">
+											<h4 class="card-title">Address Book</h4>
+											<div class="card-tools">
+												<button type="button" class="btn btn-tool"
+													data-card-widget="collapse" style="margin-right: 10px;">
+													<i class="fas fa-minus"></i>
+												</button>
+											</div>
+										</div>
+										<div class="card-body" style="overflow: auto;">
+											<div class="col-md-12">
+												<div class="table-responsive">
+													<table id="addTable"
+														class="display nowrap table table-bordered"
+														style="width: 100%">
+														<thead>
+															<tr>
+																<th class="bg-primary">Vendor Type</th>
+																<th class="bg-primary">Vendor Category</th>
+																<th class="bg-primary">Country</th>
+																<th class="bg-primary">State</th>
+																<th class="bg-primary">District</th>
+																<th class="bg-primary">Postal Code/ ZIP Code</th>
+																<th class="bg-primary">Address Details</th>
+																<th class="bg-primary">GSTN Number</th>
+																<!-- <th class="bg-primary">Supplier Site Code</th>
+																<th class="bg-primary">GL Code</th> -->
+															</tr>
+														</thead>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="card card-primary">
+										<div class="card-header" style="padding: 5px 5px 0px 5px;">
+											<h4 class="card-title">Contact Details</h4>
+											<div class="card-tools">
+												<button type="button" class="btn btn-tool"
+													data-card-widget="collapse" style="margin-right: 10px;">
+													<i class="fas fa-minus"></i>
+												</button>
+											</div>
+										</div>
+										<div class="card-body" style="overflow: auto;">
+											<div class="col-md-12">
+												<div class="table-responsive">
+													<table id="contactTable"
+														class="display nowrap table table-bordered"
+														style="width: 100%">
+														<thead>
+															<tr>
+																<th class="bg-primary">First Name</th>
+																<th class="bg-primary">Last Name</th>
+																<th class="bg-primary">Phone Number</th>
+																<th class="bg-primary">Email ID</th>
+															</tr>
+														</thead>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card card-primary collapsed-card">
+										<div class="card-header" style="padding: 5px 5px 0px 5px;">
+											<h4 class="card-title">Bank Details</h4>
+											<div class="card-tools">
+												<button type="button" class="btn btn-tool"
+													data-card-widget="collapse" style="margin-right: 10px;">
+													<i class="fas fa-plus"></i>
+												</button>
+											</div>
+										</div>
+										<div class="card-body" style="overflow: auto;">
+											<div class="col-md-12">
+												<div class="table-responsive">
+													<table id="bankTable"
+														class="display nowrap table table-bordered"
+														style="width: 100%">
+														<thead>
+															<tr>
+																<th class="bg-primary">Bank Name</th>
+																<th class="bg-primary">Account Number</th>
+																<th class="bg-primary">Beneficiary Name</th>
+																<th class="bg-primary">IFSC Code</th>
+																<th class="bg-primary">Currency</th>
+															</tr>
+														</thead>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="card card-primary collapsed-card" style="margin-top: 1rem;">
+										<div class="card-header" style="padding: 5px 5px 0px 5px;">
+											<h4 class="card-title">Invoice Payment Terms</h4>
+											<div class="card-tools">
+												<button type="button" class="btn btn-tool"
+													data-card-widget="collapse" style="margin-right: 10px;">
+													<i class="fas fa-plus"></i>
+												</button>
+											</div>
+										</div>
+										<div class="card-body">
+											<form id="stepTwoForm" class="forms-sample">
+												<div class="row">
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Invoice Currency<span class="text-danger"></span></label>
+
+															<input class="form-control-sm" type="text" readonly
+																name="invoiceCurrency" id="invoiceCurrency"
+																style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Payment Currency<span class="text-danger"></span></label>
+
+															<input class="form-control-sm" type="text"
+																name="paymentCurrency" id="paymentCurrency"
+																style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Payment / Credit Terms<span
+																class="text-danger"></span></label> <input type="hidden" id="id"
+																name="id" disabled> <input type="text"
+																name="creditTerms" id="creditTerms" readonly
+																class="form-control-sm" style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Payment Method<span class="text-danger"></span></label>
+
+															<input class="form-control-sm" type="text"
+																name="paymentMethod" id="paymentMethod" readonly
+																style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Terms Date Basis<span class="text-danger"></span></label>
+
+															<input class="form-control-sm" type="text"
+																name="dateBasis" id="dateBasis" readonly
+																style="width: 100%;">
+														</div>
+													</div>
+
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Delivery Terms<span class="text-danger"></span></label>
+
+															<input class="form-control-sm" type="text"
+																name="deliveryTerms" id="deliveryTerms" readonly
+																style="width: 100%;">
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+
+									<div class="card card-primary collapsed-card" style="margin-top: 1rem;">
+										<div class="card-header" style="padding: 5px 5px 0px 5px;">
+											<h4 class="card-title">TDS Details</h4>
+											<div class="card-tools">
+												<button type="button" class="btn btn-tool"
+													data-card-widget="collapse" style="margin-right: 10px;">
+													<i class="fas fa-plus"></i>
+												</button>
+											</div>
+										</div>
+										<div class="card-body">
+											<form id="stepThreeForm" class="forms-sample">
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>TDS Applicable<span class="text-danger"></span></label>
+
+															<input class="form-control-sm" type="text" readonly
+																name="tdsApplication" id="tdsApplication"
+																style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>TDS Section<span class="text-danger"></span></label>
+
+															<input class="form-control-sm" type="text"
+																name="tdsSection" id="tdsSection" style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>TDS Exemption Rate %<span
+																class="text-danger"></span></label> <input
+																class="form-control-sm" type="text" readonly
+																name="tdsRate" id="tdsRate" style="width: 100%;">
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+
+
+									<div class="card card-primary collapsed-card" style="margin-top: 1rem;">
+										<div class="card-header" style="padding: 5px 5px 0px 5px;">
+											<h4 class="card-title">ITR Details</h4>
+											<div class="card-tools">
+												<button type="button" class="btn btn-tool"
+													data-card-widget="collapse" style="margin-right: 10px;">
+													<i class="fas fa-plus"></i>
+												</button>
+											</div>
+										</div>
+										<div class="card-body">
+											<form id="stepFourForm" class="forms-sample">
+												<div class="row">
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Financial Year1<span class="text-danger"></span></label>
+
+															<input class="form-control-sm" type="text" readonly
+																name="fyYear1" id="fyYear1" style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Ack. Number1<span class="text-danger"></span></label>
+															<input class="form-control-sm" type="text"
+																name="acknowledgementNumber1"
+																id="acknowledgementNumber1" style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Financial Year2<span class="text-danger"></span></label>
+
+															<input class="form-control-sm" type="text" readonly
+																name="fyYear2" id="fyYear2" style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Ack. Number2<span class="text-danger"></span></label>
+															<input class="form-control-sm" type="text"
+																name="acknowledgementNumber2"
+																id="acknowledgementNumber2" style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Financial Year3<span class="text-danger"></span></label>
+
+															<input class="form-control-sm" type="text" readonly
+																name="fyYear3" id="fyYear3" style="width: 100%;">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Ack. Number3<span class="text-danger"></span></label>
+															<input class="form-control-sm" type="text"
+																name="acknowledgementNumber3"
+																id="acknowledgementNumber3" style="width: 100%;">
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-3"></div>
+										<div class="col-md-3" style="display: block;"
+											id="rejectInvBtn">
+											<button type="button" id="updateProfile"
+												style="margin-right: 10px; width: inherit"
+												class="btn btn-success btn-lg">Update Profile</button>
+										</div>
+										<div class="col-md-3" style="display: block;"
+											id="rejectInvBtn">
+											<button type="button" id="viewAttachment"
+												value="viewAttachment"
+												style="margin-right: 10px; width: inherit"
+												class="btn btn-primary btn-lg">View Attachment</button>
+										</div>
+										<div class="col-md-3"></div>
+									</div>
 								</div>
-							</div>
+							</section>
 						</div>
 					</div>
 				</div>
 			</section>
 		</div>
-		<aside class="control-sidebar control-sidebar-dark"></aside>
-		<div class="container-fluid panel2" style="display: none;">
-                        <div class="row">                            
-                            <div class="col-lg-12" style="height: 400px;">
-                            <a id="ifrmameHref"   target="_blank">Click Here to open doc in new window</a>
-                                <iframe id="pdfLink" style="height:100%; width:100%"  ></iframe>
-                            </div>
-                        </div>
-                    </div>
+	</div>
+
+	<div class="modal fade" id="viewAttachmentPopUp" role="dialog">
+		<div class="modal-dialog " style="max-width: 1300px;">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="container-fluid panel1">
+						<div class="row">
+							<div class="col">
+								<div class="row innerRow">
+
+
+									<div class="col-md-8">
+										<div class="form-group">
+											<label>Document Name</label> <select class="form-control"
+												id="multipleAttachment" style="height: 35px;">
+
+											</select>
+
+										</div>
+									</div>
+									<div class="col-md-3" style="display: none"
+										id="uploadeddateDiv">
+										<div class="form-group">
+											<label>Uploaded Date</label> <input type="text"
+												class="form-control" id="uploadeddate" style="height: 35px;"
+												readonly>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="container-fluid panel2">
+						<div class="row">
+							<div class="col-lg-12" style="height: 400px;">
+								<a id="ifrmameHref" target="_blank">Click Here to open doc
+									in new window</a>
+								<iframe id="pdfLink" style="height: 100%; width: 100%"
+									title="Navigation menu"></iframe>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div class="modal fade" id="userModal" role="dialog">
@@ -169,7 +611,7 @@ th, td, tr {
 											<thead>
 											</thead>
 											<tbody>
-												<tr>
+												<!-- <tr>
 													<td><label>Process Id</label></td>
 													<td colspan="1"><input type="text"
 														class="form-control p-input" id="pid" name="pid" readonly></td>
@@ -182,8 +624,8 @@ th, td, tr {
 													<td colspan="1"><input type="text"
 														class="form-control p-input" id="vendorType"
 														name="vendorType" readonly></td>
-												</tr>
-												<tr class="">
+												</tr> -->
+												<!-- <tr class="">
 													<td><label for="name">Introducer Name<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan="1"><input type="text" readonly
@@ -198,9 +640,9 @@ th, td, tr {
 														name="introducedByEmailID" maxlength="50"
 														placeholder="abc@ecomexpress.in"
 														onchange="removeValCssByID(this)"><span
-														id="message"></span><input type="hidden" id="commercialFlag" name="commercialFlag"  />
-														<input type="hidden" id="processedBy" name="processedBy"  />
-													</td>
+														id="message"></span><input type="hidden"
+														id="commercialFlag" name="commercialFlag" /> <input
+														type="hidden" id="processedBy" name="processedBy" /></td>
 
 													<td><label for="Supplier Type">Referral Email
 															Id</label></td>
@@ -210,7 +652,7 @@ th, td, tr {
 														placeholder="Reference Person Email ID "></td>
 
 
-												</tr>
+												</tr> -->
 
 
 
@@ -219,18 +661,18 @@ th, td, tr {
 
 
 
-													<td><label for="suppName">Legal Entity / Supplier Name<span
-															class="required adHocRequired">*</span>
+													<td><label for="suppName">Legal Entity /
+															Supplier Name<span class="required adHocRequired">*</span>
 													</label></td>
 													<td colspan="1"><input type="text"
-														class="form-control p-input" id="suppName" name="suppName"
+														class="form-control p-input" id="suppNameEdit" name="suppNameEdit"
 														placeholder="Supplier Name" maxlength="200"> <input
 														type="hidden" id="roleId"></td>
 
 													<td><label for="businessClassification">Business
-															Classification</label></td>
-													<td><select id="businessClassification"
-														name="businessClassification" class="form-control p-input">
+															Classification<span class="required adHocRequired">*</span></label></td>
+													<td><select id="businessClassificationEdit"
+														name="businessClassificationEdit" class="form-control p-input">
 															<option value="">Select</option>
 															<c:forEach items="${classification}" var="classi">
 
@@ -240,10 +682,10 @@ th, td, tr {
 													</select></td>
 
 													<td><label for="mesmeNumber">MESME Certificate
-															Number</label></td>
+															Number<span class="required adHocRequired">*</span></label></td>
 													<td colspan="1"><input type="text"
-														class="form-control p-input" id="mesmeNumber"
-														maxlength="19" name="mesmeNumber"
+														class="form-control p-input" id="mesmeNumberEdit"
+														maxlength="19" name="mesmeNumberEdit"
 														placeholder="MESME Certificate Number" disabled="disabled"></td>
 												</tr>
 
@@ -256,15 +698,15 @@ th, td, tr {
 
 													<td><label for="aadharNumber">Aadhar Number</label></td>
 													<td colspan="1"><input type="text"
-														class="form-control p-input" id="aadharNumber"
-														maxlength="12" name="aadharNumber"
+														class="form-control p-input" id="aadharNumberEdit"
+														maxlength="12" name="aadharNumberEdit"
 														placeholder="Aadhar Number"></td>
 
 													<td><label for="adharLinkStatus">Aadhar Link
 															Status</label></td>
 
 													<td><select class="form-control p-input"
-														id="adharLinkStatus" name="adharLinkStatus">
+														id="adharLinkStatusEdit" name="adharLinkStatusEdit">
 															<option value="">Select</option>
 															<c:forEach items="${adharLink}" var="link">
 
@@ -274,10 +716,10 @@ th, td, tr {
 													</select></td>
 
 													<td><label>Section Type<span
-															class="required adHocRequired"></span></label></td>
+															class="required adHocRequired">*</span></label></td>
 
 													<td><select class="form-control p-input"
-														id="sectionType" name="sectionType">
+														id="sectionTypeEdit" name="sectionTypeEdit">
 															<option value="">Select</option>
 															<c:forEach items="${sectionType}" var="type">
 
@@ -295,17 +737,17 @@ th, td, tr {
 													<td><label for="panNumber">Pan Number<span
 															class="required adHocRequired"></span></label></td>
 													<td colspan="1"><input type="text"
-														class="form-control p-input" id="panNumber"
-														name="panNumber" placeholder="Pan Number" maxlength="10"></td>
+														class="form-control p-input" id="panNumberEdit"
+														name="panNumberEdit" placeholder="Pan Number" readonly maxlength="10"></td>
 													<td><label for="tanNumber">TAN Number</label></td>
 													<td colspan="1"><input type="text"
-														class="form-control p-input" id="tanNumber"
-														name="tanNumber" placeholder="TAN Number" maxlength="10"></td>
+														class="form-control p-input" id="tanNumberEdit"
+														name="tanNumberEdit" placeholder="TAN Number" maxlength="10"></td>
 
 													<td><label for="eInvoice">E-Invoice Applicable<span
 															class="required adHocRequired">*</span></label></td>
 													<td><select class="form-control p-input"
-														id="enInvApplicable" name="enInvApplicable">
+														id="enInvApplicableEdit" name="enInvApplicableEdit">
 															<option value="">Select</option>
 															<c:forEach items="${adharLink}" var="link">
 
@@ -318,21 +760,17 @@ th, td, tr {
 												<tr>
 
 													<td><label>Region<span
-															class="required adHocRequired"></span></label></td>
+															class="required adHocRequired">*</span></label></td>
 
-													<td style="width: auto"><select
-														class="js-example-basic-multiple1 select2" name="region[]"
-														id="region" multiple="multiple">
-															<c:forEach items="${region}" var="reg">
-																<option value="${reg}">${reg}</option>
-															</c:forEach>
-													</select></td>
+													<td style="width: auto"><input
+																class="form-control-sm" type="text" name="regionEdit"
+																id="regionEdit" readonly style="width: 100%;"></td>
 													<td><label for="Supplier Type">Supplier Code</label></td>
 													<td colspan="2"><input type="hidden" id="id" name="id">
-													<input type="hidden" id="createDate" name="createDate">
+														<input type="hidden" id="createDate" name="createDate">
 														<input type="text" class="form-control p-input"
-														id="bpCode" name="bpCode" placeholder="Supplier Code"
-														style="text-align: center; font-size: x-large;"></td>
+														id="bpCodeEdit" name="bpCodeEdit" placeholder="Supplier Code" readonly
+														style="text-align: center; font-size: x-large; background: #11aef6; color: #ffffff;"></td>
 
 												</tr>
 
@@ -493,13 +931,13 @@ th, td, tr {
 																	class="required adHocRequired">*</span></label></td>
 															<td colspan="2"><input type="text"
 																class="form-control p-input" id="conFname"
-																name="conFname" placeholder="First Name"  maxlength="50"></td>
+																name="conFname" placeholder="First Name" maxlength="50"></td>
 
 															<td><label for="lnameCon">Last Name<span
 																	class="required adHocRequired">*</span></label></td>
 															<td colspan="2"><input type="text"
 																class="form-control p-input" id="conLname"
-																name="conLname" placeholder="Last Name"  maxlength="50"></td>
+																name="conLname" placeholder="Last Name" maxlength="50"></td>
 
 															<td><label for="phno">Phone Number<span
 																	class="required adHocRequired">*</span></label></td>
@@ -515,7 +953,7 @@ th, td, tr {
 																	class="required adHocRequired">*</span></label></td>
 															<td colspan="2"><input type="text"
 																class="form-control p-input" id="conEmail"
-																name="conEmail" placeholder="Email"  maxlength="50"></td>
+																name="conEmail" placeholder="Email" maxlength="50"></td>
 															<td></td>
 															<td></td>
 															<td>
@@ -556,8 +994,8 @@ th, td, tr {
 
 
 							<div id="step-3" class="">
-							
-							<div class="card" style="margin-bottom: 10px;">
+
+								<div class="card" style="margin-bottom: 10px;">
 									<div class="card-header" id="addressBookHead"
 										style="background: #1991eb; color: #ffffff;">
 										<h6 class="mb-0">Invoice Payment Terms</h6>
@@ -574,8 +1012,8 @@ th, td, tr {
 															<td><label for="invoiceCurrency">Invoice
 																	Currency<span class="required adHocRequired">*</span>
 															</label></td>
-															<td colspan="2"><select id="invoiceCurrency"
-																name="invoiceCurrency" class="form-control p-input">
+															<td colspan="2"><select id="invoiceCurrencyEdit"
+																name="invoiceCurrencyEdit" class="form-control p-input">
 																	<c:forEach items="${currency}" var="cur">
 
 																		<option value="${cur}">${cur}</option>
@@ -586,8 +1024,8 @@ th, td, tr {
 															<td><label for="paymentCurrency">Payment
 																	Currency<span class="required adHocRequired">*</span>
 															</label></td>
-															<td colspan="2"><select id="paymentCurrency"
-																name="paymentCurrency" class="form-control p-input">
+															<td colspan="2"><select id="paymentCurrencyEdit"
+																name="paymentCurrencyEdit" class="form-control p-input">
 																	<c:forEach items="${currency}" var="cur">
 
 																		<option value="${cur}">${cur}</option>
@@ -597,8 +1035,8 @@ th, td, tr {
 															<td><label for="creditTerms">Payment /
 																	Credit Terms<span class="required adHocRequired">*</span>
 															</label></td>
-															<td colspan="2"><select id="creditTerms"
-																name="creditTerms" class="form-control p-input">
+															<td colspan="2"><select id="creditTermsEdit"
+																name="creditTermsEdit" class="form-control p-input" disabled>
 																	<option value="">Select</option>
 																	<c:forEach items="${payment}" var="pay">
 
@@ -612,8 +1050,8 @@ th, td, tr {
 																	Method<span class="required adHocRequired">*</span>
 															</label></td>
 
-															<td colspan="2"><select id="paymentMethod"
-																name="paymentMethod" class="form-control p-input">
+															<td colspan="2"><select id="paymentMethodEdit"
+																name="paymentMethodEdit" class="form-control p-input">
 
 																	<c:forEach items="${paymentMethod}" var="met">
 																		<option value="${met}">${met}</option>
@@ -622,13 +1060,13 @@ th, td, tr {
 
 															<td><label for="dateBasis">Terms Date Basis</label></td>
 															<td colspan="2"><input type="text"
-																class="form-control p-input" id="dateBasis"
-																name="dateBasis" placeholder="Terms Date Basis"></td>
+																class="form-control p-input" id="dateBasisEdit"
+																name="dateBasisEdit" placeholder="Terms Date Basis"></td>
 															<td><label for="deliveryTerms">Delivery
 																	Terms</label></td>
 															<td colspan="2"><input type="text"
-																class="form-control p-input" id="deliveryTerms"
-																name="deliveryTerms" placeholder="Delivery Terms"></td>
+																class="form-control p-input" id="deliveryTermsEdit"
+																name="deliveryTermsEdit" placeholder="Delivery Terms"></td>
 
 
 														</tr>
@@ -640,7 +1078,7 @@ th, td, tr {
 										</div>
 									</div>
 								</div>
-							
+
 								<div class="card" style="margin-bottom: 10px;">
 									<div class="card-header" id="addressBookHead"
 										style="background: #1991eb; color: #ffffff;">
@@ -765,8 +1203,8 @@ th, td, tr {
 																<td><label class="addressLable"
 																	for="tdsApplication">TDS Applicable<span
 																		class="required">*</span></label></td>
-																<td colspan="2"><select id="tdsApplication"
-																	name="tdsApplication" class="form-control p-input ">
+																<td colspan="2"><select id="tdsApplicationEdit"
+																	name="tdsApplicationEdit" class="form-control p-input ">
 																		<option value="Yes">Yes</option>
 																		<option value="No">No</option>
 																</select></td>
@@ -774,8 +1212,8 @@ th, td, tr {
 																<td><label class="addressLable" for="tdsSection">TDS
 																		Section<span class="required adHocRequired">*</span>
 																</label></td>
-																<td colspan="2"><select id="tdsSection"
-																	name="tdsSection" class="form-control p-input">
+																<td colspan="2"><select id="tdsSectionEdit"
+																	name="tdsSectionEdit" class="form-control p-input">
 																		<option value="">Select</option>
 																		<c:forEach items="${tdsCode}" var="tds">
 
@@ -790,8 +1228,8 @@ th, td, tr {
 																		%<span class="required adHocRequired">*</span>
 																</label></td>
 																<td colspan="2"><input type="text"
-																	class="form-control p-input" id="tdsRate"
-																	name="tdsRate" placeholder="TDS  Exemption Rate"
+																	class="form-control p-input" id="tdsRateEdit"
+																	name="tdsRateEdit" placeholder="TDS  Exemption Rate"
 																	maxlength="4"></td>
 															</tr>
 
@@ -819,7 +1257,7 @@ th, td, tr {
 															<tr class="">
 																<td><label>Select Financial Year<span
 																		class="required adHocRequired"></span></label></td>
-																<td><select id="fyYear1" name="fyYear1"
+																<td><select id="fyYear1Edit" name="fyYear1Edit"
 																	class="form-control p-input ">
 																		<option value="">Select</option>
 
@@ -831,8 +1269,8 @@ th, td, tr {
 																</select></td>
 																<td><label>Fill Acknowledgement Number<span
 																		class="required adHocRequired"></span></label></td>
-																<td><input type="text" id="acknowledgementNumber1"
-																	name="acknowledgementNumber1"
+																<td><input type="text" id="acknowledgementNumber1Edit"
+																	name="acknowledgementNumber1Edit"
 																	class="form-control p-input "></td>
 																<td><input type="file" id="ITRFile1"
 																	name="ITRFile1"
@@ -846,7 +1284,7 @@ th, td, tr {
 															<tr class="">
 																<td><label>Select Financial Year<span
 																		class="required adHocRequired"></span></label></td>
-																<td><select id="fyYear2" name="fyYear2"
+																<td><select id="fyYear2Edit" name="fyYear2Edit"
 																	class="form-control p-input ">
 																		<option value="">Select</option>
 
@@ -858,8 +1296,8 @@ th, td, tr {
 																</select></td>
 																<td><label>Fill Acknowledgement Number<span
 																		class="required adHocRequired"></span></label></td>
-																<td><input type="text" id="acknowledgementNumber2"
-																	name="acknowledgementNumber2"
+																<td><input type="text" id="acknowledgementNumber2Edit"
+																	name="acknowledgementNumber2Edit"
 																	class="form-control p-input "></td>
 																<td><input type="file" id="ITRFile2"
 																	name="ITRFile2"
@@ -873,7 +1311,7 @@ th, td, tr {
 															<tr class="">
 																<td><label>Select Financial Year<span
 																		class="required adHocRequired"></span></label></td>
-																<td><select id="fyYear3" name="fyYear3"
+																<td><select id="fyYear3Edit" name="fyYear3Edit"
 																	class="form-control p-input ">
 																		<option value="">Select</option>
 
@@ -885,8 +1323,8 @@ th, td, tr {
 																</select></td>
 																<td><label>Fill Acknowledgement Number<span
 																		class="required adHocRequired"></span></label></td>
-																<td><input type="text" id="acknowledgementNumber3"
-																	name="acknowledgementNumber3"
+																<td><input type="text" id="acknowledgementNumber3Edit"
+																	name="acknowledgementNumber3Edit"
 																	class="form-control p-input "></td>
 																<td><input type="file" id="ITRFile3"
 																	name="ITRFile1"
@@ -919,8 +1357,7 @@ th, td, tr {
 											<form class="forms-sample">
 
 												<div class="card-body">
-													<div class="table-responsive"
-														style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+													<div class="table-responsive">
 														<table class="table center-aligned-table"
 															id="addDocTypeGrid"
 															style="border-spacing: 0px; table-layout: fixed; margin-left: auto; margin-right: auto;">
@@ -1060,72 +1497,38 @@ th, td, tr {
 		</div>
 	</div>
 
-	<div class="modal fade" id="changePassword" role="dialog">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<form role="form" id="changePassword1" autocomplete="off">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Change
-							Password</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label for="exampleInputEmail1">User Name</label> <input
-								type="text" class="form-control p-input" id="userID"
-								name="userID" readonly>
-						</div>
-						<div class="form-group">
-							<label for="exampleInputEmail1">New Password</label> <input
-								type="hidden" id="passflag"> <input type="password"
-								class="form-control p-input" id="password" name="password"
-								placeholder="New Password"
-								pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-								title="Must contain at least one number and one uppercase and lowercase letter"
-								required>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" id="changeVendorPassword"
-							class="btn btn-primary">Change Password</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-
-
 	<script src="plugins/jquery/jquery.min.js"></script>
-	<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="js/commonFunctions.js"></script>
-	<script src="plugins/sparklines/sparkline.js"></script>
 	<script src="plugins/moment/moment.min.js"></script>
 	<script src="plugins/daterangepicker/daterangepicker.js"></script>
 	<script
 		src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-
-	<script
-		src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-	<script src="dist/js/adminlte.js"></script>
+	<script src="dist/js/adminlte.min.js"></script>
 	<script src="dist/js/demo.js"></script>
-	<script src="js/moment.min.js"></script>
-	<script src="plugins/select2/js/select2.full.min.js"></script>
-	<script src="js/select2.min.js"></script>
-	<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
-	<script src="plugins/jquery-validation/additional-methods.min.js"></script>
-	<script src="plugins/datatables/jquery.dataTables.js"></script>
-	<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+	<script src="js/commonFunctions.js"></script>
+	<script src="js/common.js"></script>
 	<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 	<script src="plugins/toastr/toastr.min.js"></script>
-
-	<script src="js/vendorDetails.js"></script>
-
+	<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+	<script src="plugins/jquery-validation/additional-methods.min.js"></script>
+	<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+	<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script
+		src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+	<script src="plugins/select2/js/select2.full.min.js"></script>
+	<script src="js/select2.min.js"></script>
+	<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+	<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+	<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+	<script src="plugins/select2/js/select2.full.min.js"></script>
+	<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+	<script src="plugins/jquery-validation/additional-methods.min.js"></script>
+	<script src="plugins/select2/js/select2.full.min.js"></script>
+	<script src="js/vendorProfile.js"></script>
 
 </body>
-
 </html>

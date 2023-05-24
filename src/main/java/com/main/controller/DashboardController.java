@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -94,55 +93,98 @@ public class DashboardController {
 	}
 
 	@PostMapping("/updateDetailsforNetwork")
-	public String updateDetailsforNetwork(Model model, HttpServletRequest request, Principal principal,
-			@RequestBody String agrn) {
+	public String updateDetailsforNetwork(HttpServletRequest request, Principal principal, @RequestBody String agrn) {
+
+		logger.info("Edit Trip Details :::: {}",agrn.toString());
 
 		String rolename = (String) request.getSession().getAttribute("role");
 		String userName = principal.getName();
 
 		JSONObject jsonObject = new JSONObject(agrn);
-		String processedon = jsonObject.optString("processedOn");
-		String processedBy = jsonObject.optString("processedBy");
-		String tripid = jsonObject.optString("tripID");
-		String assigenedTo = jsonObject.optString("AssigenedTo");
-		String lumpSomeCheckBox = "";
-		String lumpSomeAmount = jsonObject.optString("LumpSomeAmount");
 
-		String fs = jsonObject.optString("fs");
-		String totalFreight = jsonObject.optString("totalFreight");
-		String basicFreight = jsonObject.optString("basicFreight");
-		String commentsByUSer = jsonObject.optString("commentsby");
+		String tripID = jsonObject.optString("tripID");
+		String processedOn = jsonObject.optString("processedOn");
+		String LumpSomeAmount = jsonObject.optString("LumpSomeAmount");
 		String vendorName = jsonObject.optString("vendorName");
 		String vendorCode = jsonObject.optString("vendorCode");
+		String route = jsonObject.optString("route");
+		String vehicleNumber = jsonObject.optString("vehicleNumber");
+		String actualKM = jsonObject.optString("actualKM");
+		String standardKM = jsonObject.optString("standardKM");
+		String mileage = jsonObject.optString("mileage");
+		String ratePerKm = jsonObject.optString("ratePerKm");
+		String routeKms = jsonObject.optString("routeKms");
+		String fsBaseRate = jsonObject.optString("fsBaseRate");
+		String currentFuelRate = jsonObject.optString("currentFuelRate");
+		String fsDiff = jsonObject.optString("fsDiff");
+		String basicFreight = jsonObject.optString("basicFreight");
+		String fs = jsonObject.optString("fs");
+		String totalFreight = jsonObject.optString("totalFreight");
+
+		String assigenedTo = jsonObject.optString("AssigenedTo");
+		String lumpSomeCheckBox = "";
+
+		String commentsByUSer = jsonObject.optString("commentsby");
 		String type = jsonObject.optString("type");
 
-		if ("".equalsIgnoreCase(lumpSomeAmount)) {
+		if ("".equalsIgnoreCase(LumpSomeAmount) || "0".equalsIgnoreCase(LumpSomeAmount)) {
 			lumpSomeCheckBox = "false";
 		} else {
 			lumpSomeCheckBox = "true";
 		}
 
-		if ("".equalsIgnoreCase(lumpSomeAmount)) {
-			lumpSomeAmount = "0";
+		if ("".equalsIgnoreCase(LumpSomeAmount)) {
+			LumpSomeAmount = "0";
 		}
 
 		String query = jsonObject.optString("Query");
 		if ("No".equalsIgnoreCase(query)) {
-			serviceManager.tripDetailsRepo.updateDetailsByNetwork(assigenedTo, tripid, processedBy, processedon,
-					lumpSomeCheckBox, lumpSomeAmount, "Yet To Be Approved", Double.parseDouble(basicFreight),
-					Double.parseDouble(totalFreight), Double.parseDouble(fs), vendorName, vendorCode);
+
+			TripDetails tripDetailsObj = serviceManager.tripDetailsRepo.findByTripID(tripID);
+			tripDetailsObj.setTripID(tripID);
+			tripDetailsObj.setProcessedBy(userName);
+			tripDetailsObj.setProcessedOn(processedOn);
+			tripDetailsObj.setLumpsomeamount(LumpSomeAmount);
+			tripDetailsObj.setAssignTo(assigenedTo);
+			tripDetailsObj.setVendorName(vendorName);
+			tripDetailsObj.setVendorCode(vendorCode);
+			tripDetailsObj.setRoute(route);
+			tripDetailsObj.setVehicleNumber(vehicleNumber);
+			tripDetailsObj.setActualKM(Double.parseDouble(actualKM));
+			tripDetailsObj.setStandardKM(Double.parseDouble(standardKM));
+			tripDetailsObj.setMileage(Double.parseDouble(mileage));
+			tripDetailsObj.setRatePerKm(Double.parseDouble(ratePerKm));
+			tripDetailsObj.setRouteKms(Double.parseDouble(routeKms));
+			tripDetailsObj.setFsBaseRate(Double.parseDouble(fsBaseRate));
+			tripDetailsObj.setCurrentFuelRate(Double.parseDouble(currentFuelRate));
+			tripDetailsObj.setFsDiff(Double.parseDouble(fsDiff));
+			tripDetailsObj.setBasicFreight(Double.parseDouble(basicFreight));
+			tripDetailsObj.setFs(Double.parseDouble(fs));
+			tripDetailsObj.setTotalFreight(Double.parseDouble(totalFreight));
+			tripDetailsObj.setAssignTo(GlobalConstants.ROLE_VENDOR);
+			tripDetailsObj.setVendorTripStatus(GlobalConstants.VENDOR_TRIP_STATUS_YET_TO_BE_APPROVED);
+			serviceManager.tripDetailsRepo.save(tripDetailsObj);
+			/*
+			 * serviceManager.tripDetailsRepo.updateDetailsByNetwork(assigenedTo, tripID,
+			 * processedBy, processedOn, lumpSomeCheckBox, LumpSomeAmount,
+			 * "Yet To Be Approved", Double.parseDouble(basicFreight),
+			 * Double.parseDouble(totalFreight), Double.parseDouble(fs), vendorName,
+			 * vendorCode);
+			 */
 		} else {
-			String standardKM = jsonObject.optString("standardKM");
-			String milage = jsonObject.optString("milage");
-			String ratePerKm = jsonObject.optString("ratePerKm");
-			String routeKms = jsonObject.optString("routeKms");
-			String fsBaseRate = jsonObject.optString("fsBaseRate");
-			String currentFuelRate = jsonObject.optString("currentFuelRate");
-			String fsDiff = jsonObject.optString("fsDiff");
+			/*
+			 * String standardKM = jsonObject.optString("standardKM"); String milage =
+			 * jsonObject.optString("milage"); String ratePerKm =
+			 * jsonObject.optString("ratePerKm"); String routeKms =
+			 * jsonObject.optString("routeKms"); String fsBaseRate =
+			 * jsonObject.optString("fsBaseRate"); String currentFuelRate =
+			 * jsonObject.optString("currentFuelRate"); String fsDiff =
+			 * jsonObject.optString("fsDiff");
+			 */
 
 			try {
-				serviceManager.tripDetailsRepo.updateDetailsByNetworkInQuery(tripid, processedBy, processedon,
-						lumpSomeCheckBox, lumpSomeAmount, Double.parseDouble(standardKM), Double.parseDouble(milage),
+				serviceManager.tripDetailsRepo.updateDetailsByNetworkInQuery(tripID, userName, processedOn,
+						lumpSomeCheckBox, LumpSomeAmount, Double.parseDouble(standardKM), Double.parseDouble(mileage),
 						Double.parseDouble(ratePerKm), Double.parseDouble(routeKms), Double.parseDouble(fsBaseRate),
 						Double.parseDouble(currentFuelRate), Double.parseDouble(fsDiff),
 						Double.parseDouble(basicFreight), Double.parseDouble(totalFreight), Double.parseDouble(fs),
@@ -166,17 +208,17 @@ public class DashboardController {
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
-		TripDetails obj = serviceManager.tripDetailsRepo.findByTripID(tripid);
+		TripDetails obj = serviceManager.tripDetailsRepo.findByTripID(tripID);
 		int id = obj.getId();
 
-		comm.setRaisedAgainQuery(tripid);
+		comm.setRaisedAgainQuery(tripID);
 		if ("Yes".equalsIgnoreCase(query)) {
 			comm.setComment("Values Repopulated from MDM");
 		} else {
 			comm.setComment(commentsByUSer);
 		}
 
-		comm.setReferenceid(tripid);
+		comm.setReferenceid(tripID);
 		comm.setRole(rolename);
 		comm.setForeignKey(id);
 		comm.setType(type);
@@ -225,9 +267,14 @@ public class DashboardController {
 			JSONObject jsonObject = new JSONObject(reqObj);
 			String vendorCode = jsonObject.optString("vendorCode");
 			String route = jsonObject.optString("route");
+			String standardVechicleType = jsonObject.optString("standardVechicleType");
 
-			AgreementMaster masterData = serviceManager.agreementMasterRepo.getAllTripsByVendorCode(vendorCode, route);
-
+			// AgreementMaster masterData =
+			// serviceManager.agreementMasterRepo.getAllTripsByVendorCode(vendorCode,
+			// route);
+			AgreementMaster masterData = serviceManager.agreementMasterRepo
+					.findByVendorCodeAndRouteAndVehicleTypeIgnoreCaseAndStatusIgnoreCase(vendorCode, route,
+							standardVechicleType, GlobalConstants.STATUS_ACTIVE);
 			if (null != masterData) {
 				data.setData(masterData);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
@@ -235,7 +282,7 @@ public class DashboardController {
 				data.setMsg(GlobalConstants.ERROR_MESSAGE);
 			}
 		} catch (Exception e) {
-			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+			logger.error("Error in Aggrement value {}", e);
 			data.setMsg(GlobalConstants.ERROR_MESSAGE);
 		}
 
@@ -249,6 +296,8 @@ public class DashboardController {
 		try {
 			JSONObject jsonObject = new JSONObject(reqObj);
 			String vendorName = jsonObject.optString("vendorName");
+			String vendorCode = serviceManager.supDetailsRepo.getVendorCode(vendorName);
+			System.out.println(vendorCode);
 			data.setData(serviceManager.supDetailsRepo.getVendorCode(vendorName));
 			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 

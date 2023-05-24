@@ -120,7 +120,7 @@ public class MasterController {
 		return gson.toJson(data);
 	}
 
-	@RequestMapping({ "/saveAgreementList" })
+	@PostMapping({ "/saveAgreementList" })
 	public String saveCommodityList(@RequestBody List<AgreementMaster> objList) {
 
 		DataContainer data = new DataContainer();

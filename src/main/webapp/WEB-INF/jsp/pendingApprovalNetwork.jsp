@@ -106,6 +106,10 @@
             cursor: text;
             height: 1px;
         }
+        
+        #ui-datepicker-div {
+            z-index: 1000 !important;
+        }
 
     </style>
 </head>
@@ -137,23 +141,38 @@
                                 <div class="card-body ">
                                     <form role="form" id="addForm" autocomplete="off">
                                         <div class="row">
+                                            <div class="col-md-1">
+                                                <input type="text" name="fromDate" placeholder="Act Dept Start Date" class="form-control" id="fromDate" readonly>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <input type="text" name="toDate" placeholder="Act Dept End Date" class="form-control" id="toDate" readonly>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <button type="button" id="searchTripByDate" style="imargin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;" class="btn btn-primary">Search</button>
+                                            </div>
+                                             <div class="col-md-4">
+                                                <div class="form-group" style="width: inherit; height: auto;">
+                                                    <input type="text" name="selectInputValue" style="imargin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;" placeholder="Enter Trip ID : " class="form-control" id="search-box">
+                                                </div>
+                                            </div>
+											<div class="col-md-1"></div> 
+                                            <div class="col-md-3">
+                                                <div class="form-group row">
+                                                    <label class="col-md-7" style="margin-top: 7px;">Search within the Table
+                                                        : </label>
+                                                    <div class="col-md-5">
+                                                        <input type="text" name="searchData" placeholder="search" class="form-control" id="searchData" style="height: 34px;">
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                            <div class="col-md-2">
+                                            <div class="col-md-1">
                                                 <div class="dropdown">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" style="margin-bottom: 10px; margin-right: 5px; height: 30px; padding: 2px 10px 2px 10px;" data-toggle="dropdown">Export Details</button>
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" style="font-size: 14px; float: right; margin-bottom: 10px;" data-toggle="dropdown">Export Details</button>
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="#" id="exportLinkPdf">Download
                                                             PDF</a> <a class="dropdown-item" href="#" id="exportLink">Download
                                                             Excel</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8"></div>
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-md-4">Search : </label>
-                                                    <div class="col-md-8">
-                                                        <input type="text" name="searchData" placeholder="Search" class="form-control" id="searchData">
                                                     </div>
                                                 </div>
                                             </div>
@@ -176,21 +195,15 @@
                                             </thead>
 
                                             <tbody>
-                                                <%-- <c:forEach var="yetTobeApprovedAllDetails" items="${yetTobeApprovedAllDetails}">
-                                                    <tr>
-                                                        <td><a href="#" class="tripIdView">${yetTobeApprovedAllDetails.tripID}</a></td>
-                                                        <td>${yetTobeApprovedAllDetails.route}</td>
-                                                        <td>${yetTobeApprovedAllDetails.vendorName}</td>
-                                                        <td>${yetTobeApprovedAllDetails.vendorCode}</td>
-                                                        <td>${yetTobeApprovedAllDetails.runType}</td>
-                                                        <td>${yetTobeApprovedAllDetails.runStatus}</td>
-                                                        <td>${yetTobeApprovedAllDetails.vehicleNumber}</td>
-                                                    </tr>
-                                                </c:forEach> --%>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                            <div id="pageInfo" style="float: left;"></div>
+											<div id="pagingId" style="float: right;"></div>
+
+										</div>
                             </div>
                         </div>
                     </div>
@@ -389,7 +402,7 @@
                                                                     <label class="col-sm-5" title="Actual KM">Actual
                                                                         KM</label>
                                                                     <div class="col-sm-7">
-                                                                        <input type="text" class="form-control" autocomplete="off" id="actualKM" name="actualKM" disabled>
+                                                                        <input type="text" class="form-control" autocomplete="off" id="actualKM" name="actualKM" >
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -543,7 +556,7 @@
                                                 </div>
                                             </div>
                                         </table>
-                                        <div class=" card-primary">
+                                        <div class=" card-primary" >
                                             <div class="card card-primary ">
                                                 <div class="card-header" style="padding: 4px 0px 4px 4px;">
                                                     <h3 class="card-title" style="font-size: 15px;">Trips Query</h3>
@@ -586,6 +599,7 @@
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/commonFunctions.js"></script>
+    <script src="js/common.js"></script>
     <script src="plugins/sparklines/sparkline.js"></script>
     <script src="plugins/moment/moment.min.js"></script>
     <script src="plugins/daterangepicker/daterangepicker.js"></script>

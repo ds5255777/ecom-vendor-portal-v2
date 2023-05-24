@@ -100,10 +100,9 @@
                         <div class="col-lg-3 col-6">
                             <div class="small-box bg-white">
                                 <div class="inner">
-                                    <h2>${queryRequest }</h2>
+                                    <h2>${profileUpdate }</h2>
 
-                                    <p id="invdue" data-toggle="tooltip" data-placement="bottom">
-                                        Query</p>
+                                    <p id="invdue" data-toggle="tooltip" data-placement="bottom">Profile Update</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa fa-check" style="color: #28a745; font-size: 50px;"></i>
@@ -134,6 +133,23 @@
                                                 <th class="bg-primary">Process Id</th>
                                                 <th class="bg-primary">introduced by email id</th>
                                                 <th class="bg-primary">Introduced By Name</th>
+                                                <th class="bg-primary">Supplier Name</th>
+                                                <th class="bg-primary">Supplier Type</th>
+                                                <th class="bg-primary">Onboarding Date</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card card-primary  card-outline " id="profileRequest" style="display: none">
+                                <div class="card-header">
+                                    <h3 class="card-title" id="lastInvoice" data-toggle="tooltip" data-placement="bottom">Pending Request</h3>
+                                </div>
+                                <div class="card-body table-responsive p-0" style="height: 420px;">
+                                    <table class="table table-head-fixed" id="updateRequest">
+                                        <thead>
+                                            <tr>
+                                                <th class="bg-primary">Process Id</th>
                                                 <th class="bg-primary">Supplier Name</th>
                                                 <th class="bg-primary">Supplier Type</th>
                                                 <th class="bg-primary">Onboarding Date</th>

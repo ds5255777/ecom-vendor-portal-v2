@@ -45,6 +45,15 @@ var tabledata = $('#tabledata').DataTable({
 	"aaSorting": []
 });
 
+var updateRequest = $('#updateRequest').DataTable({
+	"paging": false,
+	"lengthChange": false,
+	"searching": false,
+	"info": false,
+	"autoWidth": false,
+	"aaSorting": []
+});
+
 var globalProcessId = "";
 pendingRequest();
 function pendingRequest() {
@@ -52,6 +61,7 @@ function pendingRequest() {
 	$('.loader').show();
 	document.getElementById("lastInvoice").innerHTML = "Pending Request";
 	document.getElementById("allRequest").style.display = "block";
+	document.getElementById("profileRequest").style.display = "none";
 	$.ajax({
 		type: "POST",
 		data: "",
@@ -100,6 +110,7 @@ function approvedRequest() {
 	$('.loader').show();
 	document.getElementById("lastInvoice").innerHTML = "Approved Request";
 	document.getElementById("allRequest").style.display = "block";
+	document.getElementById("profileRequest").style.display = "none";
 	$.ajax({
 		type: "POST",
 		data: "",
@@ -119,7 +130,7 @@ function approvedRequest() {
 						result[i].introducedByEmailID,
 						result[i].introducedByName,
 						result[i].suppName,
-						result[i].vendorType,
+						result[i].addressDetails[0].vendorType,
 						result[i].createDate]);
 				}
 				tabledata.draw();
@@ -148,6 +159,7 @@ function rejectedRequest() {
 	$('.loader').show();
 	document.getElementById("lastInvoice").innerHTML = "Rejected Request";
 	document.getElementById("allRequest").style.display = "block";
+	document.getElementById("profileRequest").style.display = "none";
 	$.ajax({
 		type: "POST",
 		data: "",
@@ -194,8 +206,9 @@ $('#tabledata tbody').on('click', ".rejectRequest", function() {
 
 function queryRequest() {
 	$('.loader').show();
-	document.getElementById("lastInvoice").innerHTML = "Query";
-	document.getElementById("allRequest").style.display = "block";
+	document.getElementById("lastInvoice").innerHTML = "Profile Update";
+	document.getElementById("profileRequest").style.display = "block";
+	document.getElementById("allRequest").style.display = "none";
 	$.ajax({
 		type: "POST",
 		data: "",
@@ -207,18 +220,16 @@ function queryRequest() {
 			$('.loader').hide();
 			if (data.msg == 'success') {
 				var result = data.data;
-				tabledata.clear();
+				updateRequest.clear();
 				for (var i = 0; i < result.length; i++) {
 					var view = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#vendorValue\" class=\"queryRequest\" >" + result[i][0] + "</button>";
-					tabledata.row.add([
+					updateRequest.row.add([
 						view,
 						result[i][1],
 						result[i][2],
-						result[i][3],
-						result[i][4],
-						result[i][5]]);
+						result[i][3]]);
 				}
-				tabledata.draw();
+				updateRequest.draw();
 				$("tbody").show();
 			} else {
 				Toast.fire({
@@ -233,16 +244,23 @@ function queryRequest() {
 	});
 }
 
-$('#tabledata tbody').on('click', ".queryRequest", function() {
+$('#updateRequest tbody').on('click', ".queryRequest", function() {
 	var row = $(this).parents('tr')[0];
 	//console.log(row.cells[0].innerText);
 	//console.log(tabledata.row(row).data().id);
-	setVenRegStatus(row.cells[0].innerText, 'Query Vendor');
+	setVenUpdationStatus(row.cells[0].innerText, 'Update Vendor');
 });
 
 function setVenRegStatus(pid, status) {
 	$('.loader').show();
 	var urlOftripsDetail = "vendorView?pid=" + btoa(pid) + "&status=" + btoa(status);
+	window.open(urlOftripsDetail, "vendorView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
+	$('.loader').hide();
+}
+
+function setVenUpdationStatus(pid, status) {
+	$('.loader').show();
+	var urlOftripsDetail = "vendorUpdateView?pid=" + btoa(pid) + "&status=" + btoa(status);
 	window.open(urlOftripsDetail, "vendorView", 'height=' + (screen.height - 110) + ',width=' + (screen.width - 15) + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes');
 	$('.loader').hide();
 }

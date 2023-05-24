@@ -245,8 +245,8 @@ function showVendorTable(result) {
 		if (!result[i].hasOwnProperty("ero")) {
 			result[i].ero = "";
 		}
-		if (!result[i].hasOwnProperty("dhq")) {
-			result[i].dhq = "";
+		if (!result[i].hasOwnProperty("ihq")) {
+			result[i].ihq = "";
 		}
 		if (!result[i].hasOwnProperty("sectionType")) {
 			result[i].sectionType = "";
@@ -298,6 +298,22 @@ function showVendorTable(result) {
 			if (!result[i].addressDetails[j].hasOwnProperty("pinCode")) {
 				result[i].addressDetails[j].pinCode = "";
 			}
+			if (!result[i].addressDetails[j].hasOwnProperty("addCountry")) {
+				result[i].addressDetails[j].addCountry = "";
+			}
+			if (!result[i].addressDetails[j].hasOwnProperty("vendorType")) {
+				result[i].addressDetails[j].vendorType = "";
+			}
+			if (!result[i].addressDetails[j].hasOwnProperty("partnerType")) {
+				result[i].addressDetails[j].partnerType = "";
+			}
+			if (!result[i].addressDetails[j].hasOwnProperty("compGstn")) {
+				result[i].addressDetails[j].compGstn = "";
+			}
+			if (!result[i].addressDetails[j].hasOwnProperty("glCode")) {
+				result[i].addressDetails[j].glCode = "";
+			}
+
 
 			for (var l = 0; l < result[i].contactDetails.length; l++) {
 				if (!result[i].contactDetails[l].hasOwnProperty("conPhone")) {
@@ -317,6 +333,8 @@ function showVendorTable(result) {
 				var accoutCurrency = "";
 				var beneficiaryName = "";
 				var accoutNumber = "";
+				var bank = "";
+				var country = "";
 
 				if (result[i].accountDetails.length > 0) {
 					for (var k = 0; k < result[i].accountDetails.length; k++) {
@@ -325,6 +343,8 @@ function showVendorTable(result) {
 						accoutCurrency = "";
 						beneficiaryName = "";
 						accoutNumber = "";
+						bank = "BANK";
+						country = "IN"
 
 						if (result[i].accountDetails[k].hasOwnProperty("bankName")) {
 							bankName = result[i].accountDetails[k].bankName;
@@ -338,10 +358,27 @@ function showVendorTable(result) {
 						if (result[i].accountDetails[k].hasOwnProperty("beneficiaryName")) {
 							beneficiaryName = result[i].accountDetails[k].beneficiaryName;
 						}
-						if (!result[i].accountDetails[k].hasOwnProperty("accoutNumber")) {
+						if (result[i].accountDetails[k].hasOwnProperty("accoutNumber")) {
 							accoutNumber = result[i].accountDetails[k].accoutNumber;
 						}
 					}
+				}
+
+				console.log(result[i].addressDetails[j].addDetails);
+				//let text = result[i].addressDetails[j].addDetails;
+				//const myArray = text.split(",");
+
+				/*var add4;
+				for (var x = 0; x < myArray.length; x++) {
+					add4 = myArray[x];
+					
+				}*/
+
+				var venType = "";
+				if (result[i].addressDetails[j].vendorType == "Network") {
+					venType = "Network Creditors";
+				} else {
+					venType = result[i].addressDetails[j].vendorType;
 				}
 
 				tabledata.row.add([
@@ -368,13 +405,13 @@ function showVendorTable(result) {
 					"",
 					bankName,
 					"",
-					"BANK",
-					"IN",
+					bank,
+					country,
 					ifscCode,
 					ifscCode,
 					accoutCurrency,
 					beneficiaryName,
-					"'" + accoutNumber,
+					accoutNumber,
 					ifscCode,
 					"",
 					result[i].contactDetails[l].conFname + " " + result[i].contactDetails[l].conLname,
@@ -384,11 +421,11 @@ function showVendorTable(result) {
 					result[i].wro,
 					result[i].nro,
 					result[i].ero,
-					result[i].dhq,
+					result[i].ihq,
 					result[i].sectionType + "-IND",
 					"",
 					result[i].sectionType + "-IND",
-					result[i].addressDetails[j].vendorType,
+					venType,
 					result[i].addressDetails[j].glCode,
 					result[i].addressDetails[j].compGstn,
 					"",

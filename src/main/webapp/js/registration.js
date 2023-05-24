@@ -112,11 +112,17 @@ $("#ifscCode").bind("input", function() {
 });
 
 $("#accoutNumber").bind("keypress", function() {
-	return event.charCode >= 48 && event.charCode <= 57;
+	return event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 112;
+});
+$("#accoutNumber").bind("input", function() {
+	this.value = this.value.toUpperCase();
 });
 
 $("#confirmedAccoutNumber").bind("keypress", function() {
-	return event.charCode >= 48 && event.charCode <= 57;
+	return event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 112;
+});
+$("#confirmedAccoutNumber").bind("input", function() {
+	this.value = this.value.toUpperCase();
 });
 
 $("#tdsApplication").bind("change", function() {
@@ -124,8 +130,20 @@ $("#tdsApplication").bind("change", function() {
 });
 
 $("#tdsRate").bind("keypress", function() {
-	return event.charCode >= 48 && event.charCode <= 57 || event.charCode <= 46;
+	return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46;
 })
+
+$("#city").bind("input", function() {
+	this.value = this.value.replace(/[^0-9a-zA-Z\s]/ig, '').replace(/\s{2,}/g, ' ');
+});
+
+$("#addDetails").bind("input", function() {
+	this.value = this.value.replace(/[^a-zA-Z\s,/-_.-]/ig, '').replace(/\s{2,}/g, ' ');
+});
+
+$("#suppName").bind("input", function() {
+	this.value = this.value.replace(/[^0-9a-zA-Z-\s,._/]/ig, '').replace(/\s{2,}/g, ' ');
+});
 
 
 function addValCss(controlName) {
@@ -285,7 +303,7 @@ $(document).ready(function() {
 							var beneficiaryName;
 
 							if (rowLength > 1) {
-								$(".pdDocClass").css("visibility", "hidden");
+								//$(".pdDocClass").css("visibility", "hidden");
 								for (var i = 1; i < rowLength; i += 1) {
 									var row = table.rows[i];
 									beneficiaryName = row.cells[1].innerHTML;
@@ -578,18 +596,15 @@ $(document).ready(function() {
 	});
 
 
-	$(document).ready(function() {
+	/*$(document).ready(function() {
 		$("#suppName").keypress(function(event) {
-
 			var inputValue = event.which;
-
 			if (inputValue == 8) {
-
 			} else if (!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0) && !(inputValue >= 37 && inputValue <= 47)) {
 				event.preventDefault();
 			}
 		});
-	});
+	});*/
 
 
 
@@ -1167,6 +1182,8 @@ function sendToServer() {
 	finalObj.fyYear2 = fyYear2;
 	finalObj.fyYear3 = fyYear3;
 
+	finalObj.flag="Inactive";
+
 	finalObj.acknowledgementNumber1 = acknowledgementNumber1;
 	finalObj.acknowledgementNumber2 = acknowledgementNumber2;
 	finalObj.acknowledgementNumber3 = acknowledgementNumber3;
@@ -1675,3 +1692,131 @@ function addBendDetails() {
 		$(".cancelledChequeMend").css("visibility", "hidden");
 	}
 }
+
+
+// Initializes  input( name of states)
+// with a typeahead
+var $input = $(".typeahead");
+$input.typeahead({
+	source: [
+		"Aditya Birla Idea Payments Bank Ltd",
+		"Airtel Payments Bank Ltd",
+		"Andhra Pradesh GVB",
+		"Andhra Pragathi Grameena Bank",
+		"Arunachal Pradesh Rural Bank",
+		"Aryavart Bank",
+		"Assam Gramin Vikash Bank",
+		"Au Small Finance Bank Ltd",
+		"Axis Bank Ltd",
+		"Bandhan Bank Ltd",
+		"Bangiya Gramin Vikash Bank",
+		"Bank of Baroda",
+		"Bank of India",
+		"Bank of Maharashtra",
+		"Baroda Gujarat Gramin Bank",
+		"Baroda Rajasthan Kshetriya Gramin Bank",
+		"Baroda Uttar Pradesh Gramin Bank",
+		"Canara Bank",
+		"Capital Small Finance Bank Ltd",
+		"Central Bank of India",
+		"Chaitanya Godavari GB",
+		"Chhattisgarh Rajya Gramin Bank",
+		"City Union Bank Ltd",
+		"Coastal Local Area Bank Ltd",
+		"CSB Bank Limited",
+		"Dakshin Bihar Gramin Bank",
+		"DCB Bank Ltd",
+		"Dhanlaxmi Bank Ltd",
+		"Ellaquai Dehati Bank",
+		"Equitas Small Finance Bank Ltd",
+		"ESAF Small Finance Bank Ltd",
+		"Export-Import Bank of India",
+		"Federal Bank Ltd",
+		"Fincare Small Finance Bank Ltd",
+		"Fino Payments Bank Ltd",
+		"HDFC Bank Ltd",
+		"Himachal Pradesh Gramin Bank",
+		"HSBC Bank",
+		"ICICI Bank Ltd",
+		"IDBI Bank Limited",
+		"IDFC FIRST Bank Limited",
+		"India Post Payments Bank Ltd",
+		"Indian Bank",
+		"Indian Overseas Bank",
+		"IndusInd Bank Ltd",
+		"J&K Grameen Bank",
+		"Jammu & Kashmir Bank Ltd",
+		"Jana Small Finance Bank Ltd",
+		"Jharkhand Rajya Gramin Bank",
+		"Jio Payments Bank Ltd",
+		"Karnataka Bank Ltd",
+		"Karnataka Gramin Bank",
+		"Karnataka Vikas Gramin Bank",
+		"Karur Vysya Bank Ltd",
+		"Kashi Gomti Samyut Gramin Bank",
+		"Kerala Gramin Bank",
+		"Kotak Mahindra Bank Ltd",
+		"Krishna Bhima Samruddhi LAB Ltd",
+		"Lakshmi Vilas Bank Ltd",
+		"Madhya Pradesh Gramin Bank",
+		"Madhyanchal Gramin Bank",
+		"Maharashtra GB",
+		"Manipur Rural Bank",
+		"Meghalaya Rural Bank",
+		"Mizoram Rural Bank",
+		"Nagaland Rural Bank",
+		"Nainital Bank Ltd",
+		"National Bank for Agriculture and Rural Development",
+		"National Housing Bank",
+		"North East Small Finance Bank Ltd",
+		"NSDL Payments Bank Limited",
+		"Odisha Gramya Bank",
+		"Paschim Banga Gramin Bank",
+		"Paytm Payments Bank Ltd",
+		"Prathama U.P. Gramin Bank",
+		"Puduvai Bharathiar Grama Bank",
+		"Punjab & Sind Bank",
+		"Punjab Gramin Bank",
+		"Punjab National Bank",
+		"Purvanchal Bank",
+		"Rajasthan Marudhara Gramin Bank",
+		"RBL Bank Ltd",
+		"Saptagiri Grameena Bank",
+		"Sarva Haryana Gramin Bank",
+		"Saurashtra Gramin Bank",
+		"Small Industries Development Bank of India",
+		"South Indian Bank Ltd",
+		"State Bank of India",
+		"Subhadra Local Bank Ltd",
+		"Suryoday Small Finance Bank Ltd",
+		"Tamil Nadu Grama Bank",
+		"Tamilnad Mercantile Bank Ltd",
+		"Telangana Grameena Bank",
+		"Tripura Gramin Bank",
+		"UCO Bank",
+		"Ujjivan Small Finance Bank Ltd",
+		"Union Bank of India",
+		"Utkal Grameen Bank",
+		"Utkarsh Small Finance Bank Ltd",
+		"Uttar Bihar Gramin Bank",
+		"Uttarakhand Gramin Bank",
+		"Uttar Banga Kshetriya Gramin Bank",
+		"Vidharbha Konkan Gramin Bank",
+		"YES Bank Ltd",
+	],
+	autoSelect: true,
+});
+
+$input.change(function() {
+	var current = $input.typeahead("getActive");
+	matches = [];
+
+	if (current) {
+
+		// Some item from your input matches
+		// with entered data
+		if (current.name == $input.val()) {
+			matches.push(current.name);
+		}
+	}
+});

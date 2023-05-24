@@ -135,7 +135,7 @@ label {
 	opacity: .5;
 }
 
-.required, .pdDocClass, .cancelledChequeMend{
+.required, .pdDocClass, .cancelledChequeMend {
 	color: red;
 }
 
@@ -164,6 +164,12 @@ label {
 	right: 0;
 	padding: 1px;
 	display: none;
+}
+
+.typeahead {
+	width: 20%;
+	top: 60px !important;
+	left: 50px !important;
 }
 </style>
 
@@ -222,14 +228,15 @@ label {
 														class="required adHocRequired">*</span></label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="introducedByEmailID"
-													name="introducedByEmailID" maxlength="50" value="${userMailId }"
-													placeholder="abc@ecomexpress.in" readonly><span
-													id="message"></span></td>
+													name="introducedByEmailID" maxlength="50"
+													value="${userMailId }" placeholder="abc@ecomexpress.in"
+													readonly><span id="message"></span></td>
 
 												<td><label for="Supplier Type">Supplier Code</label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="bpCode" name="bpCode"
-													placeholder="Supplier Code"></td>
+													placeholder="Supplier Code" readonly="readonly"
+													disabled="disabled"></td>
 
 
 											</tr>
@@ -239,15 +246,16 @@ label {
 											<tr>
 												<input type="hidden" id="roleId" />
 
-												<td><label for="suppName">Legal Entity/Supplier Name<span
-														class="required adHocRequired">*</span></label></td>
+												<td><label for="suppName">Legal Entity/Supplier
+														Name<span class="required adHocRequired">*</span>
+												</label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="suppName" name="suppName"
 													placeholder="Supplier Name" maxlength="200"></td>
 
 												<td><label for="businessClassification">Business
-														Classification<span
-														class="required adHocRequired">*</span></label></td>
+														Classification<span class="required adHocRequired">*</span>
+												</label></td>
 												<td><select id="businessClassification"
 													name="businessClassification" class="form-control p-input">
 														<option value="">Select</option>
@@ -259,8 +267,8 @@ label {
 												</select></td>
 
 												<td><label for="mesmeNumber">MESME Certificate
-														Number<span
-														class="required adHocRequired">*</span></label></td>
+														Number<span class="required adHocRequired">*</span>
+												</label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="mesmeNumber"
 													maxlength="19" name="mesmeNumber"
@@ -322,9 +330,9 @@ label {
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="tanNumber"
 													name="tanNumber" placeholder="TAN Number" maxlength="10"></td>
-													
+
 												<td><label for="eInvoice">E-Invoice Applicable<span
-														class="required adHocRequired">*</span></label></td>	
+														class="required adHocRequired">*</span></label></td>
 												<td><select class="form-control p-input"
 													id="enInvApplicable" name="enInvApplicable">
 														<option value="">Select</option>
@@ -333,13 +341,13 @@ label {
 															<option value="${link}">${link}</option>
 														</c:forEach>
 
-												</select></td>	
+												</select></td>
 
 
 											</tr>
 											<tr>
-											
-											<td><label>Region<span
+
+												<td><label>Region<span
 														class="required adHocRequired">*</span></label></td>
 
 												<td style="width: auto"><select
@@ -350,7 +358,7 @@ label {
 															<option value="${reg}">${reg}</option>
 														</c:forEach>
 												</select></td>
-											
+
 											</tr>
 
 										</tbody>
@@ -525,7 +533,7 @@ label {
 															class="required adHocRequired"></span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="conLname" name="conLname"
-														placeholder="Last Name"  maxlength="50"></td>
+														placeholder="Last Name" maxlength="50"></td>
 
 													<td><label for="phno">Phone Number<span
 															class="required adHocRequired">*</span></label></td>
@@ -540,7 +548,7 @@ label {
 															class="required adHocRequired">*</span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="conEmail" name="conEmail"
-														placeholder="Email"  maxlength="50"></td>
+														placeholder="Email" maxlength="50"></td>
 													<td></td>
 													<td></td>
 													<td>
@@ -579,8 +587,8 @@ label {
 						</div>
 					</div>
 					<div id="step-3" class="">
-					
-					<div class="card" style="margin-bottom: 10px;">
+
+						<div class="card" style="margin-bottom: 10px;">
 							<div class="card-header" id="addressBookHead"
 								style="background: #1991eb; color: #ffffff;">
 								<h6 class="mb-0">Invoice Payment Terms</h6>
@@ -665,8 +673,9 @@ label {
 								</div>
 							</div>
 						</div>
-					
-						<div class="card" id="bankDetails" style="margin-bottom: 10px;display: none;">
+
+						<div class="card" id="bankDetails"
+							style="margin-bottom: 10px; display: none;">
 							<div class="card-header" id="addressBookHead"
 								style="background: #1991eb; color: #ffffff;">
 								<h6 class="mb-0">Bank Details</h6>
@@ -683,9 +692,9 @@ label {
 												<tr class="">
 													<td><label for="bankName">Bank Name<span
 															class="required adHocRequired">*</span></label></td>
-													<td colspan="2"><input type="text"
-														class="form-control p-input" id="bankName" name="bankName"
-														placeholder="Bank Name" maxlength="200"></td>
+													<td colspan="2"><input type="text" class="typeahead form-control p-input" 
+           											data-provide="typeahead" id="bankName" name="bankName"
+														placeholder="Bank Name" maxlength="200" style="width: 100%"></td>
 
 													<td><label for="bankName">Beneficiary Name<span
 															class="required adHocRequired">*</span></label></td>
@@ -977,7 +986,8 @@ label {
 																		size Max ${fileSize} MB</span></label></td>
 
 															<td><label>Cancelled Cheque/ Passbook/ Bank
-																	Statement<span class="cancelledChequeMend" style=" visibility: hidden;">*</span>
+																	Statement<span class="cancelledChequeMend"
+																	style="visibility: hidden;">*</span>
 															</label></td>
 															<td><input type="file" id="CCFile" name="CCFile"
 																class="form-control p-input" accept=".docx, .pdf">
@@ -1148,6 +1158,7 @@ label {
 	<script src="js/jquery.smartWizard.min.js"></script>
 	<script src="plugins/popper/umd/popper.min.js"></script>
 	<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script src="js/bootstrap3-typeahead.min.js"></script>
 	<script
 		src="dist/css/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
 	<script src="plugins/js/off-canvas.js"></script>

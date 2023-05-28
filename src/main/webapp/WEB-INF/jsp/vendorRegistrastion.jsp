@@ -1017,7 +1017,7 @@ label {
 														</tr>
 														<tr>
 															<td><label>ITR Filling Declaration<span
-																	class="required">*</span></label></td>
+																	class="required notRequreDocument" style="visibility: visible;">*</span></label></td>
 															<td><input type="file" id="ITRFile" name="ITRFile"
 																class="form-control p-input" accept=".docx, .pdf">
 																<textarea id="ITRFileText" rows="5"
@@ -1036,7 +1036,7 @@ label {
 														</tr>
 														<tr>
 															<td><label>MSME Certificate<span
-																	class="required">*</span></label></td>
+																	class="required notRequreDocument" style="visibility: visible;">*</span></label></td>
 															<td><input type="file" id="MSMECFile"
 																name="MSMECFile" class="form-control p-input"
 																accept=".docx, .pdf"> <textarea

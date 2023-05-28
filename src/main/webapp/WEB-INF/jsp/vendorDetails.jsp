@@ -115,11 +115,12 @@ th, td, tr {
 						<div class="col-12">
 							<div class="card card-primary">
 								<div class="card-body">
-									<table id="tabledata" class="table table-bordered table-hover">
+									<table id="tabledata" class="nowrap table table-bordered table-hover">
 										<thead>
 											<tr>
 												<th class="bg-primary">Ven. code</th>
 												<th class="bg-primary">Sup.Name</th>
+												<th class="bg-primary">Process ID</th>
 												<th class="bg-primary">Sup.Type</th>
 												<th class="bg-primary">Business Class.</th>
 												<th class="bg-primary">Introducer Name</th>

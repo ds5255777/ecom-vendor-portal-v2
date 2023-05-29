@@ -260,22 +260,25 @@ public class UserController {
 					sdt.setBpCode(objects[1].toString());
 				}
 				if (null != objects[2]) {
-					sdt.setBusinessClassification(objects[2].toString());
+					sdt.setPid(objects[2].toString());
 				}
 				if (null != objects[3]) {
-					sdt.setVendorType(objects[3].toString());
+					sdt.setBusinessClassification(objects[3].toString());
 				}
 				if (null != objects[4]) {
-					sdt.setVenStatus(objects[4].toString());
+					sdt.setVendorType(objects[4].toString());
 				}
 				if (null != objects[5]) {
-					sdt.setIntroducedByName(objects[5].toString());
+					sdt.setVenStatus(objects[5].toString());
 				}
 				if (null != objects[6]) {
-					sdt.setIntroducedByEmailID(objects[6].toString());
+					sdt.setIntroducedByName(objects[6].toString());
 				}
 				if (null != objects[7]) {
-					sdt.setFlag(objects[7].toString());
+					sdt.setIntroducedByEmailID(objects[7].toString());
+				}
+				if (null != objects[8]) {
+					sdt.setFlag(objects[8].toString());
 				}
 				sdtList.add(sdt);
 			}

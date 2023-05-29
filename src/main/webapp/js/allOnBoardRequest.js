@@ -14,6 +14,7 @@ var tabledata = $('#tabledata').DataTable({
 	"lengthChange": false,
 	"searching": true,
 	"info": true,
+	"scrollX": true,
 	"autoWidth": false,
 	"aaSorting": [],
 	 dom: 'Bfrtip',

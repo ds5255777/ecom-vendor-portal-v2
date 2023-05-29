@@ -437,6 +437,11 @@ $("#addBookGridButt").click(function() {
 		document.getElementById('compGstn').value = "";
 	}
 
+	if (abc4 === "EMPLOYEE NOMINEE") {
+		$(".notRequreDocument").css("visibility", "hidden");
+	}
+
+
 });
 
 
@@ -791,10 +796,15 @@ function sendToServer() {
 	var mandFields = "ITRFile,MSMECFile";
 	var mandFieldsArr = mandFields.split(",");
 
-	for (i = 0; i < mandFieldsArr.length; i++) {
-		if (document.getElementById(mandFieldsArr[i]).value == '') {
-			notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
-			return false;
+	debugger
+
+	if (vendorType != "EMPLOYEE NOMINEE") {
+
+		for (i = 0; i < mandFieldsArr.length; i++) {
+			if (document.getElementById(mandFieldsArr[i]).value == '') {
+				notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+				return false;
+			}
 		}
 	}
 
@@ -1438,6 +1448,7 @@ function checkForExistingUserName() {
 $("#paymentMethod").bind("change", function() {
 	addBendDetails();
 });
+
 
 function addBendDetails() {
 	var paymentMethod = $("#paymentMethod").val();

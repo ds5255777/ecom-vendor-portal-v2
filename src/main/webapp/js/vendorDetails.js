@@ -285,6 +285,9 @@ function getData() {
 					if (!result[i].hasOwnProperty("suppName")) {
 						result[i].suppName = "";
 					}
+					if (!result[i].hasOwnProperty("pid")) {
+						result[i].pid = "";
+					}
 					if (!result[i].hasOwnProperty("compEmail")) {
 						result[i].compEmail = "";
 					}
@@ -320,12 +323,15 @@ function getData() {
 						var button = "<a href=\"#\" data-toggle=\"modal\"  tittle=\"In-Active Vendor\" data-target=\"#vendorValue\" class=\"inactiveVendor\" > <i style=\"color:red;\" class=\"fas fa-user-slash\"></i>  </a>";
 					} else if (result[i].flag == "In-Active") {
 						var button = "<a href=\"#\" data-toggle=\"modal\" tittle=\"Active Vendor\" data-target=\"#vendorValue\" class=\"activeVendor\" > <i class=\"fas fa-user\"></i>  </a>";
-					} else if (result[i].flag == "") {
-						var button = "";
+					} else if (result[i].flag == "Inactive")  {
+						var button = "<a href=\"#\" data-toggle=\"modal\" tittle=\"Active Vendor\" data-target=\"#vendorValue\" class=\"activeVendor\" > <i class=\"fas fa-user\"></i>  </a>";
+					}else  {
+						var button = "<a href=\"#\" data-toggle=\"modal\" tittle=\"Active Vendor\" data-target=\"#vendorValue\" class=\"activeVendor\" > <i class=\"fas fa-user\"></i>  </a>";
 					}
 
 					tabledata.row.add([view,
 						result[i].suppName,
+						result[i].pid,
 						result[i].vendorType,
 						result[i].businessClassification,
 						result[i].introducedByName,
@@ -1127,7 +1133,7 @@ function sendToServer() {
 	 }  */
 	//alert("hii");
 	console.log("Inside Step One");
-	var mandFields = "introducedByName,introducedByEmailID,suppName";
+	/*var mandFields = "introducedByName,introducedByEmailID,suppName";
 	var mandFieldsArr = mandFields.split(",");
 	for (i = 0; i < mandFieldsArr.length; i++) {
 		console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
@@ -1135,6 +1141,28 @@ function sendToServer() {
 			notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
 			console.log("Mandatory Check :: " + mandFieldsArr[i]);
 			return false;
+		}
+	}*/
+	var mandFields = "introducedByName,introducedByEmailID,suppName,businessClassification";
+	var mandFieldsArr = mandFields.split(",");
+	for (i = 0; i < mandFieldsArr.length; i++) {
+		console.log("vslue " + document.getElementById(mandFieldsArr[i]).value);
+		if (document.getElementById(mandFieldsArr[i]).value == '') {
+			notifyTooltip(mandFieldsArr[i], "Mandatory Field", "top")
+			console.log("Mandatory Check :: " + mandFieldsArr[i]);
+			return false;
+		}
+	}
+
+	var businessClass = $("#businessClassification").val();
+	if (businessClass == "Micro Enterprise" || businessClass == "Medium Enterprise" || businessClass == "Small Enterprise") {
+		var mandFields = "mesmeNumber";
+		var mandFieldsArr = mandFields.split(",");
+		for (i = 0; i < mandFieldsArr.length; i++) {
+			if (document.getElementById(mandFieldsArr[i]).value == '') {
+				notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+				return false;
+			}
 		}
 	}
 

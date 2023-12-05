@@ -30,7 +30,7 @@ var tabledata = $('#tabledata').DataTable({
 	"scrollX": true
 });
 $(document).ready(function() {
-	getData();
+	//getData();
 	$('.js-example-basic-multiple1').select2({
 		zplaceholder: "Select Region",
 		allowClear: true
@@ -63,7 +63,16 @@ $('#addForm').validate({
 		region: {
 			required: true
 		},
+		ehsVerification: {
+			required: true
+		},
+		thirdPartyVerification: {
+			required: true
+		},
 		creditTerms: {
+			required: true
+		},
+		comments: {
 			required: true
 		}
 	},
@@ -84,6 +93,25 @@ $.validator.setDefaults({
 	submitHandler: function() {
 		updateFormData();
 	}
+});
+
+/*$('#thirdPartyVerification').on('change', function(event) {
+	debugger
+	thirdPartyVerification=$("#thirdPartyVerification").val();
+	if(thirdPartyVerification=="Yes"){
+		getVerfierList();
+	}
+	
+});
+*/
+$("#thirdPartyVerification").on("click", function() {
+
+	var thirdPartyVerification = $("#thirdPartyVerification").val();
+	if (thirdPartyVerification == "Yes") {
+
+		getVerifierList();
+	}
+	$('#verifierName').empty();
 });
 
 $('#updateForm').validate({
@@ -119,15 +147,46 @@ var id = "";
 var status = "";
 
 function addFormData() {
+	debugger
 	$('.loader').show();
 	var region = $("#region").val().toString();
-	var venEmail=$("#vendorEmail").val();
-	var json = {
-		"vendorEmail": venEmail,
-		"vendorType": $("#vendorType").val().toString(),
-		"region": region,
-		"creditTerms": $("#creditTerms").val()
+	var venEmail = $("#vendorEmail").val();
+	var thirdPartyVerification = $("#thirdPartyVerification").val();
+	var ehsVerification = $("#ehsVerification").val();
+	var comments = $("#comments").val();
+	var json = null
+
+
+
+	if ($('#verifierName').val() == "") {
+		json = {
+			"vendorEmail": venEmail,
+			"vendorType": $("#vendorType").val().toString(),
+			"region": region,
+			"creditTerms": $("#creditTerms").val(),
+			"thirdPartyVerification": thirdPartyVerification,
+			"commercialHead": $('#commercialHead').val(),
+			"ehsVerification": ehsVerification,
+			"comments": comments
+
+
+		}
+	} else {
+		json = {
+			"vendorEmail": venEmail,
+			"vendorType": $("#vendorType").val().toString(),
+			"region": region,
+			"creditTerms": $("#creditTerms").val(),
+			"thirdPartyVerification": thirdPartyVerification,
+			"ehsVerification": ehsVerification,
+			"commercialHead": $('#commercialHead').val(),
+			"comments": comments,
+			"verifierName": $('#verifierName').val()
+
+
+		}
 	}
+
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(json),
@@ -139,13 +198,19 @@ function addFormData() {
 			$('.loader').hide();
 			if (data.msg == 'success') {
 				$('#addForm')[0].reset();
-				swal.fire("Email sent sucessfully, Vendor Mail-id : "+venEmail, "", "success", "OK").then(function() {
+				swal.fire("", "Request Submitted Successfully", "success", "OK").then(function() {
 					$('#region').val("");
 					$('#region').trigger('change');
 					$('#vendorType').val("");
 					$('#vendorType').trigger('change');
+					$('#thirdPartyVerification').prop("checked", false);
+					$('#ehsVerification').prop("checked", false);
+					$('#comments').val("");
+					
+					  location.reload();
+
 				});
-				getData();
+				//getData();
 			} else {
 				Toast.fire({
 					type: 'error',
@@ -154,12 +219,15 @@ function addFormData() {
 			}
 		},
 		error: function(jqXHR, textStatue, errorThrown) {
+			$('.loader').hide();
 			alert("failed, please try again");
 		}
 	});
 }
+/*
 
 function getData() {
+	debugger
 	$('.loader').show();
 	var json = {
 		"isActive": "1"
@@ -183,10 +251,13 @@ function getData() {
 						result[i][2],
 						result[i][3],
 						result[i][4],
-						result[i][5],
 						result[i][6],
 						result[i][7],
-						result[i][8]]);
+						result[i][5],
+						"--",
+						"--",
+						"--",
+						result[i][11]]);
 				}
 				tabledata.draw();
 				$("tbody").show();
@@ -201,4 +272,65 @@ function getData() {
 			alert("failed, please try again");
 		}
 	});
+} */
+
+function getVerifierList() {
+
+	$('#verifierName').empty();
+	$.ajax({
+		url: 'verifier/listOfAllVerifiers',
+		type: 'GET',
+		dataType: 'json',
+		success: function(response) {
+			if (response.msg === 'success') {
+				var verifierData = response.data;
+
+
+				for (var i = 0; i < verifierData.length; i++) {
+
+					$('#verifierName').append($('<option/>').attr("value", verifierData[i].verifierName).text(verifierData[i].verifierName));
+
+
+					// Perform any desired logic with each verifier name
+				}
+			} else {
+				console.log("Third Party Verification not required");
+				// Continue with your code logic for when verification is not required
+			}
+
+		},
+		error: function(xhr, status, error) {
+			console.error(error); // Handle the error appropriately
+		}
+	});
 }
+
+
+$(document).ready(function() {
+	getCommercialHead();
+});
+
+function getCommercialHead() {
+
+	$.ajax({
+		url: 'commercialMailController/getActiveCommercialHeadUser',
+		type: 'GET',
+		dataType: 'json',
+		success: function(response) {
+			if (response.msg === 'success') {
+				var comHeadData = response.data;
+				console.log(comHeadData);
+				$("#commercialHead").val(comHeadData.commercialHead);
+			} else {
+				alert("Failed ");
+			}
+
+		},
+		error: function(xhr, status, error) {
+			console.error(error); // Handle the error appropriately
+		}
+	});
+}
+
+
+

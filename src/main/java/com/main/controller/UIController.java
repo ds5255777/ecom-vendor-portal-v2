@@ -16,6 +16,7 @@ import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -34,14 +35,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.main.commonclasses.GlobalConstants;
+import com.main.db.bpaas.entity.AccountDetails;
 import com.main.db.bpaas.entity.AddressDetails;
+import com.main.db.bpaas.entity.ContactDetails;
 import com.main.db.bpaas.entity.Document;
 import com.main.db.bpaas.entity.InvoiceGenerationEntity;
 import com.main.db.bpaas.entity.InvoiceNumber;
 import com.main.db.bpaas.entity.RolesEntity;
+import com.main.db.bpaas.entity.SendEmailToVendor;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.TripDetails;
 import com.main.db.bpaas.entity.User;
+import com.main.db.bpaas.entity.Verifier;
+import com.main.db.bpaas.repo.ContactDetailsRepo;
 import com.main.db.bpaas.repo.SupDetailsTransactionRepo;
 import com.main.servicemanager.ServiceManager;
 
@@ -70,6 +76,9 @@ public class UIController {
 	private ServiceManager serviceManager;
 
 	@Autowired
+	private ContactDetailsRepo contactDetailsRepo;
+
+	@Autowired
 	private SupDetailsTransactionRepo supRepo;
 
 	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -96,12 +105,16 @@ public class UIController {
 		Base64.Decoder decoder = Base64.getDecoder();
 		String vendorEmail = new String(decoder.decode(request.getParameter("vendorEmail")));
 		logger.info(" vendor Email registartion >>>>>>>>>> {}", vendorEmail);
+
 		Integer flag1 = 0;
 		try {
 			if (!"".equalsIgnoreCase(vendorEmail)) {
 				String flag = request.getParameter("flag");
 				logger.info(" Flag >>>>>>>>>> {}", flag);
 				flag1 = Integer.valueOf(flag);
+
+				model.addAttribute("commercialFlag", flag1);
+
 				logger.info(" Flag1 >>>>>>>>>> {}", flag1);
 				String processOn = serviceManager.sendEmailToVendorRepo.processOn(flag1);
 				Date date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(processOn);
@@ -128,64 +141,79 @@ public class UIController {
 		String vendorType1 = new String(decoder.decode(request.getParameter("vendorType")));
 		String[] strSplit = vendorType1.split(",");
 		ArrayList<String> vendorType2 = new ArrayList<>(Arrays.asList(strSplit));
-		String region1 = new String(decoder.decode(request.getParameter("resgion")));
+
+		String region1 = new String(decoder.decode(request.getParameter("region")));
 		String creditTerms = new String(decoder.decode(request.getParameter("creditTerms")));
 		String processBy = new String(decoder.decode(request.getParameter("processBy")));
 		String processByEmailId = new String(decoder.decode(request.getParameter("processByEmailId")));
+		System.out.println(processByEmailId+"++++++++++++++++++++++_________");
+		String vPid = new String(decoder.decode(request.getParameter("pid")));
 
+		// String thirdPartyVerification = new
+		// String(decoder.decode(request.getParameter("thirdPartyVerification")));
+		// String ehsVerification = new
+		// String(decoder.decode(request.getParameter("ehsVerification")));
+		// String comments = new
+		// String(decoder.decode(request.getParameter("comments")));
 		logger.info(" Vendor email  {}", vendorEmail);
 		logger.info(" Vendor Type 2 {}", vendorType2);
 		logger.info(" Vendor region1 {}", region1);
 		logger.info(" Vendor creditTerms {}", creditTerms);
 		logger.info(" Vendor processBy {}", processBy);
 		logger.info(" Vendor processByEmailId {}", processByEmailId);
-		try {
-			List<SupDetails> findAll = serviceManager.supDetailsRepo.findAll();
-			for (int i = 0; i < findAll.size(); i++) {
-				String vendorExitingEmail = null;
-				for (int j = 0; j < findAll.get(i).getContactDetails().size(); j++) {
-					if (null != findAll.get(i).getContactDetails().get(j).getConEmail())
-						vendorExitingEmail = findAll.get(i).getContactDetails().get(j).getConEmail();
-				}
-				if (null != vendorExitingEmail) {
-					System.out.println("Mail Id is :" + findAll.get(i).getContactDetails().get(0).getConEmail());
+		// logger.info(" Vendor verificationThirdParty {}", thirdPartyVerification);
+		// logger.info("vendor verificationEHS {}", ehsVerification);
+		// logger.info("vendor comments {}", comments);
 
-					if (vendorExitingEmail.equalsIgnoreCase(vendorEmail)) {
-						String venStatus = findAll.get(i).getVenStatus();
-						System.out.println("Vendor Status ::: " + venStatus);
-						if (!venStatus.equalsIgnoreCase(GlobalConstants.REJECTED_REQUEST_STATUS)) {
+		// i have to add some email code here, i remove for the testing purpose
 
-							response.setContentType("text/html");
-							PrintWriter pwriter = response.getWriter();
-							pwriter.println(
-									"<font color=red>Vendor Already Exists ! Please Contact With Administrator And Try Again...</font>");
-							pwriter.close();
-						}
-
-					}
-				}
+		List<SupDetails> findAll = serviceManager.supDetailsRepo.findAll();
+		for (int i = 0; i < findAll.size(); i++) {
+			String vendorExitingEmail = null;
+			for (int j = 0; j < findAll.get(i).getContactDetails().size(); j++) {
+				if (null != findAll.get(i).getContactDetails().get(j).getConEmail())
+					vendorExitingEmail = findAll.get(i).getContactDetails().get(j).getConEmail();
 			}
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			if (null != vendorExitingEmail) {
+				System.out.println("Mail Id is :" + findAll.get(i).getContactDetails().get(0).getConEmail());
+
+				/*
+				 * if (vendorExitingEmail.equalsIgnoreCase(vendorEmail)) { String venStatus =
+				 * findAll.get(i).getVenStatus(); System.out.println("Vendor Status ::: " +
+				 * venStatus); if
+				 * (!venStatus.equalsIgnoreCase(GlobalConstants.REJECTED_REQUEST_STATUS)) {
+				 * 
+				 * response.setContentType("text/html"); PrintWriter pwriter =
+				 * response.getWriter(); pwriter.println(
+				 * "<font color=redaddForm>Vendor Already Exists ! Please Contact With Administrator And Try Again...</font>"
+				 * ); pwriter.close(); }
+				 * 
+				 * }
+				 */
+			}
 		}
 
+		model.addAttribute("vPid", vPid);
 		model.addAttribute("vendorEmail", vendorEmail);
 		model.addAttribute("vendorType2", vendorType2);
 		model.addAttribute("region1", region1);
 		model.addAttribute("creditTerms", creditTerms);
+//		model.addAttribute("thirdPartyVerification", thirdPartyVerification);
+//		model.addAttribute("ehsVerification", ehsVerification);
+//		model.addAttribute("comments", comments);	
 		model.addAttribute("processBy", processBy);
 		model.addAttribute("processByEmailId", processByEmailId);
-		model.addAttribute("commercialFlag", flag1);
+//		model.addAttribute("commercialFlag", flag1);
+		// model.addAttribute("vPid", vPid);
 
 		String pid = "";
 		try {
-			pid = request.getParameter("pid");
+			pid = new String(decoder.decode(request.getParameter("pid")));
 		} catch (Exception e) {
 			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
 		}
 
-		if ("".equalsIgnoreCase(pid)) {
+		if (!"".equalsIgnoreCase(pid)) {
 
 			List<String> currency = serviceManager.currencyRepo.getCurrencyType();
 			List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
@@ -197,24 +225,27 @@ public class UIController {
 			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
 			List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
-			List<String> region = serviceManager.regionRepo.getRegion();
+			List<String> region = serviceManager.regionRepository.getRegion();
 			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
 			List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
 
 			String userEmail = (String) request.getSession().getAttribute("userEmail");
+			// String pidDecode = new String(decoder.decode(request.getParameter("pid")));
 
-			model.addAttribute("userEmail", userEmail);
-
+			Optional<SendEmailToVendor> regionList = serviceManager.sendEmailToVendorRepo.findByVendorPid(pid);
+			if (regionList.isPresent()) {
+				model.addAttribute("regionList", regionList.get().getRegion());
+			}
 			model.addAttribute("currency", currency);
 			model.addAttribute("business", business);
 			model.addAttribute("partner", partner);
-			model.addAttribute("classification", classification);
 			model.addAttribute("stateName", stateName);
+			model.addAttribute("classification", classification);
 			model.addAttribute("payment", payment);
 			model.addAttribute("country", country);
 			model.addAttribute("tdsCode", tdsCode);
 			model.addAttribute("financialYear", financialYear);
-			model.addAttribute("pid", pid);
+
 			model.addAttribute("fileSize", fileSize);
 
 			model.addAttribute("maxFileSize", maxFileSize);
@@ -223,8 +254,174 @@ public class UIController {
 			model.addAttribute("region", region);
 			model.addAttribute("sectionType", sectionType);
 			model.addAttribute("paymentMethod", paymentMethod);
+			model.addAttribute("vPid", pid);
 
-			return "registration";
+			String vpid = pid;
+			System.out.println("   vpid  "+vpid);
+
+			Optional<SupDetails> subDetails = serviceManager.supDetailsRepo.getVpidDetails(vpid);
+
+			if (subDetails.isPresent()) {
+
+				SupDetails supDetails1 = subDetails.get();
+				
+				Long supId = supDetails1.getId();
+				String aadharNumber = supDetails1.getAadharNumber();	
+				String suppName = supDetails1.getSuppName();
+				String panNumber = supDetails1.getPanNumber();
+				String tanNumber = supDetails1.getTanNumber();
+				String bpCode = supDetails1.getBpCode();
+				String businessClassification = supDetails1.getBusinessClassification();
+
+				String adharLinkStatus2 = supDetails1.getAdharLinkStatus();
+				String processedBy = supDetails1.getProcessedBy();
+				String fyYear1 = supDetails1.getFyYear1();
+				String fyYear2 = supDetails1.getFyYear2();
+				String fyYear3 = supDetails1.getFyYear3();
+
+				String acknowledgementNumber1 = supDetails1.getAcknowledgementNumber1();
+				String acknowledgementNumber2 = supDetails1.getAcknowledgementNumber2();
+				String acknowledgementNumber3 = supDetails1.getAcknowledgementNumber3();
+
+				List<AddressDetails> addressDetails = supDetails1.getAddressDetails();
+				model.addAttribute("addressDetails", addressDetails);
+//				for (int i = 0; i < addressDetails.size(); i++) {
+//					AddressDetails addressDetailsObj = addressDetails.get(i);
+//					String addCountry = addressDetailsObj.getAddCountry();
+//					String addDetails = addressDetailsObj.getAddDetails();
+//					String city = addressDetailsObj.getCity();
+//					String pinCode = addressDetailsObj.getPinCode();
+//					String state = addressDetailsObj.getState();
+//					String compGstn = addressDetailsObj.getCompGstn();
+//					String vendorType = addressDetailsObj.getVendorType();
+//					String supplierSiteCode = addressDetailsObj.getSupplierSiteCode();
+//
+//					model.addAttribute("addCountry", addCountry);
+//					model.addAttribute("addDetails", addDetails);
+//					model.addAttribute("city", city);
+//					model.addAttribute("pinCode", pinCode);
+//					model.addAttribute("state", state);
+//					model.addAttribute("compGstn", compGstn);
+//					model.addAttribute("vendorType", vendorType);
+//					model.addAttribute("supplierSiteCode", supplierSiteCode);
+//				}
+//				
+
+				List<AccountDetails> accountDetails = supDetails1.getAccountDetails();
+				for (int i = 0; i < accountDetails.size(); i++) {
+					AccountDetails accountDetails2 = accountDetails.get(i);
+					String bankName = accountDetails2.getBankName();
+					String beneficiaryName = accountDetails2.getBeneficiaryName();
+					String accoutCurrency = accountDetails2.getAccoutCurrency();
+					String accoutNumber = accountDetails2.getAccoutNumber();
+					String ifscCode = accountDetails2.getIfscCode();
+
+					model.addAttribute("bankName", bankName);
+					model.addAttribute("beneficiaryName", beneficiaryName);
+					model.addAttribute("accoutCurrency", accoutCurrency);
+					model.addAttribute("accoutNumber", accoutNumber);
+					model.addAttribute("ifscCode", ifscCode);
+
+				}
+
+				List<ContactDetails> contactDetails = supDetails1.getContactDetails();
+				for (int i = 0; i < contactDetails.size(); i++) {
+					ContactDetails contactDetails2 = contactDetails.get(i);
+					String conFname = contactDetails2.getConFname();
+					String conLname = contactDetails2.getConLname();
+					String conEmail = contactDetails2.getConEmail();
+					String conPhone = contactDetails2.getConPhone();
+
+					model.addAttribute("conFname", conFname);
+					model.addAttribute("conLname", conLname);
+					model.addAttribute("conEmail", conEmail);
+					model.addAttribute("conPhone", conPhone);
+
+				}
+
+				String invoiceCurrency = supDetails1.getInvoiceCurrency();
+				String createDate = supDetails1.getCreateDate();
+				String creditTerms2 = supDetails1.getCreditTerms();
+				String dateBasis = supDetails1.getDateBasis();
+				String deliveryTerms = supDetails1.getDeliveryTerms();
+				String paymentCurrency = supDetails1.getPaymentCurrency();
+				String tdsApplication = supDetails1.getTdsApplication();
+				String paymentMethod2 = supDetails1.getPaymentMethod();
+				String venStatus = supDetails1.getVenStatus();
+				String vendorType = supDetails1.getVendorType();
+				String tdsRate = supDetails1.getTdsRate();
+				String tdsSection = supDetails1.getTdsSection();
+				String referralEmailId = supDetails1.getReferralEmailId();
+				String processedBy2 = supDetails1.getProcessedBy();
+				String processedOn = supDetails1.getProcessedOn();
+				String mesmeNumber = supDetails1.getMesmeNumber();
+				String sectionType2 = supDetails1.getSectionType();
+				String eInvoice = supDetails1.getEnInvApplicable();
+
+				eInvoice = eInvoice.replaceAll(" ", "");
+				
+				model.addAttribute("supId", supId);
+				
+				model.addAttribute("fyYear1", fyYear1);
+				model.addAttribute("fyYear2", fyYear2);
+				model.addAttribute("fyYear3", fyYear3);
+				model.addAttribute("acknowledgementNumber1", acknowledgementNumber1);
+				model.addAttribute("acknowledgementNumber2", acknowledgementNumber2);
+				model.addAttribute("acknowledgementNumber3", acknowledgementNumber3);
+				model.addAttribute("invoiceCurrency", invoiceCurrency);
+				model.addAttribute("eInvoice", eInvoice);
+				model.addAttribute("referralEmailId", referralEmailId);
+				model.addAttribute("aadharNumber", aadharNumber);
+				model.addAttribute("suppName", suppName);
+				model.addAttribute("panNumber", panNumber);
+				model.addAttribute("tanNumber", tanNumber);
+				model.addAttribute("bpCode", bpCode);
+				model.addAttribute("businessClassification", businessClassification);
+				model.addAttribute("adharLinkStatus2", adharLinkStatus2);
+				model.addAttribute("processedBy", processedBy);
+				model.addAttribute("addressDetails", addressDetails);
+				model.addAttribute("accountDetails", accountDetails);
+				model.addAttribute("contactDetails", contactDetails);
+				model.addAttribute("createDate", createDate);
+				model.addAttribute("creditTerms2", creditTerms2);
+				model.addAttribute("dateBasis", dateBasis);
+				model.addAttribute("deliveryTerms", deliveryTerms);
+				model.addAttribute("paymentCurrency", paymentCurrency);
+				model.addAttribute("tdsApplication", tdsApplication);
+				model.addAttribute("paymentMethod2", paymentMethod2);
+				model.addAttribute("venStatus", venStatus);
+				System.out.println("   d          "+venStatus);
+				model.addAttribute("vendorType", vendorType);
+				model.addAttribute("tdsRate", tdsRate);
+				model.addAttribute("tdsSection", tdsSection);
+				model.addAttribute("referralEmailId", referralEmailId);
+				model.addAttribute("mesmeNumber", mesmeNumber);
+				model.addAttribute("processedOn", processedOn);
+				model.addAttribute("sectionType2", sectionType2);
+
+				model.addAttribute("userEmail", userEmail);
+
+				model.addAttribute("currency", currency);
+				model.addAttribute("business", business);
+				model.addAttribute("partner", partner);
+				model.addAttribute("classification", classification);
+				model.addAttribute("stateName", stateName);
+				model.addAttribute("payment", payment);
+				model.addAttribute("country", country);
+				model.addAttribute("tdsCode", tdsCode);
+				model.addAttribute("financialYear", financialYear);
+				model.addAttribute("pid", pid);
+				model.addAttribute("fileSize", fileSize);
+	//			model.addAttribute("requiredId" ,supDetails1.getId());
+				model.addAttribute("maxFileSize", maxFileSize);
+				model.addAttribute("fileSize", fileSize);
+				model.addAttribute("adharLink", adharLinkStatus);
+				model.addAttribute("region", region);
+				model.addAttribute("sectionType", sectionType);
+				model.addAttribute("paymentMethod", paymentMethod);
+
+				return "registration";
+			}
 
 		} else {
 
@@ -239,7 +436,7 @@ public class UIController {
 			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
 			List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
-			List<String> region = serviceManager.regionRepo.getRegion();
+			List<String> region = serviceManager.regionRepository.getRegion();
 			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
 			List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
 
@@ -461,12 +658,44 @@ public class UIController {
 			return "dashboardRegistration";
 		} else if (rolename.equalsIgnoreCase("Commercial Team")) {
 			List<String> vendorType1 = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
-			List<String> region = serviceManager.regionRepo.getRegion();
+			List<String> region = serviceManager.regionRepository.getRegion();
 			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
 			model.addAttribute("region", region);
 			model.addAttribute("payment", payment);
 			model.addAttribute("vendorType", vendorType1);
+
 			return "triggerEmail";
+		}
+
+		else if (rolename.equalsIgnoreCase(GlobalConstants.ROLEID_COMMERCIAL_HEAD)) {
+			List<String> vendorType1 = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+			List<String> region = serviceManager.regionRepository.getRegion();
+			List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+			model.addAttribute("region", region);
+			model.addAttribute("payment", payment);
+			model.addAttribute("vendorType", vendorType1);
+
+			return "commercialHead";
+		}
+
+		else if (rolename.equalsIgnoreCase(GlobalConstants.ROLEID_PARTY_VERIFIER)) {
+
+			return "thirdPartyVerifier";
+		}
+
+		else if (rolename.equalsIgnoreCase(GlobalConstants.ROLEID_EHS_AM_DM)) {
+
+			return "ehsVerification";
+		}
+
+		else if (rolename.equalsIgnoreCase(GlobalConstants.ROLEID_EHS_SENIOR_MANAGER)) {
+
+			return "ehsVerification";
+		}
+
+		else if (rolename.equalsIgnoreCase(GlobalConstants.ROLEID_DOC_CHECKER)) {
+
+			return "documentChecker";
 		}
 
 		return "";
@@ -487,11 +716,53 @@ public class UIController {
 
 			model.addAttribute("uname", userName);
 			model.addAttribute("dataLimit", dataLimit);
+			model.addAttribute("rolename", rolename);
 
 			return "addUsers";
 
 		}
 		return "error";
+
+	}
+
+	@GetMapping("/verifier")
+	public String verifier(Model model, Principal principal) {
+		String userName = principal.getName();
+		String roleName = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+
+		if (roleName.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
+
+			return "verifier";
+		}
+
+		return "error";
+	}
+
+	@GetMapping("/region")
+	public String addRegion(Model model, Principal principal) {
+		String userName = principal.getName();
+		String roleName = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+
+		if (roleName.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
+
+			return "region";
+		}
+
+		return "error";
+	}
+
+	@GetMapping("/vendorList")
+	public String vendorList(Model model, Principal principal) {
+		String userName = principal.getName();
+		String roleName = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		List<String> vendorType1 = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+		List<String> region = serviceManager.regionRepository.getRegion();
+		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+		model.addAttribute("region", region);
+		model.addAttribute("payment", payment);
+		model.addAttribute("vendorType", vendorType1);
+
+		return "vendorList";
 
 	}
 
@@ -514,14 +785,68 @@ public class UIController {
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)) {
 			List<String> vendorType = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
-			List<String> region = serviceManager.regionRepo.getRegion();
+			List<String> region = serviceManager.regionRepository.getRegion();
 
 			model.addAttribute("region", region);
 			model.addAttribute("vendorType", vendorType);
+
 			return "triggerEmail";
 		}
+		System.out.println("--------------------- ----------asd                             ");
+
 		return "error";
 
+	}
+
+	@GetMapping("/commercialHead")
+	public String commercialHead(Model model, Principal principal) {
+		String userName = principal.getName();
+		String roleName = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+
+		if (roleName.equalsIgnoreCase(GlobalConstants.ROLEID_COMMERCIAL_HEAD)) {
+
+			return "commercialHead";
+		}
+
+		return "error";
+	}
+
+	@GetMapping("/thirdPartyVerifier")
+	public String thirdPartyVerifier(Model model, Principal principal) {
+		String userName = principal.getName();
+		String roleName = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+
+		if (roleName.equalsIgnoreCase(GlobalConstants.ROLEID_PARTY_VERIFIER)) {
+
+			return "thirdPartyVerifier";
+		}
+
+		return "error";
+	}
+
+	@GetMapping("/ehsVerification")
+	public String ehsVerification(Model model, Principal principal) {
+		String userName = principal.getName();
+		String roleName = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+
+		if (roleName.equalsIgnoreCase(GlobalConstants.ROLEID_EHS_AM_DM)
+				|| roleName.equalsIgnoreCase(GlobalConstants.ROLEID_EHS_SENIOR_MANAGER)) {
+
+			return "ehsVerification";
+		}
+		return "error";
+	}
+
+	@GetMapping("/documentChecker")
+	public String documentChecker(Model model, Principal principal) {
+		String userName = principal.getName();
+		String roleName = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+
+		if (roleName.equalsIgnoreCase(GlobalConstants.ROLEID_DOC_CHECKER)) {
+
+			return "documentChecker";
+		}
+		return "error";
 	}
 
 	@GetMapping("/allTrips")
@@ -632,7 +957,7 @@ public class UIController {
 			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
 			List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
-			List<String> region = serviceManager.regionRepo.getRegion();
+			List<String> region = serviceManager.regionRepository.getRegion();
 			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
 			List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
 			List<String> flag = serviceManager.flagRepo.getFlag();
@@ -678,8 +1003,7 @@ public class UIController {
 	}
 
 	@GetMapping("/vendorRegistrastion")
-	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request) {
-
+	public String vendorRegistrastion(Model model, Principal principal, HttpServletRequest request, Long id) {
 		String rolename = (String) request.getSession().getAttribute("role");
 		String uname = principal.getName();
 
@@ -692,14 +1016,170 @@ public class UIController {
 		List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 		List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
 		List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
-		List<String> region = serviceManager.regionRepo.getRegion();
+		List<String> region = serviceManager.regionRepository.getRegion();
 		List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
 		List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
 		List<String> flag = serviceManager.flagRepo.getFlag();
 		List<String> stateName = serviceManager.stateRepo.getStateName();
 		String userMailId = serviceManager.userRepository.getUserMailId(uname);
+		String vpid = request.getParameter("vpid");
 
-		model.addAttribute("uname", uname);
+		Optional<SupDetails> subDetails = serviceManager.supDetailsRepo.getVpidDetails(vpid);
+
+		SupDetails supDetailsObj = subDetails.get();
+		String bp_code = supDetailsObj.getBpCode();
+		String aadharNumber = supDetailsObj.getAadharNumber();
+		String creditTerms = supDetailsObj.getCreditTerms();
+
+		String introducedByEmailID = supDetailsObj.getIntroducedByEmailID();
+		String businessClassification = supDetailsObj.getBusinessClassification();
+		List<AddressDetails> addressDetails = supDetailsObj.getAddressDetails();
+		String partnerType = "";
+		String countryDetails = "";
+		String city = "";
+		String state = "";
+		String compGstn = "";
+		String supplierSiteCode = "";
+		String vendorType = "";
+		String addDetails = "";
+		String pinCode = "";
+
+		for (int i = 0; i < addressDetails.size(); i++) {
+			AddressDetails AddressDetailsObj = addressDetails.get(i);
+
+			countryDetails = AddressDetailsObj.getAddCountry();
+			city = AddressDetailsObj.getCity();
+			state = AddressDetailsObj.getState();
+			compGstn = AddressDetailsObj.getCompGstn();
+			supplierSiteCode = AddressDetailsObj.getSupplierSiteCode();
+			vendorType = AddressDetailsObj.getVendorType();
+			addDetails = AddressDetailsObj.getAddDetails();
+			partnerType = AddressDetailsObj.getPartnerType();
+			pinCode = AddressDetailsObj.getPinCode();
+
+		}
+
+		model.addAttribute("addressDetails", addressDetails);
+
+		model.addAttribute("pinCode", pinCode);
+		model.addAttribute("countryDetails", countryDetails);
+		model.addAttribute("city", city);
+		model.addAttribute("state", state);
+		model.addAttribute("compGstn", compGstn);
+		model.addAttribute("supplierSiteCode", supplierSiteCode);
+		model.addAttribute("vendorType", vendorType);
+		model.addAttribute("addDetails", addDetails);
+		model.addAttribute("partnerType", partnerType);
+
+		String conFname = "";
+		String conLname = "";
+		String conEmail = "";
+		String conPhone = "";
+		List<ContactDetails> contactDetails = supDetailsObj.getContactDetails();
+		model.addAttribute("contactDetails", contactDetails);
+		System.out.print("len=====" + contactDetails.size());
+//	    System.out.print("lenfff====="+contactDetails);
+		for (int i = 0; i < contactDetails.size(); i++) {
+			ContactDetails contactDetailsObj = contactDetails.get(i);
+			conFname = contactDetailsObj.getConFname();
+			conLname = contactDetailsObj.getConLname();
+			conEmail = contactDetailsObj.getConEmail();
+			conPhone = contactDetailsObj.getConPhone();
+
+		}
+		model.addAttribute("conFname", conFname);
+		model.addAttribute("conLname", conLname);
+		model.addAttribute("conEmail", conEmail);
+		model.addAttribute("conPhone", conPhone);
+
+		String paymentMethod2 = supDetailsObj.getPaymentMethod();
+		String creditTerms2 = supDetailsObj.getCreditTerms();
+		String paymentCurrency2 = supDetailsObj.getPaymentCurrency();
+		String deliveryTerms = supDetailsObj.getDeliveryTerms();
+		String invoiceCurrency = supDetailsObj.getInvoiceCurrency();
+		String dateBasis = supDetailsObj.getDateBasis();
+
+		model.addAttribute("paymentMethod2", paymentMethod2);
+		model.addAttribute("creditTerms2", creditTerms2);
+		model.addAttribute("paymentCurrency2", paymentCurrency2);
+		model.addAttribute("deliveryTerms", deliveryTerms);
+		model.addAttribute("invoiceCurrency", invoiceCurrency);
+		model.addAttribute("dateBasis", dateBasis);
+
+		String tdsApplication2 = supDetailsObj.getTdsApplication();
+		String tdsSection2 = supDetailsObj.getTdsSection();
+		String tdsRate2 = supDetailsObj.getTdsRate();
+
+		model.addAttribute("tdsApplication2", tdsApplication2);
+		model.addAttribute("tdsSection2", tdsSection2);
+		model.addAttribute("tdsRate2", tdsRate2);
+
+		List<AccountDetails> accountDetails = supDetailsObj.getAccountDetails();
+		String adharLinkStatus2 = supDetailsObj.getAdharLinkStatus();
+		Integer commercialFlag = supDetailsObj.getCommercialFlag();
+
+		String introducedByName = supDetailsObj.getIntroducedByName();
+		String mesmeNumber = supDetailsObj.getMesmeNumber();
+		String pid = supDetailsObj.getPid();
+		String processedBy = supDetailsObj.getProcessedBy();
+		String processedOn = supDetailsObj.getProcessedOn();
+		String panNumber = supDetailsObj.getPanNumber();
+		String suppName = supDetailsObj.getSuppName();
+		String paymentCurrency = supDetailsObj.getPaymentCurrency();
+		String tanNumber = supDetailsObj.getTanNumber();
+		String tdsApplication = supDetailsObj.getTdsApplication();
+		String tdsRate = supDetailsObj.getTdsRate();
+		String tdsSection = supDetailsObj.getTdsSection();
+		String venStatus = supDetailsObj.getVenStatus();
+		String suppName2 = supDetailsObj.getSuppName();
+		String aadharLink = supDetailsObj.getAdharLinkStatus();
+		String sectionTypeDetails = supDetailsObj.getSectionType();
+		String businessDetails = supDetailsObj.getBusinessClassification();
+		String eVoice = supDetailsObj.getEnInvApplicable();
+
+		String fyYear1 = supDetailsObj.getFyYear1();
+		String fyYear2 = supDetailsObj.getFyYear2();
+		String fyYear3 = supDetailsObj.getFyYear3();
+		String acknowledgementNumber1 = supDetailsObj.getAcknowledgementNumber1();
+		String acknowledgementNumber2 = supDetailsObj.getAcknowledgementNumber2();
+		String acknowledgementNumber3 = supDetailsObj.getAcknowledgementNumber3();
+
+		model.addAttribute("acknowledgementNumber1", acknowledgementNumber1);
+		model.addAttribute("acknowledgementNumber2", acknowledgementNumber2);
+		model.addAttribute("acknowledgementNumber3", acknowledgementNumber3);
+
+		model.addAttribute("fyYear1", fyYear1);
+		model.addAttribute("fyYear2", fyYear2);
+		model.addAttribute("fyYear3", fyYear3);
+
+		Optional<SendEmailToVendor> sendEmailToVendor = serviceManager.sendEmailToVendorRepo.getVpidDetails(vpid);
+		SendEmailToVendor sendEmailToVendor2 = sendEmailToVendor.get();
+		String region2 = sendEmailToVendor2.getRegion();
+		model.addAttribute("eVoice", eVoice);
+		model.addAttribute("status", sendEmailToVendor2.getStatus());
+		model.addAttribute("businessDetails", businessDetails);
+		model.addAttribute("sectionTypeDetails", sectionTypeDetails);
+		model.addAttribute("aadharLink", aadharLink);
+		model.addAttribute("uname", bp_code);
+		model.addAttribute("vpid", vpid);
+		model.addAttribute("introducedByEmailID", introducedByEmailID);
+		model.addAttribute("panNumber", panNumber);
+		model.addAttribute("suppName2", suppName2);
+		model.addAttribute("tanNumber", tanNumber);
+		model.addAttribute("aadharNumber", aadharNumber);
+		model.addAttribute("suppName2", suppName2);
+		model.addAttribute("tdsApplication", tdsApplication);
+		model.addAttribute("tdsRate", tdsRate);
+		model.addAttribute("tdsSection", tdsSection);
+		model.addAttribute("venStatus", venStatus);
+		model.addAttribute("paymentCurrency", paymentCurrency);
+		model.addAttribute("mesmeNumber", mesmeNumber);
+		model.addAttribute("creditTerms", creditTerms);
+		model.addAttribute("introducedByEmailID", introducedByEmailID);
+		model.addAttribute("businessClassification", businessClassification);
+		model.addAttribute("addressDetails", addressDetails);
+		model.addAttribute("introducedByName", introducedByName); // model.addAttribute("uname", uname);
+		model.addAttribute("region2", region2);
 		model.addAttribute("userMailId", userMailId);
 
 		model.addAttribute("currency", currency);
@@ -715,15 +1195,25 @@ public class UIController {
 
 		model.addAttribute("maxFileSize", maxFileSize);
 		model.addAttribute("fileSize", fileSize);
-		model.addAttribute("adharLink", adharLinkStatus);
+		model.addAttribute("", adharLinkStatus);
 		model.addAttribute("region", region);
 		model.addAttribute("sectionType", sectionType);
 		model.addAttribute("paymentMethod", paymentMethod);
 		model.addAttribute("flag", flag);
 		model.addAttribute("stateName", stateName);
 
+		if (rolename.equalsIgnoreCase(GlobalConstants.ROLEID_PARTY_VERIFIER)) {
+			model.addAttribute("rolename", rolename);
+		} else {
+			model.addAttribute("rolename", rolename);
+		}
+
 		if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_ADMIN)
-				|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_CCOMMERCIAL_TEAM)) {
+				|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_CCOMMERCIAL_TEAM)
+				|| rolename.equalsIgnoreCase(GlobalConstants.ROLEID_PARTY_VERIFIER)
+				|| rolename.equalsIgnoreCase(GlobalConstants.ROLEID_EHS_AM_DM)
+				|| rolename.equalsIgnoreCase(GlobalConstants.ROLEID_EHS_SENIOR_MANAGER)
+				|| rolename.equalsIgnoreCase(GlobalConstants.ROLEID_DOC_CHECKER)) {
 
 			return "vendorRegistrastion";
 
@@ -749,7 +1239,8 @@ public class UIController {
 		// List<TripDetails> yetTobeApproved =
 		// serviceManager.tripService.findAllTripsByStatus("");
 		List<String> vendorNamefortrips = serviceManager.tripDetailsRepo.getVendorName();
-		model.addAttribute("vendorNamefortrips", vendorNamefortrips.stream().map(vendorList -> vendorList.toUpperCase()).collect(Collectors.toList()));
+		model.addAttribute("vendorNamefortrips",
+				vendorNamefortrips.stream().map(vendorList -> vendorList.toUpperCase()).collect(Collectors.toList()));
 		// model.addAttribute("yetTobeApprovedAllDetails", yetTobeApproved);
 
 		model.addAttribute("dataLimit", dataLimit);
@@ -772,7 +1263,8 @@ public class UIController {
 		// List<TripDetails> allDetailsForNetwork =
 		// serviceManager.tripDetailsRepo.getQueryTripsForNetwork("Query");
 		List<String> vendorNamefortripsQuery = serviceManager.tripDetailsRepo.getVendorName();
-		model.addAttribute("vendorNamefortripsQuery", vendorNamefortripsQuery.stream().map(vendorList -> vendorList.toUpperCase()).collect(Collectors.toList()));
+		model.addAttribute("vendorNamefortripsQuery", vendorNamefortripsQuery.stream()
+				.map(vendorList -> vendorList.toUpperCase()).collect(Collectors.toList()));
 //		model.addAttribute("AllDetailsForNetwork", allDetailsForNetwork);
 //		model.addAttribute("dataLimit", dataLimit);
 		return "QueryTripsForNetwork";
@@ -1047,7 +1539,7 @@ public class UIController {
 		model.addAttribute("pid", pid);
 		return "vendorView";
 	}
-	
+
 	@GetMapping("/vendorUpdateView")
 	public String vendorUpdateView(Model model, HttpServletRequest request, Principal principal) {
 
@@ -1141,7 +1633,7 @@ public class UIController {
 			List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
 			List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
 			List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
-			List<String> region = serviceManager.regionRepo.getRegion();
+			List<String> region = serviceManager.regionRepository.getRegion();
 			List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
 			List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
 			List<String> flag = serviceManager.flagRepo.getFlag();
@@ -1162,7 +1654,7 @@ public class UIController {
 			model.addAttribute("fileSize", fileSize);
 			model.addAttribute("maxFileSize", maxFileSize);
 			model.addAttribute("fileSize", fileSize);
-			model.addAttribute("adharLink", adharLinkStatus);
+			model.addAttribute("", adharLinkStatus);
 			model.addAttribute("region", region);
 			model.addAttribute("sectionType", sectionType);
 			model.addAttribute("paymentMethod", paymentMethod);
@@ -1185,6 +1677,209 @@ public class UIController {
 
 		return "error";
 	}
+	
+	
+	@GetMapping("/supplierRegistration")
+	public String supplierRegistration(Model model, Principal principal, HttpServletRequest request) {
+		String userName = principal.getName();
+		String roleName = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		List<String> vendorType1 = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+		List<String> region = serviceManager.regionRepository.getRegion();
+		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+		
+
+		List<String> currency = serviceManager.currencyRepo.getCurrencyType();
+		List<String> business = serviceManager.businessPartnerTypeRepo.getBusinessPartnerType();
+		List<String> partner = serviceManager.businessPartnerRepo.getBusinessPartner();
+		List<String> classification = serviceManager.businessClassificationRepo.getBusinessClassification();
+//		List<String> payment = serviceManager.paymentTermRepo.getPaymentTerms();
+		List<String> country = serviceManager.countryRepo.getCountry();
+		List<String> tdsCode = serviceManager.tDSSectionCodeRepo.getTDSSectionCode();
+		List<String> financialYear = serviceManager.financialYearRepo.getFinancialYear();
+		List<String> adharLinkStatus = serviceManager.adharLinkStatusRepo.getAdharLinkStatus();
+//		List<String> region = serviceManager.regionRepository.getRegion();
+		List<String> sectionType = serviceManager.sectionTypeRepo.getSectionType();
+		List<String> paymentMethod = serviceManager.paymentMethodRepo.paymentMethod();
+		List<String> flag = serviceManager.flagRepo.getFlag();
+		List<String> stateName = serviceManager.stateRepo.getStateName();
+//		String userMailId = serviceManager.userRepository.getUserMailId(uname);
+		String vpid = request.getParameter("vpid");
+		
+		model.addAttribute("region", region);
+		model.addAttribute("business", business);
+		model.addAttribute("country", country);
+		model.addAttribute("tdsCode", tdsCode);
+		model.addAttribute("financialYear", financialYear);
+		model.addAttribute("adharLink", adharLinkStatus);
+		model.addAttribute("sectionType", sectionType);
+		model.addAttribute("paymentMethod", paymentMethod);
+		model.addAttribute("stateName", stateName);
+		model.addAttribute("payment", payment);
+		model.addAttribute("partner", partner);
+		model.addAttribute("flag", flag);
+		model.addAttribute("classification", classification);
+	
+
+		/*
+		 * Optional<SupDetails> subDetails =
+		 * serviceManager.supDetailsRepo.getVpidDetails(vpid);
+		 * 
+		 * SupDetails supDetailsObj = subDetails.get(); String bp_code =
+		 * supDetailsObj.getBpCode(); String aadharNumber =
+		 * supDetailsObj.getAadharNumber(); String creditTerms =
+		 * supDetailsObj.getCreditTerms();
+		 * 
+		 * String introducedByEmailID = supDetailsObj.getIntroducedByEmailID(); String
+		 * businessClassification = supDetailsObj.getBusinessClassification();
+		 * List<AddressDetails> addressDetails = supDetailsObj.getAddressDetails();
+		 * String partnerType = ""; String countryDetails = ""; String city = ""; String
+		 * state = ""; String compGstn = ""; String supplierSiteCode = ""; String
+		 * vendorType = ""; String addDetails = ""; String pinCode = "";
+		 * 
+		 * for (int i = 0; i < addressDetails.size(); i++) { AddressDetails
+		 * AddressDetailsObj = addressDetails.get(i);
+		 * 
+		 * countryDetails = AddressDetailsObj.getAddCountry(); city =
+		 * AddressDetailsObj.getCity(); state = AddressDetailsObj.getState(); compGstn =
+		 * AddressDetailsObj.getCompGstn(); supplierSiteCode =
+		 * AddressDetailsObj.getSupplierSiteCode(); vendorType =
+		 * AddressDetailsObj.getVendorType(); addDetails =
+		 * AddressDetailsObj.getAddDetails(); partnerType =
+		 * AddressDetailsObj.getPartnerType(); pinCode = AddressDetailsObj.getPinCode();
+		 * 
+		 * }
+		 * 
+		 * model.addAttribute("addressDetails", addressDetails);
+		 * 
+		 * model.addAttribute("pinCode", pinCode); model.addAttribute("countryDetails",
+		 * countryDetails); model.addAttribute("city", city);
+		 * model.addAttribute("state", state); model.addAttribute("compGstn", compGstn);
+		 * model.addAttribute("supplierSiteCode", supplierSiteCode);
+		 * model.addAttribute("vendorType", vendorType);
+		 * model.addAttribute("addDetails", addDetails);
+		 * model.addAttribute("partnerType", partnerType);
+		 * 
+		 * String conFname = ""; String conLname = ""; String conEmail = ""; String
+		 * conPhone = ""; List<ContactDetails> contactDetails =
+		 * supDetailsObj.getContactDetails(); model.addAttribute("contactDetails",
+		 * contactDetails); System.out.print("len=====" + contactDetails.size()); //
+		 * System.out.print("lenfff====="+contactDetails); for (int i = 0; i <
+		 * contactDetails.size(); i++) { ContactDetails contactDetailsObj =
+		 * contactDetails.get(i); conFname = contactDetailsObj.getConFname(); conLname =
+		 * contactDetailsObj.getConLname(); conEmail = contactDetailsObj.getConEmail();
+		 * conPhone = contactDetailsObj.getConPhone();
+		 * 
+		 * } model.addAttribute("conFname", conFname); model.addAttribute("conLname",
+		 * conLname); model.addAttribute("conEmail", conEmail);
+		 * model.addAttribute("conPhone", conPhone);
+		 * 
+		 * String paymentMethod2 = supDetailsObj.getPaymentMethod(); String creditTerms2
+		 * = supDetailsObj.getCreditTerms(); String paymentCurrency2 =
+		 * supDetailsObj.getPaymentCurrency(); String deliveryTerms =
+		 * supDetailsObj.getDeliveryTerms(); String invoiceCurrency =
+		 * supDetailsObj.getInvoiceCurrency(); String dateBasis =
+		 * supDetailsObj.getDateBasis();
+		 * 
+		 * model.addAttribute("paymentMethod2", paymentMethod2);
+		 * model.addAttribute("creditTerms2", creditTerms2);
+		 * model.addAttribute("paymentCurrency2", paymentCurrency2);
+		 * model.addAttribute("deliveryTerms", deliveryTerms);
+		 * model.addAttribute("invoiceCurrency", invoiceCurrency);
+		 * model.addAttribute("dateBasis", dateBasis);
+		 * 
+		 * String tdsApplication2 = supDetailsObj.getTdsApplication(); String
+		 * tdsSection2 = supDetailsObj.getTdsSection(); String tdsRate2 =
+		 * supDetailsObj.getTdsRate();
+		 * 
+		 * model.addAttribute("tdsApplication2", tdsApplication2);
+		 * model.addAttribute("tdsSection2", tdsSection2);
+		 * model.addAttribute("tdsRate2", tdsRate2);
+		 * 
+		 * List<AccountDetails> accountDetails = supDetailsObj.getAccountDetails();
+		 * String adharLinkStatus2 = supDetailsObj.getAdharLinkStatus(); Integer
+		 * commercialFlag = supDetailsObj.getCommercialFlag();
+		 * 
+		 * String introducedByName = supDetailsObj.getIntroducedByName(); String
+		 * mesmeNumber = supDetailsObj.getMesmeNumber(); String pid =
+		 * supDetailsObj.getPid(); String processedBy = supDetailsObj.getProcessedBy();
+		 * String processedOn = supDetailsObj.getProcessedOn(); String panNumber =
+		 * supDetailsObj.getPanNumber(); String suppName = supDetailsObj.getSuppName();
+		 * String paymentCurrency = supDetailsObj.getPaymentCurrency(); String tanNumber
+		 * = supDetailsObj.getTanNumber(); String tdsApplication =
+		 * supDetailsObj.getTdsApplication(); String tdsRate =
+		 * supDetailsObj.getTdsRate(); String tdsSection =
+		 * supDetailsObj.getTdsSection(); String venStatus =
+		 * supDetailsObj.getVenStatus(); String suppName2 = supDetailsObj.getSuppName();
+		 * String aadharLink = supDetailsObj.getAdharLinkStatus(); String
+		 * sectionTypeDetails = supDetailsObj.getSectionType(); String businessDetails =
+		 * supDetailsObj.getBusinessClassification(); String eVoice =
+		 * supDetailsObj.getEnInvApplicable();
+		 * 
+		 * String fyYear1 = supDetailsObj.getFyYear1(); String fyYear2 =
+		 * supDetailsObj.getFyYear2(); String fyYear3 = supDetailsObj.getFyYear3();
+		 * String acknowledgementNumber1 = supDetailsObj.getAcknowledgementNumber1();
+		 * String acknowledgementNumber2 = supDetailsObj.getAcknowledgementNumber2();
+		 * String acknowledgementNumber3 = supDetailsObj.getAcknowledgementNumber3();
+		 * 
+		 * model.addAttribute("acknowledgementNumber1", acknowledgementNumber1);
+		 * model.addAttribute("acknowledgementNumber2", acknowledgementNumber2);
+		 * model.addAttribute("acknowledgementNumber3", acknowledgementNumber3);
+		 * 
+		 * model.addAttribute("fyYear1", fyYear1); model.addAttribute("fyYear2",
+		 * fyYear2); model.addAttribute("fyYear3", fyYear3);
+		 * 
+		 * Optional<SendEmailToVendor> sendEmailToVendor =
+		 * serviceManager.sendEmailToVendorRepo.getVpidDetails(vpid); SendEmailToVendor
+		 * sendEmailToVendor2 = sendEmailToVendor.get(); String region2 =
+		 * sendEmailToVendor2.getRegion(); model.addAttribute("eVoice", eVoice);
+		 * model.addAttribute("status", sendEmailToVendor2.getStatus());
+		 * model.addAttribute("businessDetails", businessDetails);
+		 * model.addAttribute("sectionTypeDetails", sectionTypeDetails);
+		 * model.addAttribute("aadharLink", aadharLink); model.addAttribute("uname",
+		 * bp_code); model.addAttribute("vpid", vpid);
+		 * model.addAttribute("introducedByEmailID", introducedByEmailID);
+		 * model.addAttribute("panNumber", panNumber); model.addAttribute("suppName2",
+		 * suppName2); model.addAttribute("tanNumber", tanNumber);
+		 * model.addAttribute("aadharNumber", aadharNumber);
+		 * model.addAttribute("suppName2", suppName2);
+		 * model.addAttribute("tdsApplication", tdsApplication);
+		 * model.addAttribute("tdsRate", tdsRate); model.addAttribute("tdsSection",
+		 * tdsSection); model.addAttribute("venStatus", venStatus);
+		 * model.addAttribute("paymentCurrency", paymentCurrency);
+		 * model.addAttribute("mesmeNumber", mesmeNumber);
+		 * model.addAttribute("creditTerms", creditTerms);
+		 * model.addAttribute("introducedByEmailID", introducedByEmailID);
+		 * model.addAttribute("businessClassification", businessClassification);
+		 * model.addAttribute("addressDetails", addressDetails);
+		 * model.addAttribute("introducedByName", introducedByName); //
+		 * model.addAttribute("uname", uname); model.addAttribute("region2", region2);
+		 * // model.addAttribute("userMailId", userMailId);
+		 * 
+		 * model.addAttribute("currency", currency); model.addAttribute("business",
+		 * business); model.addAttribute("partner", partner);
+		 * model.addAttribute("classification", classification);
+		 * model.addAttribute("payment", payment); model.addAttribute("country",
+		 * country); model.addAttribute("tdsCode", tdsCode);
+		 * model.addAttribute("financialYear", financialYear);
+		 * 
+		 * model.addAttribute("fileSize", fileSize);
+		 * 
+		 * model.addAttribute("maxFileSize", maxFileSize);
+		 * model.addAttribute("fileSize", fileSize);
+		 *  model.addAttribute("",
+		 * adharLinkStatus); model.addAttribute("region", region);
+		 * model.addAttribute("sectionType", sectionType);
+		 * model.addAttribute("paymentMethod", paymentMethod);
+		 * model.addAttribute("flag", flag); model.addAttribute("stateName", stateName);
+		 */
+
+
+		return "supplierRegistration";
+
+	}
+	
+	
+	
 
 	@GetMapping("/downloadZip")
 	void downloadDoc(HttpServletResponse response, HttpServletRequest request,

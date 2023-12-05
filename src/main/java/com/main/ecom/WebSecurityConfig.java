@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
     	
     		http
             .authorizeRequests()
-            .antMatchers("/document/**","/assets/**","/api/**","/dist/**","/js/**","/css/**","/build/**","/plugins/**","/login","/error","/autoLogin","/registrationstep6","/registration","/SaveRegistration","/getUserInfo","/getDocImage","/ajaxController/**").permitAll()
+            .antMatchers("/document/**","/assets/**","/api/**","/dist/**","/js/**","/css/**","/build/**","/plugins/**","/login","/error","/autoLogin","/registrationstep6","/registration","/SaveRegistration","/getUserInfo","/getDocImage","/searchController/getDocumentById","/ajaxController/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .formLogin()

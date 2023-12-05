@@ -22,5 +22,8 @@ public class Region {
 
 	@Column(name = "region_Name")
 	private String regionName;
+	
+	@Column(name = "status")
+	private String status;
 
 }

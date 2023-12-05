@@ -36,6 +36,8 @@ var tabledata = $('#tabledata').DataTable({
 	"pageLength": 100
 });
 
+
+
 const Toast = Swal.mixin({
 	toast: true,
 	position: 'top-end',
@@ -77,6 +79,10 @@ $('#addForm').validate({
 
 		},
 		roleId: {
+			required: true
+
+		},
+		commercialHead: {
 			required: true
 
 		},
@@ -135,6 +141,10 @@ $('#updateForm').validate({
 			required: true
 
 		},
+		comHead: {
+			required: true
+
+		},
 		licenseTypeEdit: {
 			required: true
 		}
@@ -175,17 +185,29 @@ function editData(id2) {
 		async: false,
 		success: function(data) {
 			if (data.msg == 'success') {
-
+debugger
 				var result = data.data;
+				console.log(result);
+				var roleName1 = result.rolesObj.roleName;
+               var commercialHeadName=result.commercialHead;
+                if (roleName1 === 'Commercial Team') {
+					debugger
+                       	getCommHeadOnUpdate(commercialHeadName);
+                       
+                    }
 
+                
 				$("#roleIdEdit").val(result.roleId);
 				$("#usernameEdit").val(result.username);
 				$("#contactNoEdit").val(result.contactNo);
 				$("#emailIdEdit").val(result.emailId);
 				$("#lastNameEdit").val(result.lastName);
 				$("#firstNameEdit").val(result.firstName);
+				
 				status = result.status;
-
+				
+				
+                 CheckCommercialHead(result.rolesObj.roleName);
 				$("#userModal").modal('show');
 
 			} else {
@@ -208,7 +230,7 @@ function editData(id2) {
 
 
 function addFormData() {
-
+debugger
 	var usernameCheckStatus = checkForExistingUserName();
 
 	if (usernameCheckStatus == "false") {
@@ -228,6 +250,7 @@ function addFormData() {
 		"emailId": $("#emailId").val(),
 		"lastName": $("#lastName").val(),
 		"firstName": $("#firstName").val(),
+		"commercialHead":$("#commercialHead").val(),
 		"status": "1",
 
 	}
@@ -274,7 +297,9 @@ function addFormData() {
 }
 
 function updateFormData() {
+	
 
+debugger
 	var json = {
 		"id": id,
 		"roleId": $("#roleIdEdit").val(),
@@ -284,6 +309,7 @@ function updateFormData() {
 		"emailId": $("#emailIdEdit").val(),
 		"lastName": $("#lastNameEdit").val(),
 		"firstName": $("#firstNameEdit").val(),
+		"commercialHead": $("#comHeadEdit").val(),
 		"status": $("#statusEdit").val(),
 
 	}
@@ -371,6 +397,9 @@ function getData() {
 					if (!result[i].hasOwnProperty("contactNo")) {
 						result[i].contactNo = "";
 					}
+					if (!result[i].hasOwnProperty("commercialHead")) {
+						result[i].commercialHead = "";
+					}
 					if (!result[i].hasOwnProperty("status")) {
 						result[i].status = "";
 					}
@@ -392,7 +421,7 @@ function getData() {
 					} else if (result[i].status == 0) {
 						status = "In-Active";
 					}
-					tabledata.row.add([result[i].username, result[i].firstName, lastName, result[i].rolesObj.roleName, result[i].emailId, result[i].contactNo, status, edit + " " + inactive]);
+					tabledata.row.add([result[i].username, result[i].firstName, lastName, result[i].rolesObj.roleName, result[i].emailId, result[i].contactNo, result[i].commercialHead, status, edit + " " + inactive]);
 
 				}
 
@@ -424,7 +453,10 @@ $('#tabledata tbody').on('click', ".trashButton", function() {
 
 $('#tabledata tbody').on('click', ".editDataById", function() {
 
+    
 	editData(this.value);
+	//CheckCommercialHead();
+	
 });
 
 
@@ -540,3 +572,178 @@ function checkForExistingUserName() {
 
 	return usernameCheckStatus;
 }
+
+
+ $(document).ready(function () {
+        $("#roleId").change(function () {
+            var selectedRole = $("#roleId option:selected").text();
+
+            if (selectedRole === "Commercial Team") {
+
+                commercialHeadContainer.style.display = "block";
+                getCommHead();
+                
+            } else {
+
+                commercialHeadContainer.style.display = "none";
+                $("#commercialHead").val('');
+            }
+        });
+    });
+
+
+/*$('#commercialHead').bind("click", function(e) {
+	debugger
+		getActiveAndPasswordChangedUser();
+});*/
+
+function getCommHead() {
+	debugger
+	
+    $.ajax({
+        type: "GET",
+        url: "userController/getActiveUser",
+        dataType: "json",
+        headers: { 'X-XSRF-TOKEN': csrfToken },
+        contentType: "application/json",
+        success: function(data) {
+            if (data.msg == 'success') {
+                // Assuming data.data is an array of users
+                var users = data.data;
+               
+                dropdownOptions(users);
+              
+            } else {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Failed.. Try Again..'
+                });
+            }
+        },
+        error: function() {
+            Toast.fire({
+                type: 'error',
+                title: 'Failed to fetch users. Try Again..'
+            });
+        }
+    });
+}
+
+function dropdownOptions(users) {
+    // Assuming "commercialHead" is the ID of your dropdown
+    var dropdown = $('#commercialHead');
+
+    // Clear existing options
+    dropdown.empty();
+
+    // Add a default option
+    dropdown.append($('<option>', {
+        value: '',
+        text: 'Select'
+    }));
+
+    // Add options based on the fetched users
+    users.forEach(function(user) {
+        dropdown.append($('<option>', {
+            value: user.username,
+            text: user.username // Assuming "username" is a property of the user object
+        }));
+    });
+}
+
+
+function updateDropdownOptions(users,commercialHeadName) {
+	
+    // Assuming "commercialHead" is the ID of your dropdown
+    var dropdown = $('#comHeadEdit');
+
+    // Clear existing options
+     dropdown.empty();
+
+    // Add a default option
+/*    dropdown.append($('<option>', {
+        value: '',
+        text: 'Select'
+    }));*/
+
+    // Add options based on the fetched users
+    users.forEach(function(user) {
+        dropdown.append($('<option>', {
+            value: user.username,
+            text: user.username // Assuming "username" is a property of the user object
+        }));
+    });
+    $("#comHeadEdit").val(commercialHeadName);
+}
+
+
+
+
+
+    
+    function CheckCommercialHead(obj)
+    {
+		
+		//var selectedRole = $("#roleIdEdit").text();
+		
+		if (obj === "Commercial Team") {
+
+                commercialHeadContainerModal.style.display = "block";
+            //   getCommHead();
+                
+            } else {
+
+                commercialHeadContainerModal.style.display = "none";
+              //    clearCommercialHeadDropdown();
+            }
+	}
+	
+	
+	/*function clearCommercialHeadDropdown() {
+    // Assuming "commercialHead" is the ID of your dropdown
+    var dropdown = $('#comHeadEdit');
+    dropdown.empty(); // Clear existing options
+    dropdown.append($('<option>', {
+        value: '',
+        text: 'Select'
+    }));
+}*/
+
+
+function getCommHeadOnUpdate(commercialHeadName) {
+	debugger
+	
+    $.ajax({
+        type: "GET",
+        url: "userController/getActiveUser",
+        dataType: "json",
+        headers: { 'X-XSRF-TOKEN': csrfToken },
+        contentType: "application/json",
+        success: function(data) {
+            if (data.msg == 'success') {
+                // Assuming data.data is an array of users
+                var users = data.data;
+               
+                 updateDropdownOptions(users,commercialHeadName);
+                
+           //     updateDropdownOptions(users);
+            } else {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Failed.. Try Again..'
+                });
+            }
+        },
+        error: function() {
+            Toast.fire({
+                type: 'error',
+                title: 'Failed to fetch users. Try Again..'
+            });
+        }
+    });
+}
+	
+
+
+    
+    

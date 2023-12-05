@@ -138,7 +138,6 @@ label {
 	color: red;
 }
 
-
 .msmeClass, .pdDocClass, .cancelledChequeMend {
 	color: red;
 }
@@ -175,10 +174,25 @@ select[readonly].select2+.select2-container {
 	pointer-events: none;
 	touch-action: none;
 }
+
 .typeahead {
 	width: 20%;
 	top: 60px !important;
 	left: 50px !important;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 00;
+    background-color: #000;
+    }
+    
+    .modal-backdrop.show {
+    opacity: 0;
 }
 </style>
 
@@ -203,7 +217,8 @@ select[readonly].select2+.select2-container {
 			</div>
 		</nav>
 		<br> <br> <input type="hidden" id="vendorPrimaryKey" /> <input
-			type="hidden" id="vendorPid" />
+			type="hidden" id="vendorPid" /> <input type="hidden" id="supId" />
+
 		<div class="container-fluid" style="margin-left: 0px; width: 100%;">
 			<div id="smartwizard" style="background: white; padding: 20px;">
 				<ul>
@@ -217,8 +232,11 @@ select[readonly].select2+.select2-container {
 							<small>Tax Detail</small></a></li>
 					<li style="margin: auto; margin-left: auto;"><a href="#step-5">Step-5<br />
 							<small>Documents</small></a></li>
-					<li id="step6Id" style="margin: unset; margin-left: auto;"><a
-						href="#step-6">Step-6<br /> <small>Query</small></a></li>
+					<%--
+				 	<li id="step6Id" style="margin: unset; margin-left: auto;"><a
+						href="#step-6">Step-6<br /> <small>Query</small></a></li> --%>
+
+
 				</ul>
 				<div>
 					<div id="step-1" class="">
@@ -251,55 +269,63 @@ select[readonly].select2+.select2-container {
 													class="form-control p-input" id="introducedByEmailID"
 													name="introducedByEmailID" maxlength="50"
 													placeholder="abc@ecomexpress.in"><span id="message"></span>
-													<input type="hidden" id="roleId" />
-													<input type="hidden" id="commercialFlag" name="commercialFlag" value="${commercialFlag }" />
-													
-													</td>
+													<input type="hidden" id="roleId" /> <input type="hidden"
+													id="commercialFlag" name="commercialFlag"
+													value="${commercialFlag}" /></td>
 
-												<td><label for="Supplier Type">Referral Email Id</label></td>
+												<td><label for="Supplier Type">Referral Email
+														Id</label></td>
 												<td colspan="1"><input type="text"
-													class="form-control p-input" id="referralEmailId" name="referralEmailId"
-													placeholder="Reference Person Email ID " ></td>
+													class="form-control p-input" id="referralEmailId"
+													name="referralEmailId" value="${referralEmailId}"
+													placeholder="Reference Person Email ID "></td>
 											</tr>
 											<tr>
 
 
-												<td><label for="suppName">Legal Entity/Supplier Name<span
-														class="required adHocRequired">*</span></label></td>
+												<td><label for="suppName">Legal Entity/Supplier
+														Name<span class="required adHocRequired">*</span>
+												</label></td>
+
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="suppName" name="suppName"
-													placeholder="Supplier Name" maxlength="200"></td>
+													placeholder="Supplier Name" maxlength="200"
+													value="${suppName}"></td>
 
 												<td><label for="businessClassification">Business
-														Classification<span
-														class="required adHocRequired">*</span></label></td>
+														Classification<span class="required adHocRequired">*</span>
+												</label></td>
 												<td><select id="businessClassification"
 													name="businessClassification" class="form-control p-input">
 														<option value="">Select</option>
 														<c:forEach items="${classification}" var="classi">
-
-															<option value="${classi}">${classi}</option>
+															<c:if test="${classi eq businessClassification}">
+																<option value="${classi}" selected>${classi}</option>
+															</c:if>
+															<c:if test="${classi ne businessClassification}">
+																<option value="${classi}">${classi}</option>
+															</c:if>
 														</c:forEach>
 
 												</select></td>
 
 												<td><label for="mesmeNumber">MESME Certificate
-														Number<span
-														class="msmeClass" style="visibility: hidden;">*</span></label></td>
+														Number<span class="msmeClass" style="visibility: hidden;">*</span>
+												</label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="mesmeNumber"
-													maxlength="19" name="mesmeNumber"
+													maxlength="19" value="${mesmeNumber}" name="mesmeNumber"
 													placeholder="MESME Certificate Number" disabled="disabled"></td>
-													
-											</tr>
 
+											</tr>
+											<input type="hidden" id="vPid" value="${vPid}" />
 											<tr class="">
 
 
 												<td><label for="aadharNumber">Aadhar Number</label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="aadharNumber"
-													maxlength="12" name="aadharNumber"
+													maxlength="12" value="${aadharNumber}" name="aadharNumber"
 													placeholder="Aadhar Number"></td>
 
 												<td><label for="adharLinkStatus">Aadhar Link
@@ -309,8 +335,14 @@ select[readonly].select2+.select2-container {
 													id="adharLinkStatus" name="adharLinkStatus">
 														<option value="">Select</option>
 														<c:forEach items="${adharLink}" var="link">
+															<c:if test="${link eq adharLinkStatus2}">
+																<option value="${link}" selected>${link}</option>
+															</c:if>
+															<c:if test="${link ne adharLinkStatus2}">
+																<option value="${link}">${link}</option>
+															</c:if>
 
-															<option value="${link}">${link}</option>
+
 														</c:forEach>
 
 												</select></td>
@@ -322,8 +354,13 @@ select[readonly].select2+.select2-container {
 													id="sectionType" name="sectionType">
 														<option value="">Select</option>
 														<c:forEach items="${sectionType}" var="type">
+															<c:if test="${type eq sectionType2}">
+																<option value="${type}" selected>${type}</option>
+															</c:if>
+															<c:if test="${type ne sectionType2}">
+																<option value="${type}">${type}</option>
+															</c:if>
 
-															<option value="${type}">${type}</option>
 														</c:forEach>
 
 												</select></td>
@@ -338,36 +375,52 @@ select[readonly].select2+.select2-container {
 														class="required adHocRequired"></span></label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="panNumber"
-													name="panNumber" placeholder="Pan Number" maxlength="10"></td>
+													name="panNumber" placeholder="Pan Number" maxlength="10"
+													value="${panNumber}"></td>
+
 												<td><label for="tanNumber">TAN Number</label></td>
 												<td colspan="1"><input type="text"
 													class="form-control p-input" id="tanNumber"
-													name="tanNumber" placeholder="TAN Number" maxlength="10"></td>
-												
+													name="tanNumber" placeholder="TAN Number" maxlength="10"
+													value="${tanNumber}"></td>
+
 												<td><label for="eInvoice">E-Invoice Applicable<span
-														class="required adHocRequired">*</span></label></td>	
+														class="required adHocRequired">*</span></label></td>
 												<td><select class="form-control p-input"
 													id="enInvApplicable" name="enInvApplicable">
 														<option value="">Select</option>
 														<c:forEach items="${adharLink}" var="link">
+															<c:if test="${link eq eInvoice}">
+																<option value="${link} " selected>${link}</option>
+															</c:if>
 
-															<option value="${link}">${link}</option>
+															<c:if test="${link ne eInvoice}">
+																<option value="${link}">${link}</option>
+															</c:if>
+
 														</c:forEach>
 
-												</select></td>	
-											</tr>
-											
-											<tr class="">
-											<td><label>Region</label></td>
-
-												<td style="width: auto"><select
-													class="js-example-basic-multiple1 select2" name="region"
-													id="region" multiple="multiple">
-														<c:forEach items="${region}" var="reg">
-
-															<option value="${reg}">${reg}</option>
-														</c:forEach>
 												</select></td>
+											</tr>
+											<tr class="">
+												<td><label>Region</label></td>
+
+												<td>
+													<%-- 	<select class="form-control p-input"
+													multiple="true" id="region" name="region">
+														<option value="">Select</option>
+														<c:forEach items="${region}" var="reg">
+															<c:if test="${reg eq regionList}">
+																<option value="${reg}" selected>${reg}</option>
+															</c:if>
+
+														</c:forEach>
+
+												</select> --%> <input type="text"
+													class="form-control p-input" id="region" name="region"
+													placeholder="region " maxlength="10" disabled
+													value="${regionList}">
+												</td>
 											</tr>
 
 										</tbody>
@@ -384,6 +437,8 @@ select[readonly].select2+.select2-container {
 							type="hidden" id="processByEmailId" value="${processByEmailId}">
 						<input type="hidden" id="processBy" value="${processBy}">
 						<input type="hidden" id="processBy" value="${pid}">
+
+
 					</div>
 
 					<div id="step-2" class="">
@@ -408,25 +463,39 @@ select[readonly].select2+.select2-container {
 														name="addCountry" class="form-control p-input">
 															<c:forEach items="${country}" var="count">
 
-																<option value="${count}">${count}</option>
-															</c:forEach>
+																<c:if test="${count eq addCountry}">
 
+																	<option value="${count}" selected>${count}</option>
+																</c:if>
+																<c:if test="${count ne addCountry}">
+
+																	<option value="${count}">${count}</option>
+																</c:if>
+															</c:forEach>
 													</select></td>
+
 
 													<td><label class="addressLable">State<span
 															class="required adHocRequired">*</span></label></td>
+
 													<td colspan="2"><select name="state" id="state"
 														class="form-control p-input">
 															<c:forEach items="${stateName}" var="stateNames">
-
-																<option value="${stateNames}">${stateNames}</option>
+																<c:if test="${stateNames eq state}">
+																	<option value="${stateNames}" selected>${stateNames}</option>
+																</c:if>
+																<c:if test="${stateNames ne state}">
+																	<option value="${stateNames}">${stateNames}</option>
+																</c:if>
 															</c:forEach>
 													</select></td>
+
+
 													<td><label class="addressLable">District/City<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="city" name="city"
-														placeholder="District" maxlength="50"></td>
+														placeholder="District" maxlength="50" value="${city}"></td>
 												</tr>
 												<tr class="">
 
@@ -435,7 +504,22 @@ select[readonly].select2+.select2-container {
 															class="required adHocRequired">*</span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="pinCode" name="pinCode"
-														placeholder="Postal Code/ ZIP Code" maxlength="6"></td>
+														placeholder="Postal Code/ ZIP Code" maxlength="6"
+														value="${pinCode}"></td>
+
+													<%-- 	<td><label>Supplier Type<span
+															class="required adHocRequired">*</span></label></td>
+
+													<td colspan="2"><select
+														class="js-example-basic-multiple1 select2" name="states"
+														id="states">
+															<c:forEach items="${vendorType2}" var="bus">
+
+																<option value="${bus}">${bus}</option>
+															</c:forEach>
+													</select></td> --%>
+
+
 
 													<td><label>Supplier Type<span
 															class="required adHocRequired">*</span></label></td>
@@ -450,7 +534,6 @@ select[readonly].select2+.select2-container {
 													</select></td>
 
 
-
 													<td class="supplierTypelabel" id="selectSupplierType"
 														style="visibility: hidden;"><label for="partnerType">Supplier</label></td>
 													<td class="supplierTypeInput" id="selectPartnerType"
@@ -463,6 +546,8 @@ select[readonly].select2+.select2-container {
 															</c:forEach>
 
 													</select></td>
+
+
 
 												</tr>
 
@@ -482,18 +567,49 @@ select[readonly].select2+.select2-container {
 															id="addDetails" name="addDetails" maxlength="250"
 															placeholder="Complete Address" rows="3"></textarea></td>
 													<td style="width: 150px;"></td>
+
+												</tr>
+
+												<tr class="">
+													<td><label for="fnameCon">First Name<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan="2"><input type="text"
+														class="form-control p-input" id="conFname" name="conFname"
+														placeholder="First Name" maxlength="50"></td>
+
+													<td><label for="lnameCon">Last Name<span
+															class="required adHocRequired"></span></label></td>
+													<td colspan="2"><input type="text"
+														class="form-control p-input" id="conLname" name="conLname"
+														placeholder="Last Name" maxlength="50"></td>
+
+													<td><label for="phno">Phone Number<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan="2"><input type="text"
+														class="form-control p-input" id="conPhone" name="conPhone"
+														placeholder="Phone Number" maxlength="10"></td>
+												<tr class="">
+
+
+													<td><label for="emailId">Email ID<span
+															class="required adHocRequired">*</span></label></td>
+													<td colspan="2"><input type="text"
+														class="form-control p-input" id="conEmail" name="conEmail"
+														placeholder="Email ID" maxlength="50"></td>
+													<td></td>
+													<td></td>
+
+
 													<td colspan=''><button type="Button"
 															class="btn btn-primary" id="addBookGridButt"
 															name="addBookGridButt">Add Address</button></td>
-												</tr>
-
 											</tbody>
 										</table>
 									</form>
-									<form class="forms-sample" autocomplete="off">
+									<div class="forms-sample " autocomplete="off">
 										<div class="card-body">
 											<div class="table-responsive"
-												style="border-style: solid; border-width: 1px; border-color: #1991eb;">
+												style="border-style: solid; border-width: 1px; border-color: #1991eb; overflow: scroll;">
 												<table class="table center-aligned-table" id="addBookGrid">
 													<thead>
 														<tr style="background: #1991eb; color: white;">
@@ -505,6 +621,10 @@ select[readonly].select2+.select2-container {
 															<th>Supplier</th>
 															<th>GSTN Number</th>
 															<th>Address Details</th>
+															<th>First Name</th>
+															<th>Last Name</th>
+															<th>Phone Number</th>
+															<th>Email Id</th>
 															<th>Remove</th>
 														</tr>
 													</thead>
@@ -513,11 +633,11 @@ select[readonly].select2+.select2-container {
 												</table>
 											</div>
 										</div>
-									</form>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="card" style="margin-bottom: 10px;"
+						<%-- 	<div class="card" style="margin-bottom: 10px;"
 							style="margin-bottom: 10px;">
 							<div class="card-header" id="contactDir"
 								style="background: #1991eb; color: #ffffff;">
@@ -537,19 +657,21 @@ select[readonly].select2+.select2-container {
 															class="required adHocRequired">*</span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="conFname" name="conFname"
-														placeholder="First Name" maxlength="50"></td>
+														placeholder="First Name" maxlength="50"
+														value="${conFname}"></td>
 
 													<td><label for="lnameCon">Last Name<span
 															class="required adHocRequired"></span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="conLname" name="conLname"
-														placeholder="Last Name"  maxlength="50"></td>
+														placeholder="Last Name" maxlength="50" value="${conLname}"></td>
 
 													<td><label for="phno">Phone Number<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="conPhone" name="conPhone"
-														placeholder="Phone Number" maxlength="10"></td>
+														placeholder="Phone Number" maxlength="10"
+														value="${conPhone}"></td>
 												<tr>
 												<tr class="">
 
@@ -558,7 +680,7 @@ select[readonly].select2+.select2-container {
 															class="required adHocRequired">*</span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="conEmail" name="conEmail"
-														placeholder="Email ID"  maxlength="50"></td>
+														placeholder="Email ID" maxlength="50" value="${conEmail}"></td>
 													<td></td>
 													<td></td>
 													<td>
@@ -587,6 +709,7 @@ select[readonly].select2+.select2-container {
 														</tr>
 													</thead>
 													<tbody>
+
 													</tbody>
 												</table>
 											</div>
@@ -594,10 +717,10 @@ select[readonly].select2+.select2-container {
 									</form>
 								</div>
 							</div>
-						</div>
+						</div> --%>
 					</div>
 					<div id="step-3" class="">
-						
+
 
 						<div class="card" style="margin-bottom: 10px;">
 							<div class="card-header" id="addressBookHead"
@@ -616,14 +739,20 @@ select[readonly].select2+.select2-container {
 													<td><label for="invoiceCurrency">Invoice
 															Currency<span class="required adHocRequired">*</span>
 													</label></td>
-													<td colspan="2"><select id="invoiceCurrency"
-														name="invoiceCurrency" class="form-control p-input">
+
+													<td colspan="2"><select name="invoiceCurrency"
+														id="invoiceCurrency" class="form-control p-input">
 															<c:forEach items="${currency}" var="cur">
-
-																<option value="${cur}">${cur}</option>
+																<c:if test="${cur eq invoiceCurrency}">
+																	<option value="${cur}" selected>${cur}</option>
+																</c:if>
+																<c:if test="${cur ne invoiceCurrency}">
+																	<option value="${cur}">${cur}</option>
+																</c:if>
 															</c:forEach>
-
 													</select></td>
+
+
 
 													<td><label for="paymentCurrency">Payment
 															Currency<span class="required adHocRequired">*</span>
@@ -631,10 +760,10 @@ select[readonly].select2+.select2-container {
 													<td colspan="2"><select id="paymentCurrency"
 														name="paymentCurrency" class="form-control p-input">
 															<c:forEach items="${currency}" var="cur">
-
 																<option value="${cur}">${cur}</option>
 															</c:forEach>
 													</select></td>
+
 
 													<td><label for="creditTerms">Payment / Credit
 															Terms<span class="required adHocRequired">*</span>
@@ -649,27 +778,40 @@ select[readonly].select2+.select2-container {
 
 													</select></td>
 												</tr>
+
 												<tr class="">
 													<td><label for="paymentMethod">Payment Method<span
 															class="required adHocRequired">*</span></label></td>
 
-													<td colspan="2"><select id="paymentMethod"
-														name="paymentMethod" class="form-control p-input">
-															
+													<td><select id="paymentMethod" name="paymentMethod"
+														class="form-control p-input">
 															<option value="">Select</option>
 															<c:forEach items="${paymentMethod}" var="met">
-																<option value="${met}">${met}</option>
+																<c:if test="${met eq paymentMethod2}">
+																	<option value="${met}" selected>${met}</option>
+																</c:if>
+																<c:if test="${met ne paymentMethod2}">
+																	<option value="${met}">${met}</option>
+																</c:if>
 															</c:forEach>
+
 													</select></td>
+
+													<input type="hidden" id="paymentMethod2"
+														value="${paymentMethod2}" />
+
 
 													<td><label for="dateBasis">Terms Date Basis</label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="dateBasis"
-														name="dateBasis" placeholder="Terms Date Basis"></td>
+														name="dateBasis" placeholder="Terms Date Basis"
+														value="${dateBasis}"></td>
+
 													<td><label for="deliveryTerms">Delivery Terms</label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="deliveryTerms"
-														name="deliveryTerms" placeholder="Delivery Terms"></td>
+														name="deliveryTerms" placeholder="Delivery Terms"
+														value="${deliveryTerms}"></td>
 
 
 												</tr>
@@ -681,8 +823,8 @@ select[readonly].select2+.select2-container {
 								</div>
 							</div>
 						</div>
-						
-						<div class="card" id="bankDetails" style="margin-bottom: 10px; display: none;">
+						<div class="card" id="bankDetails"
+							style="margin-bottom: 10px; display: none;">
 							<div class="card-header" id="addressBookHead"
 								style="background: #1991eb; color: #ffffff;">
 								<h6 class="mb-0">Bank Details</h6>
@@ -698,29 +840,34 @@ select[readonly].select2+.select2-container {
 												<tr class="">
 													<td><label for="bankName">Bank Name<span
 															class="required adHocRequired">*</span></label></td>
-													<td colspan="2"><input type="text" class="typeahead form-control p-input" 
-           											data-provide="typeahead" id="bankName" name="bankName"
-														placeholder="Bank Name" maxlength="200" style="width: 100%"></td>
+													<td colspan="2"><input type="text"
+														class="typeahead form-control p-input"
+														data-provide="typeahead" id="bankName" name="bankName"
+														placeholder="Bank Name" maxlength="200"
+														value="${bankName}" style="width: 100%"></td>
+
 
 													<td><label for="bankName">Beneficiary Name<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="beneficiaryName"
 														name="beneficiaryName" placeholder="Beneficiary Name"
-														maxlength="200"></td>
+														maxlength="200" value="${beneficiaryName}"></td>
+
 
 													<td><label for="ifscCode">IFSC Code<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="ifscCode" name="ifscCode"
-														placeholder="IFSC Code" maxlength="11"></td>
+														placeholder="IFSC Code" maxlength="11" value="${ifscCode}"></td>
+
 
 													<td><label for="accoutNumber">Account Number<span
 															class="required adHocRequired">*</span></label></td>
 													<td colspan="2"><input type="text"
 														class="form-control p-input" id="accoutNumber"
 														name="accoutNumber" placeholder="Account Number"
-														maxlength="16"></td>
+														maxlength="16" value="${accoutNumber}"></td>
 
 												</tr>
 
@@ -766,7 +913,6 @@ select[readonly].select2+.select2-container {
 															<th>IFSC Code</th>
 															<th>Currency</th>
 															<th>Account Number</th>
-															<th></th>
 															<th>Action</th>
 														</tr>
 													</thead>
@@ -793,7 +939,8 @@ select[readonly].select2+.select2-container {
 								<div id="addressBookHeadData" aria-labelledby="addressBookHead"
 									style="border-style: solid; border-width: 1px; border-color: #1991eb;">
 									<div class="card-body" style="margin-bottom: 10px;">
-										<form id="stepSevenForm" class="forms-sample" autocomplete="off">
+										<form id="stepSevenForm" class="forms-sample"
+											autocomplete="off">
 											<table class="table center-aligned-table" id="fromTable">
 												<thead>
 												</thead>
@@ -801,34 +948,47 @@ select[readonly].select2+.select2-container {
 													<tr class="">
 
 														<td><label class="addressLable" for="tdsApplication">TDS
-																Applicable<span class="required">*</span>
+																Applicable<span class="required adHocRequired">*</span>
 														</label></td>
 														<td colspan="2"><select id="tdsApplication"
 															name="tdsApplication" class="form-control p-input ">
-																<option value="Yes">Yes</option>
-																<option value="No">No</option>
+															
+																<c:if test="${tdsApplication eq 'Yes' }">
+																	<option value="Yes" Selected>Yes</option>
+																	<option value="No">No</option>
+																</c:if>
+																<c:if test="${tdsApplication ne 'Yes' }">
+																	<option value="Yes">Yes</option>
+																	<option value="No" Selected>No</option>
+																</c:if>
 														</select></td>
+
 
 														<td><label class="addressLable" for="tdsSection">TDS
-																Section<span class="required adHocRequired">*</span>
+																Section<span class="required adHocRequired" >*</span>
 														</label></td>
-														<td colspan="2"><select id="tdsSection"
-															name="tdsSection" class="form-control p-input">
+
+														<td><select class="form-control p-input"
+															id="tdsSection" name="tdsSection"disabled>
 																<option value="">Select</option>
 																<c:forEach items="${tdsCode}" var="tds">
+																	<c:if test="${tds eq tdsSection}">
+																		<option value="${tds}" selected>${tds}</option>
+																	</c:if>
+																	<c:if test="${tds ne tdsSection}">
+																		<option value="${tds}">${tds}</option>
+																	</c:if>
 
-																	<option value="${tds}">${tds}</option>
 																</c:forEach>
-
-
-
 														</select></td>
+
 
 														<td><label for="tdsRate">TDS Exemption Rate %<span
 																class="required adHocRequired">*</span></label></td>
 														<td colspan="2"><input type="text"
 															class="form-control p-input" id="tdsRate" name="tdsRate"
-															placeholder="TDS  Exemption Rate" maxlength="4"></td>
+															placeholder="TDS  Exemption Rate" maxlength="10"
+															value="${tdsRate}" disabled></td>
 													</tr>
 
 												</tbody>
@@ -847,10 +1007,13 @@ select[readonly].select2+.select2-container {
 								<div id="itrHeadData" aria-labelledby="itrHead"
 									style="border-style: solid; border-width: 1px; border-color: #1991eb;">
 									<div class="card-body" style="margin-bottom: 10px;">
-										<form id="StepEightForm" class="forms-sample" autocomplete="off">
+										<form id="StepEightForm" class="forms-sample"
+											autocomplete="off">
 											<table class="table center-aligned-table table-striped"
 												id="addITRGrid">
 												<tbody>
+
+
 													<tr class="">
 														<td><label>Select Financial Year<span
 																class="required adHocRequired"></span></label></td>
@@ -859,16 +1022,22 @@ select[readonly].select2+.select2-container {
 																<option value="">Select</option>
 
 																<c:forEach items="${financialYear}" var="fin">
-
+																	<c:if test="${fin eq fyYear1}">
+																		<option value="${fyYear1}" selected>${fyYear1}</option>
+																	</c:if>
 																	<option value="${fin}">${fin}</option>
 																</c:forEach>
 
 														</select></td>
+
 														<td><label>Fill Acknowledgement Number<span
 																class="required adHocRequired"></span></label></td>
 														<td><input type="text" id="acknowledgementNumber1"
 															name="acknowledgementNumber1" maxlength="20"
+															value="${acknowledgementNumber1}"
 															class="form-control p-input "></td>
+
+
 														<td><input type="file" id="ITRFile1" name="ITRFile1"
 															placeholder="Fill Acknowledgement Number"
 															class="form-control p-input" accept=".docx, .pdf">
@@ -877,6 +1046,7 @@ select[readonly].select2+.select2-container {
 																style="font-weight: 500; color: #fd7e14;">File
 																	size Max ${fileSize} MB</span></label></td>
 													</tr>
+
 													<tr class="">
 														<td><label>Select Financial Year<span
 																class="required adHocRequired"></span></label></td>
@@ -885,7 +1055,9 @@ select[readonly].select2+.select2-container {
 																<option value="">Select</option>
 
 																<c:forEach items="${financialYear}" var="fin">
-
+																	<c:if test="${fin eq fyYear2}">
+																		<option value="${fyYear2}" selected>${fyYear2}</option>
+																	</c:if>
 																	<option value="${fin}">${fin}</option>
 																</c:forEach>
 
@@ -894,7 +1066,9 @@ select[readonly].select2+.select2-container {
 																class="required adHocRequired"></span></label></td>
 														<td><input type="text" id="acknowledgementNumber2"
 															name="acknowledgementNumber2" maxlength="20"
+															value="${acknowledgementNumber2}"
 															class="form-control p-input "></td>
+
 														<td><input type="file" id="ITRFile2" name="ITRFile2"
 															placeholder="Fill Acknowledgement Number"
 															class="form-control p-input" accept=".docx, .pdf">
@@ -911,7 +1085,9 @@ select[readonly].select2+.select2-container {
 																<option value="">Select</option>
 
 																<c:forEach items="${financialYear}" var="fin">
-
+																	<c:if test="${fin eq fyYear3}">
+																		<option value="${fyYear3}" selected>${fyYear3}</option>
+																	</c:if>
 																	<option value="${fin}">${fin}</option>
 																</c:forEach>
 
@@ -920,7 +1096,9 @@ select[readonly].select2+.select2-container {
 																class="required adHocRequired"></span></label></td>
 														<td><input type="text" id="acknowledgementNumber3"
 															name="acknowledgementNumber3" maxlength="20"
-															class="form-control p-input "></td>
+															class="form-control p-input "
+															value="${acknowledgementNumber3}"></td>
+
 														<td><input type="file" id="ITRFile3" name="ITRFile1"
 															placeholder="Fill Acknowledgement Number"
 															class="form-control p-input" accept=".docx, .pdf">
@@ -989,7 +1167,8 @@ select[readonly].select2+.select2-container {
 																		size Max ${fileSize} MB</span></label></td>
 
 															<td><label>Cancelled Cheque/ Passbook/ Bank
-																	Statement<span class="cancelledChequeMend" style=" visibility: hidden;">*</span>
+																	Statement<span class="cancelledChequeMend"
+																	style="visibility: hidden;">*</span>
 															</label></td>
 															<td><input type="file" id="CCFile" name="CCFile"
 																class="form-control p-input" accept=".docx, .pdf">
@@ -1073,16 +1252,34 @@ select[readonly].select2+.select2-container {
 																	style="font-weight: 500; color: #fd7e14;">File
 																		size Max ${fileSize} MB</span></label></td>
 														</tr>
+														
+														
+														<tr>
+															
+															<td>
+															
+															<c:if test="${venStatus=='pending at vendor upon raise query'}">
+															
+															<button type="button" id="viewattachment"
+															class="btn btn-primary">View Attachment</button>
+															</c:if>
+															</td>
+															</label></td>
+														</tr>
+
 													</tbody>
 												</table>
 											</div>
+											 <input type="hidden" id="venStatus" name="status" value="${venStatus}" />
+											 
 										</div>
 									</form>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div id="step-6" class="">
+
+					<%-- <div id="step-6" class="">
 						<div class="card queryFormUiText">
 							<p
 								style="font-size: 40px; color: green; text-align: center; margin-top: 100px; margin-bottom: 100px;">Thanks
@@ -1141,11 +1338,69 @@ select[readonly].select2+.select2-container {
 								</form>
 							</div>
 						</div>
-					</div>
+					</div> --%>
+
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	
+	 <div class="modal fade" id="viewAttachmentPopUp" role="dialog">
+					<div class="modal-dialog " style="max-width: 1300px;">
+						Modal content
+						<div class="modal-content">
+							<div class="modal-body">
+								<div class="container-fluid panel1">
+									<div class="row">
+										<div class="col">
+											<div class="row innerRow">
+												<div class="col-md-3">
+													<div class="form-group">
+														<label>Document Type</label> <select class="form-control"
+															id="documentType" style="height: 35px;">
+
+														</select>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label>Document Name</label> <select class="form-control"
+															id="multipleAttachment" style="height: 35px;">
+														</select>
+													</div>
+												</div>
+												<div class="col-md-3" style="display: none"
+													id="uploadeddateDiv">
+													<div class="form-group">
+														<label>Uploaded Date</label> <input type="text"
+															class="form-control" id="uploadeddate"
+															style="height: 35px;" readonly>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="container-fluid panel2">
+									<div class="row">
+										<div class="col-lg-12" style="height: 400px;">
+											<a id="ifrmameHref" target="_blank">Click Here to open
+												doc in new window</a>
+											<iframe id="pdfLink" style="height: 100%; width: 100%"></iframe>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div> 
+	
 	<script src="plugins/jquery/jquery.min.js"></script>
 	<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 	<script src="dist/js/notify.min.js"></script>

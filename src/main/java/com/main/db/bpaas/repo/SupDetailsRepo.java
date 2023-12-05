@@ -1,6 +1,7 @@
 package com.main.db.bpaas.repo;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -98,5 +99,27 @@ public interface SupDetailsRepo extends JpaRepository<SupDetails, Long> {
 	String checkBpCode(String bpCode);
 
 	List<SupDetails> findByCreateDateBetween(String fromDate, String toDate);
+	
+	@Query(value = "select * from supdetails where supdetails.pid=:vpid  ", nativeQuery = true)
+	Optional<SupDetails> getVpidDetails( @Param("vpid") String vpid);
+
+	List<SupDetails> findByPidIn(List<String> vebdorPid);
+
+	List<SupDetails> findAllByOrderByIdDesc();
+	
+	@Query(value = "select * from supdetails where supdetails.pid=:vendorPid  ", nativeQuery = true)
+	Optional<SupDetails> getByVendorPid(@Param("vendorPid") String vendorPid);
+
+	Optional<SupDetails> findByPidAndVenStatus(String vendorPid, String pendingForCommercialTeamStatus);
+
+	/*
+	 * void raieQueryByDocCheckerByPid(String vendorCode, String pid, String
+	 * userEmail, String strDate, String approvedRequestStatus);
+	 */
+
+
+
+	
+
 
 }

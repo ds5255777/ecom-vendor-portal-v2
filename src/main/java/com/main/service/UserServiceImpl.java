@@ -2,6 +2,7 @@ package com.main.service;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,11 @@ public class UserServiceImpl implements UserService {
 		User save = userRepository.save(user);
 		
 		return save;
+	}
+
+	@Override
+	public List<User> findByRoleId(Integer roleidCommercialHead) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

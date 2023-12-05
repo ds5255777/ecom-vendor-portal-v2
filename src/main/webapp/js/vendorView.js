@@ -584,3 +584,82 @@ $("#multipleAttachment").change(function() {
 	$('#ifrmameHref').attr('href', urlpath);
 
 });
+
+
+
+
+$('#raiseQuery').click(function(event) {
+
+	$('#userModalRaiseQuery').modal('show');
+});
+
+$('#submitOnRaiseQueryBtn').click(function(event) {
+	RaiseQueryByDocChecker();
+	event.preventDefault();
+});
+
+$('#closeOnRaieQueryBtn').click(function(event) {
+	$('#userModalRaiseQuery').modal('hide');
+	event.preventDefault();
+
+});
+
+
+function RaiseQueryByDocChecker() {
+debugger
+	var vpid = $("#pid").val();
+
+	var remark_raise = $("#remark_raise").val();
+	if (remark_raise == '') {
+		Toast.fire({
+			title: 'Remarks is mandatory'
+		})
+		return false;
+	}
+
+	var json = {
+		"vendorPid": vpid,
+		"vendorEmail": $("#introducedByEmailID").val(),
+		//		"vendorType": $("#state").val(),
+		"region": $("#region").val(),
+		"creditTerms": $("#creditTerms").val(),
+		"comments": $("#remark_raise").val()
+	}
+
+	$.ajax({
+		type: "Post",
+		data: JSON.stringify(json),
+		url: "registrationController/raiseQueryByDocChecker",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		async: false,
+		success: function(data) {
+			//	$('.loader').hide();
+			$('#userModalokk').modal('hide');
+			//			$("#raise_query").prop("disabled", false);
+			if (data.msg == 'success') {
+				Toast.fire({
+					type: 'success',
+					title: 'Query Raise Successfully..'
+				})
+			//	window.location.href = "vendorList";
+			
+			window.opener.refereshList();
+					window.close();
+			
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			alert("failed, please try again");
+		}
+
+	});
+
+}

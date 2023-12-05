@@ -1295,9 +1295,9 @@ function sendToServer() {
 
 
 	const finalObj = {
-		...step1Obj,
-		...step6Obj,
-		...step7Obj
+		step1Obj,
+		step6Obj,
+		step7Obj
 		//...step8Obj
 	};
 	finalObj.accountDetails = accountDetailsArray;

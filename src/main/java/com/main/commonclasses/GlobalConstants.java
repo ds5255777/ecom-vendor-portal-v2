@@ -9,12 +9,17 @@ public class GlobalConstants {
 	
 	public static final String ERROR_MESSAGE = "error";
 	public static final String SUCCESS_MESSAGE = "success";
-
-
+    public static final Integer FLAG=1;
+    public static final Integer APPROVE=2;
+    public static final String REJECT="Rejected by Commercial Head";
+    
+    
 	public static final String INACTIVE_STATUS = "0";
+	public static final String STATUS = "pending at commercial head";
 	public static final String ACTIVE_STATUS = "1";
 	public static final String DELETED_STATUS = "2";
 	public static final String CHANGE_PASSWORD_STATUS = "3";
+	public static final String RAISE_QUERY = "pending at vendor upon raise query";
 	
 	
 	public static final String PENDING_REQUEST_STATUS = "Pending For Approval";
@@ -78,6 +83,8 @@ public class GlobalConstants {
 	
 	public static final String DATE_FORMATTER="yyyy-MM-dd HH:mm:ss";
 	public static final String DATE_FORMATTER_DD_MM_YYYY="dd-MM-yyyy";
+	public static final String DATE_FORMATTER_DD_MM_YYYY_HH_MM="dd-MM-yyyy HH:mm:ss";
+	
 	public static final String DATE_FORMATTER_YYYY_MM_DD="yyyy-MM-dd";
 	
 	
@@ -91,4 +98,53 @@ public class GlobalConstants {
 	public static final String VENDOR_NEW_FILE="update_";
 
 
-	public static final String STATUS_ACTIVE="Active";}
+	public static final String STATUS_ACTIVE="Active";
+
+	public static final String DATA_NOT_FOUND = "Data Not Found";
+
+	public static final String ROLEID_COMMERCIAL_HEAD = "Commercial Head";
+	
+	public static final String PENDING_FOR_COMMERCIAL_TEAM_STATUS = "Pending For Commercial Team";
+
+	public static final String PENDING_AT_VERIFIER = "Pending at Verifier";
+
+	public static final String ROLEID_PARTY_VERIFIER = "Verifier";
+
+	public static final String APPROVE_BY_COMMERCIAL_HEAD = "pending at vendor";
+
+	public static final String REJECTED_BY_VERIFIER = "Rejected by Verifier";
+	
+	public static final String REJECTED_BY_EHS_VERIFIER = "Rejected by Ehs Verifier";
+
+	public static final String APPROVE_BY_VERIFIER = "Approve by Verifier";
+
+	public static final String PENDING_AT_EHS_VERIFICATION_AT_AM_DM = "Pending For Ehs Verification at AM/DM";
+
+	public static final String PENDING_AT_DOC_CHECKER = "Pending at Document Checker";
+	
+//	public static final String ROLEID_EHS_VERIFICATION = "Ehs Verification";
+	
+	public static final String ROLEID_EHS_AM_DM = "AM/DM";
+	
+	public static final String ROLEID_EHS_SENIOR_MANAGER = "Sr. Manager";
+	
+	public static final String ROLEID_DOC_CHECKER = "Doc Checker";
+	
+	public static final String PENDING_AT_SERNIOR_MANAGER = "Pending at Senior Manager For Ehs Verification";
+	
+	public static final String REJECTED_BY_AM_DM = "Rejected By AM/DM";
+	
+	public static final String REJECTED_BY_SENIOR_MANAGER = "Rejected By Senior Manager";
+	
+	public static final String YES = "Yes";
+	
+	public static final String NO = "No";
+	
+	public static final Integer ROLE_ID = 9;
+	
+	
+
+	
+	
+
+}

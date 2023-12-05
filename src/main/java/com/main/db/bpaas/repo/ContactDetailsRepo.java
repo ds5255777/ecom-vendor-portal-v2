@@ -8,4 +8,6 @@ import com.main.db.bpaas.entity.ContactDetails;
 @Repository
 public interface ContactDetailsRepo extends JpaRepository<ContactDetails, Long> {
 
+	
+
 }

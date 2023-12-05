@@ -34,5 +34,7 @@ public class UserDTO {
 	private String status = "0";
 	private String bpCode;
 	private String passwordConfirm;
+	private String commercialHead;
+	
 
 }

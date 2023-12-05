@@ -381,6 +381,13 @@ $(document).ready(function() {
 
 });
 
+$("body").on("click", ".inactiveClassDel2", function(event) {
+	event.preventDefault();
+	var currentValue = this.value.split(";");
+	deleteData(currentValue[0], currentValue[1]);
+
+});
+
 function AadharValidate() {
 	var aadhar = document.getElementById("aadharNumber").value;
 	var adharcardTwelveDigit = /^\d{12}$/;
@@ -440,8 +447,6 @@ $("#addBookGridButt").click(function() {
 	if (abc4 === "EMPLOYEE NOMINEE") {
 		$(".notRequreDocument").css("visibility", "hidden");
 	}
-
-
 });
 
 
@@ -646,7 +651,10 @@ $("#updateBtn").bind("click", function() {
 	sendToServer();
 });
 
+
 function sendToServer() {
+
+	var vpid = $("#vpid").val();
 
 	var mandFields = "introducedByName,introducedByEmailID,suppName,businessClassification";
 	var mandFieldsArr = mandFields.split(",");
@@ -796,7 +804,7 @@ function sendToServer() {
 	var mandFields = "ITRFile,MSMECFile";
 	var mandFieldsArr = mandFields.split(",");
 
-	debugger
+
 
 	if (vendorType != "EMPLOYEE NOMINEE") {
 
@@ -857,9 +865,9 @@ function sendToServer() {
 	var step7Obj = FormDataToJSON('stepSevenForm');
 
 	const finalObj = {
-		...step1Obj,
-		...step6Obj,
-		...step7Obj
+		step1Obj,
+		step6Obj,
+		step7Obj
 	};
 
 	finalObj.accountDetails = accountDetailsArray;
@@ -987,6 +995,7 @@ function sendToServer() {
 	var fyYear2 = $('#fyYear2').val();
 	var fyYear3 = $('#fyYear3').val();
 
+
 	finalObj.fyYear1 = fyYear1;
 	finalObj.fyYear2 = fyYear2;
 	finalObj.fyYear3 = fyYear3;
@@ -997,6 +1006,7 @@ function sendToServer() {
 	finalObj.acknowledgementNumber2 = acknowledgementNumber2;
 	finalObj.acknowledgementNumber3 = acknowledgementNumber3;
 	finalObj.vendorType = vendorTypeString;
+	finalObj.pid = vpid
 	console.log(finalObj);
 	$('.loader').show();
 
@@ -1214,6 +1224,584 @@ $(function() {
 	});
 });
 
+
+
+$('#approve').click(function() {
+	$('#userModalD').modal('show');
+
+});
+$('#approveSubmitBtnD').click(function(event) {
+	$('#userModalD').modal('show');
+	approveMethod();
+	event.preventDefault();
+
+
+});
+$('#approveSubmitCloseBtnD').click(function(event) {
+	$('#userModalD').modal('hide');
+	event.preventDefault();
+
+
+});
+
+
+
+function approveMethod() {
+	var vpid = $("#vpid").val();
+	var approve_comment = $("#approve_comment").val();
+	if (approve_comment == '') {
+		Toast.fire({
+			title: 'Remarks is mandatory'
+		})
+		return false;
+	}
+	var comment = $("#approve_comment").val();
+	var json = {
+		"vendorPid": vpid,
+		"comments": comment
+	}
+
+	$.ajax({
+		type: "Put",
+		data: JSON.stringify(json),
+		url: "CommercialHeadController/approveByCommercialTeam",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		async: false,
+		success: function(data) {
+
+
+			if (data.msg == 'success') {
+				Toast.fire({
+					type: 'success',
+					title: 'Approve has been Successfully..'
+				})
+
+				window.location.href = "vendorList";
+
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+			$('#userModalD').modal('hide');
+
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			alert("failed, please try again");
+		}
+
+	});
+}
+
+
+
+$('#raise_query').click(function(event) {
+
+	$('#userModalokk').modal('show');
+});
+
+$('#submitBtn').click(function(event) {
+	RaiseQuery();
+	event.preventDefault();
+});
+
+$('#closeBtn').click(function(event) {
+	$('#userModalokk').modal('hide');
+	event.preventDefault();
+
+});
+
+
+
+
+function RaiseQuery() {
+
+	var vpid = $("#vpid").val();
+
+	var remark_raise = $("#remark_raise").val();
+	if (remark_raise == '') {
+		Toast.fire({
+			title: 'Remarks is mandatory'
+		})
+		return false;
+	}
+
+	var json = {
+		"vendorPid": vpid,
+		"vendorEmail": $("#introducedByEmailID").val(),
+		//		"vendorType": $("#state").val(),
+		"region": $("#region").val(),
+		"creditTerms": $("#creditTerms").val(),
+		"comments": $("#remark_raise").val()
+	}
+
+	$.ajax({
+		type: "Put",
+		data: JSON.stringify(json),
+		url: "CommercialHeadController/rasieQueryCommercialTeam",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		async: false,
+		success: function(data) {
+			//	$('.loader').hide();
+			$('#userModalokk').modal('hide');
+			//			$("#raise_query").prop("disabled", false);
+			if (data.msg == 'success') {
+				Toast.fire({
+					type: 'success',
+					title: 'Query Raise Successfully..'
+				})
+				window.location.href = "vendorList";
+
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			alert("failed, please try again");
+		}
+
+	});
+
+}
+
+$('#reject_verifier').click(function() {
+
+	$('#userModalR').modal('show');
+
+});
+
+$('#rejectSubmitThirdPartyBtnR').click(function(event) {
+	RejectVerifier();
+	event.preventDefault();
+});
+
+$('#rejectSubmitCloseThirdPartyBtnR').click(function(event) {
+	$('#userModalR').modal('hide');
+	event.preventDefault();
+
+});
+
+
+function RejectVerifier() {
+	var vpid = $("#vpid").val();
+
+	var remark_thirParty = $("#reject_comment_thirdParty").val();
+	if (remark_thirParty == '') {
+		Toast.fire({
+			title: 'Remarks is mandatory'
+		})
+		return false;
+	}
+
+	var json = {
+		"vendorPid": vpid,
+		"comments": $("#reject_comment_thirdParty").val()
+	}
+
+	$.ajax({
+		type: "Put",
+		data: JSON.stringify(json),
+		url: "CommercialHeadController/rejectByVerifier",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		async: false,
+		success: function(data) {
+			$('#userModalR').modal('hide');
+
+			if (data.msg == 'success') {
+				Toast.fire({
+					type: 'success',
+					title: 'Rejected Successfully..'
+				})
+				window.location.href = "thirdPartyVerifier";
+
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			alert("failed, please try again");
+		}
+
+	});
+
+}
+
+
+
+$('#approve_verifier').click(function() {
+	$('#userModalDhir').modal('show');
+
+});
+$('#approveSubmitBtn').click(function(event) {
+	$('#userModalDhir').modal('show');
+	ApproveByVerifierMethod();
+	event.preventDefault();
+
+
+});
+$('#approveSubmitCloseBtn').click(function(event) {
+	$('#userModalDhir').modal('hide');
+	event.preventDefault();
+
+
+});
+
+
+function ApproveByVerifierMethod() {
+
+	var vpid = $("#vpid").val();
+
+	var remark_thirParty = $("#approve_remark").val();
+	if (remark_thirParty == '') {
+		Toast.fire({
+			title: 'Remarks is mandatory'
+		})
+		return false;
+	}
+	var json = {
+		"vendorPid": vpid,
+		"comments": $("#approve_remark").val(),
+		"uploadFile": vendorMisDoc
+	}
+
+	$.ajax({
+		type: "Put",
+		data: JSON.stringify(json),
+		url: "CommercialHeadController/approveByThirdPartyVerifier",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		async: false,
+		success: function(data) {
+			//	$('.loader').hide();
+			$('#userModalDhir').modal('hide');
+
+			if (data.msg == 'success') {
+				Toast.fire({
+					type: 'success',
+					title: 'Approve Successfully..'
+				})
+				window.location.href = "thirdPartyVerifier";
+
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			alert("failed, please try again");
+		}
+
+	});
+}
+
+
+
+$('#approve_ehsVerifier').click(function() {
+	$('#userModalV').modal('show');
+
+});
+$('#approveSubmitBtnV').click(function(event) {
+	$('#userModalV').modal('show');
+	ApproveByEhsVerifierMethod();
+	event.preventDefault();
+
+
+});
+$('#approveSubmitCloseBtnV').click(function(event) {
+	$('#userModalV').modal('hide');
+	event.preventDefault();
+
+
+});
+
+
+function ApproveByEhsVerifierMethod() {
+	var vpid = $("#vpid").val();
+
+	var remark_ehsVerification = $("#approve_comment_ehs").val();
+	if (remark_ehsVerification == '') {
+		Toast.fire({
+			title: 'Remarks is mandatory'
+		})
+		return false;
+	}
+
+	var json = {
+		"vendorPid": vpid,
+		"comments": $("#approve_comment_ehs").val(),
+		"uploadFile": vendorMisDoc
+	}
+
+	$.ajax({
+		type: "Put",
+		data: JSON.stringify(json),
+		url: "CommercialHeadController/approveByEhsVerifier",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		async: false,
+		success: function(data) {
+			//	$('.loader').hide();
+			$('#userModalV').modal('hide');
+
+			if (data.msg == 'success') {
+				Toast.fire({
+					type: 'success',
+					title: 'Approve Successfully..'
+				})
+				window.location.href = "ehsVerification";
+
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			alert("failed, please try again");
+		}
+
+	});
+}
+
+
+$('#approve_ehsVerifier_manager').click(function() {
+	$('#userModalManager').modal('show');
+
+});
+$('#approveSubmitBtnManager').click(function(event) {
+	$('#userModalManager').modal('show');
+	approveBySeniorManagerForEhsVerification();
+	event.preventDefault();
+
+
+});
+$('#approveSubmitCloseBtnManager').click(function(event) {
+	$('#userModalManager').modal('hide');
+	event.preventDefault();
+
+
+});
+
+
+function approveBySeniorManagerForEhsVerification() {
+	var vpid = $("#vpid").val();
+
+	var remark_ehsVerificationManager = $("#approve_comment_ehs_manager").val();
+	if (remark_ehsVerificationManager == '') {
+		Toast.fire({
+			title: 'Remarks is mandatory'
+		})
+		return false;
+	}
+
+	var json = {
+		"vendorPid": vpid,
+		"comments": $("#approve_comment_ehs_manager").val(),
+		"uploadFile": vendorMisDoc
+	}
+
+	$.ajax({
+		type: "Put",
+		data: JSON.stringify(json),
+		url: "CommercialHeadController/approveBySeniorManagerForEhsVerification",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		async: false,
+		success: function(data) {
+			//	$('.loader').hide();
+			$('#userModalManager').modal('hide');
+
+			if (data.msg == 'success') {
+				Toast.fire({
+					type: 'success',
+					title: 'Approve Successfully..'
+				})
+				window.location.href = "ehsVerification";
+
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			alert("failed, please try again");
+		}
+
+	});
+}
+
+
+
+$('#reject_ehsVerifier').click(function() {
+
+	$('#userModalH').modal('show');
+
+});
+
+$('#rejectSubmitBtnH').click(function(event) {
+	RejectByEhsVerifier();
+	event.preventDefault();
+});
+
+$('#rejectSubmitCloseBtnH').click(function(event) {
+	$('#userModalH').modal('hide');
+	event.preventDefault();
+
+});
+
+
+function RejectByEhsVerifier() {
+	var vpid = $("#vpid").val();
+
+	var remark_ehs = $("#reject_comment_ehs").val();
+	if (remark_ehs == '') {
+		Toast.fire({
+			title: 'Remarks is mandatory'
+		})
+		return false;
+	}
+
+
+	var json = {
+		"vendorPid": vpid,
+		"comments": $("#reject_comment_ehs").val()
+	}
+
+	$.ajax({
+		type: "Put",
+		data: JSON.stringify(json),
+		url: "CommercialHeadController/rejectByEhsVerifier",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		async: false,
+		success: function(data) {
+			$('#userModalH').modal('hide');
+
+			if (data.msg == 'success') {
+				Toast.fire({
+					type: 'success',
+					title: 'Rejected Successfully..'
+				})
+
+				window.location.href = "ehsVerification";
+
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			alert("failed, please try again");
+		}
+
+	});
+
+}
+
+
+$('#reject_ehsVerifier_manager').click(function() {
+
+	$('#userModalManagerReject').modal('show');
+
+});
+
+$('#rejectBtnManager').click(function(event) {
+	RejectByEhsManager();
+	event.preventDefault();
+});
+
+$('#rejectCloseBtnManager').click(function(event) {
+	$('#userModalManagerReject').modal('hide');
+	event.preventDefault();
+
+});
+
+
+function RejectByEhsManager() {
+	var vpid = $("#vpid").val();
+
+	var remark_ehs = $("#reject_comment_ehs_manager").val();
+	if (remark_ehs == '') {
+		Toast.fire({
+			title: 'Remarks is mandatory'
+		})
+		return false;
+	}
+
+
+	var json = {
+		"vendorPid": vpid,
+		"comments": $("#reject_comment_ehs_manager").val()
+	}
+
+	$.ajax({
+		type: "Put",
+		data: JSON.stringify(json),
+		url: "CommercialHeadController/rejectByEhsManager",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		async: false,
+		success: function(data) {
+			$('#userModalManagerReject').modal('hide');
+
+			if (data.msg == 'success') {
+				Toast.fire({
+					type: 'success',
+					title: 'Rejected Successfully..'
+				})
+
+				window.location.href = "ehsVerification";
+
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			alert("failed, please try again");
+		}
+
+	});
+
+}
+
+
+
+
 $(document).ready(function() {
 	$("#accoutNumber").change(function() {
 		var accoutNumber = document.getElementById("accoutNumber").value;
@@ -1344,6 +1932,7 @@ function select() {
 	var element = [...element.options].filter(ele => ele.selected).map(ele => ele.text);
 	var selectedValues = [];
 	$("#states :selected").each(function() {
+
 		selectedValues.push($(this).val());
 	});
 
@@ -1354,6 +1943,7 @@ function select() {
 
 	var val = document.getElementById("states").value
 	if (val == "Network") {
+
 		document.getElementById("partnerType").disabled = false;
 		document.getElementById("partnerType").value = "Scheduled";
 
@@ -1595,6 +2185,9 @@ $input.change(function() {
 $("#panNumber").focusout(function() {
 	checkForExistingPanNumber();
 });
+
+
+
 function checkForExistingPanNumber() {
 	var PanNumberCheckStatus = "false";
 	var panNumber = $("#panNumber").val();
@@ -1633,3 +2226,489 @@ function checkForExistingPanNumber() {
 	}
 	return PanNumberCheckStatus;
 }
+
+
+$('#viewattachment').on('click', function() {
+	displayAttachment();
+});
+var viewDocumentObj = "";
+var type = "Registration,Invoice";
+function displayAttachment() {
+	var id = $("#vpid").val();
+
+	console.log("id >> " + id);
+
+	var obj = {
+		"foreignKey": id,
+		"type": type
+	}
+
+	$.ajax({
+		type: "POST",
+		url: "searchController/getDocumentById",
+		async: false,
+		data: JSON.stringify(obj),
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		success: function(response) {
+			if (response.msg == "success") {
+
+				if ("data" in response) {
+					var data = response.data;
+					$("#viewAttachmentPopUp").modal('show');
+					viewDocumentObj = data;
+					$("#documentType").empty();
+
+					var option = "";
+					//	var docName = "";
+					option += " <option value=> Select </option>"
+					for (var i = 0; i < data.length; i++) {
+						option += " <option value='" + data[i].type + "'>" + data[i].type + "</option>"
+					}
+
+					$("#documentType").append(option);
+				} else {
+					Toast.fire({
+						type: 'error',
+						title: 'Attachment Not Available..'
+					})
+				}
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed Added..'
+				})
+			}
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			Toast.fire({
+				type: 'error',
+				title: 'Failed Added try again..'
+			})
+
+		}
+	});
+}
+
+
+
+$('#multipleAttachment').change(function() {
+
+	var fileName = $("#multipleAttachment option:selected").text();
+
+	console.log("fileName from drop down >> " + fileName);
+	var filePath = $("#multipleAttachment").val();
+
+	fileName = encodeURIComponent(fileName);
+	filePath = encodeURIComponent(filePath);
+	var urlpath = "getDoc" + "?name=" + fileName + "&path=" + filePath;
+	console.log(urlpath);
+	$('#pdfLink').attr('src', urlpath);
+	$('#ifrmameHref').attr('href', urlpath);
+
+});
+
+$('#documentType').change(function() {
+	var id = $("#vpid").val();
+
+	var obj = {
+		"foreignKey": id,
+		"type": type
+	}
+	$.ajax({
+		type: "POST",
+		url: "searchController/getDocumentTypeById",
+		async: false,
+		data: JSON.stringify(obj),
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		success: function(response) {
+			if (response.msg == "success") {
+
+				var data = response.data;
+				console.log(data);
+
+				$("#multipleAttachment").empty();
+				$('#multipleAttachment').prepend($('<option/>').attr("value", "topOptionValue").text("Select"));
+				for (var i = 0; i < data.length; i++) {
+
+					$('#multipleAttachment').append($('<option/>').attr("value", data[i].docPath).text(data[i].docName));
+				}
+
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed Added..'
+				})
+			}
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			Toast.fire({
+				type: 'error',
+				title: 'Failed Added try again..'
+			})
+
+		}
+	});
+
+})
+
+
+/*$('#documentType').change(function() {
+	$("#multipleAttachment").empty();
+	for (var i = 0; i < viewDocumentObj.length; i++) {
+
+		$('#multipleAttachment').append($('<option/>').attr("value", viewDocumentObj[i].docPath).text(viewDocumentObj[i].docName));
+	}
+
+});*/
+
+
+// for Document upload for thirparty verifier
+
+var arrayAttachment = [];
+var vendorMisDoc = [];
+
+function handleFileSelect2(evt, spanId) {
+
+	console.log(spanId);
+	var f = evt.target.files[0]; // FileList object
+	var reader = new FileReader();
+	// Closure to capture the file information.
+	reader.onload = (function(theFile) {
+		return function(e) {
+			var binaryData = e.target.result;
+			//Converting Binary Data to base 64
+			var base64String = window.btoa(binaryData);
+
+
+			var showfiles = "";
+			var fileName = f.name;
+			var extension = fileName.substring(fileName.lastIndexOf("."), fileName.length);
+			/*if(!acceptedFileExtension.includes(extension.toUpperCase())){
+			alert("File Not Allowed");
+			evt.target.value='';
+			return;
+		}*/
+			fileName = fileName.substring(0, fileName.lastIndexOf("."));
+			//fileName = replaceAllSpecialCharacter(fileName);					
+			fileName = fileName + extension;
+
+			var obj = {
+				"fileNameList": fileName,
+				"base64List": base64String
+			}
+			vendorMisDoc.push(obj);
+			showUploadedFilesData();
+
+		};
+	})(f);
+	// Read in the image file as a data URL.
+	reader.readAsBinaryString(f);
+}
+
+function deleteData(id, spanId) {
+
+	vendorMisDoc.splice(id, 1);
+	showUploadedFilesData();
+
+}
+
+function showUploadedFilesData() {
+
+	var showfiles = "";
+	var spanId = "showUploadFilesTata";
+	for (var i = 0; i < vendorMisDoc.length; i++) {
+
+		var inactive = "<button type=\"button\"  class=\"btn btn-xs inactiveClassDel2\" value=\"" + i + ";'" + spanId + "'\"  ><buton class=\"DeleteFileBtn text-danger\">Delete </button> </button>";
+		showfiles += vendorMisDoc[i].fileNameList + "&nbsp;&nbsp;&nbsp;&nbsp;" + inactive + "<br>";
+	}
+
+	$("#" + spanId).html(showfiles);
+}
+
+
+$("#vendorMiscellanousDoc").bind("change", function(event) {
+	handleFileSelect2(event, 'showUploadFilesTata');
+
+});
+
+//________________________________________________________________________________      
+
+
+
+var id = "";
+var bpCode = "";
+
+editData()
+function editData() {
+
+	var json = {
+
+		"pid": $("#vpid").val()
+	}
+
+	$.ajax({
+		type: "POST",
+		data: JSON.stringify(json),
+		url: "registrationController/updateVendorRegistrationStatus",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		async: false,
+		success: function(data) {
+
+			if (data.msg == 'success') {
+				var result = data.data;
+				id = result.id;
+				var myForm = "";
+				myForm = document.getElementById("stepOneForm");
+				//				setData(myForm, result);
+
+				var vendorType = result.vendorType;
+
+				var str = vendorType.split(",");
+
+
+				for (var i = 0; i < str.length; i++) {
+
+
+					if (str[i] == 'Network' && str[i + 1] == 'Fixed Asset' && str[i + 2] == 'Other') {
+						$('#states').val(["Network", "Fixed Asset", "Other"]).change()
+
+						break;
+
+					} else if (str[i] == 'Network' && str[i + 1] == 'Fixed Asset') {
+						$('#states').val(["Network", "Fixed Asset"]).change().css("color", "blue");
+						break;
+					} else if (str[i] == 'Fixed Asset' && str[i + 1] == 'Other') {
+						$('#states').val(["Fixed Asset", "Other"]).change()
+						break;
+					} else if (str[i] == 'RENT') {
+						$('#states').val(["Network", "Other"]).change()
+						break;
+					} else if (str[i] == 'Network') {
+
+						$('#states').val('Network').submit().trigger('change');
+						break;
+					} else if (str[i] == 'FIXED ASSETS') {
+
+						$('#states').val('FIXED ASSETS').submit().trigger('change');
+						break;
+					} else if (str[i] == 'OTHER EXPENSES') {
+						$('#states').val('Other').trigger('change');
+						break;
+					} else if (str[i] == 'EMPLOYEE NOMINEE') {
+						$('#states').val('Other').trigger('change');
+						break;
+					} else if (str[i] == 'COURIER') {
+						$('#states').val('Other').trigger('change');
+						break;
+					}
+
+				}
+
+
+				select();
+				var ero = result.ero;
+				var wro = result.wro;
+				var nro = result.nro;
+				var sro = result.sro;
+				var ihq = result.ihq;
+
+				var selectedRegions = [];
+				if (ero == 'Y') {
+					selectedRegions.push('ERO')
+					//$('#region').val('ERO').trigger('change');
+					//break;
+				}
+
+				if (wro == 'Y') {
+					selectedRegions.push('WRO')
+					//$('#region').val('WRO').trigger('change');
+					//break;
+				} if (nro == 'Y') {
+					selectedRegions.push('NRO')
+					//$('#region').val('NRO').trigger('change');
+					//break;
+				} if (sro == 'Y') {
+					selectedRegions.push('SRO1')
+					//$('#region').val('SRO1').trigger('change');
+					//break;
+				} if (ihq == 'Y') {
+					selectedRegions.push('IHQ')
+					//$('#region').val('IHQ').trigger('change');
+					//break;
+				}
+
+				// Set the selected values in the multiselect
+				//	$('#region').val(selectedRegions).trigger('change');
+
+				var addressPurchasingFlag = result.addressPurchasingFlag;
+				var addressPaymentFlag = result.addressPaymentFlag;
+				var invoicePrevalidatedFlag = result.invoicePrevalidatedFlag;
+				if (addressPurchasingFlag == 'Y') {
+					$('#flag').val('ADDRESS_PURCHASING').trigger('change');
+					//break;
+				} if (addressPaymentFlag == 'Y') {
+					$('#flag').val('ADDRESS_PAYMENT').trigger('change');
+					//break;
+				} if (invoicePrevalidatedFlag == 'Y') {
+					$('#flag').val('INVOICE_PREVALIDATED').trigger('change');
+					//break;
+				}
+
+				$('#acknowledgementNumber1').val(result.acknowledgementNumber1);
+				$('#acknowledgementNumber2').val(result.acknowledgementNumber2);
+				$('#acknowledgementNumber3').val(result.acknowledgementNumber3);
+
+				$('#fyYear1').val(result.fyYear1);
+				$('#fyYear2').val(result.fyYear2);
+				$('#fyYear3').val(result.fyYear3);
+
+
+				// if(result.partnerType!="Ad-Hoc"){
+
+
+				// tabledata.clear();
+				$("#addBookGridTbody").html("");
+				var addressDetails = result.addressDetails;
+				var contactDetails = result.contactDetails;
+				var j = result.addressDetails.length;
+				var k = result.contactDetails.length;
+				var l = 0;
+				if (j > k) {
+					l = j;
+				} else if (k > j) {
+					l = k;
+				} else if (j === k) {
+					l = j;
+				}
+				for (var m = 0; m < l; m++) {
+					if (m < j) {
+						$("#addBookGrid").append(' <tr class=""><td>' +
+							result.addressDetails[m].addCountry + '</td><td>' +
+							result.addressDetails[m].state + '</td><td>' +
+							result.addressDetails[m].city + '</td><td>' +
+							result.addressDetails[m].pinCode + '</td><td>' +
+							result.addressDetails[m].vendorType + '</td><td>' +
+							result.addressDetails[m].partnerType + '</td><td>' +
+							result.addressDetails[m].compGstn + '</td><td>' +
+							result.addressDetails[m].addDetails + '</td> <td>' +
+							result.contactDetails[m].conFname + '</td><td>' +
+							result.contactDetails[m].conLname + '</td><td>' +
+							result.contactDetails[m].conPhone + '</td><td>' +
+							result.contactDetails[m].conEmail + '</td><td></td>');
+
+					} else {
+						$("#addBookGrid").append(' <tr class=""><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td> <a href="#" class="removeAddress btn btn-danger btn-sm" value="abc">Remove</a></td></tr>');
+
+
+					}
+
+					/*if (m < k) {
+						$("#addBookGrid").append('<tr class=""><td>' +
+							result.contactDetails[m].conFname + '</td><td>' +
+							result.contactDetails[m].conLname + '</td><td>' +
+							result.contactDetails[m].conPhone + '</td><td>' +
+							result.contactDetails[m].conEmail + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td>');
+
+					} else {
+						$("#addBookGrid").append('<tr class=""><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+					}*/
+
+				}
+
+				/*for (var i = 0; i < result.addressDetails.length; i++) {
+
+					$("#addBookGrid").append(' <tr class=""><td>' +
+						result.addressDetails[i].addCountry + '</td><td>' +
+						result.addressDetails[i].state + '</td><td>' +
+						result.addressDetails[i].city + '</td><td>' +
+						result.addressDetails[i].pinCode + '</td><td>' +
+						result.addressDetails[i].vendorType + '</td><td>' +
+						result.addressDetails[i].compGstn + '</td><td>' +
+						result.addressDetails[i].addDetails + '</td><td> <a href="#" class="removeAddress btn btn-danger btn-sm" value="abc">Remove</a></td></tr>');
+				}
+				for (var i = 0; i < result.contactDetails.length; i++) {
+
+					$("#addBookGrid").append('<tr class=""><td>' +
+						result.contactDetails[i].conFname + '</td><td>' +
+						result.contactDetails[i].conLname + '</td><td>' +
+						result.contactDetails[i].conPhone + '</td><td>' +
+						result.contactDetails[i].conEmail + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+
+				}*/
+
+				/*	$("#addBankGridTbody").html("");
+					for (var i = 0; i < result.accountDetails.length; i++) {
+						$("#addBankGridTbody").append('<tr class=""><td>' +
+							result.accountDetails[i].bankName + '</td><td>' +
+							result.accountDetails[i].beneficiaryName + '</td><td>' +
+							result.accountDetails[i].ifscCode + '</td><td>' +
+							result.accountDetails[i].accoutCurrency + '</td><td>' +
+							result.accountDetails[i].accoutNumber + '</td><td>' + '</td><td>  <a href="#" class="removeBank btn btn-danger btn-sm" value="dgg">Remove</a></td></tr>');
+	
+	
+					}
+	*/
+				/*  for (var i = 0; i < result.itrDetails.length; i++) {
+				 $("#addITRGrid").append('<tr class=""><td>' +
+						 result.itrDetails[i].fyYear + '</td><td>' +
+
+						 result.itrDetails[i].acknowledgementNumber + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+
+				 
+			    
+				 }
+				 */
+
+
+
+				myForm = document.getElementById("stepSixForm");
+				//				setData(myForm, result);
+
+
+				myForm = document.getElementById("stepSevenForm");
+				//				setData(myForm, result);
+
+				//  } 
+
+				// $("#id").val(result.id);
+				//				$("#userModal").modal('show');
+
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			alert("failed, please try again");
+		}
+
+	});
+
+}
+
+

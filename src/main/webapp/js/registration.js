@@ -1,6 +1,7 @@
 var csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
 
 
+
 $("#GSTFile").bind("change", function() {
 	removeValCssByID(this), handleFileSelect(event, 'GSTFileText', 'GSTFile'), onValidateFile(event, 'GSTFile');
 });
@@ -129,9 +130,22 @@ $("#tdsApplication").bind("change", function() {
 	changetextbox();
 });
 
-$("#tdsRate").bind("keypress", function() {
-	return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46;
-})
+
+
+$("#tdsRate").bind("change", function() {
+	debugger
+	const regex = /^(?:\d{1,2}(?:\.\d{1,2})?|twovalw)$/;
+
+	var input = $("#tdsRate").val();
+
+	if (regex.test(input)) {
+	} else {
+		alert("Input is not valid.");
+		input = "";
+		$("#tdsRate").val(input)
+	}
+});
+
 
 $("#city").bind("input", function() {
 	this.value = this.value.replace(/[^0-9a-zA-Z\s]/ig, '').replace(/\s{2,}/g, ' ');
@@ -161,6 +175,15 @@ function addValCss(controlName) {
 		});
 	}
 }
+$(document).ready(function() {
+	var paymentMethod = $("#paymentMethod2").val();
+	if (paymentMethod == "NEFT") {
+		$("#bankDetails").val().display("block");
+
+		/*  $("#bankDetails").css("display", "block");*/
+
+	}
+});
 
 function removeValCss(controlName) {
 	$('#' + controlName).css({
@@ -198,6 +221,7 @@ function notifyTooltip(controlName, tooltipMessage, tooltipPlacement) {
 				swal.fire("Alert", "Business Partner Name is mandatory", "warning")
 					.then((value) => { });
 			}
+
 			else if (controlName == "businessClassification") {
 
 				swal.fire("Alert", "Business Classification is mandatory", "warning")
@@ -285,10 +309,10 @@ $(document).ready(function() {
 				$('<button disabled="true" id="finishButton"></button>').text('Finish')
 					.addClass('btn btn-success btnfinish')
 					.on('click', function() {
-
-						var pid = $("#pid").val();
-						if (pid == "") {
-							var mandFields = "ITRFile,MSMECFile";
+						debugger
+						var pid = $("#vPid").val();
+						if (pid != "") {
+							/*var mandFields = "ITRFile,MSMECFile";
 							var mandFieldsArr = mandFields.split(",");
 
 							for (i = 0; i < mandFieldsArr.length; i++) {
@@ -296,7 +320,27 @@ $(document).ready(function() {
 									notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
 									return false;
 								}
+							}*/
+
+
+							var mandFields = "ITRFile,MSMECFile";
+							var mandFieldsArr = mandFields.split(",");
+							var status = document.getElementById("venStatus").value;
+
+							for (i = 0; i < mandFieldsArr.length; i++) {
+								if (status !== 'pending at vendor upon raise query') {
+									var mandFields = "ITRFile,MSMECFile";
+									var mandFieldsArr = mandFields.split(",");
+
+									for (i = 0; i < mandFieldsArr.length; i++) {
+										if (document.getElementById(mandFieldsArr[i]).value == '') {
+											notifyTooltip(mandFieldsArr[i], "mandatory Field", "top")
+											return false;
+										}
+									}
+								}
 							}
+
 
 							var table = document.getElementById('addBankGrid');
 							var rowLength = table.rows.length;
@@ -325,6 +369,11 @@ $(document).ready(function() {
 
 								}
 
+
+								//------------modified
+
+
+								debugger
 								var paymentMethod = $("#paymentMethod").val();
 
 								if (paymentMethod == "NEFT") {
@@ -369,7 +418,7 @@ $(document).ready(function() {
 
 
 	$("#smartwizard").on("leaveStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
-
+		debugger
 		var chedlka = $("#smartwizard").smartWizard("currentStep");
 		var pid = $("#pid").val();
 
@@ -385,6 +434,7 @@ $(document).ready(function() {
 
 
 
+
 function showHideRequiredClass() {
 	if ($("#businessClassification").val() == "Other Enterprise") {
 		$(".msmeClass").css("visibility", "hidden");
@@ -394,11 +444,13 @@ function showHideRequiredClass() {
 	}
 }
 
-function checkMand(stepNo, stepDirection) {
+function checkMand(stepNo, stepDirection, venStatus) {
 
 	if (stepDirection == "backward") {
 		return true;
 	}
+
+
 
 	if (stepNo == 0) {
 		var mandFields = "introducedByName,introducedByEmailID,suppName,businessClassification";
@@ -429,6 +481,7 @@ function checkMand(stepNo, stepDirection) {
 			}
 		}
 	} else if (stepNo == 1) {
+
 		var addBookGridCount = $("#addBookGrid tr").length;
 		var contactDetailsGrid = $("#contactDetailsGrid tr").length;
 		if (addBookGridCount == 1) {
@@ -806,6 +859,7 @@ var region11 = $("#region1").val();
 var creditTerms1 = $("#creditTerms1").val();
 var processByEmailId = $("#processByEmailId").val();
 var processBy = $("#processBy").val();
+
 if (vendorEmail != "") {
 
 	setVendorData(vendorEmail, vendorType1, region11, creditTerms1, processBy, processByEmailId);
@@ -864,11 +918,30 @@ $(document).ready(function() {
 	});
 });
 
+$(document).on("click", ".us", function() {
+	debugger
+	var rowIndex = $(this).closest("tr").index();
+	vendorTypeForAddAddANdRemove.splice(rowIndex - 2, 1);
+	if (vendorTypeForAddAddANdRemove == "EMPLOYEE NOMINEE") {
+		$(".notRequreDocument").css("visibility", "hidden");
+	} else {
+		$(".notRequreDocument").css("visibility", "visible");
+	}
+	$(this).closest("tr").remove();
+});
+
+var vendorTypeForAddAddANdRemove = [];
 $("#addBookGridButt").click(function() {
+	debugger
 	var abc = document.getElementById('city').value;
 	var abc2 = document.getElementById('pinCode').value;
 	var abc3 = document.getElementById('addDetails').value;
 	var abc4 = document.getElementById('states').value;
+
+	var abc5 = document.getElementById('conFname').value;
+	var abc6 = document.getElementById('conLname').value;
+	var abc7 = document.getElementById('conPhone').value;
+	var abc8 = document.getElementById('conEmail').value;
 
 	if (abc == null || abc == "") {
 		swal.fire("Alert", "District is mandatory", "warning");
@@ -882,7 +955,21 @@ $("#addBookGridButt").click(function() {
 	} else if (abc3 == null || abc3 == "") {
 		swal.fire("Alert", "Address is mandatory", "warning");
 		return false;
-	} else {
+	} else if (abc5 == null || abc5 == "") {
+		swal.fire("Alert", "First Name is mandatory", "warning");
+		return false;
+	} else if (abc6 == null || abc6 == "") {
+		swal.fire("Alert", "Last Name is mandatory", "warning");
+		return false;
+	} else if (abc7 == null || abc7 == "") {
+		swal.fire("Alert", "Phone Number is mandatory", "warning");
+		return false;
+	} else if (abc8 == null || abc8 == "") {
+		swal.fire("Alert", "Email Id is mandatory", "warning");
+		return false;
+	}
+	else {
+
 
 		$("#addBookGrid").append(' <tr class=""><td>' +
 			document.getElementById('addCountry').value + '</td><td>' +
@@ -892,20 +979,50 @@ $("#addBookGridButt").click(function() {
 			document.getElementById('states').value + '</td><td>' +
 			document.getElementById('partnerType').value + '</td><td>' +
 			document.getElementById('compGstn').value + '</td><td>' +
-			document.getElementById('addDetails').value + '</td><td> <a href="#" class="removeAddress btn btn-danger btn-sm" value="zxc">Remove</a></td></tr>');
+			document.getElementById('addDetails').value + '</td><td>' +
+			document.getElementById('conFname').value + '</td><td>' +
+			document.getElementById('conLname').value + '</td><td>' +
+			document.getElementById('conPhone').value + '</td><td>' +
+			document.getElementById('conEmail').value + '</td><td> <a href="#" class="us btn btn-danger btn-sm" value="12">Remove</a></td></tr>');
 
 		document.getElementById('city').value = "";
 		document.getElementById('pinCode').value = "";
 		document.getElementById('states').value = "";
 		$("#states").val('').trigger('change');
+
+		document.getElementById('partnerType').value = "";
 		document.getElementById('addDetails').value = "";
 		document.getElementById('compGstn').value = "";
 		$("#addDetails").prop('readonly', false);
+		document.getElementById('conFname').value = "";
+		document.getElementById('conLname').value = "";
+		document.getElementById('conPhone').value = "";
+		document.getElementById('conEmail').value = "";
+		$("#conEmail").prop('readonly', false);
+	}
+
+	vendorTypeForAddAddANdRemove.push(abc4);
+	if (vendorTypeForAddAddANdRemove == "EMPLOYEE NOMINEE") {
+		$(".notRequreDocument").css("visibility", "hidden");
+	} else {
+		$(".notRequreDocument").css("visibility", "visible");
 	}
 
 });
 
+
+
+
+
 $(document).on("click", ".removeAddress", function() {
+
+	var rowIndex = $(this).closest("tr").index();
+	vendorTypeForAddAddANdRemove.splice(rowIndex - 2, 1);
+	if (vendorTypeForAddAddANdRemove == "EMPLOYEE NOMINEE") {
+		$(".notRequreDocument").css("visibility", "hidden");
+	} else {
+		$(".notRequreDocument").css("visibility", "visible");
+	}
 	$(this).closest("tr").remove();
 });
 
@@ -945,8 +1062,19 @@ $("#contactDetailsButt").click(function() {
 });
 
 $(document).on("click", ".removeContact", function() {
+
 	$(this).closest("tr").remove();
 });
+
+$('#confirmedAccoutNumber').bind("cut copy paste", function(e) {
+	e.preventDefault();
+});
+
+
+$('#accoutNumber').bind("cut copy paste", function(e) {
+	e.preventDefault();
+});
+
 
 $("#addBankGridButt").click(function() {
 	var abc = document.getElementById('bankName').value;
@@ -976,7 +1104,7 @@ $("#addBankGridButt").click(function() {
 			document.getElementById('beneficiaryName').value + '</td><td>' +
 			document.getElementById('ifscCode').value + '</td><td>' +
 			document.getElementById('accoutCurrency').value + '</td><td>' +
-			document.getElementById('accoutNumber').value + '</td><td>' + '</td><td>  <a href="#" class="removeBank btn btn-danger btn-sm" value="jkj">Remove</a></td></tr>');
+			document.getElementById('accoutNumber').value +  '</td><td>  <a href="#" class="removeBank btn btn-danger btn-sm" value="jkj">Remove</a></td></tr>');
 
 		document.getElementById('bankName').value = "";
 		document.getElementById('beneficiaryName').value = "";
@@ -996,6 +1124,12 @@ $("#addBankGridButt").click(function() {
 	}
 });
 
+
+$('#tdsRate').on('input', function(event) {
+	$(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^(\d*\.\d{0,2}).*$/, '$1'));
+});
+
+
 $(document).on("click", ".removeBank", function() {
 	$(this).closest("tr").remove();
 });
@@ -1011,12 +1145,22 @@ $(document).on({
 	}
 });
 
+$(document).ready(function() {
+	debugger
+	var commercailFlag = $("#commercialFlag").val();
+	console.log("commercailFlag" + commercailFlag)
+
+});
+
+
+var vPid = $("#vPid").val();
 function sendToServer() {
 
 	var addressDetailsArray = [];
 	var table = document.getElementById('addBookGrid');
 	var rowLength = table.rows.length;
 	var vendorType = [];
+	debugger
 	for (var i = 1; i < rowLength; i += 1) {
 		var row = table.rows[i];
 		var objs = {
@@ -1054,35 +1198,36 @@ function sendToServer() {
 	}
 
 	var contactDetailsArray = [];
-	table = document.getElementById('contactDetailsGrid');
+	table = document.getElementById('addBookGrid');
 	rowLength = table.rows.length;
 
 	for (var i = 1; i < rowLength; i += 1) {
 		var row = table.rows[i];
 
 		var pushContactObj = {
-			"conFname": row.cells[0].innerHTML,
-			"conLname": row.cells[1].innerHTML,
-			"conPhone": row.cells[2].innerHTML,
-			"conEmail": row.cells[3].innerHTML
+			"conFname": row.cells[8].innerHTML,
+			"conLname": row.cells[9].innerHTML,
+			"conPhone": row.cells[10].innerHTML,
+			"conEmail": row.cells[11].innerHTML
 		}
 		contactDetailsArray.push(pushContactObj);
 	}
 
-	$body.addClass("loading");
+	//	$body.addClass("loading");
 
 	var step1Obj = FormDataToJSON('stepOneForm');
 	var step6Obj = FormDataToJSON('stepSixForm');
 	var step7Obj = FormDataToJSON('stepSevenForm');
 	const finalObj = {
-		...step1Obj,
-		...step6Obj,
-		...step7Obj
+		step1Obj,
+		step6Obj,
+		step7Obj
 
 	};
 	finalObj.accountDetails = accountDetailsArray;
 	finalObj.addressDetails = addressDetailsArray;
 	finalObj.contactDetails = contactDetailsArray;
+
 	if (document.getElementById("GSTFile").files.length > 0) {
 		finalObj.gstFileName = document.getElementById("GSTFile").files.item(0).name;
 		finalObj.gstFileText = $("#GSTFileText").val();
@@ -1150,8 +1295,9 @@ function sendToServer() {
 	var values = document.getElementById("roleId").value;
 	finalObj.vendorType = values;
 
+	finalObj.commercialFlag = $("#commercialFlag").val();
 	finalObj.id = $("#vendorPrimaryKey").val();
-	finalObj.pid = $("#vendorPid").val();
+	finalObj.pid = vPid;
 
 	var value = [];
 	$("#region :selected").each(function() {
@@ -1182,19 +1328,50 @@ function sendToServer() {
 	finalObj.fyYear2 = fyYear2;
 	finalObj.fyYear3 = fyYear3;
 
-	finalObj.flag="Inactive";
+	finalObj.flag = "Inactive";
 
 	finalObj.acknowledgementNumber1 = acknowledgementNumber1;
 	finalObj.acknowledgementNumber2 = acknowledgementNumber2;
 	finalObj.acknowledgementNumber3 = acknowledgementNumber3;
-
+	debugger
 	finalObj.vendorType = vendorTypeString;
 
 	finalObj.creditTerms = $("#creditTerms").val();
+	finalObj.businessClassification = $("#businessClassification").val();
+	finalObj.tdsApplication = $("#tdsApplication").val();
+	finalObj.tdsSection = $("#tdsSection").val();
+	finalObj.tdsRate = $("#tdsRate").val();
+	finalObj.aadharNumber = $("#aadharNumber").val();
+	finalObj.paymentMethod = $("#paymentMethod").val();
+	finalObj.adharLinkStatus = $("#adharLinkStatus").val();
+	finalObj.enInvApplicable = $("#enInvApplicable").val();
+	finalObj.sectionType = $("#sectionType").val();
+	finalObj.panNumber = $("#panNumber").val();
+	finalObj.tanNumber = $("#tanNumber").val();
+	//	finalObj.enInvApplicable = $("#enInvApplicable").val();
+	finalObj.dateBasis = $("#dateBasis").val();
+	finalObj.deliveryTerms = $("#deliveryTerms").val();
+	finalObj.invoiceCurrency = $("#invoiceCurrency").val();
+	finalObj.paymentCurrency = $("#paymentCurrency").val();
+	finalObj.suppName = $("#suppName").val();
+	finalObj.mesmeNumber = $("#mesmeNumber").val();
+	finalObj.referralEmailId = $("#referralEmailId").val();
+	finalObj.introducedByEmailID = $("#introducedByEmailID").val();
+	finalObj.fyYear1 = $("#fyYear1").val();
+	finalObj.acknowledgementNumber1 = $("#acknowledgementNumber1").val();
+	finalObj.fyYear2 = $("#fyYear2").val();
+	finalObj.acknowledgementNumber2 = $("#acknowledgementNumber2").val();
+	finalObj.fyYear3 = $("#fyYear3").val();
+	finalObj.acknowledgementNumber3 = $("#acknowledgementNumber3").val();
+	finalObj.introducedByName = $("#introducedByName").val();
+	finalObj.pid = $("#vPid").val();
+
+
+
 
 	console.log(finalObj);
 
-
+	debugger;
 	$('.loader').show();
 
 	$.ajax({
@@ -1207,13 +1384,19 @@ function sendToServer() {
 		success: function(response) {
 			$('.loader').hide();
 			if (response.msg == 'success') {
-				swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + response.data, "success", "OK").then((value) => {
-					window.location = "https://ecomexpress.in/";
+
+				swal.fire("Vendor onboarding request sucessfully register", "Process ID : " + $("#vPid").val(), "success", "OK").then((value) => {
 				});
 
-				setTimeout(function(response) {
-					location.href = "https://ecomexpress.in/";
-				}, 30000);
+				//location.href = "https://ecomexpress.in/";
+
+				setTimeout(() => {
+					window.close();
+					window.open("https://ecomexpress.in/", "_blank")
+				}, 2000)
+
+
+
 			} else {
 				alert("failed");
 			}
@@ -1227,6 +1410,8 @@ function sendToServer() {
 		}
 	});
 }
+
+
 
 
 function handleFileSelect(evt, id, hardCodedName) {
@@ -1429,8 +1614,10 @@ function getQueryData() {
 }
 
 function getVendorData() {
+	debugger
+	var vpid = $("#vPid").val();
 	var json = {
-		"pid": pid
+		"pid": vpid
 	}
 	$.ajax({
 		type: "POST",
@@ -1441,18 +1628,23 @@ function getVendorData() {
 		contentType: "application/json",
 		async: false,
 		success: function(data) {
+			debugger
 			if (data.msg == 'success') {
+
+
 				var result = data.data;
 
-
-				$("#vendorPrimaryKey").val(result[0].id);
+				console.log(result);
+				//				$("#vendorPrimaryKey").val(result.id);
+				$("#vendorPrimaryKey").val(result.id);
 				$("#vendorPid").val(pid);
-
-				var myForm = "";
+				$("#introducedByEmailID").val(result.introducedByEmailID);
+				/*var myForm = "";
 				myForm = document.getElementById("stepOneForm");
-				setData(myForm, result[0]);
+				setData(myForm, result);*/
 
-				var vendorType = result[0].vendorType;
+				//				var vendorType = result.vendorType;
+				var vendorType = result.vendorType;
 
 				var str = vendorType.split(",");
 
@@ -1488,40 +1680,113 @@ function getVendorData() {
 				}
 
 				select();
+				debugger
+				if (result.partnerType != "Ad-Hoc") {
 
-				if (result[0].partnerType != "Ad-Hoc") {
-
-					for (var i = 0; i < result[0].addressDetails.length; i++) {
-
-
-						$("#addBookGrid").append(' <tr class=""><td>' +
-							result[0].addressDetails[i].addCountry + '</td><td>' +
-							result[0].addressDetails[i].state + '</td><td>' +
-							result[0].addressDetails[i].city + '</td><td>' +
-							result[0].addressDetails[i].pinCode + '</td><td>' +
-							result[0].addressDetails[i].addDetails + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+					var j = result.addressDetails.length;
+					var k = result.contactDetails.length;
+					var l = 0;
+					if (j > k) {
+						l = j;
+					} else if (k > j) {
+						l = k;
+					} else if (j === k) {
+						l = j;
 					}
-					for (var i = 0; i < result[0].contactDetails.length; i++) {
+					for (var m = 0; m < l; m++) {
+						if (m < j) {
+							$("#addBookGrid").append(' <tr class=""><td>' +
+								result.addressDetails[m].addCountry + '</td><td>' +
+								result.addressDetails[m].state + '</td><td>' +
+								result.addressDetails[m].city + '</td><td>' +
+								result.addressDetails[m].pinCode + '</td><td>' +
+								result.addressDetails[m].vendorType + '</td><td>' +
+								result.addressDetails[m].partnerType + '</td><td>' +
+								result.addressDetails[m].compGstn + '</td><td>' +
+								result.addressDetails[m].addDetails + '</td><td>' +
+								result.contactDetails[m].conFname + '</td><td>' +
+								result.contactDetails[m].conLname + '</td><td>' +
+								result.contactDetails[m].conPhone + '</td><td>' +
+								result.contactDetails[m].conEmail + ' </td><td> <a href="#" class="us btn btn-danger btn-sm" value="12">Remove</a></td></tr>');
+							//'</td><td> <a href="#" class="removeAddress btn btn-danger btn-sm" value="abc">Remove</a></td></tr>');
+
+						} else {
+							$("#addBookGrid").append(' <tr class=""><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td> <a href="#" class="removeAddress btn btn-danger btn-sm" value="abc">Remove</a></td></tr>');
+
+
+						}
+
+						if (m < k) {
+							$("#contactDetailsGrid").append('<tr class=""><td>' +
+								result.contactDetails[m].conFname + '</td><td>' +
+								result.contactDetails[m].conLname + '</td><td>' +
+								result.contactDetails[m].conPhone + '</td><td>' +
+								result.contactDetails[m].conEmail + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+
+						} else {
+							$("#contactDetailsGrid").append('<tr class=""><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td>' +
+								"-" + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+						}
+
+					}
+
+					/*					for (var i = 0; i < result.addressDetails.length; i++) {
+					
+											$("#addBookGrid").append(' <tr class=""><td>' +
+												result.addressDetails[i].addCountry + '</td><td>' +
+												result.addressDetails[i].state + '</td><td>' +
+												result.addressDetails[i].city + '</td><td>' +
+												result.addressDetails[i].pinCode + '</td><td>' +
+												result.addressDetails[i].vendorType + '</td><td>' +
+												result.addressDetails[i].compGstn + '</td><td>' +
+												result.addressDetails[i].addDetails + '</td><td> <a href="#" class="removeAddress btn btn-danger btn-sm" value="abc">Remove</a></td></tr>');
+										}*/
+					for (var i = 0; i < result.contactDetails.length; i++) {
 
 						$("#contactDetailsGrid").append('<tr class=""><td>' +
-							result[0].contactDetails[i].conFname + '</td><td>' +
-							result[0].contactDetails[i].conLname + '</td><td>' +
-							result[0].contactDetails[i].conPhone + '</td><td>' +
-							result[0].contactDetails[i].conEmail + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+							result.contactDetails[i].conFname + '</td><td>' +
+							result.contactDetails[i].conLname + '</td><td>' +
+							result.contactDetails[i].conPhone + '</td><td>' +
+							result.contactDetails[i].conEmail + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
 					}
 
 
-					for (var i = 0; i < result[0].accountDetails.length; i++) {
+					for (var i = 0; i < result.accountDetails.length; i++) {
 						$("#addBankGrid").append('<tr class=""><td>' +
-							result[0].accountDetails[i].bankName + '</td><td>' +
-							result[0].accountDetails[i].ifscCode + '</td><td>' +
-							result[0].accountDetails[i].accoutNumber + '</td><td>' +
-							result[0].accountDetails[i].accoutCurrency + '</td><td>' + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+							result.accountDetails[i].bankName + '</td><td>' +
+							result.accountDetails[i].ifscCode + '</td><td>' +
+							result.accountDetails[i].accoutNumber + '</td><td>' +
+							result.accountDetails[i].accoutCurrency + '</td><td>' + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
 
 
 					}
 
+					/*if(result.itrDetails!=null){
+						for (var i = 0; i < result[0].itrDetails.length; i++) {
+						$("#addITRGrid").append('<tr class=""><td>' +
+							result[0].itrDetails[i].fyYear + '</td><td>' +
+
+							result[0].itrDetails[i].acknowledgementNumber + '</td><td>' +
+							'</td><td>' + '  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+					}
+					}*/
 					for (var i = 0; i < result[0].itrDetails.length; i++) {
 						$("#addITRGrid").append('<tr class=""><td>' +
 							result[0].itrDetails[i].fyYear + '</td><td>' +
@@ -1567,7 +1832,7 @@ function select() {
 
 	document.getElementById("roleId").value = values;
 
-
+	debugger
 	var val = document.getElementById("states").value
 
 	if (val.toLowerCase() == "network") {
@@ -1676,17 +1941,21 @@ function setVendorData(vendorEmail, vendorType1, region11, creditTerms1, process
 }
 
 $("#paymentMethod").bind("change", function() {
+	debugger
 	addBendDetails();
 });
 
 function addBendDetails() {
+
 	var paymentMethod = $("#paymentMethod").val();
 
 	if (paymentMethod == "NEFT") {
+
 		$("#bankDetails").css("display", "block");
 		$(".cancelledChequeMend").css("visibility", "visible");
 
 	} else {
+
 		$("#bankDetailsTable tr").remove();
 		$("#bankDetails").css("display", "none");
 		$(".cancelledChequeMend").css("visibility", "hidden");
@@ -1820,3 +2089,414 @@ $input.change(function() {
 		}
 	}
 });
+
+
+/*
+var id = "";
+var bpCode = "";
+
+editData()
+function editData() {
+	debugger
+	var json = {
+	   
+		"pid": $("#vpid").val()
+	}
+
+	$.ajax({
+		type: "POST",
+		data: JSON.stringify(json),
+		url: "registrationController/updateVendorRegistrationStatus",
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		async: false,
+		success: function(data) {
+
+			if (data.msg == 'success') {
+				var result = data.data;
+				id = result.id;
+				var myForm = "";
+			//	myForm = document.getElementById("stepOneForm");
+				//				setData(myForm, result);
+
+				var vendorType = result.vendorType;
+
+				var str = vendorType.split(",");
+
+
+				for (var i = 0; i < str.length; i++) {
+
+
+					if (str[i] == 'Network' && str[i + 1] == 'Fixed Asset' && str[i + 2] == 'Other') {
+						$('#states').val(["Network", "Fixed Asset", "Other"]).change()
+
+						break;
+
+					} else if (str[i] == 'Network' && str[i + 1] == 'Fixed Asset') {
+						$('#states').val(["Network", "Fixed Asset"]).change().css("color", "blue");
+						break;
+					} else if (str[i] == 'Fixed Asset' && str[i + 1] == 'Other') {
+						$('#states').val(["Fixed Asset", "Other"]).change()
+						break;
+					} else if (str[i] == 'RENT') {
+						$('#states').val(["Network", "Other"]).change()
+						break;
+					} else if (str[i] == 'Network') {
+
+						$('#states').val('Network').submit().trigger('change');
+						break;
+					} else if (str[i] == 'FIXED ASSETS') {
+
+						$('#states').val('FIXED ASSETS').submit().trigger('change');
+						break;
+					} else if (str[i] == 'OTHER EXPENSES') {
+						$('#states').val('Other').trigger('change');
+						break;
+					} else if (str[i] == 'EMPLOYEE NOMINEE') {
+						$('#states').val('Other').trigger('change');
+						break;
+					} else if (str[i] == 'COURIER') {
+						$('#states').val('Other').trigger('change');
+						break;
+					}
+
+				}
+
+
+				select();
+				var ero = result.ero;
+				var wro = result.wro;
+				var nro = result.nro;
+				var sro = result.sro;
+				var ihq = result.ihq;
+
+				var selectedRegions = [];
+				if (ero == 'Y') {
+					selectedRegions.push('ERO')
+					//$('#region').val('ERO').trigger('change');
+					//break;
+				}
+
+				if (wro == 'Y') {
+					selectedRegions.push('WRO')
+					//$('#region').val('WRO').trigger('change');
+					//break;
+				} if (nro == 'Y') {
+					selectedRegions.push('NRO')
+					//$('#region').val('NRO').trigger('change');
+					//break;
+				} if (sro == 'Y') {
+					selectedRegions.push('SRO1')
+					//$('#region').val('SRO1').trigger('change');
+					//break;
+				} if (ihq == 'Y') {
+					selectedRegions.push('IHQ')
+					//$('#region').val('IHQ').trigger('change');
+					//break;
+				}
+
+				// Set the selected values in the multiselect
+			//	$('#region').val(selectedRegions).trigger('change');
+
+				var addressPurchasingFlag = result.addressPurchasingFlag;
+				var addressPaymentFlag = result.addressPaymentFlag;
+				var invoicePrevalidatedFlag = result.invoicePrevalidatedFlag;
+				if (addressPurchasingFlag == 'Y') {
+					$('#flag').val('ADDRESS_PURCHASING').trigger('change');
+					//break;
+				} if (addressPaymentFlag == 'Y') {
+					$('#flag').val('ADDRESS_PAYMENT').trigger('change');
+					//break;
+				} if (invoicePrevalidatedFlag == 'Y') {
+					$('#flag').val('INVOICE_PREVALIDATED').trigger('change');
+					//break;
+				}
+
+				$('#acknowledgementNumber1').val(result.acknowledgementNumber1);
+				$('#acknowledgementNumber2').val(result.acknowledgementNumber2);
+				$('#acknowledgementNumber3').val(result.acknowledgementNumber3);
+
+				$('#fyYear1').val(result.fyYear1);
+				$('#fyYear2').val(result.fyYear2);
+				$('#fyYear3').val(result.fyYear3);
+
+
+				// if(result.partnerType!="Ad-Hoc"){
+
+				debugger;
+				// tabledata.clear();
+				$("#addBookGridTbody").html("");
+				var addressDetails = result.addressDetails;
+				var contactDetails = result.contactDetails;
+				var j = result.addressDetails.length;
+				var k = result.contactDetails.length;
+				var l = 0;
+				if (j > k) {
+					l = j;
+				} else if (k > j) {
+					l = k;
+				} else if (j === k) {
+					l = j;
+				}
+				for (var m = 0; m < l; m++) {
+					if (m < j) {
+						$("#addBookGrid").append(' <tr class=""><td>' +
+							result.addressDetails[m].addCountry + '</td><td>' +
+							result.addressDetails[m].state + '</td><td>' +
+							result.addressDetails[m].city + '</td><td>' +
+							result.addressDetails[m].pinCode + '</td><td>' +
+							result.addressDetails[m].vendorType + '</td><td>' +
+							result.addressDetails[m].partnerType + '</td><td>' +
+							result.addressDetails[m].compGstn + '</td><td>' +
+							result.addressDetails[m].addDetails + '</td> <td>' +
+							result.contactDetails[m].conFname + '</td><td>' +
+							result.contactDetails[m].conLname + '</td><td>' +
+							result.contactDetails[m].conPhone + '</td><td>' +
+							result.contactDetails[m].conEmail + '</td> <td> <a href="#" class="removeAddress btn btn-danger btn-sm" value="abc">Remove</a></td></tr> ');
+
+					} else {
+						$("#addBookGrid").append(' <tr class=""><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td> <a href="#" class="removeAddress btn btn-danger btn-sm" value="abc">Remove</a></td></tr>');
+
+
+					}
+
+					if (m < k) {
+						$("#addBookGrid").append('<tr class=""><td>' +
+							result.contactDetails[m].conFname + '</td><td>' +
+							result.contactDetails[m].conLname + '</td><td>' +
+							result.contactDetails[m].conPhone + '</td><td>' +
+							result.contactDetails[m].conEmail + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td>');
+
+					} else {
+						$("#addBookGrid").append('<tr class=""><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td>' +
+							"-" + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+					}
+
+				}
+
+				for (var i = 0; i < result.addressDetails.length; i++) {
+
+					$("#addBookGrid").append(' <tr class=""><td>' +
+						result.addressDetails[i].addCountry + '</td><td>' +
+						result.addressDetails[i].state + '</td><td>' +
+						result.addressDetails[i].city + '</td><td>' +
+						result.addressDetails[i].pinCode + '</td><td>' +
+						result.addressDetails[i].vendorType + '</td><td>' +
+						result.addressDetails[i].compGstn + '</td><td>' +
+						result.addressDetails[i].addDetails + '</td><td> <a href="#" class="removeAddress btn btn-danger btn-sm" value="abc">Remove</a></td></tr>');
+				}
+				for (var i = 0; i < result.contactDetails.length; i++) {
+
+					$("#addBookGrid").append('<tr class=""><td>' +
+						result.contactDetails[i].conFname + '</td><td>' +
+						result.contactDetails[i].conLname + '</td><td>' +
+						result.contactDetails[i].conPhone + '</td><td>' +
+						result.contactDetails[i].conEmail + '</td><td> <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+
+				}
+
+					$("#addBankGridTbody").html("");
+					for (var i = 0; i < result.accountDetails.length; i++) {
+						$("#addBankGridTbody").append('<tr class=""><td>' +
+							result.accountDetails[i].bankName + '</td><td>' +
+							result.accountDetails[i].beneficiaryName + '</td><td>' +
+							result.accountDetails[i].ifscCode + '</td><td>' +
+							result.accountDetails[i].accoutCurrency + '</td><td>' +
+							result.accountDetails[i].accoutNumber + '</td><td>' + '</td><td>  <a href="#" class="removeBank btn btn-danger btn-sm" value="dgg">Remove</a></td></tr>');
+	
+	
+					}
+	
+				  for (var i = 0; i < result.itrDetails.length; i++) {
+				 $("#addITRGrid").append('<tr class=""><td>' +
+						 result.itrDetails[i].fyYear + '</td><td>' +
+
+						 result.itrDetails[i].acknowledgementNumber + '</td><td>  <a href="#" class="btn btn-danger btn-sm" onClick="$(this).closest(&quot;tr&quot;).remove();">Remove</a></td></tr>');
+
+				 
+			    
+				 }
+				 
+
+
+
+				//myForm = document.getElementById("stepSixForm");
+				//				setData(myForm, result);
+
+
+			//	myForm = document.getElementById("stepSevenForm");
+				//				setData(myForm, result);
+
+				//  } 
+
+				// $("#id").val(result.id);
+				//				$("#userModal").modal('show');
+
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed.. Try Again..'
+				})
+			}
+
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			alert("failed, please try again");
+		}
+
+	});
+
+}
+
+*/
+
+//  For view of Document
+
+
+$('#viewattachment').on('click', function() {
+
+	displayAttachment();
+});
+var viewDocumentObj = "";
+var type = "Registration,Invoice";
+function displayAttachment() {
+	debugger;
+
+	var id = $("#vPid").val();
+
+	console.log("id >> " + id);
+
+	var obj = {
+		"foreignKey": id,
+		"type": type
+	}
+
+	$.ajax({
+		type: "POST",
+		url: "searchController/getDocumentById",
+		async: false,
+		data: JSON.stringify(obj),
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		success: function(response) {
+			if (response.msg == "success") {
+				debugger
+				if ("data" in response) {
+					var data = response.data;
+					$("#viewAttachmentPopUp").modal('show');
+					viewDocumentObj = data;
+					$("#documentType").empty();
+
+					var option = "";
+					//	var docName = "";
+					option += " <option value=> Select </option>"
+					for (var i = 0; i < data.length; i++) {
+						option += " <option value='" + data[i].type + "'>" + data[i].type + "</option>"
+					}
+
+					$("#documentType").append(option);
+				} else {
+					Toast.fire({
+						type: 'error',
+						title: 'Attachment Not Available..'
+					})
+				}
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed Added..'
+				})
+			}
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			Toast.fire({
+				type: 'error',
+				title: 'Failed Added try again..'
+			})
+
+		}
+	});
+}
+
+
+
+$('#multipleAttachment').change(function() {
+
+	var fileName = $("#multipleAttachment option:selected").text();
+
+	console.log("fileName from drop down >> " + fileName);
+	var filePath = $("#multipleAttachment").val();
+
+	fileName = encodeURIComponent(fileName);
+	filePath = encodeURIComponent(filePath);
+	var urlpath = "getDoc" + "?name=" + fileName + "&path=" + filePath;
+	console.log(urlpath);
+	$('#pdfLink').attr('src', urlpath);
+	$('#ifrmameHref').attr('href', urlpath);
+
+});
+
+$('#documentType').change(function() {
+	var id = $("#vPid").val();
+
+	var obj = {
+		"foreignKey": id,
+		"type": type
+	}
+	$.ajax({
+		type: "POST",
+		url: "searchController/getDocumentTypeById",
+		async: false,
+		data: JSON.stringify(obj),
+		dataType: "json",
+		headers: { 'X-XSRF-TOKEN': csrfToken },
+		contentType: "application/json",
+		success: function(response) {
+			if (response.msg == "success") {
+
+				var data = response.data;
+				console.log(data);
+
+				$("#multipleAttachment").empty();
+				$('#multipleAttachment').prepend($('<option/>').attr("value", "topOptionValue").text("Select"));
+				for (var i = 0; i < data.length; i++) {
+
+					$('#multipleAttachment').append($('<option/>').attr("value", data[i].docPath).text(data[i].docName));
+				}
+
+			} else {
+				Toast.fire({
+					type: 'error',
+					title: 'Failed Added..'
+				})
+			}
+		},
+		error: function(jqXHR, textStatue, errorThrown) {
+			Toast.fire({
+				type: 'error',
+				title: 'Failed Added try again..'
+			})
+
+		}
+	});
+
+})
+
+

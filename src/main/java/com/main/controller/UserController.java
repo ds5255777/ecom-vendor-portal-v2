@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,7 +68,8 @@ public class UserController {
 					}
 					userDto.setPassword(password);
 					serviceManager.userRepository.updateUserDetails(password, userDto.getEmailId(),
-							userDto.getContactNo(), userDto.getStatus(), userDto.getId(), userDto.getUsername());
+							userDto.getContactNo(), userDto.getStatus(), userDto.getId(), userDto.getUsername(),
+							userDto.getCommercialHead());
 				}
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			} catch (Exception e) {
@@ -207,7 +209,7 @@ public class UserController {
 		DataContainer data = new DataContainer();
 		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
 		try {
-			User us = serviceManager.userService.findByUsername(principal.getName());
+		User us	= serviceManager.userService.findByUsername(principal.getName());
 			us.setPassword(password);
 			us.setStatus(GlobalConstants.ACTIVE_STATUS);
 			serviceManager.userService.save(us);
@@ -473,5 +475,44 @@ public class UserController {
 
 		return gson.toJson(data);
 	}
+	
+	
+	
+	@GetMapping({ "/getActiveUser" })
+
+	public String getActiveUser(Principal principal) {
+
+		logger.info("Log Some Information getActiveUser  ");
+		
+		/*
+		 * String userName = principal.getName(); String rolename =
+		 * serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		 */
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
+		try {
+
+			List<String> status = new ArrayList<>();
+			status.add(GlobalConstants.ACTIVE_STATUS);
+			status.add(GlobalConstants.CHANGE_PASSWORD_STATUS);
+			
+			List<User> users = serviceManager.userRepository.findByStatusInAndRoleIdOrderByUsername(status, GlobalConstants.ROLE_ID);
+
+			List<UserDTO> collect = users.stream().map(user -> serviceManager.modelMapper.map(user, UserDTO.class))
+			    .collect(Collectors.toList());
+
+			data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+			data.setData(collect);
+		} catch (Exception e) {
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+
+		}
+
+		return gson.toJson(data);
+	}
+	
 
 }

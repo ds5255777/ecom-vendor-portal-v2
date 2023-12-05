@@ -1,6 +1,7 @@
 package com.main.db.bpaas.repo;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -42,7 +43,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value = "select password from users where id=:id ; ", nativeQuery = true)
 	String getUserPasswordById(@Param("id") Integer id);
 
-	@Query(value = "select * from users where role_id !='2' and status in(:userStatusList) ; ", nativeQuery = true)
+	@Query(value = "select * from users where role_id !='2' and status in(:userStatusList) order by id desc ; ", nativeQuery = true)
 	List<User> findByStatusIn(List<String> userStatusList);
 
 	// for postgress
@@ -119,10 +120,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Transactional
 	@Modifying
-	@Query(value = "update users set password=:password, email_id=:emailId, contact_no=:contactNo, status=:status where id=:id and username=:username ;", nativeQuery = true)
+	@Query(value = "update users set password=:password, email_id=:emailId, commercial_head=:commercialHead, contact_no=:contactNo, status=:status where id=:id and username=:username ;", nativeQuery = true)
 	public void updateUserDetails(@Param("password") String password, @Param("emailId") String emailId,
 			@Param("contactNo") String contactNo, @Param("status") String status, @Param("id") Integer id,
-			@Param("username") String username);
+			@Param("username") String username, @Param("commercialHead") String commercialHead);
 
 	@Query(value = "select users.status from users where users.bp_code=:bpCode ; ", nativeQuery = true)
 	String getVendorStatus(String bpCode);
@@ -142,5 +143,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	void updateVendorPassword(@Param("bpCode") String bpCode, @Param("passwordUser") String passwordUser);
 
 	User findByBpCode(String bpCode);
+
+//	List<User> findByStatusInOrderByIdDesc(List<String> status);
+
+
+	List<User> findByStatusInAndRoleIdOrderByUsername(List<String> status, int i);
+
+	Optional<User> findByUsernameAndStatus(String userName, String activeStatus);
 
 }

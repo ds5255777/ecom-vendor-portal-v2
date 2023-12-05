@@ -554,7 +554,7 @@ border: 1px solid black !important;
 						<div class="col-md-3" style="display: none;" id="rejectInvBtn">
 							<button type="button" id="rejected"
 								style="margin-right: 10px; width: inherit"
-								class="btn btn-danger btn-lg">Rejecte Request</button>
+								class="btn btn-danger btn-lg">Reject Request</button>
 						</div>
 
 						<!-- <div class="col-md-3" style="display: none;" id="raiseQueryDiv">
@@ -564,10 +564,18 @@ border: 1px solid black !important;
 						</div> -->
 
 						<div class="col-md-3">
+							<button type="button" id="raiseQuery"
+								style="margin-right: 10px; width: inherit"
+								class="btn btn-info btn-lg">Raise Query</button>
+						</div>
+
+						<div class="col-md-3">
 							<button type="button" id="closeWindow"
 								style="margin-right: 10px; width: inherit"
 								class="btn btn-info btn-lg">Close</button>
 						</div>
+						
+						
 					</div>
 
 					 <div class="card card-primary" id="queryTableView" style="margin-top: 1rem; display: none;">
@@ -626,6 +634,46 @@ border: 1px solid black !important;
 			window</a>
 		<iframe id="pdfLink" title="pdfLink" style="height: 90%; width: 100%"></iframe>
 	</div>
+	
+	
+	<div class="modal fade" id="userModalRaiseQuery" role="dialog">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="card card-primary">
+											<div class="card-header">
+												<h3 class="card-title">Comment</h3>
+											</div>
+											<form role="form" id="updateForm" autocomplete="off">
+												<div class="card-body">
+													<div class="row">
+														<div class="col">
+															<div class="form-group">
+																<label for="exampleInputserverName1"
+																	style="font-weight: 600 !important; letter-spacing: 0.5px; !important">Remarks</label>
+																<textarea type="text" name="remark_raise"
+																	class="form-control" id="remark_raise"></textarea>
+															</div>
+														</div>
+
+													</div>
+												</div>
+												<div class="card-footer" align="center">
+													<button type="submit" id="submitOnRaiseQueryBtn"
+														class="btn btn-primary">Submit</button>
+													<button type="submit" id="closeOnRaieQueryBtn" class="btn btn-info">Close</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+	
 	<!-- </div> -->
 	
 	</div>

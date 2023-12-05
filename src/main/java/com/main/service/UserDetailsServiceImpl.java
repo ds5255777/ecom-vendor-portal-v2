@@ -67,6 +67,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		request.getSession().setAttribute("firstName", user.getFirstName());
 		request.getSession().setAttribute("lastName", user.getLastName());
 		request.getSession().setAttribute("role", user.getRolesObj().getRoleName());
+		request.getSession().setAttribute("roleId", user.getRolesObj().getId());
 		request.getSession().setAttribute("mobileNo", user.getContactNo());
 		request.getSession().setAttribute("status", user.getStatus());
 		request.getSession().setAttribute("vendorName", user.getVendorName());

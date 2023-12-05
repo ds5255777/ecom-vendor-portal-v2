@@ -140,4 +140,10 @@ public class SupDetailsServiceImpl implements SupDetailsService {
 		return supDetailsTransaction;
 	}
 
+	@Override
+	public SupDetails getSupplierDetailsByVendorPid(String vendorPid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

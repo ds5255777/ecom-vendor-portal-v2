@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,14 +30,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.bean.DataContainer;
 import com.main.commonclasses.GlobalConstants;
+import com.main.db.bpaas.entity.CommentHistory;
 import com.main.db.bpaas.entity.Document;
 import com.main.db.bpaas.entity.EmailAuditLogs;
 import com.main.db.bpaas.entity.EmailConfiguration;
 import com.main.db.bpaas.entity.MailContent;
 import com.main.db.bpaas.entity.SendEmail;
+import com.main.db.bpaas.entity.SendEmailToVendor;
 import com.main.db.bpaas.entity.SupDetails;
 import com.main.db.bpaas.entity.SupDetailsTransaction;
 import com.main.db.bpaas.repo.SupDetailsTransactionRepo;
+import com.main.payloads.SendEmailToVendorDTO;
 import com.main.payloads.SupDetailsDTO;
 import com.main.payloads.SupDetailsTransactionDTO;
 import com.main.servicemanager.ServiceManager;
@@ -192,7 +196,9 @@ public class RegistrationController {
 		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
 
 		try {
-			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
+			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)|| rolename.equalsIgnoreCase(GlobalConstants.ROLE_CCOMMERCIAL_TEAM)
+					|| rolename.equalsIgnoreCase(GlobalConstants.ROLEID_PARTY_VERIFIER) || rolename.equalsIgnoreCase(GlobalConstants.ROLEID_EHS_AM_DM) ||
+					rolename.equalsIgnoreCase(GlobalConstants.ROLEID_EHS_SENIOR_MANAGER)) {
 
 				SupDetails obj = serviceManager.supDetailsRepo.findByPid(objDto.getPid());
 				data.setData(this.serviceManager.modelMapper.map(obj, SupDetailsDTO.class));
@@ -277,6 +283,19 @@ public class RegistrationController {
 				serviceManager.supDetailsRepo.approveRequestByPid(vendorCode, supDetailsDto.getPid(), userEmail,
 						strDate, GlobalConstants.APPROVED_REQUEST_STATUS);
 
+				
+				Optional<SendEmailToVendor> sendEmailToVendorDetail = serviceManager.sendEmailToVendorRepo
+						.findByVendorPidAndStatus(supDetailsDto.getPid(),GlobalConstants.PENDING_REQUEST_STATUS);
+				if(sendEmailToVendorDetail.isPresent())
+					{
+					
+					SendEmailToVendor sendEmailToVendor=sendEmailToVendorDetail.get();
+					sendEmailToVendor.setStatus(GlobalConstants.APPROVED_REQUEST_STATUS);
+					 serviceManager.sendEmailToVendorRepo.save(sendEmailToVendor);
+					}
+				
+//				serviceManager.sendEmailToVendorRepo.statusUpdateInSendMailVendor(supDetailsDto.getPid(),
+//					GlobalConstants.APPROVED_REQUEST_STATUS);
 				/* send Approval email */
 
 				List<EmailConfiguration> emailList = serviceManager.emailConfigurationRepository
@@ -288,7 +307,7 @@ public class RegistrationController {
 				String vendorEmail = supDetails.getContactDetails().get(0).getConEmail();
 				String introducerEmailID = supDetails.getIntroducedByEmailID();
 
-				List<String> findbyRoleId = serviceManager.userRepository.findbyRoleId(1);
+				List<String> findbyRoleId = serviceManager.userRepository.findbyRoleId(7);
 				String allEmail = "";
 				for (String string : findbyRoleId) {
 					allEmail = allEmail + string + ",";
@@ -413,7 +432,7 @@ public class RegistrationController {
 
 			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
 
-				List<SupDetails> findAll = serviceManager.supDetailsRepo.findAll();
+				List<SupDetails> findAll = serviceManager.supDetailsRepo.findAllByOrderByIdDesc();
 				data.setData(findAll);
 				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
 			}
@@ -908,5 +927,73 @@ public class RegistrationController {
 
 		return gson.toJson(data);
 	}
+	
+	
+	
+	@PostMapping({ "/raiseQueryByDocChecker" })
+	public String raiseQueryByDocChecker(Principal principal, @RequestBody SendEmailToVendorDTO sendEmailToVendorDto,
+			HttpServletRequest request) {
+
+		DataContainer data = new DataContainer();
+		Gson gson = new GsonBuilder().setDateFormat(GlobalConstants.DATE_FORMATTER).create();
+		String vendorCode = "";
+		String userName = principal.getName();
+		String rolename = serviceManager.rolesRepository.getuserRoleByUserName(userName);
+		Integer roleId = (Integer) request.getSession().getAttribute("roleId");
+//		String username = (String) request.getSession().getAttribute("username");
+		String role = (String) request.getSession().getAttribute("role");
+
+		String userEmail = (String) request.getSession().getAttribute("userEmail");
+
+		try {
+			if (rolename.equalsIgnoreCase(GlobalConstants.ROLE_REGISTRATION_APPROVAL)) {
+
+				Date date = new Date();
+				DateFormat dateFormat = new SimpleDateFormat(GlobalConstants.DATE_FORMATTER);
+				String strDate = dateFormat.format(date);
+				vendorCode = generateVendorCode();
+
+				Optional<SendEmailToVendor> sendEmailToVendorobj = serviceManager.sendEmailToVendorRepo
+						.getByVendorPid(sendEmailToVendorDto.getVendorPid());
+				SendEmailToVendor sendEmailToVendorObj = null;
+				if (sendEmailToVendorobj.isPresent()) {
+
+					sendEmailToVendorObj = sendEmailToVendorobj.get();
+
+					CommentHistory cmtHisObj = new CommentHistory();
+					cmtHisObj.setRemark(sendEmailToVendorDto.getComments());
+					cmtHisObj.setCreatedOn(new Date());
+					cmtHisObj.setCreatedBy(principal.getName());
+					cmtHisObj.setRoleId(roleId);
+					cmtHisObj.setRoleName(role);
+					cmtHisObj.setVendorPid(sendEmailToVendorDto.getVendorPid());
+					serviceManager.commentHistoryRepo.save(cmtHisObj);
+
+					sendEmailToVendorObj.setStatus(GlobalConstants.PENDING_FOR_COMMERCIAL_TEAM_STATUS);
+					serviceManager.sendEmailToVendorRepo.save(sendEmailToVendorObj);
+
+					Optional<SupDetails> supDetails = serviceManager.supDetailsRepo.findByPidAndVenStatus(
+							sendEmailToVendorObj.getVendorPid(), GlobalConstants.PENDING_REQUEST_STATUS);
+					if (supDetails.isPresent()) {
+						SupDetails updateStatus = supDetails.get();
+						updateStatus.setVenStatus(GlobalConstants.PENDING_FOR_COMMERCIAL_TEAM_STATUS);
+						serviceManager.supDetailsRepo.save(updateStatus);
+					}
+
+					data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+				} else {
+					data.setMsg(GlobalConstants.DATA_NOT_FOUND);
+				}
+
+				data.setMsg(GlobalConstants.SUCCESS_MESSAGE);
+			}
+
+		} catch (Exception e) {
+			data.setMsg(GlobalConstants.ERROR_MESSAGE);
+			logger.error(GlobalConstants.ERROR_MESSAGE + " {}", e);
+		}
+		return gson.toJson(data);
+	}
+
 
 }

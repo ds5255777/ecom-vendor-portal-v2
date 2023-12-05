@@ -61,6 +61,7 @@ public class SupDetailsDTO {
 	private List<AccountDetailsDTO> accountDetails;
 	private List<AddressDetailsDTO> addressDetails;
 	private List<ContactDetailsDTO> contactDetails;
+	private List<SupplierFileUploadDTO> uploadFile;
 	String gstFileText;
 	String gstFileName;
 	String panFileText;
@@ -90,5 +91,10 @@ public class SupDetailsDTO {
 
 	String itraFileText3;
 	String itraFileName3;
+	
+	
+	
+//	List<String> fileNameList;
+//	List<String> base64List;
 
 }

@@ -99,7 +99,7 @@ public class PoDetails {
 	@Column(name = "processed_On")
 	private Date processedOn;
 
-	@Column(name = "processed_By")
+	@Column(name = "proc essed_By")
 	private String processedBy;
 
 	@OneToMany(cascade = CascadeType.ALL)

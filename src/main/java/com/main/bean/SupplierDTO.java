@@ -6,7 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SupplierDTO {
-
+	
+	private Long id;
 	private String introducedByName;
 	private String suppName;
 	private String compEmail;

@@ -65,7 +65,7 @@
                         <p>Users</p>
                     </a></li>
 
-                <li class="nav-item"><a href="vendorRegistrastion" target="_blank" rel="noopener noreferrer" class="nav-link
+               <%--  <li class="nav-item"><a href="vendorRegistrastion" target="_blank" rel="noopener noreferrer" class="nav-link
                             <%if (request.getParameter("pagename").equalsIgnoreCase("vendorRegistrastion")) {
 				out.print("active");
 			}%>                            
@@ -75,7 +75,24 @@
                         <i class="nav-icon fas fa-registered"></i>
 
                         <p>Vendor Registrastion</p>
-                    </a></li>
+                    </a></li> --%>
+                    
+                    
+                 <li class="nav-item"><a href="vendorList" class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("vendorList")) {
+				out.print("active");
+			}%>                            
+                            ">
+                        <i class="nav-icon fa fa-user-circle"></i>
+                        <p>Vendor-List</p>
+                    </a>
+                    <hr>
+                </li>  
+                
+                    
+                    
+                    
+                    
 
                 <li class="nav-item"><a href="vendorReports" rel="noopener noreferrer" class="nav-link
                             <%if (request.getParameter("pagename").equalsIgnoreCase("vendorReports")) {
@@ -95,8 +112,30 @@
                         <i class="nav-icon fa fa-user-circle"></i>
                         <p>Vendor Details</p>
                     </a>
-                    <hr>
                 </li>
+                
+                <%-- <li class="nav-item"><a href="region" class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("Regions")) {
+				out.print("active");
+			}%>                            
+                            ">
+                        <i class="nav-icon fa fa-user-circle"></i>
+                        <p>Region</p>
+                    </a>
+                </li>
+                
+                <li class="nav-item"><a href="verifier" class="nav-link
+                            <%if (request.getParameter("pagename").equalsIgnoreCase("Verifiers")) {
+				out.print("active");
+			}%>                            
+                            ">
+                        <i class="nav-icon fa fa-user-circle"></i>
+                        <p>Verifier</p>
+                    </a>
+                    <hr>
+                </li> --%>
+                
+              
 
             </ul>
             <hr>

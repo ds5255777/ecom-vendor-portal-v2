@@ -11,6 +11,7 @@ import com.main.db.bpaas.repo.AgreementMasterRepo;
 import com.main.db.bpaas.repo.BusinessClassificationRepo;
 import com.main.db.bpaas.repo.BusinessPartnerRepo;
 import com.main.db.bpaas.repo.BusinessPartnerTypeRepo;
+import com.main.db.bpaas.repo.CommentHistoryRepo;
 import com.main.db.bpaas.repo.CountryRepo;
 import com.main.db.bpaas.repo.CurrencyRepo;
 import com.main.db.bpaas.repo.DocumentRepo;
@@ -29,7 +30,7 @@ import com.main.db.bpaas.repo.PoInvoiceRepo;
 import com.main.db.bpaas.repo.PoLineItemRepo;
 import com.main.db.bpaas.repo.ProcessMaxLevelRepo;
 import com.main.db.bpaas.repo.QueryRepo;
-import com.main.db.bpaas.repo.RegionRepo;
+import com.main.db.bpaas.repo.RegionRepository;
 import com.main.db.bpaas.repo.RolesRepository;
 import com.main.db.bpaas.repo.SectionTypeRepo;
 import com.main.db.bpaas.repo.SendEmailRepo;
@@ -40,10 +41,12 @@ import com.main.db.bpaas.repo.TDSSectionCodeRepo;
 import com.main.db.bpaas.repo.TripDetailsRepo;
 import com.main.db.bpaas.repo.UserLevelRepo;
 import com.main.db.bpaas.repo.UserRepository;
+import com.main.db.bpaas.repo.VerifierRepository;
 import com.main.service.InvoiceServiceImpl;
 import com.main.service.SecurityService;
 import com.main.service.TripService;
 import com.main.service.UserService;
+import com.main.service.VendorListService;
 
 @Service
 public class ServiceManager {
@@ -111,9 +114,9 @@ public class ServiceManager {
 	@Autowired
 	public QueryRepo queryRepo;
 
-	@Autowired
-	public InvoiceServiceImpl invoiceServiceImpl;
-
+	
+	 @Autowired public InvoiceServiceImpl invoiceServiceImpl;
+	 
 	@Autowired
 	public AgreementMasterRepo agreementMasterRepo;
 
@@ -145,7 +148,7 @@ public class ServiceManager {
 	public AdharLinkStatusRepo adharLinkStatusRepo;
 
 	@Autowired
-	public RegionRepo regionRepo;
+	public RegionRepository regionRepository;
 
 	@Autowired
 	public SectionTypeRepo sectionTypeRepo;
@@ -173,5 +176,18 @@ public class ServiceManager {
 
 	@Autowired
 	public SendEmailToVendorRepo sendEmailToVendorRepo;
+	
+	@Autowired
+	public VerifierRepository verifierRepository;
+	
+	@Autowired
+	public VendorListService vendorListService;
+
+	@Autowired
+	public CommentHistoryRepo commentHistoryRepo;
+	
+	
+	
+	/* public Object regionRepo; */
 
 }
